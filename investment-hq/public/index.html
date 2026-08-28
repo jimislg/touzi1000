@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投资分析中心 · 两步法</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">投</span>
+      <div>
+        <div class="brand-title">投资分析中心</div>
+        <div class="brand-sub">两步法：好公司 × 好价格 · 本金1000万 · 5年2倍 / 10年5倍 / 年股息100万</div>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button data-tab="goals" class="active">目标总览</button>
+      <button data-tab="portfolio">持仓与建仓</button>
+      <button data-tab="research">研究库</button>
+      <button data-tab="method">方法论</button>
+      <button data-tab="docs">文档库</button>
+      <button class="quote-btn" id="quoteBtn" title="从腾讯公开行情获取最新股价">⟳ 更新行情</button>
+    </nav>
+  </div>
+  <div class="data-note" id="dataNote">加载中…</div>
+</header>
+
+<main id="main">
+  <section id="tab-goals" class="tab-panel active"></section>
+  <section id="tab-portfolio" class="tab-panel"></section>
+  <section id="tab-research" class="tab-panel"></section>
+  <section id="tab-method" class="tab-panel"></section>
+  <section id="tab-docs" class="tab-panel"></section>
+</main>
+
+<footer class="footer">
+  <span id="footerInfo"></span> · 所有价格为分析文档时点数据，实际下单前必须刷新行情与财报（SOP硬规则）· 本站为研究工具，不构成收益保证
+</footer>
+
+<!-- 股票详情弹层 -->
+<div class="modal-mask" id="modalMask">
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose" aria-label="关闭">✕</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "investment-hq",
+  "version": "2.0.0",
+  "private": true,
+  "description": "目标驱动的中国及港股投资研究、组合执行与风险预警中心",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/app.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

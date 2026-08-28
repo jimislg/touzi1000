@@ -1,0 +1,344 @@
+#!/usr/bin/env node
+// 投资分析中心 - 零依赖本地服务器
+// 用法: node server.js [端口]   默认端口 4280
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+
+const PORT = Number(process.argv[2] || process.env.PORT || 4280);
+const ROOT = __dirname;
+const PUBLIC_DIR = path.join(ROOT, 'public');
+const DATA_DIR = path.join(ROOT, 'data');
+const DOCS_DIR = path.join(DATA_DIR, 'docs');
+const STOCKS_DIR = path.join(DATA_DIR, 'stocks');
+const PORTFOLIO_FILE = path.join(DATA_DIR, 'portfolio.json');
+
+const MIME = {
+  '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8',
+  '.md': 'text/plain; charset=utf-8', '.svg': 'image/svg+xml', '.ico': 'image/x-icon'
+};
+
+function send(res, code, body, type) {
+  res.writeHead(code, { 'Content-Type': type || 'application/json; charset=utf-8', 'Cache-Control': 'no-cache' });
+  res.end(body);
+}
+const readJson = p => JSON.parse(fs.readFileSync(p, 'utf8'));
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let d = ''; req.on('data', c => { d += c; if (d.length > 5e6) reject(new Error('body too large')); });
+    req.on('end', () => { try { resolve(d ? JSON.parse(d) : {}); } catch (e) { reject(new Error('invalid json')); } });
+  });
+}
+
+/* ============ 文档索引与自动解析 ============ */
+function categorize(name) {
+  if (name.includes('SOP') || name.includes('框架') || name.includes('批判性审阅') || name.includes('投资分析法')) return '方法论';
+  if (name.includes('两步投资分析')) return '两步法深度分析';
+  if (name.includes('1000万') || name.includes('建仓') || name.includes('执行卡') || name.includes('执行清单') || name.includes('价格表')) return '组合与建仓';
+  if (name.includes('茅台')) return '茅台专题';
+  if (name.includes('丹书') || name.includes('璟恒') || name.includes('岁寒')) return '私募与外部审计';
+  if (name.includes('比较') || name.includes('对比') || name.includes('类比')) return '比较研究';
+  if (name.includes('决策') || name.includes('审计') || name.includes('压力测试') || name.includes('复核') || name.includes('推演') || name.includes('倒算')) return '决策与审计';
+  return '专题研究';
+}
+function scanDocs() {
+  return fs.readdirSync(DOCS_DIR).filter(f => f.endsWith('.md')).map(f => {
+    const m = f.match(/-(\d{8})\.md$/);
+    const date = m ? `${m[1].slice(0,4)}-${m[1].slice(4,6)}-${m[1].slice(6,8)}` : null;
+    return { file: f, title: f.replace(/-\d{8}\.md$/, ''), date, category: categorize(f), sizeKb: Math.round(fs.statSync(path.join(DOCS_DIR, f)).size / 102.4) / 10 };
+  }).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+}
+
+// 从两步法文档正文尽力提取草稿数据（标记 autoParsed，需人工核对）
+// 仅当文件名严格形如「XX两步投资分析-YYYYMMDD.md」才视为个股报告，排除SOP等方法论文档
+function parseDraftStock(file) {
+  const nm = file.match(/^(.+?)两步投资分析-(\d{8})\.md$/);
+  if (!nm || nm[1].length > 10 || /SOP|框架|最终版|方法/.test(nm[1])) return null;
+  const name = nm[1];
+  const text = fs.readFileSync(path.join(DOCS_DIR, file), 'utf8');
+  const head = text.slice(0, 1500);
+  const num = s => s == null ? null : Number(s);
+  const grab = re => { const x = text.match(re); return x ? num(x[1]) : null; };
+  const sym = head.match(/(\d{5,6})\.(SH|SZ|HK)/i);
+  const grade = (() => { const g = text.match(/分\s*类[：:]\s*\**([ABCD])[+-类]/) || text.match(/属于([ABCD])类/); return g ? g[1] : null; })();
+  const cur = grab(/当前价[格格]?[^0-9\n]{0,8}(\d{2,4}(?:\.\d+)?)/) || grab(/现价[：:]?\s*(\d{2,4}(?:\.\d+)?)/);
+  const prices = {};
+  for (const [id, pat] of [['P10', /P10[^0-9\n]{0,40}?(\d{1,4}(?:\.\d+)?)/], ['P12', /P12[^0-9\n]{0,40}?(\d{1,4}(?:\.\d+)?)/], ['P15', /P15[^0-9\n]{0,40}?(\d{1,4}(?:\.\d+)?)/], ['P17', /P17(?:\.46)?[^0-9\n]{0,40}?(\d{1,4}(?:\.\d+)?)/]]) {
+    const v = grab(pat); if (v != null && v > 0.2 && v < 100000) prices[id] = v;
+  }
+  const irr = grab(/基准[^%\n]{0,50}?(?:IRR|年化)[^0-9\-%\n]{0,12}(\d{1,2}(?:\.\d+)?)\s*%/);
+  if (!grade && !Object.keys(prices).length && irr == null) return null;
+  const irrV = irr != null ? irr / 100 : null;
+  const label = irrV == null ? null : irrV >= 0.1746 ? '目标达成型' : irrV >= 0.15 ? '接近目标型' : irrV >= 0.10 ? '组合辅助型' : '回报不合格';
+  return {
+    key: 'draft-' + name, name, symbol: sym ? sym[0] : null, market: sym ? (sym[2].toUpperCase() === 'HK' ? '港股' : 'A股') : null,
+    companyType: null, analysisDate: `${nm[2].slice(0,4)}-${nm[2].slice(4,6)}-${nm[2].slice(6,8)}`,
+    currentPrice: cur, priceNote: '自动解析，需人工核对',
+    grade, gradeLabel: label, oneLiner: null, stage1Conclusion: null,
+    dimensions: [], topFacts: [], topRisks: [], moutaiQuality: null, moutaiReturn: null,
+    scenarios: irrV != null ? { base: { irr10y: irrV, irr5y: null, note: '自动解析的基准年化' } } : { base: { irr10y: null } },
+    prices: { ...prices, currency: sym && sym[2].toUpperCase() === 'HK' ? '港元' : '元', note: '自动解析草稿，以原文为准' },
+    position: null, buyAdvice: null, pauseConditions: [], exitConditions: [],
+    mirrorTest: null, confidence: null, keyMonitor: [], docFile: file, autoParsed: true
+  };
+}
+
+/* ============ 腾讯公开行情 ============ */
+const quoteCache = { at: 0, data: {} };
+function toQtSymbol(sym) {
+  if (!sym) return null;
+  const m = String(sym).match(/(\d{5,6})\.(SH|SZ|HK)/i) || String(sym).match(/\b(\d{4})\.(HK)\b/i);
+  if (!m) return null;
+  const [, code, suf] = m;
+  const s = suf.toUpperCase();
+  if (s === 'HK') return 'hk' + code.padStart(5, '0');
+  return (s === 'SH' ? 'sh' : 'sz') + code;
+}
+async function fetchQuotes(symbols) {
+  const need = symbols.filter(s => s && !quoteCache.data[s]);
+  const now = Date.now();
+  if (now - quoteCache.at < 30000 && need.length === 0) return { time: quoteCache.at, quotes: pick(quoteCache.data, symbols) };
+  const uniq = [...new Set(need)];
+  const out = {};
+  for (let i = 0; i < uniq.length; i += 30) {
+    const batch = uniq.slice(i, i + 30);
+    const url = `http://qt.gtimg.cn/q=${batch.join(',')}`;
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 6000);
+      const res = await fetch(url, { signal: ctrl.signal });
+      clearTimeout(timer);
+      const buf = Buffer.from(await res.arrayBuffer());
+      const text = buf.toString('latin1'); // 数字与分隔符为 ASCII，足够解析价格
+      for (const q of text.split(';')) {
+        const m = q.match(/v_(\w+)="([^"]*)"/);
+        if (!m) continue;
+        const f = m[2].split('~');
+        const price = Number(f[3]), prev = Number(f[4]);
+        if (price > 0) out[m[1]] = { symbol: m[1], price, prevClose: prev > 0 ? prev : null, changePct: prev > 0 ? (price / prev - 1) : null };
+      }
+    } catch (e) { /* 行情失败不阻塞站点 */ }
+  }
+  Object.assign(quoteCache.data, out);
+  quoteCache.at = now;
+  return { time: quoteCache.at, quotes: pick(quoteCache.data, symbols) };
+}
+const pick = (obj, keys) => Object.fromEntries(keys.filter(k => obj[k]).map(k => [k, obj[k]]));
+
+function returnLabel(irr) {
+  if (!Number.isFinite(irr)) return '无法定价';
+  if (irr >= 0.1746) return '目标达成型';
+  if (irr >= 0.15) return '接近目标型';
+  if (irr >= 0.10) return '组合辅助型';
+  return '回报不合格';
+}
+
+function executableReturnLabel(grade, irr) {
+  if (grade === 'C' || grade === 'D') return '质量未过执行门';
+  return returnLabel(irr);
+}
+
+function firstPercent(value) {
+  const m = String(value || '').match(/(\d+(?:\.\d+)?)\s*%/);
+  return m ? Number(m[1]) / 100 : null;
+}
+
+function buildDecisionMetrics(payload) {
+  const pf = payload.portfolio;
+  const stocksByName = new Map(payload.stocks.map(s => [s.name, s]));
+  const targetRows = (pf.targetPortfolio || []).map(t => {
+    const stock = stocksByName.get(t.name);
+    const baseIrr = Number(stock?.scenarios?.base?.irr10y);
+    const reportHardLimit = firstPercent(stock?.position?.hard);
+    const absoluteHardLimit = 0.25;
+    const effectiveHardLimit = reportHardLimit == null ? absoluteHardLimit : Math.min(reportHardLimit, absoluteHardLimit);
+    return {
+      ...t,
+      grade: stock?.grade || null,
+      baseIrr: Number.isFinite(baseIrr) ? baseIrr : null,
+      returnLabel: executableReturnLabel(stock?.grade, baseIrr),
+      weightedContribution: Number.isFinite(baseIrr) ? t.weight * baseIrr : null,
+      reportHardLimit,
+      effectiveHardLimit,
+      limitBreach: t.weight > effectiveHardLimit + 1e-9
+    };
+  });
+  const coveredWeight = targetRows.reduce((s, r) => s + (r.baseIrr == null ? 0 : r.weight), 0);
+  const weightedReturn = targetRows.reduce((s, r) => s + (r.weightedContribution || 0), 0);
+  const normalizedWeightedReturn = coveredWeight > 0 ? weightedReturn / coveredWeight : null;
+  const required5 = Math.pow(2, 1 / 5) - 1;
+  const required10 = Math.pow(5, 1 / 10) - 1;
+  const maxBaseIrr = Math.max(...payload.stocks.map(s => Number(s?.scenarios?.base?.irr10y)).filter(Number.isFinite));
+  const compliantRows = targetRows.map(r => ({
+    ...r,
+    recommendedWeight: Math.min(r.weight, r.effectiveHardLimit),
+    recommendedValue: pf.totalAssets * Math.min(r.weight, r.effectiveHardLimit)
+  }));
+  const compliantWeight = compliantRows.reduce((s, r) => s + r.recommendedWeight, 0);
+  const reserveWeight = Math.max(0, 1 - compliantWeight);
+  const compliantContribution = compliantRows.reduce((s, r) => s + (r.baseIrr == null ? 0 : r.recommendedWeight * r.baseIrr), 0);
+  const reserveRequiredReturn = reserveWeight > 0 ? (required10 - compliantContribution) / reserveWeight : null;
+  const targetDividend = (pf.dividends?.perStock || []).reduce((sum, d) =>
+    sum + (Number.isFinite(d.afterTaxYield) ? d.targetValue * d.afterTaxYield : 0), 0);
+  const holdingByName = new Map((pf.holdings || []).map(h => [h.name, h]));
+  const currentDividend = (pf.dividends?.perStock || []).reduce((sum, d) => {
+    const held = holdingByName.get(d.name);
+    return sum + (held && Number.isFinite(d.afterTaxYield) ? held.marketValue * d.afterTaxYield : 0);
+  }, 0);
+  const alerts = [];
+  if (normalizedWeightedReturn != null && normalizedWeightedReturn < required10) {
+    alerts.push({ severity: 'red', title: '10年5倍存在结构性缺口', detail: `目标组合按报告基准IRR加权仅 ${(normalizedWeightedReturn * 100).toFixed(2)}%，低于所需 ${(required10 * 100).toFixed(2)}% ${(required10 - normalizedWeightedReturn > 0 ? '约' + ((required10 - normalizedWeightedReturn) * 100).toFixed(2) + '个百分点' : '')}。` });
+  }
+  if (maxBaseIrr < required5) alerts.push({ severity: 'red', title: '当前没有一只标的在报告时点满足硬目标', detail: `股票池最高基准IRR为 ${(maxBaseIrr * 100).toFixed(1)}%，仍低于5年翻倍所需 ${(required5 * 100).toFixed(2)}%；不能靠重新分配旧价格下的仓位解决。` });
+  targetRows.filter(r => r.limitBreach).forEach(r => alerts.push({ severity: 'red', title: `${r.name}目标仓位越过报告硬上限`, detail: `目标 ${(r.weight * 100).toFixed(0)}%，报告硬上限 ${(r.effectiveHardLimit * 100).toFixed(0)}%；超额部分只能是待批准条件仓，不能视为默认配置。` }));
+  if ((pf.cash || 0) / (pf.totalAssets || 1) > 0.7) alerts.push({ severity: 'amber', title: '现金占比高，存在长期踏空风险', detail: `待部署现金约 ${((pf.cash || 0) / 10000).toFixed(1)}万元；应靠P12/P15/P17与基本面闸门分批投入，不靠主观等最低价。` });
+  if ((payload.portfolioEvolution?.unresolved || []).length) alerts.push({ severity: 'amber', title: '存在未统一的执行口径', detail: `仍有 ${payload.portfolioEvolution.unresolved.length} 项待确认；冲突未消除前，不应按旧价格表自动下单。` });
+  if (reserveRequiredReturn != null && reserveRequiredReturn > 0.25) alerts.push({ severity: 'red', title: '仅靠预留机会仓无法填平目标缺口', detail: `按报告硬上限收缩后需预留 ${(reserveWeight * 100).toFixed(0)}%，但该预留仓需年化约 ${(reserveRequiredReturn * 100).toFixed(1)}% 才能把整体推到17.46%；这不是可接受的基准假设。` });
+  return {
+    required5,
+    required10,
+    weightedReturn: normalizedWeightedReturn,
+    coveredWeight,
+    fiveYearMultiple: normalizedWeightedReturn == null ? null : Math.pow(1 + normalizedWeightedReturn, 5),
+    tenYearMultiple: normalizedWeightedReturn == null ? null : Math.pow(1 + normalizedWeightedReturn, 10),
+    maxBaseIrr,
+    targetRows,
+    compliantRows,
+    compliantWeight,
+    reserveWeight,
+    reserveRequiredReturn,
+    targetDividend,
+    currentDividend,
+    dividendGap: Math.max(0, 1000000 - targetDividend),
+    alerts
+  };
+}
+
+/* ============ 数据聚合 ============ */
+function bootstrapPayload() {
+  const stocks = [];
+  for (const f of fs.readdirSync(STOCKS_DIR).filter(f => f.endsWith('.json')).sort()) {
+    try { stocks.push(readJson(path.join(STOCKS_DIR, f))); } catch (e) { console.error(`跳过: ${f}`, e.message); }
+  }
+  const known = new Set(stocks.map(s => s.name));
+  for (const d of scanDocs()) {
+    if (d.category !== '两步法深度分析') continue;
+    const draft = parseDraftStock(d.file);
+    if (draft && !known.has(draft.name)) stocks.push(draft);
+  }
+  const order = { A: 0, B: 1, C: 2, D: 3 };
+  stocks.sort((a, b) => (order[a.grade] ?? 9) - (order[b.grade] ?? 9) || (b.analysisDate || '').localeCompare(a.analysisDate || ''));
+  const payload = { generatedAt: new Date().toISOString() };
+  const keyMap = { 'docs-index': 'docsIndex', 'portfolio-evolution': 'portfolioEvolution' };
+  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution']) {
+    const p = path.join(DATA_DIR, `${name}.json`);
+    if (fs.existsSync(p)) payload[keyMap[name] || name] = readJson(p);
+  }
+  payload.docsIndex = { total: 0, docs: scanDocs() };
+  payload.docsIndex.total = payload.docsIndex.docs.length;
+  payload.stocks = stocks;
+  payload.stocks.forEach(s => {
+    const irr = Number(s?.scenarios?.base?.irr10y);
+    s.reportedGradeLabel = s.gradeLabel || null;
+    s.gradeLabel = executableReturnLabel(s.grade, irr);
+  });
+  payload.decisionMetrics = buildDecisionMetrics(payload);
+  return payload;
+}
+
+const server = http.createServer(async (req, res) => {
+  const url = new URL(req.url, `http://127.0.0.1:${PORT}`);
+  const pathname = decodeURIComponent(url.pathname);
+  try {
+    if (pathname === '/api/bootstrap') return send(res, 200, JSON.stringify(bootstrapPayload()));
+
+    if (pathname === '/api/quotes') {
+      const symbols = (url.searchParams.get('symbols') || '').split(',').map(s => s.trim()).filter(Boolean);
+      return send(res, 200, JSON.stringify(await fetchQuotes(symbols)));
+    }
+
+    if (pathname === '/api/portfolio' && req.method === 'POST') {
+      const body = await readBody(req);
+      const pf = readJson(PORTFOLIO_FILE);
+      if (!Array.isArray(body.targetPortfolio)) throw new Error('targetPortfolio required');
+      const clean = body.targetPortfolio.map(t => ({
+        name: String(t.name || '').slice(0, 30), weight: Number(t.weight) || 0,
+        targetValue: Math.max(0, Number(t.targetValue) || 0),
+        role: String(t.role || '').slice(0, 120), pendingInvest: Math.max(0, Number(t.pendingInvest) || 0)
+      })).filter(t => t.name);
+      const sum = clean.reduce((s, t) => s + t.weight, 0);
+      if (sum > 1.02) return send(res, 400, JSON.stringify({ error: `目标权重合计 ${(sum * 100).toFixed(1)}% 超过100%` }));
+      pf.targetPortfolio = clean;
+      // 同步股息表的目标仓位
+      const names = new Set(clean.map(t => t.name));
+      pf.dividends = pf.dividends || { perStock: [] };
+      pf.dividends.perStock = pf.dividends.perStock.filter(d => names.has(d.name) || clean.some(c => c.name === d.name));
+      for (const t of clean) {
+        let d = pf.dividends.perStock.find(x => x.name === t.name);
+        if (!d) { d = { name: t.name, targetValue: t.targetValue, dps: '待补充', afterTaxYield: null }; pf.dividends.perStock.push(d); }
+        else d.targetValue = t.targetValue;
+      }
+      fs.writeFileSync(PORTFOLIO_FILE, JSON.stringify(pf, null, 2), 'utf8');
+      return send(res, 200, JSON.stringify({ ok: true, portfolio: pf }));
+    }
+
+    if (pathname === '/api/calibrations' && req.method === 'POST') {
+      const body = await readBody(req);
+      const key = String(body.key || '').trim().slice(0, 80);
+      if (!key) throw new Error('key required');
+      const value = body.value === '' || body.value == null ? null : Number(body.value);
+      if (value != null && (!Number.isFinite(value) || value <= 0 || value > 100000)) throw new Error('invalid calibration value');
+      const pf = readJson(PORTFOLIO_FILE);
+      pf.manualCalibrations = pf.manualCalibrations || {};
+      if (value == null) delete pf.manualCalibrations[key];
+      else pf.manualCalibrations[key] = value;
+      fs.writeFileSync(PORTFOLIO_FILE, JSON.stringify(pf, null, 2), 'utf8');
+      return send(res, 200, JSON.stringify({ ok: true, manualCalibrations: pf.manualCalibrations }));
+    }
+
+    if (pathname === '/api/docs/add' && req.method === 'POST') {
+      const body = await readBody(req);
+      const title = String(body.title || '').trim().replace(/[\\/:*?"<>|]/g, '');
+      const date = String(body.date || '').trim();
+      const content = String(body.content || '');
+      if (!title || !content.trim()) throw new Error('标题和内容不能为空');
+      if (!/^\d{8}$/.test(date)) throw new Error('日期格式须为 YYYYMMDD');
+      const file = `${title}-${date}.md`;
+      fs.writeFileSync(path.join(DOCS_DIR, file), content, 'utf8');
+      return send(res, 200, JSON.stringify({ ok: true, file }));
+    }
+
+    if (pathname === '/api/docs/delete' && req.method === 'POST') {
+      const body = await readBody(req);
+      const name = path.basename(String(body.file || ''));
+      const file = path.join(DOCS_DIR, name);
+      if (!file.startsWith(DOCS_DIR) || !fs.existsSync(file)) throw new Error('文件不存在');
+      fs.unlinkSync(file);
+      return send(res, 200, JSON.stringify({ ok: true }));
+    }
+
+    if (pathname.startsWith('/api/doc/')) {
+      const name = path.basename(pathname.slice('/api/doc/'.length));
+      const file = path.join(DOCS_DIR, name);
+      if (!file.startsWith(DOCS_DIR) || !fs.existsSync(file)) return send(res, 404, JSON.stringify({ error: 'not found' }));
+      return send(res, 200, fs.readFileSync(file, 'utf8'), 'text/plain; charset=utf-8');
+    }
+
+    // 静态文件
+    let filePath = pathname === '/' ? '/index.html' : pathname;
+    filePath = path.normalize(filePath).replace(/^(\.\.[\/\\])+/, '');
+    const abs = path.join(PUBLIC_DIR, filePath);
+    if (!abs.startsWith(PUBLIC_DIR) || !fs.existsSync(abs) || !fs.statSync(abs).isFile()) {
+      return send(res, 404, 'Not Found', 'text/plain; charset=utf-8');
+    }
+    send(res, 200, fs.readFileSync(abs), MIME[path.extname(abs).toLowerCase()] || 'application/octet-stream');
+  } catch (e) {
+    send(res, 500, JSON.stringify({ error: e.message }));
+  }
+});
+
+server.listen(PORT, '127.0.0.1', () => {
+  console.log(`投资分析中心: http://127.0.0.1:${PORT}/`);
+  console.log(`数据文件: ${DATA_DIR}`);
+});
