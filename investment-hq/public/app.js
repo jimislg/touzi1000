@@ -35,7 +35,9 @@ function lookupSymbol(name) {
   const st = (state.data?.stocks || []).find(s => s.name === name && s.symbol);
   if (st) return st.symbol;
   const h = (state.data?.portfolio?.holdings || []).find(x => x.name === name && x.symbol);
-  return h ? h.symbol : null;
+  if (h) return h.symbol;
+  const t = (state.data?.portfolio?.targetPortfolio || []).find(x => x.name === name && x.symbol);
+  return t ? t.symbol : null;
 }
 function liveQuote(nameOrSymbol) {
   const sym = lookupSymbol(nameOrSymbol) || nameOrSymbol;
@@ -141,7 +143,8 @@ function renderGoals() {
       <div class="stat"><div class="s-label">5年目标 / 当前路径</div><div class="s-value">2.00 / ${baseFive.toFixed(2)}倍</div></div>
       <div class="stat"><div class="s-label">10年目标 / 当前路径</div><div class="s-value">5.00 / ${baseTen.toFixed(2)}倍</div></div>
       <div class="stat"><div class="s-label">10年年化缺口</div><div class="s-value red">${fmtPct(dm.required10 - baseReturn, 2)}</div></div>
-      <div class="stat"><div class="s-label">已覆盖持仓年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
+      <div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
+      <div class="stat"><div class="s-label">首轮交易后年税后股息</div><div class="s-value blue">${fmtWan(dm.postInitialDividend)}</div></div>
       <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(dm.targetDividend)}+</div></div>
     </div>
     <div class="goal-bridge">
@@ -168,7 +171,7 @@ function renderGoals() {
 
   <div class="card">
     <h2>十年路线 <span class="tag">本金1000万 · ${esc(g.asOf)}</span></h2>
-    <div class="card-sub">组合基准预期（年化约11.5%）与目标所需回报的差距</div>
+    <div class="card-sub">最新90%股票＋10%机会现金组合（基准年化约${fmtPct(baseReturn, 2)}）与目标所需回报的差距</div>
     <div class="timeline">
       <div class="timeline-bar">
         ${g.timeline.map((t, i) => `
@@ -202,19 +205,21 @@ function renderGoals() {
           <tr><td>目标要求</td><td class="num">14.87% / 17.46%</td><td class="num">2.00倍</td><td class="num">5.00倍</td></tr>
           <tr><td>组合基准（自动加权）</td><td class="num">${fmtPct(baseReturn)}</td><td class="num">${baseFive.toFixed(2)}倍</td><td class="num">${baseTen.toFixed(2)}倍</td></tr>
           <tr><td>组合乐观</td><td class="num">${fmtPct(g.portfolioReturnScenarios.optimistic.annualReturn)}</td><td class="num">${g.portfolioReturnScenarios.optimistic.fiveYearMultiple}倍</td><td class="num">${g.portfolioReturnScenarios.optimistic.tenYearMultiple}倍</td></tr>
+          <tr><td>组合压力</td><td class="num">${fmtPct(g.portfolioReturnScenarios.pressure.annualReturn)}</td><td class="num">${g.portfolioReturnScenarios.pressure.fiveYearMultiple}倍</td><td class="num">${g.portfolioReturnScenarios.pressure.tenYearMultiple}倍</td></tr>
         </tbody>
       </table>
     </div>
     <div class="card">
       <h2>股息路线 <span class="tag">按目标仓位满仓估算 · 随「持仓与建仓」中的目标配置联动</span></h2>
       <div class="stat-row" style="margin-bottom:14px">
-        <div class="stat"><div class="s-label">已覆盖持仓年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
+        <div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
+        <div class="stat"><div class="s-label">首轮交易后</div><div class="s-value blue">${fmtWan(dm.postInitialDividend)}</div></div>
         <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(totalDiv)}+</div></div>
         <div class="stat"><div class="s-label">目标</div><div class="s-value">100万/年</div></div>
         <div class="stat"><div class="s-label">满仓后缺口</div><div class="s-value red">${fmtWan(dm.dividendGap)}</div></div>
       </div>
       <div class="progress" title="当前估算 vs 目标"><div class="${totalDiv / 1000000 >= 0.5 ? 'good' : totalDiv / 1000000 >= 0.25 ? 'warn' : ''}" style="width:${Math.min(100, totalDiv / 10000).toFixed(1)}%"></div></div>
-      <div class="note">达成路径：股息率3.2%不变 → 需总资产约3150万；迁移至4%股息率资产 → 需约2500万（当前1000万）。</div>
+      <div class="note">达成路径：按终态税后股息率${fmtPct(pf.currentDividendBaseline.terminalYield, 2)}测算，年股息100万元需资产约${(pf.currentDividendBaseline.assetsNeeded / 10000).toFixed(0)}万元；正常安全线按120万元股息约需${(pf.currentDividendBaseline.assetsNeeded * 1.2 / 10000).toFixed(0)}万元。</div>
       <p style="font-size:13.5px;margin-top:12px;color:var(--ink-2)">${esc(g.honestRestatement.dividendPath)}</p>
       <table style="margin-top:8px">
         <thead><tr><th>公司</th><th class="num">目标仓位</th><th class="num">税后股息率</th><th class="num">年税后股息</th></tr></thead>
@@ -250,6 +255,8 @@ function renderPortfolio() {
   /* ---- 目标配置（可编辑） ---- */
   const tp = pf.targetPortfolio;
   const sumW = tp.reduce((s, t) => s + t.weight, 0);
+  const cashTarget = pf.opportunityCash || { weight: Math.max(0, 1 - sumW), targetValue: Math.max(0, total * (1 - sumW)), role: '机会预备' };
+  const stockTargetWeight = 1 - cashTarget.weight;
   const availableStocks = state.data.stocks.filter(s => !s.autoParsed !== false && !tp.some(t => t.name === s.name));
   let targetRows;
   if (state.editing) {
@@ -294,7 +301,7 @@ function renderPortfolio() {
       <input type="text" id="addCustomName" class="edit-input" placeholder="或输入自定义名称" style="width:160px">
       <button class="btn primary" id="savePortfolio">保存目标配置</button>
       <button class="btn" id="cancelEdit">取消</button>
-      <span class="note" style="margin:0">权重合计 <b style="color:${Math.abs(sumW - 1) < 0.005 ? 'var(--green)' : 'var(--accent)'}">${fmtPct(sumW, 1)}</b>（目标市值÷总资产1000万自动计算）</span>
+      <span class="note" style="margin:0">股票权重合计 <b style="color:${Math.abs(sumW - stockTargetWeight) < 0.005 ? 'var(--green)' : 'var(--accent)'}">${fmtPct(sumW, 1)}</b> / 目标${fmtPct(stockTargetWeight, 0)}；另留${fmtPct(cashTarget.weight, 0)}机会现金</span>
     </div>` : `
     <div style="margin-top:12px"><button class="btn" id="startEdit">✎ 编辑目标配置（增删股票 / 调整目标金额）</button></div>`;
 
@@ -371,6 +378,18 @@ function renderPortfolio() {
   const unresolved = ev && ev.unresolved.length ? `
     <div class="card"><h2>待确认事项</h2><ul class="check-list" style="margin-top:8px">${ev.unresolved.map(u => `<li class="no">${esc(u)}</li>`).join('')}</ul></div>` : '';
 
+  const executionRows = (pf.executionPlan?.rows || []).map(r => `<tr>
+    <td><b>${esc(r.day)}</b></td><td><span class="badge ${r.side === '买入' ? 'pass' : 'doubt'}">${esc(r.side)}</span></td>
+    <td><b>${esc(r.name)}</b></td><td class="num">${Number(r.quantity).toLocaleString()}</td><td class="num">${esc(r.limit)}</td>
+    <td class="num">${fmtWan(r.estimatedCny)}</td><td>${esc(r.condition)}</td>
+  </tr>`).join('');
+  const deploymentRows = (pf.deploymentClock?.rows || []).map(r => `<tr>
+    <td><b>${esc(r.stage)}</b></td>
+    <td class="num">${r.stockWeight != null ? fmtPct(r.stockWeight, 1) : esc(r.stockWeightRange)}</td>
+    <td class="num">${r.cashWeight != null ? fmtPct(r.cashWeight, 1) : esc(r.cashWeightRange)}</td>
+    <td>${esc(r.action)}</td>
+  </tr>`).join('');
+
   el.innerHTML = `
   <div class="card">
     <h2>当前持仓 <span class="tag">券商截图 ${esc(pf.snapshotDate)} · 总资产${fmtWan(total)} · 最新价来自行情按钮</span></h2>
@@ -381,34 +400,54 @@ function renderPortfolio() {
     </table></div>
   </div>
 
+  <div class="grid-2">
+    <div class="card">
+      <h2>首次建仓执行清单 <span class="tag">${esc(pf.executionPlan?.status || '')} · 先买后卖</span></h2>
+      <div class="table-scroll"><table>
+        <thead><tr><th>时点</th><th>方向</th><th>公司</th><th class="num">数量</th><th class="num">限价</th><th class="num">估算人民币</th><th>条件</th></tr></thead>
+        <tbody>${executionRows}</tbody>
+      </table></div>
+      <div class="stat-row" style="margin-top:12px">
+        <div class="stat"><div class="s-label">预计买入</div><div class="s-value">${fmtWan(pf.executionPlan?.expectedBuyTotal)}</div></div>
+        <div class="stat"><div class="s-label">净用现金</div><div class="s-value">${fmtWan(pf.executionPlan?.expectedNetCashUse)}</div></div>
+        <div class="stat"><div class="s-label">完成后股票仓位</div><div class="s-value blue">${fmtPct(pf.executionPlan?.postStockWeight, 2)}</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>两年部署时钟 <span class="tag">防长期空仓，不是强制追价</span></h2>
+      <table><thead><tr><th>阶段</th><th class="num">股票</th><th class="num">现金</th><th>动作</th></tr></thead><tbody>${deploymentRows}</tbody></table>
+      <div class="note">${esc(pf.deploymentClock?.note || '')}</div>
+    </div>
+  </div>
+
   <div class="card">
-    <h2>目标配置 vs 当前 <span class="tag">目标仓位是上限；越过报告硬上限的条件仓不视为默认批准</span></h2>
+    <h2>目标配置 vs 当前 <span class="tag">90%股票＋10%机会现金；目标仓位是上限，不是立即买满指令</span></h2>
     <div class="table-scroll"><table>
       <thead><tr><th>公司</th><th>定位</th><th class="num">目标权重</th><th class="num">目标市值</th><th class="num">当前市值</th><th class="num">当前占比</th>${state.editing ? '<th class="num">尚需投入</th><th></th>' : '<th>进度</th><th class="num">尚需投入</th>'}</tr></thead>
       <tbody>${targetRows}</tbody>
     </table></div>
     ${editBar}
-    <div class="note">格力和万华合计18.56万待处置：${pf.exitPlan.map(e => `${esc(e.name)}（${fmtWan(e.marketValue)}）${esc(e.status)}`).join('；')}。</div>
+    <div class="note"><b>非目标持仓处理计划：</b>${pf.exitPlan.map(e => `${esc(e.name)}（${fmtWan(e.marketValue)}）${esc(e.status)}`).join('；')}。</div>
   </div>
 
   <div class="card">
-    <h2>风险约束后的建议上限 <span class="tag">不是新增第8只股票；超额仓位转为等待合格价格的机会预备</span></h2>
-    <div class="card-sub">这是我建议用于日常执行的上限层。原目标仍保留作历史方案，但不得越过单股报告硬上限。</div>
+    <h2>目标组合风险约束校验 <span class="tag">目标组合本身是唯一执行口径</span></h2>
+    <div class="card-sub">逐项校验目标权重是否超过公司分析给出的硬上限；机会现金为明确的10%目标，不再由超限仓位倒算。</div>
     <div class="table-scroll"><table>
-      <thead><tr><th>公司</th><th>质量 / 回报</th><th class="num">原目标</th><th class="num">建议上限</th><th class="num">建议金额</th><th>调整原因</th></tr></thead>
+      <thead><tr><th>公司</th><th>质量 / 回报</th><th class="num">目标权重</th><th class="num">校验后上限</th><th class="num">校验后金额</th><th>校验结果</th></tr></thead>
       <tbody>${dm.compliantRows.map(r => `<tr>
         <td><b>${esc(r.name)}</b></td><td>${badgeGrade(r.grade)} <span class="chip">${esc(r.returnLabel)}</span></td>
         <td class="num">${fmtPct(r.weight, 0)}</td><td class="num"><b>${fmtPct(r.recommendedWeight, 0)}</b></td><td class="num">${fmtWan(r.recommendedValue)}</td>
-        <td>${r.weight > r.recommendedWeight ? `压降${fmtPct(r.weight - r.recommendedWeight, 0)}，遵守报告硬上限` : '维持原上限'}</td>
+        <td>${r.weight > r.recommendedWeight ? `目标越限，需压降${fmtPct(r.weight - r.recommendedWeight, 0)}` : '目标未超过报告硬上限'}</td>
       </tr>`).join('')}
-      <tr><td><b>机会预备</b></td><td><span class="chip">非永久现金</span></td><td class="num">—</td><td class="num"><b>${fmtPct(dm.reserveWeight, 0)}</b></td><td class="num">${fmtWan(pf.totalAssets * dm.reserveWeight)}</td><td>只给进入P15/P17且基本面复核通过的现有七股或新A类公司</td></tr>
+      <tr><td><b>机会现金</b></td><td><span class="chip">永久组合流动性</span></td><td class="num">${fmtPct(cashTarget.weight, 0)}</td><td class="num"><b>${fmtPct(cashTarget.weight, 0)}</b></td><td class="num">${fmtWan(cashTarget.targetValue)}</td><td>${esc(cashTarget.role)}</td></tr>
       </tbody>
     </table></div>
-    <div class="honest" style="margin-top:12px"><b>不能自我欺骗：</b>按当前报告回报，预备仓需要年化约${fmtPct(dm.reserveRequiredReturn, 1)}才能把全组合推到17.46%，并不现实。因此真正的解决方案是降低买入成本、提高企业盈利兑现度，或接受硬目标不是基准承诺，而不是把风险集中到腾讯等单一公司。</div>
+    <div class="honest" style="margin-top:12px"><b>不能自我欺骗：</b>若仅靠10%机会现金填补10年5倍的全部缺口，这部分需要年化约${fmtPct(dm.reserveRequiredReturn, 1)}，并不现实。真正可行的是更低买价、盈利兑现、股息复投和长期迭代，而不是把风险集中到单一公司。</div>
   </div>
 
   <div class="section-title">建仓阶梯（价格档是触发器，累计市值才是仓位上限）</div>
-  <div class="note" style="margin:-6px 0 12px">执行阶梯以建仓方案（08-25/08-26）为准；研究库中各股 P10—P17.46 四档价格来自两步法分析（08-27/28，口径更新），两者若不一致，以最新财报重算结果为准并核对文档。最新价为腾讯公开行情快照。</div>
+  <div class="note" style="margin:-6px 0 12px">执行阶梯以2026-08-30总账户执行总表为准；研究库的P10—P17.46价格用于估值复核。两者冲突时暂停交易，先用最新财报重算，不自行选更宽松口径。</div>
   <div class="grid-2">${ladders}</div>
 
   <div class="section-title">候选股交易卡（研究与交易分离，到价只查取消条件）</div>
@@ -460,7 +499,7 @@ function renderPortfolio() {
         t.pendingInvest = Math.max(0, t.targetValue - (held ? held.marketValue : 0));
       });
       const sum = pf.targetPortfolio.reduce((s, t) => s + t.weight, 0);
-      if (sum > 1.02) return alert(`目标权重合计 ${(sum * 100).toFixed(1)}% 超过100%，请调低部分目标金额`);
+      if (sum > stockTargetWeight + 0.002) return alert(`股票目标权重合计 ${(sum * 100).toFixed(1)}% 超过允许的 ${(stockTargetWeight * 100).toFixed(1)}%，需保留 ${(cashTarget.weight * 100).toFixed(0)}% 机会现金`);
       const btn = $('#savePortfolio'); btn.textContent = '保存中…'; btn.disabled = true;
       try {
         const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ targetPortfolio: pf.targetPortfolio }) });
@@ -888,7 +927,7 @@ async function reload() {
   const q = state.quotes;
   state.quotes = { time: q.time, map: {} }; // 行情缓存与数据无关，但重渲染前先清空避免错配
   await refreshQuotes(true);
-  $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 两步法分析 2026-08-27~28 · 组合方案 2026-08-25 · 共 ${state.data.stocks.length} 只股票 / ${state.data.docsIndex.total} 篇文档`;
+  $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 两步法分析 2026-08-27~30 · 组合与执行方案 2026-08-30 · 目标90%股票＋10%机会现金 · 共 ${state.data.stocks.length} 只股票 / ${state.data.docsIndex.total} 篇文档`;
   $('#footerInfo').textContent = `投资分析中心 · ${state.data.stocks.length} 只股票研究库 · 数据生成于 ${new Date(state.data.generatedAt).toLocaleString('zh-CN')}`;
 }
 async function boot() {
