@@ -927,7 +927,7 @@ async function reload() {
   const q = state.quotes;
   state.quotes = { time: q.time, map: {} }; // 行情缓存与数据无关，但重渲染前先清空避免错配
   await refreshQuotes(true);
-  $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 两步法分析 2026-08-27~30 · 组合与执行方案 2026-08-30 · 目标90%股票＋10%机会现金 · 共 ${state.data.stocks.length} 只股票 / ${state.data.docsIndex.total} 篇文档`;
+  $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 两步法分析更新至2026-08-31 · 组合与执行方案更新至2026-08-31 · 目标90%股票＋10%机会现金 · 共 ${state.data.stocks.length} 只股票 / ${state.data.docsIndex.total} 篇文档`;
   $('#footerInfo').textContent = `投资分析中心 · ${state.data.stocks.length} 只股票研究库 · 数据生成于 ${new Date(state.data.generatedAt).toLocaleString('zh-CN')}`;
 }
 async function boot() {
