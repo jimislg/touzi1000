@@ -402,7 +402,7 @@ function renderPortfolio() {
 
   <div class="grid-2">
     <div class="card">
-      <h2>首次建仓执行清单 <span class="tag">${esc(pf.executionPlan?.status || '')} · 先买后卖</span></h2>
+      <h2>首次建仓执行清单 <span class="tag">${esc(pf.executionPlan?.status || '')} · ${esc(pf.executionPlan?.tagline || '按最新执行卡分批')}</span></h2>
       <div class="table-scroll"><table>
         <thead><tr><th>时点</th><th>方向</th><th>公司</th><th class="num">数量</th><th class="num">限价</th><th class="num">估算人民币</th><th>条件</th></tr></thead>
         <tbody>${executionRows}</tbody>
