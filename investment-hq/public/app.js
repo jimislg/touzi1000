@@ -133,10 +133,13 @@ function renderGoals() {
   const baseReturn = dm.weightedReturn;
   const baseFive = dm.fiveYearMultiple;
   const baseTen = dm.tenYearMultiple;
+  const underwritingFive = Math.pow(1 + dm.underwritingWeightedReturn, 5);
+  const underwritingTen = Math.pow(1 + dm.underwritingWeightedReturn, 10);
   const runway = dm.dividendRunway;
   const baseRunway = runway?.scenarios?.find(s => s.id === 'base');
   const acceleration = dm.dividendAcceleration;
-  const acceleratedPath = acceleration?.paths?.find(s => s.id === 'twoStage');
+  const acceleratedPath = acceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
+  const companyBasePath = acceleration?.paths?.find(s => s.id === 'twoStage');
   const hardTargetSummary = (dm.hardTargetStocks || []).length
     ? `当前只有${dm.hardTargetStocks.map(s => `${s.name}（${s.grade}类、基准十年${fmtPct(s.baseIrr, 1)}、硬上限${s.hardLimit == null ? '待定' : fmtPct(s.hardLimit, 0)}）`).join('、')}在基准十年模型越过17.46%；其仓位和确定性不足以支撑整个组合。`
     : '当前没有可执行标的在基准十年模型达到17.46%，不能靠重新分配现有股票解决。';
@@ -147,9 +150,10 @@ function renderGoals() {
     <h2>目标决策驾驶舱 <span class="tag">由股票报告与目标仓位自动计算，不再使用写死结论</span></h2>
     <div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">目标组合基准年化</div><div class="s-value ${baseReturn >= dm.required5 ? 'green' : 'red'}">${fmtPct(baseReturn, 2)}</div></div>
-      <div class="stat"><div class="s-label">5年目标 / 当前路径</div><div class="s-value">2.00 / ${baseFive.toFixed(2)}倍</div></div>
-      <div class="stat"><div class="s-label">10年目标 / 当前路径</div><div class="s-value">5.00 / ${baseTen.toFixed(2)}倍</div></div>
-      <div class="stat"><div class="s-label">10年年化缺口</div><div class="s-value red">${fmtPct(dm.required10 - baseReturn, 2)}</div></div>
+      <div class="stat"><div class="s-label">质量折扣承保年化</div><div class="s-value blue">${fmtPct(dm.underwritingWeightedReturn, 2)}</div></div>
+      <div class="stat"><div class="s-label">5年目标 / 承保路径</div><div class="s-value">2.00 / ${underwritingFive.toFixed(2)}倍</div></div>
+      <div class="stat"><div class="s-label">10年目标 / 承保路径</div><div class="s-value">5.00 / ${underwritingTen.toFixed(2)}倍</div></div>
+      <div class="stat"><div class="s-label">承保年化缺口</div><div class="s-value red">${fmtPct(dm.required10 - dm.underwritingWeightedReturn, 2)}</div></div>
       <div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
       <div class="stat"><div class="s-label">首轮交易后年税后股息</div><div class="s-value blue">${fmtWan(dm.postInitialDividend)}</div></div>
       <div class="stat"><div class="s-label">首轮＋已触发康臣</div><div class="s-value blue">${fmtWan(dm.postTriggeredDividend)}</div></div>
@@ -179,16 +183,16 @@ function renderGoals() {
 
   <div class="card">
     <h2>十年路线 <span class="tag">本金1000万 · ${esc(g.asOf)}</span></h2>
-    <div class="card-sub">最新90%股票＋10%机会现金组合（基准年化约${fmtPct(baseReturn, 2)}）与目标所需回报的差距</div>
+    <div class="card-sub">最新90%股票＋10%机会现金组合：公司基准机械加权${fmtPct(baseReturn, 2)}，质量折扣后承保年化${fmtPct(dm.underwritingWeightedReturn, 2)}。</div>
     <div class="timeline">
       <div class="timeline-bar">
         ${g.timeline.map((t, i) => `
-        <div class="tl-marker" style="left:${[2, 52, 98][i]}%">
+        <div class="tl-marker" style="left:${2 + (96 * i / Math.max(g.timeline.length - 1, 1))}%">
           <div class="tl-date">${esc(t.date)}</div><div class="tl-dot"></div>
         </div>`).join('')}
       </div>
       <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-2);margin-top:-22px">
-        ${g.timeline.map(t => `<div style="max-width:31%">${esc(t.event)}</div>`).join('')}
+        ${g.timeline.map(t => `<div style="max-width:${Math.max(20, 94 / g.timeline.length)}%">${esc(t.event)}</div>`).join('')}
       </div>
     </div>
     <div class="stat-row" style="margin-top:18px">
@@ -231,18 +235,18 @@ function renderGoals() {
 
   ${acceleration ? `<div class="card">
     <h2>最稳最快路径 <span class="tag">先复利 · 后迁移 · 120万元才验收</span></h2>
-    <div class="card-sub">不是把股息率拉到最高，而是在积累期提高可验证的总回报，资产达到迁移门槛后再逐步换成分散的普通股息。所有日期随实际回报和买价动态变化。</div>
+    <div class="card-sub">不是把股息率拉到最高，而是在积累期提高可验证的总回报，资产达到迁移门槛后再逐步换成分散的普通股息。主展示采用承保回报；公司基准机械加权只保留为上行执行线。</div>
     ${acceleratedPath ? `<div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">推荐名义线</div><div class="s-value green">${esc(acceleratedPath.nominal.duration)}</div></div>
       <div class="stat"><div class="s-label">预计月份</div><div class="s-value">${esc(acceleratedPath.nominal.date)}</div></div>
       <div class="stat"><div class="s-label">推荐安全线</div><div class="s-value blue">${esc(acceleratedPath.safety.duration)}</div></div>
       <div class="stat"><div class="s-label">安全线月份</div><div class="s-value">${esc(acceleratedPath.safety.date)}</div></div>
       <div class="stat"><div class="s-label">开始迁移</div><div class="s-value">${esc(acceleratedPath.migrationStartDate)}</div></div>
-      <div class="stat"><div class="s-label">相对旧路径节省</div><div class="s-value">${acceleration.saving ? `${acceleration.saving.nominalMonths}/${acceleration.saving.safetyMonths}个月` : '—'}</div></div>
+      <div class="stat"><div class="s-label">相对公司基准延后</div><div class="s-value">${companyBasePath ? `${acceleratedPath.nominal.months - companyBasePath.nominal.months}/${acceleratedPath.safety.months - companyBasePath.safety.months}个月` : '—'}</div></div>
     </div>` : ''}
     <table style="margin-top:12px">
       <thead><tr><th>路径</th><th class="num">部署</th><th class="num">积累/终态年化</th><th class="num">终态税后率</th><th class="num">名义100万</th><th class="num">安全120万</th><th>判断</th></tr></thead>
-      <tbody>${acceleration.paths.map(p => `<tr class="${p.id === 'twoStage' ? 'best-row' : ''}">
+      <tbody>${acceleration.paths.map(p => `<tr class="${p.id === 'underwrittenTwoStage' ? 'best-row' : ''}">
         <td><b>${esc(p.label)}</b></td>
         <td class="num">${p.deploymentMonths || '—'}个月</td>
         <td class="num">${p.accumulationReturn != null ? `${fmtPct(p.accumulationReturn, 2)} → ` : ''}${fmtPct(p.terminalReturn, 2)}</td>

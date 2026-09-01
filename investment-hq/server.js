@@ -342,7 +342,7 @@ function simulateIncomeFirst({
   return { deploymentMonths, terminalReturn, terminalYield, nominal: decorate(nominal), safety: decorate(safety) };
 }
 
-function buildDividendAcceleration(payload, dividendRunway) {
+function buildDividendAcceleration(payload, dividendRunway, underwritingReturn) {
   const spec = payload.goals?.dividendAcceleration;
   const pf = payload.portfolio;
   if (!spec || !pf) return null;
@@ -360,6 +360,9 @@ function buildDividendAcceleration(payload, dividendRunway) {
     safetyDividend: Number(spec.safetyDividend) || 1200000
   };
   const twoStage = simulateDividendAcceleration({ ...common, ...spec.twoStage });
+  const underwrittenTwoStage = Number.isFinite(underwritingReturn)
+    ? simulateDividendAcceleration({ ...common, ...spec.twoStage, accumulationReturn: underwritingReturn })
+    : null;
   const incomeFirst = simulateIncomeFirst({ ...common, ...spec.incomeFirst });
   const current = dividendRunway?.scenarios?.find(row => row.id === 'base');
   const paths = [
@@ -374,9 +377,14 @@ function buildDividendAcceleration(payload, dividendRunway) {
       nominal: { months: current.nominalMonths, duration: current.nominalDuration, date: current.nominalDate, assets: current.nominalAssets },
       safety: { months: current.safetyMonths, duration: current.safetyDuration, date: current.safetyDate, assets: current.safetyAssets }
     },
-    twoStage && { id: 'twoStage', label: '先复利后迁移', confidence: '推荐规划基准', ...twoStage }
+    twoStage && { id: 'twoStage', label: '公司基准兑现路线', confidence: '上行执行线，非保守规划', ...twoStage },
+    underwrittenTwoStage && { id: 'underwrittenTwoStage', label: '承保规划路线', confidence: '推荐保守规划基准', ...underwrittenTwoStage }
   ].filter(Boolean);
-  const saving = current && twoStage ? {
+  const saving = current && underwrittenTwoStage ? {
+    nominalMonths: current.nominalMonths - underwrittenTwoStage.nominal.months,
+    safetyMonths: current.safetyMonths - underwrittenTwoStage.safety.months
+  } : null;
+  const companyBaseSaving = current && twoStage ? {
     nominalMonths: current.nominalMonths - twoStage.nominal.months,
     safetyMonths: current.safetyMonths - twoStage.safety.months
   } : null;
@@ -387,6 +395,7 @@ function buildDividendAcceleration(payload, dividendRunway) {
     targetStockWeight,
     paths,
     saving,
+    companyBaseSaving,
     phasePortfolios: spec.phasePortfolios || [],
     rules: spec.rules || [],
     note: spec.note
@@ -400,8 +409,18 @@ function buildDecisionMetrics(payload) {
     const stock = stocksByName.get(t.name);
     const explicitReturn = Number(t.baseAnnualReturn);
     const reportBaseIrr = Number(stock?.scenarios?.base?.irr10y);
+    const pessimisticIrr = Number(stock?.scenarios?.pessimistic?.irr10y);
+    const optimisticIrr = Number(stock?.scenarios?.optimistic?.irr10y);
     const baseIrr = Number.isFinite(explicitReturn) ? explicitReturn : reportBaseIrr;
     const grade = stock?.grade || t.qualityGrade || null;
+    const scenarioWeights = grade === 'A'
+      ? { pessimistic: 0.25, base: 0.60, optimistic: 0.15 }
+      : { pessimistic: 0.40, base: 0.50, optimistic: 0.10 };
+    const underwritingIrr = [pessimisticIrr, reportBaseIrr, optimisticIrr].every(Number.isFinite)
+      ? pessimisticIrr * scenarioWeights.pessimistic
+        + reportBaseIrr * scenarioWeights.base
+        + optimisticIrr * scenarioWeights.optimistic
+      : null;
     const reportHardLimit = firstPercent(stock?.position?.hard);
     const absoluteHardLimit = 0.25;
     const effectiveHardLimit = reportHardLimit == null ? absoluteHardLimit : Math.min(reportHardLimit, absoluteHardLimit);
@@ -409,6 +428,10 @@ function buildDecisionMetrics(payload) {
       ...t,
       grade,
       baseIrr: Number.isFinite(baseIrr) ? baseIrr : null,
+      pessimisticIrr: Number.isFinite(pessimisticIrr) ? pessimisticIrr : null,
+      optimisticIrr: Number.isFinite(optimisticIrr) ? optimisticIrr : null,
+      underwritingIrr,
+      scenarioWeights,
       returnLabel: executableReturnLabel(grade, baseIrr),
       weightedContribution: Number.isFinite(baseIrr) ? t.weight * baseIrr : null,
       reportHardLimit,
@@ -423,6 +446,12 @@ function buildDecisionMetrics(payload) {
   const weightedReturn = targetRows.reduce((s, r) => s + (r.weightedContribution || 0), 0)
     + (Number.isFinite(cashReturn) ? cashWeight * cashReturn : 0);
   const normalizedWeightedReturn = coveredWeight > 0 ? weightedReturn / coveredWeight : null;
+  const underwritingCoveredWeight = targetRows.reduce((sum, row) =>
+    sum + (Number.isFinite(row.underwritingIrr) ? row.weight : 0), 0) + cashCoveredWeight;
+  const underwritingWeightedReturn = underwritingCoveredWeight > 0
+    ? (targetRows.reduce((sum, row) => sum + (Number.isFinite(row.underwritingIrr) ? row.weight * row.underwritingIrr : 0), 0)
+      + (Number.isFinite(cashReturn) ? cashWeight * cashReturn : 0)) / underwritingCoveredWeight
+    : null;
   const required5 = Math.pow(2, 1 / 5) - 1;
   const required10 = Math.pow(5, 1 / 10) - 1;
   const executableStocks = payload.stocks.filter(s => s.grade === 'A' || s.grade === 'B');
@@ -457,7 +486,7 @@ function buildDecisionMetrics(payload) {
   const postTriggeredDividend = Number(pf.currentDividendBaseline?.postTriggeredCandidate);
   const postPrimaryQueueDividend = Number(pf.currentDividendBaseline?.postPrimaryQueue);
   const dividendRunway = buildDividendRunway(payload, normalizedWeightedReturn);
-  const dividendAcceleration = buildDividendAcceleration(payload, dividendRunway);
+  const dividendAcceleration = buildDividendAcceleration(payload, dividendRunway, underwritingWeightedReturn);
   const alerts = [];
   if (normalizedWeightedReturn != null && normalizedWeightedReturn < required10) {
     alerts.push({ severity: 'red', title: '10年5倍存在结构性缺口', detail: `目标组合按报告基准IRR加权仅 ${(normalizedWeightedReturn * 100).toFixed(2)}%，低于所需 ${(required10 * 100).toFixed(2)}% ${(required10 - normalizedWeightedReturn > 0 ? '约' + ((required10 - normalizedWeightedReturn) * 100).toFixed(2) + '个百分点' : '')}。` });
@@ -477,14 +506,16 @@ function buildDecisionMetrics(payload) {
   if (pf.deploymentQueue?.threeMonthGap > 0) alerts.push({ severity: 'amber', title: '三个月部署队列已覆盖缺口，但仍依赖价格触发', detail: `首轮后至29.2%股票仓位还需约 ${(pf.deploymentQueue.threeMonthGap / 10000).toFixed(1)}万元；主队列条件金额约 ${(pf.deploymentQueue.primaryPotential / 10000).toFixed(1)}万元，覆盖 ${(pf.deploymentQueue.coverageRatio * 100).toFixed(0)}%，未触发前仍是现金。` });
   const baseRunway = dividendRunway?.scenarios?.find(s => s.id === 'base');
   if (baseRunway) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `计入24个月部署拖累后，基准情景约${baseRunway.nominalDuration}达到名义100万元，但约${baseRunway.safetyDuration}才达到120万元安全线；后者用于承受约15%的组合股息削减。` });
-  const accelerated = dividendAcceleration?.paths?.find(s => s.id === 'twoStage');
-  if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `先复利后迁移模型约${accelerated.nominal.duration}达到名义线、约${accelerated.safety.duration}达到安全线；前提是积累期组合年化${(accelerated.accumulationReturn * 100).toFixed(1)}%、迁移后税后率${(accelerated.terminalYield * 100).toFixed(2)}%均真实兑现。` });
+  const accelerated = dividendAcceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
+  if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `质量折扣后的承保路线约${accelerated.nominal.duration}达到名义线、约${accelerated.safety.duration}达到安全线；积累期承保年化${(accelerated.accumulationReturn * 100).toFixed(2)}%，不再把${(normalizedWeightedReturn * 100).toFixed(2)}%的公司基准机械加权当成保守承诺。` });
   if ((payload.portfolioEvolution?.unresolved || []).length) alerts.push({ severity: 'amber', title: '存在未统一的执行口径', detail: `仍有 ${payload.portfolioEvolution.unresolved.length} 项待确认；冲突未消除前，不应按旧价格表自动下单。` });
   if (reserveRequiredReturn != null && reserveRequiredReturn > 0.25) alerts.push({ severity: 'red', title: '仅靠预留机会仓无法填平目标缺口', detail: `按报告硬上限收缩后需预留 ${(reserveWeight * 100).toFixed(0)}%，但该预留仓需年化约 ${(reserveRequiredReturn * 100).toFixed(1)}% 才能把整体推到17.46%；这不是可接受的基准假设。` });
   return {
     required5,
     required10,
     weightedReturn: normalizedWeightedReturn,
+    underwritingWeightedReturn,
+    underwritingCoveredWeight,
     coveredWeight,
     cashWeight,
     cashReturn: Number.isFinite(cashReturn) ? cashReturn : null,
