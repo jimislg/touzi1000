@@ -142,6 +142,7 @@ function renderGoals() {
   const tracking = dm.goalPathTracking;
   const efficiency = state.data.portfolioEfficiency;
   const cashDeployment = state.data.cashDeployment;
+  const goalBottleneck = state.data.goalBottleneck;
   const acceleratedPath = acceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
   const companyBasePath = acceleration?.paths?.find(s => s.id === 'twoStage');
   const hardTargetSummary = (dm.hardTargetStocks || []).length
@@ -238,8 +239,8 @@ function renderGoals() {
   </div>` : ''}
 
   ${acceleration ? `<div class="card">
-    <h2>最稳最快路径 <span class="tag">先复利 · 后迁移 · 120万元才验收</span></h2>
-    <div class="card-sub">不是把股息率拉到最高，而是在积累期提高可验证的总回报，资产达到迁移门槛后再逐步换成分散的普通股息。主展示采用承保回报；公司基准机械加权只保留为上行执行线。</div>
+    <h2>承保路径对照 <span class="tag">质量优先 · 尚未证明更快 · 120万元才验收</span></h2>
+    <div class="card-sub">承保口径下，立即转高股息与先复利后迁移的时间相同。保留两阶段路线，是因为积累期公司质量、风险分散和上行可选性更好；公司基准机械加权只保留为上行执行线。</div>
     ${acceleratedPath ? `<div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">推荐名义线</div><div class="s-value green">${esc(acceleratedPath.nominal.duration)}</div></div>
       <div class="stat"><div class="s-label">预计月份</div><div class="s-value">${esc(acceleratedPath.nominal.date)}</div></div>
@@ -269,6 +270,31 @@ function renderGoals() {
     </div>`).join('')}</div>
     <div class="note"><b>执行纪律：</b><ul>${acceleration.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
     <div class="honest" style="margin-top:10px"><b>关键限制：</b>${esc(acceleration.note || '')}</div>
+  </div>` : ''}
+
+  ${goalBottleneck ? `<div class="card">
+    <h2>达标瓶颈与十年条件线 <span class="tag">反推条件 · 不把愿望写成承保</span></h2>
+    <div class="honest"><b>关键修正：</b>${esc(goalBottleneck.criticalCorrection.conclusion)}</div>
+    <div class="stat-row" style="margin-top:12px">
+      <div class="stat"><div class="s-label">正式名义线</div><div class="s-value">${fmtMonths(goalBottleneck.baseline.nominalMonth)}</div></div>
+      <div class="stat"><div class="s-label">正式安全线</div><div class="s-value blue">${fmtMonths(goalBottleneck.baseline.safetyMonth)}</div></div>
+      <div class="stat"><div class="s-label">承保积累回报</div><div class="s-value">${fmtPct(goalBottleneck.baseline.accumulationReturn, 2)}</div></div>
+      <div class="stat"><div class="s-label">承保终态税后率</div><div class="s-value">${fmtPct(goalBottleneck.baseline.terminalAfterTaxYield, 2)}</div></div>
+      <div class="stat"><div class="s-label">十年条件回报</div><div class="s-value green">${fmtPct(goalBottleneck.tenYearGate.requiredAccumulationReturn, 1)}</div></div>
+      <div class="stat"><div class="s-label">十年条件税后率</div><div class="s-value green">${fmtPct(goalBottleneck.tenYearGate.requiredTerminalAfterTaxYield, 1)}</div></div>
+    </div>
+    <table style="margin-top:12px">
+      <thead><tr><th>组合条件</th><th class="num">积累回报</th><th class="num">终态税后率</th><th class="num">名义100万</th><th class="num">安全120万</th><th>状态</th></tr></thead>
+      <tbody>${goalBottleneck.combinedTargets.map(s => `<tr class="${s.id === 'underwritten' ? 'best-row' : ''}">
+        <td><b>${esc(s.label)}</b></td><td class="num">${fmtPct(s.accumulationReturn, 2)}</td><td class="num">${fmtPct(s.terminalAfterTaxYield, 2)}</td>
+        <td class="num">${fmtMonths(s.nominalMonth)}</td><td class="num">${fmtMonths(s.safetyMonth)}</td><td>${esc(s.status)}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    <div class="grid-3" style="margin-top:12px">${goalBottleneck.bottleneckRanking.map(row => `<div class="mini-card">
+      <div class="kicker">第${row.rank}杠杆</div><h3>${esc(row.lever)}</h3><p>${esc(row.evidence)}</p><div class="note">${esc(row.boundary)}</div>
+    </div>`).join('')}</div>
+    <div class="honest" style="margin-top:12px"><b>十年安全线尚未承保：</b>${esc(goalBottleneck.decision)}</div>
+    <div class="note"><b>收息预备库：</b>${esc(goalBottleneck.incomeWarehouse.rule)}<br><b>禁止：</b>${esc(goalBottleneck.incomeWarehouse.forbidden)}</div>
   </div>` : ''}
 
   ${efficiency ? `<div class="card">

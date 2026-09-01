@@ -1,0 +1,67 @@
+{
+  "asOf": "2026-09-01",
+  "objective": "1000万元本金，在不使用杠杆、不依赖特别股息、控制永久损失风险的前提下，尽可能早地形成100万元可持续税后普通股息；以120万元作为安全验收线。",
+  "baseline": {
+    "accumulationReturn": 0.0844421,
+    "terminalAfterTaxYield": 0.044504,
+    "nominalMonth": 126,
+    "safetyMonth": 154,
+    "nominalAssets": 22521709,
+    "safetyAssets": 27098912
+  },
+  "criticalCorrection": {
+    "incomeFirstNominalMonth": 126,
+    "incomeFirstSafetyMonth": 154,
+    "twoStageNominalMonth": 126,
+    "twoStageSafetyMonth": 154,
+    "conclusion": "在8.44%的承保回报下，现在转高股息与先复利后迁移的名义线和安全线相同；先复利路线只在10.31%的公司基准兑现时更快。继续保留两阶段路线，是因为公司质量、分散和上行可选性更好，不是因为保守模型已经证明它更快。"
+  },
+  "returnSensitivity": [
+    {"annualReturn": 0.07, "nominalMonth": 145, "safetyMonth": 173, "deltaSafetyVsBaseline": 19, "label": "压力线"},
+    {"annualReturn": 0.075, "nominalMonth": 138, "safetyMonth": 165, "deltaSafetyVsBaseline": 11, "label": "三年预警线"},
+    {"annualReturn": 0.0844421, "nominalMonth": 126, "safetyMonth": 154, "deltaSafetyVsBaseline": 0, "label": "承保基准"},
+    {"annualReturn": 0.095, "nominalMonth": 115, "safetyMonth": 143, "deltaSafetyVsBaseline": -11, "label": "可争取实绩"},
+    {"annualReturn": 0.103067, "nominalMonth": 109, "safetyMonth": 136, "deltaSafetyVsBaseline": -18, "label": "公司基准兑现"},
+    {"annualReturn": 0.12, "nominalMonth": 97, "safetyMonth": 125, "deltaSafetyVsBaseline": -29, "label": "强情景，不承保"}
+  ],
+  "yieldSensitivity": [
+    {"terminalAfterTaxYield": 0.04, "assetsNeededForSafety": 30000000, "nominalMonth": 142, "safetyMonth": 170, "deltaSafetyVsBaseline": 16, "label": "迁移失效"},
+    {"terminalAfterTaxYield": 0.044504, "assetsNeededForSafety": 26963868, "nominalMonth": 126, "safetyMonth": 154, "deltaSafetyVsBaseline": 0, "label": "承保基准"},
+    {"terminalAfterTaxYield": 0.05, "assetsNeededForSafety": 24000000, "nominalMonth": 115, "safetyMonth": 136, "deltaSafetyVsBaseline": -18, "label": "机会目标"},
+    {"terminalAfterTaxYield": 0.052, "assetsNeededForSafety": 23076923, "nominalMonth": 114, "safetyMonth": 130, "deltaSafetyVsBaseline": -24, "label": "十年安全线所需条件之一"},
+    {"terminalAfterTaxYield": 0.055, "assetsNeededForSafety": 21818182, "nominalMonth": 112, "safetyMonth": 122, "deltaSafetyVsBaseline": -32, "label": "高要求，风险上升"},
+    {"terminalAfterTaxYield": 0.06, "assetsNeededForSafety": 20000000, "nominalMonth": 110, "safetyMonth": 115, "deltaSafetyVsBaseline": -39, "label": "不得作为规划基准"}
+  ],
+  "combinedTargets": [
+    {"id": "underwritten", "label": "正式承保", "accumulationReturn": 0.0844421, "terminalAfterTaxYield": 0.044504, "nominalMonth": 126, "safetyMonth": 154, "status": "规划基准"},
+    {"id": "improvedReturn", "label": "只提高实绩", "accumulationReturn": 0.095, "terminalAfterTaxYield": 0.044504, "nominalMonth": 115, "safetyMonth": 143, "status": "仍超过十年安全线"},
+    {"id": "improvedYield", "label": "只锁定更高收益率", "accumulationReturn": 0.0844421, "terminalAfterTaxYield": 0.05, "nominalMonth": 115, "safetyMonth": 136, "status": "仍超过十年安全线"},
+    {"id": "tenYearStretch", "label": "十年安全线条件目标", "accumulationReturn": 0.095, "terminalAfterTaxYield": 0.052, "nominalMonth": 104, "safetyMonth": 119, "status": "约9年11个月；不是承诺"}
+  ],
+  "bottleneckRanking": [
+    {"rank": 1, "lever": "终态税后普通股息率", "evidence": "4.45%提高到5.0%，安全线约提前18个月；达到5.2%并同时实现9.5%积累回报，才可能把安全线压到十年以内。", "boundary": "不得靠周期峰值、特别股息、过度集中或本金返还凑收益率。"},
+    {"rank": 2, "lever": "积累期真实总回报", "evidence": "8.44%提高到9.5%，安全线约提前11个月；降至7.5%则约延后11个月。", "boundary": "只能由更低买价、盈利和自由现金流增长兑现，不能通过提高模型假设。"},
+    {"rank": 3, "lever": "部署速度", "evidence": "18个月延长到24个月只使安全线约晚2个月。", "boundary": "不值得为这2个月追价。"},
+    {"rank": 4, "lever": "迁移起始资产", "evidence": "在相同回报与收益率假设下，把迁移门槛从1200万元移到2200万元，安全线大多只变化约3个月。", "boundary": "提前迁移本身不是有效加速器，关键仍是买入收益率。"}
+  ],
+  "tenYearGate": {
+    "status": "尚未承保",
+    "requiredAccumulationReturn": 0.095,
+    "requiredTerminalAfterTaxYield": 0.052,
+    "requiredSafetyMonthMax": 120,
+    "priceEquivalent": "若普通股息不增长，5.2%相当于以现有4.45%预设买点的约85.6%价格完成终态迁移；也可以由买点等待期内可持续DPS增长部分实现。",
+    "qualityGates": [
+      "终态组合扣税后普通股息率不低于5.2%，特别股息、现金利息和回购不计入",
+      "终态组合承保总回报不低于8%，单一公司普通股息贡献不超过20%",
+      "每家公司正常化自由现金流对普通股息覆盖不低于1.2倍；银行和保险改用资本充足率、偿付能力与可上划盈余",
+      "整体普通股息削减15%后仍不低于100万元，且金融、资源和单一制造周期暴露不越上限"
+    ]
+  },
+  "incomeWarehouse": {
+    "maxWeight": 0.10,
+    "singleNameMaxWeight": 0.03,
+    "rule": "积累期若迁移候选同时达到税后普通股息率5.2%、承保十年总回报8%以上和分红覆盖闸门，可提前锁定合计不超过10%的未来收息仓；它占用现有目标仓位，不增加总股票上限。",
+    "forbidden": "不得因为股息率高而降低公司质量门槛；不得使用特别股息年化；不得把预买仓作为现金部署进度的填充物。"
+  },
+  "decision": "正式承保日期仍为名义10年6个月、安全12年10个月。新增十年安全线条件目标：只有积累期实际承保回报提高到9.5%左右，并在迁移时锁定至少5.2%的分散税后普通股息率，才把安全线视为十年内可达。当前没有证据证明这两个条件已经实现。"
+}
