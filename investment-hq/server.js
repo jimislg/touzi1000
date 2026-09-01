@@ -12,6 +12,7 @@ const DATA_DIR = path.join(ROOT, 'data');
 const DOCS_DIR = path.join(DATA_DIR, 'docs');
 const STOCKS_DIR = path.join(DATA_DIR, 'stocks');
 const PORTFOLIO_FILE = path.join(DATA_DIR, 'portfolio.json');
+const GOAL_LEDGER_FILE = path.join(DATA_DIR, 'goal-ledger.json');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -158,6 +159,13 @@ function addMonths(dateText, months) {
   return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
 }
 
+function monthsBetween(startText, endText) {
+  const [sy, sm] = String(startText || '').split('-').map(Number);
+  const [ey, em] = String(endText || '').split('-').map(Number);
+  if (![sy, sm, ey, em].every(Number.isFinite)) return null;
+  return Math.max(0, (ey - sy) * 12 + em - sm);
+}
+
 function simulateDividendRunway({
   principal,
   startDate,
@@ -252,7 +260,8 @@ function simulateDividendAcceleration({
   terminalReturn,
   terminalYield,
   nominalDividend,
-  safetyDividend
+  safetyDividend,
+  checkpointMonths = []
 }) {
   const values = [principal, startStockWeight, targetStockWeight, cashReturn, accumulationReturn,
     accumulationYield, deploymentMonths, migrationStartAssets, migrationMonths, terminalReturn,
@@ -265,6 +274,16 @@ function simulateDividendAcceleration({
   let migrationStartMonth = null;
   let nominal = null;
   let safety = null;
+  const checkpointSet = new Set((checkpointMonths || []).map(Number).filter(Number.isFinite));
+  const checkpoints = [];
+  if (checkpointSet.has(0)) checkpoints.push({
+    months: 0,
+    assets,
+    annualDividend: assets * startStockWeight * equityYield,
+    annualYield: startStockWeight * equityYield,
+    stockWeight: startStockWeight,
+    phase: 'baseline'
+  });
   for (let month = 1; month <= 480; month += 1) {
     const deploymentProgress = Math.min(1, month / deploymentMonths);
     const stockWeight = startStockWeight + (targetStockWeight - startStockWeight) * deploymentProgress;
@@ -282,6 +301,7 @@ function simulateDividendAcceleration({
     }
     assets *= Math.pow(1 + annualReturn, 1 / 12);
     const annualDividend = assets * annualYield;
+    if (checkpointSet.has(month)) checkpoints.push({ months: month, assets, annualDividend, annualYield, stockWeight, phase });
     if (!nominal && annualDividend >= nominalDividend) nominal = { months: month, assets, annualDividend, annualYield, phase };
     if (!safety && annualDividend >= safetyDividend) {
       safety = { months: month, assets, annualDividend, annualYield, phase };
@@ -303,6 +323,7 @@ function simulateDividendAcceleration({
     migrationStartDate: addMonths(startDate, migrationStartMonth),
     terminalReturn,
     terminalYield,
+    checkpoints: checkpoints.map(row => ({ ...row, duration: monthLabel(row.months), date: addMonths(startDate, row.months) })),
     nominal: decorate(nominal),
     safety: decorate(safety)
   };
@@ -350,6 +371,10 @@ function buildDividendAcceleration(payload, dividendRunway, underwritingReturn) 
   const startStockWeight = Number(pf.stockMarketValue) / principal;
   const targetStockWeight = 1 - (Number(pf.opportunityCash?.weight) || 0.1);
   const cashReturn = Number(pf.opportunityCash?.baseAnnualReturn) || 0.015;
+  const ledger = payload.goalLedger;
+  const latestSnapshot = [...(ledger?.snapshots || [])].sort((a, b) => String(a.date).localeCompare(String(b.date))).at(-1);
+  const trackingMonth = latestSnapshot ? monthsBetween(ledger.baselineDate, latestSnapshot.date) : null;
+  const checkpointMonths = [...new Set([...(ledger?.checkpointMonths || []), trackingMonth].filter(Number.isFinite))].sort((a, b) => a - b);
   const common = {
     principal,
     startDate: spec.startDate,
@@ -357,7 +382,8 @@ function buildDividendAcceleration(payload, dividendRunway, underwritingReturn) 
     targetStockWeight,
     cashReturn,
     nominalDividend: Number(spec.nominalDividend) || 1000000,
-    safetyDividend: Number(spec.safetyDividend) || 1200000
+    safetyDividend: Number(spec.safetyDividend) || 1200000,
+    checkpointMonths
   };
   const twoStage = simulateDividendAcceleration({ ...common, ...spec.twoStage });
   const underwrittenTwoStage = Number.isFinite(underwritingReturn)
@@ -399,6 +425,73 @@ function buildDividendAcceleration(payload, dividendRunway, underwritingReturn) 
     phasePortfolios: spec.phasePortfolios || [],
     rules: spec.rules || [],
     note: spec.note
+  };
+}
+
+function buildGoalPathTracking(payload, dividendAcceleration) {
+  const ledger = payload.goalLedger;
+  if (!ledger) return null;
+  const snapshots = [...(ledger.snapshots || [])].sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  const latest = snapshots.at(-1);
+  const path = dividendAcceleration?.paths?.find(row => row.id === 'underwrittenTwoStage');
+  if (!latest || !path) return { status: 'missing', severity: 'red', snapshots, rules: ledger.rules || [] };
+  const elapsedMonths = monthsBetween(ledger.baselineDate, latest.date);
+  const expected = path.checkpoints?.find(row => row.months === elapsedMonths) || null;
+  const ranges = [...(ledger.deploymentRanges || [])].sort((a, b) => a.month - b.month);
+  const activeRange = [...ranges].reverse().find(row => row.month <= elapsedMonths) || ranges[0] || null;
+  const actualAssets = Number(latest.totalAssets);
+  const actualStockWeight = Number.isFinite(Number(latest.stockWeight))
+    ? Number(latest.stockWeight)
+    : Number(latest.stockMarketValue) / actualAssets;
+  const actualDividend = Number(latest.normalizedAfterTaxDividend);
+  const assetGapPct = expected && Number.isFinite(actualAssets) ? actualAssets / expected.assets - 1 : null;
+  const dividendGapPct = expected && Number.isFinite(actualDividend) && expected.annualDividend > 0
+    ? actualDividend / expected.annualDividend - 1 : null;
+  const deviations = [];
+  if (elapsedMonths >= 3 && assetGapPct < -0.15) deviations.push({ severity: 'red', item: '资产路径', detail: `总资产比承保路径低${Math.abs(assetGapPct * 100).toFixed(1)}%` });
+  else if (elapsedMonths >= 3 && assetGapPct < -0.05) deviations.push({ severity: 'amber', item: '资产路径', detail: `总资产比承保路径低${Math.abs(assetGapPct * 100).toFixed(1)}%` });
+  if (activeRange && elapsedMonths >= activeRange.month && actualStockWeight < activeRange.minStockWeight - 1e-9) {
+    deviations.push({ severity: 'amber', item: '部署进度', detail: `股票仓位${(actualStockWeight * 100).toFixed(1)}%，低于条件区间${(activeRange.minStockWeight * 100).toFixed(0)}%—${(activeRange.maxStockWeight * 100).toFixed(0)}%；只复核机会，不追价` });
+  }
+  if (activeRange && actualStockWeight > activeRange.maxStockWeight + 1e-9) {
+    deviations.push({ severity: 'red', item: '部署进度', detail: `股票仓位${(actualStockWeight * 100).toFixed(1)}%超过当期条件上限${(activeRange.maxStockWeight * 100).toFixed(0)}%` });
+  }
+  if (elapsedMonths >= 3 && dividendGapPct < -0.15) deviations.push({ severity: 'amber', item: '普通股息', detail: `正常化股息比路径低${Math.abs(dividendGapPct * 100).toFixed(1)}%` });
+  const thesisBreaches = latest.thesisBreaches || [];
+  if (thesisBreaches.length >= 2) deviations.push({ severity: 'red', item: '投资论文', detail: `${thesisBreaches.length}项核心突破：${thesisBreaches.join('、')}` });
+  else if (thesisBreaches.length === 1) deviations.push({ severity: 'amber', item: '投资论文', detail: thesisBreaches[0] });
+  let rollingReturn = null;
+  if (elapsedMonths >= 36) {
+    const prior = [...snapshots].reverse().find(row => monthsBetween(row.date, latest.date) >= 36);
+    const span = prior ? monthsBetween(prior.date, latest.date) : null;
+    if (prior && span > 0 && Number(prior.totalAssets) > 0) rollingReturn = Math.pow(actualAssets / Number(prior.totalAssets), 12 / span) - 1;
+    if (rollingReturn != null && rollingReturn < 0.05 && thesisBreaches.length >= 2) deviations.push({ severity: 'red', item: '承保回报', detail: `滚动年化${(rollingReturn * 100).toFixed(2)}%，且论文已多项突破，应重做组合` });
+    else if (rollingReturn != null && rollingReturn < 0.075) deviations.push({ severity: 'amber', item: '承保回报', detail: `滚动年化${(rollingReturn * 100).toFixed(2)}%，使用7%压力路径重算` });
+  }
+  const severity = deviations.some(row => row.severity === 'red') ? 'red' : deviations.length ? 'amber' : 'green';
+  const nextCheckpoint = path.checkpoints?.find(row => row.months > elapsedMonths) || null;
+  const checkpoints = (path.checkpoints || []).map(row => ({
+    ...row,
+    guardrailRange: [...ranges].reverse().find(range => range.month <= row.months) || null
+  }));
+  return {
+    asOf: ledger.asOf,
+    baselineDate: ledger.baselineDate,
+    reviewFrequency: ledger.reviewFrequency,
+    status: elapsedMonths === 0 ? '基线已建立' : severity === 'green' ? '路径正常' : severity === 'amber' ? '需复核' : '需重审',
+    severity,
+    elapsedMonths,
+    latest,
+    expected,
+    activeRange,
+    assetGapPct,
+    dividendGapPct,
+    rollingReturn,
+    deviations,
+    nextCheckpoint,
+    checkpoints,
+    nextReviewDate: addMonths(latest.date, 1),
+    rules: ledger.rules || []
   };
 }
 
@@ -487,6 +580,7 @@ function buildDecisionMetrics(payload) {
   const postPrimaryQueueDividend = Number(pf.currentDividendBaseline?.postPrimaryQueue);
   const dividendRunway = buildDividendRunway(payload, normalizedWeightedReturn);
   const dividendAcceleration = buildDividendAcceleration(payload, dividendRunway, underwritingWeightedReturn);
+  const goalPathTracking = buildGoalPathTracking(payload, dividendAcceleration);
   const alerts = [];
   if (normalizedWeightedReturn != null && normalizedWeightedReturn < required10) {
     alerts.push({ severity: 'red', title: '10年5倍存在结构性缺口', detail: `目标组合按报告基准IRR加权仅 ${(normalizedWeightedReturn * 100).toFixed(2)}%，低于所需 ${(required10 * 100).toFixed(2)}% ${(required10 - normalizedWeightedReturn > 0 ? '约' + ((required10 - normalizedWeightedReturn) * 100).toFixed(2) + '个百分点' : '')}。` });
@@ -538,6 +632,7 @@ function buildDecisionMetrics(payload) {
     dividendGap: Math.max(0, 1000000 - targetDividend),
     dividendRunway,
     dividendAcceleration,
+    goalPathTracking,
     alerts
   };
 }
@@ -557,8 +652,8 @@ function bootstrapPayload() {
   const order = { A: 0, B: 1, C: 2, D: 3 };
   stocks.sort((a, b) => (order[a.grade] ?? 9) - (order[b.grade] ?? 9) || (b.analysisDate || '').localeCompare(a.analysisDate || ''));
   const payload = { generatedAt: new Date().toISOString() };
-  const keyMap = { 'docs-index': 'docsIndex', 'portfolio-evolution': 'portfolioEvolution' };
-  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution']) {
+  const keyMap = { 'docs-index': 'docsIndex', 'portfolio-evolution': 'portfolioEvolution', 'goal-ledger': 'goalLedger' };
+  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution', 'goal-ledger']) {
     const p = path.join(DATA_DIR, `${name}.json`);
     if (fs.existsSync(p)) payload[keyMap[name] || name] = readJson(p);
   }
@@ -627,6 +722,46 @@ const server = http.createServer(async (req, res) => {
       else pf.manualCalibrations[key] = value;
       fs.writeFileSync(PORTFOLIO_FILE, JSON.stringify(pf, null, 2), 'utf8');
       return send(res, 200, JSON.stringify({ ok: true, manualCalibrations: pf.manualCalibrations }));
+    }
+
+    if (pathname === '/api/goal-snapshot' && req.method === 'POST') {
+      const body = await readBody(req);
+      const date = String(body.date || '').trim();
+      const totalAssets = Number(body.totalAssets);
+      const stockMarketValue = Number(body.stockMarketValue);
+      const normalizedAfterTaxDividend = Number(body.normalizedAfterTaxDividend);
+      const ordinaryDividendTtm = body.ordinaryDividendTtm == null || body.ordinaryDividendTtm === '' ? null : Number(body.ordinaryDividendTtm);
+      const thesisBreaches = Array.isArray(body.thesisBreaches)
+        ? body.thesisBreaches.map(x => String(x).trim().slice(0, 120)).filter(Boolean).slice(0, 10)
+        : String(body.thesisBreaches || '').split(/[\n；;]/).map(x => x.trim().slice(0, 120)).filter(Boolean).slice(0, 10);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('日期必须为 YYYY-MM-DD');
+      const shanghaiToday = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+      const ledger = readJson(GOAL_LEDGER_FILE);
+      if (date < ledger.baselineDate) throw new Error('快照日期不能早于基线日');
+      if (date > shanghaiToday) throw new Error('不能记录未来日期的快照');
+      if (![totalAssets, stockMarketValue, normalizedAfterTaxDividend].every(Number.isFinite)
+          || totalAssets <= 0 || stockMarketValue < 0 || stockMarketValue > totalAssets || normalizedAfterTaxDividend < 0) {
+        throw new Error('资产、股票市值或股息数据无效');
+      }
+      if (ordinaryDividendTtm != null && (!Number.isFinite(ordinaryDividendTtm) || ordinaryDividendTtm < 0)) throw new Error('实收股息无效');
+      const snapshot = {
+        date,
+        totalAssets,
+        stockMarketValue,
+        cash: totalAssets - stockMarketValue,
+        stockWeight: stockMarketValue / totalAssets,
+        normalizedAfterTaxDividend,
+        ordinaryDividendTtm,
+        thesisBreaches,
+        note: String(body.note || '').trim().slice(0, 300)
+      };
+      const existing = (ledger.snapshots || []).findIndex(row => row.date === date);
+      if (existing >= 0) ledger.snapshots[existing] = snapshot;
+      else ledger.snapshots = [...(ledger.snapshots || []), snapshot];
+      ledger.snapshots.sort((a, b) => String(a.date).localeCompare(String(b.date)));
+      ledger.asOf = ledger.snapshots.at(-1).date;
+      fs.writeFileSync(GOAL_LEDGER_FILE, JSON.stringify(ledger, null, 2), 'utf8');
+      return send(res, 200, JSON.stringify({ ok: true, snapshot }));
     }
 
     if (pathname === '/api/docs/add' && req.method === 'POST') {

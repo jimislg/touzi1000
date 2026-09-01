@@ -1,0 +1,68 @@
+{
+  "asOf": "2026-09-01",
+  "baselineDate": "2026-09-01",
+  "reviewFrequency": "monthly",
+  "checkpointMonths": [
+    0,
+    3,
+    6,
+    12,
+    18,
+    36,
+    60,
+    94,
+    126,
+    154
+  ],
+  "deploymentRanges": [
+    {
+      "month": 0,
+      "minStockWeight": 0.195,
+      "maxStockWeight": 0.25,
+      "label": "基线"
+    },
+    {
+      "month": 3,
+      "minStockWeight": 0.25,
+      "maxStockWeight": 0.35,
+      "label": "首轮与三个月补位"
+    },
+    {
+      "month": 6,
+      "minStockWeight": 0.35,
+      "maxStockWeight": 0.5,
+      "label": "第二轮条件部署"
+    },
+    {
+      "month": 12,
+      "minStockWeight": 0.55,
+      "maxStockWeight": 0.75,
+      "label": "一年部署检查"
+    },
+    {
+      "month": 18,
+      "minStockWeight": 0.7,
+      "maxStockWeight": 0.9,
+      "label": "积累期部署门"
+    }
+  ],
+  "snapshots": [
+    {
+      "date": "2026-09-01",
+      "totalAssets": 10000000,
+      "stockMarketValue": 1951075.26,
+      "cash": 8048924.74,
+      "stockWeight": 0.195107526,
+      "normalizedAfterTaxDividend": 71862,
+      "ordinaryDividendTtm": null,
+      "thesisBreaches": [],
+      "note": "起点快照；股息为正常化估算，尚非滚动十二个月实收。"
+    }
+  ],
+  "rules": [
+    "每月最后一个交易日后记录总资产、股票市值、现金、正常化税后普通股息和论文突破项。",
+    "股票仓位区间是条件部署检查，不是追价任务；买点和基本面闸门优先。",
+    "普通股息实收满12个月前，同时展示正常化估算和实收值，两者不得混用。",
+    "任何月份出现两项及以上核心投资论文突破，路径状态直接降为红色重审。"
+  ]
+}

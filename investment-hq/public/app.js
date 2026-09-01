@@ -138,6 +138,7 @@ function renderGoals() {
   const runway = dm.dividendRunway;
   const baseRunway = runway?.scenarios?.find(s => s.id === 'base');
   const acceleration = dm.dividendAcceleration;
+  const tracking = dm.goalPathTracking;
   const acceleratedPath = acceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
   const companyBasePath = acceleration?.paths?.find(s => s.id === 'twoStage');
   const hardTargetSummary = (dm.hardTargetStocks || []).length
@@ -267,6 +268,34 @@ function renderGoals() {
     <div class="honest" style="margin-top:10px"><b>关键限制：</b>${esc(acceleration.note || '')}</div>
   </div>` : ''}
 
+  ${tracking ? `<div class="card">
+    <h2>目标路径月度账本 <span class="tag">从2026-09起实际验收 · 不伪造历史</span><button class="btn primary" id="addGoalSnapshot" style="float:right">记录月度快照</button></h2>
+    <div class="card-sub">账本把资产、条件部署、正常化普通股息和投资论文分开记录。前36个月不用短期涨跌判定成败；满36个月后才启用滚动承保回报。</div>
+    <div class="stat-row" style="margin-top:12px">
+      <div class="stat"><div class="s-label">最新快照</div><div class="s-value">${esc(tracking.latest?.date || '—')}</div></div>
+      <div class="stat"><div class="s-label">路径状态</div><div class="s-value ${tracking.severity === 'red' ? 'red' : tracking.severity === 'green' ? 'green' : 'blue'}">${esc(tracking.status)}</div></div>
+      <div class="stat"><div class="s-label">已跟踪</div><div class="s-value">${tracking.elapsedMonths}个月</div></div>
+      <div class="stat"><div class="s-label">实际 / 承保资产</div><div class="s-value">${fmtWan(tracking.latest?.totalAssets)} / ${fmtWan(tracking.expected?.assets)}</div></div>
+      <div class="stat"><div class="s-label">实际股票仓位</div><div class="s-value blue">${fmtPct(tracking.latest?.stockWeight, 2)}</div></div>
+      <div class="stat"><div class="s-label">当期条件区间</div><div class="s-value">${tracking.activeRange ? `${fmtPct(tracking.activeRange.minStockWeight, 0)}—${fmtPct(tracking.activeRange.maxStockWeight, 0)}` : '—'}</div></div>
+      <div class="stat"><div class="s-label">正常化股息 / 路径</div><div class="s-value">${fmtWan(tracking.latest?.normalizedAfterTaxDividend)} / ${fmtWan(tracking.expected?.annualDividend)}</div></div>
+      <div class="stat"><div class="s-label">下次月度复核</div><div class="s-value">${esc(tracking.nextReviewDate || '—')}</div></div>
+    </div>
+    ${tracking.deviations?.length ? `<div class="risk-grid" style="margin-top:12px">${tracking.deviations.map(d => `<div class="risk-card ${alertClass(d.severity)}"><b>${esc(d.item)}</b><span>${esc(d.detail)}</span></div>`).join('')}</div>` : `<div class="honest" style="margin-top:12px"><b>当前结论：</b>只能确认基线已建立，还不能宣称路径跑赢或跑输。</div>`}
+    <table style="margin-top:12px">
+      <thead><tr><th>检查点</th><th>阶段</th><th class="num">承保资产</th><th class="num">模型股票仓位</th><th class="num">条件部署区间</th><th class="num">模型年股息</th></tr></thead>
+      <tbody>${tracking.checkpoints.map(row => `<tr class="${row.months === tracking.elapsedMonths ? 'best-row' : ''}">
+        <td><b>${esc(row.date)}</b><div style="font-size:11px;color:var(--ink-3)">${esc(row.duration)}</div></td>
+        <td>${esc(({baseline:'基线',deploy:'部署',accumulate:'积累',migrate:'迁移',income:'收息'})[row.phase] || row.phase)}</td>
+        <td class="num">${fmtWan(row.assets)}</td>
+        <td class="num">${fmtPct(row.stockWeight, 1)}</td>
+        <td class="num">${row.guardrailRange ? `${fmtPct(row.guardrailRange.minStockWeight, 0)}—${fmtPct(row.guardrailRange.maxStockWeight, 0)}` : '—'}</td>
+        <td class="num">${fmtWan(row.annualDividend)}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    <div class="note"><b>记录口径：</b><ul>${tracking.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
+  </div>` : ''}
+
   <div class="grid-2">
     <div class="card">
       <h2>诚实结论 <span class="tag">来自文档推演，非收益承诺</span></h2>
@@ -306,6 +335,43 @@ function renderGoals() {
       <div class="note">${esc(pf.dividends.note || '')}</div>
     </div>
   </div>`;
+
+  const snapshotBtn = $('#addGoalSnapshot', el);
+  if (snapshotBtn) snapshotBtn.addEventListener('click', () => {
+    const today = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+    openModal(`
+      <h2>记录目标路径月度快照</h2>
+      <div class="m-sub">同一日期重复保存会覆盖当日快照。建议在每月最后一个交易日后记录；数据不准时不要为了“绿色”而填写。</div>
+      <div class="grid-2" style="margin-top:14px">
+        <label>快照日期<input class="edit-input" id="snapDate" type="date" value="${esc(today)}" style="width:100%"></label>
+        <label>总资产（元）<input class="edit-input" id="snapAssets" type="number" min="1" step="0.01" value="${Number(pf.totalAssets).toFixed(2)}" style="width:100%"></label>
+        <label>股票市值（元）<input class="edit-input" id="snapStocks" type="number" min="0" step="0.01" value="${Number(pf.stockMarketValue).toFixed(2)}" style="width:100%"></label>
+        <label>正常化税后普通股息（元/年）<input class="edit-input" id="snapDividend" type="number" min="0" step="1" value="${Number(dm.currentDividend).toFixed(0)}" style="width:100%"></label>
+        <label>滚动12个月实收普通股息（可空）<input class="edit-input" id="snapTtm" type="number" min="0" step="1" style="width:100%"></label>
+        <label>核心论文突破（一行一项，无则空）<textarea class="edit-input" id="snapBreaches" style="width:100%;height:74px"></textarea></label>
+      </div>
+      <label style="display:block;margin-top:10px">备注<textarea class="edit-input" id="snapNote" style="width:100%;height:70px"></textarea></label>
+      <div style="display:flex;gap:8px;margin-top:14px"><button class="btn primary" id="saveGoalSnapshot">保存快照</button><button class="btn" id="cancelGoalSnapshot">取消</button></div>`);
+    $('#cancelGoalSnapshot').addEventListener('click', closeModal);
+    $('#saveGoalSnapshot').addEventListener('click', async () => {
+      const payload = {
+        date: $('#snapDate').value,
+        totalAssets: Number($('#snapAssets').value),
+        stockMarketValue: Number($('#snapStocks').value),
+        normalizedAfterTaxDividend: Number($('#snapDividend').value),
+        ordinaryDividendTtm: $('#snapTtm').value,
+        thesisBreaches: $('#snapBreaches').value,
+        note: $('#snapNote').value
+      };
+      const saveBtn = $('#saveGoalSnapshot'); saveBtn.disabled = true; saveBtn.textContent = '保存中…';
+      try {
+        const res = await fetch('/api/goal-snapshot', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error || '保存失败');
+        closeModal(); await reload(); state.currentTab = 'goals'; renderTab('goals');
+      } catch (e) { alert('保存失败：' + e.message); saveBtn.disabled = false; saveBtn.textContent = '保存快照'; }
+    });
+  });
 }
 
 /* ================= 持仓与建仓 ================= */
