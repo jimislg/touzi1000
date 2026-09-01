@@ -1,0 +1,61 @@
+{
+  "asOf": "2026-09-01",
+  "currentCash": 8048924.74,
+  "currentStockWeight": 0.195107526,
+  "targetStockWeight": 0.90,
+  "permanentOpportunityCashWeight": 0.10,
+  "excessWaitingCash": 7048924.74,
+  "cashReturn": 0.015,
+  "underwrittenEquityReturn": 0.0921578889,
+  "currentUnderwrittenPortfolioReturn": 0.0300540848,
+  "targetUnderwrittenPortfolioReturn": 0.0844421,
+  "currentAnnualDrag": 0.0543880152,
+  "annualOpportunityCostCny": 543880.15,
+  "deploymentScenarios": [
+    {"months": 6, "migrationMonth": 90, "nominalMonth": 122, "safetyMonth": 150, "delayVs18Safety": -4, "label": "机会高密度", "judgment": "只有多只A类同时达到P12/P15才可能，不作时间指令。"},
+    {"months": 12, "migrationMonth": 92, "nominalMonth": 124, "safetyMonth": 152, "delayVs18Safety": -2, "label": "较强机会", "judgment": "可以提前2个月，前提是实际买入IRR不降。"},
+    {"months": 18, "migrationMonth": 94, "nominalMonth": 126, "safetyMonth": 154, "delayVs18Safety": 0, "label": "政策基准", "judgment": "条件部署的计划基准，不是18个月到期强制满仓。"},
+    {"months": 24, "migrationMonth": 96, "nominalMonth": 128, "safetyMonth": 156, "delayVs18Safety": 2, "label": "可接受延后", "judgment": "安全线约晚2个月；买价明显不合格时可接受。"},
+    {"months": 36, "migrationMonth": 100, "nominalMonth": 132, "safetyMonth": 159, "delayVs18Safety": 5, "label": "黄色预警", "judgment": "不能只继续等原九只；必须扩展A类候选池或审计合格外部管理人。"},
+    {"months": 60, "migrationMonth": 107, "nominalMonth": 139, "safetyMonth": 167, "delayVs18Safety": 13, "label": "路径停滞", "judgment": "等待五年使安全线晚13个月；说明候选池、估值更新或外部管理方案失效。"},
+    {"months": 120, "migrationMonth": 126, "nominalMonth": 158, "safetyMonth": 186, "delayVs18Safety": 32, "label": "无限等价", "judgment": "等待十年使安全线晚32个月，与“最快”目标冲突，明确否决。"}
+  ],
+  "protocol": [
+    {
+      "month": 0,
+      "stockWeightRange": "19.5%—25%",
+      "action": "执行已通过的A类P10观察仓；B类仍要P12及特有闸门。",
+      "forbidden": "不因现金多而把A类观察仓一次性买到正常上限。"
+    },
+    {
+      "month": 3,
+      "stockWeightRange": "25%—35%",
+      "action": "若低于25%，先检查执行卡是否因未下单而失效；再用最新财报重算美的、宁德时代、迈瑞医疗等A类候选的P10—P17。",
+      "forbidden": "不直接把旧买点上调到现价。"
+    },
+    {
+      "month": 6,
+      "stockWeightRange": "35%—50%",
+      "action": "对所有A类用每股正常化盈利/FCF更新买点；仅当内在价值增长时上调价格线。",
+      "forbidden": "不因股价涨了、时间过了就降低目标IRR。"
+    },
+    {
+      "month": 12,
+      "stockWeightRange": "55%—75%",
+      "action": "若低于55%，启动第二候选池和私募尽调；外部管理人只在扣费后承保回报、回撤、持仓透明度和流动性通过时获得10%—20%条件额度。",
+      "forbidden": "不用私募历史年化直接替代未来承保回报。"
+    },
+    {
+      "month": 18,
+      "stockWeightRange": "70%—90%",
+      "action": "若低于70%，如实延后达标日期，全面重审候选池和买点计算；资金仍做高流动性低信用风险现金管理。",
+      "forbidden": "不为完成表格而强制买到90%。"
+    }
+  ],
+  "valuationRatchet": {
+    "rule": "新买点=旧买点×(新正常化每股价值/旧正常化每股价值)；只对已披露、可持续的每股价值增长调整。",
+    "caps": "A类单次报告更新上调不超过10%；B类原则上只在年报或完整中报后调整。",
+    "invalid": "股价上涨、卖方目标价上调、一次性利润和估值扩张都不能触发买点上调。"
+  },
+  "cashManagement": "未部署资金只做高流动性、低信用风险、不阻碍股票买入的现金管理；利息不计入股息100万元验收。"
+}

@@ -656,9 +656,10 @@ function bootstrapPayload() {
     'docs-index': 'docsIndex',
     'portfolio-evolution': 'portfolioEvolution',
     'goal-ledger': 'goalLedger',
-    'portfolio-efficiency': 'portfolioEfficiency'
+    'portfolio-efficiency': 'portfolioEfficiency',
+    'cash-deployment': 'cashDeployment'
   };
-  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution', 'goal-ledger', 'portfolio-efficiency']) {
+  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution', 'goal-ledger', 'portfolio-efficiency', 'cash-deployment']) {
     const p = path.join(DATA_DIR, `${name}.json`);
     if (fs.existsSync(p)) payload[keyMap[name] || name] = readJson(p);
   }

@@ -141,6 +141,7 @@ function renderGoals() {
   const acceleration = dm.dividendAcceleration;
   const tracking = dm.goalPathTracking;
   const efficiency = state.data.portfolioEfficiency;
+  const cashDeployment = state.data.cashDeployment;
   const acceleratedPath = acceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
   const companyBasePath = acceleration?.paths?.find(s => s.id === 'twoStage');
   const hardTargetSummary = (dm.hardTargetStocks || []).length
@@ -288,6 +289,31 @@ function renderGoals() {
     </table>
     <div class="honest" style="margin-top:12px"><b>决策：</b>${esc(efficiency.decision)}</div>
     <div class="note"><b>条件分流闸门：</b><ul>${efficiency.conditionalGates.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
+  </div>` : ''}
+
+  ${cashDeployment ? `<div class="card">
+    <h2>现金拖累与防停滞协议 <span class="tag">不追价 · 不无限等价</span></h2>
+    <div class="card-sub">“时间到了”只触发扩展候选池、重算内在价值和外部管理人尽调，不能单独触发买入。价格、基本面和目标IRR仍必须同时通过。</div>
+    <div class="stat-row" style="margin-top:12px">
+      <div class="stat"><div class="s-label">待部署现金</div><div class="s-value">${fmtWan(cashDeployment.currentCash)}</div></div>
+      <div class="stat"><div class="s-label">超出永久机会现金</div><div class="s-value red">${fmtWan(cashDeployment.excessWaitingCash)}</div></div>
+      <div class="stat"><div class="s-label">当前承保组合年化</div><div class="s-value">${fmtPct(cashDeployment.currentUnderwrittenPortfolioReturn, 2)}</div></div>
+      <div class="stat"><div class="s-label">目标承保年化</div><div class="s-value blue">${fmtPct(cashDeployment.targetUnderwrittenPortfolioReturn, 2)}</div></div>
+      <div class="stat"><div class="s-label">当前年化拖累</div><div class="s-value red">${fmtPct(cashDeployment.currentAnnualDrag, 2)}</div></div>
+      <div class="stat"><div class="s-label">模型年机会成本</div><div class="s-value red">${fmtWan(cashDeployment.annualOpportunityCostCny)}</div></div>
+    </div>
+    <table style="margin-top:12px">
+      <thead><tr><th>部署速度</th><th>定位</th><th class="num">开始迁移</th><th class="num">名义100万</th><th class="num">安全120万</th><th class="num">较18个月安全线</th><th>判断</th></tr></thead>
+      <tbody>${cashDeployment.deploymentScenarios.map(s => `<tr class="${s.months === 18 ? 'best-row' : ''}">
+        <td><b>${s.months}个月</b></td><td>${esc(s.label)}</td><td class="num">${fmtMonths(s.migrationMonth)}</td><td class="num">${fmtMonths(s.nominalMonth)}</td><td class="num">${fmtMonths(s.safetyMonth)}</td>
+        <td class="num ${s.delayVs18Safety > 0 ? 'red' : s.delayVs18Safety < 0 ? 'green' : ''}">${s.delayVs18Safety > 0 ? '+' : ''}${s.delayVs18Safety}个月</td><td>${esc(s.judgment)}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    <div class="grid-3" style="margin-top:12px">${cashDeployment.protocol.map(p => `<div class="mini-card">
+      <div class="kicker">第${p.month}个月 · 仓位${esc(p.stockWeightRange)}</div><p>${esc(p.action)}</p><div class="note"><b>禁止：</b>${esc(p.forbidden)}</div>
+    </div>`).join('')}</div>
+    <div class="honest" style="margin-top:12px"><b>买点只能随内在价值调整：</b>${esc(cashDeployment.valuationRatchet.rule)} ${esc(cashDeployment.valuationRatchet.caps)}<br><b>无效理由：</b>${esc(cashDeployment.valuationRatchet.invalid)}</div>
+    <div class="note"><b>等待资金：</b>${esc(cashDeployment.cashManagement)}</div>
   </div>` : ''}
 
   ${tracking ? `<div class="card">
