@@ -107,6 +107,14 @@ main { max-width: 1200px; margin: 24px auto 60px; padding: 0 20px; }
 
 .honest { background: var(--accent-soft); border-left: 4px solid var(--accent); padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 14px; }
 .honest b { color: var(--accent); }
+.mini-card { border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: #fafbfd; }
+.mini-card .kicker { color: var(--blue); font-size: 12px; font-weight: 700; letter-spacing: .04em; }
+.mini-card h3 { font-size: 14px; line-height: 1.45; margin: 4px 0 10px; }
+.mini-card p { color: var(--ink-2); font-size: 12.5px; margin-top: 8px; }
+.metric-line { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; font-size: 12.5px; color: var(--ink-2); }
+.metric-line b { color: var(--ink); }
+.best-row td { background: var(--green-soft); }
+.best-row:hover td { background: #e4f3eb; }
 
 /* ===== 表格 ===== */
 table { width: 100%; border-collapse: collapse; font-size: 13.5px; }

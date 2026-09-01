@@ -135,6 +135,8 @@ function renderGoals() {
   const baseTen = dm.tenYearMultiple;
   const runway = dm.dividendRunway;
   const baseRunway = runway?.scenarios?.find(s => s.id === 'base');
+  const acceleration = dm.dividendAcceleration;
+  const acceleratedPath = acceleration?.paths?.find(s => s.id === 'twoStage');
   const hardTargetSummary = (dm.hardTargetStocks || []).length
     ? `当前只有${dm.hardTargetStocks.map(s => `${s.name}（${s.grade}类、基准十年${fmtPct(s.baseIrr, 1)}、硬上限${s.hardLimit == null ? '待定' : fmtPct(s.hardLimit, 0)}）`).join('、')}在基准十年模型越过17.46%；其仓位和确定性不足以支撑整个组合。`
     : '当前没有可执行标的在基准十年模型达到17.46%，不能靠重新分配现有股票解决。';
@@ -225,6 +227,40 @@ function renderGoals() {
     </table>
     ${baseRunway ? `<div class="note">基准资产里程碑：${baseRunway.milestones.map(m => `${fmtWan(m.value)}约${esc(m.duration)}（${esc(m.date)}）`).join('；')}。迁移前提未满足时，不能把账面资产机械乘以4.19%视为已获得股息。</div>` : ''}
     <div class="honest" style="margin-top:10px"><b>正确目标：</b>100万元只是名义线；真正“稳”应以120万元普通股息安全线验收。${esc(runway.note || '')}</div>
+  </div>` : ''}
+
+  ${acceleration ? `<div class="card">
+    <h2>最稳最快路径 <span class="tag">先复利 · 后迁移 · 120万元才验收</span></h2>
+    <div class="card-sub">不是把股息率拉到最高，而是在积累期提高可验证的总回报，资产达到迁移门槛后再逐步换成分散的普通股息。所有日期随实际回报和买价动态变化。</div>
+    ${acceleratedPath ? `<div class="stat-row" style="margin-top:12px">
+      <div class="stat"><div class="s-label">推荐名义线</div><div class="s-value green">${esc(acceleratedPath.nominal.duration)}</div></div>
+      <div class="stat"><div class="s-label">预计月份</div><div class="s-value">${esc(acceleratedPath.nominal.date)}</div></div>
+      <div class="stat"><div class="s-label">推荐安全线</div><div class="s-value blue">${esc(acceleratedPath.safety.duration)}</div></div>
+      <div class="stat"><div class="s-label">安全线月份</div><div class="s-value">${esc(acceleratedPath.safety.date)}</div></div>
+      <div class="stat"><div class="s-label">开始迁移</div><div class="s-value">${esc(acceleratedPath.migrationStartDate)}</div></div>
+      <div class="stat"><div class="s-label">相对旧路径节省</div><div class="s-value">${acceleration.saving ? `${acceleration.saving.nominalMonths}/${acceleration.saving.safetyMonths}个月` : '—'}</div></div>
+    </div>` : ''}
+    <table style="margin-top:12px">
+      <thead><tr><th>路径</th><th class="num">部署</th><th class="num">积累/终态年化</th><th class="num">终态税后率</th><th class="num">名义100万</th><th class="num">安全120万</th><th>判断</th></tr></thead>
+      <tbody>${acceleration.paths.map(p => `<tr class="${p.id === 'twoStage' ? 'best-row' : ''}">
+        <td><b>${esc(p.label)}</b></td>
+        <td class="num">${p.deploymentMonths || '—'}个月</td>
+        <td class="num">${p.accumulationReturn != null ? `${fmtPct(p.accumulationReturn, 2)} → ` : ''}${fmtPct(p.terminalReturn, 2)}</td>
+        <td class="num">${fmtPct(p.terminalYield, 2)}</td>
+        <td class="num">${esc(p.nominal?.duration || '—')}<div style="font-size:11px;color:var(--ink-3)">${esc(p.nominal?.date || '')}</div></td>
+        <td class="num">${esc(p.safety?.duration || '—')}<div style="font-size:11px;color:var(--ink-3)">${esc(p.safety?.date || '')}</div></td>
+        <td>${esc(p.confidence || '')}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    <div class="grid-3" style="margin-top:12px">${acceleration.phasePortfolios.map(p => `<div class="mini-card">
+      <div class="kicker">${esc(p.name)}</div>
+      <h3>${esc(p.objective)}</h3>
+      <div class="metric-line"><span>目标回报</span><b>${fmtPct(p.targetReturn, 2)}</b></div>
+      <div class="metric-line"><span>目标税后率</span><b>${fmtPct(p.targetYield, 2)}</b></div>
+      <p>${esc(p.allocation)}</p><div class="note">${esc(p.gate)}</div>
+    </div>`).join('')}</div>
+    <div class="note"><b>执行纪律：</b><ul>${acceleration.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
+    <div class="honest" style="margin-top:10px"><b>关键限制：</b>${esc(acceleration.note || '')}</div>
   </div>` : ''}
 
   <div class="grid-2">

@@ -90,7 +90,7 @@
       "symbol": "600519.SH",
       "weight": 0.25,
       "targetValue": 2500000,
-      "role": "最高确定性品牌现金流核心",
+      "role": "积累期最高确定性品牌现金流核心",
       "pendingInvest": 2500000,
       "baseAnnualReturn": 0.099,
       "qualityGrade": "A"
@@ -128,51 +128,51 @@
     {
       "name": "宇通客车",
       "symbol": "600066.SH",
-      "weight": 0.07,
-      "targetValue": 700000,
+      "weight": 0.1,
+      "targetValue": 1000000,
       "role": "全球客车龙头与中高股息仓",
-      "pendingInvest": 700000,
+      "pendingInvest": 1000000,
       "baseAnnualReturn": 0.112,
       "qualityGrade": "A"
     },
     {
       "name": "泡泡玛特",
       "symbol": "9992.HK",
-      "weight": 0.05,
-      "targetValue": 500000,
+      "weight": 0.06,
+      "targetValue": 600000,
       "role": "高赔率成长卫星仓；海外效率与IP常青性未验证",
-      "pendingInvest": 44227.14,
+      "pendingInvest": 144227.14,
       "baseAnnualReturn": 0.109,
       "qualityGrade": "B"
     },
     {
       "name": "安踏体育",
       "symbol": "2020.HK",
-      "weight": 0.05,
-      "targetValue": 500000,
+      "weight": 0.08,
+      "targetValue": 800000,
       "role": "多品牌消费成长",
-      "pendingInvest": 387618.71,
+      "pendingInvest": 687618.71,
       "baseAnnualReturn": 0.138,
       "qualityGrade": "B"
     },
     {
-      "name": "中国移动",
-      "symbol": "0941.HK",
-      "weight": 0.08,
-      "targetValue": 800000,
-      "role": "稳定现金流与高股息仓；只选H股，现价不买",
-      "pendingInvest": 800000,
-      "baseAnnualReturn": 0.064,
+      "name": "康臣药业",
+      "symbol": "1681.HK",
+      "weight": 0.03,
+      "targetValue": 300000,
+      "role": "B类稳定增长型医疗股息仓；产品和治理闸门限制仓位",
+      "pendingInvest": 300000,
+      "baseAnnualReturn": 0.186,
       "qualityGrade": "B"
     },
     {
-      "name": "长江电力",
-      "symbol": "600900.SH",
-      "weight": 0.05,
-      "targetValue": 500000,
-      "role": "公用事业稳定器；好公司但28元现价回报不足",
-      "pendingInvest": 500000,
-      "baseAnnualReturn": 0.06,
+      "name": "小商品城",
+      "symbol": "600415.SH",
+      "weight": 0.03,
+      "targetValue": 300000,
+      "role": "B类贸易网络与股息增长仓；H股摊薄约束仓位",
+      "pendingInvest": 300000,
+      "baseAnnualReturn": 0.1269,
       "qualityGrade": "B"
     }
   ],
@@ -187,11 +187,12 @@
     "postInitialTrade": 88900,
     "postTriggeredCandidate": 95530,
     "postPrimaryQueue": 107688,
-    "targetPortfolio": 334190,
+    "targetPortfolio": 315510,
     "targetAnnual": 1000000,
-    "terminalYield": 0.0419,
-    "assetsNeeded": 23866348,
-    "note": "当前与首轮后为正常化估算；目标组合按达到首档买点时的列示税后股息率机械乘算，现金利息不计入股息。终态4.19%依赖第7—10年迁移成功，不是当前组合现价收益率。"
+    "terminalYield": 0.044504,
+    "assetsNeeded": 22469890,
+    "safetyAssetsNeeded": 26963868,
+    "note": "当前与首轮后为正常化估算；315,510元是积累期组合在预设买点的机械股息，不是终态。终态4.45%依赖资产达到1800万元后完成分散迁移，不是当前组合现价收益率；现金利息不计入普通股息。"
   },
   "executionPlan": {
     "asOf": "2026-08-31",
@@ -237,18 +238,19 @@
     ]
   },
   "deploymentClock": {
-    "asOf": "2026-08-31",
+    "asOf": "2026-09-01",
     "rows": [
       { "stage": "当前", "stockWeight": 0.1951, "cashWeight": 0.8049, "action": "等待首轮限价单" },
       { "stage": "首轮完成", "stockWeight": 0.2424, "cashWeight": 0.7576, "action": "腾讯、福耀、宇通建起步仓，万华继续保留" },
-      { "stage": "3个月", "stockWeight": 0.292, "cashWeight": 0.708, "action": "只在价格和财报闸门同时满足时追加约47.5万元" },
-      { "stage": "6个月", "stockWeightRange": "35%—40%", "cashWeightRange": "60%—65%", "action": "完成第一轮核心仓布局" },
-      { "stage": "12个月", "stockWeightRange": "45%—55%", "cashWeightRange": "45%—55%", "action": "用年报校准，不为赶进度追价" },
-      { "stage": "24个月", "stockWeightRange": "70%—90%", "cashWeightRange": "10%—30%", "action": "目标90%股票＋10%机会现金；未达买点允许低于90%" }
+      { "stage": "3个月", "stockWeightRange": "29%—35%", "cashWeightRange": "65%—71%", "action": "完成已触发首档；B类只建观察仓" },
+      { "stage": "6个月", "stockWeightRange": "40%—50%", "cashWeightRange": "50%—60%", "action": "P10只起步，P12正常建仓" },
+      { "stage": "12个月", "stockWeightRange": "60%—70%", "cashWeightRange": "30%—40%", "action": "新增权益资金加权十年IRR维持11.31%以上" },
+      { "stage": "18个月", "stockWeightRange": "70%—90%", "cashWeightRange": "10%—30%", "action": "条件满足时达到90%股票；未达买点不追价" },
+      { "stage": "24个月复核", "stockWeightRange": "70%—90%", "cashWeightRange": "10%—30%", "action": "若仍低于70%，重算正常化盈利和机会成本，不机械放宽买价" }
     ],
     "currentCashDragReturn": 0.037001,
     "currentCashDragYearsTo25m": 25.219,
-    "note": "部署时钟是防长期空仓的纪律，不是无条件满仓倒计时。"
+    "note": "18个月是两阶段模型的条件目标，不是无条件满仓倒计时；只有价格与基本面闸门同时满足才计入部署。"
   },
   "deploymentQueue": {
     "asOf": "2026-08-31 17:21",
@@ -694,7 +696,7 @@
       },
       {
         "name": "宇通客车",
-        "targetValue": 700000,
+        "targetValue": 1000000,
         "dps": "正常化股息率口径",
         "afterTaxYield": 0.0587
       },
@@ -706,31 +708,31 @@
       },
       {
         "name": "泡泡玛特",
-        "targetValue": 500000,
+        "targetValue": 600000,
         "dps": "正常化25%分红率口径",
         "afterTaxYield": 0.014
       },
       {
         "name": "安踏体育",
-        "targetValue": 500000,
+        "targetValue": 800000,
         "dps": "2.45港元",
         "afterTaxYield": 0.027
       },
       {
-        "name": "中国移动",
-        "targetValue": 800000,
-        "dps": "2025年5.27港元；首档68港元、港股通20%税后口径",
-        "afterTaxYield": 0.062
+        "name": "康臣药业",
+        "targetValue": 300000,
+        "dps": "2025末期+2026中期合计0.78港元；港股通20%税后口径",
+        "afterTaxYield": 0.0442
       },
       {
-        "name": "长江电力",
-        "targetValue": 500000,
-        "dps": "2025年1.00元；首档23元、A股长期持有口径",
-        "afterTaxYield": 0.0435
+        "name": "小商品城",
+        "targetValue": 300000,
+        "dps": "2025年分红率65.2%的正常化口径",
+        "afterTaxYield": 0.041
       }
     ],
-    "missingNote": "中国移动与长江电力已完成完整两步法；列示收益率是首档买入价口径，不是2026-08-31现价收益率。",
-    "sourceYieldBasis": "中国移动两步投资分析-20260831.md、长江电力两步投资分析-20260831.md；列示税后率乘目标市值得约33.42万元。"
+    "missingNote": "这是积累期组合；中国移动、长江电力和格力暂不进入积累期目标权重，只保留为资产达到1800万元后的迁移候选。",
+    "sourceYieldBasis": "各公司两步法报告的正常化税后率乘积累期目标市值得约31.55万元；终态4.45%见最稳最快股息路径双阶段优化-20260901.md。"
   },
   "manualCalibrations": {
     "catl": 345,

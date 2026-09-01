@@ -238,6 +238,161 @@ function buildDividendRunway(payload, portfolioReturn) {
   return { ...common, scenarios, note: spec.note };
 }
 
+function simulateDividendAcceleration({
+  principal,
+  startDate,
+  startStockWeight,
+  targetStockWeight,
+  cashReturn,
+  accumulationReturn,
+  accumulationYield,
+  deploymentMonths,
+  migrationStartAssets,
+  migrationMonths,
+  terminalReturn,
+  terminalYield,
+  nominalDividend,
+  safetyDividend
+}) {
+  const values = [principal, startStockWeight, targetStockWeight, cashReturn, accumulationReturn,
+    accumulationYield, deploymentMonths, migrationStartAssets, migrationMonths, terminalReturn,
+    terminalYield, nominalDividend, safetyDividend];
+  if (!values.every(Number.isFinite) || principal <= 0 || targetStockWeight <= 0
+      || deploymentMonths < 1 || migrationMonths < 1 || terminalYield <= 0) return null;
+  const equityReturn = (accumulationReturn - (1 - targetStockWeight) * cashReturn) / targetStockWeight;
+  const equityYield = accumulationYield / targetStockWeight;
+  let assets = principal;
+  let migrationStartMonth = null;
+  let nominal = null;
+  let safety = null;
+  for (let month = 1; month <= 480; month += 1) {
+    const deploymentProgress = Math.min(1, month / deploymentMonths);
+    const stockWeight = startStockWeight + (targetStockWeight - startStockWeight) * deploymentProgress;
+    let annualReturn = stockWeight * equityReturn + (1 - stockWeight) * cashReturn;
+    let annualYield = stockWeight * equityYield;
+    let phase = month <= deploymentMonths ? 'deploy' : 'accumulate';
+    if (migrationStartMonth == null && month > deploymentMonths && assets >= migrationStartAssets) {
+      migrationStartMonth = month;
+    }
+    if (migrationStartMonth != null) {
+      const migrationProgress = Math.min(1, (month - migrationStartMonth + 1) / migrationMonths);
+      annualReturn = accumulationReturn + (terminalReturn - accumulationReturn) * migrationProgress;
+      annualYield = accumulationYield + (terminalYield - accumulationYield) * migrationProgress;
+      phase = migrationProgress >= 1 ? 'income' : 'migrate';
+    }
+    assets *= Math.pow(1 + annualReturn, 1 / 12);
+    const annualDividend = assets * annualYield;
+    if (!nominal && annualDividend >= nominalDividend) nominal = { months: month, assets, annualDividend, annualYield, phase };
+    if (!safety && annualDividend >= safetyDividend) {
+      safety = { months: month, assets, annualDividend, annualYield, phase };
+      break;
+    }
+  }
+  const decorate = row => row ? {
+    ...row,
+    duration: monthLabel(row.months),
+    date: addMonths(startDate, row.months)
+  } : null;
+  return {
+    accumulationReturn,
+    accumulationYield,
+    deploymentMonths,
+    migrationStartAssets,
+    migrationMonths,
+    migrationStartMonth,
+    migrationStartDate: addMonths(startDate, migrationStartMonth),
+    terminalReturn,
+    terminalYield,
+    nominal: decorate(nominal),
+    safety: decorate(safety)
+  };
+}
+
+function simulateIncomeFirst({
+  principal,
+  startDate,
+  startStockWeight,
+  targetStockWeight,
+  cashReturn,
+  deploymentMonths,
+  terminalReturn,
+  terminalYield,
+  nominalDividend,
+  safetyDividend
+}) {
+  const equityReturn = (terminalReturn - (1 - targetStockWeight) * cashReturn) / targetStockWeight;
+  const equityYield = terminalYield / targetStockWeight;
+  let assets = principal;
+  let nominal = null;
+  let safety = null;
+  for (let month = 1; month <= 480; month += 1) {
+    const progress = Math.min(1, month / deploymentMonths);
+    const stockWeight = startStockWeight + (targetStockWeight - startStockWeight) * progress;
+    const annualReturn = stockWeight * equityReturn + (1 - stockWeight) * cashReturn;
+    const annualYield = stockWeight * equityYield;
+    assets *= Math.pow(1 + annualReturn, 1 / 12);
+    const annualDividend = assets * annualYield;
+    if (!nominal && annualDividend >= nominalDividend) nominal = { months: month, assets, annualDividend, annualYield, phase: 'income' };
+    if (!safety && annualDividend >= safetyDividend) {
+      safety = { months: month, assets, annualDividend, annualYield, phase: 'income' };
+      break;
+    }
+  }
+  const decorate = row => row ? { ...row, duration: monthLabel(row.months), date: addMonths(startDate, row.months) } : null;
+  return { deploymentMonths, terminalReturn, terminalYield, nominal: decorate(nominal), safety: decorate(safety) };
+}
+
+function buildDividendAcceleration(payload, dividendRunway) {
+  const spec = payload.goals?.dividendAcceleration;
+  const pf = payload.portfolio;
+  if (!spec || !pf) return null;
+  const principal = Number(pf.totalAssets);
+  const startStockWeight = Number(pf.stockMarketValue) / principal;
+  const targetStockWeight = 1 - (Number(pf.opportunityCash?.weight) || 0.1);
+  const cashReturn = Number(pf.opportunityCash?.baseAnnualReturn) || 0.015;
+  const common = {
+    principal,
+    startDate: spec.startDate,
+    startStockWeight,
+    targetStockWeight,
+    cashReturn,
+    nominalDividend: Number(spec.nominalDividend) || 1000000,
+    safetyDividend: Number(spec.safetyDividend) || 1200000
+  };
+  const twoStage = simulateDividendAcceleration({ ...common, ...spec.twoStage });
+  const incomeFirst = simulateIncomeFirst({ ...common, ...spec.incomeFirst });
+  const current = dividendRunway?.scenarios?.find(row => row.id === 'base');
+  const paths = [
+    incomeFirst && { id: 'incomeFirst', label: '现在转高股息', confidence: '不推荐作为最快路径', ...incomeFirst },
+    current && {
+      id: 'currentHybrid',
+      label: '当前混合路径',
+      confidence: '旧基准',
+      deploymentMonths: current.deploymentMonths,
+      terminalReturn: current.targetPortfolioReturn,
+      terminalYield: current.terminalYield,
+      nominal: { months: current.nominalMonths, duration: current.nominalDuration, date: current.nominalDate, assets: current.nominalAssets },
+      safety: { months: current.safetyMonths, duration: current.safetyDuration, date: current.safetyDate, assets: current.safetyAssets }
+    },
+    twoStage && { id: 'twoStage', label: '先复利后迁移', confidence: '推荐规划基准', ...twoStage }
+  ].filter(Boolean);
+  const saving = current && twoStage ? {
+    nominalMonths: current.nominalMonths - twoStage.nominal.months,
+    safetyMonths: current.safetyMonths - twoStage.safety.months
+  } : null;
+  return {
+    startDate: spec.startDate,
+    principal,
+    startStockWeight,
+    targetStockWeight,
+    paths,
+    saving,
+    phasePortfolios: spec.phasePortfolios || [],
+    rules: spec.rules || [],
+    note: spec.note
+  };
+}
+
 function buildDecisionMetrics(payload) {
   const pf = payload.portfolio;
   const stocksByName = new Map(payload.stocks.map(s => [s.name, s]));
@@ -302,6 +457,7 @@ function buildDecisionMetrics(payload) {
   const postTriggeredDividend = Number(pf.currentDividendBaseline?.postTriggeredCandidate);
   const postPrimaryQueueDividend = Number(pf.currentDividendBaseline?.postPrimaryQueue);
   const dividendRunway = buildDividendRunway(payload, normalizedWeightedReturn);
+  const dividendAcceleration = buildDividendAcceleration(payload, dividendRunway);
   const alerts = [];
   if (normalizedWeightedReturn != null && normalizedWeightedReturn < required10) {
     alerts.push({ severity: 'red', title: '10年5倍存在结构性缺口', detail: `目标组合按报告基准IRR加权仅 ${(normalizedWeightedReturn * 100).toFixed(2)}%，低于所需 ${(required10 * 100).toFixed(2)}% ${(required10 - normalizedWeightedReturn > 0 ? '约' + ((required10 - normalizedWeightedReturn) * 100).toFixed(2) + '个百分点' : '')}。` });
@@ -321,6 +477,8 @@ function buildDecisionMetrics(payload) {
   if (pf.deploymentQueue?.threeMonthGap > 0) alerts.push({ severity: 'amber', title: '三个月部署队列已覆盖缺口，但仍依赖价格触发', detail: `首轮后至29.2%股票仓位还需约 ${(pf.deploymentQueue.threeMonthGap / 10000).toFixed(1)}万元；主队列条件金额约 ${(pf.deploymentQueue.primaryPotential / 10000).toFixed(1)}万元，覆盖 ${(pf.deploymentQueue.coverageRatio * 100).toFixed(0)}%，未触发前仍是现金。` });
   const baseRunway = dividendRunway?.scenarios?.find(s => s.id === 'base');
   if (baseRunway) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `计入24个月部署拖累后，基准情景约${baseRunway.nominalDuration}达到名义100万元，但约${baseRunway.safetyDuration}才达到120万元安全线；后者用于承受约15%的组合股息削减。` });
+  const accelerated = dividendAcceleration?.paths?.find(s => s.id === 'twoStage');
+  if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `先复利后迁移模型约${accelerated.nominal.duration}达到名义线、约${accelerated.safety.duration}达到安全线；前提是积累期组合年化${(accelerated.accumulationReturn * 100).toFixed(1)}%、迁移后税后率${(accelerated.terminalYield * 100).toFixed(2)}%均真实兑现。` });
   if ((payload.portfolioEvolution?.unresolved || []).length) alerts.push({ severity: 'amber', title: '存在未统一的执行口径', detail: `仍有 ${payload.portfolioEvolution.unresolved.length} 项待确认；冲突未消除前，不应按旧价格表自动下单。` });
   if (reserveRequiredReturn != null && reserveRequiredReturn > 0.25) alerts.push({ severity: 'red', title: '仅靠预留机会仓无法填平目标缺口', detail: `按报告硬上限收缩后需预留 ${(reserveWeight * 100).toFixed(0)}%，但该预留仓需年化约 ${(reserveRequiredReturn * 100).toFixed(1)}% 才能把整体推到17.46%；这不是可接受的基准假设。` });
   return {
@@ -348,6 +506,7 @@ function buildDecisionMetrics(payload) {
     postPrimaryQueueDividend: Number.isFinite(postPrimaryQueueDividend) ? postPrimaryQueueDividend : null,
     dividendGap: Math.max(0, 1000000 - targetDividend),
     dividendRunway,
+    dividendAcceleration,
     alerts
   };
 }
