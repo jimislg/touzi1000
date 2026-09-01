@@ -133,6 +133,8 @@ function renderGoals() {
   const baseReturn = dm.weightedReturn;
   const baseFive = dm.fiveYearMultiple;
   const baseTen = dm.tenYearMultiple;
+  const runway = dm.dividendRunway;
+  const baseRunway = runway?.scenarios?.find(s => s.id === 'base');
   const hardTargetSummary = (dm.hardTargetStocks || []).length
     ? `当前只有${dm.hardTargetStocks.map(s => `${s.name}（${s.grade}类、基准十年${fmtPct(s.baseIrr, 1)}、硬上限${s.hardLimit == null ? '待定' : fmtPct(s.hardLimit, 0)}）`).join('、')}在基准十年模型越过17.46%；其仓位和确定性不足以支撑整个组合。`
     : '当前没有可执行标的在基准十年模型达到17.46%，不能靠重新分配现有股票解决。';
@@ -197,6 +199,33 @@ function renderGoals() {
       <div class="stat"><div class="s-label">乐观10年终值</div><div class="s-value blue">${fmtWan(pf.totalAssets * g.portfolioReturnScenarios.optimistic.tenYearMultiple)}</div></div>
     </div>
   </div>
+
+  ${runway ? `<div class="card">
+    <h2>年股息100万元达标时钟 <span class="tag">计入现金部署拖累 · 名义线与安全线分开</span></h2>
+    <div class="card-sub">从当前${fmtPct(runway.startStockWeight, 2)}股票仓位出发；部署期按月线性提高到${fmtPct(runway.targetStockWeight, 0)}，现金按${fmtPct(runway.cashReturn, 1)}年化。结果是模型路径，不是收益承诺。</div>
+    ${baseRunway ? `<div class="stat-row" style="margin-top:12px">
+      <div class="stat"><div class="s-label">纪律基准名义线</div><div class="s-value green">${esc(baseRunway.nominalDuration)}</div></div>
+      <div class="stat"><div class="s-label">预计月份</div><div class="s-value">${esc(baseRunway.nominalDate)}</div></div>
+      <div class="stat"><div class="s-label">所需资产</div><div class="s-value">${fmtWan(baseRunway.nominalAssets)}</div></div>
+      <div class="stat"><div class="s-label">纪律基准安全线</div><div class="s-value blue">${esc(baseRunway.safetyDuration)}</div></div>
+      <div class="stat"><div class="s-label">安全线预计月份</div><div class="s-value">${esc(baseRunway.safetyDate)}</div></div>
+      <div class="stat"><div class="s-label">安全资产</div><div class="s-value">${fmtWan(baseRunway.safetyAssets)}</div></div>
+    </div>` : ''}
+    <table style="margin-top:12px">
+      <thead><tr><th>路径</th><th class="num">部署完成</th><th class="num">组合年化</th><th class="num">终态税后率</th><th class="num">名义100万</th><th class="num">安全120万</th><th>可信度</th></tr></thead>
+      <tbody>${runway.scenarios.map(s => `<tr>
+        <td><b>${esc(s.label)}</b><div style="font-size:11px;color:var(--ink-3)">${esc(s.note || '')}</div></td>
+        <td class="num">${s.deploymentMonths}个月</td>
+        <td class="num">${fmtPct(s.targetPortfolioReturn, 2)}</td>
+        <td class="num">${fmtPct(s.terminalYield, 2)}</td>
+        <td class="num">${esc(s.nominalDuration)}<div style="font-size:11px;color:var(--ink-3)">${esc(s.nominalDate)}</div></td>
+        <td class="num">${esc(s.safetyDuration)}<div style="font-size:11px;color:var(--ink-3)">${esc(s.safetyDate)}</div></td>
+        <td>${esc(s.confidence || '')}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    ${baseRunway ? `<div class="note">基准资产里程碑：${baseRunway.milestones.map(m => `${fmtWan(m.value)}约${esc(m.duration)}（${esc(m.date)}）`).join('；')}。迁移前提未满足时，不能把账面资产机械乘以4.19%视为已获得股息。</div>` : ''}
+    <div class="honest" style="margin-top:10px"><b>正确目标：</b>100万元只是名义线；真正“稳”应以120万元普通股息安全线验收。${esc(runway.note || '')}</div>
+  </div>` : ''}
 
   <div class="grid-2">
     <div class="card">
@@ -961,7 +990,15 @@ async function reload() {
   const q = state.quotes;
   state.quotes = { time: q.time, map: {} }; // 行情缓存与数据无关，但重渲染前先清空避免错配
   await refreshQuotes(true);
-  $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 两步法分析更新至2026-08-31 · 组合与执行方案更新至2026-08-31 · 目标90%股票＋10%机会现金 · 共 ${state.data.stocks.length} 只股票 / ${state.data.docsIndex.total} 篇文档`;
+  const latestAnalysisDate = state.data.stocks.reduce(
+    (latest, stock) => stock.analysisDate > latest ? stock.analysisDate : latest,
+    ''
+  ) || '—';
+  const latestPlanDate = (state.data.portfolioEvolution.timeline || []).reduce(
+    (latest, event) => event.date > latest ? event.date : latest,
+    state.data.goals.asOf || ''
+  ) || '—';
+  $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 两步法分析更新至 ${latestAnalysisDate} · 组合与执行方案更新至 ${latestPlanDate} · 目标90%股票＋10%机会现金 · 共 ${state.data.stocks.length} 只股票 / ${state.data.docsIndex.total} 篇文档`;
   $('#footerInfo').textContent = `投资分析中心 · ${state.data.stocks.length} 只股票研究库 · 数据生成于 ${new Date(state.data.generatedAt).toLocaleString('zh-CN')}`;
 }
 async function boot() {
