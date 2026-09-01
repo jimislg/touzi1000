@@ -15,6 +15,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const fmtWan = v => v == null ? '—' : `${(v / 10000).toLocaleString('zh-CN', { maximumFractionDigits: 1 })}万`;
 const fmtPct = (v, d = 1) => v == null ? '—' : `${(v * 100).toFixed(d)}%`;
 const fmtNum = (v, d = 2) => v == null ? '—' : Number(v).toLocaleString('zh-CN', { maximumFractionDigits: d, minimumFractionDigits: d });
+const fmtMonths = v => v == null ? '—' : `${Math.floor(v / 12)}年${v % 12 ? `${v % 12}个月` : ''}`;
 
 function irrClass(v) { if (v == null) return ''; if (v >= 0.15) return 'high'; if (v >= 0.10) return 'mid'; return 'low'; }
 function badgeGrade(g) { return `<span class="badge grade-${esc(g) || 'X'}">${esc(g) || '—'}类</span>`; }
@@ -139,6 +140,7 @@ function renderGoals() {
   const baseRunway = runway?.scenarios?.find(s => s.id === 'base');
   const acceleration = dm.dividendAcceleration;
   const tracking = dm.goalPathTracking;
+  const efficiency = state.data.portfolioEfficiency;
   const acceleratedPath = acceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
   const companyBasePath = acceleration?.paths?.find(s => s.id === 'twoStage');
   const hardTargetSummary = (dm.hardTargetStocks || []).length
@@ -266,6 +268,26 @@ function renderGoals() {
     </div>`).join('')}</div>
     <div class="note"><b>执行纪律：</b><ul>${acceleration.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
     <div class="honest" style="margin-top:10px"><b>关键限制：</b>${esc(acceleration.note || '')}</div>
+  </div>` : ''}
+
+  ${efficiency ? `<div class="card">
+    <h2>稳健组合前沿 <span class="tag">数学最大值 ≠ 政策最优</span></h2>
+    <div class="card-sub">${esc(efficiency.objective)}。本表只改变B类30%的内部分配；茅台25%、腾讯15%、福耀10%、宇通10%和现金10%保持不变。</div>
+    <table style="margin-top:12px">
+      <thead><tr><th>方案</th><th>B类内部分配</th><th class="num">承保年化</th><th class="num">全悲观年化</th><th class="num">正常化股息率</th><th class="num">名义100万</th><th class="num">安全120万</th><th>判断</th></tr></thead>
+      <tbody>${efficiency.strategies.map(s => `<tr class="${s.recommended ? 'best-row' : ''}">
+        <td><b>${esc(s.label)}</b>${s.recommended ? '<div class="chip" style="margin-top:4px;background:var(--green-soft);color:var(--green)">政策基准</div>' : ''}</td>
+        <td>${Object.entries(s.weights).map(([name, weight]) => `${esc(name.replace('体育','').replace('药业','').replace('玛特',''))}${fmtPct(weight, 0)}`).join(' · ')}</td>
+        <td class="num">${fmtPct(s.underwritingReturn, 2)}</td>
+        <td class="num">${fmtPct(s.pessimisticReturn, 2)}</td>
+        <td class="num">${fmtPct(s.normalizedDividendYield, 2)}</td>
+        <td class="num">${fmtMonths(s.nominalMonth)}</td>
+        <td class="num">${fmtMonths(s.safetyMonth)}</td>
+        <td>${esc(s.judgment)}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    <div class="honest" style="margin-top:12px"><b>决策：</b>${esc(efficiency.decision)}</div>
+    <div class="note"><b>条件分流闸门：</b><ul>${efficiency.conditionalGates.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
   </div>` : ''}
 
   ${tracking ? `<div class="card">

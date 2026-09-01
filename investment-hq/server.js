@@ -652,8 +652,13 @@ function bootstrapPayload() {
   const order = { A: 0, B: 1, C: 2, D: 3 };
   stocks.sort((a, b) => (order[a.grade] ?? 9) - (order[b.grade] ?? 9) || (b.analysisDate || '').localeCompare(a.analysisDate || ''));
   const payload = { generatedAt: new Date().toISOString() };
-  const keyMap = { 'docs-index': 'docsIndex', 'portfolio-evolution': 'portfolioEvolution', 'goal-ledger': 'goalLedger' };
-  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution', 'goal-ledger']) {
+  const keyMap = {
+    'docs-index': 'docsIndex',
+    'portfolio-evolution': 'portfolioEvolution',
+    'goal-ledger': 'goalLedger',
+    'portfolio-efficiency': 'portfolioEfficiency'
+  };
+  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution', 'goal-ledger', 'portfolio-efficiency']) {
     const p = path.join(DATA_DIR, `${name}.json`);
     if (fs.existsSync(p)) payload[keyMap[name] || name] = readJson(p);
   }

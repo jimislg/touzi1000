@@ -1,0 +1,75 @@
+{
+  "asOf": "2026-09-01",
+  "objective": "在90%股票+10%机会现金、公司硬上限、A类核心60%和B类不超过30%下，同时检查承保回报、全悲观回报和正常化股息。",
+  "fixedCore": [
+    {"name": "贵州茅台", "weight": 0.25},
+    {"name": "腾讯控股", "weight": 0.15},
+    {"name": "福耀玻璃", "weight": 0.10},
+    {"name": "宇通客车", "weight": 0.10},
+    {"name": "机会现金", "weight": 0.10}
+  ],
+  "strategies": [
+    {
+      "id": "current",
+      "label": "当前质量分散方案",
+      "recommended": true,
+      "weights": {"招商银行": 0.10, "安踏体育": 0.08, "泡泡玛特": 0.06, "康臣药业": 0.03, "小商品城": 0.03},
+      "companyBaseReturn": 0.103067,
+      "underwritingReturn": 0.0844421,
+      "pessimisticReturn": 0.014816,
+      "normalizedDividendYield": 0.031551,
+      "migrationMonth": 94,
+      "nominalMonth": 126,
+      "safetyMonth": 154,
+      "judgment": "大型成熟B类占主体，小市值/单品/治理风险受限；作为政策基准保留。"
+    },
+    {
+      "id": "balanced",
+      "label": "有条件平衡方案",
+      "recommended": false,
+      "weights": {"招商银行": 0.10, "安踏体育": 0.08, "泡泡玛特": 0.04, "康臣药业": 0.04, "小商品城": 0.04},
+      "companyBaseReturn": 0.104016,
+      "underwritingReturn": 0.0857893,
+      "pessimisticReturn": 0.016868,
+      "normalizedDividendYield": 0.032123,
+      "migrationMonth": 93,
+      "nominalMonth": 125,
+      "safetyMonth": 152,
+      "judgment": "只在康臣与小商品城的特有闸门验证后作为条件备选；安全线仅提前2个月。"
+    },
+    {
+      "id": "returnSensitive",
+      "label": "回报敏感方案",
+      "recommended": false,
+      "weights": {"招商银行": 0.10, "安踏体育": 0.08, "泡泡玛特": 0.02, "康臣药业": 0.05, "小商品城": 0.05},
+      "companyBaseReturn": 0.104965,
+      "underwritingReturn": 0.0871365,
+      "pessimisticReturn": 0.01892,
+      "normalizedDividendYield": 0.032695,
+      "migrationMonth": 91,
+      "nominalMonth": 123,
+      "safetyMonth": 151,
+      "judgment": "康臣和小商品城合计10%，对中成药单品、国企资本配置和H股摊薄的模型误差过于敏感；不作基准。"
+    },
+    {
+      "id": "modelMaximum",
+      "label": "报告硬上限数学最大值",
+      "recommended": false,
+      "weights": {"招商银行": 0.08, "安踏体育": 0.08, "泡泡玛特": 0.00, "康臣药业": 0.08, "小商品城": 0.06},
+      "companyBaseReturn": 0.107514,
+      "underwritingReturn": 0.0898017,
+      "pessimisticReturn": 0.021712,
+      "normalizedDividendYield": 0.033135,
+      "migrationMonth": 89,
+      "nominalMonth": 120,
+      "safetyMonth": 148,
+      "judgment": "虽然模型上所有指标都更高，但康臣和小商品城被推到硬上限，公司模型误差成为组合主风险；明确否决。"
+    }
+  ],
+  "decision": "不为最多6个月的模型提前，把14%资产压在康臣与小商品城的硬上限。当前质量分散方案继续作为政策基准；只在特有闸门充分验证时，才允许把泡泡未买的2%条件额度各分配1%给康臣和小商品城，不卖出现有泡泡持仓。",
+  "conditionalGates": [
+    "泡泡玛特：现有持仓保留；大于145港元不新增，140港元以下且海外同店、库存和FCF闸门为绿时再补。",
+    "康臣药业：14港元以下只允许1.5%首仓；到3%前必须检查产品、医保、现金流和跨界资本配置，到4%需再有一个完整报告期验证。",
+    "小商品城：11.0—11.5元且核心市场利润、预收商位费和H股条款三项通过时建2%；到4%前需消除H股摊薄不确定性。"
+  ]
+}
