@@ -176,7 +176,15 @@ function buildDecisionMetrics(payload) {
   const normalizedWeightedReturn = coveredWeight > 0 ? weightedReturn / coveredWeight : null;
   const required5 = Math.pow(2, 1 / 5) - 1;
   const required10 = Math.pow(5, 1 / 10) - 1;
-  const maxBaseIrr = Math.max(...payload.stocks.map(s => Number(s?.scenarios?.base?.irr10y)).filter(Number.isFinite));
+  const executableStocks = payload.stocks.filter(s => s.grade === 'A' || s.grade === 'B');
+  const executableIrrs = executableStocks.map(s => Number(s?.scenarios?.base?.irr10y)).filter(Number.isFinite);
+  const maxBaseIrr = executableIrrs.length ? Math.max(...executableIrrs) : null;
+  const hardTargetStocks = executableStocks.filter(s => Number(s?.scenarios?.base?.irr10y) >= required10).map(s => ({
+    name: s.name,
+    grade: s.grade,
+    baseIrr: Number(s.scenarios.base.irr10y),
+    hardLimit: firstPercent(s?.position?.hard)
+  }));
   const compliantRows = targetRows.map(r => ({
     ...r,
     recommendedWeight: Math.min(r.weight, r.effectiveHardLimit),
@@ -197,14 +205,25 @@ function buildDecisionMetrics(payload) {
       return sum + (held && Number.isFinite(d.afterTaxYield) ? held.marketValue * d.afterTaxYield : 0);
     }, 0);
   const postInitialDividend = Number(pf.currentDividendBaseline?.postInitialTrade);
+  const postTriggeredDividend = Number(pf.currentDividendBaseline?.postTriggeredCandidate);
+  const postPrimaryQueueDividend = Number(pf.currentDividendBaseline?.postPrimaryQueue);
   const alerts = [];
   if (normalizedWeightedReturn != null && normalizedWeightedReturn < required10) {
     alerts.push({ severity: 'red', title: '10年5倍存在结构性缺口', detail: `目标组合按报告基准IRR加权仅 ${(normalizedWeightedReturn * 100).toFixed(2)}%，低于所需 ${(required10 * 100).toFixed(2)}% ${(required10 - normalizedWeightedReturn > 0 ? '约' + ((required10 - normalizedWeightedReturn) * 100).toFixed(2) + '个百分点' : '')}。` });
   }
-  if (maxBaseIrr < required5) alerts.push({ severity: 'red', title: '当前没有一只标的在报告时点满足硬目标', detail: `股票池最高基准IRR为 ${(maxBaseIrr * 100).toFixed(1)}%，仍低于5年翻倍所需 ${(required5 * 100).toFixed(2)}%；不能靠重新分配旧价格下的仓位解决。` });
+  if (!hardTargetStocks.length) {
+    alerts.push({ severity: 'red', title: '当前没有可执行标的满足10年5倍硬目标', detail: `A/B类股票最高基准十年IRR为 ${maxBaseIrr == null ? '无法计算' : (maxBaseIrr * 100).toFixed(1) + '%'}，低于所需 ${(required10 * 100).toFixed(2)}%；不能靠重新分配旧价格下的仓位解决。` });
+  } else {
+    const hardCapacity = hardTargetStocks.reduce((s, x) => s + (x.hardLimit || 0), 0);
+    const names = hardTargetStocks.map(x => `${x.name}${(x.baseIrr * 100).toFixed(1)}%（${x.grade}类，上限${x.hardLimit == null ? '待定' : (x.hardLimit * 100).toFixed(0) + '%'}）`).join('、');
+    if (!hardTargetStocks.some(x => x.grade === 'A') || hardCapacity < 0.2) {
+      alerts.push({ severity: 'amber', title: '有个别标的达到硬目标，但不足以支撑整个组合', detail: `${names}。高IRR来自基准假设且可承载仓位有限，不能据此把组合目标标记为可实现。` });
+    }
+  }
   targetRows.filter(r => r.limitBreach).forEach(r => alerts.push({ severity: 'red', title: `${r.name}目标仓位越过报告硬上限`, detail: `目标 ${(r.weight * 100).toFixed(0)}%，报告硬上限 ${(r.effectiveHardLimit * 100).toFixed(0)}%；超额部分只能是待批准条件仓，不能视为默认配置。` }));
   if ((pf.cash || 0) / (pf.totalAssets || 1) > 0.7) alerts.push({ severity: 'amber', title: '现金占比高，存在长期踏空风险', detail: `待部署现金约 ${((pf.cash || 0) / 10000).toFixed(1)}万元；应靠P12/P15/P17与基本面闸门分批投入，不靠主观等最低价。` });
   if (pf.executionPlan?.status?.includes('待执行')) alerts.push({ severity: 'amber', title: '首次建仓尚未执行', detail: `计划净使用现金约 ${(pf.executionPlan.expectedNetCashUse / 10000).toFixed(1)}万元；执行后股票仓约 ${(pf.executionPlan.postStockWeight * 100).toFixed(1)}%。执行以最新部署卡为准，万华当前暂不卖出。` });
+  if (pf.deploymentQueue?.threeMonthGap > 0) alerts.push({ severity: 'amber', title: '三个月部署队列已覆盖缺口，但仍依赖价格触发', detail: `首轮后至29.2%股票仓位还需约 ${(pf.deploymentQueue.threeMonthGap / 10000).toFixed(1)}万元；主队列条件金额约 ${(pf.deploymentQueue.primaryPotential / 10000).toFixed(1)}万元，覆盖 ${(pf.deploymentQueue.coverageRatio * 100).toFixed(0)}%，未触发前仍是现金。` });
   if ((payload.portfolioEvolution?.unresolved || []).length) alerts.push({ severity: 'amber', title: '存在未统一的执行口径', detail: `仍有 ${payload.portfolioEvolution.unresolved.length} 项待确认；冲突未消除前，不应按旧价格表自动下单。` });
   if (reserveRequiredReturn != null && reserveRequiredReturn > 0.25) alerts.push({ severity: 'red', title: '仅靠预留机会仓无法填平目标缺口', detail: `按报告硬上限收缩后需预留 ${(reserveWeight * 100).toFixed(0)}%，但该预留仓需年化约 ${(reserveRequiredReturn * 100).toFixed(1)}% 才能把整体推到17.46%；这不是可接受的基准假设。` });
   return {
@@ -219,6 +238,7 @@ function buildDecisionMetrics(payload) {
     fiveYearMultiple: normalizedWeightedReturn == null ? null : Math.pow(1 + normalizedWeightedReturn, 5),
     tenYearMultiple: normalizedWeightedReturn == null ? null : Math.pow(1 + normalizedWeightedReturn, 10),
     maxBaseIrr,
+    hardTargetStocks,
     targetRows,
     compliantRows,
     compliantWeight,
@@ -227,6 +247,8 @@ function buildDecisionMetrics(payload) {
     targetDividend,
     currentDividend,
     postInitialDividend: Number.isFinite(postInitialDividend) ? postInitialDividend : null,
+    postTriggeredDividend: Number.isFinite(postTriggeredDividend) ? postTriggeredDividend : null,
+    postPrimaryQueueDividend: Number.isFinite(postPrimaryQueueDividend) ? postPrimaryQueueDividend : null,
     dividendGap: Math.max(0, 1000000 - targetDividend),
     alerts
   };

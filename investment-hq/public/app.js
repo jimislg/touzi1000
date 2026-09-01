@@ -133,6 +133,9 @@ function renderGoals() {
   const baseReturn = dm.weightedReturn;
   const baseFive = dm.fiveYearMultiple;
   const baseTen = dm.tenYearMultiple;
+  const hardTargetSummary = (dm.hardTargetStocks || []).length
+    ? `当前只有${dm.hardTargetStocks.map(s => `${s.name}（${s.grade}类、基准十年${fmtPct(s.baseIrr, 1)}、硬上限${s.hardLimit == null ? '待定' : fmtPct(s.hardLimit, 0)}）`).join('、')}在基准十年模型越过17.46%；其仓位和确定性不足以支撑整个组合。`
+    : '当前没有可执行标的在基准十年模型达到17.46%，不能靠重新分配现有股票解决。';
   const alertClass = severity => severity === 'red' ? 'risk-red' : severity === 'amber' ? 'risk-amber' : 'risk-green';
 
   el.innerHTML = `
@@ -145,6 +148,7 @@ function renderGoals() {
       <div class="stat"><div class="s-label">10年年化缺口</div><div class="s-value red">${fmtPct(dm.required10 - baseReturn, 2)}</div></div>
       <div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
       <div class="stat"><div class="s-label">首轮交易后年税后股息</div><div class="s-value blue">${fmtWan(dm.postInitialDividend)}</div></div>
+      <div class="stat"><div class="s-label">首轮＋已触发康臣</div><div class="s-value blue">${fmtWan(dm.postTriggeredDividend)}</div></div>
       <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(dm.targetDividend)}+</div></div>
     </div>
     <div class="goal-bridge">
@@ -152,7 +156,7 @@ function renderGoals() {
       <span><b>全部按P15买入</b>15.00% → 10年4.05倍</span>
       <span><b>全部按P17.46买入</b>17.46% → 10年5.00倍</span>
     </div>
-    <div class="honest" style="margin-top:12px"><b>核心判断：</b>当前组合质量可以，但当前报告价格下没有任何一只股票达到5年翻倍所需的14.87%基准回报。目标仓位是“最终上限”，不是现在必须买满的指令；硬目标只能靠更低买价、盈利超预期或新增真正高回报标的实现。</div>
+    <div class="honest" style="margin-top:12px"><b>核心判断：</b>${esc(hardTargetSummary)}目标仓位是“最终上限”，不是现在必须买满的指令；硬目标只能靠更低买价、盈利兑现和持续发现高质量高回报机会实现。</div>
   </div>
 
   <div class="section-title">系统预警</div>
@@ -214,6 +218,8 @@ function renderGoals() {
       <div class="stat-row" style="margin-bottom:14px">
         <div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
         <div class="stat"><div class="s-label">首轮交易后</div><div class="s-value blue">${fmtWan(dm.postInitialDividend)}</div></div>
+        <div class="stat"><div class="s-label">首轮＋康臣首档</div><div class="s-value blue">${fmtWan(dm.postTriggeredDividend)}</div></div>
+        <div class="stat"><div class="s-label">主队列全触发</div><div class="s-value blue">${fmtWan(dm.postPrimaryQueueDividend)}</div></div>
         <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(totalDiv)}+</div></div>
         <div class="stat"><div class="s-label">目标</div><div class="s-value">100万/年</div></div>
         <div class="stat"><div class="s-label">满仓后缺口</div><div class="s-value red">${fmtWan(dm.dividendGap)}</div></div>
@@ -389,6 +395,19 @@ function renderPortfolio() {
     <td class="num">${r.cashWeight != null ? fmtPct(r.cashWeight, 1) : esc(r.cashWeightRange)}</td>
     <td>${esc(r.action)}</td>
   </tr>`).join('');
+  const deploymentQueueRows = (pf.deploymentQueue?.rows || []).map(r => {
+    const q = liveQuote(r.name);
+    const triggerRange = String(r.trigger || '').trim().startsWith('≤') ? tierRange(r.trigger) : null;
+    const liveTriggered = q && triggerRange && q.price >= triggerRange.min && q.price <= triggerRange.max && r.status !== '等待财报';
+    const effectiveStatus = liveTriggered ? '已触发' : r.status;
+    const statusClass = effectiveStatus === '已触发' ? 'pass' : (effectiveStatus === '等待财报' ? 'no' : 'doubt');
+    return `<tr>
+      <td><b>${esc(r.priority)}</b></td><td><b>${esc(r.name)}</b></td>
+      <td class="num">${q ? fmtNum(q.price) : '—'}</td><td class="num"><b>${esc(r.trigger)}</b></td>
+      <td class="num">${fmtWan(r.amount)}</td><td class="num">${r.postWeight != null ? fmtPct(r.postWeight, 2) : '替代项'}</td>
+      <td><span class="badge ${statusClass}">${esc(effectiveStatus)}</span></td><td>${esc(r.gate)}</td>
+    </tr>`;
+  }).join('');
 
   el.innerHTML = `
   <div class="card">
@@ -418,6 +437,16 @@ function renderPortfolio() {
       <table><thead><tr><th>阶段</th><th class="num">股票</th><th class="num">现金</th><th>动作</th></tr></thead><tbody>${deploymentRows}</tbody></table>
       <div class="note">${esc(pf.deploymentClock?.note || '')}</div>
     </div>
+  </div>
+
+  <div class="card">
+    <h2>首轮后的三个月部署队列 <span class="tag">缺口${fmtWan(pf.deploymentQueue?.threeMonthGap)} · 主队列覆盖${fmtPct(pf.deploymentQueue?.coverageRatio, 1)}</span></h2>
+    <div class="card-sub">目标是在不降低公司质量和回报门槛的前提下，把首轮后24.24%的股票仓位推进到约29.2%；这不是按日期强制买入。</div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>优先级</th><th>公司</th><th class="num">最新价</th><th class="num">触发条件</th><th class="num">拟投入</th><th class="num">触发后仓位</th><th>状态</th><th>基本面闸门</th></tr></thead>
+      <tbody>${deploymentQueueRows}</tbody>
+    </table></div>
+    <div class="note">${esc(pf.deploymentQueue?.note || '')}</div>
   </div>
 
   <div class="card">
@@ -543,10 +572,14 @@ function priceBarHtml(s) {
 
 function executionAction(s, current, calibration) {
   if (!Number.isFinite(current)) return '先更新行情';
+  if (s.grade === 'C' || s.grade === 'D') return `质量未过执行门：${s.tradeStatus?.reason || '只观察，不买入'}`;
+  if (s.tradeStatus?.paused) return `暂停买入：${s.tradeStatus.reason || '等待基本面闸门解除'}`;
   if (Number.isFinite(calibration) && current <= calibration) return '已到人工校准点：先查财报与取消条件';
-  if (s.prices?.P17 != null && current <= s.prices.P17) return 'P17.46：可达目标仓上限';
-  if (s.prices?.P15 != null && current <= s.prices.P15) return 'P15：可建至目标仓60%';
-  if (s.prices?.P12 != null && current <= s.prices.P12) return 'P12：可首次建仓25%';
+  const specificTier = (s.executionTiers || []).slice().sort((a, b) => a.maxPrice - b.maxPrice).find(t => current <= Number(t.maxPrice));
+  if (specificTier) return specificTier.action;
+  if (s.prices?.P17 != null && current <= s.prices.P17) return '已到P17.46：按个股执行卡，不自动满仓';
+  if (s.prices?.P15 != null && current <= s.prices.P15) return '已到P15：按个股执行卡确定累计仓位';
+  if (s.prices?.P12 != null && current <= s.prices.P12) return '已到P12：可进入首仓复核，按个股执行卡';
   if (s.prices?.P10 != null && current <= s.prices.P10) return 'P10：只适合持有，不急于新增';
   return '未到系统买点，继续等待';
 }
@@ -663,6 +696,7 @@ function openStockModal(s) {
     <h2>${esc(s.name)} ${badgeGrade(s.grade)} <span class="chip">${esc(s.gradeLabel || '')}</span></h2>
     <div class="m-sub">${esc(s.symbol || '')} · ${esc(s.market || '')} · ${esc(s.companyType || '')} · 分析日期 ${esc(s.analysisDate)} · 现价 ${livePriceHtml(s.name, s.currentPrice, s.prices?.currency)}${s.priceNote ? '（' + esc(s.priceNote) + '）' : ''}</div>
     ${autoBanner}
+    ${s.tradeStatus?.paused ? `<div class="honest" style="margin:10px 0"><b>交易暂停：</b>${esc(s.tradeStatus.reason || '等待基本面闸门解除')}。价格到档也不构成买入指令。</div>` : ''}
     ${s.oneLiner ? `<p style="font-size:14px;margin:10px 0"><b>生意本质：</b>${esc(s.oneLiner)}</p>` : ''}
     ${s.stage1Conclusion ? `<div class="mirror" style="margin:10px 0">${esc(s.stage1Conclusion)}</div>` : ''}
 
