@@ -25,11 +25,40 @@ function send(res, code, body, type) {
   res.end(body);
 }
 const readJson = p => JSON.parse(fs.readFileSync(p, 'utf8'));
+const roundMoney = value => Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+function writeJsonAtomic(file, value) {
+  const tmp = `${file}.tmp`;
+  fs.writeFileSync(tmp, JSON.stringify(value, null, 2), 'utf8');
+  fs.renameSync(tmp, file);
+}
 function readBody(req) {
   return new Promise((resolve, reject) => {
     let d = ''; req.on('data', c => { d += c; if (d.length > 5e6) reject(new Error('body too large')); });
     req.on('end', () => { try { resolve(d ? JSON.parse(d) : {}); } catch (e) { reject(new Error('invalid json')); } });
   });
+}
+
+function knownSecurity(name, symbol, portfolio) {
+  const byHolding = (portfolio.holdings || []).find(row => row.name === name || (symbol && row.symbol === symbol));
+  if (byHolding) return { name: byHolding.name, symbol: byHolding.symbol, currency: byHolding.currency };
+  for (const file of fs.readdirSync(STOCKS_DIR).filter(f => f.endsWith('.json'))) {
+    const stock = readJson(path.join(STOCKS_DIR, file));
+    if (stock.name === name || (symbol && stock.symbol === symbol)) {
+      return { name: stock.name, symbol: stock.symbol, currency: String(stock.symbol || '').endsWith('.HK') ? 'HKD' : 'CNY' };
+    }
+  }
+  const target = (portfolio.targetPortfolio || []).find(row => row.name === name || (symbol && row.symbol === symbol));
+  return target ? { name: target.name, symbol: target.symbol, currency: String(target.symbol || '').endsWith('.HK') ? 'HKD' : 'CNY' } : null;
+}
+
+function refreshExecutionStatus(portfolio) {
+  const quantities = new Map((portfolio.holdings || []).map(row => [row.name, Number(row.quantity) || 0]));
+  const rows = portfolio.executionPlan?.rows || [];
+  rows.forEach(row => {
+    const finalQuantity = Number(row.expectedFinalQuantity);
+    row.recordStatus = Number.isFinite(finalQuantity) && (quantities.get(row.name) || 0) >= finalQuantity ? '已完成' : '待执行';
+  });
+  if (rows.length) portfolio.executionPlan.status = rows.every(row => row.recordStatus === '已完成') ? '已全部完成' : '待执行，未全部成交';
 }
 
 /* ============ 文档索引与自动解析 ============ */
@@ -730,6 +759,89 @@ const server = http.createServer(async (req, res) => {
       else pf.manualCalibrations[key] = value;
       fs.writeFileSync(PORTFOLIO_FILE, JSON.stringify(pf, null, 2), 'utf8');
       return send(res, 200, JSON.stringify({ ok: true, manualCalibrations: pf.manualCalibrations }));
+    }
+
+    if (pathname === '/api/trades' && req.method === 'POST') {
+      const body = await readBody(req);
+      const date = String(body.date || '').trim();
+      const side = String(body.side || '').trim();
+      const quantity = Number(body.quantity);
+      const price = Number(body.price);
+      const fee = Number(body.fee || 0);
+      const requestedFx = Number(body.fxRate);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('成交日期必须为 YYYY-MM-DD');
+      const shanghaiToday = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+      if (date > shanghaiToday) throw new Error('不能登记未来成交');
+      if (!['买入', '卖出'].includes(side)) throw new Error('买卖方向无效');
+      if (!Number.isInteger(quantity) || quantity <= 0) throw new Error('成交股数必须为正整数');
+      if (!Number.isFinite(price) || price <= 0 || price > 100000) throw new Error('成交价无效');
+      if (!Number.isFinite(fee) || fee < 0 || fee > 1000000) throw new Error('费用无效');
+
+      const pf = readJson(PORTFOLIO_FILE);
+      if (pf.snapshotDate && date < pf.snapshotDate) throw new Error(`成交日期不能早于当前持仓快照 ${pf.snapshotDate}`);
+      const security = knownSecurity(String(body.name || '').trim(), String(body.symbol || '').trim(), pf);
+      if (!security) throw new Error('只能登记持仓或研究库中的证券');
+      const currency = String(body.currency || security.currency || '').toUpperCase();
+      if (!['CNY', 'HKD'].includes(currency)) throw new Error('目前只支持 CNY 和 HKD');
+      if (currency !== security.currency) throw new Error(`${security.name}的交易币种应为 ${security.currency}`);
+      const fxRate = currency === 'CNY' ? 1 : requestedFx;
+      if (!Number.isFinite(fxRate) || fxRate <= 0 || fxRate > 2) throw new Error('港股必须填写有效的港元兑人民币结算汇率');
+
+      pf.tradeLedger = Array.isArray(pf.tradeLedger) ? pf.tradeLedger : [];
+      const duplicateKey = [date, side, security.symbol, quantity, price.toFixed(4), fee.toFixed(2)].join('|');
+      if (!body.confirmDuplicate && pf.tradeLedger.some(row => row.duplicateKey === duplicateKey)) {
+        throw new Error('发现相同成交记录，已拒绝重复入账');
+      }
+
+      const grossCny = roundMoney(quantity * price * fxRate);
+      const cashDelta = roundMoney(side === '买入' ? -(grossCny + fee) : grossCny - fee);
+      if ((Number(pf.cash) || 0) + cashDelta < -0.01) throw new Error('可用现金不足');
+      let holding = (pf.holdings || []).find(row => row.symbol === security.symbol || row.name === security.name);
+      const oldQuantity = Number(holding?.quantity) || 0;
+      if (side === '卖出' && quantity > oldQuantity) throw new Error(`卖出数量超过当前持有的 ${oldQuantity.toLocaleString()} 股`);
+
+      if (side === '买入') {
+        if (!holding) {
+          holding = { symbol: security.symbol, name: security.name, quantity: 0, costPrice: 0, currency, marketValue: 0, priceAtSnapshot: price, targetWeight: 0, role: '成交登记新增持仓' };
+          pf.holdings.push(holding);
+        }
+        const localFee = fee / fxRate;
+        holding.costPrice = roundMoney((oldQuantity * Number(holding.costPrice || 0) + quantity * price + localFee) / (oldQuantity + quantity));
+        holding.quantity = oldQuantity + quantity;
+      } else {
+        holding.quantity = oldQuantity - quantity;
+      }
+      holding.currency = currency;
+      holding.priceAtSnapshot = price;
+      holding.marketValue = roundMoney(holding.quantity * price * fxRate);
+      if (holding.quantity === 0) pf.holdings = pf.holdings.filter(row => row !== holding);
+
+      pf.cash = roundMoney((Number(pf.cash) || 0) + cashDelta);
+      pf.stockMarketValue = roundMoney((pf.holdings || []).reduce((sum, row) => sum + (Number(row.marketValue) || 0), 0));
+      pf.totalAssets = roundMoney(pf.cash + pf.stockMarketValue);
+      const configuredYield = Number((pf.dividends?.perStock || []).find(row => row.name === security.name)?.afterTaxYield);
+      const explicitDividendChange = body.annualDividendChange === '' || body.annualDividendChange == null ? null : Number(body.annualDividendChange);
+      if (explicitDividendChange != null && !Number.isFinite(explicitDividendChange)) throw new Error('股息变化数值无效');
+      const annualDividendChange = explicitDividendChange == null
+        ? (Number.isFinite(configuredYield) ? roundMoney(grossCny * configuredYield * (side === '买入' ? 1 : -1)) : 0)
+        : explicitDividendChange;
+      pf.currentDividendBaseline = pf.currentDividendBaseline || {};
+      pf.currentDividendBaseline.current = roundMoney(Math.max(0, (Number(pf.currentDividendBaseline.current) || 0) + annualDividendChange));
+      pf.snapshotDate = date;
+      pf.source = `持仓已经本地成交登记更新至 ${date}；未成交持仓的市值仍沿用上次快照`;
+      if (currency === 'HKD') pf.fxNote = `最近一笔港股成交按实际结算汇率 ${fxRate.toFixed(4)} 入账；其他港股市值仍按原快照折算`;
+      const trade = {
+        id: `${date.replaceAll('-', '')}-${String(pf.tradeLedger.length + 1).padStart(3, '0')}`,
+        date, side, name: security.name, symbol: security.symbol, currency, quantity,
+        price, fxRate, fee: roundMoney(fee), grossCny, cashDelta, annualDividendChange,
+        resultingQuantity: holding.quantity, resultingCash: pf.cash,
+        note: String(body.note || '').trim().slice(0, 240), duplicateKey,
+        recordedAt: new Date().toISOString()
+      };
+      pf.tradeLedger.push(trade);
+      refreshExecutionStatus(pf);
+      writeJsonAtomic(PORTFOLIO_FILE, pf);
+      return send(res, 200, JSON.stringify({ ok: true, trade, portfolio: pf }));
     }
 
     if (pathname === '/api/goal-snapshot' && req.method === 'POST') {

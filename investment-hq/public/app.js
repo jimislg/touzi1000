@@ -127,6 +127,76 @@ $('#modalClose').addEventListener('click', closeModal);
 $('#modalMask').addEventListener('click', e => { if (e.target === $('#modalMask')) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
+function openTradeModal(prefill = {}) {
+  const pf = state.data.portfolio;
+  const names = [...new Set([
+    ...(state.data.stocks || []).map(s => s.name),
+    ...(pf.holdings || []).map(h => h.name),
+    ...(pf.targetPortfolio || []).map(t => t.name)
+  ])].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+  const selected = prefill.name || names[0] || '';
+  const symbol = lookupSymbol(selected) || '';
+  const isHk = String(symbol).endsWith('.HK');
+  const quote = liveQuote(selected);
+  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Shanghai' });
+  openModal(`<h2>登记实际成交</h2>
+    <div class="m-sub">只更新本地投资驾驶舱，不会向券商下单。保存后将同步持股数、成本、现金、股息基线和首轮执行状态。</div>
+    <div class="grid-2" style="margin-top:16px">
+      <label>成交日期<input class="edit-input" id="tradeDate" type="date" value="${esc(prefill.date || today)}" style="width:100%"></label>
+      <label>方向<select class="edit-input" id="tradeSide" style="width:100%"><option${prefill.side !== '卖出' ? ' selected' : ''}>买入</option><option${prefill.side === '卖出' ? ' selected' : ''}>卖出</option></select></label>
+      <label>公司<select class="edit-input" id="tradeName" style="width:100%">${names.map(name => `<option${name === selected ? ' selected' : ''}>${esc(name)}</option>`).join('')}</select></label>
+      <label>成交股数<input class="edit-input" id="tradeQty" type="number" min="1" step="1" value="${esc(prefill.quantity || '')}" style="width:100%"></label>
+      <label>成交价（原币）<input class="edit-input" id="tradePrice" type="number" min="0.001" step="0.001" value="${esc(prefill.price || quote?.price || '')}" style="width:100%"></label>
+      <label>币种<select class="edit-input" id="tradeCurrency" style="width:100%"><option${!isHk ? ' selected' : ''}>CNY</option><option${isHk ? ' selected' : ''}>HKD</option></select></label>
+      <label>港元兑人民币结算汇率<input class="edit-input" id="tradeFx" type="number" min="0.01" max="2" step="0.0001" value="${isHk ? esc(prefill.fxRate || 0.8686) : '1'}" style="width:100%"></label>
+      <label>佣金及费用（人民币）<input class="edit-input" id="tradeFee" type="number" min="0" step="0.01" value="${esc(prefill.fee || 0)}" style="width:100%"></label>
+      <label style="grid-column:1/-1">该笔年化税后股息变化（可空）<input class="edit-input" id="tradeDividend" type="number" step="0.01" placeholder="留空则按系统正常化股息率估算" style="width:100%"></label>
+    </div>
+    <label style="display:block;margin-top:10px">成交理由/取消条件复核<textarea class="edit-input" id="tradeNote" style="width:100%;height:68px">${esc(prefill.note || '')}</textarea></label>
+    <div class="honest" id="tradeEstimate" style="margin-top:12px"></div>
+    <div style="display:flex;gap:8px;margin-top:14px"><button class="btn primary" id="saveTrade">确认登记</button><button class="btn" id="cancelTrade">取消</button></div>`);
+
+  const syncTradeForm = () => {
+    const name = $('#tradeName').value;
+    const sym = lookupSymbol(name) || '';
+    const hk = String(sym).endsWith('.HK');
+    $('#tradeCurrency').value = hk ? 'HKD' : 'CNY';
+    $('#tradeFx').value = hk ? ($('#tradeFx').value === '1' ? '0.8686' : $('#tradeFx').value) : '1';
+    const q = liveQuote(name);
+    if (q) $('#tradePrice').value = q.price;
+    updateEstimate();
+  };
+  const updateEstimate = () => {
+    const qty = Number($('#tradeQty').value), price = Number($('#tradePrice').value);
+    const fx = $('#tradeCurrency').value === 'CNY' ? 1 : Number($('#tradeFx').value);
+    const fee = Number($('#tradeFee').value || 0);
+    const gross = qty * price * fx;
+    const side = $('#tradeSide').value;
+    $('#tradeEstimate').innerHTML = `<b>本地记账预估：</b>${Number.isFinite(gross) ? `${side === '买入' ? '现金减少' : '现金增加'}约 ${fmtWan(side === '买入' ? gross + fee : gross - fee)}` : '请填写股数和价格'}。这是持仓记录，不是交易指令。`;
+  };
+  $('#tradeName').addEventListener('change', syncTradeForm);
+  ['tradeSide', 'tradeQty', 'tradePrice', 'tradeCurrency', 'tradeFx', 'tradeFee'].forEach(id => $(`#${id}`).addEventListener('input', updateEstimate));
+  $('#cancelTrade').addEventListener('click', closeModal);
+  updateEstimate();
+  $('#saveTrade').addEventListener('click', async () => {
+    const payload = {
+      date: $('#tradeDate').value, side: $('#tradeSide').value, name: $('#tradeName').value,
+      symbol: lookupSymbol($('#tradeName').value), quantity: Number($('#tradeQty').value), price: Number($('#tradePrice').value),
+      currency: $('#tradeCurrency').value, fxRate: Number($('#tradeFx').value), fee: Number($('#tradeFee').value || 0),
+      annualDividendChange: $('#tradeDividend').value, note: $('#tradeNote').value
+    };
+    const gross = payload.quantity * payload.price * (payload.currency === 'CNY' ? 1 : payload.fxRate);
+    if (!confirm(`确认登记：${payload.side}${payload.name} ${payload.quantity.toLocaleString()}股 @ ${payload.price}，折合约${fmtWan(gross)}？\n本操作只更新本地记录，不会向券商下单。`)) return;
+    const button = $('#saveTrade'); button.disabled = true; button.textContent = '保存中…';
+    try {
+      const res = await fetch('/api/trades', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || '登记失败');
+      closeModal(); await reload(); state.currentTab = 'portfolio'; renderTab('portfolio');
+    } catch (error) { alert('登记失败：' + error.message); button.disabled = false; button.textContent = '确认登记'; }
+  });
+}
+
 /* ================= 目标总览 ================= */
 function renderGoals() {
   const el = $('#tab-goals');
@@ -631,11 +701,23 @@ function renderPortfolio() {
   const unresolved = ev && ev.unresolved.length ? `
     <div class="card"><h2>待确认事项</h2><ul class="check-list" style="margin-top:8px">${ev.unresolved.map(u => `<li class="no">${esc(u)}</li>`).join('')}</ul></div>` : '';
 
-  const executionRows = (pf.executionPlan?.rows || []).map(r => `<tr>
-    <td><b>${esc(r.day)}</b></td><td><span class="badge ${r.side === '买入' ? 'pass' : 'doubt'}">${esc(r.side)}</span></td>
-    <td><b>${esc(r.name)}</b></td><td class="num">${Number(r.quantity).toLocaleString()}</td><td class="num">${esc(r.limit)}</td>
-    <td class="num">${fmtWan(r.estimatedCny)}</td><td>${esc(r.condition)}</td>
-  </tr>`).join('');
+  const holdingQuantity = name => Number((pf.holdings || []).find(row => row.name === name)?.quantity) || 0;
+  const executionRows = (pf.executionPlan?.rows || []).map(r => {
+    const q = liveQuote(r.name);
+    const range = tierRange(r.limit);
+    const finalQuantity = Number(r.expectedFinalQuantity);
+    const completed = Number.isFinite(finalQuantity) && holdingQuantity(r.name) >= finalQuantity;
+    const priceTriggered = q && range && q.price >= range.min && q.price <= range.max;
+    const status = completed ? '已完成' : (priceTriggered ? '到价待登记' : '未到价');
+    const statusClass = completed ? 'pass' : (priceTriggered ? 'doubt' : 'neutral');
+    return `<tr>
+      <td><b>${esc(r.day)}</b></td><td><span class="badge ${r.side === '买入' ? 'pass' : 'doubt'}">${esc(r.side)}</span></td>
+      <td><b>${esc(r.name)}</b><div style="font-size:11px;color:var(--ink-3)">现持有 ${holdingQuantity(r.name).toLocaleString()} / 完成 ${Number.isFinite(finalQuantity) ? finalQuantity.toLocaleString() : '—'}股</div></td>
+      <td class="num">${Number(r.quantity).toLocaleString()}</td><td class="num">${esc(r.limit)}${q ? `<div class="price-src">现价 ${fmtNum(q.price)}</div>` : ''}</td>
+      <td class="num">${fmtWan(r.estimatedCny)}</td><td><span class="badge ${statusClass}">${status}</span><div style="margin-top:4px">${esc(r.condition)}</div></td>
+      <td>${completed ? '—' : `<button class="btn trade-prefill" data-name="${esc(r.name)}" data-qty="${Number(r.quantity)}">登记成交</button>`}</td>
+    </tr>`;
+  }).join('');
   const deploymentRows = (pf.deploymentClock?.rows || []).map(r => `<tr>
     <td><b>${esc(r.stage)}</b></td>
     <td class="num">${r.stockWeight != null ? fmtPct(r.stockWeight, 1) : esc(r.stockWeightRange)}</td>
@@ -655,10 +737,16 @@ function renderPortfolio() {
       <td><span class="badge ${statusClass}">${esc(effectiveStatus)}</span></td><td>${esc(r.gate)}</td>
     </tr>`;
   }).join('');
+  const tradeLedgerRows = [...(pf.tradeLedger || [])].reverse().slice(0, 12).map(row => `<tr>
+    <td>${esc(row.date)}</td><td><span class="badge ${row.side === '买入' ? 'pass' : 'doubt'}">${esc(row.side)}</span></td>
+    <td><b>${esc(row.name)}</b></td><td class="num">${Number(row.quantity).toLocaleString()}</td><td class="num">${fmtNum(row.price)} ${esc(row.currency)}</td>
+    <td class="num">${fmtWan(row.grossCny)}</td><td class="num">${row.annualDividendChange >= 0 ? '+' : ''}${fmtNum(row.annualDividendChange, 0)}</td>
+    <td>${esc(row.note || '—')}</td>
+  </tr>`).join('');
 
   el.innerHTML = `
   <div class="card">
-    <h2>当前持仓 <span class="tag">券商截图 ${esc(pf.snapshotDate)} · 总资产${fmtWan(total)} · 最新价来自行情按钮</span></h2>
+    <h2>当前持仓 <span class="tag">${(pf.tradeLedger || []).length ? '成交账本更新' : '券商截图'} ${esc(pf.snapshotDate)} · 总资产${fmtWan(total)} · 最新价来自行情按钮</span></h2>
     <div class="card-sub">${esc(pf.source)} · ${esc(pf.fxNote)}</div>
     <div class="table-scroll"><table>
       <thead><tr><th>公司</th><th class="num">持股数</th><th class="num">成本价</th><th class="num">截图价</th><th class="num">最新价</th><th class="num">市值</th><th class="num">占总资产</th><th class="num">目标权重</th><th>角色</th></tr></thead>
@@ -668,22 +756,28 @@ function renderPortfolio() {
 
   <div class="grid-2">
     <div class="card">
-      <h2>首次建仓执行清单 <span class="tag">${esc(pf.executionPlan?.status || '')} · ${esc(pf.executionPlan?.tagline || '按最新执行卡分批')}</span></h2>
+      <h2>首次建仓执行清单 <span class="tag">${esc(pf.executionPlan?.status || '')} · ${esc(pf.executionPlan?.tagline || '按最新执行卡分批')}</span><button class="btn primary" id="recordTrade" style="float:right">＋ 登记实际成交</button></h2>
       <div class="table-scroll"><table>
-        <thead><tr><th>时点</th><th>方向</th><th>公司</th><th class="num">数量</th><th class="num">限价</th><th class="num">估算人民币</th><th>条件</th></tr></thead>
+        <thead><tr><th>时点</th><th>方向</th><th>公司</th><th class="num">数量</th><th class="num">限价</th><th class="num">估算人民币</th><th>状态与条件</th><th>记录</th></tr></thead>
         <tbody>${executionRows}</tbody>
       </table></div>
       <div class="stat-row" style="margin-top:12px">
-        <div class="stat"><div class="s-label">预计买入</div><div class="s-value">${fmtWan(pf.executionPlan?.expectedBuyTotal)}</div></div>
-        <div class="stat"><div class="s-label">净用现金</div><div class="s-value">${fmtWan(pf.executionPlan?.expectedNetCashUse)}</div></div>
-        <div class="stat"><div class="s-label">完成后股票仓位</div><div class="s-value blue">${fmtPct(pf.executionPlan?.postStockWeight, 2)}</div></div>
+        <div class="stat"><div class="s-label">原计划买入</div><div class="s-value">${fmtWan(pf.executionPlan?.expectedBuyTotal)}</div></div>
+        <div class="stat"><div class="s-label">原计划净用现金</div><div class="s-value">${fmtWan(pf.executionPlan?.expectedNetCashUse)}</div></div>
+        <div class="stat"><div class="s-label">全部完成后股票仓位</div><div class="s-value blue">${fmtPct(pf.executionPlan?.postStockWeight, 2)}</div></div>
       </div>
+      <div class="note">价格到档只代表可以复核；系统只在你登记真实成交后更新持仓，不再把“计划买入”当成“已经买入”。</div>
     </div>
     <div class="card">
       <h2>两年部署时钟 <span class="tag">防长期空仓，不是强制追价</span></h2>
       <table><thead><tr><th>阶段</th><th class="num">股票</th><th class="num">现金</th><th>动作</th></tr></thead><tbody>${deploymentRows}</tbody></table>
       <div class="note">${esc(pf.deploymentClock?.note || '')}</div>
     </div>
+  </div>
+
+  <div class="card">
+    <h2>实际成交账本 <span class="tag">${(pf.tradeLedger || []).length} 笔 · 本地记账不等于券商下单</span></h2>
+    ${tradeLedgerRows ? `<div class="table-scroll"><table><thead><tr><th>日期</th><th>方向</th><th>公司</th><th class="num">股数</th><th class="num">成交价</th><th class="num">折合人民币</th><th class="num">年股息变化</th><th>备注</th></tr></thead><tbody>${tradeLedgerRows}</tbody></table></div>` : `<div class="empty">尚未登记任何实际成交；持仓仍以${esc(pf.snapshotDate)}券商截图为准。</div>`}
   </div>
 
   <div class="card">
@@ -747,6 +841,18 @@ function renderPortfolio() {
       </div>
     </div>
   </div>`;
+
+  $('#recordTrade').addEventListener('click', () => openTradeModal());
+  $$('.trade-prefill', el).forEach(button => button.addEventListener('click', () => {
+    const name = button.dataset.name;
+    openTradeModal({
+      name,
+      side: '买入',
+      quantity: Number(button.dataset.qty),
+      price: liveQuote(name)?.price || '',
+      note: '执行前已复核公告、累计仓位和取消条件'
+    });
+  }));
 
   if (state.editing) {
     $('#cancelEdit').addEventListener('click', () => { state.editing = false; renderPortfolio(); });
