@@ -52,7 +52,8 @@ async function refreshQuotes(silent) {
   const syms = [...new Set([
     ...state.data.stocks.map(s => s.symbol).filter(Boolean),
     ...state.data.portfolio.holdings.map(h => h.symbol).filter(Boolean),
-    ...state.data.portfolio.targetPortfolio.map(t => lookupSymbol(t.name)).filter(Boolean)
+    ...state.data.portfolio.targetPortfolio.map(t => lookupSymbol(t.name)).filter(Boolean),
+    ...(state.data.incomeWarehouse?.candidates || []).map(c => c.symbol).filter(Boolean)
   ])].map(qtSym).filter(Boolean);
   try {
     const res = await fetch(`/api/quotes?symbols=${encodeURIComponent(syms.join(','))}`);
@@ -143,6 +144,20 @@ function renderGoals() {
   const efficiency = state.data.portfolioEfficiency;
   const cashDeployment = state.data.cashDeployment;
   const goalBottleneck = state.data.goalBottleneck;
+  const incomeWarehouse = state.data.incomeWarehouse;
+  const incomeWarehouseRows = (incomeWarehouse?.candidates || []).map(c => {
+    const q = liveQuote(c.symbol);
+    const current = Number(q?.price ?? c.currentPrice);
+    const taxYield = current > 0 ? Number(c.afterTaxDps) / current : null;
+    const yieldPass = Number.isFinite(taxYield) && taxYield >= Number(incomeWarehouse.gates.afterTaxYield);
+    const returnPass = Number.isFinite(current) && current <= Number(c.returnGatePrice);
+    const policyPass = Number.isFinite(current) && current <= Number(c.policyEntryPrice);
+    const coveragePass = c.coverageStatus === '通过' || c.coverageStatus === '金融口径通过';
+    const fundamentalPass = c.fundamentalStatus === '通过';
+    return { ...c, quote: q, current, taxYield, yieldPass, returnPass, policyPass, coveragePass, fundamentalPass,
+      eligible: yieldPass && returnPass && policyPass && coveragePass && fundamentalPass };
+  });
+  const liveWarehouseEligible = incomeWarehouseRows.filter(c => c.eligible);
   const acceleratedPath = acceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
   const companyBasePath = acceleration?.paths?.find(s => s.id === 'twoStage');
   const hardTargetSummary = (dm.hardTargetStocks || []).length
@@ -295,6 +310,29 @@ function renderGoals() {
     </div>`).join('')}</div>
     <div class="honest" style="margin-top:12px"><b>十年安全线尚未承保：</b>${esc(goalBottleneck.decision)}</div>
     <div class="note"><b>收息预备库：</b>${esc(goalBottleneck.incomeWarehouse.rule)}<br><b>禁止：</b>${esc(goalBottleneck.incomeWarehouse.forbidden)}</div>
+  </div>` : ''}
+
+  ${incomeWarehouse ? `<div class="card">
+    <h2>5.2%税后收息预备库 <span class="tag">实时价格触发 · 四闸门同时通过</span></h2>
+    <div class="card-sub">目标不是寻找最高股息，而是同时满足税后普通股息率${fmtPct(incomeWarehouse.gates.afterTaxYield, 1)}、承保回报${fmtPct(incomeWarehouse.gates.underwrittenReturn, 0)}、现金覆盖${incomeWarehouse.gates.cashCoverage.toFixed(1)}倍和公司特有基本面。行情刷新只改变价格闸门，不会自动把财务闸门改成通过。</div>
+    <div class="stat-row" style="margin-top:12px">
+      <div class="stat"><div class="s-label">预备库上限</div><div class="s-value">${fmtPct(incomeWarehouse.gates.maxWeight, 0)}</div></div>
+      <div class="stat"><div class="s-label">单只上限</div><div class="s-value">${fmtPct(incomeWarehouse.gates.singleNameMaxWeight, 0)}</div></div>
+      <div class="stat"><div class="s-label">实时全部通过</div><div class="s-value ${liveWarehouseEligible.length ? 'green' : 'red'}">${liveWarehouseEligible.length}只</div></div>
+      <div class="stat"><div class="s-label">当前批准仓位</div><div class="s-value">0%</div></div>
+    </div>
+    <table style="margin-top:12px">
+      <thead><tr><th>优先</th><th>公司</th><th class="num">最新价</th><th class="num">税后率</th><th class="num">执行价</th><th class="num">回报价</th><th>现金覆盖</th><th>基本面</th><th>实时闸门</th></tr></thead>
+      <tbody>${incomeWarehouseRows.map(c => `<tr class="${c.eligible ? 'best-row' : ''}">
+        <td>${c.priority}</td><td><b>${esc(c.name)}</b><div style="font-size:11px;color:var(--ink-3)">${esc(c.role)}</div></td>
+        <td class="num">${livePriceHtml(c.symbol, c.currentPrice, c.currency)}</td><td class="num ${c.yieldPass ? 'green' : 'red'}">${fmtPct(c.taxYield, 2)}</td>
+        <td class="num">≤${fmtNum(c.policyEntryPrice)}</td><td class="num">≤${fmtNum(c.returnGatePrice)}</td>
+        <td>${esc(c.coverageStatus)}</td><td>${esc(c.fundamentalStatus)}</td>
+        <td>${c.eligible ? '<span class="chip" style="background:var(--green-soft);color:var(--green)">四闸门通过</span>' : `<span class="chip">${[!c.yieldPass && '股息率', !c.returnPass && '回报', !c.policyPass && '执行价', !c.coveragePass && '覆盖', !c.fundamentalPass && '基本面'].filter(Boolean).join('＋')}未过</span>`}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    <div class="honest" style="margin-top:12px"><b>当前决策：</b>${esc(incomeWarehouse.summary.decision)}</div>
+    <div class="note"><b>最近优先观察：</b>${incomeWarehouseRows.slice(0, 4).map(c => `${esc(c.name)}：${esc(c.decision)}`).join('；')}</div>
   </div>` : ''}
 
   ${efficiency ? `<div class="card">

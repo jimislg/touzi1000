@@ -658,9 +658,10 @@ function bootstrapPayload() {
     'goal-ledger': 'goalLedger',
     'portfolio-efficiency': 'portfolioEfficiency',
     'cash-deployment': 'cashDeployment',
-    'goal-bottleneck': 'goalBottleneck'
+    'goal-bottleneck': 'goalBottleneck',
+    'income-warehouse': 'incomeWarehouse'
   };
-  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution', 'goal-ledger', 'portfolio-efficiency', 'cash-deployment', 'goal-bottleneck']) {
+  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution', 'goal-ledger', 'portfolio-efficiency', 'cash-deployment', 'goal-bottleneck', 'income-warehouse']) {
     const p = path.join(DATA_DIR, `${name}.json`);
     if (fs.existsSync(p)) payload[keyMap[name] || name] = readJson(p);
   }
