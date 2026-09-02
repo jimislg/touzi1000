@@ -1,0 +1,3 @@
+# 月度持仓原始截图/PDF只保存在本机，避免误推送账户隐私
+investment-hq/data/snapshots/*
+!investment-hq/data/snapshots/.gitkeep

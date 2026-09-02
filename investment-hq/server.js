@@ -13,11 +13,14 @@ const DOCS_DIR = path.join(DATA_DIR, 'docs');
 const STOCKS_DIR = path.join(DATA_DIR, 'stocks');
 const PORTFOLIO_FILE = path.join(DATA_DIR, 'portfolio.json');
 const GOAL_LEDGER_FILE = path.join(DATA_DIR, 'goal-ledger.json');
+const SNAPSHOT_DIR = path.join(DATA_DIR, 'snapshots');
+fs.mkdirSync(SNAPSHOT_DIR, { recursive: true });
 
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8',
-  '.md': 'text/plain; charset=utf-8', '.svg': 'image/svg+xml', '.ico': 'image/x-icon'
+  '.md': 'text/plain; charset=utf-8', '.svg': 'image/svg+xml', '.ico': 'image/x-icon',
+  '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.pdf': 'application/pdf'
 };
 
 function send(res, code, body, type) {
@@ -33,9 +36,76 @@ function writeJsonAtomic(file, value) {
 }
 function readBody(req) {
   return new Promise((resolve, reject) => {
-    let d = ''; req.on('data', c => { d += c; if (d.length > 5e6) reject(new Error('body too large')); });
+    let d = ''; req.on('data', c => { d += c; if (d.length > 12e6) reject(new Error('body too large')); });
     req.on('end', () => { try { resolve(d ? JSON.parse(d) : {}); } catch (e) { reject(new Error('invalid json')); } });
   });
+}
+
+function normalizeSnapshotHoldings(rows) {
+  if (!Array.isArray(rows)) return [];
+  return rows.map((row, index) => {
+    const name = String(row?.name || '').trim().slice(0, 30);
+    const symbol = String(row?.symbol || '').trim().slice(0, 30);
+    const quantity = row?.quantity === '' || row?.quantity == null ? null : Number(row.quantity);
+    const costPrice = row?.costPrice === '' || row?.costPrice == null ? null : Number(row.costPrice);
+    const currentPrice = row?.currentPrice === '' || row?.currentPrice == null ? null : Number(row.currentPrice);
+    const marketValue = Number(row?.marketValue);
+    const currency = String(row?.currency || (symbol.endsWith('.HK') ? 'HKD' : 'CNY')).toUpperCase();
+    if (!name) throw new Error(`第${index + 1}行缺少公司名称`);
+    if (!Number.isFinite(marketValue) || marketValue < 0) throw new Error(`${name}的市值无效`);
+    if (!Number.isFinite(quantity) || quantity < 0) throw new Error(`${name}的持股数无效`);
+    if (costPrice != null && (!Number.isFinite(costPrice) || costPrice < 0)) throw new Error(`${name}的成本价无效`);
+    if (currentPrice != null && (!Number.isFinite(currentPrice) || currentPrice < 0)) throw new Error(`${name}的现价无效`);
+    if (!['CNY', 'HKD'].includes(currency)) throw new Error(`${name}的币种仅支持CNY或HKD`);
+    return { name, symbol, quantity: Number.isFinite(quantity) ? quantity : null, costPrice, currentPrice, marketValue: roundMoney(marketValue), currency };
+  }).filter(row => row.marketValue > 0);
+}
+
+function snapshotStatistics(holdings, totalAssets, portfolio) {
+  const sorted = [...holdings].sort((a, b) => b.marketValue - a.marketValue);
+  const stockMarketValue = roundMoney(sorted.reduce((sum, row) => sum + row.marketValue, 0));
+  const weights = sorted.map(row => totalAssets > 0 ? row.marketValue / totalAssets : 0);
+  const formal = new Set(portfolio.concentrationPolicy?.formalNames || (portfolio.targetPortfolio || []).map(row => row.name));
+  const target = new Set((portfolio.targetPortfolio || []).map(row => row.name));
+  const yieldMap = new Map((portfolio.dividends?.perStock || []).map(row => [row.name, Number(row.afterTaxYield)]));
+  let estimatedDividend = 0;
+  const missingDividendNames = [];
+  sorted.forEach(row => {
+    const y = yieldMap.get(row.name);
+    if (Number.isFinite(y)) estimatedDividend += row.marketValue * y;
+    else missingDividendNames.push(row.name);
+  });
+  const maxHoldings = Number(portfolio.concentrationPolicy?.maxHoldings) || 7;
+  return {
+    holdingCount: sorted.length,
+    maxHoldings,
+    holdingLimitBreach: sorted.length > maxHoldings,
+    stockMarketValue,
+    stockWeight: totalAssets > 0 ? stockMarketValue / totalAssets : 0,
+    cashWeight: totalAssets > 0 ? Math.max(0, totalAssets - stockMarketValue) / totalAssets : 0,
+    top1Weight: weights[0] || 0,
+    top3Weight: weights.slice(0, 3).reduce((sum, value) => sum + value, 0),
+    hhi: weights.reduce((sum, value) => sum + value * value, 0),
+    largestHolding: sorted[0]?.name || null,
+    nonTargetNames: sorted.filter(row => !target.has(row.name)).map(row => row.name),
+    outsideFormalPoolNames: sorted.filter(row => !formal.has(row.name)).map(row => row.name),
+    targetCoverageCount: sorted.filter(row => formal.has(row.name)).length,
+    estimatedAfterTaxDividend: roundMoney(estimatedDividend),
+    missingDividendNames
+  };
+}
+
+function saveSnapshotAttachment(date, name, dataUrl) {
+  if (!dataUrl) return null;
+  const match = String(dataUrl).match(/^data:(image\/png|image\/jpeg|image\/webp|application\/pdf);base64,([A-Za-z0-9+/=]+)$/);
+  if (!match) throw new Error('附件仅支持PNG、JPG、WEBP或PDF');
+  const buffer = Buffer.from(match[2], 'base64');
+  if (buffer.length > 8 * 1024 * 1024) throw new Error('附件不能超过8MB');
+  const ext = { 'image/png': '.png', 'image/jpeg': '.jpg', 'image/webp': '.webp', 'application/pdf': '.pdf' }[match[1]];
+  const safeName = String(name || '持仓快照').replace(/[^\w\u4e00-\u9fa5.-]+/g, '_').slice(0, 60).replace(/\.[^.]+$/, '');
+  const file = `${date}-${safeName}${ext}`;
+  fs.writeFileSync(path.join(SNAPSHOT_DIR, file), buffer);
+  return { name: String(name || file).slice(0, 100), file, mime: match[1], size: buffer.length, localOnly: true };
 }
 
 function knownSecurity(name, symbol, portfolio) {
@@ -53,10 +123,14 @@ function knownSecurity(name, symbol, portfolio) {
 
 function refreshExecutionStatus(portfolio) {
   const quantities = new Map((portfolio.holdings || []).map(row => [row.name, Number(row.quantity) || 0]));
+  const holdingCount = [...quantities.values()].filter(value => value > 0).length;
+  const maxHoldings = Number(portfolio.concentrationPolicy?.maxHoldings) || 7;
   const rows = portfolio.executionPlan?.rows || [];
   rows.forEach(row => {
     const finalQuantity = Number(row.expectedFinalQuantity);
-    row.recordStatus = Number.isFinite(finalQuantity) && (quantities.get(row.name) || 0) >= finalQuantity ? '已完成' : '待执行';
+    if (Number.isFinite(finalQuantity) && (quantities.get(row.name) || 0) >= finalQuantity) row.recordStatus = '已完成';
+    else if (!quantities.has(row.name) && holdingCount >= maxHoldings) row.recordStatus = '席位锁定';
+    else row.recordStatus = '待执行';
   });
   if (rows.length) portfolio.executionPlan.status = rows.every(row => row.recordStatus === '已完成') ? '已全部完成' : '待执行，未全部成交';
 }
@@ -626,7 +700,10 @@ function buildDecisionMetrics(payload) {
   targetRows.filter(r => r.limitBreach).forEach(r => alerts.push({ severity: 'red', title: `${r.name}目标仓位越过报告硬上限`, detail: `目标 ${(r.weight * 100).toFixed(0)}%，报告硬上限 ${(r.effectiveHardLimit * 100).toFixed(0)}%；超额部分只能是待批准条件仓，不能视为默认配置。` }));
   if ((pf.cash || 0) / (pf.totalAssets || 1) > 0.7) alerts.push({ severity: 'amber', title: '现金占比高，存在长期踏空风险', detail: `待部署现金约 ${((pf.cash || 0) / 10000).toFixed(1)}万元；应靠P12/P15/P17与基本面闸门分批投入，不靠主观等最低价。` });
   if (pf.executionPlan?.status?.includes('待执行')) alerts.push({ severity: 'amber', title: '首次建仓尚未执行', detail: `计划净使用现金约 ${(pf.executionPlan.expectedNetCashUse / 10000).toFixed(1)}万元；执行后股票仓约 ${(pf.executionPlan.postStockWeight * 100).toFixed(1)}%。执行以最新部署卡为准，万华当前暂不卖出。` });
-  if (pf.deploymentQueue?.threeMonthGap > 0) alerts.push({ severity: 'amber', title: '三个月部署队列已覆盖缺口，但仍依赖价格触发', detail: `首轮后至29.2%股票仓位还需约 ${(pf.deploymentQueue.threeMonthGap / 10000).toFixed(1)}万元；主队列条件金额约 ${(pf.deploymentQueue.primaryPotential / 10000).toFixed(1)}万元，覆盖 ${(pf.deploymentQueue.coverageRatio * 100).toFixed(0)}%，未触发前仍是现金。` });
+  if (pf.deploymentQueue?.threeMonthGap > 0) {
+    const covered = Number(pf.deploymentQueue.coverageRatio) >= 1;
+    alerts.push({ severity: 'amber', title: covered ? '三个月部署队列已覆盖缺口，但仍依赖价格触发' : '七席内可执行队列尚未覆盖三个月缺口', detail: `首轮后至29%股票仓位还需约 ${(pf.deploymentQueue.threeMonthGap / 10000).toFixed(1)}万元；七席内条件金额约 ${(pf.deploymentQueue.primaryPotential / 10000).toFixed(1)}万元，覆盖 ${(pf.deploymentQueue.coverageRatio * 100).toFixed(0)}%。不为补缺口新增第8只或放宽买价。` });
+  }
   const baseRunway = dividendRunway?.scenarios?.find(s => s.id === 'base');
   if (baseRunway) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `计入24个月部署拖累后，基准情景约${baseRunway.nominalDuration}达到名义100万元，但约${baseRunway.safetyDuration}才达到120万元安全线；后者用于承受约15%的组合股息削减。` });
   const accelerated = dividendAcceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
@@ -729,6 +806,8 @@ const server = http.createServer(async (req, res) => {
         baseAnnualReturn: Number.isFinite(Number(t.baseAnnualReturn)) ? Number(t.baseAnnualReturn) : null,
         qualityGrade: String(t.qualityGrade || '').slice(0, 4)
       })).filter(t => t.name);
+      const maxHoldings = Number(pf.concentrationPolicy?.maxHoldings) || 7;
+      if (clean.length > maxHoldings) return send(res, 400, JSON.stringify({ error: `正式目标最多${maxHoldings}只；请先删除一个席位，再新增公司` }));
       const sum = clean.reduce((s, t) => s + t.weight, 0);
       const opportunityWeight = Number(pf.opportunityCash?.weight) || 0;
       const maxStockWeight = 1 - opportunityWeight;
@@ -799,6 +878,11 @@ const server = http.createServer(async (req, res) => {
       let holding = (pf.holdings || []).find(row => row.symbol === security.symbol || row.name === security.name);
       const oldQuantity = Number(holding?.quantity) || 0;
       if (side === '卖出' && quantity > oldQuantity) throw new Error(`卖出数量超过当前持有的 ${oldQuantity.toLocaleString()} 股`);
+      const maxHoldings = Number(pf.concentrationPolicy?.maxHoldings) || 7;
+      const activeHoldingCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
+      if (side === '买入' && !holding && activeHoldingCount >= maxHoldings) {
+        throw new Error(`当前已有${activeHoldingCount}只持仓，已满${maxHoldings}席；请先卖出一个现有持仓，再买入${security.name}`);
+      }
 
       if (side === '买入') {
         if (!holding) {
@@ -819,6 +903,7 @@ const server = http.createServer(async (req, res) => {
       pf.cash = roundMoney((Number(pf.cash) || 0) + cashDelta);
       pf.stockMarketValue = roundMoney((pf.holdings || []).reduce((sum, row) => sum + (Number(row.marketValue) || 0), 0));
       pf.totalAssets = roundMoney(pf.cash + pf.stockMarketValue);
+      if (pf.concentrationPolicy) pf.concentrationPolicy.currentHoldingCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
       const configuredYield = Number((pf.dividends?.perStock || []).find(row => row.name === security.name)?.afterTaxYield);
       const explicitDividendChange = body.annualDividendChange === '' || body.annualDividendChange == null ? null : Number(body.annualDividendChange);
       if (explicitDividendChange != null && !Number.isFinite(explicitDividendChange)) throw new Error('股息变化数值无效');
@@ -847,8 +932,14 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/goal-snapshot' && req.method === 'POST') {
       const body = await readBody(req);
       const date = String(body.date || '').trim();
-      const totalAssets = Number(body.totalAssets);
-      const stockMarketValue = Number(body.stockMarketValue);
+      const pf = readJson(PORTFOLIO_FILE);
+      const holdings = normalizeSnapshotHoldings(body.holdings);
+      const uploadedStockMarketValue = holdings.reduce((sum, row) => sum + row.marketValue, 0);
+      const stockMarketValue = holdings.length ? roundMoney(uploadedStockMarketValue) : Number(body.stockMarketValue);
+      const cash = body.cash === '' || body.cash == null ? null : Number(body.cash);
+      const totalAssets = Number.isFinite(Number(body.totalAssets)) && Number(body.totalAssets) > 0
+        ? Number(body.totalAssets)
+        : roundMoney(stockMarketValue + (Number.isFinite(cash) ? cash : 0));
       const normalizedAfterTaxDividend = Number(body.normalizedAfterTaxDividend);
       const ordinaryDividendTtm = body.ordinaryDividendTtm == null || body.ordinaryDividendTtm === '' ? null : Number(body.ordinaryDividendTtm);
       const thesisBreaches = Array.isArray(body.thesisBreaches)
@@ -864,6 +955,8 @@ const server = http.createServer(async (req, res) => {
         throw new Error('资产、股票市值或股息数据无效');
       }
       if (ordinaryDividendTtm != null && (!Number.isFinite(ordinaryDividendTtm) || ordinaryDividendTtm < 0)) throw new Error('实收股息无效');
+      const statistics = snapshotStatistics(holdings, totalAssets, pf);
+      const attachment = saveSnapshotAttachment(date, body.attachmentName, body.attachmentDataUrl);
       const snapshot = {
         date,
         totalAssets,
@@ -872,6 +965,9 @@ const server = http.createServer(async (req, res) => {
         stockWeight: stockMarketValue / totalAssets,
         normalizedAfterTaxDividend,
         ordinaryDividendTtm,
+        holdings,
+        statistics,
+        attachment,
         thesisBreaches,
         note: String(body.note || '').trim().slice(0, 300)
       };
@@ -880,8 +976,39 @@ const server = http.createServer(async (req, res) => {
       else ledger.snapshots = [...(ledger.snapshots || []), snapshot];
       ledger.snapshots.sort((a, b) => String(a.date).localeCompare(String(b.date)));
       ledger.asOf = ledger.snapshots.at(-1).date;
-      fs.writeFileSync(GOAL_LEDGER_FILE, JSON.stringify(ledger, null, 2), 'utf8');
+      writeJsonAtomic(GOAL_LEDGER_FILE, ledger);
+      if (holdings.length) {
+        const priorByName = new Map((pf.holdings || []).map(row => [row.name, row]));
+        const targetByName = new Map((pf.targetPortfolio || []).map(row => [row.name, row]));
+        pf.holdings = holdings.map(row => {
+          const prior = priorByName.get(row.name) || {};
+          const target = targetByName.get(row.name);
+          return {
+            symbol: row.symbol || prior.symbol || '', name: row.name, quantity: row.quantity,
+            costPrice: row.costPrice, currency: row.currency, marketValue: row.marketValue,
+            priceAtSnapshot: row.currentPrice, targetWeight: Number(target?.weight) || 0,
+            role: target?.role || prior.role || '月度持仓快照中的非目标持仓'
+          };
+        });
+        pf.snapshotDate = date;
+        pf.totalAssets = roundMoney(totalAssets);
+        pf.stockMarketValue = roundMoney(stockMarketValue);
+        pf.cash = roundMoney(totalAssets - stockMarketValue);
+        pf.source = `月度持仓快照上传并同步至 ${date}`;
+        if (pf.concentrationPolicy) pf.concentrationPolicy.currentHoldingCount = holdings.length;
+        pf.currentDividendBaseline = pf.currentDividendBaseline || {};
+        pf.currentDividendBaseline.current = roundMoney(normalizedAfterTaxDividend);
+        refreshExecutionStatus(pf);
+        writeJsonAtomic(PORTFOLIO_FILE, pf);
+      }
       return send(res, 200, JSON.stringify({ ok: true, snapshot }));
+    }
+
+    if (pathname.startsWith('/api/snapshot-file/') && req.method === 'GET') {
+      const file = path.basename(pathname.slice('/api/snapshot-file/'.length));
+      const full = path.join(SNAPSHOT_DIR, file);
+      if (!file || !fs.existsSync(full)) return send(res, 404, JSON.stringify({ error: '附件不存在' }));
+      return send(res, 200, fs.readFileSync(full), MIME[path.extname(file).toLowerCase()] || 'application/octet-stream');
     }
 
     if (pathname === '/api/docs/add' && req.method === 'POST') {

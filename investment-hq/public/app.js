@@ -211,6 +211,16 @@ function renderGoals() {
   const baseRunway = runway?.scenarios?.find(s => s.id === 'base');
   const acceleration = dm.dividendAcceleration;
   const tracking = dm.goalPathTracking;
+  const monthlySnapshots = [...(tracking?.snapshots || [])].reverse();
+  const latestSnapshotStats = tracking?.latest?.statistics;
+  const monthlySnapshotRows = monthlySnapshots.map(s => `<tr>
+    <td><b>${esc(s.date)}</b>${s.attachment ? `<div><a href="/api/snapshot-file/${encodeURIComponent(s.attachment.file)}" target="_blank">查看原始附件</a></div>` : ''}</td>
+    <td class="num">${s.statistics?.holdingCount ?? (s.holdings?.length || '—')} / ${s.statistics?.maxHoldings || 7}</td>
+    <td class="num">${fmtWan(s.totalAssets)}</td><td class="num">${fmtPct(s.stockWeight, 1)}</td>
+    <td class="num">${s.statistics ? fmtPct(s.statistics.top1Weight, 1) : '—'}</td><td class="num">${s.statistics ? fmtPct(s.statistics.top3Weight, 1) : '—'}</td>
+    <td class="num">${fmtWan(s.normalizedAfterTaxDividend)}</td>
+    <td>${s.statistics?.holdingLimitBreach ? '<span class="badge no">超过7席</span>' : '<span class="badge pass">席位合规</span>'}${s.statistics?.nonTargetNames?.length ? `<div style="font-size:11px;color:var(--ink-3)">非目标：${esc(s.statistics.nonTargetNames.join('、'))}</div>` : ''}</td>
+  </tr>`).join('');
   const efficiency = state.data.portfolioEfficiency;
   const cashDeployment = state.data.cashDeployment;
   const goalBottleneck = state.data.goalBottleneck;
@@ -273,7 +283,7 @@ function renderGoals() {
 
   <div class="card">
     <h2>十年路线 <span class="tag">本金1000万 · ${esc(g.asOf)}</span></h2>
-    <div class="card-sub">最新90%股票＋10%机会现金组合：公司基准机械加权${fmtPct(baseReturn, 2)}，质量折扣后承保年化${fmtPct(dm.underwritingWeightedReturn, 2)}。</div>
+    <div class="card-sub">最新七席聚焦组合：目标股票${fmtPct(1 - pf.opportunityCash.weight, 0)}＋现金${fmtPct(pf.opportunityCash.weight, 0)}；公司基准机械加权${fmtPct(baseReturn, 2)}，质量折扣后承保年化${fmtPct(dm.underwritingWeightedReturn, 2)}。</div>
     <div class="timeline">
       <div class="timeline-bar">
         ${g.timeline.map((t, i) => `
@@ -451,8 +461,8 @@ function renderGoals() {
   </div>` : ''}
 
   ${tracking ? `<div class="card">
-    <h2>目标路径月度账本 <span class="tag">从2026-09起实际验收 · 不伪造历史</span><button class="btn primary" id="addGoalSnapshot" style="float:right">记录月度快照</button></h2>
-    <div class="card-sub">账本把资产、条件部署、正常化普通股息和投资论文分开记录。前36个月不用短期涨跌判定成败；满36个月后才启用滚动承保回报。</div>
+    <h2>月度持仓快照 <span class="tag">上传实际持仓 · 自动统计 · 最多7席</span><button class="btn primary" id="addGoalSnapshot" style="float:right">上传月度持仓</button></h2>
+    <div class="card-sub">每月上传券商持仓或CSV/JSON，系统保留原始凭证并统计持仓数量、集中度、现金、非目标持仓与股息路径；不会把计划仓位当成实际持仓。</div>
     <div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">最新快照</div><div class="s-value">${esc(tracking.latest?.date || '—')}</div></div>
       <div class="stat"><div class="s-label">路径状态</div><div class="s-value ${tracking.severity === 'red' ? 'red' : tracking.severity === 'green' ? 'green' : 'blue'}">${esc(tracking.status)}</div></div>
@@ -462,6 +472,8 @@ function renderGoals() {
       <div class="stat"><div class="s-label">当期条件区间</div><div class="s-value">${tracking.activeRange ? `${fmtPct(tracking.activeRange.minStockWeight, 0)}—${fmtPct(tracking.activeRange.maxStockWeight, 0)}` : '—'}</div></div>
       <div class="stat"><div class="s-label">正常化股息 / 路径</div><div class="s-value">${fmtWan(tracking.latest?.normalizedAfterTaxDividend)} / ${fmtWan(tracking.expected?.annualDividend)}</div></div>
       <div class="stat"><div class="s-label">下次月度复核</div><div class="s-value">${esc(tracking.nextReviewDate || '—')}</div></div>
+      <div class="stat"><div class="s-label">持仓席位</div><div class="s-value ${latestSnapshotStats?.holdingLimitBreach ? 'red' : 'green'}">${latestSnapshotStats ? `${latestSnapshotStats.holdingCount}/${latestSnapshotStats.maxHoldings}` : '待首次上传'}</div></div>
+      <div class="stat"><div class="s-label">前三大占总资产</div><div class="s-value">${latestSnapshotStats ? fmtPct(latestSnapshotStats.top3Weight, 1) : '—'}</div></div>
     </div>
     ${tracking.deviations?.length ? `<div class="risk-grid" style="margin-top:12px">${tracking.deviations.map(d => `<div class="risk-card ${alertClass(d.severity)}"><b>${esc(d.item)}</b><span>${esc(d.detail)}</span></div>`).join('')}</div>` : `<div class="honest" style="margin-top:12px"><b>当前结论：</b>只能确认基线已建立，还不能宣称路径跑赢或跑输。</div>`}
     <table style="margin-top:12px">
@@ -475,6 +487,8 @@ function renderGoals() {
         <td class="num">${fmtWan(row.annualDividend)}</td>
       </tr>`).join('')}</tbody>
     </table>
+    <h3 style="margin-top:16px">实际月度持仓记录</h3>
+    <div class="table-scroll"><table style="margin-top:8px"><thead><tr><th>日期/附件</th><th class="num">持仓数</th><th class="num">总资产</th><th class="num">股票仓位</th><th class="num">第一大</th><th class="num">前三大</th><th class="num">正常化股息</th><th>席位与偏离</th></tr></thead><tbody>${monthlySnapshotRows}</tbody></table></div>
     <div class="note"><b>记录口径：</b><ul>${tracking.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
   </div>` : ''}
 
@@ -498,8 +512,6 @@ function renderGoals() {
       <div class="stat-row" style="margin-bottom:14px">
         <div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
         <div class="stat"><div class="s-label">首轮交易后</div><div class="s-value blue">${fmtWan(dm.postInitialDividend)}</div></div>
-        <div class="stat"><div class="s-label">首轮＋康臣首档</div><div class="s-value blue">${fmtWan(dm.postTriggeredDividend)}</div></div>
-        <div class="stat"><div class="s-label">主队列全触发</div><div class="s-value blue">${fmtWan(dm.postPrimaryQueueDividend)}</div></div>
         <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(totalDiv)}+</div></div>
         <div class="stat"><div class="s-label">目标</div><div class="s-value">100万/年</div></div>
         <div class="stat"><div class="s-label">满仓后缺口</div><div class="s-value red">${fmtWan(dm.dividendGap)}</div></div>
@@ -521,32 +533,62 @@ function renderGoals() {
   const snapshotBtn = $('#addGoalSnapshot', el);
   if (snapshotBtn) snapshotBtn.addEventListener('click', () => {
     const today = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+    const currentRows = (pf.holdings || []).map(h => [h.name, h.symbol, h.quantity, h.costPrice, h.priceAtSnapshot, h.marketValue, h.currency].join(',')).join('\n');
     openModal(`
-      <h2>记录目标路径月度快照</h2>
-      <div class="m-sub">同一日期重复保存会覆盖当日快照。建议在每月最后一个交易日后记录；数据不准时不要为了“绿色”而填写。</div>
+      <h2>上传月度实际持仓</h2>
+      <div class="m-sub">支持券商截图/PDF留档，以及CSV/JSON自动导入。图片不会假装OCR；请核对下方持仓明细后再保存。同一日期重复保存会覆盖当日记录。</div>
       <div class="grid-2" style="margin-top:14px">
         <label>快照日期<input class="edit-input" id="snapDate" type="date" value="${esc(today)}" style="width:100%"></label>
+        <label>原始持仓附件<input class="edit-input" id="snapFile" type="file" accept="image/png,image/jpeg,image/webp,application/pdf,.csv,.json" style="width:100%"></label>
         <label>总资产（元）<input class="edit-input" id="snapAssets" type="number" min="1" step="0.01" value="${Number(pf.totalAssets).toFixed(2)}" style="width:100%"></label>
-        <label>股票市值（元）<input class="edit-input" id="snapStocks" type="number" min="0" step="0.01" value="${Number(pf.stockMarketValue).toFixed(2)}" style="width:100%"></label>
+        <label>现金（元）<input class="edit-input" id="snapCash" type="number" min="0" step="0.01" value="${Number(pf.cash).toFixed(2)}" style="width:100%"></label>
         <label>正常化税后普通股息（元/年）<input class="edit-input" id="snapDividend" type="number" min="0" step="1" value="${Number(dm.currentDividend).toFixed(0)}" style="width:100%"></label>
         <label>滚动12个月实收普通股息（可空）<input class="edit-input" id="snapTtm" type="number" min="0" step="1" style="width:100%"></label>
-        <label>核心论文突破（一行一项，无则空）<textarea class="edit-input" id="snapBreaches" style="width:100%;height:74px"></textarea></label>
       </div>
+      <label style="display:block;margin-top:10px">持仓明细（每行：公司,代码,股数,成本价,现价,人民币市值,币种）<textarea class="edit-input" id="snapHoldings" style="width:100%;height:170px">${esc(currentRows)}</textarea></label>
+      <div class="note" id="snapParseStatus">当前载入${(pf.holdings || []).length}只实际持仓。上传CSV/JSON会替换此明细；上传图片/PDF只留存原件。</div>
+      <label style="display:block;margin-top:10px">核心论文突破（一行一项，无则空）<textarea class="edit-input" id="snapBreaches" style="width:100%;height:64px"></textarea></label>
       <label style="display:block;margin-top:10px">备注<textarea class="edit-input" id="snapNote" style="width:100%;height:70px"></textarea></label>
       <div style="display:flex;gap:8px;margin-top:14px"><button class="btn primary" id="saveGoalSnapshot">保存快照</button><button class="btn" id="cancelGoalSnapshot">取消</button></div>`);
+    let attachmentDataUrl = null, attachmentName = null;
+    const parseHoldingText = text => String(text || '').split(/\r?\n/).map(line => line.trim()).filter(Boolean).filter((line, index) => !(index === 0 && /^(公司|name)[,，]/i.test(line))).map((line, index) => {
+      const c = line.split(',').map(x => x.trim());
+      if (c.length < 6) throw new Error(`第${index + 1}行至少需要6列`);
+      return { name: c[0], symbol: c[1], quantity: c[2], costPrice: c[3], currentPrice: c[4], marketValue: c[5], currency: c[6] || (c[1].endsWith('.HK') ? 'HKD' : 'CNY') };
+    });
+    $('#snapFile').addEventListener('change', async event => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      attachmentName = file.name;
+      const reader = new FileReader();
+      if (/\.(csv|json)$/i.test(file.name)) {
+        reader.onload = () => {
+          try {
+            const rows = /\.json$/i.test(file.name) ? JSON.parse(reader.result) : parseHoldingText(reader.result);
+            const list = Array.isArray(rows) ? rows : rows.holdings;
+            if (!Array.isArray(list)) throw new Error('JSON中未找到holdings数组');
+            $('#snapHoldings').value = list.map(h => [h.name, h.symbol || '', h.quantity ?? '', h.costPrice ?? '', h.currentPrice ?? h.priceAtSnapshot ?? '', h.marketValue, h.currency || 'CNY'].join(',')).join('\n');
+            $('#snapParseStatus').textContent = `已从${file.name}导入${list.length}只，请核对后保存。`;
+          } catch (error) { $('#snapParseStatus').textContent = `导入失败：${error.message}`; }
+        };
+        reader.readAsText(file);
+      } else {
+        reader.onload = () => { attachmentDataUrl = reader.result; $('#snapParseStatus').textContent = `已载入原始附件${file.name}；图片/PDF只留档，请核对下方持仓明细。`; };
+        reader.readAsDataURL(file);
+      }
+    });
     $('#cancelGoalSnapshot').addEventListener('click', closeModal);
     $('#saveGoalSnapshot').addEventListener('click', async () => {
-      const payload = {
-        date: $('#snapDate').value,
-        totalAssets: Number($('#snapAssets').value),
-        stockMarketValue: Number($('#snapStocks').value),
-        normalizedAfterTaxDividend: Number($('#snapDividend').value),
-        ordinaryDividendTtm: $('#snapTtm').value,
-        thesisBreaches: $('#snapBreaches').value,
-        note: $('#snapNote').value
-      };
       const saveBtn = $('#saveGoalSnapshot'); saveBtn.disabled = true; saveBtn.textContent = '保存中…';
       try {
+        const holdings = parseHoldingText($('#snapHoldings').value);
+        if (!holdings.length) throw new Error('至少需要一只实际持仓');
+        const payload = {
+          date: $('#snapDate').value,
+          totalAssets: Number($('#snapAssets').value), cash: Number($('#snapCash').value), holdings,
+          normalizedAfterTaxDividend: Number($('#snapDividend').value), ordinaryDividendTtm: $('#snapTtm').value,
+          attachmentName, attachmentDataUrl, thesisBreaches: $('#snapBreaches').value, note: $('#snapNote').value
+        };
         const res = await fetch('/api/goal-snapshot', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         const json = await res.json();
         if (!res.ok) throw new Error(json.error || '保存失败');
@@ -574,6 +616,8 @@ function renderPortfolio() {
   const heldByName = {};
   pf.holdings.forEach(h => heldByName[h.name] = h);
   const total = pf.totalAssets;
+  const activeHoldingCount = (pf.holdings || []).filter(h => Number(h.quantity) > 0).length;
+  const maxHoldings = Number(pf.concentrationPolicy?.maxHoldings) || 7;
 
   /* ---- 目标配置（可编辑） ---- */
   const tp = pf.targetPortfolio;
@@ -708,14 +752,15 @@ function renderPortfolio() {
     const finalQuantity = Number(r.expectedFinalQuantity);
     const completed = Number.isFinite(finalQuantity) && holdingQuantity(r.name) >= finalQuantity;
     const priceTriggered = q && range && q.price >= range.min && q.price <= range.max;
-    const status = completed ? '已完成' : (priceTriggered ? '到价待登记' : '未到价');
-    const statusClass = completed ? 'pass' : (priceTriggered ? 'doubt' : 'neutral');
+    const seatLocked = r.recordStatus === '席位锁定';
+    const status = completed ? '已完成' : seatLocked ? '席位锁定' : (priceTriggered ? '到价待登记' : '未到价');
+    const statusClass = completed ? 'pass' : seatLocked ? 'no' : (priceTriggered ? 'doubt' : 'neutral');
     return `<tr>
       <td><b>${esc(r.day)}</b></td><td><span class="badge ${r.side === '买入' ? 'pass' : 'doubt'}">${esc(r.side)}</span></td>
       <td><b>${esc(r.name)}</b><div style="font-size:11px;color:var(--ink-3)">现持有 ${holdingQuantity(r.name).toLocaleString()} / 完成 ${Number.isFinite(finalQuantity) ? finalQuantity.toLocaleString() : '—'}股</div></td>
       <td class="num">${Number(r.quantity).toLocaleString()}</td><td class="num">${esc(r.limit)}${q ? `<div class="price-src">现价 ${fmtNum(q.price)}</div>` : ''}</td>
       <td class="num">${fmtWan(r.estimatedCny)}</td><td><span class="badge ${statusClass}">${status}</span><div style="margin-top:4px">${esc(r.condition)}</div></td>
-      <td>${completed ? '—' : `<button class="btn trade-prefill" data-name="${esc(r.name)}" data-qty="${Number(r.quantity)}">登记成交</button>`}</td>
+      <td>${completed || seatLocked ? '—' : `<button class="btn trade-prefill" data-name="${esc(r.name)}" data-qty="${Number(r.quantity)}">登记成交</button>`}</td>
     </tr>`;
   }).join('');
   const deploymentRows = (pf.deploymentClock?.rows || []).map(r => `<tr>
@@ -745,6 +790,10 @@ function renderPortfolio() {
   </tr>`).join('');
 
   el.innerHTML = `
+  <div class="card">
+    <h2>七席聚焦纪律 <span class="tag">实际 ${activeHoldingCount}/${maxHoldings} · 正式目标 ${pf.targetPortfolio.length}/${maxHoldings}</span></h2>
+    <div class="honest"><b>硬规则：</b>${esc(pf.concentrationPolicy?.rule || '持仓最多7只。')}<br>${esc(pf.concentrationPolicy?.focusNote || '')}</div>
+  </div>
   <div class="card">
     <h2>当前持仓 <span class="tag">${(pf.tradeLedger || []).length ? '成交账本更新' : '券商截图'} ${esc(pf.snapshotDate)} · 总资产${fmtWan(total)} · 最新价来自行情按钮</span></h2>
     <div class="card-sub">${esc(pf.source)} · ${esc(pf.fxNote)}</div>
@@ -782,7 +831,7 @@ function renderPortfolio() {
 
   <div class="card">
     <h2>首轮后的三个月部署队列 <span class="tag">缺口${fmtWan(pf.deploymentQueue?.threeMonthGap)} · 主队列覆盖${fmtPct(pf.deploymentQueue?.coverageRatio, 1)}</span></h2>
-    <div class="card-sub">目标是在不降低公司质量和回报门槛的前提下，把首轮后24.24%的股票仓位推进到约29.2%；这不是按日期强制买入。</div>
+    <div class="card-sub">只在七个席位内提高仓位；新公司必须先腾出席位。部署进度不能凌驾于公司质量、价格和一进一出规则。</div>
     <div class="table-scroll"><table>
       <thead><tr><th>优先级</th><th>公司</th><th class="num">最新价</th><th class="num">触发条件</th><th class="num">拟投入</th><th class="num">触发后仓位</th><th>状态</th><th>基本面闸门</th></tr></thead>
       <tbody>${deploymentQueueRows}</tbody>
@@ -791,7 +840,7 @@ function renderPortfolio() {
   </div>
 
   <div class="card">
-    <h2>目标配置 vs 当前 <span class="tag">90%股票＋10%机会现金；目标仓位是上限，不是立即买满指令</span></h2>
+    <h2>目标配置 vs 当前 <span class="tag">最多7只 · ${fmtPct(stockTargetWeight, 0)}股票＋${fmtPct(cashTarget.weight, 0)}现金</span></h2>
     <div class="table-scroll"><table>
       <thead><tr><th>公司</th><th>定位</th><th class="num">目标权重</th><th class="num">目标市值</th><th class="num">当前市值</th><th class="num">当前占比</th>${state.editing ? '<th class="num">尚需投入</th><th></th>' : '<th>进度</th><th class="num">尚需投入</th>'}</tr></thead>
       <tbody>${targetRows}</tbody>
@@ -802,7 +851,7 @@ function renderPortfolio() {
 
   <div class="card">
     <h2>目标组合风险约束校验 <span class="tag">目标组合本身是唯一执行口径</span></h2>
-    <div class="card-sub">逐项校验目标权重是否超过公司分析给出的硬上限；机会现金为明确的10%目标，不再由超限仓位倒算。</div>
+    <div class="card-sub">逐项校验目标权重是否超过公司分析给出的硬上限；正式组合最多7只，现金目标由聚焦后的剩余权重确定。</div>
     <div class="table-scroll"><table>
       <thead><tr><th>公司</th><th>质量 / 回报</th><th class="num">目标权重</th><th class="num">校验后上限</th><th class="num">校验后金额</th><th>校验结果</th></tr></thead>
       <tbody>${dm.compliantRows.map(r => `<tr>
@@ -813,7 +862,7 @@ function renderPortfolio() {
       <tr><td><b>机会现金</b></td><td><span class="chip">永久组合流动性</span></td><td class="num">${fmtPct(cashTarget.weight, 0)}</td><td class="num"><b>${fmtPct(cashTarget.weight, 0)}</b></td><td class="num">${fmtWan(cashTarget.targetValue)}</td><td>${esc(cashTarget.role)}</td></tr>
       </tbody>
     </table></div>
-    <div class="honest" style="margin-top:12px"><b>不能自我欺骗：</b>若仅靠10%机会现金填补10年5倍的全部缺口，这部分需要年化约${fmtPct(dm.reserveRequiredReturn, 1)}，并不现实。真正可行的是更低买价、盈利兑现、股息复投和长期迭代，而不是把风险集中到单一公司。</div>
+    <div class="honest" style="margin-top:12px"><b>不能自我欺骗：</b>现金不会替我们完成10年5倍；真正可行的是更低买价、盈利兑现、股息复投和七席内的一进一出，而不是不断增加公司数量。</div>
   </div>
 
   <div class="section-title">建仓阶梯（价格档是触发器，累计市值才是仓位上限）</div>
@@ -1322,7 +1371,7 @@ async function reload() {
     (latest, event) => event.date > latest ? event.date : latest,
     state.data.goals.asOf || ''
   ) || '—';
-  $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 两步法分析更新至 ${latestAnalysisDate} · 组合与执行方案更新至 ${latestPlanDate} · 目标90%股票＋10%机会现金 · 共 ${state.data.stocks.length} 只股票 / ${state.data.docsIndex.total} 篇文档`;
+  $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 两步法分析更新至 ${latestAnalysisDate} · 组合与执行方案更新至 ${latestPlanDate} · 正式组合最多7只 · 共 ${state.data.stocks.length} 只研究股票 / ${state.data.docsIndex.total} 篇文档`;
   $('#footerInfo').textContent = `投资分析中心 · ${state.data.stocks.length} 只股票研究库 · 数据生成于 ${new Date(state.data.generatedAt).toLocaleString('zh-CN')}`;
 }
 async function boot() {

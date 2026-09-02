@@ -154,59 +154,47 @@
       "pendingInvest": 687618.71,
       "baseAnnualReturn": 0.138,
       "qualityGrade": "B"
-    },
-    {
-      "name": "康臣药业",
-      "symbol": "1681.HK",
-      "weight": 0.03,
-      "targetValue": 300000,
-      "role": "B类稳定增长型医疗股息仓；产品和治理闸门限制仓位",
-      "pendingInvest": 300000,
-      "baseAnnualReturn": 0.186,
-      "qualityGrade": "B"
-    },
-    {
-      "name": "小商品城",
-      "symbol": "600415.SH",
-      "weight": 0.03,
-      "targetValue": 300000,
-      "role": "B类贸易网络与股息增长仓；H股摊薄约束仓位",
-      "pendingInvest": 300000,
-      "baseAnnualReturn": 0.1269,
-      "qualityGrade": "B"
     }
   ],
+  "concentrationPolicy": {
+    "maxHoldings": 7,
+    "currentHoldingCount": 7,
+    "replacementRequired": true,
+    "formalNames": ["贵州茅台", "腾讯控股", "招商银行", "福耀玻璃", "宇通客车", "泡泡玛特", "安踏体育"],
+    "rule": "实际持仓与正式目标组合均最多7只；已经满7席时，新公司只能在先卖出一个现有席位后买入，观察池不占席位。",
+    "focusNote": "康臣药业和小商品城移回观察池，不再占正式目标仓位。现有格力、万华属于待置换席位；宇通或茅台首次买入前必须先完成一进一出。"
+  },
   "opportunityCash": {
-    "weight": 0.1,
-    "targetValue": 1000000,
+    "weight": 0.16,
+    "targetValue": 1600000,
     "baseAnnualReturn": 0.015,
-    "role": "等待极端价格与基本面通过；不计入股息目标"
+    "role": "10%永久机会现金＋6%聚焦预备金；不为凑仓位突破单股上限，不计入股息目标"
   },
   "currentDividendBaseline": {
     "current": 71862,
     "postInitialTrade": 88900,
-    "postTriggeredCandidate": 95530,
-    "postPrimaryQueue": 107688,
-    "targetPortfolio": 315510,
+    "postTriggeredCandidate": null,
+    "postPrimaryQueue": null,
+    "targetPortfolio": 289950,
     "targetAnnual": 1000000,
     "terminalYield": 0.044504,
     "assetsNeeded": 22469890,
     "safetyAssetsNeeded": 26963868,
-    "note": "当前与首轮后为正常化估算；315,510元是积累期组合在预设买点的机械股息，不是终态。终态4.45%依赖资产达到1800万元后完成分散迁移，不是当前组合现价收益率；现金利息不计入普通股息。"
+    "note": "当前与首轮后为正常化估算；289,950元是七席积累期组合在预设买点的机械股息，不是终态。终态4.45%依赖资产达到1800万元后完成分散迁移，不是当前组合现价收益率；现金利息不计入普通股息。"
   },
   "executionPlan": {
     "asOf": "2026-08-31",
     "status": "待执行，未成交",
-    "tagline": "买入优先 · 万华暂不卖",
+    "tagline": "原席位可加仓 · 新公司一进一出",
     "dailyBuyLimit": 500000,
     "buyBeforeSell": false,
-    "expectedBuyTotal": 473222.4,
+    "expectedBuyTotal": 275222.4,
     "expectedSellProceeds": 0,
-    "expectedNetCashUse": 473222.4,
-    "postStockMarketValue": 2424297.66,
-    "postStockWeight": 0.24243,
-    "postCash": 7575702.34,
-    "postCashWeight": 0.75757,
+    "expectedNetCashUse": 275222.4,
+    "postStockMarketValue": 2226297.66,
+    "postStockWeight": 0.22263,
+    "postCash": 7777702.34,
+    "postCashWeight": 0.77777,
     "rows": [
       {
         "day": "第1笔",
@@ -236,10 +224,10 @@
         "name": "宇通客车",
         "quantity": 6600,
         "expectedFinalQuantity": 6600,
-        "recordStatus": "待执行",
+        "recordStatus": "席位锁定",
         "limit": "≤30.00元",
         "estimatedCny": 198000,
-        "condition": "基本面取消条件未触发"
+        "condition": "当前已满7席；先退出格力或万华之一，再复核基本面与价格"
       }
     ]
   },
@@ -247,7 +235,7 @@
     "asOf": "2026-09-01",
     "rows": [
       { "stage": "当前", "stockWeight": 0.1951, "cashWeight": 0.8049, "action": "等待首轮限价单" },
-      { "stage": "首轮完成", "stockWeight": 0.2424, "cashWeight": 0.7576, "action": "腾讯、福耀、宇通建起步仓，万华继续保留" },
+      { "stage": "首轮完成", "stockWeight": 0.2226, "cashWeight": 0.7774, "action": "腾讯、福耀加仓；宇通必须先腾出一个席位再建仓" },
       { "stage": "3个月", "stockWeightRange": "29%—35%", "cashWeightRange": "65%—71%", "action": "完成已触发首档；B类只建观察仓" },
       { "stage": "6个月", "stockWeightRange": "40%—50%", "cashWeightRange": "50%—60%", "action": "P10只起步，P12正常建仓" },
       { "stage": "12个月", "stockWeightRange": "60%—70%", "cashWeightRange": "30%—40%", "action": "新增权益资金加权十年IRR维持11.31%以上" },
@@ -260,68 +248,50 @@
   },
   "deploymentQueue": {
     "asOf": "2026-08-31 17:21",
-    "afterInitialStockWeight": 0.24243,
-    "threeMonthTargetWeight": 0.292,
-    "threeMonthGap": 495700,
-    "primaryPotential": 554800,
-    "coverageRatio": 1.119,
+    "afterInitialStockWeight": 0.22263,
+    "threeMonthTargetWeight": 0.29,
+    "threeMonthGap": 673700,
+    "primaryPotential": 302800,
+    "coverageRatio": 0.449,
     "rows": [
       {
         "priority": "A1",
-        "name": "康臣药业",
-        "trigger": "≤14.00港元",
-        "amount": 150000,
-        "postWeight": 0.25743,
-        "status": "已触发",
-        "gate": "肾病药仍增长；经营现金流/利润≥80%；无医保、质量和跨界资本配置红灯"
-      },
-      {
-        "priority": "A2",
         "name": "腾讯控股",
         "trigger": "≤442港元",
         "amount": 115200,
-        "postWeight": 0.26895,
+        "postWeight": 0.23415,
         "status": "接近触发",
         "gate": "首轮400股已成交或仍按同一累计市值口径；AI投入与自由现金流取消条件未触发"
       },
       {
-        "priority": "A3",
+        "priority": "A2席位置换",
         "name": "宇通客车",
         "trigger": "≤28元",
         "amount": 102000,
-        "postWeight": 0.27915,
-        "status": "等待价格",
-        "gate": "首轮6600股已成交；出口、质保预计负债和现金流未恶化"
+        "postWeight": null,
+        "status": "席位锁定",
+        "gate": "先退出格力或万华之一，使实际持仓少于7只；再检查出口、质保预计负债和现金流"
       },
       {
-        "priority": "A4",
+        "priority": "A3",
         "name": "安踏体育",
         "trigger": "≤72港元",
         "amount": 187600,
-        "postWeight": 0.29791,
+        "postWeight": 0.25291,
         "status": "等待价格",
         "gate": "PUMA/JW资本配置未恶化；核心品牌利润率和自由现金流通过复核"
       },
       {
-        "priority": "B1替代",
+        "priority": "替换候选",
         "name": "美的集团",
         "trigger": "≤75.10元",
         "amount": 150000,
         "postWeight": null,
         "status": "等待价格",
         "gate": "2026H1已纳入；经济口径经营利润、海外利润率、FCF和非核心业务ROIC未恶化"
-      },
-      {
-        "priority": "B2替代",
-        "name": "小商品城",
-        "trigger": "≤11.50元",
-        "amount": 200000,
-        "postWeight": null,
-        "status": "等待价格",
-        "gate": "核心市场利润和预收商位费未同时下降；H股摊薄条款可接受"
       }
     ],
-    "note": "A1—A4全部触发可部署约55.48万元，覆盖首轮后至3个月29.2%股票仓位所需49.57万元；B1—B2是替代项，不与主队列机械叠加。美的2026H1已披露，但重算后现价基准回报不足10%，不能再按旧的88元闸门执行。若三个月仍无触发，不放宽价格，只用最新财报上调正常化盈利后重算内在价值。"
+    "note": "当前实际持仓已经占满7席。腾讯、福耀、安踏可在原席位内加仓；宇通、茅台及任何观察池公司首次买入前必须先退出一个现有席位。价格到档不自动获得第8席。"
   },
   "ladderPlans": [
     {
@@ -579,13 +549,35 @@
         "不再新增永辉、AI基金式跨界投资"
       ],
       "note": "低价不能抵消治理与资本分配风险，恢复B类前不进入正式买价步骤"
+    },
+    {
+      "name": "康臣药业",
+      "status": "从正式组合移回观察池；不再占用七席",
+      "reentryConditions": [
+        "预期回报与股息质量明显优于某一现有席位",
+        "尿毒清及肾病药收入增长未破坏",
+        "经营现金流/净利润不低于80%",
+        "明确写出替换对象后再执行"
+      ],
+      "note": "观察不等于第8只持仓，必须一进一出。"
+    },
+    {
+      "name": "小商品城",
+      "status": "从正式组合移回观察池；不再占用七席",
+      "reentryConditions": [
+        "核心市场利润与预收商位费没有同时下降",
+        "H股发行条款与摊薄影响可接受",
+        "买入价重新达到组合回报门槛",
+        "明确写出替换对象后再执行"
+      ],
+      "note": "观察不等于第8只持仓，必须一进一出。"
     }
   ],
   "candidates": [
     {
       "name": "宁德时代",
       "maxTarget": "8%—10%",
-      "competes": "机会替换池；只有预期回报和证伪风险明显优于某一现有目标仓时才一进一出，不作为第10只长期股票",
+      "competes": "机会替换池；只有预期回报和证伪风险明显优于某一现有席位时才一进一出，不作为第8只长期股票",
       "tiers": [
         {
           "price": "330—340元",
@@ -733,22 +725,10 @@
         "targetValue": 800000,
         "dps": "2.45港元",
         "afterTaxYield": 0.027
-      },
-      {
-        "name": "康臣药业",
-        "targetValue": 300000,
-        "dps": "2025末期+2026中期合计0.78港元；港股通20%税后口径",
-        "afterTaxYield": 0.0442
-      },
-      {
-        "name": "小商品城",
-        "targetValue": 300000,
-        "dps": "2025年分红率65.2%的正常化口径",
-        "afterTaxYield": 0.041
       }
     ],
     "missingNote": "这是积累期组合；中国移动、长江电力和格力暂不进入积累期目标权重，只保留为资产达到1800万元后的迁移候选。",
-    "sourceYieldBasis": "各公司两步法报告的正常化税后率乘积累期目标市值得约31.55万元；终态4.45%见最稳最快股息路径双阶段优化-20260901.md。"
+    "sourceYieldBasis": "七席目标组合按各公司两步法报告的正常化税后率测算约28.995万元；终态4.45%见最稳最快股息路径双阶段优化-20260901.md。"
   },
   "manualCalibrations": {
     "catl": 345,
@@ -769,10 +749,10 @@
     "wanhua": 56
   },
   "disciplines": [
-    "目标结构为90%股票+10%机会现金；未到买点允许股票仓低于90%，不允许为赶进度追价。",
+    "正式组合最多7只；当前目标结构为84%股票+16%现金，不为凑仓位突破单股上限，也不允许为赶进度追价。",
     "单股达到目标权重后停止主动加仓；茅台25%、腾讯15%为默认目标，任何超额仓位必须重新审批。",
     "不因下跌本身加仓。第二、三批必须同时确认投资逻辑未恶化。",
-    "买入优先：当前现金充足，腾讯、福耀、宇通首轮成交后也不机械卖万华；格力和万华只在替代资产到价且需要释放风险预算时处理。",
+    "当前已满7席：腾讯、福耀可在原席位内加仓；宇通、茅台或任何新公司买入前，必须先退出格力、万华或另一个明确席位。",
     "每季复盘一次，不按日涨跌改组合。",
     "所有股息在未进入被动收入阶段前全额复投。",
     "若任何公司的基准年化预期低于8%，停止加仓；若护城河或治理被证伪，退出。"
