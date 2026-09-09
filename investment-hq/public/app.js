@@ -262,6 +262,15 @@ function renderGoals() {
       eligible: yieldPass && returnPass && policyPass && coveragePass && fundamentalPass };
   });
   const liveWarehouseEligible = incomeWarehouseRows.filter(c => c.eligible);
+  const seventhSeatRows = (incomeWarehouse?.seventhSeatScreen?.rows || []).map(c => {
+    const q = liveQuote(c.symbol);
+    const current = Number(q?.price ?? c.currentPrice);
+    const taxYield = current > 0 ? Number(c.normalizedAfterTaxDps) / current : null;
+    const pricePass = Number.isFinite(taxYield) && taxYield >= Number(c.requiredYieldForConcentrationRepair);
+    const coveragePass = c.cashCoverage === '通过';
+    const fundamentalPass = c.fundamentals === '通过';
+    return { ...c, current, taxYield, pricePass, coveragePass, fundamentalPass, eligible: pricePass && coveragePass && fundamentalPass };
+  });
   const acceleratedPath = acceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
   const companyBasePath = acceleration?.paths?.find(s => s.id === 'twoStage');
   const incomeFirstPath = acceleration?.paths?.find(s => s.id === 'incomeFirst');
@@ -416,6 +425,7 @@ function renderGoals() {
         <td>${esc(row.gate)}</td>
       </tr>`).join('')}</tbody>
     </table>
+    ${goalBottleneck?.seventhSeatGate ? `<div class="honest" style="margin-top:12px"><b>第七席硬门槛：</b>按10%最大权重，税后普通股息率至少${fmtPct(goalBottleneck.seventhSeatGate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight, 2)}，才能把最高单一股息贡献压回20%；若单靠这一席把组合推至5.2%，则需要${fmtPct(goalBottleneck.seventhSeatGate.singleSeatTargetScenario.requiredSeatAfterTaxYieldAtMaxWeight, 2)}，同时违反单一股息贡献上限，因此数学上不合格。即使第七席以5.2%税后率加入，组合也只有${fmtPct(goalBottleneck.seventhSeatGate.warehouseGateScenario.portfolioYield, 3)}，仍差${fmtPct(goalBottleneck.seventhSeatGate.warehouseGateScenario.remainingYieldGap, 3)}。</div>` : ''}
     <div class="honest" style="margin-top:12px"><b>三条验收线：</b>约${fmtWan(incomePortfolioAudit.nominalAssets)}是正常100万元名义线；约${fmtWan(incomePortfolioAudit.formalSafetyAssets)}是120万元日常安全线，统一减息15%后仍约${fmtWan(incomePortfolioAudit.routineDividendAtFormalSafetyAssets)}；约${fmtWan(incomePortfolioAudit.severeSafetyAssets)}才是在逐股严重削减后仍有100万元，模型约${esc(incomePortfolioAudit.severeSafetyPath?.duration || '—')}（${esc(incomePortfolioAudit.severeSafetyPath?.date || '—')}）。</div>
     <div class="note">${esc(incomePortfolioAudit.note)}</div>
   </div>` : ''}
@@ -525,6 +535,18 @@ function renderGoals() {
     </table>
     <div class="honest" style="margin-top:12px"><b>当前决策：</b>${esc(incomeWarehouse.summary.decision)}</div>
     <div class="note"><b>最近优先观察：</b>${incomeWarehouseRows.slice(0, 4).map(c => `${esc(c.name)}：${esc(c.decision)}`).join('；')}</div>
+    ${incomeWarehouse.seventhSeatScreen ? `<h3 style="margin-top:16px">第七席候选硬筛</h3>
+    <div class="card-sub">${esc(incomeWarehouse.seventhSeatScreen.modelBasis)} ${esc(incomeWarehouse.seventhSeatScreen.tenYearBoundary)}</div>
+    <table style="margin-top:8px">
+      <thead><tr><th>公司</th><th class="num">获批上限</th><th class="num">最新价</th><th class="num">当前税后率</th><th class="num">修复集中度所需</th><th>价格数学</th><th>现金覆盖</th><th>经营/治理</th><th>结论</th></tr></thead>
+      <tbody>${seventhSeatRows.map(c => `<tr class="${c.eligible ? 'best-row' : ''}">
+        <td><b>${esc(c.name)}</b></td><td class="num">${fmtPct(c.maxWeight, 0)}</td>
+        <td class="num">${livePriceHtml(c.symbol, c.currentPrice, String(c.symbol).endsWith('.HK') ? '港元' : '元')}</td>
+        <td class="num ${c.pricePass ? 'green' : 'red'}">${fmtPct(c.taxYield, 2)}</td><td class="num">${fmtPct(c.requiredYieldForConcentrationRepair, 2)}</td>
+        <td>${c.pricePass ? '<span class="badge pass">通过</span>' : '<span class="badge no">未通过</span>'}</td>
+        <td>${esc(c.cashCoverage)}</td><td>${esc(c.fundamentals)}</td><td>${esc(c.decision)}</td>
+      </tr>`).join('')}</tbody>
+    </table>` : ''}
   </div>` : ''}
 
   ${efficiency ? `<div class="card">

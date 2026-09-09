@@ -82,6 +82,59 @@ const terminalYield = goals.dividendAcceleration.incomePortfolio.rows.reduce(
   (sum, row) => sum + row.weight * row.assumedAfterTaxYield,
   0
 );
+const maxDividendContributionLimit = 0.20;
+const seventhSeatMaxWeight = 0.10;
+const tenYearTerminalYield = 0.052;
+const maxExistingWeightedDividend = Math.max(...goals.dividendAcceleration.incomePortfolio.rows.map(
+  row => row.weight * row.assumedAfterTaxYield
+));
+const concentrationRepairPortfolioYield = maxExistingWeightedDividend / maxDividendContributionLimit;
+const concentrationRepairIncrement = concentrationRepairPortfolioYield - terminalYield;
+const concentrationRepairSeatYield = concentrationRepairIncrement / seventhSeatMaxWeight;
+const singleSeatTargetYield = (tenYearTerminalYield - terminalYield) / seventhSeatMaxWeight;
+const warehouseSeatYield = 0.052;
+const portfolioYieldWithWarehouseSeat = terminalYield + seventhSeatMaxWeight * warehouseSeatYield;
+const maxPortfolioYieldWithSingleSeat = terminalYield / (1 - maxDividendContributionLimit);
+const existingContributionRequiredAtTarget = tenYearTerminalYield * (1 - maxDividendContributionLimit);
+const seventhSeatGate = {
+  status: 'single-seat-cannot-complete-ten-year-yield-gate',
+  currentSixYield: terminalYield,
+  targetTerminalYield: tenYearTerminalYield,
+  maxSeatWeight: seventhSeatMaxWeight,
+  maxDividendContribution: maxDividendContributionLimit,
+  largestExistingWeightedDividend: maxExistingWeightedDividend,
+  concentrationRepair: {
+    minimumPortfolioYield: concentrationRepairPortfolioYield,
+    requiredWeightedDividend: concentrationRepairIncrement,
+    minimumSeatAfterTaxYieldAtMaxWeight: concentrationRepairSeatYield,
+    conclusion: '第七席按10%配置时，税后普通股息率至少约5.01%，才只是把最高单一股息贡献压回20%以内。'
+  },
+  warehouseGateScenario: {
+    seatAfterTaxYield: warehouseSeatYield,
+    portfolioYield: portfolioYieldWithWarehouseSeat,
+    largestExistingDividendContribution: maxExistingWeightedDividend / portfolioYieldWithWarehouseSeat,
+    remainingYieldGap: tenYearTerminalYield - portfolioYieldWithWarehouseSeat
+  },
+  singleSeatTargetScenario: {
+    requiredSeatAfterTaxYieldAtMaxWeight: singleSeatTargetYield,
+    candidateDividendContribution: (seventhSeatMaxWeight * singleSeatTargetYield) / tenYearTerminalYield,
+    violatesContributionLimit: (seventhSeatMaxWeight * singleSeatTargetYield) / tenYearTerminalYield > maxDividendContributionLimit
+  },
+  feasibilityBoundary: {
+    maximumPortfolioYieldWithFixedSixAndOneCompliantNewContributor: maxPortfolioYieldWithSingleSeat,
+    existingSixContributionRequiredAtTarget: existingContributionRequiredAtTarget,
+    existingSixContributionShortfall: existingContributionRequiredAtTarget - terminalYield
+  },
+  requirements: [
+    '候选公司质量至少B类，承保十年总回报不低于8%，不得依赖估值扩张',
+    '按获批最大权重计算，正常化税后普通股息率足以把单一股息贡献压至20%以内',
+    '正常化自由现金流覆盖普通股息不低于1.2倍；金融业改用资本与可分配利润口径',
+    '与现有六席不重复占用行业风险预算，且不靠特别股息、周期峰值或本金返还',
+    '第七席只能修复集中度；5.2%终态税后率还需现有六席更低买价或重新配重共同完成'
+  ],
+  conclusion: '保持现有六席收益贡献不变时，任何单一第七席都无法在20%股息贡献上限内把组合税后率推到5.2%；不得用13.61%的高风险股息假设伪造十年路径。'
+};
+goals.dividendAcceleration.seventhSeatGate = seventhSeatGate;
 goals.dividendAcceleration.purchasingPower = {
   status: 'planning-scenario',
   baseYear: 2026,
@@ -251,6 +304,7 @@ bottleneck.contributionSensitivity = {
   conclusion: `持续投入是比提高回报假设更可控的加速器；十年安全线数学门槛约为每年${Math.round(contributionSensitivity.tenYearSafetyThreshold.annualContribution / 10000 * 10) / 10}万元。若允许迟一年且实际仅完成计划80%，年度能力缓冲需约${Math.round(contributionSensitivity.robustness.combinedPlannedAnnualContribution / 10000 * 10) / 10}万元。实际能力尚未确认，因此0元仍是正式规划基线。`
 };
 bottleneck.terminalIncomeAudit = incomePortfolioAudit;
+bottleneck.seventhSeatGate = seventhSeatGate;
 bottleneck.purchasingPowerAudit = purchasingPowerAudit;
 bottleneck.tenYearGate.priceEquivalent = `若普通股息不增长，5.2%相当于以当前六席${(common.terminalYield * 100).toFixed(3)}%占位收益率所对应买价的约${(common.terminalYield / 0.052 * 100).toFixed(1)}%完成迁移；第七席或可持续DPS增长必须用新证据验证。`;
 const return95 = bottleneck.returnSensitivity.find(row => row.annualReturn === 0.095);

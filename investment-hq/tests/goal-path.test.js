@@ -37,7 +37,8 @@ test('持续投入缩短目标时间，但零投入路径保持不变', () => {
 });
 
 test('终态收息蓝图保留一个空缺席位，并诚实暴露集中度缺口', () => {
-  const audit = bootstrapPayload().decisionMetrics.incomePortfolioAudit;
+  const payload = bootstrapPayload();
+  const audit = payload.decisionMetrics.incomePortfolioAudit;
   assert.equal(audit.holdingCount, 6);
   assert.equal(audit.status, 'future-income-blueprint-with-one-vacancy');
   assert.ok(Math.abs(audit.totalWeight - 1) < 1e-12);
@@ -47,6 +48,12 @@ test('终态收息蓝图保留一个空缺席位，并诚实暴露集中度缺�
   assert.ok(audit.severeSafetyAssets > audit.formalSafetyAssets);
   assert.equal(audit.severeSafetyPath.months, 214);
   assert.equal(audit.severeSafetyPath.date, '2044-07');
+  const gate = payload.goalBottleneck.seventhSeatGate;
+  assert.equal(gate.status, 'single-seat-cannot-complete-ten-year-yield-gate');
+  assert.ok(Math.abs(gate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight - 0.0501) < 1e-12);
+  assert.ok(Math.abs(gate.singleSeatTargetScenario.requiredSeatAfterTaxYieldAtMaxWeight - 0.1361) < 1e-12);
+  assert.equal(gate.singleSeatTargetScenario.violatesContributionLimit, true);
+  assert.ok(gate.feasibilityBoundary.maximumPortfolioYieldWithFixedSixAndOneCompliantNewContributor < gate.targetTerminalYield);
 });
 
 test('购买力目标随通胀增长，并在开始支用后保持30年覆盖', () => {

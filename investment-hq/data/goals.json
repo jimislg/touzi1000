@@ -287,6 +287,44 @@
         "severeFailure": "若严重压力股息低于购买力目标，不卖出本金维持表面收入"
       },
       "note": "3%只是长期规划情景，不代表对未来CPI的预测；每年用实际居民消费价格指数更新累计购买力因子。股息增长必须来自每股普通股息和自由现金流，不把新增本金带来的股息增长算作公司增长。"
+    },
+    "seventhSeatGate": {
+      "status": "single-seat-cannot-complete-ten-year-yield-gate",
+      "currentSixYield": 0.03839000000000001,
+      "targetTerminalYield": 0.052,
+      "maxSeatWeight": 0.1,
+      "maxDividendContribution": 0.2,
+      "largestExistingWeightedDividend": 0.00868,
+      "concentrationRepair": {
+        "minimumPortfolioYield": 0.0434,
+        "requiredWeightedDividend": 0.005009999999999994,
+        "minimumSeatAfterTaxYieldAtMaxWeight": 0.050099999999999936,
+        "conclusion": "第七席按10%配置时，税后普通股息率至少约5.01%，才只是把最高单一股息贡献压回20%以内。"
+      },
+      "warehouseGateScenario": {
+        "seatAfterTaxYield": 0.052,
+        "portfolioYield": 0.043590000000000004,
+        "largestExistingDividendContribution": 0.19912824042211516,
+        "remainingYieldGap": 0.008409999999999994
+      },
+      "singleSeatTargetScenario": {
+        "requiredSeatAfterTaxYieldAtMaxWeight": 0.1360999999999999,
+        "candidateDividendContribution": 0.26173076923076904,
+        "violatesContributionLimit": true
+      },
+      "feasibilityBoundary": {
+        "maximumPortfolioYieldWithFixedSixAndOneCompliantNewContributor": 0.04798750000000001,
+        "existingSixContributionRequiredAtTarget": 0.0416,
+        "existingSixContributionShortfall": 0.0032099999999999906
+      },
+      "requirements": [
+        "候选公司质量至少B类，承保十年总回报不低于8%，不得依赖估值扩张",
+        "按获批最大权重计算，正常化税后普通股息率足以把单一股息贡献压至20%以内",
+        "正常化自由现金流覆盖普通股息不低于1.2倍；金融业改用资本与可分配利润口径",
+        "与现有六席不重复占用行业风险预算，且不靠特别股息、周期峰值或本金返还",
+        "第七席只能修复集中度；5.2%终态税后率还需现有六席更低买价或重新配重共同完成"
+      ],
+      "conclusion": "保持现有六席收益贡献不变时，任何单一第七席都无法在20%股息贡献上限内把组合税后率推到5.2%；不得用13.61%的高风险股息假设伪造十年路径。"
     }
   },
   "goalPathAudit": {

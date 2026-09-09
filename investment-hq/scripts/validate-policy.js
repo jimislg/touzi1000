@@ -95,6 +95,19 @@ check(incomeAudit.status === 'future-income-blueprint-with-one-vacancy'
 check(incomeAudit.routineDividendAtFormalSafetyAssets >= 1000000, '正式安全资产在线性减息15%后仍有100万元股息');
 check(incomeAudit.severeSafetyAssets > incomeAudit.formalSafetyAssets, '复合严重压力资产线高于日常安全资产线');
 check(incomeAudit.rows.every(row => row.gate && row.role), '终态每个席位都有角色和迁移闸门');
+const seventhSeatGate = bottleneck.seventhSeatGate;
+check(seventhSeatGate.status === 'single-seat-cannot-complete-ten-year-yield-gate', '第七席不能独自完成5.2%终态收益率的事实已显式记录');
+check(close(seventhSeatGate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight, 0.0501), '第七席10%权重修复集中度所需税后率为5.01%');
+check(close(seventhSeatGate.singleSeatTargetScenario.requiredSeatAfterTaxYieldAtMaxWeight, 0.1361), '单靠第七席达到5.2%所需税后率为13.61%');
+check(seventhSeatGate.singleSeatTargetScenario.violatesContributionLimit === true, '单靠第七席达到5.2%会违反20%股息贡献上限');
+check(seventhSeatGate.feasibilityBoundary.maximumPortfolioYieldWithFixedSixAndOneCompliantNewContributor < seventhSeatGate.targetTerminalYield, '固定六席时新增一个合规股息来源仍无法达到5.2%');
+const incomeWarehouse = payload.incomeWarehouse;
+const yutongWarehouse = incomeWarehouse.candidates.find(row => row.name === '宇通客车');
+check(yutongWarehouse.slotCap === 0 && yutongWarehouse.policyEntryPrice === 21 && !yutongWarehouse.decision.includes('≤30元只按原执行卡'), '收息预备库已撤回宇通旧30元买入规则');
+check(incomeWarehouse.seventhSeatScreen.status === 'none-eligible'
+  && incomeWarehouse.seventhSeatScreen.rows.every(row => row.priceMath !== '通过' || row.cashCoverage !== '通过' || row.fundamentals !== '通过'), '第七席候选没有被价格单项通过误判为可买');
+const monitorScope = new Set(read('watchlist-monitor.json').scope);
+check([...pf.watchlist, ...pf.candidates, ...incomeWarehouse.candidates].every(row => monitorScope.has(row.name)), '观察监控范围覆盖正式观察池、候选池和收息预备库并集');
 const purchasingPower = metrics.purchasingPowerAudit;
 const planningPower = purchasingPower.planning;
 check(purchasingPower.rows.length === 3 && purchasingPower.rows.some(row => close(row.inflation, 0.02))

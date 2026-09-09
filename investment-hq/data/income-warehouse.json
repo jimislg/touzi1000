@@ -1,6 +1,7 @@
 {
-  "asOf": "2026-09-01 16:14 CST",
-  "quoteSource": "腾讯公开行情接口；价格仅用于触发检查，成交前必须再次刷新",
+  "asOf": "2026-09-09 14:56 CST",
+  "quoteSource": "腾讯公开行情接口盘中快照；价格仅用于触发检查，成交前必须再次刷新",
+  "financialDataCutoff": "康臣、东阿阿胶、宁沪高速均已读取2026年中期/半年度交易所公告；其他候选沿用最新有效研究，未完成新财报复核的基本面闸门不得自动转绿",
   "objective": "在不牺牲公司质量和总回报的前提下，提前锁定最多10%的未来收息能力，为十年安全线争取5.2%的终态税后普通股息率。",
   "gates": {
     "afterTaxYield": 0.052,
@@ -12,8 +13,55 @@
   },
   "summary": {
     "eligibleNow": 0,
-    "nearPriceButBlocked": ["宇通客车", "东阿阿胶", "中国移动H"],
-    "decision": "当前没有新增候选同时通过价格、总回报、正常化股息和现金覆盖四道闸门，因此收息预备库维持0%。已有招行和格力持仓、以及宇通目标仓按原组合纪律管理，不因列入本表增加仓位。"
+    "nearPriceButBlocked": ["宁沪高速", "宇通客车", "康臣药业"],
+    "decision": "当前没有候选同时通过第七席的价格、承保回报、正常化股息、自由现金流覆盖和行业分散闸门，批准仓位仍为0%。宇通已退出正式名单；宁沪虽在10%权重下达到集中度修复所需收益率，但扩张期自由现金流覆盖未通过；康臣现金流通过但8%权重下的价格收益率未通过。"
+  },
+  "seventhSeatScreen": {
+    "status": "none-eligible",
+    "modelBasis": "现有六席税后普通股息率3.839%，中国移动加权股息0.868个百分点；第七席若上限10%，至少需5.01%税后率才能把最高单一股息贡献压回20%。若候选上限只有8%，最低税后率提高到6.2625%。",
+    "tenYearBoundary": "单靠10%第七席达到组合5.2%需要13.61%税后率，且该席股息贡献会达到26.17%，违反20%上限；第七席只能修复集中度，不能独自承保十年路径。",
+    "rows": [
+      {
+        "name": "宇通客车", "symbol": "600066.SH", "maxWeight": 0.08, "currentPrice": 27.89,
+        "normalizedAfterTaxDps": 1.76, "currentAfterTaxYield": 0.063105,
+        "requiredYieldForConcentrationRepair": 0.062625, "concentrationGatePrice": 28.10,
+        "priceMath": "通过", "cashCoverage": "未通过", "fundamentals": "橙色预警",
+        "decision": "价格数学勉强通过，但2026年销量、国内份额和自由现金流覆盖没有通过；正式目标0%，仅在19—21元且经营论文完整时重新申请。"
+      },
+      {
+        "name": "宁沪高速", "symbol": "600377.SH", "maxWeight": 0.10, "currentPrice": 12.51,
+        "normalizedAfterTaxDps": 0.65, "currentAfterTaxYield": 0.051958,
+        "requiredYieldForConcentrationRepair": 0.0501, "concentrationGatePrice": 12.97,
+        "priceMath": "通过", "cashCoverage": "未通过/待拆分", "fundamentals": "标黄",
+        "decision": "股息率数学通过；2026上半年经营现金流36.03亿元，但购建长期资产现金支出41.47亿元，且下半年资本开支计划85.81亿元。必须拆分维持性与扩张性资本开支并验证分红不靠加杠杆后再评。"
+      },
+      {
+        "name": "康臣药业", "symbol": "01681.HK", "maxWeight": 0.08, "currentPrice": 13.16,
+        "normalizedAfterTaxDps": 0.624, "currentAfterTaxYield": 0.047416,
+        "requiredYieldForConcentrationRepair": 0.062625, "concentrationGatePrice": 9.96,
+        "priceMath": "未通过", "cashCoverage": "通过", "fundamentals": "经营通过、资本配置标黄",
+        "decision": "2026上半年收入、归母利润和经营现金流均改善，经营现金流/归母利润约1.31倍；但按港股通20%税和8%上限，约9.96港元以下才具备修复集中度的数学条件。"
+      },
+      {
+        "name": "东阿阿胶", "symbol": "000423.SZ", "maxWeight": 0.08, "currentPrice": 46.78,
+        "normalizedAfterTaxDps": 2.385, "currentAfterTaxYield": 0.050983,
+        "requiredYieldForConcentrationRepair": 0.062625, "concentrationGatePrice": 38.08,
+        "priceMath": "未通过", "cashCoverage": "未通过", "fundamentals": "标黄",
+        "decision": "2026上半年收入与利润仍增长，但经营现金流仅0.82亿元、归母利润8.60亿元，现金转化约9.5%；即使价格降至约38.08元，现金覆盖恢复前也不能进入第七席。"
+      },
+      {
+        "name": "分众传媒", "symbol": "002027.SZ", "maxWeight": 0.08, "currentPrice": 4.88,
+        "normalizedAfterTaxDps": 0.26, "currentAfterTaxYield": 0.053279,
+        "requiredYieldForConcentrationRepair": 0.062625, "concentrationGatePrice": 4.15,
+        "priceMath": "未通过", "cashCoverage": "待合并后验证", "fundamentals": "新潮整合标黄",
+        "decision": "约4.15元才达到8%权重下的集中度修复收益率；在新潮整合后的扣非利润、每股收益和自由现金流覆盖未验证前不进入。"
+      }
+    ],
+    "sources": [
+      "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600201.pdf",
+      "https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-08-21/be0632b3-cab4-4274-8cb9-3d5b60ce7df0.PDF",
+      "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800091.pdf"
+    ]
   },
   "candidates": [
     {
@@ -21,11 +69,11 @@
       "name": "美的集团",
       "symbol": "000333.SZ",
       "qualityGrade": "A",
-      "currentPrice": 87.49,
+      "currentPrice": 85.96,
       "currency": "元",
       "normalizedDps": 4.30,
       "afterTaxDps": 4.30,
-      "currentAfterTaxYield": 0.04915,
+      "currentAfterTaxYield": 0.050023,
       "yieldGatePrice": 82.69,
       "returnGatePrice": 86.80,
       "policyEntryPrice": 75.10,
@@ -41,11 +89,11 @@
       "name": "中国移动",
       "symbol": "00941.HK",
       "qualityGrade": "B",
-      "currentPrice": 79.50,
+      "currentPrice": 78.95,
       "currency": "港元",
       "normalizedDps": 5.27,
       "afterTaxDps": 4.216,
-      "currentAfterTaxYield": 0.05303,
+      "currentAfterTaxYield": 0.053401,
       "yieldGatePrice": 81.08,
       "returnGatePrice": 68.00,
       "policyEntryPrice": 68.00,
@@ -61,31 +109,31 @@
       "name": "宁沪高速",
       "symbol": "600377.SH",
       "qualityGrade": "B",
-      "currentPrice": 12.57,
+      "currentPrice": 12.51,
       "currency": "元",
       "normalizedDps": 0.65,
       "afterTaxDps": 0.65,
-      "currentAfterTaxYield": 0.05171,
+      "currentAfterTaxYield": 0.051958,
       "yieldGatePrice": 12.50,
       "returnGatePrice": 11.60,
       "policyEntryPrice": 11.60,
       "normalPrice": 10.10,
       "slotCap": 0.025,
-      "coverageStatus": "待验证",
+      "coverageStatus": "未通过/待拆分",
       "fundamentalStatus": "标黄",
       "role": "收费公路低相关现金流",
-      "decision": "≤11.60元只观察1%；≤10.10元且新中期分红、收费期限和扩建现金流通过，才进入2%—2.5%。"
+      "decision": "现价税后率约5.20%，但2026上半年购建长期资产支出超过经营现金流，下半年资本开支计划85.81亿元；先拆分维持性/扩张性资本开支并验证分红覆盖，≤11.60元也只复审不自动买。"
     },
     {
       "priority": 4,
       "name": "长江电力",
       "symbol": "600900.SH",
       "qualityGrade": "B",
-      "currentPrice": 28.40,
+      "currentPrice": 28.04,
       "currency": "元",
       "normalizedDps": 1.00,
       "afterTaxDps": 1.00,
-      "currentAfterTaxYield": 0.03521,
+      "currentAfterTaxYield": 0.035663,
       "yieldGatePrice": 19.23,
       "returnGatePrice": 23.00,
       "policyEntryPrice": 19.00,
@@ -101,11 +149,11 @@
       "name": "东阿阿胶",
       "symbol": "000423.SZ",
       "qualityGrade": "B",
-      "currentPrice": 47.59,
+      "currentPrice": 46.78,
       "currency": "元",
       "normalizedDps": 2.385,
       "afterTaxDps": 2.385,
-      "currentAfterTaxYield": 0.05012,
+      "currentAfterTaxYield": 0.050983,
       "yieldGatePrice": 45.87,
       "returnGatePrice": 47.40,
       "policyEntryPrice": 41.00,
@@ -114,18 +162,38 @@
       "coverageStatus": "未通过",
       "fundamentalStatus": "标黄",
       "role": "品牌滋补与消费分散",
-      "decision": "不用2.775元追踪股息外推；等待≤41元且全年经营现金流/净利润恢复至至少80%，再建1.5%。"
+      "decision": "不用2.775元追踪股息外推；2026上半年经营现金流/归母利润仅约9.5%，即使≤38.08元达到第七席收益率，现金转化恢复至至少80%前仍不买。"
     },
     {
       "priority": 6,
+      "name": "康臣药业",
+      "symbol": "01681.HK",
+      "qualityGrade": "B",
+      "currentPrice": 13.16,
+      "currency": "港元",
+      "normalizedDps": 0.78,
+      "afterTaxDps": 0.624,
+      "currentAfterTaxYield": 0.047416,
+      "yieldGatePrice": 12.00,
+      "returnGatePrice": 13.22,
+      "policyEntryPrice": 10.60,
+      "normalPrice": 9.96,
+      "slotCap": 0.00,
+      "coverageStatus": "通过",
+      "fundamentalStatus": "资本配置标黄",
+      "role": "肾病药现金流与医疗分散",
+      "decision": "2026中期经营现金流/归母利润约1.31倍，但13.16港元的港股通税后率仅约4.74%；第七席8%上限要求约≤9.96港元，当前只观察。"
+    },
+    {
+      "priority": 7,
       "name": "招商银行",
       "symbol": "600036.SH",
       "qualityGrade": "B",
-      "currentPrice": 40.86,
+      "currentPrice": 41.15,
       "currency": "元",
       "normalizedDps": 2.00,
       "afterTaxDps": 2.00,
-      "currentAfterTaxYield": 0.04895,
+      "currentAfterTaxYield": 0.048603,
       "yieldGatePrice": 38.46,
       "returnGatePrice": 41.40,
       "policyEntryPrice": 35.70,
@@ -137,15 +205,15 @@
       "decision": "已有约8.81%持仓，积累期目标10%；现价不补，≤35.70元再补至目标，不占新增预备库额度。"
     },
     {
-      "priority": 7,
+      "priority": 8,
       "name": "格力电器",
       "symbol": "000651.SZ",
       "qualityGrade": "B",
-      "currentPrice": 38.55,
+      "currentPrice": 38.96,
       "currency": "元",
       "normalizedDps": 2.695,
       "afterTaxDps": 2.695,
-      "currentAfterTaxYield": 0.06991,
+      "currentAfterTaxYield": 0.069174,
       "yieldGatePrice": 51.83,
       "returnGatePrice": 35.80,
       "policyEntryPrice": 32.70,
@@ -157,15 +225,15 @@
       "decision": "股息率通过但增长和治理未通过；保留现有约0.96%，不新增。≤32.70元且经营降幅收窄后再评估。"
     },
     {
-      "priority": 8,
+      "priority": 9,
       "name": "中国海洋石油",
       "symbol": "00883.HK",
       "qualityGrade": "B",
-      "currentPrice": 25.06,
+      "currentPrice": 25.94,
       "currency": "港元",
       "normalizedDps": 1.28,
       "afterTaxDps": 1.024,
-      "currentAfterTaxYield": 0.04086,
+      "currentAfterTaxYield": 0.039476,
       "yieldGatePrice": 19.69,
       "returnGatePrice": 20.10,
       "policyEntryPrice": 19.70,
@@ -177,15 +245,15 @@
       "decision": "等待≤19.70港元并用约68美元油价正常化利润复核；与神华合计不超过3%。"
     },
     {
-      "priority": 9,
+      "priority": 10,
       "name": "中国神华",
       "symbol": "01088.HK",
       "qualityGrade": "B",
-      "currentPrice": 46.20,
+      "currentPrice": 46.86,
       "currency": "港元",
       "normalizedDps": 1.80,
       "afterTaxDps": 1.656,
-      "currentAfterTaxYield": 0.03584,
+      "currentAfterTaxYield": 0.035339,
       "yieldGatePrice": 31.85,
       "returnGatePrice": 33.20,
       "policyEntryPrice": 31.80,
@@ -197,34 +265,34 @@
       "decision": "等待≤31.80港元，并完成资产注入后每股利润、股本与关联交易重算；与海油合计不超过3%。"
     },
     {
-      "priority": 10,
+      "priority": 11,
       "name": "宇通客车",
       "symbol": "600066.SH",
       "qualityGrade": "A",
-      "currentPrice": 30.54,
+      "currentPrice": 27.89,
       "currency": "元",
       "normalizedDps": 1.76,
       "afterTaxDps": 1.76,
-      "currentAfterTaxYield": 0.05763,
+      "currentAfterTaxYield": 0.063105,
       "yieldGatePrice": 33.85,
-      "returnGatePrice": 32.67,
-      "policyEntryPrice": 30.00,
-      "normalPrice": 28.00,
-      "slotCap": 0.02,
+      "returnGatePrice": 21.00,
+      "policyEntryPrice": 21.00,
+      "normalPrice": 20.00,
+      "slotCap": 0.00,
       "coverageStatus": "未通过",
-      "fundamentalStatus": "通过",
+      "fundamentalStatus": "橙色预警",
       "role": "全球客车与中高股息",
-      "decision": "股息率和总回报通过，但2025自由现金流仅覆盖正常化股息约63%；≤30元只按原执行卡建2%积累仓，不计入收息预备库。"
+      "decision": "旧≤30元建仓规则已撤回。虽然8%权重下的股息数学勉强通过集中度门槛，但销量、国内份额和自由现金流未通过；正式目标0%，19—21元且经营论文完整时才重新申请3%—5%。"
     }
   ],
   "initialExecutionQuoteCheck": {
-    "asOf": "2026-09-01 16:14 CST",
+    "asOf": "2026-09-09 14:56 CST（腾讯、福耀行保留原执行卡参考价；宇通已按最新政策撤回）",
     "holdingSnapshotStill": "2026-08-25，未收到成交回报，因此不得假设订单已经执行",
     "rows": [
       {"name": "腾讯控股", "symbol": "00700.HK", "price": 441.40, "primaryLimit": 460, "secondaryLimit": 442, "status": "两档价格均触发", "instruction": "若仍未成交，先执行原卡400股；确认成交后才执行第二档300股，不合并为市价追单。"},
       {"name": "福耀玻璃", "symbol": "600660.SH", "price": 57.85, "primaryLimit": 57.70, "status": "未触发", "instruction": "相差0.15元，继续限价等待。"},
-      {"name": "宇通客车", "symbol": "600066.SH", "price": 30.54, "primaryLimit": 30.00, "status": "未触发", "instruction": "继续等待≤30元；即使成交也属于积累仓，不计入收息预备库。"}
+      {"name": "宇通客车", "symbol": "600066.SH", "price": 27.89, "primaryLimit": null, "status": "旧计划已撤回", "instruction": "正式目标0%，不执行旧≤30元买入卡；19—21元且经营论文完整时才重新申请。"}
     ]
   },
-  "decision": "收息预备库当前目标仓位仍为0%。最接近质量与价格双闸门的是美的≤75.10元、中国移动H≤68港元、宁沪高速≤11.60元观察/≤10.10元正常、长江电力≤19元；任何一个达到价格后仍必须重新检查最新报告。"
+  "decision": "收息预备库和第七席当前批准仓位均为0%。短期优先复核康臣≤9.96港元、东阿阿胶≤38.08元、宁沪高速的维持性资本开支拆分，以及宇通19—21元时经营论文是否修复；任何价格触发都只启动复审，不自动下单。"
 }

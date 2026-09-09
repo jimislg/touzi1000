@@ -1,7 +1,8 @@
 {
   "asOf": "2026-09-09",
   "lastCheckedAt": null,
-  "sourceOfTruth": "portfolio.json.watchlist、portfolio.json.candidates及各公司最新有效研究",
+  "sourceOfTruth": "portfolio.json.watchlist、portfolio.json.candidates、income-warehouse.json及各公司最新有效研究",
+  "scopeRule": "监控范围取上述三处公司的并集；未来任何公司退出正式名单后自动保留在portfolio.json.watchlist，除非用户明确删除。",
   "scope": [
     "宇通客车",
     "宁德时代",
@@ -9,14 +10,25 @@
     "携程集团",
     "名创优品",
     "康臣药业",
-    "小商品城"
+    "小商品城",
+    "美的集团",
+    "中国移动",
+    "宁沪高速",
+    "长江电力",
+    "东阿阿胶",
+    "招商银行",
+    "格力电器",
+    "中国海洋石油",
+    "中国神华",
+    "迈瑞医疗"
   ],
   "materialChangeTriggers": [
     "正式公告或定期报告改变收入、利润、自由现金流、份额或资产负债表判断",
     "分红、回购、增发、并购、重大资本开支或管理层诚信与治理发生变化",
     "监管、集采、关税、制裁、质量事故等改变投资论文",
     "价格进入portfolio.json记载的复核区或退出区，并且经营前提仍需检查",
-    "观察公司满足重新纳入条件，或触发负面否决条件"
+    "观察公司满足重新纳入条件，或触发负面否决条件",
+    "候选进入第七席的集中度修复价格线，同时通过承保回报、自由现金流覆盖与行业分散闸门"
   ],
   "notificationRule": "只报告可验证的重大变化；区分事实、推断和待确认项。价格单独波动不构成买入提醒。",
   "portfolioMutationRule": "监控不得自动改正式目标权重、实际持仓或成交账本；任何重新纳入必须单独决策。",

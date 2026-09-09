@@ -1197,6 +1197,12 @@ function buildDecisionMetrics(payload) {
   if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `质量折扣后的承保路线约${accelerated.nominal.duration}达到名义线、约${accelerated.safety.duration}达到安全线；积累期承保年化${(accelerated.accumulationReturn * 100).toFixed(2)}%，不再把${(normalizedWeightedReturn * 100).toFixed(2)}%的公司基准机械加权当成保守承诺。` });
   if (incomePortfolioAudit?.holdingCount < incomePortfolioAudit?.maxHoldings) alerts.push({ severity: 'red', title: '终态收息席位尚未补齐', detail: `当前只识别${incomePortfolioAudit.holdingCount}只收入资产，第${incomePortfolioAudit.holdingCount + 1}席保持空缺并计入现金；宇通、宁德、康臣均不得自动补位。当前路径只是保守占位测算，不是完整终态验收。` });
   if (incomePortfolioAudit?.maxDividendContribution > 0.20) alerts.push({ severity: 'red', title: '终态股息集中度暂未通过', detail: `移除宇通后，最高单一公司普通股息贡献升至${(incomePortfolioAudit.maxDividendContribution * 100).toFixed(1)}%，超过20%上限；必须由合格第七席或重新配置解决，不能为通过审计而随意改权重。` });
+  const seventhSeatGate = payload.goalBottleneck?.seventhSeatGate || payload.goals?.dividendAcceleration?.seventhSeatGate;
+  if (seventhSeatGate?.status === 'single-seat-cannot-complete-ten-year-yield-gate') alerts.push({
+    severity: 'red',
+    title: '第七席不能单独兑现5.2%终态收益率',
+    detail: `按10%最大权重，第七席只需约${(seventhSeatGate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight * 100).toFixed(2)}%税后率即可修复20%集中度，但若单靠它把组合推至5.2%，需要约${(seventhSeatGate.singleSeatTargetScenario.requiredSeatAfterTaxYieldAtMaxWeight * 100).toFixed(2)}%，且该席股息贡献将超过20%。必须同时改善现有六席的买入收益率或重新配重。`
+  });
   if (incomePortfolioAudit?.severeSafetyPath) alerts.push({ severity: 'amber', title: '120万元只覆盖日常减息，不覆盖复合严重压力', detail: `当前六席占位蓝图在统一减息15%后仍约${(incomePortfolioAudit.routineDividendAtFormalSafetyAssets / 10000).toFixed(1)}万元；按逐股严重削减假设，需资产约${(incomePortfolioAudit.severeSafetyAssets / 10000).toFixed(0)}万元、约${incomePortfolioAudit.severeSafetyPath.duration}后，才仍有100万元普通股息。` });
   if (purchasingPowerAudit?.planning?.realRoutineSafety) alerts.push({ severity: 'amber', title: '名义120万元不等于今天100万元购买力', detail: `按${(purchasingPowerAudit.planningInflation * 100).toFixed(0)}%规划通胀，固定120万元日常安全线届时只相当于${(purchasingPowerAudit.planning.fixedRoutineRealDividend / 10000).toFixed(1)}万元的${purchasingPowerAudit.baseYear}年购买力；若连20%缓冲也随通胀增长，约需${purchasingPowerAudit.planning.realRoutineSafety.duration}（${purchasingPowerAudit.planning.realRoutineSafety.date}）。` });
   const tenYearPowerContribution = purchasingPowerAudit?.contributionSensitivity?.horizonThresholds?.find(row => row.horizonYears === 10);
