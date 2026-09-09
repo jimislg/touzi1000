@@ -193,7 +193,7 @@
     "rule": "积累期若迁移候选同时达到税后普通股息率5.2%、承保十年总回报8%以上和分红覆盖闸门，可提前锁定合计不超过10%的未来收息仓；它占用现有目标仓位，不增加总股票上限。",
     "forbidden": "不得因为股息率高而降低公司质量门槛；不得使用特别股息年化；不得把预买仓作为现金部署进度的填充物。"
   },
-  "decision": "正式七席承保日期修正为名义11年3个月、日常安全13年7个月。旧10年6个月/12年10个月属于九公司90/10研究口径或尚不可执行的立即收息模型。十年日常安全线仍要求积累回报约9.5%与终态5.2%税后普通股息率同时成立；当前没有证据证明条件已实现。终态已改为七席蓝图；120万元只覆盖15%日常减息，复合严重压力下仍有100万元约需3204万元。",
+  "decision": "正式七席承保日期修正为名义11年3个月、日常安全13年7个月。旧10年6个月/12年10个月属于九公司90/10研究口径或尚不可执行的立即收息模型。十年日常安全线仍要求积累回报约9.5%与终态5.2%税后普通股息率同时成立；当前没有证据证明条件已实现。终态已改为七席蓝图；120万元只覆盖15%日常减息，复合严重压力下仍有100万元约需3204万元。按3%规划通胀维持2026年购买力并保留20%缓冲，时间进一步延至22年1个月。",
   "contributionSensitivity": {
     "status": "capacity-unconfirmed",
     "rows": [
@@ -204,6 +204,7 @@
           "months": 135,
           "assets": 22587870.187806457,
           "annualDividend": 1005250.5748381387,
+          "targetDividend": 1000000,
           "annualYield": 0.044504,
           "cumulativeContribution": 0,
           "phase": "income",
@@ -214,6 +215,7 @@
           "months": 163,
           "assets": 27031120.341110013,
           "annualDividend": 1202992.9796607601,
+          "targetDividend": 1200000,
           "annualYield": 0.044504,
           "cumulativeContribution": 0,
           "phase": "income",
@@ -232,6 +234,7 @@
           "months": 106,
           "assets": 22575174.025209382,
           "annualDividend": 1004685.5448179183,
+          "targetDividend": 1000000,
           "annualYield": 0.044504,
           "cumulativeContribution": 2650000,
           "phase": "income",
@@ -242,6 +245,7 @@
           "months": 130,
           "assets": 26978245.07999101,
           "annualDividend": 1200639.8190399199,
+          "targetDividend": 1200000,
           "annualYield": 0.044504,
           "cumulativeContribution": 3250000,
           "phase": "income",
@@ -260,6 +264,7 @@
           "months": 93,
           "assets": 22591060.4807259,
           "annualDividend": 1005392.5556342255,
+          "targetDividend": 1000000,
           "annualYield": 0.044504,
           "cumulativeContribution": 3874999.999999995,
           "phase": "income",
@@ -270,6 +275,7 @@
           "months": 115,
           "assets": 26995715.000775017,
           "annualDividend": 1201417.3003944913,
+          "targetDividend": 1200000,
           "annualYield": 0.044504,
           "cumulativeContribution": 4791666.666666665,
           "phase": "income",
@@ -288,6 +294,7 @@
           "months": 73,
           "assets": 22980450.94932883,
           "annualDividend": 1006919.0989461084,
+          "targetDividend": 1000000,
           "annualYield": 0.04381633333333333,
           "cumulativeContribution": 6083333.333333329,
           "phase": "migrate",
@@ -298,6 +305,7 @@
           "months": 90,
           "assets": 27119640.096757125,
           "annualDividend": 1206932.462866079,
+          "targetDividend": 1200000,
           "annualYield": 0.044504,
           "cumulativeContribution": 7499999.999999991,
           "phase": "income",
@@ -321,6 +329,7 @@
       "months": 120,
       "assets": 22469894.440540686,
       "annualDividend": 1000000.1821818227,
+      "targetDividend": 1000000,
       "annualYield": 0.044504,
       "cumulativeContribution": 1286760,
       "phase": "income",
@@ -338,6 +347,7 @@
       "months": 120,
       "assets": 26963869.94553591,
       "annualDividend": 1200000.06805613,
+      "targetDividend": 1200000,
       "annualYield": 0.044504,
       "cumulativeContribution": 4258279.9999999935,
       "phase": "income",
@@ -359,6 +369,7 @@
         "months": 120,
         "assets": 26963871.680343274,
         "annualDividend": 1200000.1452619971,
+        "targetDividend": 1200000,
         "annualYield": 0.044504,
         "cumulativeContribution": 4435479,
         "phase": "income",
@@ -376,6 +387,7 @@
         "months": 120,
         "assets": 26963869.301350646,
         "annualDividend": 1200000.0393873092,
+        "targetDividend": 1200000,
         "annualYield": 0.044504,
         "cumulativeContribution": 3563955,
         "phase": "income",
@@ -505,6 +517,7 @@
       "months": 190,
       "assets": 32141600.282021474,
       "annualDividend": 1003325.766083526,
+      "targetDividend": 1000000,
       "annualYield": 0.031215800000000002,
       "cumulativeContribution": 0,
       "phase": "income",
@@ -519,5 +532,294 @@
       "腾讯若迁移时基准十年IRR仍不低于12%，不机械卖出；延后迁移或提高资产门槛"
     ],
     "note": "这是未来迁移阶段的七席风险预算，不是2026年的买入清单。税后率全部按预设买点和届时税制复核；任一席位未通过时提高所需资产，不用第8只或低质量高股息硬填。"
+  },
+  "purchasingPowerAudit": {
+    "status": "planning-scenario",
+    "baseYear": 2026,
+    "baseAnnualIncome": 1000000,
+    "planningInflation": 0.03,
+    "routineBuffer": 1.2,
+    "severeTerminalReturn": 0.06,
+    "rows": [
+      {
+        "inflation": 0.02,
+        "fixedRoutineNominalDividend": 1202992.9796607601,
+        "fixedRoutineRealDividend": 919272.1290434555,
+        "realNominal": {
+          "months": 181,
+          "assets": 30338889.43296958,
+          "annualDividend": 1350201.9353248782,
+          "targetDividend": 1348091.1493065527,
+          "annualYield": 0.044504,
+          "cumulativeContribution": 0,
+          "phase": "income",
+          "duration": "15年1个月",
+          "date": "2041-10"
+        },
+        "realRoutineSafety": {
+          "months": 219,
+          "assets": 38711640.10790404,
+          "annualDividend": 1722822.8313621616,
+          "targetDividend": 1722401.443167215,
+          "annualYield": 0.044504,
+          "cumulativeContribution": 0,
+          "phase": "income",
+          "duration": "18年3个月",
+          "date": "2044-12"
+        },
+        "realSevereSafety": {
+          "months": 294,
+          "assets": 62623890.325448506,
+          "annualDividend": 1954854.8356211355,
+          "targetDividend": 1949330.3932944676,
+          "annualYield": 0.031215800000000002,
+          "cumulativeContribution": 0,
+          "phase": "income",
+          "duration": "24年6个月",
+          "date": "2051-03"
+        }
+      },
+      {
+        "inflation": 0.03,
+        "fixedRoutineNominalDividend": 1202992.9796607601,
+        "fixedRoutineRealDividend": 805175.9431715655,
+        "realNominal": {
+          "months": 218,
+          "assets": 38464160.54082835,
+          "annualDividend": 1711809.0007090247,
+          "targetDividend": 1710840.7346627822,
+          "annualYield": 0.044504,
+          "cumulativeContribution": 0,
+          "phase": "income",
+          "duration": "18年2个月",
+          "date": "2044-11"
+        },
+        "realRoutineSafety": {
+          "months": 265,
+          "assets": 51995524.99804169,
+          "annualDividend": 2314008.8445128473,
+          "targetDividend": 2304994.844134396,
+          "annualYield": 0.044504,
+          "cumulativeContribution": 0,
+          "phase": "income",
+          "duration": "22年1个月",
+          "date": "2048-10"
+        },
+        "realSevereSafety": {
+          "months": 354,
+          "assets": 92015040.33362524,
+          "annualDividend": 2872323.096046379,
+          "targetDividend": 2869983.334383106,
+          "annualYield": 0.031215800000000002,
+          "cumulativeContribution": 0,
+          "phase": "income",
+          "duration": "29年6个月",
+          "date": "2056-03"
+        }
+      },
+      {
+        "inflation": 0.04,
+        "fixedRoutineNominalDividend": 1202992.9796607601,
+        "fixedRoutineRealDividend": 706144.4782230823,
+        "realNominal": {
+          "months": 274,
+          "assets": 55085054.60073895,
+          "annualDividend": 2451505.2699512863,
+          "targetDividend": 2448656.769838506,
+          "annualYield": 0.044504,
+          "cumulativeContribution": 0,
+          "phase": "income",
+          "duration": "22年10个月",
+          "date": "2049-07"
+        },
+        "realRoutineSafety": {
+          "months": 332,
+          "assets": 79906468.2242829,
+          "annualDividend": 3556157.4618534865,
+          "targetDividend": 3551705.6540664546,
+          "annualYield": 0.044504,
+          "cumulativeContribution": 0,
+          "phase": "income",
+          "duration": "27年8个月",
+          "date": "2054-05"
+        },
+        "realSevereSafety": {
+          "months": 445,
+          "assets": 164938598.47531125,
+          "annualDividend": 5148690.302285621,
+          "targetDividend": 5138474.966034817,
+          "annualYield": 0.031215800000000002,
+          "cumulativeContribution": 0,
+          "phase": "income",
+          "duration": "37年1个月",
+          "date": "2063-10"
+        }
+      }
+    ],
+    "planning": {
+      "inflation": 0.03,
+      "fixedRoutineNominalDividend": 1202992.9796607601,
+      "fixedRoutineRealDividend": 805175.9431715655,
+      "realNominal": {
+        "months": 218,
+        "assets": 38464160.54082835,
+        "annualDividend": 1711809.0007090247,
+        "targetDividend": 1710840.7346627822,
+        "annualYield": 0.044504,
+        "cumulativeContribution": 0,
+        "phase": "income",
+        "duration": "18年2个月",
+        "date": "2044-11"
+      },
+      "realRoutineSafety": {
+        "months": 265,
+        "assets": 51995524.99804169,
+        "annualDividend": 2314008.8445128473,
+        "targetDividend": 2304994.844134396,
+        "annualYield": 0.044504,
+        "cumulativeContribution": 0,
+        "phase": "income",
+        "duration": "22年1个月",
+        "date": "2048-10"
+      },
+      "realSevereSafety": {
+        "months": 354,
+        "assets": 92015040.33362524,
+        "annualDividend": 2872323.096046379,
+        "targetDividend": 2869983.334383106,
+        "annualYield": 0.031215800000000002,
+        "cumulativeContribution": 0,
+        "phase": "income",
+        "duration": "29年6个月",
+        "date": "2056-03"
+      }
+    },
+    "postAchievement": {
+      "projectionYears": 30,
+      "routine": {
+        "years": 30,
+        "startingAssets": 51995524.99804169,
+        "startingAnnualSpend": 1920829.0367786633,
+        "annualReturn": 0.08,
+        "dividendYield": 0.044504,
+        "inflation": 0.03,
+        "minDividendCoverage": 1.2046927655745814,
+        "firstDividendCoverageBreachMonth": null,
+        "firstPrincipalBreachMonth": null,
+        "endingAssets": 214423091.0670896,
+        "endingRealAssets": 88339474.45411433,
+        "annualSnapshots": [
+          {
+            "year": 1,
+            "assets": 54133070.8240961,
+            "realAssets": 52556379.440869994,
+            "annualSpend": 1978453.9078820231,
+            "annualDividend": 2409138.183955573,
+            "dividendCoverage": 1.2176872932736686
+          },
+          {
+            "year": 5,
+            "assets": 63859304.505115,
+            "realAssets": 55085597.03077541,
+            "annualSpend": 2226767.3035001457,
+            "annualDividend": 2841994.487695638,
+            "dividendCoverage": 1.2762871464963794
+          },
+          {
+            "year": 10,
+            "assets": 79293922.50622296,
+            "realAssets": 59002125.225172974,
+            "annualSpend": 2581433.604446639,
+            "annualDividend": 3528896.727216947,
+            "dividendCoverage": 1.3670298244890975
+          },
+          {
+            "year": 20,
+            "assets": 126893453.89362411,
+            "realAssets": 70257828.7858612,
+            "annualSpend": 3469230.9032051745,
+            "annualDividend": 5647266.272081847,
+            "dividendCoverage": 1.6278150488237655
+          },
+          {
+            "year": 30,
+            "assets": 214423091.0670896,
+            "realAssets": 88339474.45411433,
+            "annualSpend": 4662356.234544237,
+            "annualDividend": 9542685.244849754,
+            "dividendCoverage": 2.046751634752034
+          }
+        ]
+      },
+      "severe": {
+        "years": 30,
+        "startingAssets": 92015040.33362524,
+        "startingAnnualSpend": 2391652.7786525884,
+        "annualReturn": 0.06,
+        "dividendYield": 0.031215800000000002,
+        "inflation": 0.03,
+        "minDividendCoverage": 1.2009783032404022,
+        "firstDividendCoverageBreachMonth": null,
+        "firstPrincipalBreachMonth": null,
+        "endingAssets": 252564397.31830138,
+        "endingRealAssets": 104053187.62025486,
+        "annualSnapshots": [
+          {
+            "year": 1,
+            "assets": 95039825.63298349,
+            "realAssets": 92271675.37182863,
+            "annualSpend": 2463402.362012166,
+            "annualDividend": 2966744.1889940863,
+            "dividendCoverage": 1.2043278981720138
+          },
+          {
+            "year": 5,
+            "assets": 108247416.7931914,
+            "realAssets": 93375172.61270078,
+            "annualSpend": 2772581.0610195026,
+            "annualDividend": 3379029.7131329044,
+            "dividendCoverage": 1.2187307201364224
+          },
+          {
+            "year": 10,
+            "assets": 127598492.60815188,
+            "realAssets": 94945261.89972055,
+            "annualSpend": 3214181.342935096,
+            "annualDividend": 3983089.025557548,
+            "dividendCoverage": 1.2392234913293063
+          },
+          {
+            "year": 20,
+            "assets": 178534013.63803935,
+            "realAssets": 98849954.64895476,
+            "annualSpend": 4319590.952952763,
+            "annualDividend": 5573082.062922309,
+            "dividendCoverage": 1.2901874560860194
+          },
+          {
+            "year": 30,
+            "assets": 252564397.31830138,
+            "realAssets": 104053187.62025486,
+            "annualSpend": 5805169.033739904,
+            "annualDividend": 7883999.713808632,
+            "dividendCoverage": 1.3580999395515394
+          }
+        ]
+      },
+      "note": "投影把总回报视为含股息回报，并在每月复利后扣除支用；它检验数学覆盖，不替代逐公司分红能力。"
+    },
+    "dividendGrowthGate": {
+      "minimumNominalGrowth": 0.03,
+      "evidenceYears": 3,
+      "status": "unverified",
+      "reason": "当前没有连续三年终态组合普通股息历史，不能假设股息增长已跑赢通胀。"
+    },
+    "spendingPolicy": {
+      "beforeRealRoutine": "购买力路径的日期以全部普通股息复投为前提；提前支用必须单独重算，不能沿用原日期",
+      "afterRealRoutine": "年度支用上限为100万元乘以自2026年起的累计实际通胀，且不超过压力后普通股息；正常年份至少保留约20%继续复投",
+      "growthFailure": "若连续两年普通股息增长低于实际通胀，冻结支用额并重算组合",
+      "severeFailure": "若严重压力股息低于购买力目标，不卖出本金维持表面收入"
+    },
+    "note": "3%只是长期规划情景，不代表对未来CPI的预测；每年用实际居民消费价格指数更新累计购买力因子。股息增长必须来自每股普通股息和自由现金流，不把新增本金带来的股息增长算作公司增长。"
   }
 }

@@ -94,6 +94,23 @@ check(incomeAudit.maxDividendContribution <= 0.20 + 1e-9, '终态任一公司普
 check(incomeAudit.routineDividendAtFormalSafetyAssets >= 1000000, '正式安全资产在线性减息15%后仍有100万元股息');
 check(incomeAudit.severeSafetyAssets > incomeAudit.formalSafetyAssets, '复合严重压力资产线高于日常安全资产线');
 check(incomeAudit.rows.every(row => row.gate && row.role), '终态每个席位都有角色和迁移闸门');
+const purchasingPower = metrics.purchasingPowerAudit;
+const planningPower = purchasingPower.planning;
+check(purchasingPower.rows.length === 3 && purchasingPower.rows.some(row => close(row.inflation, 0.02))
+  && purchasingPower.rows.some(row => close(row.inflation, 0.03)) && purchasingPower.rows.some(row => close(row.inflation, 0.04)), '购买力审计包含2%/3%/4%通胀情景');
+check(close(planningPower.inflation, goals.dividendAcceleration.purchasingPower.planningInflation), '购买力规划情景与静态政策一致');
+check(planningPower.fixedRoutineRealDividend < 1000000, '固定120万元在规划到达日的2026年购买力低于100万元');
+check(planningPower.realNominal.months > formalPath.safety.months, '实际购买力名义线晚于固定120万元日常安全线');
+check(planningPower.realRoutineSafety.months > planningPower.realNominal.months, '实际购买力20%缓冲线晚于实际购买力名义线');
+check(planningPower.realSevereSafety.months > planningPower.realRoutineSafety.months, '实际购买力严重压力线晚于日常压力线');
+check(Math.abs(planningPower.realRoutineSafety.targetDividend
+  - purchasingPower.baseAnnualIncome * purchasingPower.routineBuffer * Math.pow(1 + planningPower.inflation, planningPower.realRoutineSafety.months / 12)) < 0.01, '实际购买力安全目标按月随通胀增长');
+check(purchasingPower.postAchievement.routine.firstDividendCoverageBreachMonth === null
+  && purchasingPower.postAchievement.routine.firstPrincipalBreachMonth === null, '日常购买力安全线通过30年支用覆盖测试');
+check(purchasingPower.postAchievement.severe.firstDividendCoverageBreachMonth === null
+  && purchasingPower.postAchievement.severe.firstPrincipalBreachMonth === null, '严重购买力安全线通过30年支用覆盖测试');
+check(purchasingPower.dividendGrowthGate.status === 'unverified', '缺少三年股息增长历史时不得标记跑赢通胀');
+check(goals.targets.find(row => row.id === 'dividend1m').note.includes(planningPower.realRoutineSafety.duration), '目标卡显示实际购买力安全日期');
 
 const dividendByName = new Map(pf.dividends.perStock.map(row => [row.name, row]));
 check(pf.holdings.every(row => dividendByName.has(row.name)), '每个真实持仓都有结构化正常化股息口径');

@@ -48,6 +48,22 @@ test('终态收息蓝图保持七席，并分别通过日常与严重压力审�
   assert.equal(audit.severeSafetyPath.date, '2042-07');
 });
 
+test('购买力目标随通胀增长，并在开始支用后保持30年覆盖', () => {
+  const payload = bootstrapPayload();
+  const formal = payload.decisionMetrics.dividendAcceleration.paths.find(row => row.id === 'underwrittenTwoStage');
+  const audit = payload.decisionMetrics.purchasingPowerAudit;
+  assert.equal(audit.planning.inflation, 0.03);
+  assert.ok(audit.planning.fixedRoutineRealDividend < 1000000);
+  assert.ok(audit.planning.realNominal.months > formal.safety.months);
+  assert.equal(audit.planning.realRoutineSafety.months, 265);
+  assert.equal(audit.planning.realSevereSafety.months, 354);
+  assert.equal(audit.postAchievement.routine.firstDividendCoverageBreachMonth, null);
+  assert.equal(audit.postAchievement.routine.firstPrincipalBreachMonth, null);
+  assert.equal(audit.postAchievement.severe.firstDividendCoverageBreachMonth, null);
+  assert.equal(audit.postAchievement.severe.firstPrincipalBreachMonth, null);
+  assert.equal(audit.dividendGrowthGate.status, 'unverified');
+});
+
 test('滚动收益剔除净入金，不能把追加本金算成投资回报', () => {
   const path = {
     paths: [{

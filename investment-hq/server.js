@@ -388,6 +388,8 @@ function simulateDividendAcceleration({
   terminalYield,
   nominalDividend,
   safetyDividend,
+  nominalDividendGrowth = 0,
+  safetyDividendGrowth = 0,
   monthlyContribution = 0,
   contributionStartMonth = 1,
   contributionEndMonth = 480,
@@ -395,9 +397,11 @@ function simulateDividendAcceleration({
 }) {
   const values = [principal, startStockWeight, targetStockWeight, cashReturn, accumulationReturn,
     accumulationYield, deploymentMonths, migrationStartAssets, migrationMonths, terminalReturn,
-    terminalYield, nominalDividend, safetyDividend, monthlyContribution, contributionStartMonth, contributionEndMonth];
+    terminalYield, nominalDividend, safetyDividend, nominalDividendGrowth, safetyDividendGrowth,
+    monthlyContribution, contributionStartMonth, contributionEndMonth];
   if (!values.every(Number.isFinite) || principal <= 0 || targetStockWeight <= 0
       || deploymentMonths < 1 || migrationMonths < 1 || terminalYield <= 0 || monthlyContribution < 0
+      || nominalDividendGrowth < 0 || safetyDividendGrowth < 0
       || contributionStartMonth < 1 || contributionEndMonth < contributionStartMonth) return null;
   const equityReturn = (accumulationReturn - (1 - targetStockWeight) * cashReturn) / targetStockWeight;
   const equityYield = accumulationYield / targetStockWeight;
@@ -437,10 +441,18 @@ function simulateDividendAcceleration({
     assets += contributionThisMonth;
     cumulativeContribution += contributionThisMonth;
     const annualDividend = assets * annualYield;
+    const nominalTargetDividend = nominalDividend * Math.pow(1 + nominalDividendGrowth, month / 12);
+    const safetyTargetDividend = safetyDividend * Math.pow(1 + safetyDividendGrowth, month / 12);
     if (checkpointSet.has(month)) checkpoints.push({ months: month, assets, annualDividend, annualYield, stockWeight, cumulativeContribution, phase });
-    if (!nominal && annualDividend >= nominalDividend) nominal = { months: month, assets, annualDividend, annualYield, cumulativeContribution, phase };
-    if (!safety && annualDividend >= safetyDividend) {
-      safety = { months: month, assets, annualDividend, annualYield, cumulativeContribution, phase };
+    if (!nominal && annualDividend >= nominalTargetDividend) nominal = {
+      months: month, assets, annualDividend, targetDividend: nominalTargetDividend,
+      annualYield, cumulativeContribution, phase
+    };
+    if (!safety && annualDividend >= safetyTargetDividend) {
+      safety = {
+        months: month, assets, annualDividend, targetDividend: safetyTargetDividend,
+        annualYield, cumulativeContribution, phase
+      };
       break;
     }
   }
@@ -459,6 +471,8 @@ function simulateDividendAcceleration({
     migrationStartDate: addMonths(startDate, migrationStartMonth),
     terminalReturn,
     terminalYield,
+    nominalDividendGrowth,
+    safetyDividendGrowth,
     monthlyContribution,
     annualContribution: monthlyContribution * 12,
     contributionStartMonth,
@@ -725,6 +739,162 @@ function buildIncomePortfolioAudit(payload, dividendAcceleration) {
   };
 }
 
+function simulateSpendingSustainability({
+  startingAssets,
+  annualReturn,
+  dividendYield,
+  startingAnnualSpend,
+  inflation,
+  years
+}) {
+  const values = [startingAssets, annualReturn, dividendYield, startingAnnualSpend, inflation, years];
+  if (!values.every(Number.isFinite) || startingAssets <= 0 || annualReturn < -1
+      || dividendYield <= 0 || startingAnnualSpend < 0 || inflation < 0 || years < 1) return null;
+  let assets = startingAssets;
+  let minDividendCoverage = assets * dividendYield / startingAnnualSpend;
+  let firstDividendCoverageBreachMonth = minDividendCoverage < 1 ? 0 : null;
+  let firstPrincipalBreachMonth = null;
+  const annualSnapshots = [];
+  const snapshotYears = new Set([1, 5, 10, 20, years]);
+  for (let month = 1; month <= years * 12; month += 1) {
+    assets *= Math.pow(1 + annualReturn, 1 / 12);
+    const annualSpend = startingAnnualSpend * Math.pow(1 + inflation, month / 12);
+    const annualDividend = assets * dividendYield;
+    const dividendCoverage = annualSpend > 0 ? annualDividend / annualSpend : Infinity;
+    minDividendCoverage = Math.min(minDividendCoverage, dividendCoverage);
+    if (firstDividendCoverageBreachMonth == null && dividendCoverage < 1) firstDividendCoverageBreachMonth = month;
+    assets -= annualSpend / 12;
+    if (firstPrincipalBreachMonth == null && assets < startingAssets) firstPrincipalBreachMonth = month;
+    if (month % 12 === 0 && snapshotYears.has(month / 12)) {
+      annualSnapshots.push({
+        year: month / 12,
+        assets,
+        realAssets: assets / Math.pow(1 + inflation, month / 12),
+        annualSpend,
+        annualDividend: assets * dividendYield,
+        dividendCoverage: assets * dividendYield / annualSpend
+      });
+    }
+    if (assets <= 0) break;
+  }
+  return {
+    years,
+    startingAssets,
+    startingAnnualSpend,
+    annualReturn,
+    dividendYield,
+    inflation,
+    minDividendCoverage,
+    firstDividendCoverageBreachMonth,
+    firstPrincipalBreachMonth,
+    endingAssets: assets,
+    endingRealAssets: assets / Math.pow(1 + inflation, years),
+    annualSnapshots
+  };
+}
+
+function buildPurchasingPowerAudit(payload, dividendAcceleration, incomePortfolioAudit) {
+  const config = payload.goals?.dividendAcceleration?.purchasingPower;
+  const spec = payload.goals?.dividendAcceleration;
+  const pf = payload.portfolio;
+  const formalPath = dividendAcceleration?.paths?.find(row => row.id === 'underwrittenTwoStage');
+  if (!config || !spec || !pf || !formalPath || !incomePortfolioAudit) return null;
+  const baseAnnualIncome = Number(config.baseAnnualIncome) || 1000000;
+  const routineBuffer = Number(config.routineBuffer) || 1.2;
+  const planningInflation = Number(config.planningInflation);
+  const inflationScenarios = [...new Set((config.inflationScenarios || [planningInflation]).map(Number)
+    .filter(value => Number.isFinite(value) && value >= 0))].sort((a, b) => a - b);
+  const common = {
+    principal: Number(pf.totalAssets),
+    startDate: spec.startDate,
+    startStockWeight: Number(pf.stockMarketValue) / Number(pf.totalAssets),
+    targetStockWeight: 1 - Number(pf.opportunityCash.weight),
+    cashReturn: Number(pf.opportunityCash.baseAnnualReturn),
+    accumulationReturn: formalPath.accumulationReturn,
+    accumulationYield: Number(spec.twoStage.accumulationYield),
+    deploymentMonths: Number(spec.twoStage.deploymentMonths),
+    migrationStartAssets: Number(spec.twoStage.migrationStartAssets),
+    migrationMonths: Number(spec.twoStage.migrationMonths),
+    terminalReturn: Number(spec.incomePortfolio.terminalReturnFloor),
+    terminalYield: Number(spec.twoStage.terminalYield)
+  };
+  const fixedRoutine = formalPath.safety;
+  const rows = inflationScenarios.map(inflation => {
+    const realPath = simulateDividendAcceleration({
+      ...common,
+      nominalDividend: baseAnnualIncome,
+      safetyDividend: baseAnnualIncome * routineBuffer,
+      nominalDividendGrowth: inflation,
+      safetyDividendGrowth: inflation
+    });
+    const severePath = simulateDividendAcceleration({
+      ...common,
+      terminalYield: incomePortfolioAudit.severeYield,
+      nominalDividend: baseAnnualIncome,
+      safetyDividend: baseAnnualIncome * routineBuffer,
+      nominalDividendGrowth: inflation,
+      safetyDividendGrowth: inflation
+    });
+    const fixedSafetyInflationFactor = Math.pow(1 + inflation, fixedRoutine.months / 12);
+    return {
+      inflation,
+      fixedRoutineNominalDividend: fixedRoutine.annualDividend,
+      fixedRoutineRealDividend: fixedRoutine.annualDividend / fixedSafetyInflationFactor,
+      realNominal: realPath?.nominal || null,
+      realRoutineSafety: realPath?.safety || null,
+      realSevereSafety: severePath?.safety || null
+    };
+  });
+  const planning = rows.find(row => Math.abs(row.inflation - planningInflation) < 1e-12) || null;
+  const projectionYears = Number(config.projectionYears) || 30;
+  const severeTerminalReturn = Number(config.severeTerminalReturn) || 0.06;
+  const routineStartSpend = planning?.realRoutineSafety
+    ? baseAnnualIncome * Math.pow(1 + planningInflation, planning.realRoutineSafety.months / 12)
+    : null;
+  const severeStartSpend = planning?.realSevereSafety
+    ? baseAnnualIncome * Math.pow(1 + planningInflation, planning.realSevereSafety.months / 12)
+    : null;
+  const postAchievement = planning?.realRoutineSafety && planning?.realSevereSafety ? {
+    projectionYears,
+    routine: simulateSpendingSustainability({
+      startingAssets: planning.realRoutineSafety.assets,
+      annualReturn: Number(spec.incomePortfolio.terminalReturnFloor),
+      dividendYield: Number(spec.twoStage.terminalYield),
+      startingAnnualSpend: routineStartSpend,
+      inflation: planningInflation,
+      years: projectionYears
+    }),
+    severe: simulateSpendingSustainability({
+      startingAssets: planning.realSevereSafety.assets,
+      annualReturn: severeTerminalReturn,
+      dividendYield: incomePortfolioAudit.severeYield,
+      startingAnnualSpend: severeStartSpend,
+      inflation: planningInflation,
+      years: projectionYears
+    }),
+    note: '投影把总回报视为含股息回报，并在每月复利后扣除支用；它检验数学覆盖，不替代逐公司分红能力。'
+  } : null;
+  return {
+    status: config.status || 'planning-scenario',
+    baseYear: Number(config.baseYear),
+    baseAnnualIncome,
+    planningInflation,
+    routineBuffer,
+    severeTerminalReturn,
+    rows,
+    planning,
+    postAchievement,
+    dividendGrowthGate: {
+      minimumNominalGrowth: planningInflation,
+      evidenceYears: Number(config.dividendGrowthEvidenceYears) || 3,
+      status: 'unverified',
+      reason: '当前没有连续三年终态组合普通股息历史，不能假设股息增长已跑赢通胀。'
+    },
+    spendingPolicy: config.spendingPolicy || {},
+    note: config.note || ''
+  };
+}
+
 function buildGoalPathTracking(payload, dividendAcceleration) {
   const ledger = payload.goalLedger;
   if (!ledger) return null;
@@ -903,6 +1073,7 @@ function buildDecisionMetrics(payload) {
   const dividendRunway = buildDividendRunway(payload, normalizedWeightedReturn);
   const dividendAcceleration = buildDividendAcceleration(payload, dividendRunway, underwritingWeightedReturn);
   const incomePortfolioAudit = buildIncomePortfolioAudit(payload, dividendAcceleration);
+  const purchasingPowerAudit = buildPurchasingPowerAudit(payload, dividendAcceleration, incomePortfolioAudit);
   const goalPathTracking = buildGoalPathTracking(payload, dividendAcceleration);
   const alerts = [];
   const activeHoldingCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
@@ -933,6 +1104,7 @@ function buildDecisionMetrics(payload) {
   if (accelerated) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `正式七席承保约${accelerated.nominal.duration}达到名义100万元，但约${accelerated.safety.duration}才达到120万元安全线；后者用于承受约15%的组合股息削减。` });
   if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `质量折扣后的承保路线约${accelerated.nominal.duration}达到名义线、约${accelerated.safety.duration}达到安全线；积累期承保年化${(accelerated.accumulationReturn * 100).toFixed(2)}%，不再把${(normalizedWeightedReturn * 100).toFixed(2)}%的公司基准机械加权当成保守承诺。` });
   if (incomePortfolioAudit?.severeSafetyPath) alerts.push({ severity: 'amber', title: '120万元只覆盖日常减息，不覆盖复合严重压力', detail: `七席终态蓝图在统一减息15%后仍约${(incomePortfolioAudit.routineDividendAtFormalSafetyAssets / 10000).toFixed(1)}万元；按逐股严重削减假设，需资产约${(incomePortfolioAudit.severeSafetyAssets / 10000).toFixed(0)}万元、约${incomePortfolioAudit.severeSafetyPath.duration}后，才仍有100万元普通股息。` });
+  if (purchasingPowerAudit?.planning?.realRoutineSafety) alerts.push({ severity: 'amber', title: '名义120万元不等于今天100万元购买力', detail: `按${(purchasingPowerAudit.planningInflation * 100).toFixed(0)}%规划通胀，固定120万元日常安全线届时只相当于${(purchasingPowerAudit.planning.fixedRoutineRealDividend / 10000).toFixed(1)}万元的${purchasingPowerAudit.baseYear}年购买力；若连20%缓冲也随通胀增长，约需${purchasingPowerAudit.planning.realRoutineSafety.duration}（${purchasingPowerAudit.planning.realRoutineSafety.date}）。` });
   if ((payload.portfolioEvolution?.unresolved || []).length) alerts.push({ severity: 'amber', title: '存在未统一的执行口径', detail: `仍有 ${payload.portfolioEvolution.unresolved.length} 项待确认；冲突未消除前，不应按旧价格表自动下单。` });
   if (reserveRequiredReturn != null && reserveRequiredReturn > 0.25) alerts.push({ severity: 'red', title: '仅靠预留机会仓无法填平目标缺口', detail: `按报告硬上限收缩后需预留 ${(reserveWeight * 100).toFixed(0)}%，但该预留仓需年化约 ${(reserveRequiredReturn * 100).toFixed(1)}% 才能把整体推到17.46%；这不是可接受的基准假设。` });
   return {
@@ -966,6 +1138,7 @@ function buildDecisionMetrics(payload) {
     dividendRunway,
     dividendAcceleration,
     incomePortfolioAudit,
+    purchasingPowerAudit,
     goalPathTracking,
     alerts
   };
@@ -1304,6 +1477,7 @@ module.exports = {
   buildDecisionMetrics,
   buildGoalPathTracking,
   buildIncomePortfolioAudit,
+  buildPurchasingPowerAudit,
   simulateDividendAcceleration,
   simulateIncomeFirst,
   estimatedAnnualDividend

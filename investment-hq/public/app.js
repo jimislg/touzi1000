@@ -247,6 +247,7 @@ function renderGoals() {
   const goalBottleneck = state.data.goalBottleneck;
   const contributionSensitivity = acceleration?.contributionSensitivity || goalBottleneck?.contributionSensitivity;
   const incomePortfolioAudit = dm.incomePortfolioAudit || goalBottleneck?.terminalIncomeAudit;
+  const purchasingPowerAudit = dm.purchasingPowerAudit || goalBottleneck?.purchasingPowerAudit;
   const incomeWarehouse = state.data.incomeWarehouse;
   const incomeWarehouseRows = (incomeWarehouse?.candidates || []).map(c => {
     const q = liveQuote(c.symbol);
@@ -417,6 +418,31 @@ function renderGoals() {
     </table>
     <div class="honest" style="margin-top:12px"><b>三条验收线：</b>约${fmtWan(incomePortfolioAudit.nominalAssets)}是正常100万元名义线；约${fmtWan(incomePortfolioAudit.formalSafetyAssets)}是120万元日常安全线，统一减息15%后仍约${fmtWan(incomePortfolioAudit.routineDividendAtFormalSafetyAssets)}；约${fmtWan(incomePortfolioAudit.severeSafetyAssets)}才是在逐股严重削减后仍有100万元，模型约${esc(incomePortfolioAudit.severeSafetyPath?.duration || '—')}（${esc(incomePortfolioAudit.severeSafetyPath?.date || '—')}）。</div>
     <div class="note">${esc(incomePortfolioAudit.note)}</div>
+  </div>` : ''}
+
+  ${purchasingPowerAudit?.planning ? `<div class="card">
+    <h2>100万元购买力与支用安全 <span class="tag">以2026年不变价衡量</span></h2>
+    <div class="card-sub">名义金额不等于生活能力。3%是长期规划情景，不是CPI预测；系统同时保留2%和4%边界，并要求每年用实际通胀更新。</div>
+    <div class="stat-row" style="margin-top:12px">
+      <div class="stat"><div class="s-label">固定120万到达时实际购买力</div><div class="s-value red">${fmtWan(purchasingPowerAudit.planning.fixedRoutineRealDividend)}</div></div>
+      <div class="stat"><div class="s-label">100万实际购买力</div><div class="s-value">${esc(purchasingPowerAudit.planning.realNominal.duration)}</div><div class="s-note">${esc(purchasingPowerAudit.planning.realNominal.date)}</div></div>
+      <div class="stat"><div class="s-label">实际购买力＋20%缓冲</div><div class="s-value green">${esc(purchasingPowerAudit.planning.realRoutineSafety.duration)}</div><div class="s-note">${esc(purchasingPowerAudit.planning.realRoutineSafety.date)}</div></div>
+      <div class="stat"><div class="s-label">严重压力实际安全</div><div class="s-value red">${esc(purchasingPowerAudit.planning.realSevereSafety.duration)}</div><div class="s-note">${esc(purchasingPowerAudit.planning.realSevereSafety.date)}</div></div>
+      <div class="stat"><div class="s-label">日常线30年最低覆盖</div><div class="s-value">${purchasingPowerAudit.postAchievement?.routine?.minDividendCoverage?.toFixed(2) || '—'}倍</div></div>
+      <div class="stat"><div class="s-label">严重线30年最低覆盖</div><div class="s-value">${purchasingPowerAudit.postAchievement?.severe?.minDividendCoverage?.toFixed(2) || '—'}倍</div></div>
+    </div>
+    <table style="margin-top:12px">
+      <thead><tr><th>长期通胀情景</th><th class="num">固定120万届时实际购买力</th><th class="num">实际100万</th><th class="num">实际100万＋20%</th><th class="num">严重压力＋20%</th></tr></thead>
+      <tbody>${purchasingPowerAudit.rows.map(row => `<tr class="${row.inflation === purchasingPowerAudit.planningInflation ? 'best-row' : ''}">
+        <td><b>${fmtPct(row.inflation, 0)}</b>${row.inflation === purchasingPowerAudit.planningInflation ? '<div style="font-size:11px;color:var(--ink-3)">规划情景</div>' : ''}</td>
+        <td class="num">${fmtWan(row.fixedRoutineRealDividend)}</td>
+        <td class="num">${esc(row.realNominal?.duration || '—')}<div style="font-size:11px;color:var(--ink-3)">${esc(row.realNominal?.date || '')}</div></td>
+        <td class="num">${esc(row.realRoutineSafety?.duration || '—')}<div style="font-size:11px;color:var(--ink-3)">${esc(row.realRoutineSafety?.date || '')}</div></td>
+        <td class="num">${esc(row.realSevereSafety?.duration || '—')}<div style="font-size:11px;color:var(--ink-3)">${esc(row.realSevereSafety?.date || '')}</div></td>
+      </tr>`).join('')}</tbody>
+    </table>
+    <div class="honest" style="margin-top:12px"><b>诚实边界：</b>以上到达日期假设目标前普通股息全部复投。若在固定100万或120万元时开始支用，实际购买力日期必须重算。达到3%规划下的日常购买力安全线时，模型资产约${fmtWan(purchasingPowerAudit.planning.realRoutineSafety.assets)}、当年普通股息约${fmtWan(purchasingPowerAudit.planning.realRoutineSafety.annualDividend)}；严重压力并保留20%缓冲则需约${fmtWan(purchasingPowerAudit.planning.realSevereSafety.assets)}。</div>
+    <div class="note"><b>股息增长闸门：</b><span class="badge no">尚未验证</span> ${esc(purchasingPowerAudit.dividendGrowthGate.reason)}<br><b>支用纪律：</b><ul>${Object.values(purchasingPowerAudit.spendingPolicy || {}).map(row => `<li>${esc(row)}</li>`).join('')}</ul>${esc(purchasingPowerAudit.note)}</div>
   </div>` : ''}
 
   ${goalBottleneck ? `<div class="card">
