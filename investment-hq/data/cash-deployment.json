@@ -15,8 +15,8 @@
     {
       "months": 6,
       "migrationMonth": 97,
-      "nominalMonth": 130,
-      "safetyMonth": 158,
+      "nominalMonth": 131,
+      "safetyMonth": 159,
       "delayVs18Safety": -4,
       "label": "机会高密度",
       "judgment": "只有多只A类同时达到P12/P15才可能，不作时间指令。"
@@ -24,8 +24,8 @@
     {
       "months": 12,
       "migrationMonth": 99,
-      "nominalMonth": 132,
-      "safetyMonth": 160,
+      "nominalMonth": 133,
+      "safetyMonth": 161,
       "delayVs18Safety": -2,
       "label": "较强机会",
       "judgment": "可以提前2个月，前提是实际买入IRR不降。"
@@ -33,8 +33,8 @@
     {
       "months": 18,
       "migrationMonth": 101,
-      "nominalMonth": 134,
-      "safetyMonth": 162,
+      "nominalMonth": 135,
+      "safetyMonth": 163,
       "delayVs18Safety": 0,
       "label": "政策基准",
       "judgment": "条件部署的计划基准，不是18个月到期强制满仓。"
@@ -42,18 +42,18 @@
     {
       "months": 24,
       "migrationMonth": 103,
-      "nominalMonth": 136,
-      "safetyMonth": 163,
-      "delayVs18Safety": 1,
+      "nominalMonth": 137,
+      "safetyMonth": 165,
+      "delayVs18Safety": 2,
       "label": "可接受延后",
       "judgment": "安全线约晚2个月；买价明显不合格时可接受。"
     },
     {
       "months": 36,
       "migrationMonth": 106,
-      "nominalMonth": 139,
-      "safetyMonth": 167,
-      "delayVs18Safety": 5,
+      "nominalMonth": 140,
+      "safetyMonth": 169,
+      "delayVs18Safety": 6,
       "label": "黄色预警",
       "judgment": "不能只继续等原九只；必须扩展A类候选池或审计合格外部管理人。"
     },
@@ -61,16 +61,16 @@
       "months": 60,
       "migrationMonth": 114,
       "nominalMonth": 147,
-      "safetyMonth": 174,
-      "delayVs18Safety": 12,
+      "safetyMonth": 176,
+      "delayVs18Safety": 13,
       "label": "路径停滞",
       "judgment": "等待五年使安全线晚13个月；说明候选池、估值更新或外部管理方案失效。"
     },
     {
       "months": 120,
       "migrationMonth": 132,
-      "nominalMonth": 165,
-      "safetyMonth": 193,
+      "nominalMonth": 166,
+      "safetyMonth": 194,
       "delayVs18Safety": 31,
       "label": "无限等价",
       "judgment": "等待十年使安全线晚32个月，与“最快”目标冲突，明确否决。"

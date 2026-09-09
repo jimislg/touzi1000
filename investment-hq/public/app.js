@@ -246,6 +246,7 @@ function renderGoals() {
   const cashDeployment = state.data.cashDeployment;
   const goalBottleneck = state.data.goalBottleneck;
   const contributionSensitivity = acceleration?.contributionSensitivity || goalBottleneck?.contributionSensitivity;
+  const incomePortfolioAudit = dm.incomePortfolioAudit || goalBottleneck?.terminalIncomeAudit;
   const incomeWarehouse = state.data.incomeWarehouse;
   const incomeWarehouseRows = (incomeWarehouse?.candidates || []).map(c => {
     const q = liveQuote(c.symbol);
@@ -390,6 +391,32 @@ function renderGoals() {
     </div>`).join('')}</div>
     <div class="note"><b>执行纪律：</b><ul>${acceleration.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
     <div class="honest" style="margin-top:10px"><b>关键限制：</b>${esc(acceleration.note || '')}</div>
+  </div>` : ''}
+
+  ${incomePortfolioAudit ? `<div class="card">
+    <h2>终态七席收息组合 <span class="tag">未来蓝图 · 日常与严重压力分开</span></h2>
+    <div class="card-sub">这不是当前买入清单。只有资产、价格、普通股息覆盖和公司闸门同时通过，才从积累期逐步迁移；腾讯若届时仍有高承保回报，应延后迁移或提高资产门槛，不能硬塞成第8席。</div>
+    <div class="stat-row" style="margin-top:12px">
+      <div class="stat"><div class="s-label">七席正常税后率</div><div class="s-value green">${fmtPct(incomePortfolioAudit.normalYield, 2)}</div></div>
+      <div class="stat"><div class="s-label">统一减息15%后</div><div class="s-value">${fmtPct(incomePortfolioAudit.routineYield, 2)}</div></div>
+      <div class="stat"><div class="s-label">严重复合压力后</div><div class="s-value red">${fmtPct(incomePortfolioAudit.severeYield, 2)}</div></div>
+      <div class="stat"><div class="s-label">最高单一股息贡献</div><div class="s-value">${fmtPct(incomePortfolioAudit.maxDividendContribution, 1)}</div></div>
+      <div class="stat"><div class="s-label">严重压力资产线</div><div class="s-value red">${fmtWan(incomePortfolioAudit.severeSafetyAssets)}</div></div>
+      <div class="stat"><div class="s-label">严重压力预计月份</div><div class="s-value">${esc(incomePortfolioAudit.severeSafetyPath?.date || '—')}</div></div>
+    </div>
+    <table style="margin-top:12px">
+      <thead><tr><th>席位</th><th class="num">权重</th><th class="num">正常税后率</th><th class="num">普通股息贡献</th><th class="num">日常/严重削减</th><th>迁移闸门</th></tr></thead>
+      <tbody>${incomePortfolioAudit.rows.map(row => `<tr>
+        <td><b>${esc(row.name)}</b><div style="font-size:11px;color:var(--ink-3)">${esc(row.role)}</div></td>
+        <td class="num">${fmtPct(row.weight, 0)}</td>
+        <td class="num">${fmtPct(row.assumedAfterTaxYield, 2)}</td>
+        <td class="num">${fmtPct(row.normalDividendContribution, 1)}</td>
+        <td class="num">-${fmtPct(row.routineHaircut, 0)} / -${fmtPct(row.severeHaircut, 0)}</td>
+        <td>${esc(row.gate)}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    <div class="honest" style="margin-top:12px"><b>三条验收线：</b>约${fmtWan(incomePortfolioAudit.nominalAssets)}是正常100万元名义线；约${fmtWan(incomePortfolioAudit.formalSafetyAssets)}是120万元日常安全线，统一减息15%后仍约${fmtWan(incomePortfolioAudit.routineDividendAtFormalSafetyAssets)}；约${fmtWan(incomePortfolioAudit.severeSafetyAssets)}才是在逐股严重削减后仍有100万元，模型约${esc(incomePortfolioAudit.severeSafetyPath?.duration || '—')}（${esc(incomePortfolioAudit.severeSafetyPath?.date || '—')}）。</div>
+    <div class="note">${esc(incomePortfolioAudit.note)}</div>
   </div>` : ''}
 
   ${goalBottleneck ? `<div class="card">

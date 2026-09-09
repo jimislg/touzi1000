@@ -651,6 +651,80 @@ function buildDividendAcceleration(payload, dividendRunway, underwritingReturn) 
   };
 }
 
+function buildIncomePortfolioAudit(payload, dividendAcceleration) {
+  const config = payload.goals?.dividendAcceleration?.incomePortfolio;
+  const pf = payload.portfolio;
+  if (!config || !pf || !Array.isArray(config.rows)) return null;
+  const rows = config.rows.map(row => ({
+    ...row,
+    weight: Number(row.weight),
+    assumedAfterTaxYield: Number(row.assumedAfterTaxYield),
+    routineHaircut: Number(row.routineHaircut),
+    severeHaircut: Number(row.severeHaircut)
+  }));
+  const stockWeight = rows.reduce((sum, row) => sum + row.weight, 0);
+  const cashWeight = Number(config.cashWeight);
+  const normalYield = rows.reduce((sum, row) => sum + row.weight * row.assumedAfterTaxYield, 0);
+  const routineYield = rows.reduce((sum, row) => sum + row.weight * row.assumedAfterTaxYield * (1 - row.routineHaircut), 0);
+  const severeYield = rows.reduce((sum, row) => sum + row.weight * row.assumedAfterTaxYield * (1 - row.severeHaircut), 0);
+  const auditedRows = rows.map(row => {
+    const weightedDividendYield = row.weight * row.assumedAfterTaxYield;
+    return {
+      ...row,
+      weightedDividendYield,
+      normalDividendContribution: normalYield > 0 ? weightedDividendYield / normalYield : null,
+      routineWeightedYield: weightedDividendYield * (1 - row.routineHaircut),
+      severeWeightedYield: weightedDividendYield * (1 - row.severeHaircut)
+    };
+  });
+  const modelYield = Number(payload.goals?.dividendAcceleration?.twoStage?.terminalYield);
+  const formalSafetyAssets = Number(pf.currentDividendBaseline?.safetyAssetsNeeded) || 1200000 / modelYield;
+  const severeSafetyAssets = severeYield > 0 ? 1000000 / severeYield : null;
+  const spec = payload.goals.dividendAcceleration;
+  const formalPath = dividendAcceleration?.paths?.find(row => row.id === 'underwrittenTwoStage');
+  const severeSafetyPath = formalPath && severeYield > 0 ? simulateDividendAcceleration({
+    principal: Number(pf.totalAssets),
+    startDate: spec.startDate,
+    startStockWeight: Number(pf.stockMarketValue) / Number(pf.totalAssets),
+    targetStockWeight: 1 - Number(pf.opportunityCash.weight),
+    cashReturn: Number(pf.opportunityCash.baseAnnualReturn),
+    accumulationReturn: formalPath.accumulationReturn,
+    accumulationYield: Number(spec.twoStage.accumulationYield),
+    deploymentMonths: Number(spec.twoStage.deploymentMonths),
+    migrationStartAssets: Number(spec.twoStage.migrationStartAssets),
+    migrationMonths: Number(spec.twoStage.migrationMonths),
+    terminalReturn: Number(config.terminalReturnFloor),
+    terminalYield: severeYield,
+    nominalDividend: 1000000,
+    safetyDividend: 1000000
+  }) : null;
+  const maxDividendContribution = auditedRows.reduce((max, row) => Math.max(max, row.normalDividendContribution || 0), 0);
+  return {
+    status: config.status || 'future-blueprint',
+    maxHoldings: Number(config.maxHoldings) || 7,
+    holdingCount: auditedRows.length,
+    stockWeight,
+    cashWeight,
+    totalWeight: stockWeight + cashWeight,
+    terminalReturnFloor: Number(config.terminalReturnFloor),
+    modelYield,
+    normalYield,
+    routineYield,
+    severeYield,
+    maxDividendContribution,
+    rows: auditedRows,
+    nominalAssets: normalYield > 0 ? 1000000 / normalYield : null,
+    routineSafetyAssets: routineYield > 0 ? 1000000 / routineYield : null,
+    severeSafetyAssets,
+    formalSafetyAssets,
+    routineDividendAtFormalSafetyAssets: formalSafetyAssets * routineYield,
+    severeDividendAtFormalSafetyAssets: formalSafetyAssets * severeYield,
+    severeSafetyPath: severeSafetyPath?.safety || null,
+    constraints: config.constraints || [],
+    note: config.note || ''
+  };
+}
+
 function buildGoalPathTracking(payload, dividendAcceleration) {
   const ledger = payload.goalLedger;
   if (!ledger) return null;
@@ -828,6 +902,7 @@ function buildDecisionMetrics(payload) {
   const postPrimaryQueueDividend = optionalNumber(pf.currentDividendBaseline?.postPrimaryQueue);
   const dividendRunway = buildDividendRunway(payload, normalizedWeightedReturn);
   const dividendAcceleration = buildDividendAcceleration(payload, dividendRunway, underwritingWeightedReturn);
+  const incomePortfolioAudit = buildIncomePortfolioAudit(payload, dividendAcceleration);
   const goalPathTracking = buildGoalPathTracking(payload, dividendAcceleration);
   const alerts = [];
   const activeHoldingCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
@@ -857,6 +932,7 @@ function buildDecisionMetrics(payload) {
   const accelerated = dividendAcceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
   if (accelerated) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `正式七席承保约${accelerated.nominal.duration}达到名义100万元，但约${accelerated.safety.duration}才达到120万元安全线；后者用于承受约15%的组合股息削减。` });
   if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `质量折扣后的承保路线约${accelerated.nominal.duration}达到名义线、约${accelerated.safety.duration}达到安全线；积累期承保年化${(accelerated.accumulationReturn * 100).toFixed(2)}%，不再把${(normalizedWeightedReturn * 100).toFixed(2)}%的公司基准机械加权当成保守承诺。` });
+  if (incomePortfolioAudit?.severeSafetyPath) alerts.push({ severity: 'amber', title: '120万元只覆盖日常减息，不覆盖复合严重压力', detail: `七席终态蓝图在统一减息15%后仍约${(incomePortfolioAudit.routineDividendAtFormalSafetyAssets / 10000).toFixed(1)}万元；按逐股严重削减假设，需资产约${(incomePortfolioAudit.severeSafetyAssets / 10000).toFixed(0)}万元、约${incomePortfolioAudit.severeSafetyPath.duration}后，才仍有100万元普通股息。` });
   if ((payload.portfolioEvolution?.unresolved || []).length) alerts.push({ severity: 'amber', title: '存在未统一的执行口径', detail: `仍有 ${payload.portfolioEvolution.unresolved.length} 项待确认；冲突未消除前，不应按旧价格表自动下单。` });
   if (reserveRequiredReturn != null && reserveRequiredReturn > 0.25) alerts.push({ severity: 'red', title: '仅靠预留机会仓无法填平目标缺口', detail: `按报告硬上限收缩后需预留 ${(reserveWeight * 100).toFixed(0)}%，但该预留仓需年化约 ${(reserveRequiredReturn * 100).toFixed(1)}% 才能把整体推到17.46%；这不是可接受的基准假设。` });
   return {
@@ -889,6 +965,7 @@ function buildDecisionMetrics(payload) {
     dividendGap: Math.max(0, 1000000 - targetDividend),
     dividendRunway,
     dividendAcceleration,
+    incomePortfolioAudit,
     goalPathTracking,
     alerts
   };
@@ -1226,6 +1303,7 @@ module.exports = {
   bootstrapPayload,
   buildDecisionMetrics,
   buildGoalPathTracking,
+  buildIncomePortfolioAudit,
   simulateDividendAcceleration,
   simulateIncomeFirst,
   estimatedAnnualDividend

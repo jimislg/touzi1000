@@ -48,9 +48,39 @@ goals.dividendAcceleration.contributionSensitivity = {
   robustness: { delayedStartMonths: 12, completionRate: 0.8, contributionYears: 5 },
   note: '新增本金按月末等额投入并持续到安全线，始终使用正式七席承保回报与终态股息率；这是能力敏感性，不是已承诺现金流，也不得使用杠杆或生活备用金。'
 };
+goals.dividendAcceleration.incomePortfolio = {
+  status: 'future-seven-seat-blueprint',
+  maxHoldings: 7,
+  cashWeight: 0.12,
+  terminalReturnFloor: 0.08,
+  rows: [
+    { name: '贵州茅台', weight: 0.19, assumedAfterTaxYield: 0.0452, routineHaircut: 0.15, severeHaircut: 0.20, role: '品牌现金流核心', gate: '约1150元及以下且现金收入、渠道与普通分红能力通过复核' },
+    { name: '招商银行', weight: 0.16, assumedAfterTaxYield: 0.0508, routineHaircut: 0.15, severeHaircut: 0.35, role: '低成本负债金融股息', gate: '资本充足率、资产质量、信用成本和派息能力通过金融口径复核' },
+    { name: '中国移动H', weight: 0.14, assumedAfterTaxYield: 0.0620, routineHaircut: 0.15, severeHaircut: 0.15, role: '通信基础设施稳定器', gate: '约68港元及以下；长账龄应收、资本开支与港股通税后回报通过' },
+    { name: '宇通客车', weight: 0.11, assumedAfterTaxYield: 0.0587, routineHaircut: 0.15, severeHaircut: 0.60, role: '出口制造与中高股息', gate: '普通股息由正常化自由现金流覆盖，出口、质保和周期风险未恶化' },
+    { name: '质量白电一只', weight: 0.10, assumedAfterTaxYield: 0.0570, routineHaircut: 0.15, severeHaircut: 0.40, role: '美的/海尔/格力择一的成熟现金流', gate: '只选一只；税后率、总回报、治理、现金覆盖和接班风险全部通过' },
+    { name: '长江电力', weight: 0.10, assumedAfterTaxYield: 0.0435, routineHaircut: 0.15, severeHaircut: 0.10, role: '水电现金流稳定器', gate: '约23元及以下且来水、负债、资本开支和分红覆盖通过' },
+    { name: '福耀玻璃', weight: 0.08, assumedAfterTaxYield: 0.0368, routineHaircut: 0.15, severeHaircut: 0.40, role: '全球制造与股息增长', gate: '海外扩产回报、关税、自由现金流和普通分红覆盖通过' }
+  ],
+  constraints: [
+    '七个股票席位加12%现金合计100%；质量白电槽最终只能选择一家公司',
+    '任何单一公司正常普通股息贡献不超过20%；银行保险合计不超过16%',
+    '宇通与福耀合计不超过19%；运营商与公用事业合计不超过24%',
+    '特别股息、现金利息、卖出收益和本金返还不计入目标',
+    '腾讯若迁移时基准十年IRR仍不低于12%，不机械卖出；延后迁移或提高资产门槛'
+  ],
+  note: '这是未来迁移阶段的七席风险预算，不是2026年的买入清单。税后率全部按预设买点和届时税制复核；任一席位未通过时提高所需资产，不用第8只或低质量高股息硬填。'
+};
+goals.dividendAcceleration.twoStage.terminalReturn = 0.08;
+goals.dividendAcceleration.incomeFirst.terminalReturn = 0.08;
 const accumulationPhase = goals.dividendAcceleration.phasePortfolios.find(row => row.id === 'accumulation');
 accumulationPhase.targetReturn = underwritingReturn;
 accumulationPhase.companyBaseReturn = baseReturn;
+const incomePhase = goals.dividendAcceleration.phasePortfolios.find(row => row.id === 'income');
+incomePhase.targetReturn = 0.08;
+incomePhase.targetYield = 0.044504;
+incomePhase.allocation = '茅台19%＋招行16%＋中国移动H14%＋宇通11%＋质量白电一只10%＋长电10%＋福耀8%＋现金12%；终态最多7只股票';
+incomePhase.gate = '任一单一公司普通股息贡献不超过20%；统一减息15%后仍不低于100万元。复合严重压力另按约3200万元资产线验收。';
 write('goals.json', goals);
 
 payload = bootstrapPayload();
@@ -60,11 +90,12 @@ const formal = paths.underwrittenTwoStage;
 const companyBase = paths.twoStage;
 const incomeFirst = paths.incomeFirst;
 const contributionSensitivity = metrics.dividendAcceleration.contributionSensitivity;
+const incomePortfolioAudit = metrics.incomePortfolioAudit;
 if (!formal?.nominal || !formal?.safety || !companyBase?.nominal || !incomeFirst?.nominal) throw new Error('股息路径模拟不完整');
 
 const dividendTarget = goals.targets.find(row => row.id === 'dividend1m');
-dividendTarget.status = `正式七席承保：名义约${formal.nominal.duration}；安全约${formal.safety.duration}`;
-dividendTarget.note = `当前保守正常化税后股息约${(payload.portfolio.currentDividendBaseline.current / 10000).toFixed(2)}万元，口径区间7.12万—7.19万元。正式七席84%股票+16%现金的公司基准机械加权为${(baseReturn * 100).toFixed(2)}%，名义线/安全线约${companyBase.nominal.duration}/${companyBase.safety.duration}；质量折扣后承保年化${(underwritingReturn * 100).toFixed(2)}%，名义线约${formal.nominal.duration}、安全线约${formal.safety.duration}。`;
+dividendTarget.status = `正式七席承保：名义约${formal.nominal.duration}；日常安全约${formal.safety.duration}`;
+dividendTarget.note = `当前保守正常化税后股息约${(payload.portfolio.currentDividendBaseline.current / 10000).toFixed(2)}万元，口径区间7.12万—7.19万元。正式七席84%股票+16%现金的公司基准机械加权为${(baseReturn * 100).toFixed(2)}%，名义线/日常安全线约${companyBase.nominal.duration}/${companyBase.safety.duration}；质量折扣后承保年化${(underwritingReturn * 100).toFixed(2)}%，名义线约${formal.nominal.duration}、日常安全线约${formal.safety.duration}。复合严重减息后仍有100万元需约${Math.round(incomePortfolioAudit.severeSafetyAssets / 10000)}万元。`;
 goals.dividendAcceleration.rules[0] = `当前七席政策的承保回报为${(underwritingReturn * 100).toFixed(2)}%，两阶段路径约${formal.nominal.duration}/${formal.safety.duration}；“现在转高股息”模型约${incomeFirst.nominal.duration}/${incomeFirst.safety.duration}，但后者要求终态股息资产在12个月内以预设买点买到，当前没有候选通过全部闸门。`;
 goals.dividendAcceleration.rules[1] = `${(baseReturn * 100).toFixed(2)}%是正式七席公司基准机械加权，不作为保守规划输入；组合承保年化为${(underwritingReturn * 100).toFixed(2)}%。有满36个月实绩后，若滚动三年年化低于7.5%，切换7%压力路径并重算日期。`;
 goals.dividendAcceleration.note = `终态4.45%税后率按预设买点口径构造，不是当前现价收益率。正式七席积累期公司基准为${(baseReturn * 100).toFixed(2)}%，承保为${(underwritingReturn * 100).toFixed(2)}%；旧九公司90/10模型的10.31%/8.44%只保留为历史研究，不再决定执行日期。两阶段当前比“立即收息”模型慢${formal.safety.months - incomeFirst.safety.months}个月，但后者尚无可执行资产供给。`;
@@ -173,11 +204,12 @@ bottleneck.contributionSensitivity = {
   note: contributionSensitivity.note,
   conclusion: `持续投入是比提高回报假设更可控的加速器；十年安全线数学门槛约为每年${Math.round(contributionSensitivity.tenYearSafetyThreshold.annualContribution / 10000 * 10) / 10}万元。若允许迟一年且实际仅完成计划80%，年度能力缓冲需约${Math.round(contributionSensitivity.robustness.combinedPlannedAnnualContribution / 10000 * 10) / 10}万元。实际能力尚未确认，因此0元仍是正式规划基线。`
 };
+bottleneck.terminalIncomeAudit = incomePortfolioAudit;
 const return95 = bottleneck.returnSensitivity.find(row => row.annualReturn === 0.095);
 const yield50 = bottleneck.yieldSensitivity.find(row => row.terminalAfterTaxYield === 0.05);
 bottleneck.bottleneckRanking[0].evidence = `在正式七席${(underwritingReturn * 100).toFixed(2)}%承保回报下，终态税后率4.45%提高到5.0%，安全线提前约${formal.safety.months - yield50.safetyMonth}个月；达到5.2%并同时实现9.5%积累回报，才可能压到十年以内。`;
 bottleneck.bottleneckRanking[1].evidence = `积累期从${(underwritingReturn * 100).toFixed(2)}%提高到9.5%，安全线提前约${formal.safety.months - return95.safetyMonth}个月；当前16%现金是七席硬上限的结构性拖累。`;
-bottleneck.decision = `正式七席承保日期修正为名义${formal.nominal.duration}、安全${formal.safety.duration}。旧10年6个月/12年10个月属于九公司90/10研究口径或尚不可执行的立即收息模型。十年安全线仍要求积累回报约9.5%与终态5.2%税后普通股息率同时成立；当前没有证据证明条件已实现。`;
+bottleneck.decision = `正式七席承保日期修正为名义${formal.nominal.duration}、日常安全${formal.safety.duration}。旧10年6个月/12年10个月属于九公司90/10研究口径或尚不可执行的立即收息模型。十年日常安全线仍要求积累回报约9.5%与终态5.2%税后普通股息率同时成立；当前没有证据证明条件已实现。终态已改为七席蓝图；120万元只覆盖15%日常减息，复合严重压力下仍有100万元约需${Math.round(incomePortfolioAudit.severeSafetyAssets / 10000)}万元。`;
 write('goal-bottleneck.json', bottleneck);
 
 const cashDeployment = read('cash-deployment.json');
@@ -231,7 +263,8 @@ if (!evolution.timeline.some(row => row.date === TODAY && row.title === '纠正�
   });
 }
 evolution.latestPlan.notes[0] = `正式七席积累组合按当前报告机械加权约${(baseReturn * 100).toFixed(2)}%，质量折扣承保约${(underwritingReturn * 100).toFixed(2)}%；5年2倍和10年5倍仍不是基准承诺。`;
-evolution.latestPlan.notes[1] = `七席目标仓位普通股息约28.995万元；按当前承保，资产达到1800万元后才启动24个月迁移，名义线约${formal.nominal.duration}、安全线约${formal.safety.duration}。`;
+evolution.latestPlan.notes[1] = `七席目标仓位普通股息约28.995万元；按当前承保，资产达到1800万元后才启动24个月迁移，名义线约${formal.nominal.duration}、日常安全线约${formal.safety.duration}。`;
+evolution.latestPlan.notes[5] = `终态收息蓝图最多七只股票加12%现金；逐股严重复合减息后仍有100万元需约${Math.round(incomePortfolioAudit.severeSafetyAssets / 10000)}万元，不能把120万元日常安全线称为绝对安全。`;
 write('portfolio-evolution.json', evolution);
 
 console.log(JSON.stringify({

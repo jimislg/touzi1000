@@ -2,7 +2,7 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { simulateDividendAcceleration, buildGoalPathTracking } = require('../server');
+const { bootstrapPayload, simulateDividendAcceleration, buildGoalPathTracking } = require('../server');
 
 const baseArgs = {
   principal: 10000000,
@@ -15,7 +15,7 @@ const baseArgs = {
   deploymentMonths: 18,
   migrationStartAssets: 18000000,
   migrationMonths: 24,
-  terminalReturn: 0.08252,
+  terminalReturn: 0.08,
   terminalYield: 0.044504,
   nominalDividend: 1000000,
   safetyDividend: 1200000
@@ -25,8 +25,8 @@ test('持续投入缩短目标时间，但零投入路径保持不变', () => {
   const baseline = simulateDividendAcceleration(baseArgs);
   const annualContribution = 500000;
   const contributed = simulateDividendAcceleration({ ...baseArgs, monthlyContribution: annualContribution / 12 });
-  assert.equal(baseline.nominal.months, 134);
-  assert.equal(baseline.safety.months, 162);
+  assert.equal(baseline.nominal.months, 135);
+  assert.equal(baseline.safety.months, 163);
   assert.ok(contributed.nominal.months < baseline.nominal.months);
   assert.ok(contributed.safety.months < baseline.safety.months);
   assert.ok(Math.abs(contributed.safety.cumulativeContribution - annualContribution / 12 * contributed.safety.months) < 0.01);
@@ -34,6 +34,18 @@ test('持续投入缩短目标时间，但零投入路径保持不变', () => {
   const fiveYearsOnly = simulateDividendAcceleration({ ...baseArgs, monthlyContribution: annualContribution / 12, contributionEndMonth: 60 });
   assert.ok(delayed.safety.months > contributed.safety.months);
   assert.ok(fiveYearsOnly.safety.months > contributed.safety.months);
+});
+
+test('终态收息蓝图保持七席，并分别通过日常与严重压力审计', () => {
+  const audit = bootstrapPayload().decisionMetrics.incomePortfolioAudit;
+  assert.equal(audit.holdingCount, 7);
+  assert.ok(Math.abs(audit.totalWeight - 1) < 1e-12);
+  assert.ok(audit.normalYield >= audit.modelYield);
+  assert.ok(audit.maxDividendContribution <= 0.20);
+  assert.ok(audit.routineDividendAtFormalSafetyAssets >= 1000000);
+  assert.ok(audit.severeSafetyAssets > audit.formalSafetyAssets);
+  assert.equal(audit.severeSafetyPath.months, 190);
+  assert.equal(audit.severeSafetyPath.date, '2042-07');
 });
 
 test('滚动收益剔除净入金，不能把追加本金算成投资回报', () => {

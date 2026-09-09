@@ -4,59 +4,59 @@
   "baseline": {
     "accumulationReturn": 0.07781450000000001,
     "terminalAfterTaxYield": 0.044504,
-    "nominalMonth": 134,
-    "safetyMonth": 162,
-    "nominalAssets": 22541814,
-    "safetyAssets": 27123103
+    "nominalMonth": 135,
+    "safetyMonth": 163,
+    "nominalAssets": 22587870,
+    "safetyAssets": 27031120
   },
   "criticalCorrection": {
-    "incomeFirstNominalMonth": 126,
-    "incomeFirstSafetyMonth": 154,
-    "twoStageNominalMonth": 134,
-    "twoStageSafetyMonth": 162,
-    "conclusion": "正式七席缩为84%股票+16%现金后，承保回报由旧九公司研究的8.44%降至7.78%；两阶段比“立即收息”模型慢8个月。立即收息路径当前不可执行，因为没有迁移候选在现价同时通过收益率、总回报、现金覆盖和基本面闸门。"
+    "incomeFirstNominalMonth": 130,
+    "incomeFirstSafetyMonth": 159,
+    "twoStageNominalMonth": 135,
+    "twoStageSafetyMonth": 163,
+    "conclusion": "正式七席缩为84%股票+16%现金后，承保回报由旧九公司研究的8.44%降至7.78%；两阶段比“立即收息”模型慢4个月。立即收息路径当前不可执行，因为没有迁移候选在现价同时通过收益率、总回报、现金覆盖和基本面闸门。"
   },
   "returnSensitivity": [
     {
       "annualReturn": 0.07,
-      "nominalMonth": 145,
-      "safetyMonth": 173,
+      "nominalMonth": 146,
+      "safetyMonth": 174,
       "deltaSafetyVsBaseline": 11,
       "label": "压力线"
     },
     {
       "annualReturn": 0.075,
       "nominalMonth": 138,
-      "safetyMonth": 165,
-      "deltaSafetyVsBaseline": 3,
+      "safetyMonth": 167,
+      "deltaSafetyVsBaseline": 4,
       "label": "三年预警线"
     },
     {
       "annualReturn": 0.07781450000000001,
-      "nominalMonth": 134,
-      "safetyMonth": 162,
+      "nominalMonth": 135,
+      "safetyMonth": 163,
       "deltaSafetyVsBaseline": 0,
       "label": "正式七席承保"
     },
     {
       "annualReturn": 0.095,
-      "nominalMonth": 115,
-      "safetyMonth": 143,
+      "nominalMonth": 116,
+      "safetyMonth": 144,
       "deltaSafetyVsBaseline": -19,
       "label": "可争取实绩"
     },
     {
       "annualReturn": 0.09458000000000001,
       "nominalMonth": 116,
-      "safetyMonth": 143,
-      "deltaSafetyVsBaseline": -19,
+      "safetyMonth": 145,
+      "deltaSafetyVsBaseline": -18,
       "label": "正式七席公司基准"
     },
     {
       "annualReturn": 0.12,
       "nominalMonth": 97,
-      "safetyMonth": 124,
-      "deltaSafetyVsBaseline": -38,
+      "safetyMonth": 126,
+      "deltaSafetyVsBaseline": -37,
       "label": "强情景，不承保"
     }
   ],
@@ -64,16 +64,16 @@
     {
       "terminalAfterTaxYield": 0.04,
       "assetsNeededForSafety": 30000000,
-      "nominalMonth": 150,
-      "safetyMonth": 178,
-      "deltaSafetyVsBaseline": 16,
+      "nominalMonth": 151,
+      "safetyMonth": 180,
+      "deltaSafetyVsBaseline": 17,
       "label": "迁移失效"
     },
     {
       "terminalAfterTaxYield": 0.044504,
       "assetsNeededForSafety": 26963868,
-      "nominalMonth": 134,
-      "safetyMonth": 162,
+      "nominalMonth": 135,
+      "safetyMonth": 163,
       "deltaSafetyVsBaseline": 0,
       "label": "正式七席承保"
     },
@@ -81,7 +81,7 @@
       "terminalAfterTaxYield": 0.05,
       "assetsNeededForSafety": 24000000,
       "nominalMonth": 122,
-      "safetyMonth": 144,
+      "safetyMonth": 145,
       "deltaSafetyVsBaseline": -18,
       "label": "机会目标"
     },
@@ -89,7 +89,7 @@
       "terminalAfterTaxYield": 0.052,
       "assetsNeededForSafety": 23076923,
       "nominalMonth": 121,
-      "safetyMonth": 138,
+      "safetyMonth": 139,
       "deltaSafetyVsBaseline": -24,
       "label": "十年条件之一"
     },
@@ -98,7 +98,7 @@
       "assetsNeededForSafety": 21818182,
       "nominalMonth": 119,
       "safetyMonth": 130,
-      "deltaSafetyVsBaseline": -32,
+      "deltaSafetyVsBaseline": -33,
       "label": "高要求，风险上升"
     },
     {
@@ -106,7 +106,7 @@
       "assetsNeededForSafety": 20000000,
       "nominalMonth": 117,
       "safetyMonth": 123,
-      "deltaSafetyVsBaseline": -39,
+      "deltaSafetyVsBaseline": -40,
       "label": "不得作为规划基准"
     }
   ],
@@ -116,8 +116,8 @@
       "label": "正式七席承保",
       "accumulationReturn": 0.07781450000000001,
       "terminalAfterTaxYield": 0.044504,
-      "nominalMonth": 134,
-      "safetyMonth": 162,
+      "nominalMonth": 135,
+      "safetyMonth": 163,
       "status": "规划基准"
     },
     {
@@ -125,8 +125,8 @@
       "label": "只提高实绩",
       "accumulationReturn": 0.095,
       "terminalAfterTaxYield": 0.044504,
-      "nominalMonth": 115,
-      "safetyMonth": 143,
+      "nominalMonth": 116,
+      "safetyMonth": 144,
       "status": "仍超过十年安全线"
     },
     {
@@ -135,7 +135,7 @@
       "accumulationReturn": 0.07781450000000001,
       "terminalAfterTaxYield": 0.05,
       "nominalMonth": 122,
-      "safetyMonth": 144,
+      "safetyMonth": 145,
       "status": "仍超过十年安全线"
     },
     {
@@ -144,7 +144,7 @@
       "accumulationReturn": 0.095,
       "terminalAfterTaxYield": 0.052,
       "nominalMonth": 104,
-      "safetyMonth": 119,
+      "safetyMonth": 120,
       "status": "约9年11个月；不是承诺"
     }
   ],
@@ -193,7 +193,7 @@
     "rule": "积累期若迁移候选同时达到税后普通股息率5.2%、承保十年总回报8%以上和分红覆盖闸门，可提前锁定合计不超过10%的未来收息仓；它占用现有目标仓位，不增加总股票上限。",
     "forbidden": "不得因为股息率高而降低公司质量门槛；不得使用特别股息年化；不得把预买仓作为现金部署进度的填充物。"
   },
-  "decision": "正式七席承保日期修正为名义11年2个月、安全13年6个月。旧10年6个月/12年10个月属于九公司90/10研究口径或尚不可执行的立即收息模型。十年安全线仍要求积累回报约9.5%与终态5.2%税后普通股息率同时成立；当前没有证据证明条件已实现。",
+  "decision": "正式七席承保日期修正为名义11年3个月、日常安全13年7个月。旧10年6个月/12年10个月属于九公司90/10研究口径或尚不可执行的立即收息模型。十年日常安全线仍要求积累回报约9.5%与终态5.2%税后普通股息率同时成立；当前没有证据证明条件已实现。终态已改为七席蓝图；120万元只覆盖15%日常减息，复合严重压力下仍有100万元约需3204万元。",
   "contributionSensitivity": {
     "status": "capacity-unconfirmed",
     "rows": [
@@ -201,24 +201,24 @@
         "annualContribution": 0,
         "monthlyContribution": 0,
         "nominal": {
-          "months": 134,
-          "assets": 22541814.42045797,
-          "annualDividend": 1003200.9089680616,
+          "months": 135,
+          "assets": 22587870.187806457,
+          "annualDividend": 1005250.5748381387,
           "annualYield": 0.044504,
           "cumulativeContribution": 0,
           "phase": "income",
-          "duration": "11年2个月",
-          "date": "2037-11"
+          "duration": "11年3个月",
+          "date": "2037-12"
         },
         "safety": {
-          "months": 162,
-          "assets": 27123102.846746285,
-          "annualDividend": 1207086.5690915966,
+          "months": 163,
+          "assets": 27031120.341110013,
+          "annualDividend": 1202992.9796607601,
           "annualYield": 0.044504,
           "cumulativeContribution": 0,
           "phase": "income",
-          "duration": "13年6个月",
-          "date": "2040-03"
+          "duration": "13年7个月",
+          "date": "2040-04"
         },
         "migrationStartMonth": 101,
         "migrationStartDate": "2035-02",
@@ -229,24 +229,24 @@
         "annualContribution": 300000,
         "monthlyContribution": 25000,
         "nominal": {
-          "months": 105,
-          "assets": 22477128.96463027,
-          "annualDividend": 1000322.1474419055,
+          "months": 106,
+          "assets": 22575174.025209382,
+          "annualDividend": 1004685.5448179183,
           "annualYield": 0.044504,
-          "cumulativeContribution": 2625000,
+          "cumulativeContribution": 2650000,
           "phase": "income",
-          "duration": "8年9个月",
-          "date": "2035-06"
+          "duration": "8年10个月",
+          "date": "2035-07"
         },
         "safety": {
-          "months": 129,
-          "assets": 26987860.530131686,
-          "annualDividend": 1201067.7450329806,
+          "months": 130,
+          "assets": 26978245.07999101,
+          "annualDividend": 1200639.8190399199,
           "annualYield": 0.044504,
-          "cumulativeContribution": 3225000,
+          "cumulativeContribution": 3250000,
           "phase": "income",
-          "duration": "10年9个月",
-          "date": "2037-06"
+          "duration": "10年10个月",
+          "date": "2037-07"
         },
         "migrationStartMonth": 78,
         "migrationStartDate": "2033-03",
@@ -258,8 +258,8 @@
         "monthlyContribution": 41666.666666666664,
         "nominal": {
           "months": 93,
-          "assets": 22657940.49769432,
-          "annualDividend": 1008368.9839093881,
+          "assets": 22591060.4807259,
+          "annualDividend": 1005392.5556342255,
           "annualYield": 0.044504,
           "cumulativeContribution": 3874999.999999995,
           "phase": "income",
@@ -267,18 +267,18 @@
           "date": "2034-06"
         },
         "safety": {
-          "months": 114,
-          "assets": 26966065.97340475,
-          "annualDividend": 1200097.800080405,
+          "months": 115,
+          "assets": 26995715.000775017,
+          "annualDividend": 1201417.3003944913,
           "annualYield": 0.044504,
-          "cumulativeContribution": 4749999.999999998,
+          "cumulativeContribution": 4791666.666666665,
           "phase": "income",
-          "duration": "9年6个月",
-          "date": "2036-03"
+          "duration": "9年7个月",
+          "date": "2036-04"
         },
         "migrationStartMonth": 67,
         "migrationStartDate": "2032-04",
-        "nominalMonthsSaved": 41,
+        "nominalMonthsSaved": 42,
         "safetyMonthsSaved": 48
       },
       {
@@ -286,8 +286,8 @@
         "monthlyContribution": 83333.33333333333,
         "nominal": {
           "months": 73,
-          "assets": 23030280.10335109,
-          "annualDividend": 1009102.4297684658,
+          "assets": 22980450.94932883,
+          "annualDividend": 1006919.0989461084,
           "annualYield": 0.04381633333333333,
           "cumulativeContribution": 6083333.333333329,
           "phase": "migrate",
@@ -295,51 +295,51 @@
           "date": "2032-10"
         },
         "safety": {
-          "months": 89,
-          "assets": 27000181.64836048,
-          "annualDividend": 1201616.0840786349,
+          "months": 90,
+          "assets": 27119640.096757125,
+          "annualDividend": 1206932.462866079,
           "annualYield": 0.044504,
-          "cumulativeContribution": 7416666.666666658,
+          "cumulativeContribution": 7499999.999999991,
           "phase": "income",
-          "duration": "7年5个月",
-          "date": "2034-02"
+          "duration": "7年6个月",
+          "date": "2034-03"
         },
         "migrationStartMonth": 51,
         "migrationStartDate": "2030-12",
-        "nominalMonthsSaved": 61,
+        "nominalMonthsSaved": 62,
         "safetyMonthsSaved": 73
       }
     ],
     "tenYearNominalThreshold": {
-      "annualContribution": 123240,
-      "monthlyContribution": 10270,
+      "annualContribution": 128676,
+      "monthlyContribution": 10723,
       "maxMonths": 120,
       "contributionStartMonth": 1,
       "contributionEndMonth": 480,
-      "migrationStartMonth": 90,
-      "migrationStartDate": "2034-03",
+      "migrationStartMonth": 89,
+      "migrationStartDate": "2034-02",
       "months": 120,
-      "assets": 22469897.75127067,
-      "annualDividend": 1000000.32952255,
+      "assets": 22469894.440540686,
+      "annualDividend": 1000000.1821818227,
       "annualYield": 0.044504,
-      "cumulativeContribution": 1232400,
+      "cumulativeContribution": 1286760,
       "phase": "income",
       "duration": "10年",
       "date": "2036-09"
     },
     "tenYearSafetyThreshold": {
-      "annualContribution": 413340,
-      "monthlyContribution": 34445,
+      "annualContribution": 425828,
+      "monthlyContribution": 35485.666666666664,
       "maxMonths": 120,
       "contributionStartMonth": 1,
       "contributionEndMonth": 480,
-      "migrationStartMonth": 72,
-      "migrationStartDate": "2032-09",
+      "migrationStartMonth": 71,
+      "migrationStartDate": "2032-08",
       "months": 120,
-      "assets": 26963881.06373127,
-      "annualDividend": 1200000.5628602966,
+      "assets": 26963869.94553591,
+      "annualDividend": 1200000.06805613,
       "annualYield": 0.044504,
-      "cumulativeContribution": 4133400,
+      "cumulativeContribution": 4258279.9999999935,
       "phase": "income",
       "duration": "10年",
       "date": "2036-09"
@@ -349,44 +349,175 @@
       "completionRate": 0.8,
       "contributionYears": 5,
       "delayedSafetyThreshold": {
-        "annualContribution": 478828,
-        "monthlyContribution": 39902.333333333336,
+        "annualContribution": 492831,
+        "monthlyContribution": 41069.25,
         "maxMonths": 120,
         "contributionStartMonth": 13,
         "contributionEndMonth": 480,
-        "migrationStartMonth": 73,
-        "migrationStartDate": "2032-10",
+        "migrationStartMonth": 72,
+        "migrationStartDate": "2032-09",
         "months": 120,
-        "assets": 26963875.43349434,
-        "annualDividend": 1200000.3122922322,
+        "assets": 26963871.680343274,
+        "annualDividend": 1200000.1452619971,
         "annualYield": 0.044504,
-        "cumulativeContribution": 4309452.000000006,
+        "cumulativeContribution": 4435479,
         "phase": "income",
         "duration": "10年",
         "date": "2036-09"
       },
       "limitedYearsSafetyThreshold": {
-        "annualContribution": 684113,
-        "monthlyContribution": 57009.416666666664,
+        "annualContribution": 712791,
+        "monthlyContribution": 59399.25,
         "maxMonths": 120,
         "contributionStartMonth": 1,
         "contributionEndMonth": 60,
-        "migrationStartMonth": 60,
-        "migrationStartDate": "2031-09",
+        "migrationStartMonth": 59,
+        "migrationStartDate": "2031-08",
         "months": 120,
-        "assets": 26963869.692268137,
-        "annualDividend": 1200000.0567847013,
+        "assets": 26963869.301350646,
+        "annualDividend": 1200000.0393873092,
         "annualYield": 0.044504,
-        "cumulativeContribution": 3420564.9999999977,
+        "cumulativeContribution": 3563955,
         "phase": "income",
         "duration": "10年",
         "date": "2036-09"
       },
-      "combinedPlannedAnnualContribution": 598535,
-      "combinedRealizedAnnualContribution": 478828,
-      "combinedMonthlyPlannedContribution": 49877.916666666664
+      "combinedPlannedAnnualContribution": 616039,
+      "combinedRealizedAnnualContribution": 492831.2,
+      "combinedMonthlyPlannedContribution": 51336.583333333336
     },
     "note": "新增本金按月末等额投入并持续到安全线，始终使用正式七席承保回报与终态股息率；这是能力敏感性，不是已承诺现金流，也不得使用杠杆或生活备用金。",
-    "conclusion": "持续投入是比提高回报假设更可控的加速器；十年安全线数学门槛约为每年41.3万元。若允许迟一年且实际仅完成计划80%，年度能力缓冲需约59.9万元。实际能力尚未确认，因此0元仍是正式规划基线。"
+    "conclusion": "持续投入是比提高回报假设更可控的加速器；十年安全线数学门槛约为每年42.6万元。若允许迟一年且实际仅完成计划80%，年度能力缓冲需约61.6万元。实际能力尚未确认，因此0元仍是正式规划基线。"
+  },
+  "terminalIncomeAudit": {
+    "status": "future-seven-seat-blueprint",
+    "maxHoldings": 7,
+    "holdingCount": 7,
+    "stockWeight": 0.8799999999999999,
+    "cashWeight": 0.12,
+    "totalWeight": 0.9999999999999999,
+    "terminalReturnFloor": 0.08,
+    "modelYield": 0.044504,
+    "normalYield": 0.044847000000000005,
+    "routineYield": 0.03811995,
+    "severeYield": 0.031215800000000002,
+    "maxDividendContribution": 0.19354694851383591,
+    "rows": [
+      {
+        "name": "贵州茅台",
+        "weight": 0.19,
+        "assumedAfterTaxYield": 0.0452,
+        "routineHaircut": 0.15,
+        "severeHaircut": 0.2,
+        "role": "品牌现金流核心",
+        "gate": "约1150元及以下且现金收入、渠道与普通分红能力通过复核",
+        "weightedDividendYield": 0.008588,
+        "normalDividendContribution": 0.19149552924387359,
+        "routineWeightedYield": 0.0072997999999999995,
+        "severeWeightedYield": 0.0068704000000000005
+      },
+      {
+        "name": "招商银行",
+        "weight": 0.16,
+        "assumedAfterTaxYield": 0.0508,
+        "routineHaircut": 0.15,
+        "severeHaircut": 0.35,
+        "role": "低成本负债金融股息",
+        "gate": "资本充足率、资产质量、信用成本和派息能力通过金融口径复核",
+        "weightedDividendYield": 0.008128,
+        "normalDividendContribution": 0.181238432894062,
+        "routineWeightedYield": 0.0069088,
+        "severeWeightedYield": 0.0052832
+      },
+      {
+        "name": "中国移动H",
+        "weight": 0.14,
+        "assumedAfterTaxYield": 0.062,
+        "routineHaircut": 0.15,
+        "severeHaircut": 0.15,
+        "role": "通信基础设施稳定器",
+        "gate": "约68港元及以下；长账龄应收、资本开支与港股通税后回报通过",
+        "weightedDividendYield": 0.00868,
+        "normalDividendContribution": 0.19354694851383591,
+        "routineWeightedYield": 0.007378,
+        "severeWeightedYield": 0.007378
+      },
+      {
+        "name": "宇通客车",
+        "weight": 0.11,
+        "assumedAfterTaxYield": 0.0587,
+        "routineHaircut": 0.15,
+        "severeHaircut": 0.6,
+        "role": "出口制造与中高股息",
+        "gate": "普通股息由正常化自由现金流覆盖，出口、质保和周期风险未恶化",
+        "weightedDividendYield": 0.006457,
+        "normalDividendContribution": 0.1439784155015943,
+        "routineWeightedYield": 0.00548845,
+        "severeWeightedYield": 0.0025828
+      },
+      {
+        "name": "质量白电一只",
+        "weight": 0.1,
+        "assumedAfterTaxYield": 0.057,
+        "routineHaircut": 0.15,
+        "severeHaircut": 0.4,
+        "role": "美的/海尔/格力择一的成熟现金流",
+        "gate": "只选一只；税后率、总回报、治理、现金覆盖和接班风险全部通过",
+        "weightedDividendYield": 0.0057,
+        "normalDividendContribution": 0.12709880259549133,
+        "routineWeightedYield": 0.004845,
+        "severeWeightedYield": 0.00342
+      },
+      {
+        "name": "长江电力",
+        "weight": 0.1,
+        "assumedAfterTaxYield": 0.0435,
+        "routineHaircut": 0.15,
+        "severeHaircut": 0.1,
+        "role": "水电现金流稳定器",
+        "gate": "约23元及以下且来水、负债、资本开支和分红覆盖通过",
+        "weightedDividendYield": 0.00435,
+        "normalDividendContribution": 0.09699645461234864,
+        "routineWeightedYield": 0.0036975,
+        "severeWeightedYield": 0.003915
+      },
+      {
+        "name": "福耀玻璃",
+        "weight": 0.08,
+        "assumedAfterTaxYield": 0.0368,
+        "routineHaircut": 0.15,
+        "severeHaircut": 0.4,
+        "role": "全球制造与股息增长",
+        "gate": "海外扩产回报、关税、自由现金流和普通分红覆盖通过",
+        "weightedDividendYield": 0.002944,
+        "normalDividendContribution": 0.06564541663879411,
+        "routineWeightedYield": 0.0025024,
+        "severeWeightedYield": 0.0017664
+      }
+    ],
+    "nominalAssets": 22298035.543068655,
+    "routineSafetyAssets": 26232982.991845477,
+    "severeSafetyAssets": 32035059.168754283,
+    "formalSafetyAssets": 26963868,
+    "routineDividendAtFormalSafetyAssets": 1027861.2999666,
+    "severeDividendAtFormalSafetyAssets": 841698.7107144,
+    "severeSafetyPath": {
+      "months": 190,
+      "assets": 32141600.282021474,
+      "annualDividend": 1003325.766083526,
+      "annualYield": 0.031215800000000002,
+      "cumulativeContribution": 0,
+      "phase": "income",
+      "duration": "15年10个月",
+      "date": "2042-07"
+    },
+    "constraints": [
+      "七个股票席位加12%现金合计100%；质量白电槽最终只能选择一家公司",
+      "任何单一公司正常普通股息贡献不超过20%；银行保险合计不超过16%",
+      "宇通与福耀合计不超过19%；运营商与公用事业合计不超过24%",
+      "特别股息、现金利息、卖出收益和本金返还不计入目标",
+      "腾讯若迁移时基准十年IRR仍不低于12%，不机械卖出；延后迁移或提高资产门槛"
+    ],
+    "note": "这是未来迁移阶段的七席风险预算，不是2026年的买入清单。税后率全部按预设买点和届时税制复核；任一席位未通过时提高所需资产，不用第8只或低质量高股息硬填。"
   }
 }

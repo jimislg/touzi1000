@@ -86,6 +86,14 @@ const robustPath = simulateDividendAcceleration({
 check(robustPath.safety.months <= 120, '抗中断能力情景在迟一年且兑现80%后仍通过十年安全线');
 check(ledger.deploymentRanges.find(row => row.month === 18)?.maxStockWeight === 0.84, '月度账本部署上限与七席84%政策一致');
 check(ledger.snapshots.every(row => Number.isFinite(Number(row.netExternalFlow))), '每个月度快照都有净入金字段');
+const incomeAudit = metrics.incomePortfolioAudit;
+check(incomeAudit.holdingCount <= incomeAudit.maxHoldings, '终态收息蓝图不超过七个股票席位');
+check(close(incomeAudit.totalWeight, 1), '终态七席与现金权重合计100%');
+check(incomeAudit.normalYield >= incomeAudit.modelYield, '终态七席逐股税后率覆盖正式模型收益率');
+check(incomeAudit.maxDividendContribution <= 0.20 + 1e-9, '终态任一公司普通股息贡献不超过20%');
+check(incomeAudit.routineDividendAtFormalSafetyAssets >= 1000000, '正式安全资产在线性减息15%后仍有100万元股息');
+check(incomeAudit.severeSafetyAssets > incomeAudit.formalSafetyAssets, '复合严重压力资产线高于日常安全资产线');
+check(incomeAudit.rows.every(row => row.gate && row.role), '终态每个席位都有角色和迁移闸门');
 
 const dividendByName = new Map(pf.dividends.perStock.map(row => [row.name, row]));
 check(pf.holdings.every(row => dividendByName.has(row.name)), '每个真实持仓都有结构化正常化股息口径');
