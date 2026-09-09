@@ -5,7 +5,10 @@
   "description": "目标驱动的中国及港股投资研究、组合执行与风险预警中心",
   "scripts": {
     "start": "node server.js",
-    "check": "node --check server.js && node --check public/app.js"
+    "check": "node --check server.js && node --check public/app.js",
+    "test": "node --test tests/*.test.js",
+    "sync-policy": "node scripts/sync-goal-policy.js",
+    "audit": "node scripts/validate-policy.js"
   },
   "engines": {
     "node": ">=18"

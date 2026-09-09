@@ -8,7 +8,9 @@ const path = require('path');
 const PORT = Number(process.argv[2] || process.env.PORT || 4280);
 const ROOT = __dirname;
 const PUBLIC_DIR = path.join(ROOT, 'public');
-const DATA_DIR = path.join(ROOT, 'data');
+const DATA_DIR = process.env.INVESTMENT_HQ_DATA_DIR
+  ? path.resolve(process.env.INVESTMENT_HQ_DATA_DIR)
+  : path.join(ROOT, 'data');
 const DOCS_DIR = path.join(DATA_DIR, 'docs');
 const STOCKS_DIR = path.join(DATA_DIR, 'stocks');
 const PORTFOLIO_FILE = path.join(DATA_DIR, 'portfolio.json');
@@ -29,6 +31,24 @@ function send(res, code, body, type) {
 }
 const readJson = p => JSON.parse(fs.readFileSync(p, 'utf8'));
 const roundMoney = value => Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+const optionalNumber = value => {
+  if (value === '' || value == null) return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
+};
+function estimatedAnnualDividend(entry, quantity, fxRate, grossCny) {
+  const normalizedDps = optionalNumber(entry?.normalizedDps);
+  const taxRate = optionalNumber(entry?.dividendTaxRate) ?? 0;
+  const dpsCurrency = String(entry?.dpsCurrency || 'CNY').toUpperCase();
+  const dpsFx = dpsCurrency === 'HKD' ? optionalNumber(fxRate) : 1;
+  if (normalizedDps != null && dpsFx != null && taxRate >= 0 && taxRate < 1) {
+    return roundMoney(quantity * normalizedDps * dpsFx * (1 - taxRate));
+  }
+  const afterTaxYield = optionalNumber(entry?.afterTaxYield);
+  return afterTaxYield != null && Number.isFinite(grossCny)
+    ? roundMoney(grossCny * afterTaxYield)
+    : null;
+}
 function writeJsonAtomic(file, value) {
   const tmp = `${file}.tmp`;
   fs.writeFileSync(tmp, JSON.stringify(value, null, 2), 'utf8');
@@ -67,12 +87,16 @@ function snapshotStatistics(holdings, totalAssets, portfolio) {
   const weights = sorted.map(row => totalAssets > 0 ? row.marketValue / totalAssets : 0);
   const formal = new Set(portfolio.concentrationPolicy?.formalNames || (portfolio.targetPortfolio || []).map(row => row.name));
   const target = new Set((portfolio.targetPortfolio || []).map(row => row.name));
-  const yieldMap = new Map((portfolio.dividends?.perStock || []).map(row => [row.name, Number(row.afterTaxYield)]));
+  const dividendMap = new Map((portfolio.dividends?.perStock || []).map(row => [row.name, row]));
   let estimatedDividend = 0;
   const missingDividendNames = [];
   sorted.forEach(row => {
-    const y = yieldMap.get(row.name);
-    if (Number.isFinite(y)) estimatedDividend += row.marketValue * y;
+    const entry = dividendMap.get(row.name);
+    const inferredFx = row.currency === 'HKD' && Number(row.quantity) > 0 && Number(row.currentPrice) > 0
+      ? row.marketValue / (row.quantity * row.currentPrice)
+      : 1;
+    const amount = estimatedAnnualDividend(entry, row.quantity, inferredFx, row.marketValue);
+    if (amount != null) estimatedDividend += amount;
     else missingDividendNames.push(row.name);
   });
   const maxHoldings = Number(portfolio.concentrationPolicy?.maxHoldings) || 7;
@@ -364,19 +388,24 @@ function simulateDividendAcceleration({
   terminalYield,
   nominalDividend,
   safetyDividend,
+  monthlyContribution = 0,
+  contributionStartMonth = 1,
+  contributionEndMonth = 480,
   checkpointMonths = []
 }) {
   const values = [principal, startStockWeight, targetStockWeight, cashReturn, accumulationReturn,
     accumulationYield, deploymentMonths, migrationStartAssets, migrationMonths, terminalReturn,
-    terminalYield, nominalDividend, safetyDividend];
+    terminalYield, nominalDividend, safetyDividend, monthlyContribution, contributionStartMonth, contributionEndMonth];
   if (!values.every(Number.isFinite) || principal <= 0 || targetStockWeight <= 0
-      || deploymentMonths < 1 || migrationMonths < 1 || terminalYield <= 0) return null;
+      || deploymentMonths < 1 || migrationMonths < 1 || terminalYield <= 0 || monthlyContribution < 0
+      || contributionStartMonth < 1 || contributionEndMonth < contributionStartMonth) return null;
   const equityReturn = (accumulationReturn - (1 - targetStockWeight) * cashReturn) / targetStockWeight;
   const equityYield = accumulationYield / targetStockWeight;
   let assets = principal;
   let migrationStartMonth = null;
   let nominal = null;
   let safety = null;
+  let cumulativeContribution = 0;
   const checkpointSet = new Set((checkpointMonths || []).map(Number).filter(Number.isFinite));
   const checkpoints = [];
   if (checkpointSet.has(0)) checkpoints.push({
@@ -385,6 +414,7 @@ function simulateDividendAcceleration({
     annualDividend: assets * startStockWeight * equityYield,
     annualYield: startStockWeight * equityYield,
     stockWeight: startStockWeight,
+    cumulativeContribution,
     phase: 'baseline'
   });
   for (let month = 1; month <= 480; month += 1) {
@@ -403,11 +433,14 @@ function simulateDividendAcceleration({
       phase = migrationProgress >= 1 ? 'income' : 'migrate';
     }
     assets *= Math.pow(1 + annualReturn, 1 / 12);
+    const contributionThisMonth = month >= contributionStartMonth && month <= contributionEndMonth ? monthlyContribution : 0;
+    assets += contributionThisMonth;
+    cumulativeContribution += contributionThisMonth;
     const annualDividend = assets * annualYield;
-    if (checkpointSet.has(month)) checkpoints.push({ months: month, assets, annualDividend, annualYield, stockWeight, phase });
-    if (!nominal && annualDividend >= nominalDividend) nominal = { months: month, assets, annualDividend, annualYield, phase };
+    if (checkpointSet.has(month)) checkpoints.push({ months: month, assets, annualDividend, annualYield, stockWeight, cumulativeContribution, phase });
+    if (!nominal && annualDividend >= nominalDividend) nominal = { months: month, assets, annualDividend, annualYield, cumulativeContribution, phase };
     if (!safety && annualDividend >= safetyDividend) {
-      safety = { months: month, assets, annualDividend, annualYield, phase };
+      safety = { months: month, assets, annualDividend, annualYield, cumulativeContribution, phase };
       break;
     }
   }
@@ -426,6 +459,10 @@ function simulateDividendAcceleration({
     migrationStartDate: addMonths(startDate, migrationStartMonth),
     terminalReturn,
     terminalYield,
+    monthlyContribution,
+    annualContribution: monthlyContribution * 12,
+    contributionStartMonth,
+    contributionEndMonth,
     checkpoints: checkpoints.map(row => ({ ...row, duration: monthLabel(row.months), date: addMonths(startDate, row.months) })),
     nominal: decorate(nominal),
     safety: decorate(safety)
@@ -517,6 +554,71 @@ function buildDividendAcceleration(payload, dividendRunway, underwritingReturn) 
     nominalMonths: current.nominalMonths - twoStage.nominal.months,
     safetyMonths: current.safetyMonths - twoStage.safety.months
   } : null;
+  const contributionConfig = spec.contributionSensitivity || {};
+  const annualContributionValues = [...new Set((contributionConfig.annualContributions || [0]).map(Number)
+    .filter(value => Number.isFinite(value) && value >= 0))].sort((a, b) => a - b);
+  const contributionRows = Number.isFinite(underwritingReturn) && underwrittenTwoStage
+    ? annualContributionValues.map(annualContribution => {
+      const result = simulateDividendAcceleration({
+        ...common,
+        ...spec.twoStage,
+        accumulationReturn: underwritingReturn,
+        monthlyContribution: annualContribution / 12
+      });
+      return {
+        annualContribution,
+        monthlyContribution: annualContribution / 12,
+        nominal: result.nominal,
+        safety: result.safety,
+        migrationStartMonth: result.migrationStartMonth,
+        migrationStartDate: result.migrationStartDate,
+        nominalMonthsSaved: underwrittenTwoStage.nominal.months - result.nominal.months,
+        safetyMonthsSaved: underwrittenTwoStage.safety.months - result.safety.months
+      };
+    })
+    : [];
+  const solveContributionThreshold = (milestone, maxMonths, schedule = {}) => {
+    if (!Number.isFinite(underwritingReturn) || !underwrittenTwoStage?.[milestone]) return null;
+    if (underwrittenTwoStage[milestone].months <= maxMonths) return { annualContribution: 0, ...underwrittenTwoStage[milestone] };
+    let lower = 0;
+    let upper = Number(contributionConfig.searchCeiling) || 5000000;
+    const simulate = annualContribution => simulateDividendAcceleration({
+      ...common,
+      ...spec.twoStage,
+      accumulationReturn: underwritingReturn,
+      monthlyContribution: annualContribution / 12,
+      ...schedule
+    });
+    if (simulate(upper)?.[milestone]?.months > maxMonths) return null;
+    for (let iteration = 0; iteration < 60; iteration += 1) {
+      const middle = (lower + upper) / 2;
+      if (simulate(middle)?.[milestone]?.months <= maxMonths) upper = middle;
+      else lower = middle;
+    }
+    const annualContribution = Math.ceil(upper);
+    const result = simulate(annualContribution);
+    return {
+      annualContribution,
+      monthlyContribution: annualContribution / 12,
+      maxMonths,
+      contributionStartMonth: result.contributionStartMonth,
+      contributionEndMonth: result.contributionEndMonth,
+      migrationStartMonth: result.migrationStartMonth,
+      migrationStartDate: result.migrationStartDate,
+      ...result[milestone]
+    };
+  };
+  const tenYearNominalThreshold = solveContributionThreshold('nominal', 120);
+  const tenYearSafetyThreshold = solveContributionThreshold('safety', 120);
+  const robustnessConfig = contributionConfig.robustness || {};
+  const delayedStartMonths = Number(robustnessConfig.delayedStartMonths) || 12;
+  const completionRate = Number(robustnessConfig.completionRate) || 0.8;
+  const contributionYears = Number(robustnessConfig.contributionYears) || 5;
+  const delayedSafetyThreshold = solveContributionThreshold('safety', 120, { contributionStartMonth: delayedStartMonths + 1 });
+  const limitedYearsSafetyThreshold = solveContributionThreshold('safety', 120, { contributionEndMonth: contributionYears * 12 });
+  const combinedPlannedAnnualContribution = delayedSafetyThreshold && completionRate > 0
+    ? Math.ceil(delayedSafetyThreshold.annualContribution / completionRate)
+    : null;
   return {
     startDate: spec.startDate,
     principal,
@@ -525,6 +627,24 @@ function buildDividendAcceleration(payload, dividendRunway, underwritingReturn) 
     paths,
     saving,
     companyBaseSaving,
+    contributionSensitivity: {
+      status: contributionConfig.status || 'scenario-only',
+      actualAnnualContribution: contributionConfig.actualAnnualContribution ?? null,
+      rows: contributionRows,
+      tenYearNominalThreshold,
+      tenYearSafetyThreshold,
+      robustness: {
+        delayedStartMonths,
+        completionRate,
+        contributionYears,
+        delayedSafetyThreshold,
+        limitedYearsSafetyThreshold,
+        combinedPlannedAnnualContribution,
+        combinedRealizedAnnualContribution: combinedPlannedAnnualContribution == null ? null : combinedPlannedAnnualContribution * completionRate,
+        combinedMonthlyPlannedContribution: combinedPlannedAnnualContribution == null ? null : combinedPlannedAnnualContribution / 12
+      },
+      note: contributionConfig.note || '新增本金按月末投入，始终使用正式七席承保回报与终态股息率；不把入金计作投资收益。'
+    },
     phasePortfolios: spec.phasePortfolios || [],
     rules: spec.rules || [],
     note: spec.note
@@ -564,10 +684,30 @@ function buildGoalPathTracking(payload, dividendAcceleration) {
   if (thesisBreaches.length >= 2) deviations.push({ severity: 'red', item: '投资论文', detail: `${thesisBreaches.length}项核心突破：${thesisBreaches.join('、')}` });
   else if (thesisBreaches.length === 1) deviations.push({ severity: 'amber', item: '投资论文', detail: thesisBreaches[0] });
   let rollingReturn = null;
+  let rollingReturnMethod = null;
   if (elapsedMonths >= 36) {
     const prior = [...snapshots].reverse().find(row => monthsBetween(row.date, latest.date) >= 36);
-    const span = prior ? monthsBetween(prior.date, latest.date) : null;
-    if (prior && span > 0 && Number(prior.totalAssets) > 0) rollingReturn = Math.pow(actualAssets / Number(prior.totalAssets), 12 / span) - 1;
+    const priorIndex = prior ? snapshots.indexOf(prior) : -1;
+    const periodSnapshots = priorIndex >= 0 ? snapshots.slice(priorIndex) : [];
+    let linkedGrowth = 1;
+    let linkedMonths = 0;
+    let validGrowth = periodSnapshots.length >= 2;
+    for (let index = 1; index < periodSnapshots.length && validGrowth; index += 1) {
+      const start = Number(periodSnapshots[index - 1].totalAssets);
+      const end = Number(periodSnapshots[index].totalAssets);
+      const flow = Number(periodSnapshots[index].netExternalFlow) || 0;
+      const span = monthsBetween(periodSnapshots[index - 1].date, periodSnapshots[index].date);
+      const flowAdjustedEnd = end - flow;
+      if (!(start > 0) || !(flowAdjustedEnd > 0) || !(span > 0)) validGrowth = false;
+      else {
+        linkedGrowth *= flowAdjustedEnd / start;
+        linkedMonths += span;
+      }
+    }
+    if (validGrowth && linkedMonths > 0) {
+      rollingReturn = Math.pow(linkedGrowth, 12 / linkedMonths) - 1;
+      rollingReturnMethod = '区间收益链结；每期净入金按期末发生处理';
+    }
     if (rollingReturn != null && rollingReturn < 0.05 && thesisBreaches.length >= 2) deviations.push({ severity: 'red', item: '承保回报', detail: `滚动年化${(rollingReturn * 100).toFixed(2)}%，且论文已多项突破，应重做组合` });
     else if (rollingReturn != null && rollingReturn < 0.075) deviations.push({ severity: 'amber', item: '承保回报', detail: `滚动年化${(rollingReturn * 100).toFixed(2)}%，使用7%压力路径重算` });
   }
@@ -577,6 +717,7 @@ function buildGoalPathTracking(payload, dividendAcceleration) {
     ...row,
     guardrailRange: [...ranges].reverse().find(range => range.month <= row.months) || null
   }));
+  const cumulativeExternalFlow = snapshots.reduce((sum, row) => sum + (Number(row.netExternalFlow) || 0), 0);
   return {
     asOf: ledger.asOf,
     baselineDate: ledger.baselineDate,
@@ -590,6 +731,8 @@ function buildGoalPathTracking(payload, dividendAcceleration) {
     assetGapPct,
     dividendGapPct,
     rollingReturn,
+    rollingReturnMethod,
+    cumulativeExternalFlow,
     deviations,
     nextCheckpoint,
     checkpoints,
@@ -678,13 +821,20 @@ function buildDecisionMetrics(payload) {
       const held = holdingByName.get(d.name);
       return sum + (held && Number.isFinite(d.afterTaxYield) ? held.marketValue * d.afterTaxYield : 0);
     }, 0);
-  const postInitialDividend = Number(pf.currentDividendBaseline?.postInitialTrade);
-  const postTriggeredDividend = Number(pf.currentDividendBaseline?.postTriggeredCandidate);
-  const postPrimaryQueueDividend = Number(pf.currentDividendBaseline?.postPrimaryQueue);
+  const postInitialDividend = optionalNumber(pf.currentDividendBaseline?.postInitialTrade);
+  const postSeatReplacementDividend = optionalNumber(pf.currentDividendBaseline?.postSeatReplacement);
+  const postTencentSecondTierDividend = optionalNumber(pf.currentDividendBaseline?.postTencentSecondTier);
+  const postTriggeredDividend = optionalNumber(pf.currentDividendBaseline?.postTriggeredCandidate);
+  const postPrimaryQueueDividend = optionalNumber(pf.currentDividendBaseline?.postPrimaryQueue);
   const dividendRunway = buildDividendRunway(payload, normalizedWeightedReturn);
   const dividendAcceleration = buildDividendAcceleration(payload, dividendRunway, underwritingWeightedReturn);
   const goalPathTracking = buildGoalPathTracking(payload, dividendAcceleration);
   const alerts = [];
+  const activeHoldingCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
+  const maxHoldings = Number(pf.concentrationPolicy?.maxHoldings) || 7;
+  if (activeHoldingCount > maxHoldings) {
+    alerts.push({ severity: 'red', title: '实际持仓超过七席上限', detail: `券商成交账本当前有${activeHoldingCount}只持仓，超过政策上限${maxHoldings}只。事实记录保留，但新增资金暂停；必须明确选择退出席位后再恢复执行。` });
+  }
   if (normalizedWeightedReturn != null && normalizedWeightedReturn < required10) {
     alerts.push({ severity: 'red', title: '10年5倍存在结构性缺口', detail: `目标组合按报告基准IRR加权仅 ${(normalizedWeightedReturn * 100).toFixed(2)}%，低于所需 ${(required10 * 100).toFixed(2)}% ${(required10 - normalizedWeightedReturn > 0 ? '约' + ((required10 - normalizedWeightedReturn) * 100).toFixed(2) + '个百分点' : '')}。` });
   }
@@ -704,9 +854,8 @@ function buildDecisionMetrics(payload) {
     const covered = Number(pf.deploymentQueue.coverageRatio) >= 1;
     alerts.push({ severity: 'amber', title: covered ? '三个月部署队列已覆盖缺口，但仍依赖价格触发' : '七席内可执行队列尚未覆盖三个月缺口', detail: `首轮后至29%股票仓位还需约 ${(pf.deploymentQueue.threeMonthGap / 10000).toFixed(1)}万元；七席内条件金额约 ${(pf.deploymentQueue.primaryPotential / 10000).toFixed(1)}万元，覆盖 ${(pf.deploymentQueue.coverageRatio * 100).toFixed(0)}%。不为补缺口新增第8只或放宽买价。` });
   }
-  const baseRunway = dividendRunway?.scenarios?.find(s => s.id === 'base');
-  if (baseRunway) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `计入24个月部署拖累后，基准情景约${baseRunway.nominalDuration}达到名义100万元，但约${baseRunway.safetyDuration}才达到120万元安全线；后者用于承受约15%的组合股息削减。` });
   const accelerated = dividendAcceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
+  if (accelerated) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `正式七席承保约${accelerated.nominal.duration}达到名义100万元，但约${accelerated.safety.duration}才达到120万元安全线；后者用于承受约15%的组合股息削减。` });
   if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `质量折扣后的承保路线约${accelerated.nominal.duration}达到名义线、约${accelerated.safety.duration}达到安全线；积累期承保年化${(accelerated.accumulationReturn * 100).toFixed(2)}%，不再把${(normalizedWeightedReturn * 100).toFixed(2)}%的公司基准机械加权当成保守承诺。` });
   if ((payload.portfolioEvolution?.unresolved || []).length) alerts.push({ severity: 'amber', title: '存在未统一的执行口径', detail: `仍有 ${payload.portfolioEvolution.unresolved.length} 项待确认；冲突未消除前，不应按旧价格表自动下单。` });
   if (reserveRequiredReturn != null && reserveRequiredReturn > 0.25) alerts.push({ severity: 'red', title: '仅靠预留机会仓无法填平目标缺口', detail: `按报告硬上限收缩后需预留 ${(reserveWeight * 100).toFixed(0)}%，但该预留仓需年化约 ${(reserveRequiredReturn * 100).toFixed(1)}% 才能把整体推到17.46%；这不是可接受的基准假设。` });
@@ -732,9 +881,11 @@ function buildDecisionMetrics(payload) {
     reserveRequiredReturn,
     targetDividend,
     currentDividend,
-    postInitialDividend: Number.isFinite(postInitialDividend) ? postInitialDividend : null,
-    postTriggeredDividend: Number.isFinite(postTriggeredDividend) ? postTriggeredDividend : null,
-    postPrimaryQueueDividend: Number.isFinite(postPrimaryQueueDividend) ? postPrimaryQueueDividend : null,
+    postInitialDividend,
+    postSeatReplacementDividend,
+    postTencentSecondTierDividend,
+    postTriggeredDividend,
+    postPrimaryQueueDividend,
     dividendGap: Math.max(0, 1000000 - targetDividend),
     dividendRunway,
     dividendAcceleration,
@@ -813,10 +964,12 @@ const server = http.createServer(async (req, res) => {
       const maxStockWeight = 1 - opportunityWeight;
       if (sum > maxStockWeight + 0.005) return send(res, 400, JSON.stringify({ error: `股票目标权重合计 ${(sum * 100).toFixed(1)}%，超过保留${(opportunityWeight * 100).toFixed(0)}%机会现金后的上限 ${(maxStockWeight * 100).toFixed(0)}%` }));
       pf.targetPortfolio = clean;
-      // 同步股息表的目标仓位
+      if (pf.concentrationPolicy) pf.concentrationPolicy.formalNames = clean.map(row => row.name);
+      // 同步股息表的目标仓位；非目标但仍真实持有的公司不能被删掉，否则卖出时股息无法扣减。
       const names = new Set(clean.map(t => t.name));
+      const heldNames = new Set((pf.holdings || []).filter(row => Number(row.quantity) > 0).map(row => row.name));
       pf.dividends = pf.dividends || { perStock: [] };
-      pf.dividends.perStock = pf.dividends.perStock.filter(d => names.has(d.name) || clean.some(c => c.name === d.name));
+      pf.dividends.perStock = pf.dividends.perStock.filter(d => names.has(d.name) || heldNames.has(d.name));
       for (const t of clean) {
         let d = pf.dividends.perStock.find(x => x.name === t.name);
         if (!d) { d = { name: t.name, targetValue: t.targetValue, dps: '待补充', afterTaxYield: null }; pf.dividends.perStock.push(d); }
@@ -855,6 +1008,7 @@ const server = http.createServer(async (req, res) => {
       if (!Number.isInteger(quantity) || quantity <= 0) throw new Error('成交股数必须为正整数');
       if (!Number.isFinite(price) || price <= 0 || price > 100000) throw new Error('成交价无效');
       if (!Number.isFinite(fee) || fee < 0 || fee > 1000000) throw new Error('费用无效');
+      if (body.confirmedExecuted !== true) throw new Error('只能登记券商已经真实成交的交易，请先勾选成交确认');
 
       const pf = readJson(PORTFOLIO_FILE);
       if (pf.snapshotDate && date < pf.snapshotDate) throw new Error(`成交日期不能早于当前持仓快照 ${pf.snapshotDate}`);
@@ -880,13 +1034,14 @@ const server = http.createServer(async (req, res) => {
       if (side === '卖出' && quantity > oldQuantity) throw new Error(`卖出数量超过当前持有的 ${oldQuantity.toLocaleString()} 股`);
       const maxHoldings = Number(pf.concentrationPolicy?.maxHoldings) || 7;
       const activeHoldingCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
-      if (side === '买入' && !holding && activeHoldingCount >= maxHoldings) {
-        throw new Error(`当前已有${activeHoldingCount}只持仓，已满${maxHoldings}席；请先卖出一个现有持仓，再买入${security.name}`);
+      const policyBreach = side === '买入' && !holding && activeHoldingCount >= maxHoldings;
+      if (policyBreach && body.acknowledgePolicyBreach !== true) {
+        throw new Error(`当前已有${activeHoldingCount}只持仓，已满${maxHoldings}席；若券商确已成交，须明确确认政策违规后如实登记并标红`);
       }
 
       if (side === '买入') {
         if (!holding) {
-          holding = { symbol: security.symbol, name: security.name, quantity: 0, costPrice: 0, currency, marketValue: 0, priceAtSnapshot: price, targetWeight: 0, role: '成交登记新增持仓' };
+          holding = { symbol: security.symbol, name: security.name, quantity: 0, costPrice: 0, currency, marketValue: 0, priceAtSnapshot: price, targetWeight: 0, role: policyBreach ? '政策例外：实际成交登记新增持仓' : '成交登记新增持仓' };
           pf.holdings.push(holding);
         }
         const localFee = fee / fxRate;
@@ -904,12 +1059,16 @@ const server = http.createServer(async (req, res) => {
       pf.stockMarketValue = roundMoney((pf.holdings || []).reduce((sum, row) => sum + (Number(row.marketValue) || 0), 0));
       pf.totalAssets = roundMoney(pf.cash + pf.stockMarketValue);
       if (pf.concentrationPolicy) pf.concentrationPolicy.currentHoldingCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
-      const configuredYield = Number((pf.dividends?.perStock || []).find(row => row.name === security.name)?.afterTaxYield);
-      const explicitDividendChange = body.annualDividendChange === '' || body.annualDividendChange == null ? null : Number(body.annualDividendChange);
-      if (explicitDividendChange != null && !Number.isFinite(explicitDividendChange)) throw new Error('股息变化数值无效');
-      const annualDividendChange = explicitDividendChange == null
-        ? (Number.isFinite(configuredYield) ? roundMoney(grossCny * configuredYield * (side === '买入' ? 1 : -1)) : 0)
-        : explicitDividendChange;
+      const dividendEntry = (pf.dividends?.perStock || []).find(row => row.name === security.name);
+      const explicitDividendAmount = optionalNumber(body.annualDividendAmount);
+      const legacyDividendChange = optionalNumber(body.annualDividendChange);
+      if (explicitDividendAmount != null && explicitDividendAmount < 0) throw new Error('股息绝对额不能为负数');
+      const automaticDividendAmount = estimatedAnnualDividend(dividendEntry, quantity, fxRate, grossCny);
+      const annualDividendChange = explicitDividendAmount != null
+        ? roundMoney(explicitDividendAmount * (side === '买入' ? 1 : -1))
+        : legacyDividendChange != null
+          ? roundMoney(legacyDividendChange)
+          : roundMoney((automaticDividendAmount || 0) * (side === '买入' ? 1 : -1));
       pf.currentDividendBaseline = pf.currentDividendBaseline || {};
       pf.currentDividendBaseline.current = roundMoney(Math.max(0, (Number(pf.currentDividendBaseline.current) || 0) + annualDividendChange));
       pf.snapshotDate = date;
@@ -920,6 +1079,7 @@ const server = http.createServer(async (req, res) => {
         date, side, name: security.name, symbol: security.symbol, currency, quantity,
         price, fxRate, fee: roundMoney(fee), grossCny, cashDelta, annualDividendChange,
         resultingQuantity: holding.quantity, resultingCash: pf.cash,
+        confirmedExecuted: true, policyBreach,
         note: String(body.note || '').trim().slice(0, 240), duplicateKey,
         recordedAt: new Date().toISOString()
       };
@@ -942,6 +1102,7 @@ const server = http.createServer(async (req, res) => {
         : roundMoney(stockMarketValue + (Number.isFinite(cash) ? cash : 0));
       const normalizedAfterTaxDividend = Number(body.normalizedAfterTaxDividend);
       const ordinaryDividendTtm = body.ordinaryDividendTtm == null || body.ordinaryDividendTtm === '' ? null : Number(body.ordinaryDividendTtm);
+      const netExternalFlow = body.netExternalFlow == null || body.netExternalFlow === '' ? 0 : Number(body.netExternalFlow);
       const thesisBreaches = Array.isArray(body.thesisBreaches)
         ? body.thesisBreaches.map(x => String(x).trim().slice(0, 120)).filter(Boolean).slice(0, 10)
         : String(body.thesisBreaches || '').split(/[\n；;]/).map(x => x.trim().slice(0, 120)).filter(Boolean).slice(0, 10);
@@ -955,6 +1116,7 @@ const server = http.createServer(async (req, res) => {
         throw new Error('资产、股票市值或股息数据无效');
       }
       if (ordinaryDividendTtm != null && (!Number.isFinite(ordinaryDividendTtm) || ordinaryDividendTtm < 0)) throw new Error('实收股息无效');
+      if (!Number.isFinite(netExternalFlow) || Math.abs(netExternalFlow) > 100000000) throw new Error('本期净入金无效');
       const statistics = snapshotStatistics(holdings, totalAssets, pf);
       const attachment = saveSnapshotAttachment(date, body.attachmentName, body.attachmentDataUrl);
       const snapshot = {
@@ -965,6 +1127,7 @@ const server = http.createServer(async (req, res) => {
         stockWeight: stockMarketValue / totalAssets,
         normalizedAfterTaxDividend,
         ordinaryDividendTtm,
+        netExternalFlow,
         holdings,
         statistics,
         attachment,
@@ -1052,7 +1215,18 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, '127.0.0.1', () => {
-  console.log(`投资分析中心: http://127.0.0.1:${PORT}/`);
-  console.log(`数据文件: ${DATA_DIR}`);
-});
+if (require.main === module) {
+  server.listen(PORT, '127.0.0.1', () => {
+    console.log(`投资分析中心: http://127.0.0.1:${PORT}/`);
+    console.log(`数据文件: ${DATA_DIR}`);
+  });
+}
+
+module.exports = {
+  bootstrapPayload,
+  buildDecisionMetrics,
+  buildGoalPathTracking,
+  simulateDividendAcceleration,
+  simulateIncomeFirst,
+  estimatedAnnualDividend
+};

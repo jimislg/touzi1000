@@ -148,31 +148,47 @@ function openTradeModal(prefill = {}) {
       <label>成交股数<input class="edit-input" id="tradeQty" type="number" min="1" step="1" value="${esc(prefill.quantity || '')}" style="width:100%"></label>
       <label>成交价（原币）<input class="edit-input" id="tradePrice" type="number" min="0.001" step="0.001" value="${esc(prefill.price || quote?.price || '')}" style="width:100%"></label>
       <label>币种<select class="edit-input" id="tradeCurrency" style="width:100%"><option${!isHk ? ' selected' : ''}>CNY</option><option${isHk ? ' selected' : ''}>HKD</option></select></label>
-      <label>港元兑人民币结算汇率<input class="edit-input" id="tradeFx" type="number" min="0.01" max="2" step="0.0001" value="${isHk ? esc(prefill.fxRate || 0.8686) : '1'}" style="width:100%"></label>
+      <label>港元兑人民币实际结算汇率<input class="edit-input" id="tradeFx" type="number" min="0.01" max="2" step="0.0001" value="${isHk ? esc(prefill.fxRate || '') : '1'}" placeholder="按券商成交回报填写" style="width:100%"></label>
       <label>佣金及费用（人民币）<input class="edit-input" id="tradeFee" type="number" min="0" step="0.01" value="${esc(prefill.fee || 0)}" style="width:100%"></label>
-      <label style="grid-column:1/-1">该笔年化税后股息变化（可空）<input class="edit-input" id="tradeDividend" type="number" step="0.01" placeholder="留空则按系统正常化股息率估算" style="width:100%"></label>
+      <label style="grid-column:1/-1">该笔对应的年化税后股息绝对额（可空）<input class="edit-input" id="tradeDividend" type="number" min="0" step="0.01" placeholder="留空则按系统正常化每股股息估算；卖出自动扣减" style="width:100%"></label>
     </div>
     <label style="display:block;margin-top:10px">成交理由/取消条件复核<textarea class="edit-input" id="tradeNote" style="width:100%;height:68px">${esc(prefill.note || '')}</textarea></label>
+    <label style="display:block;margin-top:12px"><input id="tradeExecuted" type="checkbox"> 我已对照券商成交回报，确认这笔交易已经真实成交；本页面只做事后登记。</label>
+    <label id="tradePolicyBreachRow" style="display:none;margin-top:10px;color:var(--accent)"><input id="tradePolicyBreach" type="checkbox"> 这会形成第${Number(pf.concentrationPolicy?.maxHoldings || 7) + 1}只持仓；我确认券商确已成交，同意如实登记并将组合标红。</label>
     <div class="honest" id="tradeEstimate" style="margin-top:12px"></div>
-    <div style="display:flex;gap:8px;margin-top:14px"><button class="btn primary" id="saveTrade">确认登记</button><button class="btn" id="cancelTrade">取消</button></div>`);
+    <div style="display:flex;gap:8px;margin-top:14px"><button class="btn primary" id="saveTrade">登记已成交</button><button class="btn" id="cancelTrade">取消</button></div>`);
 
   const syncTradeForm = () => {
     const name = $('#tradeName').value;
     const sym = lookupSymbol(name) || '';
     const hk = String(sym).endsWith('.HK');
     $('#tradeCurrency').value = hk ? 'HKD' : 'CNY';
-    $('#tradeFx').value = hk ? ($('#tradeFx').value === '1' ? '0.8686' : $('#tradeFx').value) : '1';
+    $('#tradeFx').value = hk ? ($('#tradeFx').value === '1' ? '' : $('#tradeFx').value) : '1';
     const q = liveQuote(name);
     if (q) $('#tradePrice').value = q.price;
     updateEstimate();
   };
   const updateEstimate = () => {
     const qty = Number($('#tradeQty').value), price = Number($('#tradePrice').value);
-    const fx = $('#tradeCurrency').value === 'CNY' ? 1 : Number($('#tradeFx').value);
+    const fxText = $('#tradeFx').value;
+    const fx = $('#tradeCurrency').value === 'CNY' ? 1 : (fxText === '' ? NaN : Number(fxText));
     const fee = Number($('#tradeFee').value || 0);
     const gross = qty * price * fx;
     const side = $('#tradeSide').value;
-    $('#tradeEstimate').innerHTML = `<b>本地记账预估：</b>${Number.isFinite(gross) ? `${side === '买入' ? '现金减少' : '现金增加'}约 ${fmtWan(side === '买入' ? gross + fee : gross - fee)}` : '请填写股数和价格'}。这是持仓记录，不是交易指令。`;
+    const holdingExists = (pf.holdings || []).some(row => row.name === $('#tradeName').value && Number(row.quantity) > 0);
+    const activeCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
+    const maxHoldings = Number(pf.concentrationPolicy?.maxHoldings) || 7;
+    const policyBreach = side === '买入' && !holdingExists && activeCount >= maxHoldings;
+    $('#tradePolicyBreachRow').style.display = policyBreach ? 'block' : 'none';
+    if (!policyBreach) $('#tradePolicyBreach').checked = false;
+    const dividend = (pf.dividends?.perStock || []).find(row => row.name === $('#tradeName').value);
+    const dps = dividend?.normalizedDps == null ? null : Number(dividend.normalizedDps);
+    const taxRate = dividend?.dividendTaxRate == null ? 0 : Number(dividend.dividendTaxRate);
+    const dpsFx = dividend?.dpsCurrency === 'HKD' ? fx : 1;
+    const dividendAmount = dps != null && Number.isFinite(dpsFx) ? qty * dps * dpsFx * (1 - taxRate) : null;
+    const cashText = Number.isFinite(gross) ? `${side === '买入' ? '现金减少' : '现金增加'}约 ${fmtWan(side === '买入' ? gross + fee : gross - fee)}` : '请填写股数、价格和实际汇率';
+    const dividendText = dividendAmount == null ? '股息口径未配置，请手工填写' : `正常化年税后股息${side === '买入' ? '增加' : '减少'}约${fmtNum(dividendAmount, 0)}元`;
+    $('#tradeEstimate').innerHTML = `<b>本地记账预估：</b>${cashText}；${dividendText}。这是持仓记录，不是交易指令。`;
   };
   $('#tradeName').addEventListener('change', syncTradeForm);
   ['tradeSide', 'tradeQty', 'tradePrice', 'tradeCurrency', 'tradeFx', 'tradeFee'].forEach(id => $(`#${id}`).addEventListener('input', updateEstimate));
@@ -183,8 +199,13 @@ function openTradeModal(prefill = {}) {
       date: $('#tradeDate').value, side: $('#tradeSide').value, name: $('#tradeName').value,
       symbol: lookupSymbol($('#tradeName').value), quantity: Number($('#tradeQty').value), price: Number($('#tradePrice').value),
       currency: $('#tradeCurrency').value, fxRate: Number($('#tradeFx').value), fee: Number($('#tradeFee').value || 0),
-      annualDividendChange: $('#tradeDividend').value, note: $('#tradeNote').value
+      annualDividendAmount: $('#tradeDividend').value, note: $('#tradeNote').value,
+      confirmedExecuted: $('#tradeExecuted').checked,
+      acknowledgePolicyBreach: $('#tradePolicyBreach').checked
     };
+    if (!payload.confirmedExecuted) { alert('请先对照券商成交回报，并勾选“已经真实成交”。'); return; }
+    if ($('#tradePolicyBreachRow').style.display !== 'none' && !payload.acknowledgePolicyBreach) { alert('这会超过七席上限；若券商确已成交，请明确确认政策违规后再登记。'); return; }
+    if (payload.currency === 'HKD' && !(payload.fxRate > 0)) { alert('港股成交必须按券商成交回报填写实际结算汇率。'); return; }
     const gross = payload.quantity * payload.price * (payload.currency === 'CNY' ? 1 : payload.fxRate);
     if (!confirm(`确认登记：${payload.side}${payload.name} ${payload.quantity.toLocaleString()}股 @ ${payload.price}，折合约${fmtWan(gross)}？\n本操作只更新本地记录，不会向券商下单。`)) return;
     const button = $('#saveTrade'); button.disabled = true; button.textContent = '保存中…';
@@ -216,7 +237,7 @@ function renderGoals() {
   const monthlySnapshotRows = monthlySnapshots.map(s => `<tr>
     <td><b>${esc(s.date)}</b>${s.attachment ? `<div><a href="/api/snapshot-file/${encodeURIComponent(s.attachment.file)}" target="_blank">查看原始附件</a></div>` : ''}</td>
     <td class="num">${s.statistics?.holdingCount ?? (s.holdings?.length || '—')} / ${s.statistics?.maxHoldings || 7}</td>
-    <td class="num">${fmtWan(s.totalAssets)}</td><td class="num">${fmtPct(s.stockWeight, 1)}</td>
+    <td class="num">${fmtWan(s.totalAssets)}</td><td class="num">${(Number(s.netExternalFlow) || 0) >= 0 ? '+' : ''}${fmtWan(Number(s.netExternalFlow) || 0)}</td><td class="num">${fmtPct(s.stockWeight, 1)}</td>
     <td class="num">${s.statistics ? fmtPct(s.statistics.top1Weight, 1) : '—'}</td><td class="num">${s.statistics ? fmtPct(s.statistics.top3Weight, 1) : '—'}</td>
     <td class="num">${fmtWan(s.normalizedAfterTaxDividend)}</td>
     <td>${s.statistics?.holdingLimitBreach ? '<span class="badge no">超过7席</span>' : '<span class="badge pass">席位合规</span>'}${s.statistics?.nonTargetNames?.length ? `<div style="font-size:11px;color:var(--ink-3)">非目标：${esc(s.statistics.nonTargetNames.join('、'))}</div>` : ''}</td>
@@ -224,6 +245,7 @@ function renderGoals() {
   const efficiency = state.data.portfolioEfficiency;
   const cashDeployment = state.data.cashDeployment;
   const goalBottleneck = state.data.goalBottleneck;
+  const contributionSensitivity = acceleration?.contributionSensitivity || goalBottleneck?.contributionSensitivity;
   const incomeWarehouse = state.data.incomeWarehouse;
   const incomeWarehouseRows = (incomeWarehouse?.candidates || []).map(c => {
     const q = liveQuote(c.symbol);
@@ -240,6 +262,7 @@ function renderGoals() {
   const liveWarehouseEligible = incomeWarehouseRows.filter(c => c.eligible);
   const acceleratedPath = acceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
   const companyBasePath = acceleration?.paths?.find(s => s.id === 'twoStage');
+  const incomeFirstPath = acceleration?.paths?.find(s => s.id === 'incomeFirst');
   const hardTargetSummary = (dm.hardTargetStocks || []).length
     ? `当前只有${dm.hardTargetStocks.map(s => `${s.name}（${s.grade}类、基准十年${fmtPct(s.baseIrr, 1)}、硬上限${s.hardLimit == null ? '待定' : fmtPct(s.hardLimit, 0)}）`).join('、')}在基准十年模型越过17.46%；其仓位和确定性不足以支撑整个组合。`
     : '当前没有可执行标的在基准十年模型达到17.46%，不能靠重新分配现有股票解决。';
@@ -255,8 +278,10 @@ function renderGoals() {
       <div class="stat"><div class="s-label">10年目标 / 承保路径</div><div class="s-value">5.00 / ${underwritingTen.toFixed(2)}倍</div></div>
       <div class="stat"><div class="s-label">承保年化缺口</div><div class="s-value red">${fmtPct(dm.required10 - dm.underwritingWeightedReturn, 2)}</div></div>
       <div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
-      <div class="stat"><div class="s-label">首轮交易后年税后股息</div><div class="s-value blue">${fmtWan(dm.postInitialDividend)}</div></div>
-      <div class="stat"><div class="s-label">首轮＋已触发康臣</div><div class="s-value blue">${fmtWan(dm.postTriggeredDividend)}</div></div>
+      <div class="stat"><div class="s-label">腾讯400＋福耀2000后（估算）</div><div class="s-value blue">${fmtWan(dm.postInitialDividend)}</div></div>
+      ${dm.postSeatReplacementDividend == null ? '' : `<div class="stat"><div class="s-label">万华换宇通后（估算）</div><div class="s-value blue">${fmtWan(dm.postSeatReplacementDividend)}</div></div>`}
+      ${dm.postTencentSecondTierDividend == null ? '' : `<div class="stat"><div class="s-label">腾讯第二档后（估算）</div><div class="s-value blue">${fmtWan(dm.postTencentSecondTierDividend)}</div></div>`}
+      ${dm.postTriggeredDividend == null ? '' : `<div class="stat"><div class="s-label">候选情景后（未成交）</div><div class="s-value blue">${fmtWan(dm.postTriggeredDividend)}</div></div>`}
       <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(dm.targetDividend)}+</div></div>
     </div>
     <div class="goal-bridge">
@@ -306,7 +331,7 @@ function renderGoals() {
     </div>
   </div>
 
-  ${runway ? `<div class="card">
+  ${runway && runway.status !== 'historical-research-only' ? `<div class="card">
     <h2>年股息100万元达标时钟 <span class="tag">计入现金部署拖累 · 名义线与安全线分开</span></h2>
     <div class="card-sub">从当前${fmtPct(runway.startStockWeight, 2)}股票仓位出发；部署期按月线性提高到${fmtPct(runway.targetStockWeight, 0)}，现金按${fmtPct(runway.cashReturn, 1)}年化。结果是模型路径，不是收益承诺。</div>
     ${baseRunway ? `<div class="stat-row" style="margin-top:12px">
@@ -335,7 +360,7 @@ function renderGoals() {
 
   ${acceleration ? `<div class="card">
     <h2>承保路径对照 <span class="tag">质量优先 · 尚未证明更快 · 120万元才验收</span></h2>
-    <div class="card-sub">承保口径下，立即转高股息与先复利后迁移的时间相同。保留两阶段路线，是因为积累期公司质量、风险分散和上行可选性更好；公司基准机械加权只保留为上行执行线。</div>
+    <div class="card-sub">${acceleratedPath && incomeFirstPath ? `“立即转高股息”模型的安全线比正式两阶段路线快${acceleratedPath.safety.months - incomeFirstPath.safety.months}个月，但当前没有候选通过全部闸门，因此不可执行。` : ''}保留两阶段路线，是因为积累期公司质量、风险分散和上行可选性更好；公司基准机械加权只保留为上行执行线。</div>
     ${acceleratedPath ? `<div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">推荐名义线</div><div class="s-value green">${esc(acceleratedPath.nominal.duration)}</div></div>
       <div class="stat"><div class="s-label">预计月份</div><div class="s-value">${esc(acceleratedPath.nominal.date)}</div></div>
@@ -392,6 +417,40 @@ function renderGoals() {
     <div class="note"><b>收息预备库：</b>${esc(goalBottleneck.incomeWarehouse.rule)}<br><b>禁止：</b>${esc(goalBottleneck.incomeWarehouse.forbidden)}</div>
   </div>` : ''}
 
+  ${contributionSensitivity?.rows?.length ? `<div class="card">
+    <h2>更安全的加速器：持续投入 <span class="tag">能力待确认 · 不提高收益率假设</span></h2>
+    <div class="card-sub">所有情景仍使用七席7.78%承保回报和4.4504%终态税后普通股息率。新增本金按月末投入并持续到安全线；它会缩短时间，但必须单独记为入金，不能算作投资收益。</div>
+    <div class="stat-row" style="margin-top:12px">
+      <div class="stat"><div class="s-label">十年名义线所需年净投入</div><div class="s-value">${fmtWan(contributionSensitivity.tenYearNominalThreshold?.annualContribution)}</div></div>
+      <div class="stat"><div class="s-label">十年安全线所需年净投入</div><div class="s-value green">${fmtWan(contributionSensitivity.tenYearSafetyThreshold?.annualContribution)}</div></div>
+      <div class="stat"><div class="s-label">对应月均安全投入</div><div class="s-value">${fmtWan(contributionSensitivity.tenYearSafetyThreshold?.monthlyContribution)}</div></div>
+      <div class="stat"><div class="s-label">十年累计新增本金</div><div class="s-value">${fmtWan(contributionSensitivity.tenYearSafetyThreshold?.cumulativeContribution)}</div></div>
+    </div>
+    <table style="margin-top:12px">
+      <thead><tr><th>每年净投入</th><th class="num">开始迁移</th><th class="num">名义100万</th><th class="num">安全120万</th><th class="num">安全线提前</th><th class="num">达安全线前累计入金</th><th>口径</th></tr></thead>
+      <tbody>${contributionSensitivity.rows.map(row => `<tr class="${row.annualContribution === 0 ? 'best-row' : ''}">
+        <td><b>${row.annualContribution ? fmtWan(row.annualContribution) : '0（正式基线）'}</b></td>
+        <td class="num">${fmtMonths(row.migrationStartMonth)}</td>
+        <td class="num">${esc(row.nominal?.duration || '—')}<div style="font-size:11px;color:var(--ink-3)">${esc(row.nominal?.date || '')}</div></td>
+        <td class="num">${esc(row.safety?.duration || '—')}<div style="font-size:11px;color:var(--ink-3)">${esc(row.safety?.date || '')}</div></td>
+        <td class="num">${row.safetyMonthsSaved ? `${row.safetyMonthsSaved}个月` : '—'}</td>
+        <td class="num">${fmtWan(row.safety?.cumulativeContribution || 0)}</td>
+        <td>${row.annualContribution ? '条件情景' : '当前正式规划'}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    ${contributionSensitivity.robustness ? `<h3 style="margin-top:16px">抗中断压力测试</h3>
+    <table style="margin-top:8px">
+      <thead><tr><th>压力条件</th><th class="num">十年安全线所需年投入能力</th><th>判断</th></tr></thead>
+      <tbody>
+        <tr><td>无延迟、100%兑现</td><td class="num">${fmtWan(contributionSensitivity.tenYearSafetyThreshold?.annualContribution)}</td><td>数学最低线，无安全垫</td></tr>
+        <tr><td>迟${contributionSensitivity.robustness.delayedStartMonths}个月开始</td><td class="num">${fmtWan(contributionSensitivity.robustness.delayedSafetyThreshold?.annualContribution)}</td><td>仍须持续到十年末</td></tr>
+        <tr><td>只投入前${contributionSensitivity.robustness.contributionYears}年</td><td class="num">${fmtWan(contributionSensitivity.robustness.limitedYearsSafetyThreshold?.annualContribution)}</td><td>对前期现金流要求显著升高</td></tr>
+        <tr class="best-row"><td>迟${contributionSensitivity.robustness.delayedStartMonths}个月，且计划只完成${fmtPct(contributionSensitivity.robustness.completionRate, 0)}</td><td class="num"><b>${fmtWan(contributionSensitivity.robustness.combinedPlannedAnnualContribution)}</b></td><td>建议用作能力安全垫，不是正式承诺</td></tr>
+      </tbody>
+    </table>` : ''}
+    <div class="honest" style="margin-top:12px"><b>边界：</b>${esc(contributionSensitivity.note)}十年门槛是数学反推，不是建议额度。只有生活备用金、保险和未来三年确定支出均已独立覆盖后，剩余资金才可计入；不得借款、融资或预支生活资金。</div>
+  </div>` : ''}
+
   ${incomeWarehouse ? `<div class="card">
     <h2>5.2%税后收息预备库 <span class="tag">实时价格触发 · 四闸门同时通过</span></h2>
     <div class="card-sub">目标不是寻找最高股息，而是同时满足税后普通股息率${fmtPct(incomeWarehouse.gates.afterTaxYield, 1)}、承保回报${fmtPct(incomeWarehouse.gates.underwrittenReturn, 0)}、现金覆盖${incomeWarehouse.gates.cashCoverage.toFixed(1)}倍和公司特有基本面。行情刷新只改变价格闸门，不会自动把财务闸门改成通过。</div>
@@ -416,12 +475,12 @@ function renderGoals() {
   </div>` : ''}
 
   ${efficiency ? `<div class="card">
-    <h2>稳健组合前沿 <span class="tag">数学最大值 ≠ 政策最优</span></h2>
-    <div class="card-sub">${esc(efficiency.objective)}。本表只改变B类30%的内部分配；茅台25%、腾讯15%、福耀10%、宇通10%和现金10%保持不变。</div>
+    <h2>研究情景：九公司稳健前沿 <span class="tag">不构成执行政策</span></h2>
+    <div class="card-sub">${esc(efficiency.objective)}。这是历史90%股票/10%现金的敏感性研究，与当前七席84%股票/16%现金执行政策不同；任何方案都不能自动写入持仓或下单。</div>
     <table style="margin-top:12px">
       <thead><tr><th>方案</th><th>B类内部分配</th><th class="num">承保年化</th><th class="num">全悲观年化</th><th class="num">正常化股息率</th><th class="num">名义100万</th><th class="num">安全120万</th><th>判断</th></tr></thead>
       <tbody>${efficiency.strategies.map(s => `<tr class="${s.recommended ? 'best-row' : ''}">
-        <td><b>${esc(s.label)}</b>${s.recommended ? '<div class="chip" style="margin-top:4px;background:var(--green-soft);color:var(--green)">政策基准</div>' : ''}</td>
+        <td><b>${esc(s.label)}</b>${s.recommended ? '<div class="chip" style="margin-top:4px;background:var(--green-soft);color:var(--green)">研究基准</div>' : ''}</td>
         <td>${Object.entries(s.weights).map(([name, weight]) => `${esc(name.replace('体育','').replace('药业','').replace('玛特',''))}${fmtPct(weight, 0)}`).join(' · ')}</td>
         <td class="num">${fmtPct(s.underwritingReturn, 2)}</td>
         <td class="num">${fmtPct(s.pessimisticReturn, 2)}</td>
@@ -471,6 +530,8 @@ function renderGoals() {
       <div class="stat"><div class="s-label">实际股票仓位</div><div class="s-value blue">${fmtPct(tracking.latest?.stockWeight, 2)}</div></div>
       <div class="stat"><div class="s-label">当期条件区间</div><div class="s-value">${tracking.activeRange ? `${fmtPct(tracking.activeRange.minStockWeight, 0)}—${fmtPct(tracking.activeRange.maxStockWeight, 0)}` : '—'}</div></div>
       <div class="stat"><div class="s-label">正常化股息 / 路径</div><div class="s-value">${fmtWan(tracking.latest?.normalizedAfterTaxDividend)} / ${fmtWan(tracking.expected?.annualDividend)}</div></div>
+      <div class="stat"><div class="s-label">累计净入金</div><div class="s-value">${(Number(tracking.cumulativeExternalFlow) || 0) >= 0 ? '+' : ''}${fmtWan(Number(tracking.cumulativeExternalFlow) || 0)}</div></div>
+      <div class="stat"><div class="s-label">资金流调整后滚动年化</div><div class="s-value">${tracking.rollingReturn == null ? '未满36个月' : fmtPct(tracking.rollingReturn, 2)}</div></div>
       <div class="stat"><div class="s-label">下次月度复核</div><div class="s-value">${esc(tracking.nextReviewDate || '—')}</div></div>
       <div class="stat"><div class="s-label">持仓席位</div><div class="s-value ${latestSnapshotStats?.holdingLimitBreach ? 'red' : 'green'}">${latestSnapshotStats ? `${latestSnapshotStats.holdingCount}/${latestSnapshotStats.maxHoldings}` : '待首次上传'}</div></div>
       <div class="stat"><div class="s-label">前三大占总资产</div><div class="s-value">${latestSnapshotStats ? fmtPct(latestSnapshotStats.top3Weight, 1) : '—'}</div></div>
@@ -488,7 +549,7 @@ function renderGoals() {
       </tr>`).join('')}</tbody>
     </table>
     <h3 style="margin-top:16px">实际月度持仓记录</h3>
-    <div class="table-scroll"><table style="margin-top:8px"><thead><tr><th>日期/附件</th><th class="num">持仓数</th><th class="num">总资产</th><th class="num">股票仓位</th><th class="num">第一大</th><th class="num">前三大</th><th class="num">正常化股息</th><th>席位与偏离</th></tr></thead><tbody>${monthlySnapshotRows}</tbody></table></div>
+    <div class="table-scroll"><table style="margin-top:8px"><thead><tr><th>日期/附件</th><th class="num">持仓数</th><th class="num">总资产</th><th class="num">本期净入金</th><th class="num">股票仓位</th><th class="num">第一大</th><th class="num">前三大</th><th class="num">正常化股息</th><th>席位与偏离</th></tr></thead><tbody>${monthlySnapshotRows}</tbody></table></div>
     <div class="note"><b>记录口径：</b><ul>${tracking.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
   </div>` : ''}
 
@@ -544,6 +605,7 @@ function renderGoals() {
         <label>现金（元）<input class="edit-input" id="snapCash" type="number" min="0" step="0.01" value="${Number(pf.cash).toFixed(2)}" style="width:100%"></label>
         <label>正常化税后普通股息（元/年）<input class="edit-input" id="snapDividend" type="number" min="0" step="1" value="${Number(dm.currentDividend).toFixed(0)}" style="width:100%"></label>
         <label>滚动12个月实收普通股息（可空）<input class="edit-input" id="snapTtm" type="number" min="0" step="1" style="width:100%"></label>
+        <label>本期净入金（入金为正，出金为负）<input class="edit-input" id="snapExternalFlow" type="number" step="0.01" value="0" style="width:100%"></label>
       </div>
       <label style="display:block;margin-top:10px">持仓明细（每行：公司,代码,股数,成本价,现价,人民币市值,币种）<textarea class="edit-input" id="snapHoldings" style="width:100%;height:170px">${esc(currentRows)}</textarea></label>
       <div class="note" id="snapParseStatus">当前载入${(pf.holdings || []).length}只实际持仓。上传CSV/JSON会替换此明细；上传图片/PDF只留存原件。</div>
@@ -587,6 +649,7 @@ function renderGoals() {
           date: $('#snapDate').value,
           totalAssets: Number($('#snapAssets').value), cash: Number($('#snapCash').value), holdings,
           normalizedAfterTaxDividend: Number($('#snapDividend').value), ordinaryDividendTtm: $('#snapTtm').value,
+          netExternalFlow: Number($('#snapExternalFlow').value || 0),
           attachmentName, attachmentDataUrl, thesisBreaches: $('#snapBreaches').value, note: $('#snapNote').value
         };
         const res = await fetch('/api/goal-snapshot', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });

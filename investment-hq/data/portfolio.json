@@ -1,4 +1,13 @@
 {
+  "policyVersion": "2026-09-09-v1",
+  "policyAuthority": {
+    "status": "authoritative-execution-policy",
+    "sourceOfTruth": "本文件的targetPortfolio、concentrationPolicy和executionPlan",
+    "researchScenarios": [
+      "portfolio-efficiency.json"
+    ],
+    "rule": "研究情景不得自动覆盖目标权重、实际持仓或成交账本；只有已确认的券商成交才能更新holdings和tradeLedger。"
+  },
   "snapshotDate": "2026-08-25",
   "source": "券商截图 2026-08-25 09:31；总投入本金1000万元（人民币）；生活资金在投资账户之外",
   "fxNote": "港股按券商截图折算，HkdCny≈0.8573",
@@ -160,7 +169,15 @@
     "maxHoldings": 7,
     "currentHoldingCount": 7,
     "replacementRequired": true,
-    "formalNames": ["贵州茅台", "腾讯控股", "招商银行", "福耀玻璃", "宇通客车", "泡泡玛特", "安踏体育"],
+    "formalNames": [
+      "贵州茅台",
+      "腾讯控股",
+      "招商银行",
+      "福耀玻璃",
+      "宇通客车",
+      "泡泡玛特",
+      "安踏体育"
+    ],
     "rule": "实际持仓与正式目标组合均最多7只；已经满7席时，新公司只能在先卖出一个现有席位后买入，观察池不占席位。",
     "focusNote": "康臣药业和小商品城移回观察池，不再占正式目标仓位。现有格力、万华属于待置换席位；宇通或茅台首次买入前必须先完成一进一出。"
   },
@@ -171,8 +188,14 @@
     "role": "10%永久机会现金＋6%聚焦预备金；不为凑仓位突破单股上限，不计入股息目标"
   },
   "currentDividendBaseline": {
-    "current": 71862,
-    "postInitialTrade": 88900,
+    "current": 71177,
+    "currentRange": [
+      71177,
+      71862
+    ],
+    "postInitialTrade": 76844,
+    "postSeatReplacement": 86960,
+    "postTencentSecondTier": 88060,
     "postTriggeredCandidate": null,
     "postPrimaryQueue": null,
     "targetPortfolio": 289950,
@@ -180,7 +203,7 @@
     "terminalYield": 0.044504,
     "assetsNeeded": 22469890,
     "safetyAssetsNeeded": 26963868,
-    "note": "当前与首轮后为正常化估算；289,950元是七席积累期组合在预设买点的机械股息，不是终态。终态4.45%依赖资产达到1800万元后完成分散迁移，不是当前组合现价收益率；现金利息不计入普通股息。"
+    "note": "当前保守口径约71,177元，按安踏2.45港元DPS；旧前瞻口径按安踏3.00港元时约71,862元，因此展示7.12万—7.19万元区间。首轮后与289,950元均为正常化估算；后者是七席积累期组合在预设买点的机械股息，不是终态。终态4.45%依赖资产达到1800万元后完成分散迁移，不是当前组合现价收益率；现金利息不计入普通股息。"
   },
   "executionPlan": {
     "asOf": "2026-08-31",
@@ -234,17 +257,52 @@
   "deploymentClock": {
     "asOf": "2026-09-01",
     "rows": [
-      { "stage": "当前", "stockWeight": 0.1951, "cashWeight": 0.8049, "action": "等待首轮限价单" },
-      { "stage": "首轮完成", "stockWeight": 0.2226, "cashWeight": 0.7774, "action": "腾讯、福耀加仓；宇通必须先腾出一个席位再建仓" },
-      { "stage": "3个月", "stockWeightRange": "29%—35%", "cashWeightRange": "65%—71%", "action": "完成已触发首档；B类只建观察仓" },
-      { "stage": "6个月", "stockWeightRange": "40%—50%", "cashWeightRange": "50%—60%", "action": "P10只起步，P12正常建仓" },
-      { "stage": "12个月", "stockWeightRange": "60%—70%", "cashWeightRange": "30%—40%", "action": "新增权益资金加权十年IRR维持11.31%以上" },
-      { "stage": "18个月", "stockWeightRange": "70%—90%", "cashWeightRange": "10%—30%", "action": "条件满足时达到90%股票；未达买点不追价" },
-      { "stage": "24个月复核", "stockWeightRange": "70%—90%", "cashWeightRange": "10%—30%", "action": "若仍低于70%，重算正常化盈利和机会成本，不机械放宽买价" }
+      {
+        "stage": "当前",
+        "stockWeight": 0.1951,
+        "cashWeight": 0.8049,
+        "action": "等待首轮限价单"
+      },
+      {
+        "stage": "首轮完成",
+        "stockWeight": 0.2226,
+        "cashWeight": 0.7774,
+        "action": "腾讯、福耀加仓；宇通必须先腾出一个席位再建仓"
+      },
+      {
+        "stage": "3个月",
+        "stockWeightRange": "29%—35%",
+        "cashWeightRange": "65%—71%",
+        "action": "完成已触发首档；B类只建观察仓"
+      },
+      {
+        "stage": "6个月",
+        "stockWeightRange": "40%—50%",
+        "cashWeightRange": "50%—60%",
+        "action": "P10只起步，P12正常建仓"
+      },
+      {
+        "stage": "12个月",
+        "stockWeightRange": "60%—70%",
+        "cashWeightRange": "30%—40%",
+        "action": "新增权益资金加权十年IRR维持11.31%以上"
+      },
+      {
+        "stage": "18个月",
+        "stockWeightRange": "70%—84%",
+        "cashWeightRange": "16%—30%",
+        "action": "条件满足时最高达到84%股票；未达买点不追价"
+      },
+      {
+        "stage": "24个月复核",
+        "stockWeightRange": "70%—84%",
+        "cashWeightRange": "16%—30%",
+        "action": "若仍低于70%，重算正常化盈利和机会成本；七席上限仍为84%，不机械放宽买价"
+      }
     ],
     "currentCashDragReturn": 0.037001,
     "currentCashDragYearsTo25m": 25.219,
-    "note": "18个月是两阶段模型的条件目标，不是无条件满仓倒计时；只有价格与基本面闸门同时满足才计入部署。"
+    "note": "18个月是两阶段模型的条件目标，不是无条件满仓倒计时；只有价格与基本面闸门同时满足才计入部署，七席股票仓位硬上限为84%。"
   },
   "deploymentQueue": {
     "asOf": "2026-08-31 17:21",
@@ -485,9 +543,21 @@
       "target": "80万元",
       "gate": "完整两步法已于2026-08-31复核；仅H股执行，A股因溢价过高排除",
       "tiers": [
-        { "price": "≤68", "action": "建立20万元累计仓位（基准十年IRR约8%）", "cumulative": 200000 },
-        { "price": "≤57", "action": "加至50万元累计（基准十年IRR约10%）", "cumulative": 500000 },
-        { "price": "≤48", "action": "补至80万元上限（基准十年IRR约12%）", "cumulative": 800000 }
+        {
+          "price": "≤68",
+          "action": "建立20万元累计仓位（基准十年IRR约8%）",
+          "cumulative": 200000
+        },
+        {
+          "price": "≤57",
+          "action": "加至50万元累计（基准十年IRR约10%）",
+          "cumulative": 500000
+        },
+        {
+          "price": "≤48",
+          "action": "补至80万元上限（基准十年IRR约12%）",
+          "cumulative": 800000
+        }
       ],
       "cancel": "自由现金流连续两年不能覆盖分红；91天以上应收持续恶化；资本开支持续显著超预期；主营与可比利润同时恶化；监管或资本配置损害股东回报。"
     },
@@ -497,9 +567,21 @@
       "target": "50万元",
       "gate": "完整两步法已于2026-08-31复核；第一档必须满足约8%基准十年IRR",
       "tiers": [
-        { "price": "≤23", "action": "建立20万元累计仓位", "cumulative": 200000 },
-        { "price": "≤19", "action": "加至40万元累计", "cumulative": 400000 },
-        { "price": "≤16", "action": "补至50万元目标", "cumulative": 500000 }
+        {
+          "price": "≤23",
+          "action": "建立20万元累计仓位",
+          "cumulative": 200000
+        },
+        {
+          "price": "≤19",
+          "action": "加至40万元累计",
+          "cumulative": 400000
+        },
+        {
+          "price": "≤16",
+          "action": "补至50万元目标",
+          "cumulative": 500000
+        }
       ],
       "cancel": "来水与电价长期低于模型；高负债或资本开支侵蚀自由现金流；分红政策弱化；重大资产注入回报低于资本成本。"
     }
@@ -661,10 +743,22 @@
       "competes": "稳定增长型医疗股息候选；与东阿阿胶竞争中药/医疗席位，不替代茅台，也不因高股息直接占满移动和长电仓位",
       "gate": "肾病药收入仍增长；经营现金流/净利润≥80%；无重大医保、质量、合规和跨界资本配置红灯",
       "tiers": [
-        {"price": "≤14.00港元", "amount": "15万元（累计1.5%）"},
-        {"price": "≤12.20港元", "amount": "至30万元（累计3%）"},
-        {"price": "≤10.60港元", "amount": "至50万元（累计5%）"},
-        {"price": "≤8.60港元", "amount": "论文完整时至80万元硬上限"}
+        {
+          "price": "≤14.00港元",
+          "amount": "15万元（累计1.5%）"
+        },
+        {
+          "price": "≤12.20港元",
+          "amount": "至30万元（累计3%）"
+        },
+        {
+          "price": "≤10.60港元",
+          "amount": "至50万元（累计5%）"
+        },
+        {
+          "price": "≤8.60港元",
+          "amount": "论文完整时至80万元硬上限"
+        }
       ],
       "cancel": "尿毒清或肾病药连续两期明显下降；现金转化低于80%；重大医保、质量或合规事件；上海华茂等资本配置明显侵蚀现金回报。"
     },
@@ -674,9 +768,18 @@
       "competes": "核心复利候选；与福耀竞争制造业风险预算，2026H1已纳入但现价回报未过线",
       "gate": "还原汇率与套保分类后的经营利润、海外利润率、FCF和非核心业务ROIC未恶化",
       "tiers": [
-        {"price": "≤75.10元", "amount": "15万—20万元首仓"},
-        {"price": "≤61.10元", "amount": "至40万—50万元"},
-        {"price": "≤52.00元", "amount": "复核后至80万元上限"}
+        {
+          "price": "≤75.10元",
+          "amount": "15万—20万元首仓"
+        },
+        {
+          "price": "≤61.10元",
+          "amount": "至40万—50万元"
+        },
+        {
+          "price": "≤52.00元",
+          "amount": "复核后至80万元上限"
+        }
       ],
       "cancel": "还原汇率与套保后经营利润连续两期下降；海外利润率显著下降；三年累计FCF明显低于净利润；重大并购回报无法验证。"
     }
@@ -688,43 +791,84 @@
         "name": "贵州茅台",
         "targetValue": 2500000,
         "dps": "51.98123元",
+        "normalizedDps": 51.98123,
+        "dpsCurrency": "CNY",
+        "dividendTaxRate": 0,
         "afterTaxYield": 0.0397
       },
       {
         "name": "腾讯控股",
         "targetValue": 1500000,
         "dps": "5.30港元",
+        "normalizedDps": 5.3,
+        "dpsCurrency": "HKD",
+        "dividendTaxRate": 0.2,
         "afterTaxYield": 0.0096
       },
       {
         "name": "招商银行",
         "targetValue": 1000000,
         "dps": "2.016元",
+        "normalizedDps": 2.016,
+        "dpsCurrency": "CNY",
+        "dividendTaxRate": 0,
         "afterTaxYield": 0.0508
       },
       {
         "name": "宇通客车",
         "targetValue": 1000000,
-        "dps": "正常化股息率口径",
+        "dps": "正常化1.76元",
+        "normalizedDps": 1.76,
+        "dpsCurrency": "CNY",
+        "dividendTaxRate": 0,
         "afterTaxYield": 0.0587
       },
       {
         "name": "福耀玻璃",
         "targetValue": 1000000,
         "dps": "2.10元",
+        "normalizedDps": 2.1,
+        "dpsCurrency": "CNY",
+        "dividendTaxRate": 0,
         "afterTaxYield": 0.0368
       },
       {
         "name": "泡泡玛特",
         "targetValue": 600000,
-        "dps": "正常化25%分红率口径",
+        "dps": "正常化约2.125元人民币，港股通扣20%",
+        "normalizedDps": 2.125,
+        "dpsCurrency": "CNY",
+        "dividendTaxRate": 0.2,
         "afterTaxYield": 0.014
       },
       {
         "name": "安踏体育",
         "targetValue": 800000,
         "dps": "2.45港元",
+        "normalizedDps": 2.45,
+        "dpsCurrency": "HKD",
+        "dividendTaxRate": 0.2,
         "afterTaxYield": 0.027
+      },
+      {
+        "name": "格力电器",
+        "targetValue": 0,
+        "dps": "正常化2.45元",
+        "normalizedDps": 2.45,
+        "dpsCurrency": "CNY",
+        "dividendTaxRate": 0,
+        "afterTaxYield": 0.0623,
+        "role": "真实持仓股息口径；非积累期目标"
+      },
+      {
+        "name": "万华化学",
+        "targetValue": 0,
+        "dps": "正常化1.25元",
+        "normalizedDps": 1.25,
+        "dpsCurrency": "CNY",
+        "dividendTaxRate": 0,
+        "afterTaxYield": 0.0172,
+        "role": "真实持仓股息口径；非积累期目标"
       }
     ],
     "missingNote": "这是积累期组合；中国移动、长江电力和格力暂不进入积累期目标权重，只保留为资产达到1800万元后的迁移候选。",

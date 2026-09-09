@@ -1,24 +1,80 @@
 {
-  "asOf": "2026-09-01",
+  "asOf": "2026-09-09",
   "currentCash": 8048924.74,
   "currentStockWeight": 0.195107526,
-  "targetStockWeight": 0.90,
-  "permanentOpportunityCashWeight": 0.10,
-  "excessWaitingCash": 7048924.74,
+  "targetStockWeight": 0.84,
+  "permanentOpportunityCashWeight": 0.16000000000000003,
+  "excessWaitingCash": 6448924.74,
   "cashReturn": 0.015,
-  "underwrittenEquityReturn": 0.0921578889,
-  "currentUnderwrittenPortfolioReturn": 0.0300540848,
-  "targetUnderwrittenPortfolioReturn": 0.0844421,
-  "currentAnnualDrag": 0.0543880152,
-  "annualOpportunityCostCny": 543880.15,
+  "underwrittenEquityReturn": 0.08977916666666669,
+  "currentUnderwrittenPortfolioReturn": 0.029589978204675002,
+  "targetUnderwrittenPortfolioReturn": 0.07781450000000001,
+  "currentAnnualDrag": 0.04822452179532501,
+  "annualOpportunityCostCny": 482245.22,
   "deploymentScenarios": [
-    {"months": 6, "migrationMonth": 90, "nominalMonth": 122, "safetyMonth": 150, "delayVs18Safety": -4, "label": "机会高密度", "judgment": "只有多只A类同时达到P12/P15才可能，不作时间指令。"},
-    {"months": 12, "migrationMonth": 92, "nominalMonth": 124, "safetyMonth": 152, "delayVs18Safety": -2, "label": "较强机会", "judgment": "可以提前2个月，前提是实际买入IRR不降。"},
-    {"months": 18, "migrationMonth": 94, "nominalMonth": 126, "safetyMonth": 154, "delayVs18Safety": 0, "label": "政策基准", "judgment": "条件部署的计划基准，不是18个月到期强制满仓。"},
-    {"months": 24, "migrationMonth": 96, "nominalMonth": 128, "safetyMonth": 156, "delayVs18Safety": 2, "label": "可接受延后", "judgment": "安全线约晚2个月；买价明显不合格时可接受。"},
-    {"months": 36, "migrationMonth": 100, "nominalMonth": 132, "safetyMonth": 159, "delayVs18Safety": 5, "label": "黄色预警", "judgment": "不能只继续等原九只；必须扩展A类候选池或审计合格外部管理人。"},
-    {"months": 60, "migrationMonth": 107, "nominalMonth": 139, "safetyMonth": 167, "delayVs18Safety": 13, "label": "路径停滞", "judgment": "等待五年使安全线晚13个月；说明候选池、估值更新或外部管理方案失效。"},
-    {"months": 120, "migrationMonth": 126, "nominalMonth": 158, "safetyMonth": 186, "delayVs18Safety": 32, "label": "无限等价", "judgment": "等待十年使安全线晚32个月，与“最快”目标冲突，明确否决。"}
+    {
+      "months": 6,
+      "migrationMonth": 97,
+      "nominalMonth": 130,
+      "safetyMonth": 158,
+      "delayVs18Safety": -4,
+      "label": "机会高密度",
+      "judgment": "只有多只A类同时达到P12/P15才可能，不作时间指令。"
+    },
+    {
+      "months": 12,
+      "migrationMonth": 99,
+      "nominalMonth": 132,
+      "safetyMonth": 160,
+      "delayVs18Safety": -2,
+      "label": "较强机会",
+      "judgment": "可以提前2个月，前提是实际买入IRR不降。"
+    },
+    {
+      "months": 18,
+      "migrationMonth": 101,
+      "nominalMonth": 134,
+      "safetyMonth": 162,
+      "delayVs18Safety": 0,
+      "label": "政策基准",
+      "judgment": "条件部署的计划基准，不是18个月到期强制满仓。"
+    },
+    {
+      "months": 24,
+      "migrationMonth": 103,
+      "nominalMonth": 136,
+      "safetyMonth": 163,
+      "delayVs18Safety": 1,
+      "label": "可接受延后",
+      "judgment": "安全线约晚2个月；买价明显不合格时可接受。"
+    },
+    {
+      "months": 36,
+      "migrationMonth": 106,
+      "nominalMonth": 139,
+      "safetyMonth": 167,
+      "delayVs18Safety": 5,
+      "label": "黄色预警",
+      "judgment": "不能只继续等原九只；必须扩展A类候选池或审计合格外部管理人。"
+    },
+    {
+      "months": 60,
+      "migrationMonth": 114,
+      "nominalMonth": 147,
+      "safetyMonth": 174,
+      "delayVs18Safety": 12,
+      "label": "路径停滞",
+      "judgment": "等待五年使安全线晚13个月；说明候选池、估值更新或外部管理方案失效。"
+    },
+    {
+      "months": 120,
+      "migrationMonth": 132,
+      "nominalMonth": 165,
+      "safetyMonth": 193,
+      "delayVs18Safety": 31,
+      "label": "无限等价",
+      "judgment": "等待十年使安全线晚32个月，与“最快”目标冲突，明确否决。"
+    }
   ],
   "protocol": [
     {
@@ -47,8 +103,8 @@
     },
     {
       "month": 18,
-      "stockWeightRange": "70%—90%",
-      "action": "若低于70%，如实延后达标日期，全面重审候选池和买点计算；资金仍做高流动性低信用风险现金管理。",
+      "stockWeightRange": "70%—84%",
+      "action": "若低于70%，如实延后达标日期；即使机会充分，七席当前硬上限也只允许84%股票。",
       "forbidden": "不为完成表格而强制买到90%。"
     }
   ],
@@ -57,5 +113,5 @@
     "caps": "A类单次报告更新上调不超过10%；B类原则上只在年报或完整中报后调整。",
     "invalid": "股价上涨、卖方目标价上调、一次性利润和估值扩张都不能触发买点上调。"
   },
-  "cashManagement": "未部署资金只做高流动性、低信用风险、不阻碍股票买入的现金管理；利息不计入股息100万元验收。"
+  "cashManagement": "正式七席当前只能承载84%股票，其余16%为永久机会现金和聚焦预备金；未部署资金只做高流动性、低信用风险、不阻碍股票买入的现金管理，利息不计入股息100万元验收。"
 }
