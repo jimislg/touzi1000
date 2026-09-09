@@ -1,9 +1,15 @@
 {
-  "asOf": "2026-09-09",
+  "asOf": "2026-09-10",
   "lastCheckedAt": null,
-  "sourceOfTruth": "portfolio.json.watchlist、portfolio.json.candidates、income-warehouse.json及各公司最新有效研究",
-  "scopeRule": "监控范围取上述三处公司的并集；未来任何公司退出正式名单后自动保留在portfolio.json.watchlist，除非用户明确删除。",
+  "sourceOfTruth": "accumulation-plan.json、portfolio.json的正式名单/watchlist/candidates及各公司最新有效研究",
+  "scopeRule": "积累期同时监控正式公司、候选公司和退出名单观察仓；未来任何公司退出正式名单后自动保留在portfolio.json.watchlist，除非用户明确删除。",
   "scope": [
+    "贵州茅台",
+    "腾讯控股",
+    "招商银行",
+    "福耀玻璃",
+    "泡泡玛特",
+    "安踏体育",
     "宇通客车",
     "宁德时代",
     "分众传媒",
@@ -26,11 +32,12 @@
     "正式公告或定期报告改变收入、利润、自由现金流、份额或资产负债表判断",
     "分红、回购、增发、并购、重大资本开支或管理层诚信与治理发生变化",
     "监管、集采、关税、制裁、质量事故等改变投资论文",
-    "价格进入portfolio.json记载的复核区或退出区，并且经营前提仍需检查",
+    "正式公司价格进入accumulation-plan.json记载的建仓复核区，且经营前提仍完整",
+    "退出名单或候选公司进入重新研究价格区，同时出现可验证的经营转折",
     "观察公司满足重新纳入条件，或触发负面否决条件",
-    "候选进入第七席的集中度修复价格线，同时通过承保回报、自由现金流覆盖与行业分散闸门"
+    "新增资金的质量折扣承保回报、行业风险或有限席位机会成本发生足以改变排序的变化"
   ],
-  "notificationRule": "只报告可验证的重大变化；区分事实、推断和待确认项。价格单独波动不构成买入提醒。",
+  "notificationRule": "只报告可验证的重大变化；区分事实、推断和待确认项。当前阶段不以股息率、股息迁移或第七收息席触发提醒，价格单独波动也不构成买入提醒。",
   "portfolioMutationRule": "监控不得自动改正式目标权重、实际持仓或成交账本；任何重新纳入必须单独决策。",
   "lastNotifiedEventIds": []
 }

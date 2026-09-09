@@ -36,40 +36,56 @@ test('持续投入缩短目标时间，但零投入路径保持不变', () => {
   assert.ok(fiveYearsOnly.safety.months > contributed.safety.months);
 });
 
-test('终态收息蓝图保留一个空缺席位，并诚实暴露集中度缺口', () => {
+test('冻结的终态收息蓝图仍诚实暴露超限权重与集中度缺口', () => {
   const payload = bootstrapPayload();
   const audit = payload.decisionMetrics.incomePortfolioAudit;
   assert.equal(audit.holdingCount, 6);
-  assert.equal(audit.status, 'future-income-blueprint-with-one-vacancy');
+  assert.equal(payload.goals.dividendAcceleration.status, 'deferred-until-accumulation-complete');
+  assert.equal(payload.goals.dividendAcceleration.executionEligible, false);
+  assert.equal(audit.status, 'conditional-blueprint-over-current-research-caps');
   assert.ok(Math.abs(audit.totalWeight - 1) < 1e-12);
-  assert.ok(audit.normalYield >= audit.modelYield);
+  assert.ok(Math.abs(audit.blueprintTotalWeight - 1) < 1e-12);
+  assert.ok(Math.abs(audit.stockWeight - 0.58) < 1e-12);
+  assert.equal(audit.overweightRows.length, 4);
+  assert.ok(audit.blueprintYield > audit.normalYield);
+  assert.ok(Math.abs(audit.normalYield - audit.modelYield) < 1e-12);
   assert.ok(audit.maxDividendContribution > 0.20);
   assert.ok(audit.routineDividendAtFormalSafetyAssets >= 1000000);
   assert.ok(audit.severeSafetyAssets > audit.formalSafetyAssets);
-  assert.equal(audit.severeSafetyPath.months, 214);
-  assert.equal(audit.severeSafetyPath.date, '2044-07');
+  assert.equal(audit.severeSafetyPath.months, 337);
+  assert.equal(audit.severeSafetyPath.date, '2054-10');
   const gate = payload.goalBottleneck.seventhSeatGate;
-  assert.equal(gate.status, 'single-seat-cannot-complete-ten-year-yield-gate');
-  assert.ok(Math.abs(gate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight - 0.0501) < 1e-12);
-  assert.ok(Math.abs(gate.singleSeatTargetScenario.requiredSeatAfterTaxYieldAtMaxWeight - 0.1361) < 1e-12);
+  assert.equal(gate.status, 'current-caps-make-seven-seat-target-infeasible');
+  assert.ok(Math.abs(gate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight - 0.14633) < 1e-12);
+  assert.ok(Math.abs(gate.singleSeatTargetScenario.requiredSeatAfterTaxYieldAtMaxWeight - 0.23693) < 1e-12);
   assert.equal(gate.singleSeatTargetScenario.violatesContributionLimit, true);
   assert.ok(gate.feasibilityBoundary.maximumPortfolioYieldWithFixedSixAndOneCompliantNewContributor < gate.targetTerminalYield);
 });
 
-test('购买力目标随通胀增长，并在开始支用后保持30年覆盖', () => {
+test('冻结的购买力模型在60年内无解时保持为空，而不是伪造日期', () => {
   const payload = bootstrapPayload();
   const formal = payload.decisionMetrics.dividendAcceleration.paths.find(row => row.id === 'underwrittenTwoStage');
   const audit = payload.decisionMetrics.purchasingPowerAudit;
   assert.equal(audit.planning.inflation, 0.03);
   assert.ok(audit.planning.fixedRoutineRealDividend < 1000000);
   assert.ok(audit.planning.realNominal.months > formal.safety.months);
-  assert.equal(audit.planning.realRoutineSafety.months, 320);
-  assert.equal(audit.planning.realSevereSafety.months, 394);
-  assert.equal(audit.postAchievement.routine.firstDividendCoverageBreachMonth, null);
-  assert.equal(audit.postAchievement.routine.firstPrincipalBreachMonth, null);
-  assert.equal(audit.postAchievement.severe.firstDividendCoverageBreachMonth, null);
-  assert.equal(audit.postAchievement.severe.firstPrincipalBreachMonth, null);
+  assert.equal(audit.planning.realRoutineSafety, null);
+  assert.equal(audit.planning.realSevereSafety, null);
+  assert.equal(audit.postAchievement, null);
   assert.equal(audit.dividendGrowthGate.status, 'unverified');
+});
+
+test('本金增长计划不会把条件队列当成订单，也不会自动恢复宇通', () => {
+  const payload = bootstrapPayload();
+  const plan = payload.accumulationPlan;
+  assert.equal(plan.status, 'active-principal-growth-only');
+  assert.equal(plan.completionDefinition.normalCompletionStockWeight, 0.64);
+  assert.equal(plan.completionDefinition.permanentOpportunityCashFloor, 0.10);
+  assert.equal(payload.portfolio.executionPlan.rows.length, 0);
+  assert.equal(payload.portfolio.executionPlan.expectedBuyTotal, 0);
+  assert.equal(plan.growthSeatCandidates.find(row => row.name === '宇通客车').status, '退出正式名单，保留观察仓');
+  assert.ok(payload.decisionMetrics.alerts.some(row => row.title === '当前阶段已切换为本金增长优先'));
+  assert.ok(!payload.decisionMetrics.alerts.some(row => row.title.includes('终态') || row.title.includes('股息')));
 });
 
 test('滚动收益剔除净入金，不能把追加本金算成投资回报', () => {

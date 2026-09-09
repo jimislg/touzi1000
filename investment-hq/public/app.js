@@ -222,6 +222,8 @@ function openTradeModal(prefill = {}) {
 function renderGoals() {
   const el = $('#tab-goals');
   const g = state.data.goals, pf = state.data.portfolio, dm = state.data.decisionMetrics;
+  const accumulationPlan = state.data.accumulationPlan;
+  const showDividendPlanning = accumulationPlan?.status !== 'active-principal-growth-only';
   const totalDiv = dm.targetDividend;
   const baseReturn = dm.weightedReturn;
   const baseFive = dm.fiveYearMultiple;
@@ -266,10 +268,11 @@ function renderGoals() {
     const q = liveQuote(c.symbol);
     const current = Number(q?.price ?? c.currentPrice);
     const taxYield = current > 0 ? Number(c.normalizedAfterTaxDps) / current : null;
-    const pricePass = Number.isFinite(taxYield) && taxYield >= Number(c.requiredYieldForConcentrationRepair);
+    const structuralPass = c.structuralFeasible !== false;
+    const pricePass = structuralPass && Number.isFinite(taxYield) && taxYield >= Number(c.requiredYieldForConcentrationRepair);
     const coveragePass = c.cashCoverage === '通过';
     const fundamentalPass = c.fundamentals === '通过';
-    return { ...c, current, taxYield, pricePass, coveragePass, fundamentalPass, eligible: pricePass && coveragePass && fundamentalPass };
+    return { ...c, current, taxYield, structuralPass, pricePass, coveragePass, fundamentalPass, eligible: structuralPass && pricePass && coveragePass && fundamentalPass };
   });
   const acceleratedPath = acceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
   const companyBasePath = acceleration?.paths?.find(s => s.id === 'twoStage');
@@ -278,22 +281,67 @@ function renderGoals() {
     ? `当前只有${dm.hardTargetStocks.map(s => `${s.name}（${s.grade}类、基准十年${fmtPct(s.baseIrr, 1)}、硬上限${s.hardLimit == null ? '待定' : fmtPct(s.hardLimit, 0)}）`).join('、')}在基准十年模型越过17.46%；其仓位和确定性不足以支撑整个组合。`
     : '当前没有可执行标的在基准十年模型达到17.46%，不能靠重新分配现有股票解决。';
   const alertClass = severity => severity === 'red' ? 'risk-red' : severity === 'amber' ? 'risk-amber' : 'risk-green';
+  const formalGrowthRows = (accumulationPlan?.formalRows || []).map(row => {
+    const quote = liveQuote(row.symbol);
+    const price = Number(quote?.price ?? row.latestPrice);
+    const triggered = row.name === '贵州茅台'
+      ? price >= 1240 && price <= Number(row.firstGate)
+      : price <= Number(row.firstGate);
+    return `<tr class="${triggered ? 'best-row' : ''}">
+      <td><b>${row.priority}</b></td><td><b>${esc(row.name)}</b><div style="font-size:11px;color:var(--ink-3)">${esc(row.grade)}类</div></td>
+      <td class="num">${fmtNum(price)} ${esc(row.currency)}</td><td class="num">${fmtPct(row.underwrittenReturn, 2)}</td>
+      <td class="num">${row.name === '贵州茅台' ? '1240—1280' : `≤${fmtNum(row.firstGate)}`}</td>
+      <td class="num">${fmtPct(row.normalWeight, 0)} / ${fmtPct(row.hardWeight, 0)}</td>
+      <td>${triggered ? '<span class="badge pass">到价待复核</span>' : '<span class="badge neutral">未到价</span>'}<div style="margin-top:4px">${esc(row.action)}</div></td>
+    </tr>`;
+  }).join('');
+  const growthCandidateRows = (accumulationPlan?.growthSeatCandidates || []).map(row => {
+    const quote = liveQuote(row.symbol);
+    const price = Number(quote?.price ?? row.latestPrice);
+    return `<tr>
+      <td><b>${row.rank}</b></td><td><b>${esc(row.name)}</b><div style="font-size:11px;color:var(--ink-3)">${esc(row.grade)}类</div></td>
+      <td class="num">${fmtNum(price)}</td><td class="num">${fmtPct(row.underwrittenReturn, 2)}</td>
+      <td>${esc(row.priceGate)}</td><td>${esc(row.status)}</td><td>${esc(row.blocker)}</td>
+    </tr>`;
+  }).join('');
 
   el.innerHTML = `
+  ${accumulationPlan ? `<div class="card decision-cockpit">
+    <h2>当前唯一主动任务：把本金做大 <span class="tag">${esc(accumulationPlan.marketDataAsOf)} · 股息迁移已冻结</span></h2>
+    <div class="honest"><b>决策：</b>${esc(accumulationPlan.decision)}</div>
+    <div class="stat-row" style="margin-top:12px">
+      <div class="stat"><div class="s-label">当前股票仓位</div><div class="s-value">${fmtPct(accumulationPlan.currentSnapshot.stockWeight, 1)}</div></div>
+      <div class="stat"><div class="s-label">六只正常仓完成线</div><div class="s-value blue">${fmtPct(accumulationPlan.completionDefinition.normalCompletionStockWeight, 0)}</div></div>
+      <div class="stat"><div class="s-label">正式政策上限</div><div class="s-value">${fmtPct(accumulationPlan.completionDefinition.policyTargetStockWeight, 0)}</div></div>
+      <div class="stat"><div class="s-label">永久机会现金下限</div><div class="s-value green">${fmtPct(accumulationPlan.completionDefinition.permanentOpportunityCashFloor, 0)}</div></div>
+      <div class="stat"><div class="s-label">基准翻倍</div><div class="s-value">${fmtNum(accumulationPlan.returnReality.baseYearsToDouble, 1)}年</div></div>
+      <div class="stat"><div class="s-label">承保翻倍</div><div class="s-value red">${fmtNum(accumulationPlan.returnReality.underwrittenYearsToDouble, 1)}年</div></div>
+    </div>
+    <div class="note"><b>“建仓完成”新定义：</b>${esc(accumulationPlan.completionDefinition.rule)} ${esc(accumulationPlan.completionDefinition.policyTargetCaveat)}</div>
+    <h3 style="margin-top:16px">正式六只的新增资金优先级</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>优先</th><th>公司</th><th class="num">最新价</th><th class="num">承保回报</th><th class="num">首档</th><th class="num">正常/硬上限</th><th>当前动作</th></tr></thead>
+      <tbody>${formalGrowthRows}</tbody>
+    </table></div>
+    <div class="honest" style="margin-top:12px"><b>今天：</b>没有一只正式标的达到新增买入闸门。福耀55.14元离55元最近；价格到档后仍要复核基本面并由你确认，不会自动下单。</div>
+    <h3 style="margin-top:16px">增长席候选与退出名单观察仓</h3>
+    <div class="card-sub">这里只监控变化，不自动加入正式名单。康臣即使价格数学通过，也仍受质量、席位与一进一出约束；宇通继续留在观察仓，不恢复正式权重。</div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>排序</th><th>公司</th><th class="num">最新价</th><th class="num">承保回报</th><th>价格门</th><th>状态</th><th>主要阻碍</th></tr></thead>
+      <tbody>${growthCandidateRows}</tbody>
+    </table></div>
+  </div>` : ''}
+
   <div class="card decision-cockpit">
-    <h2>目标决策驾驶舱 <span class="tag">由股票报告与目标仓位自动计算，不再使用写死结论</span></h2>
+    <h2>本金目标算术 <span class="tag">由股票报告与目标仓位自动计算</span></h2>
     <div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">目标组合基准年化</div><div class="s-value ${baseReturn >= dm.required5 ? 'green' : 'red'}">${fmtPct(baseReturn, 2)}</div></div>
       <div class="stat"><div class="s-label">质量折扣承保年化</div><div class="s-value blue">${fmtPct(dm.underwritingWeightedReturn, 2)}</div></div>
       <div class="stat"><div class="s-label">5年目标 / 承保路径</div><div class="s-value">2.00 / ${underwritingFive.toFixed(2)}倍</div></div>
       <div class="stat"><div class="s-label">10年目标 / 承保路径</div><div class="s-value">5.00 / ${underwritingTen.toFixed(2)}倍</div></div>
       <div class="stat"><div class="s-label">承保年化缺口</div><div class="s-value red">${fmtPct(dm.required10 - dm.underwritingWeightedReturn, 2)}</div></div>
-      <div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
-      <div class="stat"><div class="s-label">腾讯400＋福耀2000后（估算）</div><div class="s-value blue">${fmtWan(dm.postInitialDividend)}</div></div>
-      ${dm.postSeatReplacementDividend == null ? '' : `<div class="stat"><div class="s-label">万华换宇通后（估算）</div><div class="s-value blue">${fmtWan(dm.postSeatReplacementDividend)}</div></div>`}
-      ${dm.postTencentSecondTierDividend == null ? '' : `<div class="stat"><div class="s-label">腾讯第二档后（估算）</div><div class="s-value blue">${fmtWan(dm.postTencentSecondTierDividend)}</div></div>`}
-      ${dm.postTriggeredDividend == null ? '' : `<div class="stat"><div class="s-label">候选情景后（未成交）</div><div class="s-value blue">${fmtWan(dm.postTriggeredDividend)}</div></div>`}
-      <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(dm.targetDividend)}+</div></div>
+      ${showDividendPlanning ? `<div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
+      <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(dm.targetDividend)}+</div></div>` : ''}
     </div>
     <div class="goal-bridge">
       <span><b>当前报告时点</b>${fmtPct(baseReturn, 2)} → 10年${baseTen.toFixed(2)}倍</span>
@@ -307,7 +355,7 @@ function renderGoals() {
   <div class="risk-grid">${dm.alerts.map(a => `<div class="risk-card ${alertClass(a.severity)}"><b>${esc(a.title)}</b><span>${esc(a.detail)}</span></div>`).join('')}</div>
 
   <div class="goal-cards">
-    ${g.targets.map(t => `
+    ${g.targets.filter(t => showDividendPlanning || t.id !== 'dividend1m').map(t => `
     <div class="goal-card ${t.id === 'double5' ? 'g-accent' : t.id === 'dividend1m' ? 'g-green' : ''}">
       <div class="g-name">${esc(t.name)}</div>
       <div class="g-value">${t.targetValue ? fmtWan(t.targetValue) : '100万/年'}</div>
@@ -317,7 +365,7 @@ function renderGoals() {
     </div>`).join('')}
   </div>
 
-  <div class="card">
+  ${showDividendPlanning ? `<div class="card">
     <h2>十年路线 <span class="tag">本金1000万 · ${esc(g.asOf)}</span></h2>
     <div class="card-sub">当前正式目标${pf.targetPortfolio.length}/${pf.concentrationPolicy.maxHoldings}席：目标股票${fmtPct(1 - pf.opportunityCash.weight, 0)}＋现金${fmtPct(pf.opportunityCash.weight, 0)}；公司基准机械加权${fmtPct(baseReturn, 2)}，质量折扣后承保年化${fmtPct(dm.underwritingWeightedReturn, 2)}。</div>
     <div class="timeline">
@@ -340,9 +388,9 @@ function renderGoals() {
       <div class="stat"><div class="s-label">基准10年终值</div><div class="s-value">${fmtWan(pf.totalAssets * baseTen)}</div></div>
       <div class="stat"><div class="s-label">乐观10年终值</div><div class="s-value blue">${fmtWan(pf.totalAssets * g.portfolioReturnScenarios.optimistic.tenYearMultiple)}</div></div>
     </div>
-  </div>
+  </div>` : ''}
 
-  ${runway && runway.status !== 'historical-research-only' ? `<div class="card">
+  ${showDividendPlanning && runway && runway.status !== 'historical-research-only' ? `<div class="card">
     <h2>年股息100万元达标时钟 <span class="tag">计入现金部署拖累 · 名义线与安全线分开</span></h2>
     <div class="card-sub">从当前${fmtPct(runway.startStockWeight, 2)}股票仓位出发；部署期按月线性提高到${fmtPct(runway.targetStockWeight, 0)}，现金按${fmtPct(runway.cashReturn, 1)}年化。结果是模型路径，不是收益承诺。</div>
     ${baseRunway ? `<div class="stat-row" style="margin-top:12px">
@@ -369,7 +417,7 @@ function renderGoals() {
     <div class="honest" style="margin-top:10px"><b>正确目标：</b>100万元只是名义线；真正“稳”应以120万元普通股息安全线验收。${esc(runway.note || '')}</div>
   </div>` : ''}
 
-  ${acceleration ? `<div class="card">
+  ${showDividendPlanning && acceleration ? `<div class="card">
     <h2>承保路径对照 <span class="tag">质量优先 · 尚未证明更快 · 120万元才验收</span></h2>
     <div class="card-sub">${acceleratedPath && incomeFirstPath ? `“立即转高股息”模型的安全线比正式两阶段路线快${acceleratedPath.safety.months - incomeFirstPath.safety.months}个月，但当前没有候选通过全部闸门，因此不可执行。` : ''}保留两阶段路线，是因为积累期公司质量、风险分散和上行可选性更好；公司基准机械加权只保留为上行执行线。</div>
     ${acceleratedPath ? `<div class="stat-row" style="margin-top:12px">
@@ -403,11 +451,12 @@ function renderGoals() {
     <div class="honest" style="margin-top:10px"><b>关键限制：</b>${esc(acceleration.note || '')}</div>
   </div>` : ''}
 
-  ${incomePortfolioAudit ? `<div class="card">
-    <h2>终态收息占位蓝图 <span class="tag">当前六席 · 第七席空缺</span></h2>
-    <div class="card-sub">宇通已按9月8日最新结论移出；宁德、康臣也不自动补位。这里先用六个已命名席位和23%现金测算，集中度超过20%会明确标红，不能把占位路径误称为完整终态。</div>
+  ${showDividendPlanning && incomePortfolioAudit ? `<div class="card">
+    <h2>终态收息权重审计 <span class="tag">条件蓝图 ≠ 当前承保</span></h2>
+    <div class="card-sub">宇通继续保留在观察仓而不返回正式组合。六席77%是未来条件蓝图；招行、中国移动、白电和长电超过现有个股研究硬上限，因此正式日期只按当前可承保权重计算。</div>
     <div class="stat-row" style="margin-top:12px">
-      <div class="stat"><div class="s-label">当前六席正常税后率</div><div class="s-value green">${fmtPct(incomePortfolioAudit.normalYield, 2)}</div></div>
+      <div class="stat"><div class="s-label">条件蓝图税后率</div><div class="s-value">${fmtPct(incomePortfolioAudit.blueprintYield, 2)}</div></div>
+      <div class="stat"><div class="s-label">当前硬上限承保率</div><div class="s-value red">${fmtPct(incomePortfolioAudit.normalYield, 2)}</div></div>
       <div class="stat"><div class="s-label">统一减息15%后</div><div class="s-value">${fmtPct(incomePortfolioAudit.routineYield, 2)}</div></div>
       <div class="stat"><div class="s-label">严重复合压力后</div><div class="s-value red">${fmtPct(incomePortfolioAudit.severeYield, 2)}</div></div>
       <div class="stat"><div class="s-label">最高单一股息贡献</div><div class="s-value">${fmtPct(incomePortfolioAudit.maxDividendContribution, 1)}</div></div>
@@ -415,29 +464,29 @@ function renderGoals() {
       <div class="stat"><div class="s-label">严重压力预计月份</div><div class="s-value">${esc(incomePortfolioAudit.severeSafetyPath?.date || '—')}</div></div>
     </div>
     <table style="margin-top:12px">
-      <thead><tr><th>席位</th><th class="num">权重</th><th class="num">正常税后率</th><th class="num">普通股息贡献</th><th class="num">日常/严重削减</th><th>迁移闸门</th></tr></thead>
+      <thead><tr><th>席位</th><th class="num">蓝图/承保权重</th><th class="num">正常税后率</th><th class="num">承保股息贡献</th><th class="num">日常/严重削减</th><th>迁移闸门</th></tr></thead>
       <tbody>${incomePortfolioAudit.rows.map(row => `<tr>
         <td><b>${esc(row.name)}</b><div style="font-size:11px;color:var(--ink-3)">${esc(row.role)}</div></td>
-        <td class="num">${fmtPct(row.weight, 0)}</td>
+        <td class="num">${fmtPct(row.weight, 0)} / ${fmtPct(row.approvedWeight, 0)}${row.limitBreach ? '<div class="badge no">超研究上限</div>' : ''}</td>
         <td class="num">${fmtPct(row.assumedAfterTaxYield, 2)}</td>
         <td class="num">${fmtPct(row.normalDividendContribution, 1)}</td>
         <td class="num">-${fmtPct(row.routineHaircut, 0)} / -${fmtPct(row.severeHaircut, 0)}</td>
         <td>${esc(row.gate)}</td>
       </tr>`).join('')}</tbody>
     </table>
-    ${goalBottleneck?.seventhSeatGate ? `<div class="honest" style="margin-top:12px"><b>第七席硬门槛：</b>按10%最大权重，税后普通股息率至少${fmtPct(goalBottleneck.seventhSeatGate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight, 2)}，才能把最高单一股息贡献压回20%；若单靠这一席把组合推至5.2%，则需要${fmtPct(goalBottleneck.seventhSeatGate.singleSeatTargetScenario.requiredSeatAfterTaxYieldAtMaxWeight, 2)}，同时违反单一股息贡献上限，因此数学上不合格。即使第七席以5.2%税后率加入，组合也只有${fmtPct(goalBottleneck.seventhSeatGate.warehouseGateScenario.portfolioYield, 3)}，仍差${fmtPct(goalBottleneck.seventhSeatGate.warehouseGateScenario.remainingYieldGap, 3)}。</div>` : ''}
+    ${goalBottleneck?.seventhSeatGate ? `<div class="honest" style="margin-top:12px"><b>第七席硬门槛：</b>按当前硬上限，第七席按10%配置需要${fmtPct(goalBottleneck.seventhSeatGate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight, 2)}税后率才能稀释旧席，但自身股息贡献会达到${fmtPct(goalBottleneck.seventhSeatGate.concentrationRepair.resultingSeatDividendContribution, 1)}，同样超过20%。因此单纯等候第七席降价在结构上无解，必须先重审六席权重上限。</div>` : ''}
     <div class="honest" style="margin-top:12px"><b>三条验收线：</b>约${fmtWan(incomePortfolioAudit.nominalAssets)}是正常100万元名义线；约${fmtWan(incomePortfolioAudit.formalSafetyAssets)}是120万元日常安全线，统一减息15%后仍约${fmtWan(incomePortfolioAudit.routineDividendAtFormalSafetyAssets)}；约${fmtWan(incomePortfolioAudit.severeSafetyAssets)}才是在逐股严重削减后仍有100万元，模型约${esc(incomePortfolioAudit.severeSafetyPath?.duration || '—')}（${esc(incomePortfolioAudit.severeSafetyPath?.date || '—')}）。</div>
     <div class="note">${esc(incomePortfolioAudit.note)}</div>
   </div>` : ''}
 
-  ${purchasingPowerAudit?.planning ? `<div class="card">
+  ${showDividendPlanning && purchasingPowerAudit?.planning ? `<div class="card">
     <h2>100万元购买力与支用安全 <span class="tag">以2026年不变价衡量</span></h2>
     <div class="card-sub">名义金额不等于生活能力。3%是长期规划情景，不是CPI预测；系统同时保留2%和4%边界，并要求每年用实际通胀更新。</div>
     <div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">固定120万到达时实际购买力</div><div class="s-value red">${fmtWan(purchasingPowerAudit.planning.fixedRoutineRealDividend)}</div></div>
       <div class="stat"><div class="s-label">100万实际购买力</div><div class="s-value">${esc(purchasingPowerAudit.planning.realNominal.duration)}</div><div class="s-note">${esc(purchasingPowerAudit.planning.realNominal.date)}</div></div>
       <div class="stat"><div class="s-label">实际购买力＋20%缓冲</div><div class="s-value green">${esc(purchasingPowerAudit.planning.realRoutineSafety.duration)}</div><div class="s-note">${esc(purchasingPowerAudit.planning.realRoutineSafety.date)}</div></div>
-      <div class="stat"><div class="s-label">严重压力实际安全</div><div class="s-value red">${esc(purchasingPowerAudit.planning.realSevereSafety.duration)}</div><div class="s-note">${esc(purchasingPowerAudit.planning.realSevereSafety.date)}</div></div>
+      <div class="stat"><div class="s-label">严重压力实际安全</div><div class="s-value red">${esc(purchasingPowerAudit.planning.realSevereSafety?.duration || '60年内无解')}</div><div class="s-note">${esc(purchasingPowerAudit.planning.realSevereSafety?.date || '需新增本金/更高资产线')}</div></div>
       <div class="stat"><div class="s-label">日常线30年最低覆盖</div><div class="s-value">${purchasingPowerAudit.postAchievement?.routine?.minDividendCoverage?.toFixed(2) || '—'}倍</div></div>
       <div class="stat"><div class="s-label">严重线30年最低覆盖</div><div class="s-value">${purchasingPowerAudit.postAchievement?.severe?.minDividendCoverage?.toFixed(2) || '—'}倍</div></div>
     </div>
@@ -451,11 +500,11 @@ function renderGoals() {
         <td class="num">${esc(row.realSevereSafety?.duration || '—')}<div style="font-size:11px;color:var(--ink-3)">${esc(row.realSevereSafety?.date || '')}</div></td>
       </tr>`).join('')}</tbody>
     </table>
-    <div class="honest" style="margin-top:12px"><b>诚实边界：</b>以上到达日期假设目标前普通股息全部复投。若在固定100万或120万元时开始支用，实际购买力日期必须重算。达到3%规划下的日常购买力安全线时，模型资产约${fmtWan(purchasingPowerAudit.planning.realRoutineSafety.assets)}、当年普通股息约${fmtWan(purchasingPowerAudit.planning.realRoutineSafety.annualDividend)}；严重压力并保留20%缓冲则需约${fmtWan(purchasingPowerAudit.planning.realSevereSafety.assets)}。</div>
+    <div class="honest" style="margin-top:12px"><b>诚实边界：</b>以上到达日期假设目标前普通股息全部复投。若在固定100万或120万元时开始支用，实际购买力日期必须重算。达到3%规划下的日常购买力安全线时，模型资产约${fmtWan(purchasingPowerAudit.planning.realRoutineSafety.assets)}、当年普通股息约${fmtWan(purchasingPowerAudit.planning.realRoutineSafety.annualDividend)}；${purchasingPowerAudit.planning.realSevereSafety ? `严重压力并保留20%缓冲则需约${fmtWan(purchasingPowerAudit.planning.realSevereSafety.assets)}。` : '按当前全悲观终态回报，严重压力购买力线在60年内无解，必须依靠新增本金或提高可承保资产质量。'}</div>
     <div class="note"><b>股息增长闸门：</b><span class="badge no">尚未验证</span> ${esc(purchasingPowerAudit.dividendGrowthGate.reason)}<br><b>支用纪律：</b><ul>${Object.values(purchasingPowerAudit.spendingPolicy || {}).map(row => `<li>${esc(row)}</li>`).join('')}</ul>${esc(purchasingPowerAudit.note)}</div>
   </div>` : ''}
 
-  ${goalBottleneck ? `<div class="card">
+  ${showDividendPlanning && goalBottleneck ? `<div class="card">
     <h2>达标瓶颈与十年条件线 <span class="tag">反推条件 · 不把愿望写成承保</span></h2>
     <div class="honest"><b>关键修正：</b>${esc(goalBottleneck.criticalCorrection.conclusion)}</div>
     <div class="stat-row" style="margin-top:12px">
@@ -480,7 +529,7 @@ function renderGoals() {
     <div class="note"><b>收息预备库：</b>${esc(goalBottleneck.incomeWarehouse.rule)}<br><b>禁止：</b>${esc(goalBottleneck.incomeWarehouse.forbidden)}</div>
   </div>` : ''}
 
-  ${contributionSensitivity?.rows?.length ? `<div class="card">
+  ${showDividendPlanning && contributionSensitivity?.rows?.length ? `<div class="card">
     <h2>更安全的加速器：持续投入 <span class="tag">能力待确认 · 不提高收益率假设</span></h2>
     <div class="card-sub">所有情景使用当前正式目标的动态承保回报与终态税后普通股息率。新增本金按月末投入并持续到安全线；它会缩短时间，但必须单独记为入金，不能算作投资收益。</div>
     <div class="stat-row" style="margin-top:12px">
@@ -514,7 +563,7 @@ function renderGoals() {
     <div class="honest" style="margin-top:12px"><b>边界：</b>${esc(contributionSensitivity.note)}十年门槛是数学反推，不是建议额度。只有生活备用金、保险和未来三年确定支出均已独立覆盖后，剩余资金才可计入；不得借款、融资或预支生活资金。</div>
   </div>` : ''}
 
-  ${incomeWarehouse ? `<div class="card">
+  ${showDividendPlanning && incomeWarehouse ? `<div class="card">
     <h2>5.2%税后收息预备库 <span class="tag">实时价格触发 · 四闸门同时通过</span></h2>
     <div class="card-sub">目标不是寻找最高股息，而是同时满足税后普通股息率${fmtPct(incomeWarehouse.gates.afterTaxYield, 1)}、承保回报${fmtPct(incomeWarehouse.gates.underwrittenReturn, 0)}、现金覆盖${incomeWarehouse.gates.cashCoverage.toFixed(1)}倍和公司特有基本面。行情刷新只改变价格闸门，不会自动把财务闸门改成通过。</div>
     <div class="stat-row" style="margin-top:12px">
@@ -543,13 +592,13 @@ function renderGoals() {
         <td><b>${esc(c.name)}</b></td><td class="num">${fmtPct(c.maxWeight, 0)}</td>
         <td class="num">${livePriceHtml(c.symbol, c.currentPrice, String(c.symbol).endsWith('.HK') ? '港元' : '元')}</td>
         <td class="num ${c.pricePass ? 'green' : 'red'}">${fmtPct(c.taxYield, 2)}</td><td class="num">${fmtPct(c.requiredYieldForConcentrationRepair, 2)}</td>
-        <td>${c.pricePass ? '<span class="badge pass">通过</span>' : '<span class="badge no">未通过</span>'}</td>
+        <td>${!c.structuralPass ? '<span class="badge no">结构无解</span>' : (c.pricePass ? '<span class="badge pass">通过</span>' : '<span class="badge no">未通过</span>')}</td>
         <td>${esc(c.cashCoverage)}</td><td>${esc(c.fundamentals)}</td><td>${esc(c.decision)}</td>
       </tr>`).join('')}</tbody>
     </table>` : ''}
   </div>` : ''}
 
-  ${efficiency ? `<div class="card">
+  ${showDividendPlanning && efficiency ? `<div class="card">
     <h2>研究情景：九公司稳健前沿 <span class="tag">不构成执行政策</span></h2>
     <div class="card-sub">${esc(efficiency.objective)}。这是历史90%股票/10%现金的敏感性研究，与当前${pf.targetPortfolio.length}只正式目标、${fmtPct(1 - pf.opportunityCash.weight, 0)}股票/${fmtPct(pf.opportunityCash.weight, 0)}现金执行政策不同；任何方案都不能自动写入持仓或下单。</div>
     <table style="margin-top:12px">
@@ -569,7 +618,7 @@ function renderGoals() {
     <div class="note"><b>条件分流闸门：</b><ul>${efficiency.conditionalGates.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
   </div>` : ''}
 
-  ${cashDeployment ? `<div class="card">
+  ${showDividendPlanning && cashDeployment ? `<div class="card">
     <h2>现金拖累与防停滞协议 <span class="tag">不追价 · 不无限等价</span></h2>
     <div class="card-sub">“时间到了”只触发扩展候选池、重算内在价值和外部管理人尽调，不能单独触发买入。价格、基本面和目标IRR仍必须同时通过。</div>
     <div class="stat-row" style="margin-top:12px">
@@ -594,7 +643,7 @@ function renderGoals() {
     <div class="note"><b>等待资金：</b>${esc(cashDeployment.cashManagement)}</div>
   </div>` : ''}
 
-  ${tracking ? `<div class="card">
+  ${showDividendPlanning && tracking ? `<div class="card">
     <h2>月度持仓快照 <span class="tag">上传实际持仓 · 自动统计 · 最多7席</span><button class="btn primary" id="addGoalSnapshot" style="float:right">上传月度持仓</button></h2>
     <div class="card-sub">每月上传券商持仓或CSV/JSON，系统保留原始凭证并统计持仓数量、集中度、现金、非目标持仓与股息路径；不会把计划仓位当成实际持仓。</div>
     <div class="stat-row" style="margin-top:12px">
@@ -643,7 +692,7 @@ function renderGoals() {
         </tbody>
       </table>
     </div>
-    <div class="card">
+    ${showDividendPlanning ? `<div class="card">
       <h2>股息路线 <span class="tag">按目标仓位满仓估算 · 随「持仓与建仓」中的目标配置联动</span></h2>
       <div class="stat-row" style="margin-bottom:14px">
         <div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
@@ -663,7 +712,7 @@ function renderGoals() {
       </table>
       ${pf.dividends.missingNote ? `<div class="note" style="color:var(--amber)">${esc(pf.dividends.missingNote)}</div>` : ''}
       <div class="note">${esc(pf.dividends.note || '')}</div>
-    </div>
+    </div>` : ''}
   </div>`;
 
   const snapshotBtn = $('#addGoalSnapshot', el);
@@ -749,6 +798,7 @@ function tierRange(priceStr) {
 function renderPortfolio() {
   const el = $('#tab-portfolio');
   const pf = state.data.portfolio, ev = state.data.portfolioEvolution;
+  const principalGrowthActive = state.data.accumulationPlan?.status === 'active-principal-growth-only';
   const dm = state.data.decisionMetrics;
   const decisionByName = new Map((state.data.decisionMetrics?.targetRows || []).map(r => [r.name, r]));
   const heldByName = {};
@@ -829,7 +879,9 @@ function renderPortfolio() {
   }).join('');
 
   /* ---- 建仓阶梯（含当前价与档位高亮） ---- */
-  const ladders = pf.ladderPlans.map(p => {
+  const formalNameSet = new Set(pf.concentrationPolicy?.formalNames || []);
+  const visibleLadderPlans = principalGrowthActive ? pf.ladderPlans.filter(p => formalNameSet.has(p.name)) : pf.ladderPlans;
+  const ladders = visibleLadderPlans.map(p => {
     const q = liveQuote(p.name);
     const cur = q ? q.price : null;
     const tiers = p.tiers.map(t => {
@@ -943,20 +995,20 @@ function renderPortfolio() {
 
   <div class="grid-2">
     <div class="card">
-      <h2>首次建仓执行清单 <span class="tag">${esc(pf.executionPlan?.status || '')} · ${esc(pf.executionPlan?.tagline || '按最新执行卡分批')}</span><button class="btn primary" id="recordTrade" style="float:right">＋ 登记实际成交</button></h2>
+      <h2>当前执行单 <span class="tag">${esc(pf.executionPlan?.status || '')} · ${esc(pf.executionPlan?.tagline || '按最新执行卡分批')}</span><button class="btn primary" id="recordTrade" style="float:right">＋ 登记实际成交</button></h2>
       <div class="table-scroll"><table>
         <thead><tr><th>时点</th><th>方向</th><th>公司</th><th class="num">数量</th><th class="num">限价</th><th class="num">估算人民币</th><th>状态与条件</th><th>记录</th></tr></thead>
-        <tbody>${executionRows}</tbody>
+        <tbody>${executionRows || '<tr><td colspan="8"><div class="empty">当前没有预先批准的订单。旧价格单已撤回，到达新闸门后重新复核并由你确认。</div></td></tr>'}</tbody>
       </table></div>
       <div class="stat-row" style="margin-top:12px">
-        <div class="stat"><div class="s-label">原计划买入</div><div class="s-value">${fmtWan(pf.executionPlan?.expectedBuyTotal)}</div></div>
-        <div class="stat"><div class="s-label">原计划净用现金</div><div class="s-value">${fmtWan(pf.executionPlan?.expectedNetCashUse)}</div></div>
-        <div class="stat"><div class="s-label">全部完成后股票仓位</div><div class="s-value blue">${fmtPct(pf.executionPlan?.postStockWeight, 2)}</div></div>
+        <div class="stat"><div class="s-label">已批准买入</div><div class="s-value">${fmtWan(pf.executionPlan?.expectedBuyTotal)}</div></div>
+        <div class="stat"><div class="s-label">已批准净用现金</div><div class="s-value">${fmtWan(pf.executionPlan?.expectedNetCashUse)}</div></div>
+        <div class="stat"><div class="s-label">当前股票仓位</div><div class="s-value blue">${fmtPct(pf.executionPlan?.postStockWeight, 2)}</div></div>
       </div>
       <div class="note">价格到档只代表可以复核；系统只在你登记真实成交后更新持仓，不再把“计划买入”当成“已经买入”。</div>
     </div>
     <div class="card">
-      <h2>两年部署时钟 <span class="tag">防长期空仓，不是强制追价</span></h2>
+      <h2>条件部署边界 <span class="tag">防长期空仓，不设强制满仓日</span></h2>
       <table><thead><tr><th>阶段</th><th class="num">股票</th><th class="num">现金</th><th>动作</th></tr></thead><tbody>${deploymentRows}</tbody></table>
       <div class="note">${esc(pf.deploymentClock?.note || '')}</div>
     </div>
@@ -968,8 +1020,8 @@ function renderPortfolio() {
   </div>
 
   <div class="card">
-    <h2>首轮后的三个月部署队列 <span class="tag">缺口${fmtWan(pf.deploymentQueue?.threeMonthGap)} · 主队列覆盖${fmtPct(pf.deploymentQueue?.coverageRatio, 1)}</span></h2>
-    <div class="card-sub">只在七个席位内提高仓位；新公司必须先腾出席位。部署进度不能凌驾于公司质量、价格和一进一出规则。</div>
+    <h2>本金增长条件队列 <span class="tag">潜在用款${fmtWan(pf.deploymentQueue?.primaryPotential)} · 当前均未触发</span></h2>
+    <div class="card-sub">到价只获得复核资格，不是订单；只在七个席位内提高仓位，新公司必须先腾出席位。部署进度不能凌驾于公司质量、价格和一进一出规则。</div>
     <div class="table-scroll"><table>
       <thead><tr><th>优先级</th><th>公司</th><th class="num">最新价</th><th class="num">触发条件</th><th class="num">拟投入</th><th class="num">触发后仓位</th><th>状态</th><th>基本面闸门</th></tr></thead>
       <tbody>${deploymentQueueRows}</tbody>
@@ -1003,8 +1055,8 @@ function renderPortfolio() {
     <div class="honest" style="margin-top:12px"><b>不能自我欺骗：</b>现金不会替我们完成10年5倍；真正可行的是更低买价、盈利兑现、股息复投和七席内的一进一出，而不是不断增加公司数量。</div>
   </div>
 
-  <div class="section-title">建仓阶梯（价格档是触发器，累计市值才是仓位上限）</div>
-  <div class="note" style="margin:-6px 0 12px">执行阶梯以2026-08-30总账户执行总表为准；研究库的P10—P17.46价格用于估值复核。两者冲突时暂停交易，先用最新财报重算，不自行选更宽松口径。</div>
+  <div class="section-title">正式六只建仓阶梯（价格档是复核触发器，累计市值才是仓位上限）</div>
+  <div class="note" style="margin:-6px 0 12px">当前只展示正式名单与最新有效公司研究口径。旧腾讯≤460、福耀≤57.70已撤回；价格到档仍须基本面通过并由用户确认。</div>
   <div class="grid-2">${ladders}</div>
 
   <div class="section-title">候选股交易卡（研究与交易分离，到价只查取消条件）</div>

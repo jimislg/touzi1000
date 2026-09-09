@@ -33,19 +33,25 @@ check(close(pf.targetPortfolio.reduce((sum, row) => sum + row.weight, 0) + pf.op
 check(pf.policyAuthority.status === 'authoritative-execution-policy', 'portfolio.json声明为唯一执行政策');
 check(efficiency.executionEligible === false && efficiency.authoritativePolicy === 'portfolio.json', '九公司稳健前沿明确隔离为研究情景');
 check(goals.dividendRunway.status === 'historical-research-only' && goals.dividendRunway.executionEligible === false, '旧90%股票达标时钟明确隔离为历史研究');
-check(!pf.deploymentClock.rows.some(row => JSON.stringify(row).includes('90%')), '正式部署时钟不再保留90%股票执行口径');
-check(pf.deploymentClock.rows.find(row => row.stage === '18个月')?.stockWeightRange === '65%—74%', '18个月部署上限与当前六只74%政策一致');
+check(goals.activePhase?.status === 'active-principal-growth-only'
+  && goals.dividendAcceleration.status === 'deferred-until-accumulation-complete'
+  && goals.dividendAcceleration.executionEligible === false, '本金增长为唯一主动阶段，股息迁移已冻结');
+check(payload.accumulationPlan?.completionDefinition?.normalCompletionStockWeight === 0.64
+  && payload.accumulationPlan?.completionDefinition?.permanentOpportunityCashFloor === 0.10, '建仓完成线与永久机会现金边界已显式记录');
+check(pf.deploymentClock.rows.find(row => row.stage === '条件允许时')?.stockWeightRange === '64%—74%', '条件部署边界与六只正常仓和正式政策一致');
+check(pf.executionPlan.rows.length === 0 && pf.executionPlan.expectedBuyTotal === 0, '旧执行单已撤回，当前没有把条件队列当成订单');
 
 check(close(goals.portfolioReturnScenarios.base.annualReturn, metrics.weightedReturn), '静态公司基准回报与正式七席动态计算一致');
 check(close(goals.portfolioReturnScenarios.underwriting.annualReturn, metrics.underwritingWeightedReturn), '静态承保回报与正式七席动态计算一致');
 const formalPath = metrics.dividendAcceleration.paths.find(row => row.id === 'underwrittenTwoStage');
 check(bottleneck.baseline.nominalMonth === formalPath.nominal.months, '瓶颈表名义月份与动态路径一致');
 check(bottleneck.baseline.safetyMonth === formalPath.safety.months, '瓶颈表安全月份与动态路径一致');
-check(goals.targets.find(row => row.id === 'dividend1m').status.includes(formalPath.safety.duration), '目标卡显示当前正式目标安全日期');
+check(goals.targets.find(row => row.id === 'dividend1m').status.includes('未来目标'), '股息目标已降为建仓完成后的未来目标');
 check(ledger.checkpointMonths.includes(formalPath.migrationStartMonth), '月度账本包含迁移检查点');
 check(ledger.checkpointMonths.includes(formalPath.nominal.months) && ledger.checkpointMonths.includes(formalPath.safety.months), '月度账本包含名义与安全检查点');
 check(metrics.postTriggeredDividend === null && metrics.postPrimaryQueueDividend === null, '未配置的候选股息情景保持为空而非0');
-check(metrics.alerts.find(row => row.title === '名义100万元不是安全达标')?.detail.includes(formalPath.safety.duration), '安全线预警使用正式七席日期');
+check(metrics.alerts.some(row => row.title === '当前阶段已切换为本金增长优先')
+  && !metrics.alerts.some(row => row.title.includes('终态') || row.title.includes('股息')), '主动预警聚焦本金增长并屏蔽终态股息提醒');
 const contributionRows = metrics.dividendAcceleration.contributionSensitivity.rows;
 const zeroContribution = contributionRows.find(row => row.annualContribution === 0);
 check(zeroContribution?.nominal.months === formalPath.nominal.months && zeroContribution?.safety.months === formalPath.safety.months, '零追加情景与正式七席路径完全一致');
@@ -89,23 +95,27 @@ check(ledger.snapshots.every(row => Number.isFinite(Number(row.netExternalFlow))
 const incomeAudit = metrics.incomePortfolioAudit;
 check(incomeAudit.holdingCount <= incomeAudit.maxHoldings, '终态收息蓝图不超过七个股票席位');
 check(close(incomeAudit.totalWeight, 1), '终态七席与现金权重合计100%');
-check(incomeAudit.normalYield >= incomeAudit.modelYield, '终态七席逐股税后率覆盖正式模型收益率');
-check(incomeAudit.status === 'future-income-blueprint-with-one-vacancy'
-  && incomeAudit.maxDividendContribution > 0.20, '终态空缺席位导致股息集中度暂未通过20%验收，系统不得伪装合格');
+check(close(incomeAudit.normalYield, incomeAudit.modelYield), '冻结前的终态模型只使用当前个股研究上限');
+check(incomeAudit.status === 'conditional-blueprint-over-current-research-caps'
+  && close(incomeAudit.blueprintTotalWeight, 1)
+  && close(incomeAudit.stockWeight, 0.58)
+  && incomeAudit.overweightRows.length === 4
+  && incomeAudit.blueprintYield > incomeAudit.normalYield
+  && incomeAudit.maxDividendContribution > 0.20, '终态蓝图的超限权重与集中度缺口被诚实保留，且已冻结执行');
 check(incomeAudit.routineDividendAtFormalSafetyAssets >= 1000000, '正式安全资产在线性减息15%后仍有100万元股息');
 check(incomeAudit.severeSafetyAssets > incomeAudit.formalSafetyAssets, '复合严重压力资产线高于日常安全资产线');
 check(incomeAudit.rows.every(row => row.gate && row.role), '终态每个席位都有角色和迁移闸门');
 const seventhSeatGate = bottleneck.seventhSeatGate;
-check(seventhSeatGate.status === 'single-seat-cannot-complete-ten-year-yield-gate', '第七席不能独自完成5.2%终态收益率的事实已显式记录');
-check(close(seventhSeatGate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight, 0.0501), '第七席10%权重修复集中度所需税后率为5.01%');
-check(close(seventhSeatGate.singleSeatTargetScenario.requiredSeatAfterTaxYieldAtMaxWeight, 0.1361), '单靠第七席达到5.2%所需税后率为13.61%');
+check(seventhSeatGate.status === 'current-caps-make-seven-seat-target-infeasible', '当前权重上限下单一第七席结构无解的事实已显式记录');
+check(close(seventhSeatGate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight, 0.14633), '第七席10%权重修复集中度所需税后率为14.633%');
+check(close(seventhSeatGate.singleSeatTargetScenario.requiredSeatAfterTaxYieldAtMaxWeight, 0.23693), '单靠第七席达到5.2%所需税后率为23.693%');
 check(seventhSeatGate.singleSeatTargetScenario.violatesContributionLimit === true, '单靠第七席达到5.2%会违反20%股息贡献上限');
 check(seventhSeatGate.feasibilityBoundary.maximumPortfolioYieldWithFixedSixAndOneCompliantNewContributor < seventhSeatGate.targetTerminalYield, '固定六席时新增一个合规股息来源仍无法达到5.2%');
 const incomeWarehouse = payload.incomeWarehouse;
 const yutongWarehouse = incomeWarehouse.candidates.find(row => row.name === '宇通客车');
 check(yutongWarehouse.slotCap === 0 && yutongWarehouse.policyEntryPrice === 21 && !yutongWarehouse.decision.includes('≤30元只按原执行卡'), '收息预备库已撤回宇通旧30元买入规则');
-check(incomeWarehouse.seventhSeatScreen.status === 'none-eligible'
-  && incomeWarehouse.seventhSeatScreen.rows.every(row => row.priceMath !== '通过' || row.cashCoverage !== '通过' || row.fundamentals !== '通过'), '第七席候选没有被价格单项通过误判为可买');
+check(incomeWarehouse.seventhSeatScreen.status === 'structurally-infeasible-under-current-caps'
+  && incomeWarehouse.seventhSeatScreen.rows.every(row => row.structuralFeasible === false), '第七席候选没有被价格单项通过误判为可买');
 const monitorScope = new Set(read('watchlist-monitor.json').scope);
 check([...pf.watchlist, ...pf.candidates, ...incomeWarehouse.candidates].every(row => monitorScope.has(row.name)), '观察监控范围覆盖正式观察池、候选池和收息预备库并集');
 const purchasingPower = metrics.purchasingPowerAudit;
@@ -115,16 +125,10 @@ check(purchasingPower.rows.length === 3 && purchasingPower.rows.some(row => clos
 check(close(planningPower.inflation, goals.dividendAcceleration.purchasingPower.planningInflation), '购买力规划情景与静态政策一致');
 check(planningPower.fixedRoutineRealDividend < 1000000, '固定120万元在规划到达日的2026年购买力低于100万元');
 check(planningPower.realNominal.months > formalPath.safety.months, '实际购买力名义线晚于固定120万元日常安全线');
-check(planningPower.realRoutineSafety.months > planningPower.realNominal.months, '实际购买力20%缓冲线晚于实际购买力名义线');
-check(planningPower.realSevereSafety.months > planningPower.realRoutineSafety.months, '实际购买力严重压力线晚于日常压力线');
-check(Math.abs(planningPower.realRoutineSafety.targetDividend
-  - purchasingPower.baseAnnualIncome * purchasingPower.routineBuffer * Math.pow(1 + planningPower.inflation, planningPower.realRoutineSafety.months / 12)) < 0.01, '实际购买力安全目标按月随通胀增长');
-check(purchasingPower.postAchievement.routine.firstDividendCoverageBreachMonth === null
-  && purchasingPower.postAchievement.routine.firstPrincipalBreachMonth === null, '日常购买力安全线通过30年支用覆盖测试');
-check(purchasingPower.postAchievement.severe.firstDividendCoverageBreachMonth === null
-  && purchasingPower.postAchievement.severe.firstPrincipalBreachMonth === null, '严重购买力安全线通过30年支用覆盖测试');
+check(planningPower.realRoutineSafety === null && planningPower.realSevereSafety === null
+  && purchasingPower.postAchievement === null, '冻结前模型在60年内无法承保购买力安全线，不伪造有限日期');
 check(purchasingPower.dividendGrowthGate.status === 'unverified', '缺少三年股息增长历史时不得标记跑赢通胀');
-check(goals.targets.find(row => row.id === 'dividend1m').note.includes(planningPower.realRoutineSafety.duration), '目标卡显示实际购买力安全日期');
+check(goals.targets.find(row => row.id === 'dividend1m').note.includes('当前阶段不以股息率'), '目标卡明确说明股息目标当前不驱动换仓');
 
 const dividendByName = new Map(pf.dividends.perStock.map(row => [row.name, row]));
 check(pf.holdings.every(row => dividendByName.has(row.name)), '每个真实持仓都有结构化正常化股息口径');

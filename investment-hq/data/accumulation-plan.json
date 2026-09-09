@@ -1,0 +1,221 @@
+{
+  "asOf": "2026-09-10",
+  "marketDataAsOf": "2026-09-09 收盘",
+  "status": "active-principal-growth-only",
+  "objective": "当前阶段只优化本金增长与风险调整后总回报，不以当期股息或终态收息结构驱动换仓。",
+  "decision": "股息迁移、第七收息席和年股息100万元时钟全部降为未来研究。当前正式名单与权重上限不变；旧限价计划撤回，只有最新公司闸门与价格闸门同时通过才允许进入待确认执行稿。",
+  "dividendMigration": {
+    "status": "deferred-until-accumulation-complete",
+    "executionEligible": false,
+    "revisitWhen": [
+      "积累期建仓完成并保留不少于10%的永久机会现金",
+      "组合总资产和可持续自由现金流达到新的迁移复核门槛",
+      "用户明确确认重新启动股息迁移研究"
+    ]
+  },
+  "completionDefinition": {
+    "normalCompletionStockWeight": 0.64,
+    "policyTargetStockWeight": 0.74,
+    "currentSixPolicyHardCapacity": 0.76,
+    "currentSixCompanyReportHardCapacity": 0.81,
+    "permanentOpportunityCashFloor": 0.1,
+    "normalWeights": "茅台25%＋腾讯12%＋招行8%＋福耀8%＋泡泡6%＋安踏5%=64%",
+    "policyTargetCaveat": "74%正式目标已把茅台推至组合绝对上限，并把腾讯、招行、福耀和安踏推至各自研究硬上限；六只有效硬容量只有76%，不是无条件买满线。",
+    "rule": "建仓完成是达到价格与基本面共同允许的仓位，而不是100%满仓；任何时候都不为完成进度放宽买价或突破个股硬上限。"
+  },
+  "returnReality": {
+    "requiredForFiveYearDouble": 0.1487,
+    "requiredForTenYearFiveX": 0.1746,
+    "formalTargetBaseReturn": 0.08488,
+    "formalTargetUnderwrittenReturn": 0.0699595,
+    "baseYearsToDouble": 8.51,
+    "baseYearsToFiveX": 19.76,
+    "underwrittenYearsToDouble": 10.25,
+    "underwrittenYearsToFiveX": 23.8,
+    "conclusion": "现有正式组合是稳健复利底盘，不是10年5倍的充分解。要提高本金增速，只能依靠更低买价、盈利兑现，或新增少量高质量且承保回报更高的有限席位；不能靠提高仓位本身制造回报。"
+  },
+  "currentSnapshot": {
+    "asOf": "2026-08-25，尚待下一张券商快照核对",
+    "totalAssets": 10000000,
+    "stockMarketValue": 1951075.26,
+    "stockWeight": 0.195107526,
+    "cash": 8048924.74,
+    "cashWeight": 0.804892474,
+    "actualHoldingCount": 7,
+    "seatRule": "实际已占满7席；新公司只能先提出一进一出草案并经用户确认，研究结论不得自动改名单或成交。"
+  },
+  "formalRows": [
+    {
+      "priority": 1,
+      "name": "福耀玻璃",
+      "symbol": "600660.SH",
+      "grade": "A",
+      "latestPrice": 55.14,
+      "currency": "元",
+      "underwrittenReturn": 0.1029,
+      "normalWeight": 0.08,
+      "hardWeight": 0.1,
+      "firstGate": 55,
+      "nextGate": 44,
+      "action": "等待≤55元；触发后拟加2,300股至约4%，先复核海外扩产回报、关税与自由现金流。"
+    },
+    {
+      "priority": 2,
+      "name": "安踏体育",
+      "symbol": "02020.HK",
+      "grade": "B",
+      "latestPrice": 73.5,
+      "currency": "港元",
+      "underwrittenReturn": 0.1097,
+      "normalWeight": 0.05,
+      "hardWeight": 0.08,
+      "firstGate": 72,
+      "nextGate": 60,
+      "action": "等待≤72港元；触发后拟加3,000股至约3%，PUMA资本配置与核心品牌利润率必须同时通过。"
+    },
+    {
+      "priority": 3,
+      "name": "腾讯控股",
+      "symbol": "00700.HK",
+      "grade": "A",
+      "latestPrice": 434,
+      "currency": "港元",
+      "underwrittenReturn": 0.09955,
+      "normalWeight": 0.12,
+      "hardWeight": 0.15,
+      "firstGate": 420,
+      "nextGate": 360,
+      "action": "等待≤420港元；触发后拟加700股至约2.9%，AI资本开支与自由现金流未改善前不提前。"
+    },
+    {
+      "priority": 4,
+      "name": "贵州茅台",
+      "symbol": "600519.SH",
+      "grade": "A",
+      "latestPrice": 1290.88,
+      "currency": "元",
+      "underwrittenReturn": 0.0803,
+      "normalWeight": 0.25,
+      "hardWeight": 0.3,
+      "firstGate": 1280,
+      "nextGate": 1220,
+      "action": "等待1240—1280元首档；触发后拟买200股约2.6%，利润仍下降时不因接近价格线提前。"
+    },
+    {
+      "priority": 5,
+      "name": "招商银行",
+      "symbol": "600036.SH",
+      "grade": "B",
+      "latestPrice": 41,
+      "currency": "元",
+      "underwrittenReturn": 0.085,
+      "normalWeight": 0.08,
+      "hardWeight": 0.1,
+      "firstGate": 35.7,
+      "nextGate": 29,
+      "action": "现有仓位约8.8%，已高于正常仓；≤35.7元且最新资产质量、净息差与信用成本复核通过前不加。"
+    },
+    {
+      "priority": 6,
+      "name": "泡泡玛特",
+      "symbol": "09992.HK",
+      "grade": "B",
+      "latestPrice": 156.1,
+      "currency": "港元",
+      "underwrittenReturn": 0.0581,
+      "normalWeight": 0.06,
+      "hardWeight": 0.08,
+      "firstGate": 110,
+      "nextGate": 90,
+      "action": "保留现仓但不新增；承保回报在正式六只中最低，只有≤110港元且海外库存、单店效率和自由现金流通过才复核加仓。"
+    }
+  ],
+  "conditionalQueue": {
+    "status": "no-order-currently-triggered",
+    "potentialUseOfCash": 819723,
+    "potentialPostStockWeight": 0.277079826,
+    "rule": "以下均为到价后的复核数量，不是挂单或成交；每笔仍须用户确认。",
+    "rows": [
+      { "priority": "A1", "name": "福耀玻璃", "trigger": "≤55元", "quantity": 2300, "estimatedCny": 126500, "postCompanyWeight": 0.0396 },
+      { "priority": "A2", "name": "安踏体育", "trigger": "≤72港元", "quantity": 3000, "estimatedCny": 185177, "postCompanyWeight": 0.0296 },
+      { "priority": "A3", "name": "腾讯控股", "trigger": "≤420港元", "quantity": 700, "estimatedCny": 252046, "postCompanyWeight": 0.0288 },
+      { "priority": "A4", "name": "贵州茅台", "trigger": "1240—1280元", "quantity": 200, "estimatedCny": 256000, "postCompanyWeight": 0.0256 }
+    ]
+  },
+  "growthSeatCandidates": [
+    {
+      "rank": 1,
+      "name": "康臣药业",
+      "symbol": "01681.HK",
+      "latestPrice": 13.15,
+      "grade": "B",
+      "underwrittenReturn": 0.1509,
+      "priceGate": "价格已达到≤14港元首档",
+      "status": "只获研究复核资格，未获正式席位",
+      "blocker": "肾病药约75%收入集中、医保/采购与中成药证据风险、治理和流动性折价；实际持仓已满7席。若四道闸门全部变绿，也只能先提出1.5%一进一出草案。"
+    },
+    {
+      "rank": 2,
+      "name": "美的集团",
+      "symbol": "000333.SZ",
+      "latestPrice": 86.02,
+      "grade": "A",
+      "underwrittenReturn": 0.09416,
+      "priceGate": "≤75.1元可建1.5%—2%",
+      "status": "等待价格与席位",
+      "blocker": "当前只接近P10，尚未达到P12；海外利润率、工业技术和非核心业务ROIC仍需持续验证。"
+    },
+    {
+      "rank": 3,
+      "name": "小商品城",
+      "symbol": "600415.SH",
+      "latestPrice": 12.52,
+      "grade": "B",
+      "underwrittenReturn": 0.10002,
+      "priceGate": "P12为12.95元，但执行偏好为11.0—11.5元",
+      "status": "价格数学接近，经营与资本配置闸门未过",
+      "blocker": "重资本开支、H股摊薄、地产与低毛利贸易收入混杂；不因现价低于P12直接建仓。"
+    },
+    {
+      "rank": 4,
+      "name": "宁德时代",
+      "symbol": "300750.SZ",
+      "latestPrice": 336.84,
+      "grade": "A",
+      "underwrittenReturn": 0.071,
+      "priceGate": "≤295元首仓",
+      "status": "等待价格",
+      "blocker": "当前只满足约P10，悲观情景为负；毛利率、库存和资本开支回报尚不足以支持提前。"
+    },
+    {
+      "rank": 5,
+      "name": "迈瑞医疗",
+      "symbol": "300760.SZ",
+      "latestPrice": 165.2,
+      "grade": "A",
+      "underwrittenReturn": 0.0678,
+      "priceGate": "≤121.9元首仓",
+      "status": "明显未到价",
+      "blocker": "国内盈利拐点、商誉和控费风险未被当前价格充分补偿。"
+    },
+    {
+      "rank": 6,
+      "name": "宇通客车",
+      "symbol": "600066.SH",
+      "latestPrice": 27.87,
+      "grade": "A",
+      "underwrittenReturn": 0.09355,
+      "priceGate": "19—21元且经营闸门通过才重审",
+      "status": "退出正式名单，保留观察仓",
+      "blocker": "最新有效结论未变；出口、售后预计负债、分红覆盖和国内竞争格局不足以支持现价重返。"
+    }
+  ],
+  "pauseConditions": [
+    "实际持仓超过7席且尚未明确退出席位",
+    "候选公司的最新财报尚未复核或关键现金流数据与利润背离",
+    "为了追求建仓进度而把P10观察价当作P12正常买价",
+    "新增资金的质量折扣承保回报低于现有组合且不能显著降低组合风险",
+    "单一公司或相关行业超过其研究硬上限"
+  ],
+  "quoteSource": "腾讯公开行情接口；价格仅用于2026-09-10决策快照，正式成交前必须再次刷新。"
+}

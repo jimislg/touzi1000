@@ -1,5 +1,5 @@
 {
-  "policyVersion": "2026-09-09-v2",
+  "policyVersion": "2026-09-10-v3",
   "policyAuthority": {
     "status": "authoritative-execution-policy",
     "sourceOfTruth": "本文件的targetPortfolio、concentrationPolicy和executionPlan",
@@ -35,7 +35,7 @@
       "marketValue": 96094,
       "priceAtSnapshot": 41.78,
       "targetWeight": 0,
-      "role": "临时收益仓；中国移动或长江电力达到买点并完成复核后再替换"
+      "role": "非正式观察持仓；不新增，只有更高质量与更高承保回报的新机会胜出时才提出退出草案"
     },
     {
       "symbol": "600660.SH",
@@ -90,7 +90,7 @@
       "marketValue": 89532,
       "priceAtSnapshot": 74.61,
       "targetWeight": 0,
-      "role": "替换融资仓；仅在首次三笔买入全部成交后卖出，不单独抢跑"
+      "role": "非正式周期观察持仓；不新增，只有新机会在总回报和风险预算上明确胜出时才提出退出草案"
     }
   ],
   "targetPortfolio": [
@@ -189,167 +189,150 @@
     "postPrimaryQueue": null,
     "targetPortfolio": 231250,
     "targetAnnual": 1000000,
-    "terminalYield": 0.03839,
-    "assetsNeeded": 26048450,
-    "safetyAssetsNeeded": 31258140,
-    "note": "当前保守口径约71,177元，按安踏2.45港元DPS；旧前瞻口径按安踏3.00港元时约71,862元，因此展示7.12万—7.19万元区间。首轮后与231,250元均为正常化估算；后者是当前六只正式目标在预设买点的机械股息，不是终态。终态3.839%来自移除宇通后的六个已命名收息席位，另有23%现金/空缺席位；现金利息不计入普通股息。"
+    "terminalYield": 0.028307,
+    "assetsNeeded": 35326951,
+    "safetyAssetsNeeded": 42392341,
+    "note": "当前保守口径约71,177元，按安踏2.45港元DPS；旧前瞻口径按安踏3.00港元时约71,862元。终态3.839%条件蓝图中，招行、中国移动、白电和长电权重超过当前个股研究硬上限；正式路径已改用2.831%硬上限口径，不计现金利息、特别股息或超限权重。",
+    "conditionalBlueprintYield": 0.03839000000000001
   },
   "executionPlan": {
-    "asOf": "2026-08-31",
-    "status": "待执行，未成交",
-    "tagline": "原席位可加仓 · 新公司一进一出",
+    "asOf": "2026-09-10",
+    "status": "旧计划已撤回，当前无订单",
+    "tagline": "本金增长优先 · 到价后重新确认",
     "dailyBuyLimit": 500000,
     "buyBeforeSell": false,
-    "expectedBuyTotal": 275222.4,
+    "expectedBuyTotal": 0,
     "expectedSellProceeds": 0,
-    "expectedNetCashUse": 275222.4,
-    "postStockMarketValue": 2226297.66,
-    "postStockWeight": 0.22263,
-    "postCash": 7777702.34,
-    "postCashWeight": 0.77777,
-    "rows": [
-      {
-        "day": "第1笔",
-        "side": "买入",
-        "name": "腾讯控股",
-        "quantity": 400,
-        "expectedFinalQuantity": 500,
-        "recordStatus": "待执行",
-        "limit": "≤460港元",
-        "estimatedCny": 159822.4,
-        "condition": "先建至累计约2%；≤442港元再加300股"
-      },
-      {
-        "day": "第2笔",
-        "side": "买入",
-        "name": "福耀玻璃",
-        "quantity": 2000,
-        "expectedFinalQuantity": 6900,
-        "recordStatus": "待执行",
-        "limit": "≤57.70元",
-        "estimatedCny": 115400,
-        "condition": "限价成交；不追价"
-      }
-    ]
+    "expectedNetCashUse": 0,
+    "postStockMarketValue": 1951075.26,
+    "postStockWeight": 0.195107526,
+    "postCash": 8048924.74,
+    "postCashWeight": 0.804892474,
+    "rows": [],
+    "withdrawnReason": "腾讯≤460港元、福耀≤57.70元来自旧执行卡，已与最新个股研究的≤420港元、≤55元首档冲突。撤回旧单不等于卖出或改变正式名单；最新条件队列见accumulation-plan.json。"
   },
   "deploymentClock": {
-    "asOf": "2026-09-01",
+    "asOf": "2026-09-10",
     "rows": [
       {
         "stage": "当前",
         "stockWeight": 0.1951,
         "cashWeight": 0.8049,
-        "action": "等待首轮限价单"
+        "action": "当前无订单；等待最新价格与基本面双闸门"
       },
       {
-        "stage": "首轮完成",
-        "stockWeight": 0.2226,
-        "cashWeight": 0.7774,
-        "action": "仅执行已通过闸门的腾讯、福耀加仓；宇通不在当前买入清单"
+        "stage": "首批四闸门全部触发",
+        "stockWeight": 0.2771,
+        "cashWeight": 0.7229,
+        "action": "福耀、安踏、腾讯、茅台依次复核；不是预先挂单，也不要求同时成交"
       },
       {
         "stage": "3个月",
-        "stockWeightRange": "29%—35%",
-        "cashWeightRange": "65%—71%",
-        "action": "完成已触发首档；B类只建观察仓"
+        "stockWeightRange": "20%—35%",
+        "cashWeightRange": "65%—80%",
+        "action": "只完成已触发首档；B类候选只获得复核资格"
       },
       {
         "stage": "6个月",
         "stockWeightRange": "40%—50%",
         "cashWeightRange": "50%—60%",
-        "action": "P10只起步，P12正常建仓"
+        "action": "P10只观察或极小起步，P12才进入正常建仓"
       },
       {
         "stage": "12个月",
         "stockWeightRange": "60%—70%",
         "cashWeightRange": "30%—40%",
-        "action": "新增权益资金加权十年IRR维持11.31%以上"
+        "action": "以新增资金的质量折扣承保回报和机会成本为主，不用股息率驱动换仓"
       },
       {
-        "stage": "18个月",
-        "stockWeightRange": "65%—74%",
-        "cashWeightRange": "26%—35%",
-        "action": "当前六只正式目标最高达到74%股票；第七席未通过不得填仓"
+        "stage": "条件允许时",
+        "stockWeightRange": "64%—74%",
+        "cashWeightRange": "26%—36%",
+        "action": "64%为六只正常仓完成线；74%已含多只硬上限，只能逐笔批准"
       },
       {
-        "stage": "24个月复核",
-        "stockWeightRange": "65%—74%",
-        "cashWeightRange": "26%—35%",
-        "action": "若仍低于65%，重算正常化盈利和机会成本；候选未过闸门前维持74%股票上限"
+        "stage": "长期硬边界",
+        "stockWeightRange": "六只≤76%",
+        "cashWeightRange": "≥10%",
+        "action": "六只在组合绝对单股上限下有效硬容量76%；新增第七增长席须另批，任何结构仍保留至少10%永久机会现金"
       }
     ],
     "currentCashDragReturn": 0.037001,
     "currentCashDragYearsTo25m": 25.219,
-    "note": "18个月是两阶段模型的条件目标，不是无条件满仓倒计时；当前只批准六只正式目标，股票上限74%。第七席必须由最新研究另行批准。"
+    "note": "部署没有强制截止日。当前阶段只考虑本金增长；股息迁移在建仓完成前冻结。64%是六只正常仓完成线，74%是现有正式政策上限，均不能凌驾于买价和基本面。"
   },
   "deploymentQueue": {
-    "asOf": "2026-08-31 17:21",
-    "afterInitialStockWeight": 0.22263,
-    "threeMonthTargetWeight": 0.29,
-    "threeMonthGap": 673700,
-    "primaryPotential": 302800,
-    "coverageRatio": 0.449,
+    "asOf": "2026-09-10",
+    "afterInitialStockWeight": 0.195107526,
+    "threeMonthTargetWeight": null,
+    "threeMonthGap": 0,
+    "primaryPotential": 819723,
+    "coverageRatio": 0,
     "rows": [
       {
         "priority": "A1",
-        "name": "腾讯控股",
-        "trigger": "≤442港元",
-        "amount": 115200,
-        "postWeight": 0.23415,
-        "status": "接近触发",
-        "gate": "首轮400股已成交或仍按同一累计市值口径；AI投入与自由现金流取消条件未触发"
+        "name": "福耀玻璃",
+        "trigger": "≤55元",
+        "amount": 126500,
+        "postWeight": 0.20776,
+        "status": "等待价格",
+        "gate": "拟加2,300股至公司约4%；海外扩产回报、关税与自由现金流通过后再由用户确认"
+      },
+      {
+        "priority": "A2",
+        "name": "安踏体育",
+        "trigger": "≤72港元",
+        "amount": 185177,
+        "postWeight": 0.22628,
+        "status": "等待价格",
+        "gate": "拟加3,000股至公司约3%；PUMA资本配置、核心品牌利润率和自由现金流通过后再由用户确认"
       },
       {
         "priority": "A3",
-        "name": "安踏体育",
-        "trigger": "≤72港元",
-        "amount": 187600,
-        "postWeight": 0.25291,
+        "name": "腾讯控股",
+        "trigger": "≤420港元",
+        "amount": 252046,
+        "postWeight": 0.25149,
         "status": "等待价格",
-        "gate": "PUMA/JW资本配置未恶化；核心品牌利润率和自由现金流通过复核"
+        "gate": "拟加700股至公司约2.9%；AI投入与自由现金流取消条件未触发，用户确认后执行"
       },
       {
-        "priority": "替换候选",
-        "name": "美的集团",
-        "trigger": "≤75.10元",
-        "amount": 150000,
-        "postWeight": null,
-        "status": "等待价格",
-        "gate": "2026H1已纳入；经济口径经营利润、海外利润率、FCF和非核心业务ROIC未恶化"
+        "priority": "A4",
+        "name": "贵州茅台",
+        "trigger": "1240—1280元",
+        "amount": 256000,
+        "postWeight": 0.27708,
+        "status": "等待价格并等待腾出实际席位",
+        "gate": "拟买200股约2.6%；利润恢复、批价与现金收入未恶化，并先退出一个实际席位"
       }
     ],
-    "note": "当前实际持仓已经占满7席。腾讯、福耀、安踏可在原席位内加仓；茅台首次买入前仍须先退出一个实际席位。宇通已移出正式目标，即使价格回落也要先通过19—21元价格门与经营闸门，再单独批准3%—5%。"
+    "note": "当前没有一笔达到新闸门，819,723元只是四家公司全部分别到价后的潜在用款。福耀、安踏、腾讯可在原席位内加仓；茅台或任何新公司都必须先腾出实际席位。宇通仍在观察仓，19—21元且经营闸门通过才有重审资格。"
   },
   "ladderPlans": [
     {
       "name": "腾讯控股",
       "currency": "港元",
-      "target": "150万元",
+      "target": "正常120万元；150万元为硬上限条件仓",
       "tiers": [
         {
-          "price": "≤460",
-          "action": "首轮买400股，累计约20万元（2%参与仓）",
-          "cumulative": 200000
-        },
-        {
-          "price": "≤442",
-          "action": "再买300股，累计约31万元（约3%）",
-          "cumulative": 310000
-        },
-        {
-          "price": "≤408",
-          "action": "分批买至60万元累计",
-          "cumulative": 600000
+          "price": "≤420",
+          "action": "新增700股，累计约2.9%（首档不超过3%）",
+          "cumulative": 300000
         },
         {
           "price": "≤360",
-          "action": "买至100万元累计",
-          "cumulative": 1000000
+          "action": "补至6%累计",
+          "cumulative": 600000
         },
         {
-          "price": "≤313",
-          "action": "基本面不变时补至150万元目标",
-          "cumulative": 1500000
+          "price": "≤315",
+          "action": "补至9%累计",
+          "cumulative": 900000
+        },
+        {
+          "price": "≤255",
+          "action": "基本面不变时完成12%正常仓；15%硬上限须另行重审",
+          "cumulative": 1200000
         }
       ],
       "cancel": "AI资本开支持续高增而收入和自由现金流无兑现；AI入口结构性削弱微信、广告或支付；治理或监管风险显著上升。"
@@ -424,27 +407,22 @@
     {
       "name": "福耀玻璃",
       "currency": "元",
-      "target": "100万元",
+      "target": "正常80万元；100万元为硬上限条件仓",
       "tiers": [
         {
-          "price": "≤57.70",
-          "action": "首轮买2000股，累计约39.4万元",
-          "cumulative": 394052
-        },
-        {
           "price": "≤55",
-          "action": "买至60万元累计",
-          "cumulative": 600000
+          "action": "新增约2,300股，买至约4%累计",
+          "cumulative": 400000
         },
         {
           "price": "≤44",
-          "action": "买至80万元累计",
-          "cumulative": 800000
+          "action": "买至6%累计",
+          "cumulative": 600000
         },
         {
           "price": "≤37",
-          "action": "基本面不变时补至100万元目标",
-          "cumulative": 1000000
+          "action": "基本面不变时完成8%正常仓；10%硬上限须另行重审",
+          "cumulative": 800000
         }
       ],
       "cancel": "汽车玻璃毛利率结构性下滑；海外扩产长期不能转化为现金回报；单车价值提升被证伪；治理或关联交易出现重大问题。"
@@ -455,19 +433,19 @@
       "target": "60万元",
       "tiers": [
         {
-          "price": ">141",
+          "price": ">110",
           "action": "保留原仓，不新增",
           "cumulative": 455773
         },
         {
-          "price": "≤141",
-          "action": "只补至50万元目标",
-          "cumulative": 500000
+          "price": "≤110",
+          "action": "海外同店、库存和自由现金流闸门通过时，补至5.5%—6%正常仓上沿",
+          "cumulative": 600000
         },
         {
-          "price": "≤110",
-          "action": "海外同店、库存和自由现金流闸门通过时，补至60万元正式目标",
-          "cumulative": 600000
+          "price": "≤90",
+          "action": "论文完整时可至7%；8%硬上限须另行重审",
+          "cumulative": 700000
         }
       ],
       "cancel": "海外收入连续两个半年度下降；存货天数持续超过200天并伴随折扣或减值；前三IP同时衰退；海外开店不能恢复单店效率与利润率。"
@@ -549,12 +527,12 @@
     {
       "name": "格力电器",
       "marketValue": 96094,
-      "status": "暂不主动卖出；中国移动或长江电力达到目标买点、完整两步法复核通过后，用成交资金等额替换。"
+      "status": "暂不主动卖出、不新增。只有茅台或其他高质量机会到达买点，并在承保总回报、下行风险和行业分散上明确胜出时，才提出一进一出草案。"
     },
     {
       "name": "万华化学",
       "marketValue": 89532,
-      "status": "暂不卖出、不加仓；待腾讯累计达到3%，或出现明确更高回报替代且需要释放化工周期风险预算时再置换。"
+      "status": "暂不卖出、不新增。只有新机会在承保总回报和风险预算上明确胜出、且需要释放实际席位时，才提出一进一出草案。"
     }
   ],
   "watchlist": [

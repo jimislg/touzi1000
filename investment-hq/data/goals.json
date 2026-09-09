@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-09",
+  "asOf": "2026-09-10",
   "principalCny": 10000000,
   "targets": [
     {
@@ -24,8 +24,8 @@
       "id": "dividend1m",
       "name": "长期年股息100万",
       "targetAnnualDividend": 1000000,
-      "status": "当前六只正式目标承保：名义约14年1个月；日常安全约16年5个月",
-      "note": "当前保守正常化税后股息约7.12万元，口径区间7.12万—7.19万元。当前6只正式目标、74%股票+26%现金的公司基准机械加权为8.49%，名义线/日常安全线约12年5个月/14年9个月；质量折扣后承保年化7.00%，名义线约14年1个月、日常安全线约16年5个月。终态只识别六个收入席位，税后率3.839%；复合严重减息后仍有100万元需约3492万元。按3%规划通胀保持2026年购买力并保留20%缓冲，约需26年8个月。"
+      "status": "未来目标：建仓完成后重新启动",
+      "note": "当前阶段不以股息率或收息结构驱动换仓。旧终态模型仅留作历史审计；待积累期建仓完成、保留至少10%永久机会现金且用户明确确认后，再用当时的价格、DPS与公司上限重建。"
     }
   ],
   "portfolioReturnScenarios": {
@@ -108,13 +108,13 @@
       "deploymentMonths": 18,
       "migrationStartAssets": 18000000,
       "migrationMonths": 24,
-      "terminalReturn": 0.08,
-      "terminalYield": 0.03839000000000001
+      "terminalReturn": 0.05200980000000001,
+      "terminalYield": 0.028307
     },
     "incomeFirst": {
       "deploymentMonths": 12,
-      "terminalReturn": 0.08,
-      "terminalYield": 0.03839000000000001
+      "terminalReturn": 0.05200980000000001,
+      "terminalYield": 0.028307
     },
     "phasePortfolios": [
       {
@@ -140,21 +140,21 @@
         "id": "income",
         "name": "收息期",
         "objective": "普通股息达到120万元安全线后才视为完成",
-        "targetReturn": 0.08,
-        "targetYield": 0.03839000000000001,
-        "allocation": "茅台19%＋招行16%＋中国移动H14%＋质量白电一只10%＋长电10%＋福耀8%＋现金/空缺23%；当前六席，第七席不预设公司",
-        "gate": "任一单一公司普通股息贡献不超过20%；六个已命名席位统一减息15%后仍须按重算资产线覆盖100万元；空缺席位不得用未经验证的高股息公司硬填。"
+        "targetReturn": 0.05200980000000001,
+        "targetYield": 0.028307,
+        "allocation": "条件蓝图为茅台19%＋招行16%＋中国移动H14%＋质量白电10%＋长电10%＋福耀8%＋现金23%；当前研究硬上限只承保其中58%股票权重，其余42%视为未分配",
+        "gate": "先使六席权重通过当届个股研究上限，再验收单一公司普通股息贡献不超过20%。超限权重、空缺席位和未验证DPS不得计入正式日期。"
       }
     ],
     "rules": [
-      "当前6只正式目标、74%股票+26%现金的承保回报为7.00%，两阶段路径约14年1个月/16年5个月；“现在转高股息”模型约12年9个月/15年1个月，但它同样不能把空缺席位当成已获得的收益率。",
+      "当前6只正式目标、74%股票+26%现金的承保回报为7.00%，两阶段路径约22年1个月/25年8个月；“现在转高股息”模型约25年2个月/28年9个月，但它同样不能把空缺席位当成已获得的收益率。",
       "8.49%是当前正式目标公司基准机械加权，不作为保守规划输入；组合承保年化为7.00%。有满36个月实绩后，若滚动三年年化低于7.5%，切换7%压力路径并重算日期。",
       "18个月是机会出现时的部署目标，不是追价期限；没有达到P10的A类公司或P12的B类公司时允许现金超标。",
-      "资产达到1800万元只是启动迁移的必要条件；中国移动、长电、质量白电、招行等仍须逐一通过现金流和普通分红覆盖闸门。宇通只有重新获批后才能参与。",
+      "资产达到1800万元只是启动迁移的必要条件；招行、中国移动、白电和长电若未获得更高终态权重承保，只能按当前硬上限计算。宇通只有重新获批后才能参与。",
       "股息全部复投，直到普通股息滚动十二个月达到120万元；特别股息、现金利息和卖出收益不计入达标。",
-      "名义100万元不是购买力目标；按3%规划通胀，2026年100万元购买力和20%缓冲约在26年8个月达到。每年用实际CPI更新，不把3%写成预测。"
+      "名义100万元不是购买力目标；按3%规划通胀，2026年100万元购买力和20%缓冲在当前60年模型期内未达。本模块已冻结，重启时须用实际CPI与最新回报重算。"
     ],
-    "note": "终态3.839%税后率只来自六个已命名收入席位与23%现金/空缺，不是当前现价收益率。当前积累期公司基准为8.49%，承保为7.00%；旧含宇通七席及九公司模型只保留为历史研究。两阶段与“立即收息”模型的差异为16个月，但后者当前没有可执行资产供给。",
+    "note": "本模块已冻结为未来研究，不进入当前换仓、选股或预警。当前积累期公司基准为8.49%，承保为7.00%；建仓完成后须用当时数据全部重算，旧含宇通七席及九公司模型仅供追溯。",
     "contributionSensitivity": {
       "status": "scenario-only",
       "actualAnnualContribution": null,
@@ -172,75 +172,139 @@
       "note": "新增本金按月末等额投入并持续到安全线，始终使用当前6只正式目标、74%股票+26%现金的承保回报与终态股息率；这是能力敏感性，不是已承诺现金流，也不得使用杠杆或生活备用金。"
     },
     "incomePortfolio": {
-      "status": "future-income-blueprint-with-one-vacancy",
+      "status": "conditional-blueprint-over-current-research-caps",
       "maxHoldings": 7,
       "cashWeight": 0.23,
-      "terminalReturnFloor": 0.08,
+      "terminalReturnFloor": 0.05200980000000001,
       "rows": [
         {
           "name": "贵州茅台",
           "weight": 0.19,
+          "currentResearchCap": 0.3,
+          "normalizedAfterTaxDps": 51.98123,
           "assumedAfterTaxYield": 0.0452,
           "routineHaircut": 0.15,
           "severeHaircut": 0.2,
+          "returnModel": "moutai.json",
+          "capSource": "moutai.json position.hard",
           "role": "品牌现金流核心",
-          "gate": "约1150元及以下且现金收入、渠道与普通分红能力通过复核"
+          "gate": "约1150元及以下且现金收入、渠道与普通分红能力通过复核",
+          "qualityGrade": "A",
+          "approvedWeight": 0.19,
+          "pessimisticTenYearReturn": -0.01,
+          "baseTenYearReturn": 0.099,
+          "underwrittenTenYearReturn": 0.0803
         },
         {
           "name": "招商银行",
           "weight": 0.16,
+          "currentResearchCap": 0.1,
+          "normalizedAfterTaxDps": 2,
           "assumedAfterTaxYield": 0.0508,
           "routineHaircut": 0.15,
           "severeHaircut": 0.35,
+          "returnModel": "cmb.json",
+          "capSource": "cmb.json position.hard",
           "role": "低成本负债金融股息",
-          "gate": "资本充足率、资产质量、信用成本和派息能力通过金融口径复核"
+          "gate": "资本充足率、资产质量、信用成本和派息能力通过金融口径复核",
+          "qualityGrade": "B",
+          "approvedWeight": 0.1,
+          "pessimisticTenYearReturn": 0.043,
+          "baseTenYearReturn": 0.106,
+          "underwrittenTenYearReturn": 0.08499999999999999
         },
         {
           "name": "中国移动H",
           "weight": 0.14,
+          "currentResearchCap": 0.08,
+          "normalizedAfterTaxDps": 4.216,
           "assumedAfterTaxYield": 0.062,
           "routineHaircut": 0.15,
           "severeHaircut": 0.15,
+          "returnModel": "china-mobile.json",
+          "capSource": "china-mobile.json position.hard",
           "role": "通信基础设施稳定器",
-          "gate": "约68港元及以下；长账龄应收、资本开支与港股通税后回报通过"
+          "gate": "约68港元及以下；长账龄应收、资本开支与港股通税后回报通过",
+          "qualityGrade": "B",
+          "approvedWeight": 0.08,
+          "pessimisticTenYearReturn": 0.02,
+          "baseTenYearReturn": 0.064,
+          "underwrittenTenYearReturn": 0.0506
         },
         {
           "name": "质量白电一只",
           "weight": 0.1,
+          "currentResearchCap": 0.08,
+          "normalizedAfterTaxDps": 4.3,
           "assumedAfterTaxYield": 0.057,
           "routineHaircut": 0.15,
           "severeHaircut": 0.4,
+          "returnModel": "midea.json",
+          "capSource": "midea.json/gree.json position.hard; DPS暂按美的",
           "role": "美的/海尔/格力择一的成熟现金流",
-          "gate": "只选一只；税后率、总回报、治理、现金覆盖和接班风险全部通过"
+          "gate": "只选一只；税后率、总回报、治理、现金覆盖和接班风险全部通过",
+          "qualityGrade": "A",
+          "approvedWeight": 0.08,
+          "pessimisticTenYearReturn": 0.053,
+          "baseTenYearReturn": 0.0985,
+          "underwrittenTenYearReturn": 0.09416
         },
         {
           "name": "长江电力",
           "weight": 0.1,
+          "currentResearchCap": 0.05,
+          "normalizedAfterTaxDps": 1,
           "assumedAfterTaxYield": 0.0435,
           "routineHaircut": 0.15,
           "severeHaircut": 0.1,
+          "returnModel": "cypc.json",
+          "capSource": "cypc.json position.hard",
           "role": "水电现金流稳定器",
-          "gate": "约23元及以下且来水、负债、资本开支和分红覆盖通过"
+          "gate": "约23元及以下且来水、负债、资本开支和分红覆盖通过",
+          "qualityGrade": "B",
+          "approvedWeight": 0.05,
+          "pessimisticTenYearReturn": 0.01,
+          "baseTenYearReturn": 0.06,
+          "underwrittenTenYearReturn": 0.042800000000000005
         },
         {
           "name": "福耀玻璃",
           "weight": 0.08,
+          "currentResearchCap": 0.1,
+          "normalizedAfterTaxDps": 2.2,
           "assumedAfterTaxYield": 0.0368,
           "routineHaircut": 0.15,
           "severeHaircut": 0.4,
+          "returnModel": "fuyao.json",
+          "capSource": "fuyao.json position.hard",
           "role": "全球制造与股息增长",
-          "gate": "海外扩产回报、关税、自由现金流和普通分红覆盖通过"
+          "gate": "海外扩产回报、关税、自由现金流和普通分红覆盖通过",
+          "qualityGrade": "A",
+          "approvedWeight": 0.08,
+          "pessimisticTenYearReturn": 0.036,
+          "baseTenYearReturn": 0.114,
+          "underwrittenTenYearReturn": 0.10289999999999999
         }
       ],
       "constraints": [
-        "当前六个已命名股票加23%现金/未分配资金合计100%；第七席保持空缺，质量白电槽最终只能选择一家公司",
+        "条件蓝图六席77%+23%现金合计100%；但当前个股研究硬上限只承保58%，超限部分不得计入正式路径",
         "任何单一公司正常普通股息贡献不超过20%；银行保险合计不超过16%",
         "运营商与公用事业合计不超过24%；福耀为当前唯一已命名制造业席位",
         "特别股息、现金利息、卖出收益和本金返还不计入目标",
         "宇通、宁德或康臣只有在最新论文和价格闸门同时通过后，才可竞争空缺席位；不得自动写入",
         "腾讯若迁移时基准十年IRR仍不低于12%，不机械卖出；延后迁移或提高资产门槛"
       ],
-      "note": "这是未来迁移阶段的条件蓝图，不是2026年的买入清单。宇通按2026-09-08最新结论移出，当前只识别六只股票并保留一个空缺席位；税后率均须按届时买点和税制复核。"
+      "note": "这是未来迁移阶段的条件蓝图，不是2026年的买入清单。招行、中国移动、白电和长电的蓝图权重超过现有个股研究硬上限，超限部分必须等未来重新承保；在此之前正式路径只采用上限内的保守股息率。",
+      "terminalBaseReturn": 0.06083,
+      "returnAudit": {
+        "approvedStockWeight": 0.5800000000000001,
+        "cashOrUnallocatedWeight": 0.41999999999999993,
+        "cashReturn": 0.015,
+        "baseReturn": 0.06083,
+        "underwrittenReturn": 0.05200980000000001,
+        "pessimisticReturn": 0.01792,
+        "method": "A类悲观/基准/乐观25%/60%/15%，B类40%/50%/10%；只按当前研究硬上限计权重，其余按1.5%现金回报"
+      }
     },
     "purchasingPower": {
       "status": "planning-scenario",
@@ -255,7 +319,7 @@
       "routineBuffer": 1.2,
       "dividendGrowthEvidenceYears": 3,
       "projectionYears": 30,
-      "severeTerminalReturn": 0.06,
+      "severeTerminalReturn": 0.01792,
       "contributionSensitivity": {
         "status": "capacity-unconfirmed",
         "actualAnnualContribution": null,
@@ -289,46 +353,55 @@
       "note": "3%只是长期规划情景，不代表对未来CPI的预测；每年用实际居民消费价格指数更新累计购买力因子。股息增长必须来自每股普通股息和自由现金流，不把新增本金带来的股息增长算作公司增长。"
     },
     "seventhSeatGate": {
-      "status": "single-seat-cannot-complete-ten-year-yield-gate",
-      "currentSixYield": 0.03839000000000001,
+      "status": "current-caps-make-seven-seat-target-infeasible",
+      "blueprintSixYield": 0.03839000000000001,
+      "currentSixYield": 0.028307,
+      "approvedSixWeight": 0.5800000000000001,
       "targetTerminalYield": 0.052,
       "maxSeatWeight": 0.1,
       "maxDividendContribution": 0.2,
-      "largestExistingWeightedDividend": 0.00868,
+      "largestExistingWeightedDividend": 0.008588,
       "concentrationRepair": {
-        "minimumPortfolioYield": 0.0434,
-        "requiredWeightedDividend": 0.005009999999999994,
-        "minimumSeatAfterTaxYieldAtMaxWeight": 0.050099999999999936,
-        "conclusion": "第七席按10%配置时，税后普通股息率至少约5.01%，才只是把最高单一股息贡献压回20%以内。"
+        "minimumPortfolioYield": 0.04294,
+        "requiredWeightedDividend": 0.014633,
+        "minimumSeatAfterTaxYieldAtMaxWeight": 0.14633,
+        "resultingSeatDividendContribution": 0.34077782952957614,
+        "canRepairWithinBothContributionLimits": false,
+        "conclusion": "按当前个股研究硬上限，第七席10%权重需约14.63%税后率才能稀释旧席集中度；但新席届时将贡献约34.1%股息，同样超过20%，因此结构无解。"
       },
       "warehouseGateScenario": {
         "seatAfterTaxYield": 0.052,
-        "portfolioYield": 0.043590000000000004,
-        "largestExistingDividendContribution": 0.19912824042211516,
-        "remainingYieldGap": 0.008409999999999994
+        "portfolioYield": 0.033506999999999995,
+        "largestExistingDividendContribution": 0.256304652759125,
+        "remainingYieldGap": 0.018493000000000002
       },
       "singleSeatTargetScenario": {
-        "requiredSeatAfterTaxYieldAtMaxWeight": 0.1360999999999999,
-        "candidateDividendContribution": 0.26173076923076904,
+        "requiredSeatAfterTaxYieldAtMaxWeight": 0.23692999999999997,
+        "candidateDividendContribution": 0.45563461538461536,
         "violatesContributionLimit": true
       },
       "feasibilityBoundary": {
-        "maximumPortfolioYieldWithFixedSixAndOneCompliantNewContributor": 0.04798750000000001,
+        "maximumPortfolioYieldWithFixedSixAndOneCompliantNewContributor": 0.03538375,
+        "largestExistingContributionAtMaximum": 0.242710283675416,
         "existingSixContributionRequiredAtTarget": 0.0416,
-        "existingSixContributionShortfall": 0.0032099999999999906
+        "existingSixContributionShortfall": 0.013293,
+        "canRepairConcentrationWithinBothLimits": false
       },
       "requirements": [
         "候选公司质量至少B类，承保十年总回报不低于8%，不得依赖估值扩张",
         "按获批最大权重计算，正常化税后普通股息率足以把单一股息贡献压至20%以内",
         "正常化自由现金流覆盖普通股息不低于1.2倍；金融业改用资本与可分配利润口径",
         "与现有六席不重复占用行业风险预算，且不靠特别股息、周期峰值或本金返还",
-        "第七席只能修复集中度；5.2%终态税后率还需现有六席更低买价或重新配重共同完成"
+        "先解决招行、中国移动、白电和长电的终态权重超限；未重新承保前不得引用3.839%蓝图率",
+        "第七席、旧六席与总资产门槛必须一起重算；不得用价格单项触发买入"
       ],
-      "conclusion": "保持现有六席收益贡献不变时，任何单一第七席都无法在20%股息贡献上限内把组合税后率推到5.2%；不得用13.61%的高风险股息假设伪造十年路径。"
-    }
+      "conclusion": "按当前个股研究硬上限，六席只承保58%权重和2.831%总资产税后股息率。固定六席时，任何单一第七席都无法在新旧公司均不超过20%股息贡献的前提下修复集中度，更无法承保5.2%。"
+    },
+    "status": "deferred-until-accumulation-complete",
+    "executionEligible": false
   },
   "goalPathAudit": {
-    "asOf": "2026-09-09",
+    "asOf": "2026-09-10",
     "status": "已建立基线，尚无36个月实绩可用于滚动收益验证",
     "method": "对目标组合各公司的10年悲观/基准/乐观IRR做质量分类概率加权；A类25%/60%/15%，B类40%/50%/10%，现金按1.5%",
     "companyBaseReturn": 0.08488000000000001,
@@ -349,8 +422,8 @@
   },
   "honestRestatement": {
     "conclusion": "5年2倍、10年5倍继续作为硬目标，但不能被当作收益承诺；系统必须如实显示当前组合与目标之间的数学缺口。",
-    "quantification": "当前6只正式目标、74%股票+26%现金的公司基准机械加权约8.49%，对应两阶段名义线12年5个月、安全线14年9个月，但这是上行执行线。质量折扣后承保年化约7.00%，名义线14年1个月、安全线16年5个月；旧含宇通七席及九公司模型不再作为正式口径。",
-    "dividendPath": "正式组合最多7只，但当前只批准6只，目标股票上限74%、现金26%；积累期只用达到回报闸门的复利资产，把总资产做至1800万元后分24个月迁移。滚动十二个月普通股息达到120万元且压力后仍有100万元只是日常安全验收；若要维持2026年100万元购买力，目标需按实际通胀逐年上调。空缺席位通过后必须重新计算全部日期。",
+    "quantification": "当前6只正式目标、74%股票+26%现金的公司基准机械加权约8.49%，质量折扣后承保年化约7.00%；对应10年约1.97倍，低于5倍目标。现有组合是稳健复利底盘，不是十年五倍的充分解；新增资金必须依靠更低买价、盈利兑现或更高质量的有限新席位提高回报。",
+    "dividendPath": "正式组合最多7只，当前积累期只批准6只和74%股票上限。终态六个收息席位的条件蓝图权重为77%，但按现有个股研究上限只承保58%；超限部分与第七席都不能预支。滚动十二个月普通股息达到120万元、统一减息15%后仍有100万元，才是日常安全验收。",
     "source": "年股息100万元达标时钟与安全线复核-20260901.md、最稳最快股息路径双阶段优化-20260901.md、股息路径承保回报与偏离预警-20260901.md、股息100万路径瓶颈与十年安全线条件-20260901.md"
   },
   "timeline": [
@@ -360,19 +433,25 @@
     },
     {
       "date": "2035-12",
-      "event": "当前六只正式目标承保：资产约1800万元，开始24个月股息迁移"
+      "event": "当前积累组合承保：资产约1800万元，只在收息席位通过时开始迁移"
     },
     {
-      "date": "2040-10",
-      "event": "当前六只正式目标名义线：约14年1个月达到100万元税后普通股息能力"
+      "date": "2048-10",
+      "event": "按终态当前研究硬上限：约22年1个月达到100万元税后普通股息能力"
     },
     {
-      "date": "2043-02",
-      "event": "当前六只正式目标日常安全线：约16年5个月达到120万元，可承受约15%削减"
+      "date": "2052-05",
+      "event": "按终态当前研究硬上限：约25年8个月达到120万元，可承受约15%削减"
     },
     {
-      "date": "2053-05",
-      "event": "3%规划通胀：2026年100万元购买力加20%缓冲"
+      "date": "未定",
+      "event": "未来研究：3%规划通胀下的2026年100万元购买力加20%缓冲"
     }
-  ]
+  ],
+  "activePhase": {
+    "id": "principal-growth",
+    "status": "active-principal-growth-only",
+    "objective": "积累期只优化本金增长与风险调整后总回报；建仓完成前不以股息或终态收息结构驱动换仓。",
+    "source": "accumulation-plan.json"
+  }
 }

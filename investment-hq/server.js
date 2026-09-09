@@ -392,7 +392,7 @@ function simulateDividendAcceleration({
   safetyDividendGrowth = 0,
   monthlyContribution = 0,
   contributionStartMonth = 1,
-  contributionEndMonth = 480,
+  contributionEndMonth = 720,
   checkpointMonths = []
 }) {
   const values = [principal, startStockWeight, targetStockWeight, cashReturn, accumulationReturn,
@@ -421,7 +421,7 @@ function simulateDividendAcceleration({
     cumulativeContribution,
     phase: 'baseline'
   });
-  for (let month = 1; month <= 480; month += 1) {
+  for (let month = 1; month <= 720; month += 1) {
     const deploymentProgress = Math.min(1, month / deploymentMonths);
     const stockWeight = startStockWeight + (targetStockWeight - startStockWeight) * deploymentProgress;
     let annualReturn = stockWeight * equityReturn + (1 - stockWeight) * cashReturn;
@@ -500,7 +500,7 @@ function simulateIncomeFirst({
   let assets = principal;
   let nominal = null;
   let safety = null;
-  for (let month = 1; month <= 480; month += 1) {
+  for (let month = 1; month <= 720; month += 1) {
     const progress = Math.min(1, month / deploymentMonths);
     const stockWeight = startStockWeight + (targetStockWeight - startStockWeight) * progress;
     const annualReturn = stockWeight * equityReturn + (1 - stockWeight) * cashReturn;
@@ -669,30 +669,46 @@ function buildIncomePortfolioAudit(payload, dividendAcceleration) {
   const config = payload.goals?.dividendAcceleration?.incomePortfolio;
   const pf = payload.portfolio;
   if (!config || !pf || !Array.isArray(config.rows)) return null;
-  const rows = config.rows.map(row => ({
-    ...row,
-    weight: Number(row.weight),
-    assumedAfterTaxYield: Number(row.assumedAfterTaxYield),
-    routineHaircut: Number(row.routineHaircut),
-    severeHaircut: Number(row.severeHaircut)
-  }));
-  const stockWeight = rows.reduce((sum, row) => sum + row.weight, 0);
-  const cashWeight = Number(config.cashWeight);
-  const normalYield = rows.reduce((sum, row) => sum + row.weight * row.assumedAfterTaxYield, 0);
-  const routineYield = rows.reduce((sum, row) => sum + row.weight * row.assumedAfterTaxYield * (1 - row.routineHaircut), 0);
-  const severeYield = rows.reduce((sum, row) => sum + row.weight * row.assumedAfterTaxYield * (1 - row.severeHaircut), 0);
-  const auditedRows = rows.map(row => {
-    const weightedDividendYield = row.weight * row.assumedAfterTaxYield;
+  const rows = config.rows.map(row => {
+    const weight = Number(row.weight);
+    const currentResearchCap = Number(row.currentResearchCap);
     return {
       ...row,
+      weight,
+      currentResearchCap,
+      approvedWeight: Number.isFinite(currentResearchCap) ? Math.min(weight, currentResearchCap) : weight,
+      assumedAfterTaxYield: Number(row.assumedAfterTaxYield),
+      routineHaircut: Number(row.routineHaircut),
+      severeHaircut: Number(row.severeHaircut)
+    };
+  });
+  const blueprintStockWeight = rows.reduce((sum, row) => sum + row.weight, 0);
+  const blueprintCashWeight = Number(config.cashWeight);
+  const approvedStockWeight = rows.reduce((sum, row) => sum + row.approvedWeight, 0);
+  const approvedCashOrUnallocatedWeight = Math.max(0, 1 - approvedStockWeight);
+  const blueprintYield = rows.reduce((sum, row) => sum + row.weight * row.assumedAfterTaxYield, 0);
+  const normalYield = rows.reduce((sum, row) => sum + row.approvedWeight * row.assumedAfterTaxYield, 0);
+  const blueprintRoutineYield = rows.reduce((sum, row) => sum + row.weight * row.assumedAfterTaxYield * (1 - row.routineHaircut), 0);
+  const routineYield = rows.reduce((sum, row) => sum + row.approvedWeight * row.assumedAfterTaxYield * (1 - row.routineHaircut), 0);
+  const blueprintSevereYield = rows.reduce((sum, row) => sum + row.weight * row.assumedAfterTaxYield * (1 - row.severeHaircut), 0);
+  const severeYield = rows.reduce((sum, row) => sum + row.approvedWeight * row.assumedAfterTaxYield * (1 - row.severeHaircut), 0);
+  const auditedRows = rows.map(row => {
+    const blueprintWeightedDividendYield = row.weight * row.assumedAfterTaxYield;
+    const weightedDividendYield = row.approvedWeight * row.assumedAfterTaxYield;
+    return {
+      ...row,
+      limitBreach: row.weight > row.approvedWeight + 1e-12,
+      excessWeight: Math.max(0, row.weight - row.approvedWeight),
+      blueprintWeightedDividendYield,
       weightedDividendYield,
       normalDividendContribution: normalYield > 0 ? weightedDividendYield / normalYield : null,
+      blueprintDividendContribution: blueprintYield > 0 ? blueprintWeightedDividendYield / blueprintYield : null,
       routineWeightedYield: weightedDividendYield * (1 - row.routineHaircut),
       severeWeightedYield: weightedDividendYield * (1 - row.severeHaircut)
     };
   });
   const modelYield = Number(payload.goals?.dividendAcceleration?.twoStage?.terminalYield);
-  const formalSafetyAssets = Number(pf.currentDividendBaseline?.safetyAssetsNeeded) || 1200000 / modelYield;
+  const formalSafetyAssets = 1200000 / modelYield;
   const severeSafetyAssets = severeYield > 0 ? 1000000 / severeYield : null;
   const spec = payload.goals.dividendAcceleration;
   const formalPath = dividendAcceleration?.paths?.find(row => row.id === 'underwrittenTwoStage');
@@ -713,19 +729,29 @@ function buildIncomePortfolioAudit(payload, dividendAcceleration) {
     safetyDividend: 1000000
   }) : null;
   const maxDividendContribution = auditedRows.reduce((max, row) => Math.max(max, row.normalDividendContribution || 0), 0);
+  const blueprintMaxDividendContribution = auditedRows.reduce((max, row) => Math.max(max, row.blueprintDividendContribution || 0), 0);
+  const overweightRows = auditedRows.filter(row => row.limitBreach);
   return {
     status: config.status || 'future-blueprint',
     maxHoldings: Number(config.maxHoldings) || 7,
     holdingCount: auditedRows.length,
-    stockWeight,
-    cashWeight,
-    totalWeight: stockWeight + cashWeight,
+    stockWeight: approvedStockWeight,
+    cashWeight: approvedCashOrUnallocatedWeight,
+    totalWeight: approvedStockWeight + approvedCashOrUnallocatedWeight,
+    blueprintStockWeight,
+    blueprintCashWeight,
+    blueprintTotalWeight: blueprintStockWeight + blueprintCashWeight,
     terminalReturnFloor: Number(config.terminalReturnFloor),
     modelYield,
+    blueprintYield,
     normalYield,
+    blueprintRoutineYield,
     routineYield,
+    blueprintSevereYield,
     severeYield,
     maxDividendContribution,
+    blueprintMaxDividendContribution,
+    overweightRows,
     rows: auditedRows,
     nominalAssets: normalYield > 0 ? 1000000 / normalYield : null,
     routineSafetyAssets: routineYield > 0 ? 1000000 / routineYield : null,
@@ -829,6 +855,7 @@ function buildPurchasingPowerAudit(payload, dividendAcceleration, incomePortfoli
     });
     const severePath = simulateDividendAcceleration({
       ...common,
+      terminalReturn: Number(config.severeTerminalReturn),
       terminalYield: incomePortfolioAudit.severeYield,
       nominalDividend: baseAnnualIncome,
       safetyDividend: baseAnnualIncome * routineBuffer,
@@ -1168,6 +1195,7 @@ function buildDecisionMetrics(payload) {
   const purchasingPowerAudit = buildPurchasingPowerAudit(payload, dividendAcceleration, incomePortfolioAudit);
   const goalPathTracking = buildGoalPathTracking(payload, dividendAcceleration);
   const alerts = [];
+  const principalGrowthActive = payload.accumulationPlan?.status === 'active-principal-growth-only';
   const activeHoldingCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
   const maxHoldings = Number(pf.concentrationPolicy?.maxHoldings) || 7;
   if (activeHoldingCount > maxHoldings) {
@@ -1187,26 +1215,39 @@ function buildDecisionMetrics(payload) {
   }
   targetRows.filter(r => r.limitBreach).forEach(r => alerts.push({ severity: 'red', title: `${r.name}目标仓位越过报告硬上限`, detail: `目标 ${(r.weight * 100).toFixed(0)}%，报告硬上限 ${(r.effectiveHardLimit * 100).toFixed(0)}%；超额部分只能是待批准条件仓，不能视为默认配置。` }));
   if ((pf.cash || 0) / (pf.totalAssets || 1) > 0.7) alerts.push({ severity: 'amber', title: '现金占比高，存在长期踏空风险', detail: `待部署现金约 ${((pf.cash || 0) / 10000).toFixed(1)}万元；应靠P12/P15/P17与基本面闸门分批投入，不靠主观等最低价。` });
-  if (pf.executionPlan?.status?.includes('待执行')) alerts.push({ severity: 'amber', title: '首次建仓尚未执行', detail: `计划净使用现金约 ${(pf.executionPlan.expectedNetCashUse / 10000).toFixed(1)}万元；执行后股票仓约 ${(pf.executionPlan.postStockWeight * 100).toFixed(1)}%。执行以最新部署卡为准，万华当前暂不卖出。` });
+  if ((pf.executionPlan?.rows || []).length && pf.executionPlan?.status?.includes('待执行')) alerts.push({ severity: 'amber', title: '首次建仓尚未执行', detail: `计划净使用现金约 ${(pf.executionPlan.expectedNetCashUse / 10000).toFixed(1)}万元；执行后股票仓约 ${(pf.executionPlan.postStockWeight * 100).toFixed(1)}%。执行以最新部署卡为准，万华当前暂不卖出。` });
   if (pf.deploymentQueue?.threeMonthGap > 0) {
     const covered = Number(pf.deploymentQueue.coverageRatio) >= 1;
     alerts.push({ severity: 'amber', title: covered ? '三个月部署队列已覆盖缺口，但仍依赖价格触发' : '七席内可执行队列尚未覆盖三个月缺口', detail: `首轮后至29%股票仓位还需约 ${(pf.deploymentQueue.threeMonthGap / 10000).toFixed(1)}万元；七席内条件金额约 ${(pf.deploymentQueue.primaryPotential / 10000).toFixed(1)}万元，覆盖 ${(pf.deploymentQueue.coverageRatio * 100).toFixed(0)}%。不为补缺口新增第8只或放宽买价。` });
   }
   const accelerated = dividendAcceleration?.paths?.find(s => s.id === 'underwrittenTwoStage');
-  if (accelerated) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `当前${pf.targetPortfolio.length}只正式目标占位路径约${accelerated.nominal.duration}达到名义100万元，但约${accelerated.safety.duration}才达到120万元安全线；空缺席位通过后必须重新计算。` });
-  if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `质量折扣后的承保路线约${accelerated.nominal.duration}达到名义线、约${accelerated.safety.duration}达到安全线；积累期承保年化${(accelerated.accumulationReturn * 100).toFixed(2)}%，不再把${(normalizedWeightedReturn * 100).toFixed(2)}%的公司基准机械加权当成保守承诺。` });
-  if (incomePortfolioAudit?.holdingCount < incomePortfolioAudit?.maxHoldings) alerts.push({ severity: 'red', title: '终态收息席位尚未补齐', detail: `当前只识别${incomePortfolioAudit.holdingCount}只收入资产，第${incomePortfolioAudit.holdingCount + 1}席保持空缺并计入现金；宇通、宁德、康臣均不得自动补位。当前路径只是保守占位测算，不是完整终态验收。` });
-  if (incomePortfolioAudit?.maxDividendContribution > 0.20) alerts.push({ severity: 'red', title: '终态股息集中度暂未通过', detail: `移除宇通后，最高单一公司普通股息贡献升至${(incomePortfolioAudit.maxDividendContribution * 100).toFixed(1)}%，超过20%上限；必须由合格第七席或重新配置解决，不能为通过审计而随意改权重。` });
-  const seventhSeatGate = payload.goalBottleneck?.seventhSeatGate || payload.goals?.dividendAcceleration?.seventhSeatGate;
-  if (seventhSeatGate?.status === 'single-seat-cannot-complete-ten-year-yield-gate') alerts.push({
-    severity: 'red',
-    title: '第七席不能单独兑现5.2%终态收益率',
-    detail: `按10%最大权重，第七席只需约${(seventhSeatGate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight * 100).toFixed(2)}%税后率即可修复20%集中度，但若单靠它把组合推至5.2%，需要约${(seventhSeatGate.singleSeatTargetScenario.requiredSeatAfterTaxYieldAtMaxWeight * 100).toFixed(2)}%，且该席股息贡献将超过20%。必须同时改善现有六席的买入收益率或重新配重。`
-  });
-  if (incomePortfolioAudit?.severeSafetyPath) alerts.push({ severity: 'amber', title: '120万元只覆盖日常减息，不覆盖复合严重压力', detail: `当前六席占位蓝图在统一减息15%后仍约${(incomePortfolioAudit.routineDividendAtFormalSafetyAssets / 10000).toFixed(1)}万元；按逐股严重削减假设，需资产约${(incomePortfolioAudit.severeSafetyAssets / 10000).toFixed(0)}万元、约${incomePortfolioAudit.severeSafetyPath.duration}后，才仍有100万元普通股息。` });
-  if (purchasingPowerAudit?.planning?.realRoutineSafety) alerts.push({ severity: 'amber', title: '名义120万元不等于今天100万元购买力', detail: `按${(purchasingPowerAudit.planningInflation * 100).toFixed(0)}%规划通胀，固定120万元日常安全线届时只相当于${(purchasingPowerAudit.planning.fixedRoutineRealDividend / 10000).toFixed(1)}万元的${purchasingPowerAudit.baseYear}年购买力；若连20%缓冲也随通胀增长，约需${purchasingPowerAudit.planning.realRoutineSafety.duration}（${purchasingPowerAudit.planning.realRoutineSafety.date}）。` });
-  const tenYearPowerContribution = purchasingPowerAudit?.contributionSensitivity?.horizonThresholds?.find(row => row.horizonYears === 10);
-  if (tenYearPowerContribution?.routine) alerts.push({ severity: 'amber', title: '十年购买力安全线主要依赖外部现金流', detail: `在不提高${(accelerated.accumulationReturn * 100).toFixed(2)}%积累承保与${(incomePortfolioAudit.normalYield * 100).toFixed(3)}%终态股息率的条件下，十年达到2026年100万元购买力并保留20%缓冲，需持续净投入约${(tenYearPowerContribution.routine.annualContribution / 10000).toFixed(1)}万元/年；严重压力口径约需${(tenYearPowerContribution.severe.annualContribution / 10000).toFixed(1)}万元/年。实际能力尚未确认。` });
+  if (principalGrowthActive) {
+    alerts.unshift({
+      severity: 'green',
+      title: '当前阶段已切换为本金增长优先',
+      detail: '股息迁移、第七收息席与购买力时钟均已冻结为未来研究；主动决策只看公司质量、质量折扣承保回报、价格闸门、仓位上限和机会成本。'
+    });
+  } else {
+    if (accelerated) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `当前${pf.targetPortfolio.length}只正式目标占位路径约${accelerated.nominal.duration}达到名义100万元，但约${accelerated.safety.duration}才达到120万元安全线；空缺席位通过后必须重新计算。` });
+    if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `质量折扣后的承保路线约${accelerated.nominal.duration}达到名义线、约${accelerated.safety.duration}达到安全线；积累期承保年化${(accelerated.accumulationReturn * 100).toFixed(2)}%，不再把${(normalizedWeightedReturn * 100).toFixed(2)}%的公司基准机械加权当成保守承诺。` });
+    if (incomePortfolioAudit?.holdingCount < incomePortfolioAudit?.maxHoldings) alerts.push({ severity: 'red', title: '终态收息席位尚未补齐', detail: `当前只识别${incomePortfolioAudit.holdingCount}只收入资产，第${incomePortfolioAudit.holdingCount + 1}席保持空缺并计入现金；宇通、宁德、康臣均不得自动补位。当前路径只是保守占位测算，不是完整终态验收。` });
+    if (incomePortfolioAudit?.overweightRows?.length) alerts.push({
+      severity: 'red',
+      title: '终态蓝图超过个股研究硬上限',
+      detail: `${incomePortfolioAudit.overweightRows.map(row => `${row.name}${(row.weight * 100).toFixed(0)}%>${(row.currentResearchCap * 100).toFixed(0)}%`).join('、')}。${(incomePortfolioAudit.blueprintYield * 100).toFixed(3)}%只保留为条件蓝图；正式路径只承保${(incomePortfolioAudit.normalYield * 100).toFixed(3)}%。`
+    });
+    if (incomePortfolioAudit?.maxDividendContribution > 0.20) alerts.push({ severity: 'red', title: '终态股息集中度暂未通过', detail: `移除宇通后，最高单一公司普通股息贡献升至${(incomePortfolioAudit.maxDividendContribution * 100).toFixed(1)}%，超过20%上限；必须由合格第七席或重新配置解决，不能为通过审计而随意改权重。` });
+    const seventhSeatGate = payload.goalBottleneck?.seventhSeatGate || payload.goals?.dividendAcceleration?.seventhSeatGate;
+    if (seventhSeatGate?.status === 'current-caps-make-seven-seat-target-infeasible') alerts.push({
+      severity: 'red',
+      title: '当前权重上限下，第七席连集中度都无法单独修复',
+      detail: `六席当前只承保${(seventhSeatGate.approvedSixWeight * 100).toFixed(0)}%权重和${(seventhSeatGate.currentSixYield * 100).toFixed(3)}%税后率。第七席按10%需约${(seventhSeatGate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight * 100).toFixed(2)}%才能稀释旧席，但新席自身会贡献${(seventhSeatGate.concentrationRepair.resultingSeatDividendContribution * 100).toFixed(1)}%股息，同样超限20%。必须先重审六席权重，价格下跌不会自动解决结构问题。`
+    });
+    if (incomePortfolioAudit?.severeSafetyPath) alerts.push({ severity: 'amber', title: '120万元只覆盖日常减息，不覆盖复合严重压力', detail: `当前六席占位蓝图在统一减息15%后仍约${(incomePortfolioAudit.routineDividendAtFormalSafetyAssets / 10000).toFixed(1)}万元；按逐股严重削减假设，需资产约${(incomePortfolioAudit.severeSafetyAssets / 10000).toFixed(0)}万元、约${incomePortfolioAudit.severeSafetyPath.duration}后，才仍有100万元普通股息。` });
+    if (purchasingPowerAudit?.planning?.realRoutineSafety) alerts.push({ severity: 'amber', title: '名义120万元不等于今天100万元购买力', detail: `按${(purchasingPowerAudit.planningInflation * 100).toFixed(0)}%规划通胀，固定120万元日常安全线届时只相当于${(purchasingPowerAudit.planning.fixedRoutineRealDividend / 10000).toFixed(1)}万元的${purchasingPowerAudit.baseYear}年购买力；若连20%缓冲也随通胀增长，约需${purchasingPowerAudit.planning.realRoutineSafety.duration}（${purchasingPowerAudit.planning.realRoutineSafety.date}）。` });
+    const tenYearPowerContribution = purchasingPowerAudit?.contributionSensitivity?.horizonThresholds?.find(row => row.horizonYears === 10);
+    if (tenYearPowerContribution?.routine) alerts.push({ severity: 'amber', title: '十年购买力安全线主要依赖外部现金流', detail: `在不提高${(accelerated.accumulationReturn * 100).toFixed(2)}%积累承保与${(incomePortfolioAudit.normalYield * 100).toFixed(3)}%终态股息率的条件下，十年达到2026年100万元购买力并保留20%缓冲，需持续净投入约${(tenYearPowerContribution.routine.annualContribution / 10000).toFixed(1)}万元/年；严重压力口径约需${(tenYearPowerContribution.severe.annualContribution / 10000).toFixed(1)}万元/年。实际能力尚未确认。` });
+  }
   if ((payload.portfolioEvolution?.unresolved || []).length) alerts.push({ severity: 'amber', title: '存在未统一的执行口径', detail: `仍有 ${payload.portfolioEvolution.unresolved.length} 项待确认；冲突未消除前，不应按旧价格表自动下单。` });
   if (reserveRequiredReturn != null && reserveRequiredReturn > 0.25) alerts.push({ severity: 'red', title: '仅靠预留机会仓无法填平目标缺口', detail: `按报告硬上限收缩后需预留 ${(reserveWeight * 100).toFixed(0)}%，但该预留仓需年化约 ${(reserveRequiredReturn * 100).toFixed(1)}% 才能把整体推到17.46%；这不是可接受的基准假设。` });
   return {
@@ -1242,6 +1283,7 @@ function buildDecisionMetrics(payload) {
     incomePortfolioAudit,
     purchasingPowerAudit,
     goalPathTracking,
+    principalGrowthActive,
     alerts
   };
 }
@@ -1268,9 +1310,10 @@ function bootstrapPayload() {
     'portfolio-efficiency': 'portfolioEfficiency',
     'cash-deployment': 'cashDeployment',
     'goal-bottleneck': 'goalBottleneck',
-    'income-warehouse': 'incomeWarehouse'
+    'income-warehouse': 'incomeWarehouse',
+    'accumulation-plan': 'accumulationPlan'
   };
-  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution', 'goal-ledger', 'portfolio-efficiency', 'cash-deployment', 'goal-bottleneck', 'income-warehouse']) {
+  for (const name of ['goals', 'portfolio', 'methodology', 'portfolio-evolution', 'goal-ledger', 'portfolio-efficiency', 'cash-deployment', 'goal-bottleneck', 'income-warehouse', 'accumulation-plan']) {
     const p = path.join(DATA_DIR, `${name}.json`);
     if (fs.existsSync(p)) payload[keyMap[name] || name] = readJson(p);
   }
