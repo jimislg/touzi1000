@@ -36,16 +36,17 @@ test('持续投入缩短目标时间，但零投入路径保持不变', () => {
   assert.ok(fiveYearsOnly.safety.months > contributed.safety.months);
 });
 
-test('终态收息蓝图保持七席，并分别通过日常与严重压力审计', () => {
+test('终态收息蓝图保留一个空缺席位，并诚实暴露集中度缺口', () => {
   const audit = bootstrapPayload().decisionMetrics.incomePortfolioAudit;
-  assert.equal(audit.holdingCount, 7);
+  assert.equal(audit.holdingCount, 6);
+  assert.equal(audit.status, 'future-income-blueprint-with-one-vacancy');
   assert.ok(Math.abs(audit.totalWeight - 1) < 1e-12);
   assert.ok(audit.normalYield >= audit.modelYield);
-  assert.ok(audit.maxDividendContribution <= 0.20);
+  assert.ok(audit.maxDividendContribution > 0.20);
   assert.ok(audit.routineDividendAtFormalSafetyAssets >= 1000000);
   assert.ok(audit.severeSafetyAssets > audit.formalSafetyAssets);
-  assert.equal(audit.severeSafetyPath.months, 190);
-  assert.equal(audit.severeSafetyPath.date, '2042-07');
+  assert.equal(audit.severeSafetyPath.months, 214);
+  assert.equal(audit.severeSafetyPath.date, '2044-07');
 });
 
 test('购买力目标随通胀增长，并在开始支用后保持30年覆盖', () => {
@@ -55,8 +56,8 @@ test('购买力目标随通胀增长，并在开始支用后保持30年覆盖', 
   assert.equal(audit.planning.inflation, 0.03);
   assert.ok(audit.planning.fixedRoutineRealDividend < 1000000);
   assert.ok(audit.planning.realNominal.months > formal.safety.months);
-  assert.equal(audit.planning.realRoutineSafety.months, 265);
-  assert.equal(audit.planning.realSevereSafety.months, 354);
+  assert.equal(audit.planning.realRoutineSafety.months, 320);
+  assert.equal(audit.planning.realSevereSafety.months, 394);
   assert.equal(audit.postAchievement.routine.firstDividendCoverageBreachMonth, null);
   assert.equal(audit.postAchievement.routine.firstPrincipalBreachMonth, null);
   assert.equal(audit.postAchievement.severe.firstDividendCoverageBreachMonth, null);

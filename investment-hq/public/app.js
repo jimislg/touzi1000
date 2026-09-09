@@ -310,7 +310,7 @@ function renderGoals() {
 
   <div class="card">
     <h2>十年路线 <span class="tag">本金1000万 · ${esc(g.asOf)}</span></h2>
-    <div class="card-sub">最新七席聚焦组合：目标股票${fmtPct(1 - pf.opportunityCash.weight, 0)}＋现金${fmtPct(pf.opportunityCash.weight, 0)}；公司基准机械加权${fmtPct(baseReturn, 2)}，质量折扣后承保年化${fmtPct(dm.underwritingWeightedReturn, 2)}。</div>
+    <div class="card-sub">当前正式目标${pf.targetPortfolio.length}/${pf.concentrationPolicy.maxHoldings}席：目标股票${fmtPct(1 - pf.opportunityCash.weight, 0)}＋现金${fmtPct(pf.opportunityCash.weight, 0)}；公司基准机械加权${fmtPct(baseReturn, 2)}，质量折扣后承保年化${fmtPct(dm.underwritingWeightedReturn, 2)}。</div>
     <div class="timeline">
       <div class="timeline-bar">
         ${g.timeline.map((t, i) => `
@@ -395,10 +395,10 @@ function renderGoals() {
   </div>` : ''}
 
   ${incomePortfolioAudit ? `<div class="card">
-    <h2>终态七席收息组合 <span class="tag">未来蓝图 · 日常与严重压力分开</span></h2>
-    <div class="card-sub">这不是当前买入清单。只有资产、价格、普通股息覆盖和公司闸门同时通过，才从积累期逐步迁移；腾讯若届时仍有高承保回报，应延后迁移或提高资产门槛，不能硬塞成第8席。</div>
+    <h2>终态收息占位蓝图 <span class="tag">当前六席 · 第七席空缺</span></h2>
+    <div class="card-sub">宇通已按9月8日最新结论移出；宁德、康臣也不自动补位。这里先用六个已命名席位和23%现金测算，集中度超过20%会明确标红，不能把占位路径误称为完整终态。</div>
     <div class="stat-row" style="margin-top:12px">
-      <div class="stat"><div class="s-label">七席正常税后率</div><div class="s-value green">${fmtPct(incomePortfolioAudit.normalYield, 2)}</div></div>
+      <div class="stat"><div class="s-label">当前六席正常税后率</div><div class="s-value green">${fmtPct(incomePortfolioAudit.normalYield, 2)}</div></div>
       <div class="stat"><div class="s-label">统一减息15%后</div><div class="s-value">${fmtPct(incomePortfolioAudit.routineYield, 2)}</div></div>
       <div class="stat"><div class="s-label">严重复合压力后</div><div class="s-value red">${fmtPct(incomePortfolioAudit.severeYield, 2)}</div></div>
       <div class="stat"><div class="s-label">最高单一股息贡献</div><div class="s-value">${fmtPct(incomePortfolioAudit.maxDividendContribution, 1)}</div></div>
@@ -472,7 +472,7 @@ function renderGoals() {
 
   ${contributionSensitivity?.rows?.length ? `<div class="card">
     <h2>更安全的加速器：持续投入 <span class="tag">能力待确认 · 不提高收益率假设</span></h2>
-    <div class="card-sub">所有情景仍使用七席7.78%承保回报和4.4504%终态税后普通股息率。新增本金按月末投入并持续到安全线；它会缩短时间，但必须单独记为入金，不能算作投资收益。</div>
+    <div class="card-sub">所有情景使用当前正式目标的动态承保回报与终态税后普通股息率。新增本金按月末投入并持续到安全线；它会缩短时间，但必须单独记为入金，不能算作投资收益。</div>
     <div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">十年名义线所需年净投入</div><div class="s-value">${fmtWan(contributionSensitivity.tenYearNominalThreshold?.annualContribution)}</div></div>
       <div class="stat"><div class="s-label">十年安全线所需年净投入</div><div class="s-value green">${fmtWan(contributionSensitivity.tenYearSafetyThreshold?.annualContribution)}</div></div>
@@ -529,7 +529,7 @@ function renderGoals() {
 
   ${efficiency ? `<div class="card">
     <h2>研究情景：九公司稳健前沿 <span class="tag">不构成执行政策</span></h2>
-    <div class="card-sub">${esc(efficiency.objective)}。这是历史90%股票/10%现金的敏感性研究，与当前七席84%股票/16%现金执行政策不同；任何方案都不能自动写入持仓或下单。</div>
+    <div class="card-sub">${esc(efficiency.objective)}。这是历史90%股票/10%现金的敏感性研究，与当前${pf.targetPortfolio.length}只正式目标、${fmtPct(1 - pf.opportunityCash.weight, 0)}股票/${fmtPct(pf.opportunityCash.weight, 0)}现金执行政策不同；任何方案都不能自动写入持仓或下单。</div>
     <table style="margin-top:12px">
       <thead><tr><th>方案</th><th>B类内部分配</th><th class="num">承保年化</th><th class="num">全悲观年化</th><th class="num">正常化股息率</th><th class="num">名义100万</th><th class="num">安全120万</th><th>判断</th></tr></thead>
       <tbody>${efficiency.strategies.map(s => `<tr class="${s.recommended ? 'best-row' : ''}">

@@ -34,14 +34,14 @@ check(pf.policyAuthority.status === 'authoritative-execution-policy', 'portfolio
 check(efficiency.executionEligible === false && efficiency.authoritativePolicy === 'portfolio.json', '九公司稳健前沿明确隔离为研究情景');
 check(goals.dividendRunway.status === 'historical-research-only' && goals.dividendRunway.executionEligible === false, '旧90%股票达标时钟明确隔离为历史研究');
 check(!pf.deploymentClock.rows.some(row => JSON.stringify(row).includes('90%')), '正式部署时钟不再保留90%股票执行口径');
-check(pf.deploymentClock.rows.find(row => row.stage === '18个月')?.stockWeightRange === '70%—84%', '18个月部署上限与七席84%政策一致');
+check(pf.deploymentClock.rows.find(row => row.stage === '18个月')?.stockWeightRange === '65%—74%', '18个月部署上限与当前六只74%政策一致');
 
 check(close(goals.portfolioReturnScenarios.base.annualReturn, metrics.weightedReturn), '静态公司基准回报与正式七席动态计算一致');
 check(close(goals.portfolioReturnScenarios.underwriting.annualReturn, metrics.underwritingWeightedReturn), '静态承保回报与正式七席动态计算一致');
 const formalPath = metrics.dividendAcceleration.paths.find(row => row.id === 'underwrittenTwoStage');
 check(bottleneck.baseline.nominalMonth === formalPath.nominal.months, '瓶颈表名义月份与动态路径一致');
 check(bottleneck.baseline.safetyMonth === formalPath.safety.months, '瓶颈表安全月份与动态路径一致');
-check(goals.targets.find(row => row.id === 'dividend1m').status.includes(formalPath.safety.duration), '目标卡显示正式七席安全日期');
+check(goals.targets.find(row => row.id === 'dividend1m').status.includes(formalPath.safety.duration), '目标卡显示当前正式目标安全日期');
 check(ledger.checkpointMonths.includes(formalPath.migrationStartMonth), '月度账本包含迁移检查点');
 check(ledger.checkpointMonths.includes(formalPath.nominal.months) && ledger.checkpointMonths.includes(formalPath.safety.months), '月度账本包含名义与安全检查点');
 check(metrics.postTriggeredDividend === null && metrics.postPrimaryQueueDividend === null, '未配置的候选股息情景保持为空而非0');
@@ -84,13 +84,14 @@ const robustPath = simulateDividendAcceleration({
   contributionStartMonth: contributionRobustness.delayedStartMonths + 1
 });
 check(robustPath.safety.months <= 120, '抗中断能力情景在迟一年且兑现80%后仍通过十年安全线');
-check(ledger.deploymentRanges.find(row => row.month === 18)?.maxStockWeight === 0.84, '月度账本部署上限与七席84%政策一致');
+check(ledger.deploymentRanges.find(row => row.month === 18)?.maxStockWeight === 0.74, '月度账本部署上限与当前六只74%政策一致');
 check(ledger.snapshots.every(row => Number.isFinite(Number(row.netExternalFlow))), '每个月度快照都有净入金字段');
 const incomeAudit = metrics.incomePortfolioAudit;
 check(incomeAudit.holdingCount <= incomeAudit.maxHoldings, '终态收息蓝图不超过七个股票席位');
 check(close(incomeAudit.totalWeight, 1), '终态七席与现金权重合计100%');
 check(incomeAudit.normalYield >= incomeAudit.modelYield, '终态七席逐股税后率覆盖正式模型收益率');
-check(incomeAudit.maxDividendContribution <= 0.20 + 1e-9, '终态任一公司普通股息贡献不超过20%');
+check(incomeAudit.status === 'future-income-blueprint-with-one-vacancy'
+  && incomeAudit.maxDividendContribution > 0.20, '终态空缺席位导致股息集中度暂未通过20%验收，系统不得伪装合格');
 check(incomeAudit.routineDividendAtFormalSafetyAssets >= 1000000, '正式安全资产在线性减息15%后仍有100万元股息');
 check(incomeAudit.severeSafetyAssets > incomeAudit.formalSafetyAssets, '复合严重压力资产线高于日常安全资产线');
 check(incomeAudit.rows.every(row => row.gate && row.role), '终态每个席位都有角色和迁移闸门');

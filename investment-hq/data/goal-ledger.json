@@ -10,9 +10,9 @@
     18,
     36,
     60,
-    101,
-    135,
-    163
+    111,
+    169,
+    197
   ],
   "deploymentRanges": [
     {
@@ -42,8 +42,8 @@
     {
       "month": 18,
       "minStockWeight": 0.7,
-      "maxStockWeight": 0.84,
-      "label": "积累期部署门（七席上限）"
+      "maxStockWeight": 0.74,
+      "label": "积累期部署门（当前六只正式目标）"
     }
   ],
   "snapshots": [

@@ -1,0 +1,24 @@
+{
+  "asOf": "2026-09-09",
+  "lastCheckedAt": null,
+  "sourceOfTruth": "portfolio.json.watchlist、portfolio.json.candidates及各公司最新有效研究",
+  "scope": [
+    "宇通客车",
+    "宁德时代",
+    "分众传媒",
+    "携程集团",
+    "名创优品",
+    "康臣药业",
+    "小商品城"
+  ],
+  "materialChangeTriggers": [
+    "正式公告或定期报告改变收入、利润、自由现金流、份额或资产负债表判断",
+    "分红、回购、增发、并购、重大资本开支或管理层诚信与治理发生变化",
+    "监管、集采、关税、制裁、质量事故等改变投资论文",
+    "价格进入portfolio.json记载的复核区或退出区，并且经营前提仍需检查",
+    "观察公司满足重新纳入条件，或触发负面否决条件"
+  ],
+  "notificationRule": "只报告可验证的重大变化；区分事实、推断和待确认项。价格单独波动不构成买入提醒。",
+  "portfolioMutationRule": "监控不得自动改正式目标权重、实际持仓或成交账本；任何重新纳入必须单独决策。",
+  "lastNotifiedEventIds": []
+}
