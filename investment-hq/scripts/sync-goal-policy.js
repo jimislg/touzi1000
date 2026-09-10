@@ -27,31 +27,34 @@ const baseReturn = metrics.weightedReturn;
 const underwritingReturn = metrics.underwritingWeightedReturn;
 if (![baseReturn, underwritingReturn].every(Number.isFinite)) throw new Error('无法从正式目标组合计算回报');
 const formalHoldingCount = payload.portfolio.targetPortfolio.length;
-const targetStockWeight = 1 - Number(payload.portfolio.opportunityCash.weight);
-const targetCashWeight = Number(payload.portfolio.opportunityCash.weight);
+const approvedStockWeight = payload.portfolio.targetPortfolio.reduce((sum, row) => sum + Number(row.weight || 0), 0);
+const targetStockWeight = Number(payload.portfolio.finalStockPolicy?.targetStockWeight ?? (1 - Number(payload.portfolio.opportunityCash.weight)));
+const targetCashWeight = 1 - targetStockWeight;
 const targetStockPct = Math.round(targetStockWeight * 100);
 const targetCashPct = Math.round(targetCashWeight * 100);
-const formalPolicyLabel = `${formalHoldingCount}只正式目标、${targetStockPct}%股票+${targetCashPct}%现金`;
+const approvedStockPct = Math.round(approvedStockWeight * 100);
+const unallocatedStockWeight = Math.max(0, targetStockWeight - approvedStockWeight);
+const formalPolicyLabel = `最终${targetStockPct}%股票；当前${formalHoldingCount}只已批准${approvedStockPct}%`;
 
 const goals = read('goals.json');
 goals.asOf = TODAY;
 goals.activePhase = {
   id: 'principal-growth',
   status: 'active-principal-growth-only',
-  objective: '积累期只优化本金增长与风险调整后总回报；建仓完成前不以股息或终态收息结构驱动换仓。',
+  objective: '积累期只优化本金增长与风险调整后总回报；最终100%股票，现金只是未批准额度的临时形态。',
   source: 'accumulation-plan.json'
 };
 goals.dividendRunway.status = 'historical-research-only';
 goals.dividendRunway.executionEligible = false;
-goals.dividendRunway.note = `历史90%股票研究情景，仅保留用于敏感性追溯；正式执行与目标日期读取当前${formalPolicyLabel}的underwrittenTwoStage路径。`;
+goals.dividendRunway.note = `历史股息研究情景，仅保留用于敏感性追溯；其积累期暂假设未批准的${Math.round(unallocatedStockWeight * 100)}%股票额度取得与已批准六只相同的承保回报，不是已完成配置。`;
 goals.portfolioReturnScenarios.base.annualReturn = baseReturn;
 goals.portfolioReturnScenarios.base.fiveYearMultiple = multiple(baseReturn, 5);
 goals.portfolioReturnScenarios.base.tenYearMultiple = multiple(baseReturn, 10);
-goals.portfolioReturnScenarios.base.note = `当前${formalPolicyLabel}按公司报告基准回报加权；宇通退出后的权重留在现金，不为凑仓位突破单股上限`;
+goals.portfolioReturnScenarios.base.note = `已批准六只${approvedStockPct}%股票袖套的公司报告基准回报归一化加权；剩余${Math.round(unallocatedStockWeight * 100)}%股票额度未批准，不预支回报`;
 goals.portfolioReturnScenarios.underwriting.annualReturn = underwritingReturn;
 goals.portfolioReturnScenarios.underwriting.fiveYearMultiple = multiple(underwritingReturn, 5);
 goals.portfolioReturnScenarios.underwriting.tenYearMultiple = multiple(underwritingReturn, 10);
-goals.portfolioReturnScenarios.underwriting.note = `当前${formalPolicyLabel}，A类按悲观/基准/乐观25%/60%/15%，B类按40%/50%/10%，现金1.5%`;
+goals.portfolioReturnScenarios.underwriting.note = `已批准六只股票袖套归一化承保：A类按悲观/基准/乐观25%/60%/15%，B类按40%/50%/10%。最终100%股票的完整回报要等剩余席位批准后重算`;
 goals.dividendAcceleration.twoStage.accumulationReturn = baseReturn;
 goals.dividendAcceleration.status = 'deferred-until-accumulation-complete';
 goals.dividendAcceleration.executionEligible = false;
@@ -61,7 +64,7 @@ goals.dividendAcceleration.contributionSensitivity = {
   actualAnnualContribution: null,
   annualContributions: [0, 300000, 500000, 1000000],
   robustness: { delayedStartMonths: 12, completionRate: 0.8, contributionYears: 5 },
-  note: `新增本金按月末等额投入并持续到安全线，始终使用当前${formalPolicyLabel}的承保回报与终态股息率；这是能力敏感性，不是已承诺现金流，也不得使用杠杆或生活备用金。`
+  note: `新增本金按月末等额投入并持续到安全线，暂用已批准六只股票袖套的归一化承保回报；剩余${Math.round(unallocatedStockWeight * 100)}%额度未批准，该敏感性不是已承诺现金流。`
 };
 goals.dividendAcceleration.incomePortfolio = {
   status: 'conditional-blueprint-over-current-research-caps',
@@ -252,7 +255,7 @@ const accumulationPhase = goals.dividendAcceleration.phasePortfolios.find(row =>
 accumulationPhase.targetReturn = underwritingReturn;
 accumulationPhase.companyBaseReturn = baseReturn;
 accumulationPhase.targetYield = goals.dividendAcceleration.twoStage.accumulationYield;
-accumulationPhase.allocation = '茅台25%＋腾讯15%＋招行10%＋福耀10%＋安踏8%＋泡泡6%＋现金26%；宇通退出，当前只批准六只正式目标';
+accumulationPhase.allocation = '最终100%股票；已批准茅台25%＋腾讯15%＋招行10%＋福耀10%＋安踏8%＋泡泡6%=74%，其余26%为待研究、待批准股票额度';
 const incomePhase = goals.dividendAcceleration.phasePortfolios.find(row => row.id === 'income');
 incomePhase.targetReturn = terminalUnderwrittenReturn;
 incomePhase.targetYield = terminalYield;
@@ -275,14 +278,15 @@ const routinePowerDate = purchasingPowerAudit.planning.realRoutineSafety?.date |
 
 const dividendTarget = goals.targets.find(row => row.id === 'dividend1m');
 dividendTarget.status = '未来目标：建仓完成后重新启动';
-dividendTarget.note = `当前阶段不以股息率或收息结构驱动换仓。旧终态模型仅留作历史审计；待积累期建仓完成、保留至少10%永久机会现金且用户明确确认后，再用当时的价格、DPS与公司上限重建。`;
-goals.dividendAcceleration.rules[0] = `当前${formalPolicyLabel}的承保回报为${(underwritingReturn * 100).toFixed(2)}%，两阶段路径约${formal.nominal.duration}/${formal.safety.duration}；“现在转高股息”模型约${incomeFirst.nominal.duration}/${incomeFirst.safety.duration}，但它同样不能把空缺席位当成已获得的收益率。`;
-goals.dividendAcceleration.rules[1] = `${(baseReturn * 100).toFixed(2)}%是当前正式目标公司基准机械加权，不作为保守规划输入；组合承保年化为${(underwritingReturn * 100).toFixed(2)}%。有满36个月实绩后，若滚动三年年化低于7.5%，切换7%压力路径并重算日期。`;
+dividendTarget.note = `当前阶段不以股息率或收息结构驱动换仓。旧终态模型仅留作历史审计；待积累期100%股票建仓完成且用户明确重启后，再用当时数据重建。`;
+goals.dividendAcceleration.rules[0] = `已批准六只股票袖套归一化承保回报为${(underwritingReturn * 100).toFixed(2)}%；终态股息模块已冻结，其日期不进入当前决策。`;
+goals.dividendAcceleration.rules[1] = `${(baseReturn * 100).toFixed(2)}%是已批准六只股票袖套的基准机械加权，${(underwritingReturn * 100).toFixed(2)}%是质量折扣承保；最终100%股票组合须在剩余席位批准后重算。`;
 goals.dividendAcceleration.rules[3] = '资产达到1800万元只是启动迁移的必要条件；招行、中国移动、白电和长电若未获得更高终态权重承保，只能按当前硬上限计算。宇通只有重新获批后才能参与。';
 goals.dividendAcceleration.rules[5] = `名义100万元不是购买力目标；按3%规划通胀，2026年100万元购买力和20%缓冲在${routinePowerLabel}。本模块已冻结，重启时须用实际CPI与最新回报重算。`;
-goals.dividendAcceleration.note = `本模块已冻结为未来研究，不进入当前换仓、选股或预警。当前积累期公司基准为${(baseReturn * 100).toFixed(2)}%，承保为${(underwritingReturn * 100).toFixed(2)}%；建仓完成后须用当时数据全部重算，旧含宇通七席及九公司模型仅供追溯。`;
-const pessimisticReturn = metrics.targetRows.reduce((sum, row) => sum + row.weight * (Number(row.pessimisticIrr) || 0), 0)
+goals.dividendAcceleration.note = `本模块已冻结为未来研究。当前只能计算已批准六只股票袖套：基准${(baseReturn * 100).toFixed(2)}%、承保${(underwritingReturn * 100).toFixed(2)}%；最终100%股票组合在剩余席位批准前没有完整回报率。`;
+const pessimisticContribution = metrics.targetRows.reduce((sum, row) => sum + row.weight * (Number(row.pessimisticIrr) || 0), 0)
   + metrics.cashWeight * (metrics.cashReturn || 0);
+const pessimisticReturn = metrics.coveredWeight > 0 ? pessimisticContribution / metrics.coveredWeight : null;
 goals.goalPathAudit.asOf = TODAY;
 goals.goalPathAudit.companyBaseReturn = baseReturn;
 goals.goalPathAudit.underwritingReturn = underwritingReturn;
@@ -290,8 +294,8 @@ goals.goalPathAudit.fullPessimisticReturn = pessimisticReturn;
 goals.goalPathAudit.baseline.companyBaseReturn = baseReturn;
 goals.goalPathAudit.baseline.underwritingReturn = underwritingReturn;
 goals.goalPathAudit.baseline.normalizedAfterTaxDividend = payload.portfolio.currentDividendBaseline.current;
-goals.honestRestatement.quantification = `当前${formalPolicyLabel}的公司基准机械加权约${(baseReturn * 100).toFixed(2)}%，质量折扣后承保年化约${(underwritingReturn * 100).toFixed(2)}%；对应10年约${multiple(underwritingReturn, 10).toFixed(2)}倍，低于5倍目标。现有组合是稳健复利底盘，不是十年五倍的充分解；新增资金必须依靠更低买价、盈利兑现或更高质量的有限新席位提高回报。`;
-goals.honestRestatement.dividendPath = `正式组合最多7只，当前积累期只批准6只和74%股票上限。终态六个收息席位的条件蓝图权重为77%，但按现有个股研究上限只承保58%；超限部分与第七席都不能预支。滚动十二个月普通股息达到120万元、统一减息15%后仍有100万元，才是日常安全验收。`;
+goals.honestRestatement.quantification = `已批准六只${approvedStockPct}%股票袖套的基准年化约${(baseReturn * 100).toFixed(2)}%，质量折扣承保约${(underwritingReturn * 100).toFixed(2)}%；若剩余${Math.round(unallocatedStockWeight * 100)}%股票额度取得同等承保回报，10年示意约${multiple(underwritingReturn, 10).toFixed(2)}倍，仍低于5倍目标。最终组合必须在新席位批准后重算。`;
+goals.honestRestatement.dividendPath = `当前积累期最终目标是100%股票；现有六只已批准${approvedStockPct}%、有效硬容量76%，未批准额度临时以现金形式等待。终态股息模块已冻结，不进入当前决策。`;
 goals.timeline = [
   { date: '2026-09', event: '起点：总资产1000万元（股票195.11万＋现金804.89万）' },
   { date: formal.migrationStartDate, event: `当前积累组合承保：资产约1800万元，只在收息席位通过时开始迁移` },
@@ -307,7 +311,7 @@ const common = {
   principal: Number(pf.totalAssets),
   startDate: spec.startDate,
   startStockWeight: Number(pf.stockMarketValue) / Number(pf.totalAssets),
-  targetStockWeight: 1 - Number(pf.opportunityCash.weight),
+  targetStockWeight,
   cashReturn: Number(pf.opportunityCash.baseAnnualReturn),
   accumulationYield: Number(spec.twoStage.accumulationYield),
   deploymentMonths: Number(spec.twoStage.deploymentMonths),
@@ -318,7 +322,7 @@ const common = {
   nominalDividend: Number(spec.nominalDividend),
   safetyDividend: Number(spec.safetyDividend)
 };
-pf.deploymentClock.note = '部署没有强制截止日。当前阶段只考虑本金增长；股息迁移在建仓完成前冻结。64%是六只正常仓完成线，74%是现有正式政策上限，均不能凌驾于买价和基本面。';
+pf.deploymentClock.note = '部署没有强制截止日。最终目标是100%股票；当前六只已批准74%、有效硬容量76%，剩余额度必须由合格新席位或重新批准的公司补足。不为100%目标放宽买价和基本面。';
 pf.currentDividendBaseline.terminalYield = terminalYield;
 pf.currentDividendBaseline.conditionalBlueprintYield = blueprintTerminalYield;
 pf.currentDividendBaseline.assetsNeeded = Math.round(1000000 / terminalYield);
@@ -394,7 +398,7 @@ bottleneck.tenYearGate.priceEquivalent = `若普通股息不增长，5.2%相当�
 const return95 = bottleneck.returnSensitivity.find(row => row.annualReturn === 0.095);
 const yield50 = bottleneck.yieldSensitivity.find(row => row.terminalAfterTaxYield === 0.05);
 bottleneck.bottleneckRanking[0].evidence = `在当前${(underwritingReturn * 100).toFixed(2)}%承保回报下，终态税后率从${(common.terminalYield * 100).toFixed(3)}%提高到5.0%，安全线提前约${formal.safety.months - yield50.safetyMonth}个月；补位收益不能在公司通过前预支。`;
-bottleneck.bottleneckRanking[1].evidence = `积累期从${(underwritingReturn * 100).toFixed(2)}%提高到9.5%，安全线提前约${formal.safety.months - return95.safetyMonth}个月；当前26%现金中有10%来自宇通退出，是保持决策纪律的显性代价。`;
+bottleneck.bottleneckRanking[1].evidence = `积累期从${(underwritingReturn * 100).toFixed(2)}%提高到9.5%，安全线提前约${formal.safety.months - return95.safetyMonth}个月；当前未批准的${Math.round(unallocatedStockWeight * 100)}%股票额度在新席位通过前临时以现金等待。`;
 const tenYearPowerContribution = purchasingPowerAudit.contributionSensitivity.horizonThresholds.find(row => row.horizonYears === 10);
 bottleneck.decision = `本模块已冻结为未来研究。旧模型下，当前${formalPolicyLabel}的积累承保年化为${(underwritingReturn * 100).toFixed(2)}%；3%规划通胀下的购买力安全线在${routinePowerLabel}。这些日期不进入当前选股、换仓或预警，建仓完成后须全部重算。`;
 write('goal-bottleneck.json', bottleneck);
@@ -403,7 +407,7 @@ const cashDeployment = read('cash-deployment.json');
 cashDeployment.asOf = TODAY;
 cashDeployment.targetStockWeight = common.targetStockWeight;
 cashDeployment.targetCashWeight = 1 - common.targetStockWeight;
-cashDeployment.permanentOpportunityCashWeight = 0.10;
+cashDeployment.permanentOpportunityCashWeight = 0;
 cashDeployment.excessWaitingCash = Math.max(0, cashDeployment.currentCash - pf.totalAssets * (1 - common.targetStockWeight));
 cashDeployment.underwrittenEquityReturn = (underwritingReturn - (1 - common.targetStockWeight) * common.cashReturn) / common.targetStockWeight;
 cashDeployment.currentUnderwrittenPortfolioReturn = cashDeployment.currentStockWeight * cashDeployment.underwrittenEquityReturn
@@ -424,25 +428,33 @@ cashDeployment.deploymentScenarios = deploymentResults.map(({ months, result }) 
   judgment: deploymentLabels.get(months).judgment
 }));
 cashDeployment.protocol = cashDeployment.protocol.map(row => {
-  if (row.month === 18) return { ...row, stockWeightRange: '65%—74%', action: '若低于65%，如实延后达标日期；当前六只正式目标最多承载74%股票。' };
+  if (row.month === 18) return { ...row, stockWeightRange: '70%—100%', action: '最终目标100%股票；当前六只有效容量76%，超出部分只能由已批准的新席位填补。' };
   return row;
 });
-cashDeployment.cashManagement = '当前六只正式目标只能承载74%股票，其余26%含宇通退出后尚未分配的10%；未部署资金只做高流动性、低信用风险、不阻碍未来合格买入的现金管理，利息不计入股息100万元验收。';
+cashDeployment.cashManagement = '最终现金目标0%。当前六只已批准74%、有效容量76%，其余24%—26%是待批准股票额度；在合格标的出现前，对应资金只做高流动性、低信用风险的临时管理。';
 write('cash-deployment.json', cashDeployment);
 
 const ledger = read('goal-ledger.json');
 ledger.policyAsOf = TODAY;
 ledger.checkpointMonths = [...new Set([0, 3, 6, 12, 18, 36, 60, formal.migrationStartMonth, formal.nominal.months, formal.safety.months])].sort((a, b) => a - b);
 ledger.rules = ledger.rules.map(rule => rule.replace('第8只不得直接新增，必须先退出一个现有席位。', '第8只不得作为计划新增；若券商已经实际成交则如实登记并标红，随后必须退出一个席位。'));
-ledger.deploymentRanges = ledger.deploymentRanges.map(row => row.month === 18 ? { ...row, maxStockWeight: targetStockWeight, label: '积累期部署门（当前六只正式目标）' } : row);
+ledger.deploymentRanges = ledger.deploymentRanges.map(row => row.month === 18 ? { ...row, maxStockWeight: targetStockWeight, label: '最终100%股票目标（条件式）' } : row);
 ledger.snapshots = ledger.snapshots.map(row => ({ netExternalFlow: 0, ...row }));
 if (!ledger.rules.some(rule => rule.includes('净入金'))) ledger.rules.push('每期新增或提取本金必须记录为净入金；滚动收益率按资金流调整后计算，禁止把追加本金当作投资收益。');
 write('goal-ledger.json', ledger);
 
 const evolution = read('portfolio-evolution.json');
 evolution.asOf = TODAY;
-evolution.policyAuthority.version = '2026-09-09-v2';
-evolution.policyAuthority.formalStructure = `${formalHoldingCount}只正式目标、${targetStockPct}%股票上限、${targetCashPct}%机会现金（含10%未分配）`;
+evolution.policyAuthority.version = '2026-09-10-v4';
+evolution.policyAuthority.formalStructure = `最终100%股票、0%现金；当前${formalHoldingCount}只已批准${approvedStockPct}%，其余${Math.round(unallocatedStockWeight * 100)}%待研究批准`;
+if (!evolution.timeline.some(row => row.date === TODAY && row.title === '最终配置目标修正为100%股票')) {
+  evolution.timeline.push({
+    date: TODAY,
+    title: '最终配置目标修正为100%股票',
+    detail: `用户明确确认最终不保留永久现金仓。当前六只已批准目标${approvedStockPct}%、有效硬容量76%；距100%的24%—26%记为待研究股票额度，在获批前临时以现金存在，不自动分配给观察仓。`,
+    source: '用户2026-09-10明确决策'
+  });
+}
 if (!evolution.timeline.some(row => row.date === TODAY && row.title === '纠正七席组合承保回报与目标日期')) {
   evolution.timeline.push({
     date: TODAY,
@@ -481,7 +493,7 @@ evolution.latestPlan.initialExecution = {
   buyFirst: false,
   summary: '腾讯≤460港元与福耀≤57.70元旧计划均已撤回；当前无待执行订单。最新条件队列为福耀≤55、安踏≤72、腾讯≤420、茅台1240—1280，均须到价后重新确认。'
 };
-evolution.latestPlan.notes[0] = `当前${formalPolicyLabel}按报告机械加权约${(baseReturn * 100).toFixed(2)}%，质量折扣承保约${(underwritingReturn * 100).toFixed(2)}%；5年2倍和10年5倍仍不是基准承诺。`;
+evolution.latestPlan.notes[0] = `最终100%股票；已批准六只${approvedStockPct}%袖套归一化基准约${(baseReturn * 100).toFixed(2)}%，质量折扣承保约${(underwritingReturn * 100).toFixed(2)}%。剩余席位未批准前，不能宣称最终组合回报已确定。`;
 evolution.latestPlan.notes[1] = '当前阶段不考虑股息迁移与终态收息组合；待积累期建仓完成并由用户明确重启后，用当时数据重新研究。';
 evolution.latestPlan.notes[2] = '部署纪律：当前无待执行订单；福耀、安踏、腾讯和茅台依最新价格闸门依次复核。宇通留在观察仓，不在买入清单。';
 evolution.latestPlan.notes[5] = `终态六席77%是条件蓝图；按当前个股研究硬上限只承保58%和${(incomePortfolioAudit.normalYield * 100).toFixed(3)}%税后率。逐股严重复合减息后仍有100万元需约${Math.round(incomePortfolioAudit.severeSafetyAssets / 10000)}万元。`;

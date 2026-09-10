@@ -36,6 +36,12 @@ const optionalNumber = value => {
   const number = Number(value);
   return Number.isFinite(number) ? number : null;
 };
+const finalTargetStockWeight = portfolio => {
+  const explicit = Number(portfolio?.finalStockPolicy?.targetStockWeight);
+  if (Number.isFinite(explicit)) return explicit;
+  const cashWeight = Number(portfolio?.opportunityCash?.weight);
+  return 1 - (Number.isFinite(cashWeight) ? cashWeight : 0.1);
+};
 function estimatedAnnualDividend(entry, quantity, fxRate, grossCny) {
   const normalizedDps = optionalNumber(entry?.normalizedDps);
   const taxRate = optionalNumber(entry?.dividendTaxRate) ?? 0;
@@ -348,7 +354,7 @@ function buildDividendRunway(payload, portfolioReturn) {
   if (!spec || !pf) return null;
   const principal = Number(pf.totalAssets);
   const startStockWeight = Number(pf.stockMarketValue) / principal;
-  const targetStockWeight = 1 - (Number(pf.opportunityCash?.weight) || 0.1);
+  const targetStockWeight = finalTargetStockWeight(pf);
   const cashReturn = Number(pf.opportunityCash?.baseAnnualReturn) || 0.015;
   const common = {
     principal,
@@ -523,7 +529,7 @@ function buildDividendAcceleration(payload, dividendRunway, underwritingReturn) 
   if (!spec || !pf) return null;
   const principal = Number(pf.totalAssets);
   const startStockWeight = Number(pf.stockMarketValue) / principal;
-  const targetStockWeight = 1 - (Number(pf.opportunityCash?.weight) || 0.1);
+  const targetStockWeight = finalTargetStockWeight(pf);
   const cashReturn = Number(pf.opportunityCash?.baseAnnualReturn) || 0.015;
   const ledger = payload.goalLedger;
   const latestSnapshot = [...(ledger?.snapshots || [])].sort((a, b) => String(a.date).localeCompare(String(b.date))).at(-1);
@@ -716,7 +722,7 @@ function buildIncomePortfolioAudit(payload, dividendAcceleration) {
     principal: Number(pf.totalAssets),
     startDate: spec.startDate,
     startStockWeight: Number(pf.stockMarketValue) / Number(pf.totalAssets),
-    targetStockWeight: 1 - Number(pf.opportunityCash.weight),
+    targetStockWeight: finalTargetStockWeight(pf),
     cashReturn: Number(pf.opportunityCash.baseAnnualReturn),
     accumulationReturn: formalPath.accumulationReturn,
     accumulationYield: Number(spec.twoStage.accumulationYield),
@@ -834,7 +840,7 @@ function buildPurchasingPowerAudit(payload, dividendAcceleration, incomePortfoli
     principal: Number(pf.totalAssets),
     startDate: spec.startDate,
     startStockWeight: Number(pf.stockMarketValue) / Number(pf.totalAssets),
-    targetStockWeight: 1 - Number(pf.opportunityCash.weight),
+    targetStockWeight: finalTargetStockWeight(pf),
     cashReturn: Number(pf.opportunityCash.baseAnnualReturn),
     accumulationReturn: formalPath.accumulationReturn,
     accumulationYield: Number(spec.twoStage.accumulationYield),
@@ -1225,7 +1231,7 @@ function buildDecisionMetrics(payload) {
     alerts.unshift({
       severity: 'green',
       title: '当前阶段已切换为本金增长优先',
-      detail: '股息迁移、第七收息席与购买力时钟均已冻结为未来研究；主动决策只看公司质量、质量折扣承保回报、价格闸门、仓位上限和机会成本。'
+      detail: '最终目标已确认为100%股票，现金只是等待合格价格与公司闸门时的临时形态。当前六只已批准74%、有效硬容量76%；剩余24%—26%必须由新的已批准股票席位补足，不为满仓放宽买价或上限。'
     });
   } else {
     if (accelerated) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `当前${pf.targetPortfolio.length}只正式目标占位路径约${accelerated.nominal.duration}达到名义100万元，但约${accelerated.safety.duration}才达到120万元安全线；空缺席位通过后必须重新计算。` });

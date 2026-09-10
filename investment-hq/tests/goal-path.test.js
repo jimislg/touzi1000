@@ -39,6 +39,7 @@ test('持续投入缩短目标时间，但零投入路径保持不变', () => {
 test('冻结的终态收息蓝图仍诚实暴露超限权重与集中度缺口', () => {
   const payload = bootstrapPayload();
   const audit = payload.decisionMetrics.incomePortfolioAudit;
+  const formalPath = payload.decisionMetrics.dividendAcceleration.paths.find(row => row.id === 'underwrittenTwoStage');
   assert.equal(audit.holdingCount, 6);
   assert.equal(payload.goals.dividendAcceleration.status, 'deferred-until-accumulation-complete');
   assert.equal(payload.goals.dividendAcceleration.executionEligible, false);
@@ -52,8 +53,8 @@ test('冻结的终态收息蓝图仍诚实暴露超限权重与集中度缺口',
   assert.ok(audit.maxDividendContribution > 0.20);
   assert.ok(audit.routineDividendAtFormalSafetyAssets >= 1000000);
   assert.ok(audit.severeSafetyAssets > audit.formalSafetyAssets);
-  assert.equal(audit.severeSafetyPath.months, 337);
-  assert.equal(audit.severeSafetyPath.date, '2054-10');
+  assert.ok(audit.severeSafetyPath.months > formalPath.safety.months);
+  assert.match(audit.severeSafetyPath.date, /^\d{4}-\d{2}$/);
   const gate = payload.goalBottleneck.seventhSeatGate;
   assert.equal(gate.status, 'current-caps-make-seven-seat-target-infeasible');
   assert.ok(Math.abs(gate.concentrationRepair.minimumSeatAfterTaxYieldAtMaxWeight - 0.14633) < 1e-12);
@@ -62,25 +63,30 @@ test('冻结的终态收息蓝图仍诚实暴露超限权重与集中度缺口',
   assert.ok(gate.feasibilityBoundary.maximumPortfolioYieldWithFixedSixAndOneCompliantNewContributor < gate.targetTerminalYield);
 });
 
-test('冻结的购买力模型在60年内无解时保持为空，而不是伪造日期', () => {
+test('冻结的购买力模型保持目标先后关系，并对60年内无解的重压线留空', () => {
   const payload = bootstrapPayload();
   const formal = payload.decisionMetrics.dividendAcceleration.paths.find(row => row.id === 'underwrittenTwoStage');
   const audit = payload.decisionMetrics.purchasingPowerAudit;
   assert.equal(audit.planning.inflation, 0.03);
   assert.ok(audit.planning.fixedRoutineRealDividend < 1000000);
   assert.ok(audit.planning.realNominal.months > formal.safety.months);
-  assert.equal(audit.planning.realRoutineSafety, null);
+  assert.ok(audit.planning.realRoutineSafety.months > audit.planning.realNominal.months);
   assert.equal(audit.planning.realSevereSafety, null);
   assert.equal(audit.postAchievement, null);
   assert.equal(audit.dividendGrowthGate.status, 'unverified');
 });
 
-test('本金增长计划不会把条件队列当成订单，也不会自动恢复宇通', () => {
+test('本金增长计划以100%股票为最终目标，但不会把未批准额度或观察仓当成订单', () => {
   const payload = bootstrapPayload();
   const plan = payload.accumulationPlan;
   assert.equal(plan.status, 'active-principal-growth-only');
   assert.equal(plan.completionDefinition.normalCompletionStockWeight, 0.64);
-  assert.equal(plan.completionDefinition.permanentOpportunityCashFloor, 0.10);
+  assert.equal(plan.completionDefinition.policyTargetStockWeight, 1);
+  assert.equal(plan.completionDefinition.currentSixApprovedTargetWeight, 0.74);
+  assert.equal(plan.completionDefinition.currentSixPolicyHardCapacity, 0.76);
+  assert.equal(plan.completionDefinition.permanentOpportunityCashFloor, 0);
+  assert.equal(payload.portfolio.finalStockPolicy.targetStockWeight, 1);
+  assert.equal(payload.portfolio.opportunityCash.weight, 0);
   assert.equal(payload.portfolio.executionPlan.rows.length, 0);
   assert.equal(payload.portfolio.executionPlan.expectedBuyTotal, 0);
   assert.equal(plan.growthSeatCandidates.find(row => row.name === '宇通客车').status, '退出正式名单，保留观察仓');

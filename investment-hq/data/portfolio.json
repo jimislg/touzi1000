@@ -1,5 +1,5 @@
 {
-  "policyVersion": "2026-09-10-v3",
+  "policyVersion": "2026-09-10-v4",
   "policyAuthority": {
     "status": "authoritative-execution-policy",
     "sourceOfTruth": "本文件的targetPortfolio、concentrationPolicy和executionPlan",
@@ -168,13 +168,24 @@
       "安踏体育"
     ],
     "rule": "实际持仓与正式目标组合均最多7只；已经满7席时，新公司只能在先卖出一个现有席位后买入，观察池不占席位。",
-    "focusNote": "宇通、宁德、康臣和小商品城均在观察池，不占正式目标仓位。宇通释放的10%暂留机会现金；任何候选回归都必须先通过最新经营与价格闸门。现有格力、万华仍是实际持仓中的待复核席位。"
+    "focusNote": "宇通、宁德、康臣和小商品城均在观察池，不占正式目标仓位。最终目标是100%股票；当前六只已批准74%，其余26%是待研究、待批准的股票额度，不自动分配给观察仓。现有格力、万华仍是实际持仓中的待复核席位。"
+  },
+  "finalStockPolicy": {
+    "status": "confirmed-all-equity-target-allocation-incomplete",
+    "targetStockWeight": 1,
+    "targetCashWeight": 0,
+    "approvedSixTargetWeight": 0.74,
+    "approvedSixNormalWeight": 0.64,
+    "approvedSixEffectiveHardCapacity": 0.76,
+    "unallocatedStockWeightAtApprovedTargets": 0.26,
+    "minimumAdditionalCapacityNeeded": 0.24,
+    "rule": "最终以100%股票为配置目标；现金只是等待价格与公司闸门时的临时形态。未通过研究与用户确认的24%—26%股票额度不得伪装成已投资回报，也不得为满仓放宽买价或单股上限。"
   },
   "opportunityCash": {
-    "weight": 0.26,
-    "targetValue": 2600000,
+    "weight": 0,
+    "targetValue": 0,
     "baseAnnualReturn": 0.015,
-    "role": "10%永久机会现金＋6%聚焦预备金＋宇通退出后10%未分配资金；没有合格替代前不强行填仓，不计入股息目标"
+    "role": "最终目标权重为0%。当前现金只是待部署资金：价格或基本面闸门未通过时可继续等待，但不再设永久现金仓。"
   },
   "currentDividendBaseline": {
     "current": 71177,
@@ -246,20 +257,20 @@
       },
       {
         "stage": "条件允许时",
-        "stockWeightRange": "64%—74%",
-        "cashWeightRange": "26%—36%",
-        "action": "64%为六只正常仓完成线；74%已含多只硬上限，只能逐笔批准"
+        "stockWeightRange": "64%—76%",
+        "cashWeightRange": "24%—36%（临时）",
+        "action": "64%为六只正常仓线；六只已批准目标74%，有效硬容量76%，只能逐笔批准"
       },
       {
-        "stage": "长期硬边界",
-        "stockWeightRange": "六只≤76%",
-        "cashWeightRange": "≥10%",
-        "action": "六只在组合绝对单股上限下有效硬容量76%；新增第七增长席须另批，任何结构仍保留至少10%永久机会现金"
+        "stage": "最终目标",
+        "stockWeightRange": "100%",
+        "cashWeightRange": "0%目标",
+        "action": "六只有效硬容量仅76%；剩余24%—26%必须由新增或重新批准的高质量席位填补，不设强制满仓日"
       }
     ],
     "currentCashDragReturn": 0.037001,
     "currentCashDragYearsTo25m": 25.219,
-    "note": "部署没有强制截止日。当前阶段只考虑本金增长；股息迁移在建仓完成前冻结。64%是六只正常仓完成线，74%是现有正式政策上限，均不能凌驾于买价和基本面。"
+    "note": "部署没有强制截止日。最终目标是100%股票；当前六只已批准74%、有效硬容量76%，剩余额度必须由合格新席位或重新批准的公司补足。不为100%目标放宽买价和基本面。"
   },
   "deploymentQueue": {
     "asOf": "2026-09-10",
@@ -873,7 +884,7 @@
     "wanhua": 56
   },
   "disciplines": [
-    "正式组合最多7只；当前已批准六只、目标结构为74%股票+26%现金。宇通退出后的10%在新候选通过前保持现金。",
+    "最终目标是100%股票、0%现金；当前已批准六只合计74%，剩余26%是待研究股票额度，未批准前临时以现金存在。",
     "单股达到目标权重后停止主动加仓；茅台25%、腾讯15%为默认目标，任何超额仓位必须重新审批。",
     "不因下跌本身加仓。第二、三批必须同时确认投资逻辑未恶化。",
     "当前实际持仓已满7席：腾讯、福耀可在原席位内加仓；茅台或任何新公司买入前，必须先退出格力、万华或另一个明确席位。宇通当前不在买入清单。",

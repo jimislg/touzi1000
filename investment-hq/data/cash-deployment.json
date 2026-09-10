@@ -2,76 +2,76 @@
   "asOf": "2026-09-10",
   "currentCash": 8048924.74,
   "currentStockWeight": 0.195107526,
-  "targetStockWeight": 0.74,
-  "permanentOpportunityCashWeight": 0.1,
-  "excessWaitingCash": 5448924.74,
+  "targetStockWeight": 1,
+  "permanentOpportunityCashWeight": 0,
+  "excessWaitingCash": 8048924.74,
   "cashReturn": 0.015,
   "underwrittenEquityReturn": 0.08926959459459462,
   "currentUnderwrittenPortfolioReturn": 0.029490556858374324,
-  "targetUnderwrittenPortfolioReturn": 0.06995950000000002,
-  "currentAnnualDrag": 0.0404689431416257,
-  "annualOpportunityCostCny": 404689.43,
+  "targetUnderwrittenPortfolioReturn": 0.08926959459459462,
+  "currentAnnualDrag": 0.05977903773622029,
+  "annualOpportunityCostCny": 597790.38,
   "deploymentScenarios": [
     {
       "months": 6,
-      "migrationMonth": 107,
-      "nominalMonth": 262,
-      "safetyMonth": 305,
-      "delayVs18Safety": -3,
+      "migrationMonth": 86,
+      "nominalMonth": 236,
+      "safetyMonth": 279,
+      "delayVs18Safety": -4,
       "label": "机会高密度",
       "judgment": "只有多只A类同时达到P12/P15才可能，不作时间指令。"
     },
     {
       "months": 12,
-      "migrationMonth": 109,
-      "nominalMonth": 263,
-      "safetyMonth": 307,
-      "delayVs18Safety": -1,
+      "migrationMonth": 88,
+      "nominalMonth": 238,
+      "safetyMonth": 281,
+      "delayVs18Safety": -2,
       "label": "较强机会",
       "judgment": "可以提前2个月，前提是实际买入IRR不降。"
     },
     {
       "months": 18,
-      "migrationMonth": 111,
-      "nominalMonth": 265,
-      "safetyMonth": 308,
+      "migrationMonth": 90,
+      "nominalMonth": 240,
+      "safetyMonth": 283,
       "delayVs18Safety": 0,
       "label": "政策基准",
       "judgment": "条件部署的计划基准，不是18个月到期强制满仓。"
     },
     {
       "months": 24,
-      "migrationMonth": 112,
-      "nominalMonth": 267,
-      "safetyMonth": 310,
+      "migrationMonth": 92,
+      "nominalMonth": 241,
+      "safetyMonth": 285,
       "delayVs18Safety": 2,
       "label": "可接受延后",
       "judgment": "安全线约晚2个月；买价明显不合格时可接受。"
     },
     {
       "months": 36,
-      "migrationMonth": 116,
-      "nominalMonth": 270,
-      "safetyMonth": 313,
-      "delayVs18Safety": 5,
+      "migrationMonth": 95,
+      "nominalMonth": 246,
+      "safetyMonth": 289,
+      "delayVs18Safety": 6,
       "label": "黄色预警",
       "judgment": "不能只继续等原九只；必须扩展A类候选池或审计合格外部管理人。"
     },
     {
       "months": 60,
-      "migrationMonth": 123,
-      "nominalMonth": 277,
-      "safetyMonth": 320,
-      "delayVs18Safety": 12,
+      "migrationMonth": 103,
+      "nominalMonth": 254,
+      "safetyMonth": 297,
+      "delayVs18Safety": 14,
       "label": "路径停滞",
       "judgment": "等待五年使安全线晚13个月；说明候选池、估值更新或外部管理方案失效。"
     },
     {
       "months": 120,
-      "migrationMonth": 140,
-      "nominalMonth": 294,
-      "safetyMonth": 337,
-      "delayVs18Safety": 29,
+      "migrationMonth": 123,
+      "nominalMonth": 273,
+      "safetyMonth": 316,
+      "delayVs18Safety": 33,
       "label": "无限等价",
       "judgment": "等待十年使安全线晚32个月，与“最快”目标冲突，明确否决。"
     }
@@ -103,8 +103,8 @@
     },
     {
       "month": 18,
-      "stockWeightRange": "65%—74%",
-      "action": "若低于65%，如实延后达标日期；当前六只正式目标最多承载74%股票。",
+      "stockWeightRange": "70%—100%",
+      "action": "最终目标100%股票；当前六只有效容量76%，超出部分只能由已批准的新席位填补。",
       "forbidden": "不为完成表格而强制买到90%。"
     }
   ],
@@ -113,6 +113,6 @@
     "caps": "A类单次报告更新上调不超过10%；B类原则上只在年报或完整中报后调整。",
     "invalid": "股价上涨、卖方目标价上调、一次性利润和估值扩张都不能触发买点上调。"
   },
-  "cashManagement": "当前六只正式目标只能承载74%股票，其余26%含宇通退出后尚未分配的10%；未部署资金只做高流动性、低信用风险、不阻碍未来合格买入的现金管理，利息不计入股息100万元验收。",
-  "targetCashWeight": 0.26
+  "cashManagement": "最终现金目标0%。当前六只已批准74%、有效容量76%，其余24%—26%是待批准股票额度；在合格标的出现前，对应资金只做高流动性、低信用风险的临时管理。",
+  "targetCashWeight": 0
 }

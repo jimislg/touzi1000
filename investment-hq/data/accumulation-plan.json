@@ -8,31 +8,35 @@
     "status": "deferred-until-accumulation-complete",
     "executionEligible": false,
     "revisitWhen": [
-      "积累期建仓完成并保留不少于10%的永久机会现金",
+      "积累期实现100%股票配置，且所有席位都已通过最新研究与用户确认",
       "组合总资产和可持续自由现金流达到新的迁移复核门槛",
       "用户明确确认重新启动股息迁移研究"
     ]
   },
   "completionDefinition": {
     "normalCompletionStockWeight": 0.64,
-    "policyTargetStockWeight": 0.74,
+    "policyTargetStockWeight": 1,
+    "currentSixApprovedTargetWeight": 0.74,
     "currentSixPolicyHardCapacity": 0.76,
     "currentSixCompanyReportHardCapacity": 0.81,
-    "permanentOpportunityCashFloor": 0.1,
+    "remainingStockGapAtApprovedTargets": 0.26,
+    "remainingStockGapAfterSixHardCapacity": 0.24,
+    "permanentOpportunityCashFloor": 0,
     "normalWeights": "茅台25%＋腾讯12%＋招行8%＋福耀8%＋泡泡6%＋安踏5%=64%",
-    "policyTargetCaveat": "74%正式目标已把茅台推至组合绝对上限，并把腾讯、招行、福耀和安踏推至各自研究硬上限；六只有效硬容量只有76%，不是无条件买满线。",
-    "rule": "建仓完成是达到价格与基本面共同允许的仓位，而不是100%满仓；任何时候都不为完成进度放宽买价或突破个股硬上限。"
+    "policyTargetCaveat": "最终政策目标为100%股票。当前六只已批准目标仅74%，六只有效硬容量76%；因此距100%仍有24%—26%必须由新席位或重新批准的公司填补。",
+    "rule": "建仓完成定义为100%股票，但只能由价格与基本面同时过关的公司构成；未获批额度在此前临时保持现金，不为完成进度放宽买价或突破个股硬上限。"
   },
   "returnReality": {
     "requiredForFiveYearDouble": 0.1487,
     "requiredForTenYearFiveX": 0.1746,
-    "formalTargetBaseReturn": 0.08488,
-    "formalTargetUnderwrittenReturn": 0.0699595,
-    "baseYearsToDouble": 8.51,
-    "baseYearsToFiveX": 19.76,
-    "underwrittenYearsToDouble": 10.25,
-    "underwrittenYearsToFiveX": 23.8,
-    "conclusion": "现有正式组合是稳健复利底盘，不是10年5倍的充分解。要提高本金增速，只能依靠更低买价、盈利兑现，或新增少量高质量且承保回报更高的有限席位；不能靠提高仓位本身制造回报。"
+    "approvedSixSleeveBaseReturn": 0.10943243243243243,
+    "approvedSixSleeveUnderwrittenReturn": 0.08926959459459459,
+    "illustrativeSameQualityBaseYearsToDouble": 6.67,
+    "illustrativeSameQualityBaseYearsToFiveX": 15.5,
+    "illustrativeSameQualityUnderwrittenYearsToDouble": 8.11,
+    "illustrativeSameQualityUnderwrittenYearsToFiveX": 18.82,
+    "finalPortfolioReturnStatus": "pending-unallocated-stock-selection",
+    "conclusion": "现有六只已批准股票袖套的质量折扣承保年化约8.93%。若剩余26%股票额度能找到同等承保回报，100%股票组合示意翻倍约8.1年；但新席位未批准前，最终组合回报与翻倍时间都必须标记为待重算。"
   },
   "currentSnapshot": {
     "asOf": "2026-08-25，尚待下一张券商快照核对",

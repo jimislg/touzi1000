@@ -10,9 +10,9 @@
     18,
     36,
     60,
-    111,
-    265,
-    308
+    90,
+    240,
+    283
   ],
   "deploymentRanges": [
     {
@@ -42,8 +42,8 @@
     {
       "month": 18,
       "minStockWeight": 0.7,
-      "maxStockWeight": 0.74,
-      "label": "积累期部署门（当前六只正式目标）"
+      "maxStockWeight": 1,
+      "label": "最终100%股票目标（条件式）"
     }
   ],
   "snapshots": [

@@ -27,9 +27,13 @@ function close(a, b, tolerance = 1e-9) {
 
 const formalNames = pf.concentrationPolicy.formalNames;
 const targetNames = pf.targetPortfolio.map(row => row.name);
+const approvedStockWeight = pf.targetPortfolio.reduce((sum, row) => sum + row.weight, 0);
+const finalStockPolicy = pf.finalStockPolicy;
 check(JSON.stringify(formalNames) === JSON.stringify(targetNames), '正式名单与目标组合顺序一致');
 check(pf.targetPortfolio.length <= pf.concentrationPolicy.maxHoldings, '正式目标不超过七席');
-check(close(pf.targetPortfolio.reduce((sum, row) => sum + row.weight, 0) + pf.opportunityCash.weight, 1), '目标股票与现金权重合计100%');
+check(finalStockPolicy?.targetStockWeight === 1 && finalStockPolicy?.targetCashWeight === 0
+  && close(approvedStockWeight, finalStockPolicy.approvedSixTargetWeight)
+  && close(approvedStockWeight + finalStockPolicy.unallocatedStockWeightAtApprovedTargets + pf.opportunityCash.weight, 1), '最终100%股票目标、已批准股票与待批准股票额度口径一致');
 check(pf.policyAuthority.status === 'authoritative-execution-policy', 'portfolio.json声明为唯一执行政策');
 check(efficiency.executionEligible === false && efficiency.authoritativePolicy === 'portfolio.json', '九公司稳健前沿明确隔离为研究情景');
 check(goals.dividendRunway.status === 'historical-research-only' && goals.dividendRunway.executionEligible === false, '旧90%股票达标时钟明确隔离为历史研究');
@@ -37,8 +41,10 @@ check(goals.activePhase?.status === 'active-principal-growth-only'
   && goals.dividendAcceleration.status === 'deferred-until-accumulation-complete'
   && goals.dividendAcceleration.executionEligible === false, '本金增长为唯一主动阶段，股息迁移已冻结');
 check(payload.accumulationPlan?.completionDefinition?.normalCompletionStockWeight === 0.64
-  && payload.accumulationPlan?.completionDefinition?.permanentOpportunityCashFloor === 0.10, '建仓完成线与永久机会现金边界已显式记录');
-check(pf.deploymentClock.rows.find(row => row.stage === '条件允许时')?.stockWeightRange === '64%—74%', '条件部署边界与六只正常仓和正式政策一致');
+  && payload.accumulationPlan?.completionDefinition?.policyTargetStockWeight === 1
+  && payload.accumulationPlan?.completionDefinition?.permanentOpportunityCashFloor === 0, '建仓完成线已修正为最终100%股票且不设永久现金仓');
+check(pf.deploymentClock.rows.find(row => row.stage === '条件允许时')?.stockWeightRange === '64%—76%'
+  && pf.deploymentClock.rows.find(row => row.stage === '最终目标')?.stockWeightRange === '100%', '六只现有容量与最终100%股票目标分开记录');
 check(pf.executionPlan.rows.length === 0 && pf.executionPlan.expectedBuyTotal === 0, '旧执行单已撤回，当前没有把条件队列当成订单');
 
 check(close(goals.portfolioReturnScenarios.base.annualReturn, metrics.weightedReturn), '静态公司基准回报与正式七席动态计算一致');
@@ -90,7 +96,7 @@ const robustPath = simulateDividendAcceleration({
   contributionStartMonth: contributionRobustness.delayedStartMonths + 1
 });
 check(robustPath.safety.months <= 120, '抗中断能力情景在迟一年且兑现80%后仍通过十年安全线');
-check(ledger.deploymentRanges.find(row => row.month === 18)?.maxStockWeight === 0.74, '月度账本部署上限与当前六只74%政策一致');
+check(ledger.deploymentRanges.find(row => row.month === 18)?.maxStockWeight === 1, '月度账本最终目标已修正为100%股票');
 check(ledger.snapshots.every(row => Number.isFinite(Number(row.netExternalFlow))), '每个月度快照都有净入金字段');
 const incomeAudit = metrics.incomePortfolioAudit;
 check(incomeAudit.holdingCount <= incomeAudit.maxHoldings, '终态收息蓝图不超过七个股票席位');
@@ -125,8 +131,10 @@ check(purchasingPower.rows.length === 3 && purchasingPower.rows.some(row => clos
 check(close(planningPower.inflation, goals.dividendAcceleration.purchasingPower.planningInflation), '购买力规划情景与静态政策一致');
 check(planningPower.fixedRoutineRealDividend < 1000000, '固定120万元在规划到达日的2026年购买力低于100万元');
 check(planningPower.realNominal.months > formalPath.safety.months, '实际购买力名义线晚于固定120万元日常安全线');
-check(planningPower.realRoutineSafety === null && planningPower.realSevereSafety === null
-  && purchasingPower.postAchievement === null, '冻结前模型在60年内无法承保购买力安全线，不伪造有限日期');
+check(planningPower.realRoutineSafety && planningPower.realRoutineSafety.months > planningPower.realNominal.months,
+  '购买力日常安全线晚于购买力名义线');
+check(planningPower.realSevereSafety === null && purchasingPower.postAchievement === null,
+  '60年内仍无解的购买力重压线保持为空，不伪造有限日期');
 check(purchasingPower.dividendGrowthGate.status === 'unverified', '缺少三年股息增长历史时不得标记跑赢通胀');
 check(goals.targets.find(row => row.id === 'dividend1m').note.includes('当前阶段不以股息率'), '目标卡明确说明股息目标当前不驱动换仓');
 
@@ -148,7 +156,7 @@ console.log(JSON.stringify({
   ok: true,
   checked: checks.length,
   policyVersion: pf.policyVersion,
-  targetStructure: `${(1 - pf.opportunityCash.weight) * 100}%股票+${pf.opportunityCash.weight * 100}%现金`,
+  targetStructure: `${finalStockPolicy.targetStockWeight * 100}%股票+${finalStockPolicy.targetCashWeight * 100}%现金（已批准${approvedStockWeight * 100}%）`,
   companyBaseReturn: metrics.weightedReturn,
   underwritingReturn: metrics.underwritingWeightedReturn,
   nominal: { months: formalPath.nominal.months, duration: formalPath.nominal.duration, date: formalPath.nominal.date },

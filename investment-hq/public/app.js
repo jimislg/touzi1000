@@ -311,13 +311,13 @@ function renderGoals() {
     <div class="honest"><b>决策：</b>${esc(accumulationPlan.decision)}</div>
     <div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">当前股票仓位</div><div class="s-value">${fmtPct(accumulationPlan.currentSnapshot.stockWeight, 1)}</div></div>
-      <div class="stat"><div class="s-label">六只正常仓完成线</div><div class="s-value blue">${fmtPct(accumulationPlan.completionDefinition.normalCompletionStockWeight, 0)}</div></div>
-      <div class="stat"><div class="s-label">正式政策上限</div><div class="s-value">${fmtPct(accumulationPlan.completionDefinition.policyTargetStockWeight, 0)}</div></div>
-      <div class="stat"><div class="s-label">永久机会现金下限</div><div class="s-value green">${fmtPct(accumulationPlan.completionDefinition.permanentOpportunityCashFloor, 0)}</div></div>
-      <div class="stat"><div class="s-label">基准翻倍</div><div class="s-value">${fmtNum(accumulationPlan.returnReality.baseYearsToDouble, 1)}年</div></div>
-      <div class="stat"><div class="s-label">承保翻倍</div><div class="s-value red">${fmtNum(accumulationPlan.returnReality.underwrittenYearsToDouble, 1)}年</div></div>
+      <div class="stat"><div class="s-label">最终股票目标</div><div class="s-value green">${fmtPct(accumulationPlan.completionDefinition.policyTargetStockWeight, 0)}</div></div>
+      <div class="stat"><div class="s-label">六只已批准目标</div><div class="s-value blue">${fmtPct(accumulationPlan.completionDefinition.currentSixApprovedTargetWeight, 0)}</div></div>
+      <div class="stat"><div class="s-label">六只有效硬容量</div><div class="s-value">${fmtPct(accumulationPlan.completionDefinition.currentSixPolicyHardCapacity, 0)}</div></div>
+      <div class="stat"><div class="s-label">待批准股票缺口</div><div class="s-value red">${fmtPct(accumulationPlan.completionDefinition.remainingStockGapAfterSixHardCapacity, 0)}—${fmtPct(accumulationPlan.completionDefinition.remainingStockGapAtApprovedTargets, 0)}</div></div>
+      <div class="stat"><div class="s-label">最终组合翻倍</div><div class="s-value red">待补齐后重算</div></div>
     </div>
-    <div class="note"><b>“建仓完成”新定义：</b>${esc(accumulationPlan.completionDefinition.rule)} ${esc(accumulationPlan.completionDefinition.policyTargetCaveat)}</div>
+    <div class="note"><b>“建仓完成”新定义：</b>${esc(accumulationPlan.completionDefinition.rule)} ${esc(accumulationPlan.completionDefinition.policyTargetCaveat)}<br><b>已知袖套参考：</b>六只股票归一化承保年化${fmtPct(accumulationPlan.returnReality.approvedSixSleeveUnderwrittenReturn, 2)}；只有剩余额度也取得同等回报时，100%股票组合才可参考${fmtNum(accumulationPlan.returnReality.illustrativeSameQualityUnderwrittenYearsToDouble, 1)}年翻倍，这不是当前已承保结果。</div>
     <h3 style="margin-top:16px">正式六只的新增资金优先级</h3>
     <div class="table-scroll"><table>
       <thead><tr><th>优先</th><th>公司</th><th class="num">最新价</th><th class="num">承保回报</th><th class="num">首档</th><th class="num">正常/硬上限</th><th>当前动作</th></tr></thead>
@@ -333,13 +333,13 @@ function renderGoals() {
   </div>` : ''}
 
   <div class="card decision-cockpit">
-    <h2>本金目标算术 <span class="tag">由股票报告与目标仓位自动计算</span></h2>
+    <h2>本金目标算术 <span class="tag">已批准六只股票袖套，未预支待批准额度</span></h2>
     <div class="stat-row" style="margin-top:12px">
-      <div class="stat"><div class="s-label">目标组合基准年化</div><div class="s-value ${baseReturn >= dm.required5 ? 'green' : 'red'}">${fmtPct(baseReturn, 2)}</div></div>
-      <div class="stat"><div class="s-label">质量折扣承保年化</div><div class="s-value blue">${fmtPct(dm.underwritingWeightedReturn, 2)}</div></div>
-      <div class="stat"><div class="s-label">5年目标 / 承保路径</div><div class="s-value">2.00 / ${underwritingFive.toFixed(2)}倍</div></div>
-      <div class="stat"><div class="s-label">10年目标 / 承保路径</div><div class="s-value">5.00 / ${underwritingTen.toFixed(2)}倍</div></div>
-      <div class="stat"><div class="s-label">承保年化缺口</div><div class="s-value red">${fmtPct(dm.required10 - dm.underwritingWeightedReturn, 2)}</div></div>
+      <div class="stat"><div class="s-label">六只袖套基准年化</div><div class="s-value ${baseReturn >= dm.required5 ? 'green' : 'red'}">${fmtPct(baseReturn, 2)}</div></div>
+      <div class="stat"><div class="s-label">六只袖套承保年化</div><div class="s-value blue">${fmtPct(dm.underwritingWeightedReturn, 2)}</div></div>
+      <div class="stat"><div class="s-label">同质补齐5年示意</div><div class="s-value">2.00 / ${underwritingFive.toFixed(2)}倍</div></div>
+      <div class="stat"><div class="s-label">同质补齐10年示意</div><div class="s-value">5.00 / ${underwritingTen.toFixed(2)}倍</div></div>
+      <div class="stat"><div class="s-label">距10年5倍年化缺口</div><div class="s-value red">${fmtPct(dm.required10 - dm.underwritingWeightedReturn, 2)}</div></div>
       ${showDividendPlanning ? `<div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
       <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(dm.targetDividend)}+</div></div>` : ''}
     </div>
@@ -623,7 +623,7 @@ function renderGoals() {
     <div class="card-sub">“时间到了”只触发扩展候选池、重算内在价值和外部管理人尽调，不能单独触发买入。价格、基本面和目标IRR仍必须同时通过。</div>
     <div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">待部署现金</div><div class="s-value">${fmtWan(cashDeployment.currentCash)}</div></div>
-      <div class="stat"><div class="s-label">超出永久机会现金</div><div class="s-value red">${fmtWan(cashDeployment.excessWaitingCash)}</div></div>
+      <div class="stat"><div class="s-label">尚未部署的临时现金</div><div class="s-value red">${fmtWan(cashDeployment.excessWaitingCash)}</div></div>
       <div class="stat"><div class="s-label">当前承保组合年化</div><div class="s-value">${fmtPct(cashDeployment.currentUnderwrittenPortfolioReturn, 2)}</div></div>
       <div class="stat"><div class="s-label">目标承保年化</div><div class="s-value blue">${fmtPct(cashDeployment.targetUnderwrittenPortfolioReturn, 2)}</div></div>
       <div class="stat"><div class="s-label">当前年化拖累</div><div class="s-value red">${fmtPct(cashDeployment.currentAnnualDrag, 2)}</div></div>
@@ -811,7 +811,9 @@ function renderPortfolio() {
   const tp = pf.targetPortfolio;
   const sumW = tp.reduce((s, t) => s + t.weight, 0);
   const cashTarget = pf.opportunityCash || { weight: Math.max(0, 1 - sumW), targetValue: Math.max(0, total * (1 - sumW)), role: '机会预备' };
-  const stockTargetWeight = 1 - cashTarget.weight;
+  const stockTargetWeight = Number(pf.finalStockPolicy?.targetStockWeight ?? (1 - cashTarget.weight));
+  const unallocatedStockWeight = Math.max(0, stockTargetWeight - sumW);
+  const unallocatedStockValue = total * unallocatedStockWeight;
   const availableStocks = state.data.stocks.filter(s => !s.autoParsed !== false && !tp.some(t => t.name === s.name));
   let targetRows;
   if (state.editing) {
@@ -847,6 +849,12 @@ function renderPortfolio() {
       </tr>`;
     }).join('');
   }
+  const unallocatedTargetRow = unallocatedStockWeight > 0 ? `<tr>
+    <td><b>待批准股票额度</b><div style="margin-top:4px"><span class="badge doubt">尚未选定</span></div></td>
+    <td>用于最终100%股票目标；只能由通过研究、价格与用户确认的公司填补</td>
+    <td class="num"><b>${fmtPct(unallocatedStockWeight, 0)}</b></td><td class="num">${fmtWan(unallocatedStockValue)}</td>
+    <td class="num">0</td><td class="num">0%</td><td><span class="badge no">未批准</span></td><td class="num">${fmtWan(unallocatedStockValue)}</td>
+  </tr>` : '';
   const editBar = state.editing ? `
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px">
       <select id="addStockSel" class="edit-input" style="min-width:180px">
@@ -856,7 +864,7 @@ function renderPortfolio() {
       <input type="text" id="addCustomName" class="edit-input" placeholder="或输入自定义名称" style="width:160px">
       <button class="btn primary" id="savePortfolio">保存目标配置</button>
       <button class="btn" id="cancelEdit">取消</button>
-      <span class="note" style="margin:0">股票权重合计 <b style="color:${Math.abs(sumW - stockTargetWeight) < 0.005 ? 'var(--green)' : 'var(--accent)'}">${fmtPct(sumW, 1)}</b> / 目标${fmtPct(stockTargetWeight, 0)}；另留${fmtPct(cashTarget.weight, 0)}机会现金</span>
+      <span class="note" style="margin:0">已批准股票 <b style="color:${Math.abs(sumW - stockTargetWeight) < 0.005 ? 'var(--green)' : 'var(--accent)'}">${fmtPct(sumW, 1)}</b> / 最终目标${fmtPct(stockTargetWeight, 0)}；尚缺${fmtPct(unallocatedStockWeight, 1)}股票额度，长期现金目标${fmtPct(cashTarget.weight, 0)}</span>
     </div>` : `
     <div style="margin-top:12px"><button class="btn" id="startEdit">✎ 编辑目标配置（增删股票 / 调整目标金额）</button></div>`;
 
@@ -1030,10 +1038,10 @@ function renderPortfolio() {
   </div>
 
   <div class="card">
-    <h2>目标配置 vs 当前 <span class="tag">最多7只 · ${fmtPct(stockTargetWeight, 0)}股票＋${fmtPct(cashTarget.weight, 0)}现金</span></h2>
+    <h2>目标配置 vs 当前 <span class="tag">最终${fmtPct(stockTargetWeight, 0)}股票 · 已批准${fmtPct(sumW, 0)} · 现金目标${fmtPct(cashTarget.weight, 0)}</span></h2>
     <div class="table-scroll"><table>
       <thead><tr><th>公司</th><th>定位</th><th class="num">目标权重</th><th class="num">目标市值</th><th class="num">当前市值</th><th class="num">当前占比</th>${state.editing ? '<th class="num">尚需投入</th><th></th>' : '<th>进度</th><th class="num">尚需投入</th>'}</tr></thead>
-      <tbody>${targetRows}</tbody>
+      <tbody>${targetRows}${unallocatedTargetRow}</tbody>
     </table></div>
     ${editBar}
     <div class="note"><b>非目标持仓处理计划：</b>${pf.exitPlan.map(e => `${esc(e.name)}（${fmtWan(e.marketValue)}）${esc(e.status)}`).join('；')}。</div>
@@ -1041,7 +1049,7 @@ function renderPortfolio() {
 
   <div class="card">
     <h2>目标组合风险约束校验 <span class="tag">目标组合本身是唯一执行口径</span></h2>
-    <div class="card-sub">逐项校验目标权重是否超过公司分析给出的硬上限；正式组合最多7只，现金目标由聚焦后的剩余权重确定。</div>
+    <div class="card-sub">逐项校验目标权重是否超过公司分析给出的硬上限。最终现金目标为0%；尚未分配的权重是待批准股票额度，不是永久现金仓。</div>
     <div class="table-scroll"><table>
       <thead><tr><th>公司</th><th>质量 / 回报</th><th class="num">目标权重</th><th class="num">校验后上限</th><th class="num">校验后金额</th><th>校验结果</th></tr></thead>
       <tbody>${dm.compliantRows.map(r => `<tr>
@@ -1049,10 +1057,11 @@ function renderPortfolio() {
         <td class="num">${fmtPct(r.weight, 0)}</td><td class="num"><b>${fmtPct(r.recommendedWeight, 0)}</b></td><td class="num">${fmtWan(r.recommendedValue)}</td>
         <td>${r.weight > r.recommendedWeight ? `目标越限，需压降${fmtPct(r.weight - r.recommendedWeight, 0)}` : '目标未超过报告硬上限'}</td>
       </tr>`).join('')}
-      <tr><td><b>机会现金</b></td><td><span class="chip">永久组合流动性</span></td><td class="num">${fmtPct(cashTarget.weight, 0)}</td><td class="num"><b>${fmtPct(cashTarget.weight, 0)}</b></td><td class="num">${fmtWan(cashTarget.targetValue)}</td><td>${esc(cashTarget.role)}</td></tr>
+      <tr><td><b>待批准股票额度</b></td><td><span class="chip">最终必须投向股票</span></td><td class="num">${fmtPct(unallocatedStockWeight, 0)}</td><td class="num"><b>待定</b></td><td class="num">${fmtWan(unallocatedStockValue)}</td><td>在合格席位批准前临时以现金等待，不预支回报。</td></tr>
+      <tr><td><b>最终现金目标</b></td><td><span class="chip">非永久仓位</span></td><td class="num">${fmtPct(cashTarget.weight, 0)}</td><td class="num"><b>${fmtPct(cashTarget.weight, 0)}</b></td><td class="num">${fmtWan(cashTarget.targetValue)}</td><td>${esc(cashTarget.role)}</td></tr>
       </tbody>
     </table></div>
-    <div class="honest" style="margin-top:12px"><b>不能自我欺骗：</b>现金不会替我们完成10年5倍；真正可行的是更低买价、盈利兑现、股息复投和七席内的一进一出，而不是不断增加公司数量。</div>
+    <div class="honest" style="margin-top:12px"><b>不能自我欺骗：</b>100%股票是最终配置目标，不是立即买满指令。当前六只无法合规承载100%；剩余额度必须由优于现金且通过质量、价格和席位审批的公司填补。</div>
   </div>
 
   <div class="section-title">正式六只建仓阶梯（价格档是复核触发器，累计市值才是仓位上限）</div>
@@ -1120,7 +1129,7 @@ function renderPortfolio() {
         t.pendingInvest = Math.max(0, t.targetValue - (held ? held.marketValue : 0));
       });
       const sum = pf.targetPortfolio.reduce((s, t) => s + t.weight, 0);
-      if (sum > stockTargetWeight + 0.002) return alert(`股票目标权重合计 ${(sum * 100).toFixed(1)}% 超过允许的 ${(stockTargetWeight * 100).toFixed(1)}%，需保留 ${(cashTarget.weight * 100).toFixed(0)}% 机会现金`);
+      if (sum > stockTargetWeight + 0.002) return alert(`股票目标权重合计 ${(sum * 100).toFixed(1)}% 超过最终目标 ${(stockTargetWeight * 100).toFixed(1)}%`);
       const btn = $('#savePortfolio'); btn.textContent = '保存中…'; btn.disabled = true;
       try {
         const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ targetPortfolio: pf.targetPortfolio }) });
