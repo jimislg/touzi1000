@@ -1553,6 +1553,8 @@ function renderTab(name) {
   else if (name === 'research') renderResearch();
   else if (name === 'method') renderMethod();
   else if (name === 'docs') renderDocs();
+  else if (name === 'calibration') CalibrationPage.render();
+  CalibrationPage.notices();
 }
 async function reload() {
   const res = await fetch('/api/bootstrap');
@@ -1570,12 +1572,14 @@ async function reload() {
     (latest, event) => event.date > latest ? event.date : latest,
     state.data.goals.asOf || ''
   ) || '—';
-  $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 两步法分析更新至 ${latestAnalysisDate} · 组合与执行方案更新至 ${latestPlanDate} · 正式组合最多7只 · 共 ${state.data.stocks.length} 只研究股票 / ${state.data.docsIndex.total} 篇文档`;
+  $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 股票池校准 2026-09-18 / 收益表 2026-09-19 · 两步法分析更新至 ${latestAnalysisDate} · 组合与执行方案更新至 ${latestPlanDate} · 正式组合最多7只 · 共 ${state.data.stocks.length} 只研究股票 / ${state.data.docsIndex.total} 篇文档`;
   $('#footerInfo').textContent = `投资分析中心 · ${state.data.stocks.length} 只股票研究库 · 数据生成于 ${new Date(state.data.generatedAt).toLocaleString('zh-CN')}`;
 }
 async function boot() {
   await reload();
   renderGoals(); renderPortfolio(); renderResearch(); renderMethod(); renderDocs();
+  await CalibrationPage.render();
+  CalibrationPage.notices();
   applyHash();
 }
 
@@ -1586,15 +1590,19 @@ $$('#tabs button[data-tab]').forEach(b => b.addEventListener('click', () => {
   history.replaceState(null, '', '#' + b.dataset.tab);
   window.scrollTo({ top: 0 });
 }));
-window.addEventListener('hashchange', () => { const m = location.hash.match(/^#(goals|portfolio|research|method|docs)$/); if (m) { state.currentTab = m[1]; renderTab(m[1]); $$('#tabs button').forEach(x => x.classList.toggle('active', x.dataset.tab === m[1])); $$('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${m[1]}`)); } });
+window.addEventListener('hashchange', () => { const m = location.hash.match(/^#(goals|portfolio|research|method|docs|calibration)$/); if (m) { state.currentTab = m[1]; renderTab(m[1]); $$('#tabs button').forEach(x => x.classList.toggle('active', x.dataset.tab === m[1])); $$('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${m[1]}`)); } });
 function applyHash() {
-  const m = location.hash.match(/^#(goals|portfolio|research|method|docs)$/);
+  const m = location.hash.match(/^#(goals|portfolio|research|method|docs|calibration)$/);
   if (!m) return;
   state.currentTab = m[1];
   $$('#tabs button').forEach(x => x.classList.toggle('active', x.dataset.tab === m[1]));
   $$('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${m[1]}`));
 }
 $('#quoteBtn').addEventListener('click', () => refreshQuotes(false));
+
+// 校准快照不等待实时行情，直达页可立即阅读。
+CalibrationPage.render();
+applyHash();
 
 boot().catch(e => {
   document.body.innerHTML = `<div class="loading">初始化失败：${esc(e.message)}<br><br>请确认已运行 <code>node server.js</code></div>`;

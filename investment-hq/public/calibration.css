@@ -1,0 +1,30 @@
+#tab-calibration .cal-lead { border-top: 4px solid var(--blue); }
+.cal-note { color: var(--ink-2); font-size: 13px; margin: 10px 0; line-height: 1.7; }
+.cal-controls { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; margin: 18px 0; }
+.cal-controls label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--ink-2); }
+.cal-controls select,.cal-controls input { width: 100%; min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--ink); font: inherit; font-size: 16px; }
+.cal-controls input:focus,.cal-controls select:focus { outline: 2px solid var(--blue); outline-offset: 2px; }
+.cal-range { width: 100%; accent-color: var(--blue); margin: 6px 0 14px; }
+.cal-scroll { overflow-x: auto; }
+.cal-scroll table { width: 100%; font-variant-numeric: tabular-nums; }
+.cal-scroll th,.cal-scroll td { white-space: normal; }
+.cal-scroll .num { white-space: nowrap; }
+.cal-current { background: var(--blue-soft); }
+.cal-picked { box-shadow: inset 3px 0 var(--blue); }
+.cal-price-btn { border: 0; color: var(--blue); background: transparent; font: inherit; text-decoration: underline; cursor: pointer; min-height: 32px; padding: 3px; }
+.cal-stress { color: var(--amber); }
+.cal-error { color: var(--accent); min-height: 22px; font-size: 13px; }
+.cal-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.cal-links button { border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; background: var(--card); color: var(--blue); cursor: pointer; font: inherit; }
+.cal-pool-table { min-width: 860px; }
+.cal-pool-table td:nth-child(4),.cal-pool-table td:nth-child(5) { min-width: 230px; }
+.cal-notice { padding: 14px 18px; border-left: 4px solid var(--blue); background: var(--blue-soft); margin-bottom: 18px; color: var(--ink-2); font-size: 14px; }
+.cal-notice a { color: var(--blue); font-weight: 600; }
+.cal-assumptions { padding: 10px 14px; background: var(--gray-soft); border-radius: 6px; font-size: 13px; }
+.cal-results th,.cal-results td { padding: 10px 8px; }
+#cal-price-table { min-width: 660px; }
+#cal-target-table { min-width: 550px; }
+@media (max-width: 660px) {
+  .cal-controls { grid-template-columns: 1fr; gap: 10px; }
+  #tab-calibration .card { padding: 18px 14px; }
+}

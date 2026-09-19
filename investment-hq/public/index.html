@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>投资分析中心 · 两步法</title>
 <link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/calibration.css">
 </head>
 <body>
 <header class="topbar">
@@ -20,6 +21,7 @@
       <button data-tab="goals" class="active">目标总览</button>
       <button data-tab="portfolio">持仓与建仓</button>
       <button data-tab="research">研究库</button>
+      <button data-tab="calibration">校准与收益</button>
       <button data-tab="method">方法论</button>
       <button data-tab="docs">文档库</button>
       <button class="quote-btn" id="quoteBtn" title="从腾讯公开行情获取最新股价">⟳ 更新行情</button>
@@ -32,6 +34,7 @@
   <section id="tab-goals" class="tab-panel active"></section>
   <section id="tab-portfolio" class="tab-panel"></section>
   <section id="tab-research" class="tab-panel"></section>
+  <section id="tab-calibration" class="tab-panel" aria-label="股票池校准与价格收益"></section>
   <section id="tab-method" class="tab-panel"></section>
   <section id="tab-docs" class="tab-panel"></section>
 </main>
@@ -48,6 +51,8 @@
   </div>
 </div>
 
+<script src="/return-model.js"></script>
+<script src="/calibration.js"></script>
 <script src="/app.js"></script>
 </body>
 </html>
