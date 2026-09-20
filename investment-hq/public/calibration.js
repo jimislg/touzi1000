@@ -1,22 +1,24 @@
 /* 研究快照独立于实时行情与成交账本，输入只影响本页情景。 */
 window.CalibrationPage = (() => {
   'use strict';
-  let data = null, loading = null;
+  let data = null, loading = null, portfolio = null;
   const e = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const pct = x => `${(x * 100).toFixed(1)}%`;
   const num = x => Number(x).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const q = id => document.getElementById(id);
   const calc = window.ReturnModel;
 
-  function notices() {
+  function notices(currentPortfolio) {
+    if (currentPortfolio) portfolio = currentPortfolio;
     for (const id of ['tab-goals', 'tab-portfolio', 'tab-research']) {
       const panel = q(id);
       if (!panel || panel.querySelector('.cal-notice')) continue;
       const note = document.createElement('div');
       note.className = 'cal-notice';
-      note.innerHTML = '<a href="#calibration">查看 9月18日股票池校准与价格收益 →</a><br>32家公司最新结论、10家公司价格阶梯。原研究卡与已确认建仓线保留各自日期；最新收益比较请看校准页。';
+      note.innerHTML = '<a href="#calibration">查看 9月18日股票池校准与价格收益 →</a><br>32家公司最新结论、10家公司价格阶梯。9月20日已确认实操方案置顶；历史研究线与当前执行规则分开查看。';
       panel.prepend(note);
     }
+    for (const id of ['tab-calibration', 'tab-portfolio']) PracticalPlan.mount(q(id), portfolio);
   }
 
   async function render() {
@@ -42,10 +44,10 @@ window.CalibrationPage = (() => {
   function build(panel) {
     panel.innerHTML = `
       <div class="card cal-lead">
-        <h2>股票池校准与价格收益 <span class="tag">研究更新 2026-09-19</span></h2>
+        <h2>股票池校准与价格收益 <span class="tag">研究快照 2026-09-18 / 19</span></h2>
         <p class="cal-note">行情与财务研究截止 ${e(data.asOf)}；${e(data.quoteLabel)}。32 家逐项校准，10 家重算模型（东鹏、农夫为初筛），其余 22 家不补造收益率。</p>
-        <p><b>当前结论：现仓继续持有，暂不大规模加仓。</b>优先复核腾讯、平安H、康臣、安踏和福耀；东鹏优先补足研究。泡泡暂停扩大，茅台不因触发旧价格线自动买入。</p>
-        <p class="cal-note">本轮已确认更新网页。模型价格是研究复核线，不是成交记录或自动下单指令；持股数、现金和原有建仓政策不会随本页输入改变。</p>
+        <p><b>研究快照与执行规则分开：</b>当前已确认的实操方案见上方执行卡；下表保留9月18日研究证据与情景价格，不用保守价自动替代首笔门槛。</p>
+        <p class="cal-note">本轮已确认更新网页。模型价格是研究复核线，不是成交记录或自动下单指令；持股数、现金和已确认建仓政策不会随本页情景输入改变。</p>
         <div class="cal-links">
           <button data-report="股票池校准研究报告-20260918.md">完整32家校准报告</button>
           <button data-report="个股价格与年化收益对照-20260919.md">逐股价格收益表</button>
@@ -57,7 +59,7 @@ window.CalibrationPage = (() => {
         <p class="cal-note">固定经营假设，再比较买入价格。每年年末领取税后股息，期末出售；收益均为条件测算，无保证。低价若源于经营恶化，应先下修盈利。</p>
         <div class="cal-controls">
           <label for="cal-company">公司<select id="cal-company">${data.models.map((m, i) => `<option value="${i}" ${m.label === '腾讯控股' ? 'selected' : ''}>${e(m.label)}${m.preliminary ? '（初筛）' : ''}</option>`).join('')}</select></label>
-          <label for="cal-scenario">经营情景<select id="cal-scenario"><option value="base">原研究基准</option><option value="stress">统一压力测试</option><option value="eps26">腾讯：EPS降至26元</option></select></label>
+          <label for="cal-scenario">经营情景<select id="cal-scenario"><option value="base">9月18日校准情景</option><option value="stress">校准情景再做压力测试</option><option value="eps26">腾讯：EPS降至26元</option><option value="original">安踏：8月27日原两步法</option></select></label>
           <label for="cal-price">买入价格 <span id="cal-currency"></span><input type="number" id="cal-price" min="0.01" step="0.01" inputmode="decimal"></label>
         </div>
         <label for="cal-range" class="cal-note">拖动调节买价，或点击下方价格档位</label>
@@ -79,7 +81,7 @@ window.CalibrationPage = (() => {
         <div class="cal-scroll"><table id="cal-target-table"><thead><tr><th>目标年化IRR</th><th class="num">持有5年的买价</th><th class="num">持有10年的买价</th></tr></thead><tbody id="cal-targets"></tbody></table></div>
       </div>
       <div class="card">
-        <h2>32家公司最新校准</h2><p class="cal-note">价格为9月18日快照。旧线只表示原研究或政策提醒；新线为本轮研究复核价，基本面条件仍须满足。点击公司可看原始来源。</p>
+        <h2>32家公司最新校准</h2><p class="cal-note">价格为9月18日快照。本表建议保留9月18日时点；9月20日执行顺序、首笔价格与预算以上方已确认方案为准。新线属于研究情景，不是自动订单。点击公司可看原始来源。</p>
         <div class="cal-scroll"><table class="cal-pool-table"><thead><tr><th>公司</th><th>角色</th><th class="num">快照价</th><th>财务与风险</th><th>校准建议</th></tr></thead><tbody>${data.pool.map(r => `<tr><th><a href="${e(r['来源'])}" target="_blank" rel="noopener noreferrer">${e(r['公司'])}</a></th><td>${e(r['角色'])}</td><td class="num">${num(r['价格'])}<br>${r['币种'] === 'HKD' ? '港元' : '元'}</td><td>${e(r['财务及风险'])}</td><td>${e(r['研究建议_非交易指令'])}</td></tr>`).join('')}</tbody></table></div>
       </div>`;
     panel.querySelectorAll('[data-report]').forEach(button => button.addEventListener('click', () => openDocModal(button.dataset.report)));
@@ -93,6 +95,7 @@ window.CalibrationPage = (() => {
       q('cal-price').value = button.dataset.price; syncRange(); update();
     });
     selectCompany();
+    notices();
   }
   function selected() { return data.models[Number(q('cal-company').value)]; }
   function syncRange() {
@@ -107,6 +110,8 @@ window.CalibrationPage = (() => {
     const model = selected();
     q('cal-scenario').options[2].disabled = model.label !== '腾讯控股';
     if (q('cal-scenario').value === 'eps26' && model.label !== '腾讯控股') q('cal-scenario').value = 'base';
+    q('cal-scenario').options[3].disabled = model.label !== '安踏体育';
+    q('cal-scenario').value = model.label === '安踏体育' ? 'original' : 'base';
     q('cal-price').value = model.price;
     syncRange(); update();
   }
@@ -115,7 +120,7 @@ window.CalibrationPage = (() => {
     const price = Number(q('cal-price').value), currency = model.fx === 1 ? '人民币元' : '港元';
     q('cal-currency').textContent = `（${currency}）`;
     q('cal-assumptions').textContent = `EPS ${model.eps.toFixed(3)}元人民币 · 年增 ${pct(model.growth)} · 税前派息 ${pct(model.payout)} · 退出PE ${model.exitPE.toFixed(1)}倍`;
-    q('cal-caution').textContent = base.caution;
+    q('cal-caution').textContent = (base.label === '安踏体育' ? '原两步法采用增长8%、退出17倍PE；9月校准情景改为7%、13倍PE，属于假设变化，不能解释为公司价值突然下降。' : '') + base.caution;
     const valid = price > 0 && Number.isFinite(price);
     q('cal-error').textContent = valid ? '' : '请输入大于零的有效买入价格。';
     q('cal-result').innerHTML = valid ? [5, 10].map(years => {

@@ -1,0 +1,27 @@
+--- a/investment-hq/public/app.js
++++ b/investment-hq/public/app.js
+@@ -1180,10 +1180,14 @@
+   const cost = holdingCostCny(holding);
+   const completion = row.buildValue > 0 ? Math.min(1, cost / row.buildValue) : 0;
+   const reviewCeiling = Math.min(Number(row.reviewTargetValue) || 0, Number(row.buildValue) || 0);
+-  const reviewAmount = triggered ? Math.max(0, reviewCeiling - cost) : 0;
++  const roundEntry = pf.practicalPlan?.entries.find(entry => entry.name === row.name);
++  const roundRemaining = roundEntry ? PracticalPlan.budget(pf, roundEntry).remaining : null;
++  const reviewAmount = triggered ? (roundEntry ? (roundRemaining ?? 0) : Math.max(0, reviewCeiling - cost)) : 0;
+   const actionable = triggered && reviewAmount >= 1000;
+   let status = row.status || '等待价格';
+-  if (locked) status = row.status || '等待事实闸门';
++  if (roundEntry) status = roundRemaining === null ? '成本资料待核对' : roundRemaining <= 0 ? '本轮额度已用完' : actionable ? '首轮预算已确认·到价待核对' : '首轮预算已确认·等价格';
++  else if (row.name === '福耀玻璃' && pf.practicalPlan) status = triggered ? '到价·下一批金额待明确' : '下一批·等待价格';
++  else if (locked) status = row.status || '等待事实闸门';
+   else if (actionable) status = '到价待复核';
+   else if (holding) status = '已持有·等价格';
+   else status = '等待价格';
+@@ -1336,6 +1340,7 @@
+     <div class="note">${esc(policy.completionRule || '')} 自动刷新仍为停止状态，行情只在打开页面或点击“更新行情”时获取。</div>
+   </details>`;
+ 
++  PracticalPlan.mount(el, pf);
+   $('#recordTrade').addEventListener('click', () => openTradeModal());
+   $$('[data-pool-filter]', el).forEach(button => button.addEventListener('click', () => {
+     state.buildPoolFilter = button.dataset.poolFilter;

@@ -1554,12 +1554,13 @@ function renderTab(name) {
   else if (name === 'method') renderMethod();
   else if (name === 'docs') renderDocs();
   else if (name === 'calibration') CalibrationPage.render();
-  CalibrationPage.notices();
+  CalibrationPage.notices(state.data?.portfolio);
 }
 async function reload() {
   const res = await fetch('/api/bootstrap');
   if (!res.ok) throw new Error('数据加载失败');
   state.data = await res.json();
+  CalibrationPage.notices(state.data.portfolio);
   methodology = state.data.methodology;
   const q = state.quotes;
   state.quotes = { time: q.time, map: {} }; // 行情缓存与数据无关，但重渲染前先清空避免错配
@@ -1570,7 +1571,7 @@ async function reload() {
   ) || '—';
   const latestPlanDate = (state.data.portfolioEvolution.timeline || []).reduce(
     (latest, event) => event.date > latest ? event.date : latest,
-    state.data.goals.asOf || ''
+    state.data.portfolio.practicalPlan?.confirmedOn || state.data.goals.asOf || ''
   ) || '—';
   $('#dataNote').textContent = `数据截止：持仓 ${state.data.portfolio.snapshotDate} · 股票池校准 2026-09-18 / 收益表 2026-09-19 · 两步法分析更新至 ${latestAnalysisDate} · 组合与执行方案更新至 ${latestPlanDate} · 正式组合最多7只 · 共 ${state.data.stocks.length} 只研究股票 / ${state.data.docsIndex.total} 篇文档`;
   $('#footerInfo').textContent = `投资分析中心 · ${state.data.stocks.length} 只股票研究库 · 数据生成于 ${new Date(state.data.generatedAt).toLocaleString('zh-CN')}`;
@@ -1579,7 +1580,7 @@ async function boot() {
   await reload();
   renderGoals(); renderPortfolio(); renderResearch(); renderMethod(); renderDocs();
   await CalibrationPage.render();
-  CalibrationPage.notices();
+  CalibrationPage.notices(state.data?.portfolio);
   applyHash();
 }
 

@@ -7,6 +7,11 @@
       m.eps *= 0.9;
       m.growth = Math.max(0, m.growth - 0.03);
       m.exitPE *= 0.8;
+    } else if (mode === 'original' && model.label === '安踏体育') {
+      // 2026-08-27 two-step model: EPS HKD6, growth 8%, terminal PE17.
+      m.eps = 6 * m.fx;
+      m.growth = 0.08;
+      m.exitPE = 17;
     } else if (mode === 'eps26' && model.label === '腾讯控股') {
       m.eps = 26;
     }

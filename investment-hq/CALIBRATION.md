@@ -15,3 +15,13 @@
 - 个股价格与年化收益对照-20260919.md
 
 最新校准不覆盖原研究卡，旧卡各自保留分析日期。校准页标明最新研究结论，原卡及旧提醒不能被理解为本轮重新验证的买入指令。
+
+## 已确认实操方案
+
+`public/practical-plan.js` 从本地 bootstrap 的 `portfolio.practicalPlan` 读取已确认规则，在校准页和建仓页显示一次性预算。账户预算、成本、确认日期及文档不打包进公开脚本。剩余额度取未用预算、累计成本余额及可用现金的最小值，买入含费扣减，卖出不恢复。
+
+`return-model.js` 单独提供安踏历史两步法情景，保留后续较保守校准情景。切换情景不会写回账户。
+
+本地已有未提交的独立建仓池页面改版。本次不将该整块旧改版一并提交：通用启动接线已提交，针对该改版的增量接线保存为 `patches/practical-plan-independent-pool.patch`，已应用于本地工作副本。迁移时优先恢复完整工作副本与本地 `data/portfolio.json`；补丁仅供恢复相同的独立建仓池版本时使用，不要重复应用。
+
+恢复文档时另复制 `实操建仓卡-20260920.md` 到本地 `data/docs/`。测试：`node --test tests/practical-plan.test.js tests/return-model.test.js`。

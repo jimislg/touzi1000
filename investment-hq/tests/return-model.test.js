@@ -3,6 +3,15 @@ const assert = require('node:assert/strict');
 const model = require('../public/return-model');
 const data = require('../public/data/calibration-20260918.json');
 
+test('安踏原两步法与较保守校准情景分开，原72港元十年IRR约15%', () => {
+  const base = data.models.find(m => m.label === '安踏体育');
+  const original = model.scenario(base, 'original');
+  const before = JSON.stringify(base);
+  assert.ok(Math.abs(model.result(original, 72, 10).irr - .149455) < .00001);
+  assert.ok(Math.abs(model.result(base, 72, 10).irr - .11356) < .0001);
+  assert.equal(JSON.stringify(base), before);
+});
+
 test('平价买入、盈利不增长、每年派息5%的年化IRR为5%，现金股息不复投回报更低', () => {
   const fixed = { eps: 10, growth: 0, payout: .5, tax: 0, exitPE: 10, fx: 1 };
   const result = model.result(fixed, 100, 5);

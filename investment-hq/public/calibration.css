@@ -21,6 +21,12 @@
 .cal-notice { padding: 14px 18px; border-left: 4px solid var(--blue); background: var(--blue-soft); margin-bottom: 18px; color: var(--ink-2); font-size: 14px; }
 .cal-notice a { color: var(--blue); font-weight: 600; }
 .cal-assumptions { padding: 10px 14px; background: var(--gray-soft); border-radius: 6px; font-size: 13px; }
+.practical-plan { border-top: 3px solid var(--blue); }
+.practical-table { min-width: 680px; }
+.practical-table td:last-child { min-width: 240px; }
+.practical-plan small { color: var(--ink-3); }
+.practical-plan details { margin: 12px 0; }
+.practical-plan li { margin: 8px 0; }
 .cal-results th,.cal-results td { padding: 10px 8px; }
 #cal-price-table { min-width: 660px; }
 #cal-target-table { min-width: 550px; }
