@@ -1,6 +1,6 @@
 {
   "asOf": "2026-09-18",
-  "updatedAt": "2026-09-19",
+  "updatedAt": "2026-09-20",
   "quoteLabel": "9月18日收盘后供应商快照（非实时价）",
   "fx": 0.86062,
   "models": [
@@ -170,6 +170,44 @@
       "caution": "盈利起点、增长、派息及退出市盈率均为研究假设。"
     },
     {
+      "name": "中国平安A",
+      "eps": 7.8,
+      "growth": 0.055,
+      "payout": 0.36,
+      "exitPE": 7.5,
+      "tax": 0,
+      "price": 53.37,
+      "fx": 1,
+      "PE": 6.842307692307692,
+      "irr5": 0.12816439407165447,
+      "irr10": 0.11820448533639227,
+      "wealth5": 1.7423797577834164,
+      "wealth10": 2.5870135636151406,
+      "target5IRR": 49.18442566991396,
+      "target5Cash": 46.495403836450464,
+      "target5Safe": 41.84586345280542,
+      "target10IRR": 36.290273769922464,
+      "target10Cash": 27.613782778028007,
+      "prices": [
+        36,
+        40,
+        43,
+        46,
+        49,
+        52.7,
+        53.37,
+        56
+      ],
+      "label": "中国平安A",
+      "preliminary": false,
+      "caution": "正常化营运EPS7.8元、增长5.5%、派息36%、退出7.5倍PE均沿用原研究假设。A股按境内个人持股超过1年股息税0%；短期卖出税负另计。A/H是同一家公司，额度不能重复计算。",
+      "symbol": "601318.SH",
+      "companyId": "pingan",
+      "currency": "CNY",
+      "quoteAsOf": "2026-09-18 16:14:32",
+      "addedAt": "2026-09-20"
+    },
+    {
       "name": "中国平安H",
       "eps": 7.8,
       "growth": 0.055,
@@ -200,7 +238,9 @@
       ],
       "label": "中国平安H",
       "preliminary": false,
-      "caution": "盈利起点、增长、派息及退出市盈率均为研究假设。"
+      "caution": "盈利起点、增长、派息及退出市盈率均为研究假设。",
+      "symbol": "02318.HK",
+      "companyId": "pingan"
     },
     {
       "name": "康臣药业",
@@ -513,6 +553,17 @@
       "来源": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600201.pdf"
     },
     {
+      "公司": "中国平安A",
+      "行情代码": "sh601318",
+      "角色": "同一独立候选的A股通道",
+      "价格": "53.37",
+      "币种": "CNY",
+      "行情时间": "2026-09-18 16:14:32",
+      "财务及风险": "营运利润+8.3%、NBV+11.2%，非净利36%外推",
+      "研究建议_非交易指令": "原A首笔复核52.7元；本轮同口径五年IRR翻倍线49.18元、十年五倍线36.29元。与H股共用公司额度，不重复加预算。",
+      "来源": "https://static.cninfo.com.cn/finalpage/2026-08-21/1225487480.PDF"
+    },
+    {
       "公司": "中国平安H",
       "行情代码": "hk02318",
       "角色": "独立池",
@@ -688,5 +739,41 @@
       "研究建议_非交易指令": "38/35/33旧线只观察；矿权及并购支出不能漏扣",
       "来源": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12572344&stockid=601088"
     }
-  ]
+  ],
+  "companyCount": 32,
+  "priceModelCompanyCount": 10,
+  "pingAnComparison": {
+    "asOf": "2026-09-18",
+    "verifiedAt": "2026-09-20",
+    "aLabel": "中国平安A",
+    "hLabel": "中国平安H",
+    "aHistoricalStarter": 52.7,
+    "hPreferredReview": 52,
+    "quoteSources": [
+      {
+        "title": "腾讯行情A/H（交叉核验）",
+        "url": "https://qt.gtimg.cn/q=sh601318,hk02318"
+      },
+      {
+        "title": "A股历史收盘",
+        "url": "https://cn.investing.com/equities/cn-ping-an-historical-data"
+      },
+      {
+        "title": "H股历史收盘",
+        "url": "https://cn.investing.com/equities/ping-an-historical-data"
+      }
+    ],
+    "taxSources": [
+      {
+        "title": "A股持股超一年股息税政策",
+        "url": "https://shanghai.chinatax.gov.cn/zcfw/zcfgk/grsds/201509/t418999.html"
+      },
+      {
+        "title": "港股通个人H股股息税政策",
+        "url": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5203646/content.html"
+      }
+    ],
+    "quoteCrossCheck": "腾讯行情与Investing.com：A股53.37元、H股53.20港元，偏差均为0%。搜索中另有低质量页面显示55.85元，与双源不符，未采用。",
+    "report": "中国平安A股补充与AH收益对照-20260920.md"
+  }
 }

@@ -23,9 +23,10 @@ test('平价买入、盈利不增长、每年派息5%的年化IRR为5%，现金�
 });
 
 test('网页模型逐项复现已核验报告，且较低买价提高回报', () => {
-  assert.equal(data.models.length, 10);
-  assert.equal(data.pool.length, 32);
-  assert.equal(data.models.reduce((sum, m) => sum + m.prices.length, 0), 80);
+  assert.equal(data.models.length, 11);
+  assert.equal(data.companyCount, 32);
+  assert.equal(data.pool.length, 33);
+  assert.equal(data.models.reduce((sum, m) => sum + m.prices.length, 0), 88);
   for (const m of data.models) {
     assert.ok(Math.abs(model.result(m, m.price, 5).irr - m.irr5) < 1e-10, m.name);
     assert.ok(Math.abs(model.result(m, m.price, 10).irr - m.irr10) < 1e-10, m.name);
@@ -39,6 +40,20 @@ test('网页模型逐项复现已核验报告，且较低买价提高回报', ()
       assert.ok(model.result(model.scenario(m, 'stress'), price, 5).irr < r.irr, m.name);
     }
   }
+});
+
+test('平安A/H共享经营假设，原币与股息税分开，不能重复折算', () => {
+  const a = data.models.find(m => m.label === '中国平安A');
+  const h = data.models.find(m => m.label === '中国平安H');
+  for (const key of ['eps','growth','payout','exitPE']) assert.equal(a[key],h[key]);
+  assert.equal(a.fx,1);
+  assert.equal(a.tax,0);
+  assert.equal(h.tax,.2);
+  const hRmb = { ...h, fx:1 };
+  assert.ok(Math.abs(model.result(h,h.price,10).irr-model.result(hRmb,h.price*h.fx,10).irr)<1e-12);
+  assert.ok(model.result(a,h.price*h.fx,10).irr>model.result(h,h.price,10).irr);
+  assert.ok(Math.abs(model.result(a,53.37,5).irr-.128164394)<1e-8);
+  assert.ok(Math.abs(a.target5IRR-49.18442567)<1e-7);
 });
 
 test('港股股息仅扣税一次；敏感性和计算不修改原始模型', () => {
