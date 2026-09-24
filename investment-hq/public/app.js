@@ -40,6 +40,13 @@ function lookupSymbol(name) {
   const t = (state.data?.portfolio?.targetPortfolio || []).find(x => x.name === name && x.symbol);
   return t ? t.symbol : null;
 }
+function requestErrorMessage(error) {
+  const message = String(error?.message || error || '未知错误');
+  if (error instanceof TypeError && /fetch|network/i.test(message)) {
+    return '本地服务未连接，请重新启动投资分析中心（127.0.0.1:4280）后再试';
+  }
+  return message;
+}
 function liveQuote(nameOrSymbol) {
   const sym = lookupSymbol(nameOrSymbol) || nameOrSymbol;
   const q = state.quotes.map[qtSym(sym)];
@@ -1515,7 +1522,7 @@ function renderDocs() {
       await reload();
       state.currentTab = 'docs'; renderTab('docs');
       alert(`已保存 ${j.file}${j.file.includes('两步投资分析') ? '\n研究库已生成自动解析草稿卡片，请前往核对。' : ''}`);
-    } catch (e) { alert('保存失败：' + e.message); }
+    } catch (e) { alert('保存失败：' + requestErrorMessage(e)); }
   });
   $$('.del-btn[data-delfile]', el).forEach(b => b.addEventListener('click', async e => {
     e.stopPropagation();
@@ -1526,7 +1533,7 @@ function renderDocs() {
       if (!res.ok) throw new Error(j.error || '失败');
       await reload();
       renderTab('docs');
-    } catch (e2) { alert('删除失败：' + e2.message); }
+    } catch (e2) { alert('删除失败：' + requestErrorMessage(e2)); }
   }));
   $$('.doc-list li[data-file]', el).forEach(li => li.addEventListener('click', () => openDocModal(li.dataset.file)));
 }
