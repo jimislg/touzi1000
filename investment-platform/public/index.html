@@ -156,7 +156,7 @@
 <!-- 股息 -->
 <section id="div">
   <h2>股息目标追踪 <span class="tag">税前100万/年 · 实仓成本口径</span></h2>
-  <p class="desc">实仓展示：<b>成本股息率 = DPS ÷ 持仓成本价</b>（非现价）。税率按买入日计算：A股持股&gt;1年免税、1个月-1年10%、&lt;1个月20%——现有持仓统一按 <b>2026-06-30</b> 买入起算（2027-06-30 后转免税，期间分红按10%档）；港股通固定20%。买入日可改，后续新增股票按实际买入日填。</p>
+  <p class="desc">实仓展示：<b>成本股息率 = DPS ÷ 持仓成本价</b>（非现价）。税率按买入日在后台自动计算：A股持股&gt;1年免税、1个月-1年10%、&lt;1个月20%——现有持仓统一按 <b>2026-06-30</b> 买入起算（2027-06-30 后转免税，期间分红按10%档）；港股通固定20%。买入日仅存后台用于计税，不在表格展示；新增股票如买入日不同，改 config.json 的 buyDate 即可。</p>
   <div class="tw" id="divTable"></div>
   <div class="cards" id="divCards" style="margin-top:11px"></div>
 </section>
@@ -550,7 +550,6 @@ function renderDiv(){
       <td>${fmt(h.cost,2)}${h.market==='HK'?'<br><span class="note">≈'+fmt(costCNY,2)+'元</span>':''}</td>
       <td><input type="number" step="0.01" data-h="${i}" data-k="dps" value="${h.dps}">${h.market==='HK'?' 港元':' 元'}</td>
       <td><b>${y.toFixed(2)}%</b></td>
-      <td><input type="date" data-h="${i}" data-k="buyDate" value="${h.buyDate||'2026-06-30'}" style="width:132px"></td>
       <td>${fmt(dPre,0)}</td><td>${fmt(dPost,0)}</td>
     </tr>`;}).join('');
   let dPre=0,dPost=0,costBasis=0,preA=0,preHK=0;
@@ -568,7 +567,7 @@ function renderDiv(){
   const tot=dPost+cashDiv;
   const totAfterFree=preA+preHK*0.8+cashDiv; // A股满1年免税后
   $('divTable').innerHTML=`<table><thead><tr>
-    <th>标的</th><th>现价</th><th>成本价</th><th>DPS[估·可改]</th><th>成本股息率</th><th>买入日(可改)</th><th>税前股息(元/年)</th><th>税后股息(元/年)</th>
+    <th>标的</th><th>现价</th><th>成本价</th><th>DPS[估·可改]</th><th>成本股息率</th><th>税前股息(元/年)</th><th>税后股息(元/年)</th>
   </tr></thead><tbody>${rows}
   <tr><td><b>现金</b>（收益率<input type="number" id="cyIn" step="0.1" value="${CFG.cashYield}" style="width:56px">%）</td><td></td><td></td><td></td><td>${CFG.cashYield}%</td><td></td><td>${fmt(cashDiv,0)}</td><td>${fmt(cashDiv,0)}</td></tr>
   <tr><td><b>合计</b></td><td></td><td></td><td></td><td></td><td></td><td><b>${fmt(dPre+cashDiv,0)}</b></td><td><b>${fmt(tot,0)}</b></td></tr></tbody></table>`;
