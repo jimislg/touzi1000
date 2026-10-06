@@ -45,6 +45,8 @@
   .pill.hold{background:#ecfdf5;color:#0f766e}
   .pill.trig{background:var(--bad-bg);color:var(--up)}
   .pill.near{background:var(--warn-bg);color:var(--amber)}
+  tr.row-trig td{background:var(--bad-bg) !important}
+  tr.row-near td{background:var(--warn-bg) !important}
   .pill.wait{background:#f3f4f6;color:#6b7280}
   .flag{border-radius:8px;padding:10px 13px;font-size:13px;margin-bottom:8px}
   .flag b{display:block;margin-bottom:2px}
@@ -122,7 +124,7 @@
 <!-- A类池 -->
 <section id="poolA">
   <h2>A类公司池 · 实时跟踪 <span class="tag">9家</span></h2>
-  <p class="desc">每只展示：<b>购买触发价</b>（现价≤触发价→整行标红「可购入」；≤+5%→黄「接近」；否则灰「等待」）和<b>建仓策略</b>（首仓/正常/硬上限或条件说明）。触发价与建仓策略均可直接修改，「保存修改」后持久化。</p>
+  <p class="desc">每只展示：<b>购买触发价</b>（现价≤触发价→<b style="color:var(--up)">整行标红</b>「可购入」；≤+5%→<b style="color:var(--amber)">整行标黄</b>「接近」；否则灰「等待」）和<b>建仓策略</b>（首仓/正常/硬上限或条件说明）。状态列已前置到第二列，一眼扫状态即可。触发价与建仓策略均可直接修改，「保存修改」后持久化。</p>
   <div class="tw" id="aTable"></div>
 </section>
 
@@ -434,13 +436,14 @@ function poolRow(u,idx){
   if(bp!=null&&px!=null){
     const d=(px/bp-1)*100;
     dist=d>0?'+'+d.toFixed(1)+'%':'<b class="up">'+d.toFixed(1)+'%</b>';
-    if(px<=bp){status='<span class="pill trig">可购入</span>';hl=' style="background:var(--bad-bg)"';}
-    else if(px<=bp*1.05)status='<span class="pill near">接近</span>';
+    if(px<=bp){status='<span class="pill trig">可购入</span>';hl=' class="row-trig"';}
+    else if(px<=bp*1.05){status='<span class="pill near">接近</span>';hl=' class="row-near"';}
     else status='<span class="pill wait">等待</span>';
   }
   const plan=u.plan||(u.grade==='A'?'A类：首仓3-5%／正常10-15%／硬20%':'B类：首仓1-2%／正常3-5%／硬8%');
   return `<tr${hl}>
     <td>${u.name}<span class="pill ${u.grade}">${u.grade}</span>${held?'<span class="pill hold">持仓</span>':''}${u.note?'<br><span class="note">'+u.note+'</span>':''}</td>
+    <td>${status}</td>
     <td class="note">${u.code}</td>
     <td>${px!=null?fmt(px,2):'—'}${qq&&qq.snapshot?'<span class="note"> 快照</span>':''}</td>
     <td class="${pct!=null?cls(pct):''}">${pct!=null?sign(pct):'—'}</td>
@@ -448,11 +451,10 @@ function poolRow(u,idx){
     <td><input type="number" class="buyin" step="0.01" data-u="${idx}" data-k="buyPrice" value="${bp!=null?bp:''}" placeholder="待定"> ${cur}</td>
     <td>${dist}</td>
     <td style="text-align:left"><input type="text" class="plan" data-u="${idx}" data-k="plan" value="${plan}"></td>
-    <td>${status}</td>
   </tr>`;
 }
 function renderPools(){
-  const head=`<thead><tr><th>公司</th><th>代码</th><th>现价</th><th>今日</th><th>档位跟踪</th><th>购买触发价(可改)</th><th>距触发</th><th>建仓策略(可改)</th><th>状态</th></tr></thead>`;
+  const head=`<thead><tr><th>公司</th><th>状态</th><th>代码</th><th>现价</th><th>今日</th><th>档位跟踪</th><th>购买触发价(可改)</th><th>距触发</th><th>建仓策略(可改)</th></tr></thead>`;
   const A=CFG.universe.filter(u=>u.grade==='A'),B=CFG.universe.filter(u=>u.grade==='B');
   const idxOf=u=>CFG.universe.indexOf(u);
   $('aTable').innerHTML=`<table>${head}<tbody>${A.map(u=>poolRow(u,idxOf(u))).join('')}</tbody></table>`;
