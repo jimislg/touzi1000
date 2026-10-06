@@ -13,6 +13,19 @@ const ROOT = __dirname;
 /* 本地默认只绑127.0.0.1；云端沙箱注入PORT环境变量时绑0.0.0.0（发布要求） */
 const HOST = process.env.HOST || (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
 
+/* —— 云数据库配置存取（云端=唯一数据源，本地config.json为离线缓存） —— */
+const store = require('./cloud-store');
+const withTimeout = (p,ms=6000)=>Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error('云端超时')),ms))]);
+let cloudDirty = false; // 本地有未上云的修改（云端暂不可达期间产生）
+const CFG_PATH = () => path.join(ROOT,'config.json');
+function clog(msg){ try{fs.appendFileSync(path.join(ROOT,'server.log'),new Date().toISOString()+' [cloud] '+msg+'\n');}catch(_){} }
+function pushCloud(cfg){ // 后台推云，成功则解除dirty
+  withTimeout(store.write(cfg),8000).then(r=>{
+    if(r.ok){ if(cloudDirty){cloudDirty=false; clog('本地积压修改已补同步到云端');} }
+    else { cloudDirty=true; clog('推云失败: '+r.err); }
+  }).catch(e=>{ cloudDirty=true; clog('推云异常: '+e.message); });
+}
+
 function fetchRemote(url){ return new Promise((resolve,reject)=>{
   http.get(url, res=>{ const cs=[]; res.on('data',c=>cs.push(c)); res.on('end',()=>resolve(Buffer.concat(cs))); })
       .on('error', reject).setTimeout(8000, function(){ this.destroy(new Error('timeout')); });
@@ -153,18 +166,37 @@ const server = http.createServer(async (req,res)=>{
       }
       return;
     }
+    /* 配置读取：云端为唯一数据源；云端不可达或本地有积压修改时服务本地缓存。
+     * 云端返回的新数据会自动回写本地缓存文件（含写前备份）。 */
     if(u.pathname==='/api/config'&&req.method==='GET'){
-      res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
-      res.end(fs.readFileSync(path.join(ROOT,'config.json')));
+      const serveLocal=()=>{ try{ res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}); res.end(fs.readFileSync(CFG_PATH())); }
+        catch(e){ res.writeHead(500,{'Content-Type':'application/json'}); res.end(JSON.stringify({ok:false,error:e.message})); } };
+      if(cloudDirty){ serveLocal(); pushCloud(JSON.parse(fs.readFileSync(CFG_PATH(),'utf8'))); return; }
+      withTimeout(store.read(),6000).then(r=>{
+        if(r.ok && r.cfg && Array.isArray(r.cfg.holdings)){
+          try{ // 云端为准，刷新本地缓存
+            const curText=fs.readFileSync(CFG_PATH(),'utf8');
+            if(JSON.stringify(JSON.parse(curText))!==JSON.stringify(r.cfg)){
+              try{fs.copyFileSync(CFG_PATH(),CFG_PATH()+'.backup');}catch(_){}
+              fs.writeFileSync(CFG_PATH(),JSON.stringify(r.cfg,null,2));
+            }
+          }catch(_){}
+          res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
+          res.end(JSON.stringify(r.cfg));
+        } else {
+          if(!r.ok)clog('读云失败，降级本地: '+r.err);
+          serveLocal();
+        }
+      }).catch(e=>{ clog('读云异常，降级本地: '+e.message); serveLocal(); });
       return;
     }
     if(u.pathname==='/api/config'&&req.method==='POST'){
       let body=''; req.on('data',c=>body+=c);
-      req.on('end',()=>{
+      req.on('end',async()=>{
         try{
           const patch=JSON.parse(body);
           // 合并式保存：以磁盘最新版为基底，只覆盖前端可编辑字段，防止全量覆盖
-          const disk=JSON.parse(fs.readFileSync(path.join(ROOT,'config.json')));
+          const disk=JSON.parse(fs.readFileSync(CFG_PATH()));
           if(patch.targetCapital>0)disk.targetCapital=patch.targetCapital;
           if(typeof patch.cash==='number')disk.cash=patch.cash;
           if(typeof patch.cashYield==='number')disk.cashYield=patch.cashYield;
@@ -174,16 +206,20 @@ const server = http.createServer(async (req,res)=>{
           const up={}; (patch.universe||[]).forEach(x=>{if(x.code)up[x.code]=x;});
           (disk.universe||[]).forEach(x=>{const p=up[x.code];if(!p)return;
             ['buyPrice','plan'].forEach(k=>{if(p[k]!==undefined)x[k]=p[k];});});
-          const fp=path.join(ROOT,'config.json');
-          try{fs.copyFileSync(fp,fp+'.backup');}catch(_){}       // 保险④：写前备份，坏写可回滚
-          fs.writeFileSync(fp, JSON.stringify(disk,null,2));
-          try{fs.appendFileSync(path.join(ROOT,'server.log'),new Date().toISOString()+' saved: holdings='+(patch.holdings||[]).length+' universe='+(patch.universe||[]).length+'\n');}catch(_){} // 审计留痕
+          try{fs.copyFileSync(CFG_PATH(),CFG_PATH()+'.backup');}catch(_){}   // 保险④：写前备份，坏写可回滚
+          fs.writeFileSync(CFG_PATH(), JSON.stringify(disk,null,2));         // 本地缓存先行落盘
+          // 双写云端（唯一数据源）；失败则标记dirty，后续GET自动补同步
+          const cr=await withTimeout(store.write(disk),8000);
+          if(cr.ok){ if(cloudDirty){cloudDirty=false; clog('积压修改已随本次保存补同步');} }
+          else { cloudDirty=true; clog('保存推云失败: '+cr.err); }
+          try{fs.appendFileSync(path.join(ROOT,'server.log'),new Date().toISOString()+' saved: holdings='+(patch.holdings||[]).length+' universe='+(patch.universe||[]).length+' cloudSync='+cr.ok+'\n');}catch(_){}
           res.writeHead(200,{'Content-Type':'application/json; charset=utf-8'});
-          res.end(JSON.stringify({ok:true,savedAt:new Date().toISOString()}));
+          res.end(JSON.stringify({ok:true,savedAt:new Date().toISOString(),cloudSync:cr.ok}));
         }catch(e){ res.writeHead(500,{'Content-Type':'application/json; charset=utf-8'}); res.end(JSON.stringify({ok:false,err:String(e)})); }
       });
       return;
     }
+    /* 旧 /api/sync 已由云数据库双写取代并移除（2026-10-07） */
     let p=u.pathname==='/'?'/index.html':u.pathname;
     const file=path.join(ROOT,'public',path.normalize(p));
     if(file.startsWith(path.join(ROOT,'public')) && fs.existsSync(file) && fs.statSync(file).isFile()){

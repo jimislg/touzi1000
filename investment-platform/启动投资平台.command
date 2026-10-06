@@ -1,9 +1,11 @@
 #!/bin/sh
 # 郎刚的投资工作平台 · 双击启动/修复脚本
+# 数据同步已由云数据库双写取代（server.js 内置），本脚本只负责平台服务(8307)。
 # 优先注册 launchd 守护（开机自启 + 崩溃自动重启）；失败则直接后台启动。
 cd "$(dirname "$0")"
 NODE=/Users/jimislg/.workbuddy/binaries/node/versions/22.22.2-6/bin/node
 PLIST="$HOME/Library/LaunchAgents/com.langang.investment-platform.plist"
+UID_N=$(id -u)
 
 # 0) 若已在运行，直接打开
 if curl -s --max-time 3 http://127.0.0.1:8307/api/config >/dev/null 2>&1; then
@@ -13,7 +15,7 @@ if curl -s --max-time 3 http://127.0.0.1:8307/api/config >/dev/null 2>&1; then
 fi
 
 # 1) 尝试注册 launchd 守护（在真实终端上下文通常可以成功）
-launchctl bootstrap "gui/$(id -u)" "$PLIST" 2>/dev/null || launchctl load "$PLIST" 2>/dev/null
+launchctl bootstrap "gui/$UID_N" "$PLIST" 2>/dev/null || launchctl load "$PLIST" 2>/dev/null
 sleep 2
 if curl -s --max-time 3 http://127.0.0.1:8307/api/config >/dev/null 2>&1; then
   echo "launchd 守护已启用（开机自启 + 崩溃自动重启）"

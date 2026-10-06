@@ -658,7 +658,9 @@ async function saveConfig(auto){
     const r=await fetch('/api/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(patch)});
     const j=await r.json();
     if(j.ok){dirty=false;snapshotEdit();
-      $('saveText').textContent='✓ 已保存到磁盘 '+new Date().toLocaleTimeString('zh-CN')+(auto?'（自动）':'');
+      $('saveText').textContent=(j.cloudSync===false
+        ?'⚠ 已保存本地（云端暂未同步，恢复后自动补传）'
+        :'✓ 已保存并同步云端 ')+new Date().toLocaleTimeString('zh-CN')+(auto?'（自动）':'');
     }
     else{$('saveText').textContent='✗ 保存失败：'+(j.err||'');alert('保存失败：'+(j.err||'未知错误')+'\n\n你的修改已同时存在浏览器本地缓存，刷新后也会自动找回；请检查服务后重试。');}
   }catch(e){

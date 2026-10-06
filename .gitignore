@@ -1,3 +1,10 @@
 # 月度持仓原始截图/PDF只保存在本机，避免误推送账户隐私
 investment-hq/data/snapshots/*
 !investment-hq/data/snapshots/.gitkeep
+
+# 投资平台依赖与运行产物（publicConfig.json为公开配置，允许入库）
+investment-platform/node_modules/
+investment-platform/server.log
+investment-platform/sync.log
+investment-platform/divcache.json
+investment-platform/config.json.backup
