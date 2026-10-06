@@ -72,4 +72,4 @@ const server = http.createServer(async (req,res)=>{
     res.writeHead(404); res.end('Not Found');
   }catch(e){ res.writeHead(500,{'Content-Type':'application/json'}); res.end(JSON.stringify({ok:false,error:e.message})); }
 });
-server.listen(PORT,()=>console.log('投资工作平台已启动: http://localhost:'+PORT));
+server.listen(PORT,'127.0.0.1',()=>console.log('投资工作平台已启动: http://127.0.0.1:'+PORT));
