@@ -105,11 +105,12 @@ function snapshotStatistics(holdings, totalAssets, portfolio) {
     if (amount != null) estimatedDividend += amount;
     else missingDividendNames.push(row.name);
   });
-  const maxHoldings = Number(portfolio.concentrationPolicy?.maxHoldings) || 7;
+  const concentrationEnabled = portfolio.concentrationPolicy?.enabled !== false;
+  const maxHoldings = concentrationEnabled ? (Number(portfolio.concentrationPolicy?.maxHoldings) || 7) : null;
   return {
     holdingCount: sorted.length,
     maxHoldings,
-    holdingLimitBreach: sorted.length > maxHoldings,
+    holdingLimitBreach: concentrationEnabled && sorted.length > maxHoldings,
     stockMarketValue,
     stockWeight: totalAssets > 0 ? stockMarketValue / totalAssets : 0,
     cashWeight: totalAssets > 0 ? Math.max(0, totalAssets - stockMarketValue) / totalAssets : 0,
@@ -148,18 +149,21 @@ function knownSecurity(name, symbol, portfolio) {
     }
   }
   const target = (portfolio.targetPortfolio || []).find(row => row.name === name || (symbol && row.symbol === symbol));
-  return target ? { name: target.name, symbol: target.symbol, currency: String(target.symbol || '').endsWith('.HK') ? 'HKD' : 'CNY' } : null;
+  if (target) return { name: target.name, symbol: target.symbol, currency: String(target.symbol || '').endsWith('.HK') ? 'HKD' : 'CNY' };
+  const pool = (portfolio.independentBuildPool || []).find(row => row.name === name || (symbol && row.symbol === symbol));
+  return pool ? { name: pool.name, symbol: pool.symbol, currency: String(pool.symbol || '').endsWith('.HK') ? 'HKD' : 'CNY' } : null;
 }
 
 function refreshExecutionStatus(portfolio) {
   const quantities = new Map((portfolio.holdings || []).map(row => [row.name, Number(row.quantity) || 0]));
   const holdingCount = [...quantities.values()].filter(value => value > 0).length;
-  const maxHoldings = Number(portfolio.concentrationPolicy?.maxHoldings) || 7;
+  const concentrationEnabled = portfolio.concentrationPolicy?.enabled !== false;
+  const maxHoldings = concentrationEnabled ? (Number(portfolio.concentrationPolicy?.maxHoldings) || 7) : Infinity;
   const rows = portfolio.executionPlan?.rows || [];
   rows.forEach(row => {
     const finalQuantity = Number(row.expectedFinalQuantity);
     if (Number.isFinite(finalQuantity) && (quantities.get(row.name) || 0) >= finalQuantity) row.recordStatus = '已完成';
-    else if (!quantities.has(row.name) && holdingCount >= maxHoldings) row.recordStatus = '席位锁定';
+    else if (concentrationEnabled && !quantities.has(row.name) && holdingCount >= maxHoldings) row.recordStatus = '席位锁定';
     else row.recordStatus = '待执行';
   });
   if (rows.length) portfolio.executionPlan.status = rows.every(row => row.recordStatus === '已完成') ? '已全部完成' : '待执行，未全部成交';
@@ -168,6 +172,7 @@ function refreshExecutionStatus(portfolio) {
 /* ============ 文档索引与自动解析 ============ */
 function categorize(name) {
   if (name.includes('SOP') || name.includes('框架') || name.includes('批判性审阅') || name.includes('投资分析法')) return '方法论';
+  if (name.includes('三步投资分析')) return '三步法个股研究';
   if (name.includes('两步投资分析')) return '两步法深度分析';
   if (name.includes('1000万') || name.includes('建仓') || name.includes('执行卡') || name.includes('执行清单') || name.includes('价格表')) return '组合与建仓';
   if (name.includes('茅台')) return '茅台专题';
@@ -230,9 +235,11 @@ function toQtSymbol(sym) {
   return (s === 'SH' ? 'sh' : 'sz') + code;
 }
 async function fetchQuotes(symbols) {
-  const need = symbols.filter(s => s && !quoteCache.data[s]);
   const now = Date.now();
-  if (now - quoteCache.at < 30000 && need.length === 0) return { time: quoteCache.at, quotes: pick(quoteCache.data, symbols) };
+  const requested = [...new Set(symbols.filter(Boolean))];
+  const cacheFresh = now - quoteCache.at < 30000;
+  const need = cacheFresh ? requested.filter(s => !quoteCache.data[s]) : requested;
+  if (need.length === 0) return { time: quoteCache.at, quotes: pick(quoteCache.data, requested) };
   const uniq = [...new Set(need)];
   const out = {};
   for (let i = 0; i < uniq.length; i += 30) {
@@ -245,18 +252,23 @@ async function fetchQuotes(symbols) {
       clearTimeout(timer);
       const buf = Buffer.from(await res.arrayBuffer());
       const text = buf.toString('latin1'); // 数字与分隔符为 ASCII，足够解析价格
+      const fetchedAt = Date.now();
       for (const q of text.split(';')) {
         const m = q.match(/v_(\w+)="([^"]*)"/);
         if (!m) continue;
         const f = m[2].split('~');
         const price = Number(f[3]), prev = Number(f[4]);
-        if (price > 0) out[m[1]] = { symbol: m[1], price, prevClose: prev > 0 ? prev : null, changePct: prev > 0 ? (price / prev - 1) : null };
+        if (price > 0) out[m[1]] = { symbol: m[1], price, prevClose: prev > 0 ? prev : null, changePct: prev > 0 ? (price / prev - 1) : null, updatedAt: fetchedAt };
       }
     } catch (e) { /* 行情失败不阻塞站点 */ }
   }
   Object.assign(quoteCache.data, out);
-  quoteCache.at = now;
-  return { time: quoteCache.at, quotes: pick(quoteCache.data, symbols) };
+  const refreshedTimes = Object.values(out).map(q => q.updatedAt).filter(Number.isFinite);
+  if (refreshedTimes.length) quoteCache.at = Math.max(...refreshedTimes);
+  const quotes = pick(quoteCache.data, requested);
+  const quoteTimes = Object.values(quotes).map(q => q.updatedAt).filter(Number.isFinite);
+  const responseTime = quoteTimes.length ? Math.min(...quoteTimes) : quoteCache.at;
+  return { time: responseTime, quotes };
 }
 const pick = (obj, keys) => Object.fromEntries(keys.filter(k => obj[k]).map(k => [k, obj[k]]));
 
@@ -1203,8 +1215,9 @@ function buildDecisionMetrics(payload) {
   const alerts = [];
   const principalGrowthActive = payload.accumulationPlan?.status === 'active-principal-growth-only';
   const activeHoldingCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
-  const maxHoldings = Number(pf.concentrationPolicy?.maxHoldings) || 7;
-  if (activeHoldingCount > maxHoldings) {
+  const concentrationEnabled = pf.concentrationPolicy?.enabled !== false;
+  const maxHoldings = concentrationEnabled ? (Number(pf.concentrationPolicy?.maxHoldings) || 7) : Infinity;
+  if (concentrationEnabled && activeHoldingCount > maxHoldings) {
     alerts.push({ severity: 'red', title: '实际持仓超过七席上限', detail: `券商成交账本当前有${activeHoldingCount}只持仓，超过政策上限${maxHoldings}只。事实记录保留，但新增资金暂停；必须明确选择退出席位后再恢复执行。` });
   }
   if (normalizedWeightedReturn != null && normalizedWeightedReturn < required10) {
@@ -1219,10 +1232,10 @@ function buildDecisionMetrics(payload) {
       alerts.push({ severity: 'amber', title: '有个别标的达到硬目标，但不足以支撑整个组合', detail: `${names}。高IRR来自基准假设且可承载仓位有限，不能据此把组合目标标记为可实现。` });
     }
   }
-  targetRows.filter(r => r.limitBreach).forEach(r => alerts.push({ severity: 'red', title: `${r.name}目标仓位越过报告硬上限`, detail: `目标 ${(r.weight * 100).toFixed(0)}%，报告硬上限 ${(r.effectiveHardLimit * 100).toFixed(0)}%；超额部分只能是待批准条件仓，不能视为默认配置。` }));
+  if (concentrationEnabled) targetRows.filter(r => r.limitBreach).forEach(r => alerts.push({ severity: 'red', title: `${r.name}目标仓位越过报告硬上限`, detail: `目标 ${(r.weight * 100).toFixed(0)}%，报告硬上限 ${(r.effectiveHardLimit * 100).toFixed(0)}%；超额部分只能是待批准条件仓，不能视为默认配置。` }));
   if ((pf.cash || 0) / (pf.totalAssets || 1) > 0.7) alerts.push({ severity: 'amber', title: '现金占比高，存在长期踏空风险', detail: `待部署现金约 ${((pf.cash || 0) / 10000).toFixed(1)}万元；应靠P12/P15/P17与基本面闸门分批投入，不靠主观等最低价。` });
   if ((pf.executionPlan?.rows || []).length && pf.executionPlan?.status?.includes('待执行')) alerts.push({ severity: 'amber', title: '首次建仓尚未执行', detail: `计划净使用现金约 ${(pf.executionPlan.expectedNetCashUse / 10000).toFixed(1)}万元；执行后股票仓约 ${(pf.executionPlan.postStockWeight * 100).toFixed(1)}%。执行以最新部署卡为准，万华当前暂不卖出。` });
-  if (pf.deploymentQueue?.threeMonthGap > 0) {
+  if (concentrationEnabled && pf.deploymentQueue?.threeMonthGap > 0) {
     const covered = Number(pf.deploymentQueue.coverageRatio) >= 1;
     alerts.push({ severity: 'amber', title: covered ? '三个月部署队列已覆盖缺口，但仍依赖价格触发' : '七席内可执行队列尚未覆盖三个月缺口', detail: `首轮后至29%股票仓位还需约 ${(pf.deploymentQueue.threeMonthGap / 10000).toFixed(1)}万元；七席内条件金额约 ${(pf.deploymentQueue.primaryPotential / 10000).toFixed(1)}万元，覆盖 ${(pf.deploymentQueue.coverageRatio * 100).toFixed(0)}%。不为补缺口新增第8只或放宽买价。` });
   }
@@ -1231,7 +1244,7 @@ function buildDecisionMetrics(payload) {
     alerts.unshift({
       severity: 'green',
       title: '当前阶段已切换为本金增长优先',
-      detail: '最终目标已确认为100%股票，现金只是等待合格价格与公司闸门时的临时形态。当前六只已批准74%、有效硬容量76%；剩余24%—26%必须由新的已批准股票席位补足，不为满仓放宽买价或上限。'
+      detail: `最终目标已确认为100%股票，现金只是等待合格价格与公司闸门时的临时形态。当前${(pf.independentBuildPool || []).length}家公司独立候选容量约${((pf.constructionPolicy?.candidateCapacity || 0) / 10000).toFixed(0)}万元，可超过本金；实际投入仍以可用现金和逐笔确认约束。`
     });
   } else {
     if (accelerated) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `当前${pf.targetPortfolio.length}只正式目标占位路径约${accelerated.nominal.duration}达到名义100万元，但约${accelerated.safety.duration}才达到120万元安全线；空缺席位通过后必须重新计算。` });
@@ -1298,13 +1311,16 @@ function buildDecisionMetrics(payload) {
 function bootstrapPayload() {
   const stocks = [];
   for (const f of fs.readdirSync(STOCKS_DIR).filter(f => f.endsWith('.json')).sort()) {
-    try { stocks.push(readJson(path.join(STOCKS_DIR, f))); } catch (e) { console.error(`跳过: ${f}`, e.message); }
+    try {
+      const stock = readJson(path.join(STOCKS_DIR, f));
+      if (stock.active !== false) stocks.push(stock);
+    } catch (e) { console.error(`跳过: ${f}`, e.message); }
   }
   const known = new Set(stocks.map(s => s.name));
   for (const d of scanDocs()) {
     if (d.category !== '两步法深度分析') continue;
     const draft = parseDraftStock(d.file);
-    if (draft && !known.has(draft.name)) stocks.push(draft);
+    if (draft && draft.name !== '美的集团' && !known.has(draft.name)) stocks.push(draft);
   }
   const order = { A: 0, B: 1, C: 2, D: 3 };
   stocks.sort((a, b) => (order[a.grade] ?? 9) - (order[b.grade] ?? 9) || (b.analysisDate || '').localeCompare(a.analysisDate || ''));
@@ -1358,8 +1374,9 @@ const server = http.createServer(async (req, res) => {
         baseAnnualReturn: Number.isFinite(Number(t.baseAnnualReturn)) ? Number(t.baseAnnualReturn) : null,
         qualityGrade: String(t.qualityGrade || '').slice(0, 4)
       })).filter(t => t.name);
-      const maxHoldings = Number(pf.concentrationPolicy?.maxHoldings) || 7;
-      if (clean.length > maxHoldings) return send(res, 400, JSON.stringify({ error: `正式目标最多${maxHoldings}只；请先删除一个席位，再新增公司` }));
+      const concentrationEnabled = pf.concentrationPolicy?.enabled !== false;
+      const maxHoldings = concentrationEnabled ? (Number(pf.concentrationPolicy?.maxHoldings) || 7) : Infinity;
+      if (concentrationEnabled && clean.length > maxHoldings) return send(res, 400, JSON.stringify({ error: `正式目标最多${maxHoldings}只；请先删除一个席位，再新增公司` }));
       const sum = clean.reduce((s, t) => s + t.weight, 0);
       const opportunityWeight = Number(pf.opportunityCash?.weight) || 0;
       const maxStockWeight = 1 - opportunityWeight;
@@ -1433,9 +1450,10 @@ const server = http.createServer(async (req, res) => {
       let holding = (pf.holdings || []).find(row => row.symbol === security.symbol || row.name === security.name);
       const oldQuantity = Number(holding?.quantity) || 0;
       if (side === '卖出' && quantity > oldQuantity) throw new Error(`卖出数量超过当前持有的 ${oldQuantity.toLocaleString()} 股`);
-      const maxHoldings = Number(pf.concentrationPolicy?.maxHoldings) || 7;
+      const concentrationEnabled = pf.concentrationPolicy?.enabled !== false;
+      const maxHoldings = concentrationEnabled ? (Number(pf.concentrationPolicy?.maxHoldings) || 7) : Infinity;
       const activeHoldingCount = (pf.holdings || []).filter(row => Number(row.quantity) > 0).length;
-      const policyBreach = side === '买入' && !holding && activeHoldingCount >= maxHoldings;
+      const policyBreach = concentrationEnabled && side === '买入' && !holding && activeHoldingCount >= maxHoldings;
       if (policyBreach && body.acknowledgePolicyBreach !== true) {
         throw new Error(`当前已有${activeHoldingCount}只持仓，已满${maxHoldings}席；若券商确已成交，须明确确认政策违规后如实登记并标红`);
       }

@@ -38,7 +38,7 @@ async function request(base, pathname, body) {
   return { status: response.status, body: await response.json() };
 }
 
-test('成交登记只接受真实成交，并保持股息、重复登记和七席政策口径', async t => {
+test('成交登记只接受真实成交，并保持股息、重复登记和独立建仓池口径', async t => {
   const tempData = fs.mkdtempSync(path.join(os.tmpdir(), 'investment-hq-data-'));
   fs.cpSync(path.join(ROOT, 'data'), tempData, { recursive: true });
   const port = 46000 + Math.floor(Math.random() * 3000);
@@ -72,29 +72,22 @@ test('成交登记只接受真实成交，并保持股息、重复登记和七�
   });
   assert.match(missingFx.body.error, /实际结算汇率|有效的港元兑人民币/);
 
-  const eighthWithoutAcknowledgement = await request(base, '/api/trades', {
+  const eighthRecorded = await request(base, '/api/trades', {
     date: '2026-09-08', side: '买入', name: '宇通客车', symbol: '600066.SH',
     quantity: 1, price: 27.91, currency: 'CNY', fxRate: 1, fee: 0, confirmedExecuted: true
   });
-  assert.match(eighthWithoutAcknowledgement.body.error, /政策违规/);
-
-  const eighthRecorded = await request(base, '/api/trades', {
-    date: '2026-09-08', side: '买入', name: '宇通客车', symbol: '600066.SH',
-    quantity: 1, price: 27.91, currency: 'CNY', fxRate: 1, fee: 0,
-    confirmedExecuted: true, acknowledgePolicyBreach: true
-  });
   assert.equal(eighthRecorded.status, 200);
-  assert.equal(eighthRecorded.body.trade.policyBreach, true);
+  assert.equal(eighthRecorded.body.trade.policyBreach, false);
   assert.equal(eighthRecorded.body.trade.annualDividendChange, 1.76);
   assert.equal(eighthRecorded.body.portfolio.concentrationPolicy.currentHoldingCount, 8);
 
   const breached = await request(base, '/api/bootstrap');
-  assert.ok(breached.body.decisionMetrics.alerts.some(row => row.title === '实际持仓超过七席上限'));
+  assert.ok(!breached.body.decisionMetrics.alerts.some(row => row.title === '实际持仓超过七席上限'));
 
   const duplicate = await request(base, '/api/trades', {
     date: '2026-09-08', side: '买入', name: '宇通客车', symbol: '600066.SH',
     quantity: 1, price: 27.91, currency: 'CNY', fxRate: 1, fee: 0,
-    confirmedExecuted: true, acknowledgePolicyBreach: true
+    confirmedExecuted: true
   });
   assert.match(duplicate.body.error, /重复入账/);
 

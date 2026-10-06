@@ -1,6 +1,6 @@
 {
-  "asOf": "2026-09-10",
-  "marketDataAsOf": "2026-09-09 收盘",
+  "asOf": "2026-09-11",
+  "marketDataAsOf": "2026-09-11 盘中行情",
   "status": "active-principal-growth-only",
   "objective": "当前阶段只优化本金增长与风险调整后总回报，不以当期股息或终态收息结构驱动换仓。",
   "decision": "股息迁移、第七收息席和年股息100万元时钟全部降为未来研究。当前正式名单与权重上限不变；旧限价计划撤回，只有最新公司闸门与价格闸门同时通过才允许进入待确认执行稿。",
@@ -30,13 +30,13 @@
     "requiredForFiveYearDouble": 0.1487,
     "requiredForTenYearFiveX": 0.1746,
     "approvedSixSleeveBaseReturn": 0.10943243243243243,
-    "approvedSixSleeveUnderwrittenReturn": 0.08926959459459459,
+    "approvedSixSleeveUnderwrittenReturn": 0.09031689189189192,
     "illustrativeSameQualityBaseYearsToDouble": 6.67,
     "illustrativeSameQualityBaseYearsToFiveX": 15.5,
-    "illustrativeSameQualityUnderwrittenYearsToDouble": 8.11,
-    "illustrativeSameQualityUnderwrittenYearsToFiveX": 18.82,
+    "illustrativeSameQualityUnderwrittenYearsToDouble": 8.02,
+    "illustrativeSameQualityUnderwrittenYearsToFiveX": 18.61,
     "finalPortfolioReturnStatus": "pending-unallocated-stock-selection",
-    "conclusion": "现有六只已批准股票袖套的质量折扣承保年化约8.93%。若剩余26%股票额度能找到同等承保回报，100%股票组合示意翻倍约8.1年；但新席位未批准前，最终组合回报与翻倍时间都必须标记为待重算。"
+    "conclusion": "现有六只已批准股票袖套的质量折扣承保年化约9.03%。若剩余26%股票额度能找到同等承保回报，100%股票组合示意翻倍约8.0年；但新席位未批准前，最终组合回报与翻倍时间都必须标记为待重算。"
   },
   "currentSnapshot": {
     "asOf": "2026-08-25，尚待下一张券商快照核对",
@@ -54,14 +54,16 @@
       "name": "福耀玻璃",
       "symbol": "600660.SH",
       "grade": "A",
-      "latestPrice": 55.14,
+      "latestPrice": 54.3,
       "currency": "元",
-      "underwrittenReturn": 0.1029,
+      "underwrittenReturn": 0.1107,
       "normalWeight": 0.08,
       "hardWeight": 0.1,
-      "firstGate": 55,
-      "nextGate": 44,
-      "action": "等待≤55元；触发后拟加2,300股至约4%，先复核海外扩产回报、关税与自由现金流。"
+      "firstGate": 37,
+      "nextGate": 33.3,
+      "fiveYearDoubleGate": 51,
+      "tenYearFiveXGate": 37,
+      "action": "≤51元进入5年2倍复核，≤37元进入10年5倍复核；两目标同时满足以≤37元为约束，数量须届时重算并由用户确认。"
     },
     {
       "priority": 2,
@@ -136,11 +138,11 @@
   ],
   "conditionalQueue": {
     "status": "no-order-currently-triggered",
-    "potentialUseOfCash": 819723,
-    "potentialPostStockWeight": 0.277079826,
-    "rule": "以下均为到价后的复核数量，不是挂单或成交；每笔仍须用户确认。",
+    "potentialUseOfCash": 693223,
+    "potentialPostStockWeight": 0.264429826,
+    "rule": "以下均为到价后的复核草案，不是挂单或成交；福耀最新目标线已更新，但新数量尚未批准。",
     "rows": [
-      { "priority": "A1", "name": "福耀玻璃", "trigger": "≤55元", "quantity": 2300, "estimatedCny": 126500, "postCompanyWeight": 0.0396 },
+      { "priority": "A1", "name": "福耀玻璃", "trigger": "5年≤51元；10年≤37元", "triggerPrice": 37, "quantity": null, "estimatedCny": null, "postCompanyWeight": null, "status": "等待价格与重新核算" },
       { "priority": "A2", "name": "安踏体育", "trigger": "≤72港元", "quantity": 3000, "estimatedCny": 185177, "postCompanyWeight": 0.0296 },
       { "priority": "A3", "name": "腾讯控股", "trigger": "≤420港元", "quantity": 700, "estimatedCny": 252046, "postCompanyWeight": 0.0288 },
       { "priority": "A4", "name": "贵州茅台", "trigger": "1240—1280元", "quantity": 200, "estimatedCny": 256000, "postCompanyWeight": 0.0256 }
@@ -157,17 +159,6 @@
       "priceGate": "价格已达到≤14港元首档",
       "status": "只获研究复核资格，未获正式席位",
       "blocker": "肾病药约75%收入集中、医保/采购与中成药证据风险、治理和流动性折价；实际持仓已满7席。若四道闸门全部变绿，也只能先提出1.5%一进一出草案。"
-    },
-    {
-      "rank": 2,
-      "name": "美的集团",
-      "symbol": "000333.SZ",
-      "latestPrice": 86.02,
-      "grade": "A",
-      "underwrittenReturn": 0.09416,
-      "priceGate": "≤75.1元可建1.5%—2%",
-      "status": "等待价格与席位",
-      "blocker": "当前只接近P10，尚未达到P12；海外利润率、工业技术和非核心业务ROIC仍需持续验证。"
     },
     {
       "rank": 3,

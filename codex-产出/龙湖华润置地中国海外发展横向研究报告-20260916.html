@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>龙湖、华润置地、中国海外发展横向研究报告</title>
+  <style>
+    :root{
+      --ink:#18201f;--muted:#65706d;--paper:#f5f2eb;--card:#fffdf8;--line:#d8d2c5;
+      --green:#174f43;--green2:#2f7665;--gold:#a66d20;--red:#9b4139;--blue:#315f78;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.72}
+    a{color:var(--green2);text-decoration:none;border-bottom:1px solid #9ebbb3} a:hover{color:var(--green)}
+    .wrap{width:min(1180px,calc(100% - 36px));margin:0 auto}
+    header{background:linear-gradient(125deg,#123f37,#1e5d50 68%,#87602d);color:#fff;padding:54px 0 42px}
+    .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#c9ded8}
+    h1{font-family:Georgia,"Songti SC","STSong",serif;font-size:clamp(34px,5vw,60px);line-height:1.12;margin:12px 0 18px;max-width:980px}
+    .subtitle{font-size:18px;max-width:880px;color:#e6efec;margin:0}
+    .meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;font-size:13px;color:#d3e0dc}
+    nav{position:sticky;top:0;z-index:5;background:rgba(245,242,235,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    nav .wrap{display:flex;gap:18px;overflow:auto;padding:12px 0;white-space:nowrap;font-size:13px}
+    nav a{color:#37413f;border:0}
+    main{padding:34px 0 72px}
+    section{margin:0 0 38px;scroll-margin-top:60px}
+    h2{font-family:Georgia,"Songti SC","STSong",serif;font-size:30px;line-height:1.25;margin:0 0 18px;color:#173d35}
+    h3{font-size:19px;margin:24px 0 10px;color:#254d45}
+    p{margin:8px 0 14px}
+    .hero-grid,.grid3,.grid2{display:grid;gap:16px}.hero-grid{grid-template-columns:1.35fr .65fr}.grid3{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:repeat(2,1fr)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 3px 14px rgba(25,40,35,.035)}
+    .verdict{font-size:22px;line-height:1.55;margin:0}.stamp{display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em}
+    .good{background:#e4f0eb;color:var(--green)}.watch{background:#f4ead8;color:#80561e}.risk{background:#f3e2df;color:var(--red)}
+    .rank{font-size:42px;font-family:Georgia,serif;color:#b4aa96;float:right;line-height:1}
+    .company{font-size:21px;font-weight:800;margin-bottom:4px}.ticker{font-size:12px;color:var(--muted)}
+    .metric{font-size:27px;font-weight:760;line-height:1.2;margin:7px 0}.small{font-size:13px;color:var(--muted)}
+    table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+    th,td{padding:11px 12px;border-bottom:1px solid #e4dfd4;text-align:right;vertical-align:top}th{background:#ece8df;color:#3c4744;font-weight:700}th:first-child,td:first-child{text-align:left}tr:last-child td{border-bottom:0}
+    .table-wrap{overflow:auto;border-radius:12px}.note{font-size:12px;color:var(--muted);margin-top:8px}
+    .callout{border-left:5px solid var(--gold);background:#f7efe1;padding:17px 20px;border-radius:6px;margin:16px 0}.callout.red{border-color:var(--red);background:#f5e8e5}.callout.green{border-color:var(--green);background:#e8f1ed}
+    .bar-row{display:grid;grid-template-columns:120px 1fr 54px;align-items:center;gap:10px;margin:9px 0;font-size:13px}.bar{height:10px;background:#e4dfd4;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:var(--green2)}
+    ul,ol{padding-left:22px}li{margin:6px 0}.facts{border-left:3px solid #789c92;padding-left:16px}.inference{border-left:3px solid #c79a55;padding-left:16px}
+    .scenario td:nth-child(n+2),.scenario th:nth-child(n+2){text-align:center}.pos{color:var(--green);font-weight:700}.neg{color:var(--red);font-weight:700}
+    .source-list{font-size:13px;color:#4c5754}.source-list li{margin:8px 0}
+    footer{border-top:1px solid var(--line);padding:26px 0 42px;color:var(--muted);font-size:12px}
+    @media(max-width:820px){.hero-grid,.grid3,.grid2{grid-template-columns:1fr}.wrap{width:min(100% - 24px,1180px)}header{padding-top:38px}.bar-row{grid-template-columns:95px 1fr 45px}th,td{padding:9px 8px}}
+    @media print{nav{display:none}body{background:#fff}.card,table{box-shadow:none;break-inside:avoid}a{color:inherit;border:0}header{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="kicker">China Property Developers · Long-only comparative research</div>
+      <h1>龙湖、华润置地、中国海外发展：谁是更好的公司，谁是更划算的股票？</h1>
+      <p class="subtitle">三家公司都活过了行业最危险的一轮，但只有华润置地已经形成足够厚的“开发＋收租＋轻资产”第二曲线；中海是低估值、高信用的开发商，龙湖则是商业资产支撑下的高风险去杠杆选项。</p>
+      <div class="meta">
+        <span>研究日：2026-09-16</span><span>财务截止：2026H1</span><span>销售截止：2026年8月</span><span>币种：人民币；股价为港元</span><span>定位：观察仓研究，不构成交易执行</span>
+      </div>
+    </div>
+  </header>
+  <nav><div class="wrap"><a href="#answer">结论</a><a href="#market">行业</a><a href="#compare">横向数据</a><a href="#business">生意质量</a><a href="#companies">逐家公司</a><a href="#valuation">估值</a><a href="#decision">行动清单</a><a href="#sources">来源</a></div></nav>
+
+  <main class="wrap">
+    <section id="answer">
+      <div class="hero-grid">
+        <div class="card">
+          <span class="stamp good">核心结论</span>
+          <p class="verdict"><strong>公司质量：华润置地 &gt; 中国海外发展 &gt; 龙湖集团。</strong><br><strong>当前股票吸引力：华润置地与中海各有取舍，但三者都未达到“保守情景下五年两倍”的价格；龙湖先等盈利和股息修复，不以低 PB 直接下注。</strong></p>
+          <div class="callout green"><strong>如果只能选一家长期跟踪：</strong>选华润置地。它的万象城体系、低融资成本和轻资产平台，使其不是纯开发商；但 HK$28.80 仍更像 5%—9% 年化的质量价值股，而不是 15% 年化的目标收益股。</div>
+        </div>
+        <div class="card">
+          <div class="small">当前收盘价 · 2026-09-16</div>
+          <div class="metric">龙湖 HK$5.57</div>
+          <div class="metric">华润 HK$28.80</div>
+          <div class="metric">中海 HK$12.08</div>
+          <p class="small">按腾讯行情 16:08:52 HKT；当日人民币中间价 1 港元=0.86210 元。</p>
+        </div>
+      </div>
+
+      <div class="grid3" style="margin-top:16px">
+        <div class="card"><span class="rank">1</span><div class="company">华润置地</div><div class="ticker">1109.HK · 优先观察</div><p>商业运营壁垒最强，融资成本最低，2026H1 经常性业务贡献 65.5% 核心利润。短板是开发毛利仅 10%，且核心利润含资产处置收益。</p></div>
+        <div class="card"><span class="rank">2</span><div class="company">中国海外发展</div><div class="ticker">0688.HK · 价值修复候选</div><p>净负债率最低、一线城市销售最强、约 0.29 倍账面。短板是仍高度依赖开发，商业资产回报不高，股息尚未见底。</p></div>
+        <div class="card"><span class="rank">3</span><div class="company">龙湖集团</div><div class="ticker">0960.HK · 等待证明</div><p>商场和服务业务优秀，但开发亏损吞噬利润，核心归母几乎归零，股息中断，现金随偿债同步下降。低 PB 是风险定价，不是免费午餐。</p></div>
+      </div>
+    </section>
+
+    <section id="market">
+      <h2>一、行业不是反转，而是“总量下行、核心城市分化”</h2>
+      <div class="grid2">
+        <div class="card">
+          <div class="bar-row"><span>开发投资</span><div class="bar"><i style="width:19.9%;background:#9b4139"></i></div><strong class="neg">-19.9%</strong></div>
+          <div class="bar-row"><span>新房销售额</span><div class="bar"><i style="width:13%;background:#9b4139"></i></div><strong class="neg">-13.0%</strong></div>
+          <div class="bar-row"><span>新房销售面积</span><div class="bar"><i style="width:12.1%;background:#9b4139"></i></div><strong class="neg">-12.1%</strong></div>
+          <div class="bar-row"><span>二手网签面积</span><div class="bar"><i style="width:10.6%"></i></div><strong class="pos">+10.6%</strong></div>
+          <p class="note">国家统计局 2026 年 1—8 月同比数据。二手房增长不等于新房开发利润恢复。</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">对三家公司意味着什么</h3>
+          <ul>
+            <li>一线城市 8 月新房价格环比 +0.1%，但全国销售和投资仍大幅下滑，不能用局部价格回暖外推全面复苏。</li>
+            <li>真正的胜负手是：低成本融资、核心城市货值、拿地纪律、存量资产现金回报，以及能否停止用新利润填旧库存的坑。</li>
+            <li>央企身份降低融资尾部风险，但不能消除拿贵地、低毛利结转和分红下降；民企商业运营优秀，也不能替代现金流安全垫。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare">
+      <h2>二、同口径比较：三家公司已经不是同一种生意</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>指标</th><th>龙湖集团</th><th>华润置地</th><th>中国海外发展</th></tr></thead>
+          <tbody>
+            <tr><td>2026H1 营收</td><td>398.0 亿元</td><td>678.7 亿元</td><td>976.0 亿元</td></tr>
+            <tr><td>2026H1 归母利润</td><td>19.6 亿元</td><td>98.4 亿元</td><td>70.3 亿元</td></tr>
+            <tr><td>2026H1 核心归母</td><td class="neg">0.64 亿元</td><td>101.6 亿元</td><td>79.3 亿元</td></tr>
+            <tr><td>开发毛利/利润信号</td><td class="neg">开发分部调整后亏损 41.1 亿元</td><td class="neg">开发毛利率 10.0%</td><td>综合毛利率 16.1%</td></tr>
+            <tr><td>经常性业务</td><td>运营+服务收入 137.0 亿元</td><td class="pos">经常性核心利润 66.5 亿元</td><td>商业运营收入 35.8 亿元</td></tr>
+            <tr><td>2026 1—8 月销售额</td><td class="neg">208.4 亿元，-54.4%</td><td class="pos">1,491 亿元，+9.0%</td><td class="pos">1,654.5 亿元，+10.1%</td></tr>
+            <tr><td>净负债率</td><td>52.0%</td><td>41.0%</td><td class="pos">27.2%</td></tr>
+            <tr><td>融资成本</td><td>3.36%</td><td class="pos">2.63%</td><td>2.76%</td></tr>
+            <tr><td>现金/短债</td><td>1.57×；扣监管资金粗算约 1.04×</td><td>1.88×</td><td>1.87×；扣监管资金约 1.61×</td></tr>
+            <tr><td>2026H1 股息</td><td class="neg">不派</td><td>RMB 0.20/股</td><td>HK$0.23/股</td></tr>
+            <tr><td>市值（折人民币）</td><td>约 341 亿元</td><td>约 1,770 亿元</td><td>约 1,140 亿元</td></tr>
+            <tr><td>P/B（自行核算）</td><td>约 0.21×</td><td>约 0.61×</td><td>约 0.29×</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">核心利润由公司各自定义，不能机械横比。龙湖核心利润剔除投资物业公允价值；华润核心利润加回已处置投资物业累计重估收益；中海核心利润剔除汇兑和投资物业估值等。表内 P/B 使用 2026H1 归母权益、9月16日收盘价和当日人民币中间价自行计算。</p>
+    </section>
+
+    <section id="business">
+      <h2>三、生意本质与护城河：华润的溢价基本合理</h2>
+      <div class="grid3">
+        <div class="card"><h3 style="margin-top:0">龙湖：商业现金流承托去杠杆</h3><p>天街的出租率、租金增长和服务能力是真护城河；但它们当前首先服务于偿债和弥补开发亏损，而不是可自由分配给股东的复利现金流。</p><div class="callout red"><strong>摧毁路径：</strong>销售继续量价齐跌，开发亏损长期维持在 -50 至 -80 亿元级别，使经营性利润无法转化为分红。</div></div>
+        <div class="card"><h3 style="margin-top:0">华润：城市综合体平台</h3><p>万象城兼具核心城市选址、招商运营、消费生态、低融资成本和轻资产复制能力。2026H1 商场出租率 98%，购物中心收入 +19.4%，这是三家中最能跨周期的利润池。</p><div class="callout"><strong>短板：</strong>重资产商场仍需资本，开发利润继续下滑时，资产处置收益可能让“核心利润”看起来比纯经营更稳定。</div></div>
+        <div class="card"><h3 style="margin-top:0">中海：低成本资本＋一线土地</h3><p>中建体系、A档国际评级和一线城市资源形成成本与信用优势。它更擅长在行业出清时拿地和卖房，但商业运营尚不足以改变“利润主要来自开发”的本质。</p><div class="callout"><strong>短板：</strong>约 2,025 亿元投资物业对应年化商业收入约 72 亿元，粗收入收益率仅约 3.6%，且写字楼出租率只有 78%。</div></div>
+      </div>
+
+      <div class="table-wrap" style="margin-top:16px">
+        <table>
+          <thead><tr><th>维度</th><th>龙湖</th><th>华润置地</th><th>中国海外</th><th>判断</th></tr></thead>
+          <tbody>
+            <tr><td>融资与尾部安全</td><td>中</td><td>强</td><td>强</td><td>中海净杠杆最低；华润融资成本最低</td></tr>
+            <tr><td>核心城市开发</td><td>弱化</td><td>强</td><td>很强</td><td>中海一线五城销售占比最高</td></tr>
+            <tr><td>商业运营壁垒</td><td>强</td><td>很强</td><td>中等</td><td>华润万象城领先，龙湖天街次之</td></tr>
+            <tr><td>股东现金回报</td><td>中断</td><td>尚可</td><td>下降中</td><td>三者都不是“股息持续增长”已验证标的</td></tr>
+            <tr><td>盈利可见性</td><td>低</td><td>中高</td><td>中</td><td>华润第二曲线最厚；龙湖开发拖累最大</td></tr>
+            <tr><td>治理与所有权</td><td>创始人型民企</td><td>央企控股 59.55%</td><td>中建体系控股</td><td>央企不是无条件兜底；关联交易与资本分配仍需审视</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="companies">
+      <h2>四、逐家公司：聪明人为什么不买？</h2>
+      <div class="card">
+        <h3 style="margin-top:0">龙湖集团：债务下降是真的，净杠杆改善却远小于标题</h3>
+        <div class="facts"><strong>事实：</strong>2024→2025 总借款减少 235 亿元，但现金减少 202 亿元，净债务只降约 33 亿元；2025年末→2026H1 总借款再降 57 亿元，现金再降 43 亿元，净债务只降约 14 亿元。净负债率仍约 52%。2026年前8月销售额同比 -54.4%，均价同比约 -28.9%，核心归母只有 0.64 亿元且不派中期股息。</div>
+        <div class="inference"><strong>推断：</strong>龙湖的商业资产和服务业务可能最终保住股权价值，但当前股东回报仍是剩余项。最大的分析错误，是把 0.21 倍账面理解成 79% 安全边际；开发存货和投资物业需要双重折价，且银行融资依赖资产抵押。</div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3 style="margin-top:0">华润置地：最好的公司，但“核心利润稳定”需要打折看</h3>
+        <div class="facts"><strong>事实：</strong>2026H1 经常性业务收入 226.1 亿元、核心利润 66.5 亿元；购物中心出租率 98.0%，融资成本 2.63%。但开发毛利率从 2025 年 15.5% 降至 10.0%，上半年核心利润包含成都万象城和木棉花酒店处置相关收益，现金较年末减少约 181 亿元，净负债率升至 41.0%。</div>
+        <div class="inference"><strong>推断：</strong>市场给华润相对溢价是合理的，因为经常性利润池、万象生活和低融资成本都是真实资产；但当前价要实现五年两倍，需要经常性利润持续高增长、开发利润止跌并伴随估值提升，不能作为保守基准。</div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3 style="margin-top:0">中国海外发展：最安全的纯开发商，也可能是“便宜很久”的股票</h3>
+        <div class="facts"><strong>事实：</strong>2026H1 净负债率 27.2%、融资成本 2.76%、经营净现金流入 285.2 亿元；1—8月销售额 +10.1%，但销售面积 -16.5%，增量主要来自城市/产品结构。最近十二个月股息约 HK$0.48，较 2023 年 HK$0.80 明显下降。</div>
+        <div class="inference"><strong>推断：</strong>约 0.29 倍账面已经反映极度悲观，却不自动产生复利。若开发毛利长期停留低双位数、商业回报率不提高、股息继续下降，折价可以长期存在。中海的关键不是“会不会爆雷”，而是每股利润与股息何时见底。</div>
+      </div>
+    </section>
+
+    <section id="valuation">
+      <h2>五、估值：便宜程度不等于预期回报</h2>
+      <p>房地产开发商不适合单看 P/E。这里使用四重交叉：正常化核心利润、压力 P/B/NAV、经常性业务 SOTP、股息现金回报。华润和中海再做五年股东回报情景；龙湖因核心利润接近零、股息中断，只给 NAV 压力框架，不制造虚假精度。</p>
+
+      <h3>华润置地：正常化 EPS 采用 RMB2.70</h3>
+      <p class="note">低于 2025 核心 EPS 3.15 元及 2026H1 核心 EPS 年化 2.84 元，反映开发毛利下降和资产处置收益正常化。假设汇率不变、港股通股息税 20%。</p>
+      <div class="table-wrap"><table class="scenario"><thead><tr><th>情景</th><th>EPS 年增</th><th>退出 PE</th><th>派息率</th><th>五年总财富倍数</th><th>年化 IRR</th></tr></thead><tbody>
+        <tr><td>压力</td><td>-3%</td><td>7×</td><td>35%</td><td>0.79×</td><td class="neg">-4.9%</td></tr>
+        <tr><td><strong>保守基准</strong></td><td>+2%</td><td>9×</td><td>40%</td><td>1.27×</td><td>+5.1%</td></tr>
+        <tr><td>成功</td><td>+6%</td><td>11×</td><td>45%</td><td>1.83×</td><td class="pos">+13.7%</td></tr>
+      </tbody></table></div>
+      <div class="callout"><strong>价格含义：</strong>HK$28.80 是合理偏低、但不是目标收益价；HK$25 以下基准 IRR 约 8.4%，HK$22 约 11.4%。按“不再投资股息、五年总财富两倍”的严格线，约需 HK$18.2。</div>
+
+      <h3>中国海外发展：正常化 EPS 采用 RMB1.40</h3>
+      <p class="note">接近 2026H1 核心 EPS 年化 1.45 元，高于 FY2025 核心 EPS 约 1.19 元。假设汇率不变、港股通股息税 20%。</p>
+      <div class="table-wrap"><table class="scenario"><thead><tr><th>情景</th><th>EPS 年增</th><th>退出 PE</th><th>派息率</th><th>五年总财富倍数</th><th>年化 IRR</th></tr></thead><tbody>
+        <tr><td>压力</td><td>-5%</td><td>5.5×</td><td>25%</td><td>0.69×</td><td class="neg">-7.7%</td></tr>
+        <tr><td><strong>保守基准</strong></td><td>0%</td><td>7.5×</td><td>30%</td><td>1.17×</td><td>+3.4%</td></tr>
+        <tr><td>成功</td><td>+4%</td><td>9×</td><td>35%</td><td>1.68×</td><td class="pos">+11.7%</td></tr>
+      </tbody></table></div>
+      <div class="callout"><strong>价格含义：</strong>HK$12.08 对账面很便宜，对盈利却只是中等便宜；HK$11 的基准 IRR 约 5.5%，HK$9.5 约 8.8%。严格五年两倍线约 HK$7.1，说明“0.29倍 PB”并不等于能达到 15% 年化。</div>
+
+      <h3>龙湖集团：只做压力 NAV，不做失真的 P/E</h3>
+      <div class="grid2">
+        <div class="card"><div class="small">当前账面</div><div class="metric">BVPS RMB23.27</div><p>现价折人民币约 4.80 元，约 0.21 倍账面。但投资物业约 2,272 亿元、开发存货约 1,575 亿元均需折价测试。</p></div>
+        <div class="card"><div class="small">框架区间</div><div class="metric">HK$2.3—8.3</div><p>这是对投资物业与开发存货分别做 10%—25%折价，再给压力后净资产 0.2—0.4 倍估值的宽区间。区间太宽本身就说明：当前龙湖是反转期权，不是可精确估值的收息资产。</p></div>
+      </div>
+      <div class="callout red"><strong>龙湖不是“跌到某价就买”，而是“满足证据才买”：</strong>开发分部连续两个半年度亏损显著收窄、扣监管资金后现金/短债稳定高于 1.3 倍、核心利润恢复、现金股息重启，至少满足其中三项。</div>
+    </section>
+
+    <section id="decision">
+      <h2>六、最终决策与监控清单</h2>
+      <div class="table-wrap"><table><thead><tr><th>投资者状态</th><th>华润置地</th><th>中国海外发展</th><th>龙湖集团</th></tr></thead><tbody>
+        <tr><td>空仓者</td><td><strong>优先观察</strong>；现价可研究，不追求一次买满</td><td>价值修复候选；等利润/股息见底或更深折价</td><td>等待证明；不因低 PB 直接建仓</td></tr>
+        <tr><td>持仓者</td><td>可持有但核减资产处置收益，盯开发毛利</td><td>可持有观察；重点盯新拿地毛利和股息</td><td>按高风险反转仓管理，不按收息仓管理</td></tr>
+        <tr><td>改善信号</td><td>开发毛利回到 ≥13%；经常性核心利润双位数增长；净负债率不再上升</td><td>核心利润和 DPS 连续两个报告期止跌；新项目毛利 ≥15%</td><td>开发亏损收窄；调整现金短债 ≥1.3×；恢复现金股息</td></tr>
+        <tr><td>证伪信号</td><td>资产处置成为主要利润来源；商场同店转负；净负债率 >45%</td><td>一线高价地压低毛利；写字楼出租率继续下行；DPS 再降</td><td>销售继续腰斩；核心利润再转负；净债务不降反升</td></tr>
+      </tbody></table></div>
+
+      <div class="callout green"><strong>最终排序：</strong>如果目标是长期稳健复利，华润置地最接近可投资公司；如果目标是行业反转的估值修复，中海赔率更直接；如果目标是稳定且持续增长的被动股息，三家公司目前都不合格，龙湖尤其不合格。</div>
+      <p><strong>本报告只形成研究结论和价格观察线，不修改持仓名单、观察仓、权重、建仓价或前端。</strong>若要把任何一家纳入正式组合，应先单独出一份“拟变更项—理由—组合影响”的确认稿。</p>
+    </section>
+
+    <section id="sources">
+      <h2>七、数据来源、口径与研究边界</h2>
+      <p><strong>信息丰富度：</strong>A级。三家公司披露充分，但共识覆盖多、会计口径差异大。AI研究置信度较高，不等于投资确定性高；房地产存货质量、项目级毛利、监管资金可用性与实际资产处置价格，公开资料仍不足。</p>
+      <ol class="source-list">
+        <li>龙湖集团：<a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800287.pdf">2026H1 业绩公告</a>、<a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032700425.pdf">2025年度业绩</a>、<a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090701309.pdf">2026年8月运营数据</a>、<a href="https://www.longfor.com/detail/220_423ec428c7805a4aa3a686f2d27567cc.html">官方业绩新闻稿</a>。</li>
+        <li>华润置地：<a href="https://financialfilings.com/filings/china-resources-land-limited/interim-quarterly-report/2026/59312918/">2026H1 业绩全文</a>、<a href="https://financialfilings.com/filings/china-resources-land-limited/earnings-release/2026/33081897/">2025年度业绩</a>。2026年8月销售数据以一致的二手转述交叉，未取得搜索引擎可索引的 HKEX 原文，证据置信度低于其余核心数据。</li>
+        <li>中国海外发展：<a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600217.pdf">2026H1 业绩公告</a>、<a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100416.pdf">2026中期报告</a>、<a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0424/2026042402430.pdf">2025年报</a>、<a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090401163.pdf">2026年1—8月销售及拿地</a>。</li>
+        <li>行业：国家统计局 <a href="https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965310.html">2026年1—8月全国房地产市场</a>及<a href="https://www.stats.gov.cn/zwfwck/sjfb/202609/t20260915_1965303.html">2026年8月70城房价解读</a>。</li>
+        <li>行情与汇率：<a href="https://qt.gtimg.cn/q=hk00960,hk01109,hk00688">腾讯行情 2026-09-16 收盘</a>；国家外汇管理局<a href="https://www.safe.gov.cn/AppStructured/hlw/RMBQuery.do">人民币中间价</a>。</li>
+      </ol>
+      <div class="callout"><strong>关键口径限制：</strong>各公司“核心利润”定义不同；P/B 使用未经资产减值压力调整的会计权益；五年回报是假设模型，不是目标价承诺。报告没有可得的一致市场共识数据库，因此没有伪装成精确的“相对一致预期差”。</div>
+    </section>
+  </main>
+  <footer><div class="wrap">研究结论截止 2026-09-16。事实、公司口径与模型推断已分开标识；投资确定性仍取决于开发毛利、资产处置现金、监管资金可用性和股息恢复，而不是资料数量。</div></footer>
+</body>
+</html>

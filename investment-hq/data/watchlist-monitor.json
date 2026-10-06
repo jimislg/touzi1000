@@ -1,8 +1,9 @@
 {
-  "asOf": "2026-09-10",
-  "lastCheckedAt": null,
-  "sourceOfTruth": "accumulation-plan.json、portfolio.json的正式名单/watchlist/candidates及各公司最新有效研究",
-  "scopeRule": "积累期同时监控正式公司、候选公司和退出名单观察仓；未来任何公司退出正式名单后自动保留在portfolio.json.watchlist，除非用户明确删除。",
+  "asOf": "2026-09-11",
+  "lastCheckedAt": "2026-09-11T18:38:48+08:00",
+  "status": "paused-until-user-command",
+  "sourceOfTruth": "portfolio.json的independentBuildPool、conditionalBuildPool、watchlist及各公司最新有效研究",
+  "scopeRule": "积累期跟踪独立建仓池和退出/修复观察仓；未来任何公司退出主动池后自动保留在观察范围，除非用户明确删除。自动刷新已暂停，只在用户发出刷新指令时运行。",
   "scope": [
     "贵州茅台",
     "腾讯控股",
@@ -17,16 +18,24 @@
     "名创优品",
     "康臣药业",
     "小商品城",
-    "美的集团",
     "中国移动",
     "宁沪高速",
     "长江电力",
     "东阿阿胶",
-    "招商银行",
     "格力电器",
     "中国海洋石油",
     "中国神华",
-    "迈瑞医疗"
+    "迈瑞医疗",
+    "万华化学",
+    "香港交易所",
+    "三花智控",
+    "紫金矿业",
+    "恒瑞医药",
+    "中国平安",
+    "农夫山泉",
+    "东鹏饮料",
+    "海天味业",
+    "伟星新材"
   ],
   "materialChangeTriggers": [
     "正式公告或定期报告改变收入、利润、自由现金流、份额或资产负债表判断",
@@ -39,5 +48,8 @@
   ],
   "notificationRule": "只报告可验证的重大变化；区分事实、推断和待确认项。当前阶段不以股息率、股息迁移或第七收息席触发提醒，价格单独波动也不构成买入提醒。",
   "portfolioMutationRule": "监控不得自动改正式目标权重、实际持仓或成交账本；任何重新纳入必须单独决策。",
-  "lastNotifiedEventIds": []
+  "lastNotifiedEventIds": [
+    "fuyao-20260910-55-gate-reunderwritten-user-notified",
+    "moutai-20260911-1275-first-gate-operating-amber-notified"
+  ]
 }

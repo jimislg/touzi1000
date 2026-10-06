@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>长期投资驾驶舱</title>
+  <script>if (location.protocol === "file:") location.replace("http://127.0.0.1:4173/");</script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">中国市场·每日收盘后更新</p>
+      <h1>长期投资驾驶舱</h1>
+    </div>
+    <div class="header-actions">
+      <span class="data-date" id="dataDate" role="status" aria-live="polite">正在读取数据</span>
+      <button id="refreshButton" type="button">立即更新</button>
+    </div>
+  </header>
+
+  <nav class="section-nav" aria-label="页面分区">
+    <a href="#commandCenter">目标与预警</a>
+    <a href="#practice">股票池</a>
+    <a href="#goalSection">持仓与目标</a>
+    <a href="#riskMap">风险地图</a>
+    <a href="#research">公司研究</a>
+  </nav>
+
+  <main>
+    <section class="command-center" id="commandCenter" aria-label="投资目标与风险预警">
+      <div class="section-heading">
+        <div>
+          <span class="label">投资决策中枢</span>
+          <h2>目标差距、仓位、价格与论文一起看</h2>
+        </div>
+        <span class="snapshot-date" id="systemStatus">正在建立跟踪状态</span>
+      </div>
+      <div class="command-metrics">
+        <div><span>5年目标年化</span><strong id="fiveYearCagr">--</strong><small>本金2倍</small></div>
+        <div><span>10年目标年化</span><strong id="tenYearCagr">--</strong><small>本金5倍</small></div>
+        <div><span>股票已部署</span><strong id="deployedCapital">--</strong><small id="deployedWeight">--</small></div>
+        <div><span>税后年股息估算</span><strong id="dividendEstimate">--</strong><small id="dividendProgress">目标100万元</small></div>
+        <div><span>风险与机会</span><strong id="alertCount">--</strong><small id="poolCount">--</small></div>
+      </div>
+      <div class="command-grid">
+        <article>
+          <div class="command-title"><span class="label">需要立即关注</span><strong>组合预警</strong></div>
+          <div class="alert-board" id="alertBoard"></div>
+        </article>
+        <article>
+          <div class="command-title"><span class="label">按顺序执行</span><strong>本期动作</strong></div>
+          <div class="priority-actions" id="priorityActions"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="practice-section" id="practice">
+      <div class="section-heading">
+        <div>
+          <span class="label">持续跟踪系统</span>
+          <h2>股票池、价格纪律与复盘记录</h2>
+        </div>
+        <span class="snapshot-date" id="practiceToday">读取今日状态</span>
+      </div>
+
+      <article class="practice-panel stock-pool-panel">
+        <div class="section-heading">
+          <div>
+            <span class="label">好公司 + 好价格</span>
+            <h3>已分析股票池与持仓状态</h3>
+          </div>
+          <button class="secondary-button" id="refreshPoolQuotes" type="button">更新股票池价格</button>
+        </div>
+        <form class="stock-pool-form" id="stockPoolForm">
+          <input name="name" placeholder="名称，如 腾讯控股" required>
+          <input name="symbol" placeholder="代码，如 hk00700" required>
+          <select name="type" aria-label="类型">
+            <option value="watch">预计买入</option>
+            <option value="holding">已有持仓</option>
+          </select>
+          <input name="buyPoint" type="number" step="0.01" placeholder="校准买入点">
+          <input name="note" placeholder="备注">
+          <button type="submit">添加</button>
+        </form>
+        <div class="stock-pool-table" id="stockPoolTable"></div>
+      </article>
+
+      <div class="practice-grid">
+        <article class="practice-panel">
+          <span class="label">资产动态跟踪</span>
+          <div class="practice-metrics">
+            <div><span>当前总资产</span><strong id="practiceAssets">--</strong><small>网站内实时估算</small></div>
+            <div><span>十年目标路径</span><strong id="practiceGoalGap">--</strong><small id="practiceGoalTarget">目标5.00倍</small></div>
+            <div><span>当前回撤</span><strong id="practiceDrawdown">--</strong><small>相对1000万本金</small></div>
+            <div><span>预警线空间</span><strong id="practiceRiskRoom">--</strong><small>距离-30%底线</small></div>
+          </div>
+          <div class="risk-ladder" id="riskLadder"></div>
+        </article>
+
+        <article class="practice-panel">
+          <span class="label">每日检查清单</span>
+          <form class="daily-check-form" id="dailyCheckForm">
+            <label><input type="checkbox" name="priceAlert"> 有股票触发预设价格提醒</label>
+            <label><input type="checkbox" name="announcement"> 有公司重大公告需要阅读</label>
+            <label><input type="checkbox" name="riskLine"> 触及仓位、亏损或集中度红线</label>
+            <label><input type="checkbox" name="noNewRule"> 今天不生成新规则，只执行既有规则</label>
+            <textarea name="note" rows="3" placeholder="今日备注：情绪、冲动、疑问或需要月度复盘的问题"></textarea>
+            <button type="submit">完成今日检查并生成日报</button>
+          </form>
+          <div class="daily-report" id="dailyReport">今日还未生成日报。</div>
+        </article>
+      </div>
+
+      <div class="practice-grid calendar-grid">
+        <article class="practice-panel">
+          <div class="section-heading">
+            <div>
+              <span class="label">日历记录</span>
+              <h3 id="calendarTitle">本月记录</h3>
+            </div>
+            <div class="calendar-legend">
+              <span><i class="dot daily"></i>每日</span>
+              <span><i class="dot weekly"></i>每周</span>
+              <span><i class="dot monthly"></i>每月</span>
+              <span><i class="dot quarterly"></i>季度</span>
+            </div>
+          </div>
+          <div class="practice-calendar" id="practiceCalendar"></div>
+        </article>
+
+        <article class="practice-panel">
+          <span class="label">周期复盘动作</span>
+          <div class="review-actions">
+            <button type="button" data-review-type="weekly">完成本周情绪记录</button>
+            <button type="button" data-review-type="monthly">完成本月组合复盘</button>
+            <button type="button" data-review-type="quarterly">完成本季度认知复盘</button>
+          </div>
+          <div class="discipline-rules">
+            <p><strong>每日</strong>只监控价格提醒、重大公告和风险红线。</p>
+            <p><strong>每周</strong>只记录情绪，不调整策略。</p>
+            <p><strong>每月</strong>才允许讨论仓位和加仓规则。</p>
+            <p><strong>每季度</strong>才允许修正模型和买入逻辑。</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="practice-grid">
+        <article class="practice-panel">
+          <span class="label">想法记录</span>
+          <form class="thought-form" id="thoughtForm">
+            <select name="type" aria-label="想法类型">
+              <option value="emotion">情绪</option>
+              <option value="rule">规则</option>
+              <option value="company">公司</option>
+              <option value="risk">风险</option>
+            </select>
+            <textarea name="text" rows="4" placeholder="写下想法。它会进入历史明细，供周/月/季度复盘使用。" required></textarea>
+            <button type="submit">保存想法</button>
+          </form>
+        </article>
+
+        <article class="practice-panel">
+          <span class="label">历史明细</span>
+          <div class="history-filter">
+            <button type="button" class="active" data-log-filter="all">全部</button>
+            <button type="button" data-log-filter="daily">日报</button>
+            <button type="button" data-log-filter="review">复盘</button>
+            <button type="button" data-log-filter="thought">想法</button>
+          </div>
+          <div class="practice-log" id="practiceLog"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="goal-section" id="goalSection">
+      <div class="section-heading">
+        <div>
+          <span class="label">五年二倍 · 十年五倍</span>
+          <h2>组合目标与约束</h2>
+        </div>
+        <span class="snapshot-date" id="portfolioDate">读取仓位快照</span>
+      </div>
+
+      <div class="goal-metrics">
+        <div>
+          <span>必需年化</span>
+          <strong id="requiredCagr">--</strong>
+          <small>组合整体10年5倍</small>
+        </div>
+        <div>
+          <span>总资产</span>
+          <strong id="portfolioTotal">--</strong>
+          <small>截至快照日</small>
+        </div>
+        <div>
+          <span>已投入</span>
+          <strong id="investedWeight">--</strong>
+          <small>股票市值</small>
+        </div>
+        <div>
+          <span>备用金</span>
+          <strong id="reserveWeight">--</strong>
+          <small>未部署资金</small>
+        </div>
+        <div>
+          <span>当前估算总资产</span>
+          <strong id="currentTotalAssets">--</strong>
+          <small>按最新收盘价估算</small>
+        </div>
+        <div>
+          <span>股票浮盈亏</span>
+          <strong id="currentPnl">--</strong>
+          <small id="currentPnlPct">成本口径</small>
+        </div>
+      </div>
+
+      <div class="allocation-block">
+        <div class="allocation-bar" id="allocationBar" aria-label="组合分配"></div>
+        <div class="allocation-legend" id="allocationLegend"></div>
+      </div>
+
+      <div class="goal-gap-panel">
+        <div class="section-heading">
+          <div>
+            <span class="label">目标差距</span>
+            <h3>当前组合离十年五倍还有多远</h3>
+          </div>
+          <strong id="goalGapVerdict">计算中</strong>
+        </div>
+        <div class="goal-gap-grid">
+          <div><span>现有股票预计年化</span><strong id="stockBaseReturn">--</strong><small>按个股基准情景加权</small></div>
+          <div><span>按现状十年约到</span><strong id="currentPathMultiple">--</strong><small>备用金暂按现金收益</small></div>
+          <div><span>备用金必须赚到</span><strong id="requiredReserveReturn">--</strong><small>才可补足五倍缺口</small></div>
+          <div><span>已建模权重</span><strong id="modeledWeight">--</strong><small>股票仓口径</small></div>
+        </div>
+        <p class="goal-gap-text" id="goalGapPlainText">正在计算目标差距。</p>
+        <div class="goal-contribution-list" id="goalContributionList"></div>
+      </div>
+
+      <div class="goal-detail-grid">
+        <div class="concentration-panel">
+          <span class="label">集中度风险</span>
+          <div><span>最大单一持仓</span><strong id="largestPosition">--</strong><small id="largestPositionNote">--</small></div>
+          <div><span>前两大持仓</span><strong id="topTwoWeight">--</strong><small id="topTwoNote">--</small></div>
+        </div>
+        <div class="deployment-panel">
+          <span class="label">现金等待成本</span>
+          <div class="deployment-rows" id="deploymentRows"></div>
+          <small>假设等待期现金年化1.5%，之后投入；显示为实现整体5倍所需的投入部分年化回报。</small>
+        </div>
+      </div>
+      <p class="goal-judgment" id="goalJudgment">正在评估目标压力。</p>
+
+      <div class="holding-table-block">
+        <div class="section-heading">
+          <div>
+            <span class="label">持仓跟踪</span>
+            <h3>按成本价重算的实时盈亏</h3>
+          </div>
+          <span class="snapshot-date" id="holdingFxNote">读取汇率假设</span>
+        </div>
+        <p class="action-summary" id="holdingActionSummary">读取组合动作建议。</p>
+        <div class="holding-table" id="holdingTable"></div>
+      </div>
+    </section>
+
+    <section class="risk-map-section" id="riskMap">
+      <div class="section-heading">
+        <div>
+          <span class="label">组合风险地图</span>
+          <h2>哪些持仓可能一起出问题</h2>
+        </div>
+      </div>
+      <div class="risk-factor-list" id="riskFactorList"></div>
+      <p class="risk-map-note">风险因子允许重叠，比例不能相加；它表示对该因子敏感的当前持仓权重，不是亏损概率或预测损失。</p>
+    </section>
+
+    <section class="research-section" id="research">
+      <div class="section-heading research-heading">
+        <div>
+          <span class="label">持仓研究</span>
+          <h2>回报、估值与证据</h2>
+        </div>
+        <span class="snapshot-date">目标年化 17.46%</span>
+      </div>
+      <div class="company-switch" id="companySwitch" role="tablist" aria-label="选择公司"></div>
+      <div id="companyResearch" aria-live="polite"></div>
+    </section>
+
+    <section class="company-review-section" id="cmbReviewSection" hidden>
+      <div class="section-heading">
+        <div>
+          <span class="label">最大持仓复核</span>
+          <h2>招商银行</h2>
+        </div>
+        <span class="snapshot-date" id="cmbReviewDate">正在读取报表基准</span>
+      </div>
+      <div class="company-verdict" id="cmbReviewVerdict">计算中</div>
+      <div class="company-metrics">
+        <div><span>股价</span><strong id="cmbPrice">--</strong></div>
+        <div><span>市净率</span><strong id="cmbPb">--</strong></div>
+        <div><span>静态股息率</span><strong id="cmbDividendYield">--</strong></div>
+        <div><span>总资产仓位</span><strong id="cmbPortfolioWeight">--</strong></div>
+      </div>
+      <div class="company-review-grid">
+        <div>
+          <span class="label">10年回报情景</span>
+          <div class="scenario-list" id="cmbScenarioList"></div>
+          <p class="review-caveat">以每股净资产44.90元、年股息2.016元为基准，按净资产增长、股息增长和第10年PB估算；不是收益保证。</p>
+        </div>
+        <div class="evidence-columns">
+          <div><span class="label">支持持有</span><ul id="cmbPositiveEvidence"></ul></div>
+          <div><span class="label">限制加仓</span><ul id="cmbNegativeEvidence"></ul></div>
+        </div>
+      </div>
+      <div class="review-prices" id="cmbReviewPrices"></div>
+      <p class="risk-map-note">价格线仅在当前中性假设下成立；每次到价都必须用最新ROE、净息差和资产质量重算。</p>
+    </section>
+
+    <section class="company-review-section" id="popMartReviewSection" hidden>
+      <div class="section-heading">
+        <div>
+          <span class="label">第二大持仓复核</span>
+          <h2>泡泡玛特</h2>
+        </div>
+        <span class="snapshot-date" id="popMartReviewDate">正在读取经营基准</span>
+      </div>
+      <div class="company-verdict" id="popMartReviewVerdict">计算中</div>
+      <div class="company-metrics">
+        <div><span>股价</span><strong id="popMartPrice">--</strong></div>
+        <div><span>2025静态PE</span><strong id="popMartPe">--</strong></div>
+        <div><span>总资产仓位</span><strong id="popMartPortfolioWeight">--</strong></div>
+        <div><span>股票仓占比</span><strong id="popMartStockWeight">--</strong></div>
+      </div>
+      <div class="company-review-grid">
+        <div>
+          <span class="label">10年回报情景</span>
+          <div class="scenario-list" id="popMartScenarioList"></div>
+          <p class="review-caveat">以2025年EPS 9.61元为起点，假设25%分红率，并对增长衰减与第10年PE分别设定情景；不是盈利预测或收益保证。</p>
+        </div>
+        <div class="evidence-columns">
+          <div><span class="label">支持持有</span><ul id="popMartPositiveEvidence"></ul></div>
+          <div><span class="label">限制仓位</span><ul id="popMartNegativeEvidence"></ul></div>
+        </div>
+      </div>
+      <div class="review-prices" id="popMartGoalPrices"></div>
+      <p class="risk-map-note"><span id="popMartFxNote"></span> 上方价格是各情景实现十年五倍的最高买入价；真正的决策变量是IP集中度、库存和现金转化，不是单日涨跌。</p>
+    </section>
+
+    <section class="company-review-section" id="moutaiReviewSection" hidden>
+      <div class="section-heading">
+        <div>
+          <span class="label">核心消费持仓复核</span>
+          <h2>贵州茅台</h2>
+        </div>
+        <span class="snapshot-date" id="moutaiReviewDate">正在读取经营基准</span>
+      </div>
+      <div class="company-verdict" id="moutaiReviewVerdict">计算中</div>
+      <div class="company-metrics">
+        <div><span>股价</span><strong id="moutaiPrice">--</strong></div>
+        <div><span>2025静态PE</span><strong id="moutaiPe">--</strong></div>
+        <div><span>静态股息率</span><strong id="moutaiDividendYield">--</strong></div>
+        <div><span>目标所需EPS年增速</span><strong id="moutaiRequiredGrowth">--</strong></div>
+      </div>
+      <div class="company-review-grid">
+        <div>
+          <span class="label">10年回报情景</span>
+          <div class="scenario-list" id="moutaiScenarioList"></div>
+          <p class="review-caveat">以2025年EPS 65.66元为起点，分别假设增长率、分红率及第10年PE。极端压力情景包含EPS下降和PE由当前约19倍压缩至12倍；增长要求指标采用18倍终值PE和78%分红率反推。</p>
+        </div>
+        <div class="evidence-columns">
+          <div><span class="label">支持持有</span><ul id="moutaiPositiveEvidence"></ul></div>
+          <div><span class="label">限制加仓</span><ul id="moutaiNegativeEvidence"></ul></div>
+        </div>
+      </div>
+      <div class="review-prices" id="moutaiGoalPrices"></div>
+      <p class="risk-map-note">上方价格是各情景实现十年五倍的最高买入价。茅台库存包含需要长期陈酿的基酒，不能照搬普通消费品的库存逻辑；更应跟踪批发收入、合同负债、吨价和利润增速。</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>行情：腾讯公开接口 · 基本面：公司公告与本地分析报告</span>
+    <span>每日17:30更新 · 到价不等于自动买入</span>
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

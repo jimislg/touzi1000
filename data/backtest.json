@@ -1,0 +1,292 @@
+{
+  "generatedAt": "2026-06-21T22:34:11.567Z",
+  "methodology": {
+    "outcome": "Positive future white-horse excess means white horses outperformed technology",
+    "caveats": [
+      "Daily observations overlap and are not statistically independent",
+      "The current basket has survivorship and selection bias",
+      "Broad indices reduce stock-selection bias but are imperfect style proxies",
+      "The test evaluates association, not causal prediction"
+    ]
+  },
+  "universes": {
+    "currentBasket": {
+      "description": "Current dashboard stocks; closest to the portfolio but selection-biased",
+      "period": {
+        "from": "2023-12-08",
+        "to": "2026-05-20"
+      },
+      "daily": {
+        "5": {
+          "sampleCount": 564,
+          "meanWhiteExcess": -0.891,
+          "reversalRate": 0.465,
+          "completionCorrelation": -0.197,
+          "buckets": [
+            {
+              "label": "0-39",
+              "count": 186,
+              "meanWhiteExcess": -0.039,
+              "reversalRate": 0.543
+            },
+            {
+              "label": "40-59",
+              "count": 274,
+              "meanWhiteExcess": -0.705,
+              "reversalRate": 0.456
+            },
+            {
+              "label": "60-79",
+              "count": 91,
+              "meanWhiteExcess": -2.645,
+              "reversalRate": 0.363
+            },
+            {
+              "label": "80-100",
+              "count": 13,
+              "meanWhiteExcess": -4.722,
+              "reversalRate": 0.231
+            }
+          ]
+        },
+        "20": {
+          "sampleCount": 564,
+          "meanWhiteExcess": -3.898,
+          "reversalRate": 0.395,
+          "completionCorrelation": -0.119,
+          "buckets": [
+            {
+              "label": "0-39",
+              "count": 186,
+              "meanWhiteExcess": -3.29,
+              "reversalRate": 0.403
+            },
+            {
+              "label": "40-59",
+              "count": 274,
+              "meanWhiteExcess": -2.699,
+              "reversalRate": 0.431
+            },
+            {
+              "label": "60-79",
+              "count": 91,
+              "meanWhiteExcess": -8.154,
+              "reversalRate": 0.319
+            },
+            {
+              "label": "80-100",
+              "count": 13,
+              "meanWhiteExcess": -8.068,
+              "reversalRate": 0.077
+            }
+          ]
+        }
+      },
+      "nonOverlapping20": {
+        "5": {
+          "sampleCount": 29,
+          "meanWhiteExcess": 0.487,
+          "reversalRate": 0.517,
+          "completionCorrelation": -0.111,
+          "buckets": [
+            {
+              "label": "0-39",
+              "count": 12,
+              "meanWhiteExcess": 0.008,
+              "reversalRate": 0.5
+            },
+            {
+              "label": "40-59",
+              "count": 12,
+              "meanWhiteExcess": 1.934,
+              "reversalRate": 0.667
+            },
+            {
+              "label": "60-79",
+              "count": 4,
+              "meanWhiteExcess": -0.932,
+              "reversalRate": 0.25
+            },
+            {
+              "label": "80-100",
+              "count": 1,
+              "meanWhiteExcess": -5.438,
+              "reversalRate": 0
+            }
+          ]
+        },
+        "20": {
+          "sampleCount": 29,
+          "meanWhiteExcess": -3.648,
+          "reversalRate": 0.414,
+          "completionCorrelation": -0.148,
+          "buckets": [
+            {
+              "label": "0-39",
+              "count": 12,
+              "meanWhiteExcess": -3.496,
+              "reversalRate": 0.417
+            },
+            {
+              "label": "40-59",
+              "count": 12,
+              "meanWhiteExcess": 0.456,
+              "reversalRate": 0.583
+            },
+            {
+              "label": "60-79",
+              "count": 4,
+              "meanWhiteExcess": -16.041,
+              "reversalRate": 0
+            },
+            {
+              "label": "80-100",
+              "count": 1,
+              "meanWhiteExcess": -5.152,
+              "reversalRate": 0
+            }
+          ]
+        }
+      }
+    },
+    "broadIndices": {
+      "description": "STAR 50 plus ChiNext versus SSE 50 plus CSI 300",
+      "period": {
+        "from": "2022-06-20",
+        "to": "2026-05-21"
+      },
+      "daily": {
+        "5": {
+          "sampleCount": 950,
+          "meanWhiteExcess": -0.282,
+          "reversalRate": 0.496,
+          "completionCorrelation": -0.114,
+          "buckets": [
+            {
+              "label": "0-39",
+              "count": 301,
+              "meanWhiteExcess": 0.156,
+              "reversalRate": 0.535
+            },
+            {
+              "label": "40-59",
+              "count": 569,
+              "meanWhiteExcess": -0.436,
+              "reversalRate": 0.485
+            },
+            {
+              "label": "60-79",
+              "count": 76,
+              "meanWhiteExcess": -0.713,
+              "reversalRate": 0.434
+            },
+            {
+              "label": "80-100",
+              "count": 4,
+              "meanWhiteExcess": -2.953,
+              "reversalRate": 0.25
+            }
+          ]
+        },
+        "20": {
+          "sampleCount": 950,
+          "meanWhiteExcess": -1.113,
+          "reversalRate": 0.484,
+          "completionCorrelation": -0.024,
+          "buckets": [
+            {
+              "label": "0-39",
+              "count": 301,
+              "meanWhiteExcess": -0.846,
+              "reversalRate": 0.488
+            },
+            {
+              "label": "40-59",
+              "count": 569,
+              "meanWhiteExcess": -1.362,
+              "reversalRate": 0.478
+            },
+            {
+              "label": "60-79",
+              "count": 76,
+              "meanWhiteExcess": -0.027,
+              "reversalRate": 0.539
+            },
+            {
+              "label": "80-100",
+              "count": 4,
+              "meanWhiteExcess": -6.476,
+              "reversalRate": 0
+            }
+          ]
+        }
+      },
+      "nonOverlapping20": {
+        "5": {
+          "sampleCount": 48,
+          "meanWhiteExcess": -0.307,
+          "reversalRate": 0.5,
+          "completionCorrelation": 0.061,
+          "buckets": [
+            {
+              "label": "0-39",
+              "count": 12,
+              "meanWhiteExcess": -0.195,
+              "reversalRate": 0.5
+            },
+            {
+              "label": "40-59",
+              "count": 33,
+              "meanWhiteExcess": -0.338,
+              "reversalRate": 0.485
+            },
+            {
+              "label": "60-79",
+              "count": 3,
+              "meanWhiteExcess": -0.42,
+              "reversalRate": 0.667
+            },
+            {
+              "label": "80-100",
+              "count": 0,
+              "meanWhiteExcess": null,
+              "reversalRate": null
+            }
+          ]
+        },
+        "20": {
+          "sampleCount": 48,
+          "meanWhiteExcess": -1.094,
+          "reversalRate": 0.438,
+          "completionCorrelation": -0.008,
+          "buckets": [
+            {
+              "label": "0-39",
+              "count": 12,
+              "meanWhiteExcess": -2.412,
+              "reversalRate": 0.417
+            },
+            {
+              "label": "40-59",
+              "count": 33,
+              "meanWhiteExcess": -0.241,
+              "reversalRate": 0.455
+            },
+            {
+              "label": "60-79",
+              "count": 3,
+              "meanWhiteExcess": -5.21,
+              "reversalRate": 0.333
+            },
+            {
+              "label": "80-100",
+              "count": 0,
+              "meanWhiteExcess": null,
+              "reversalRate": null
+            }
+          ]
+        }
+      }
+    }
+  }
+}

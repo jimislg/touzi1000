@@ -30,9 +30,9 @@
   ],
   "portfolioReturnScenarios": {
     "underwriting": {
-      "annualReturn": 0.08926959459459462,
-      "fiveYearMultiple": 1.5335,
-      "tenYearMultiple": 2.3515,
+      "annualReturn": 0.09031689189189192,
+      "fiveYearMultiple": 1.5409,
+      "tenYearMultiple": 2.3743,
       "note": "已批准六只股票袖套归一化承保：A类按悲观/基准/乐观25%/60%/15%，B类按40%/50%/10%。最终100%股票的完整回报要等剩余席位批准后重算"
     },
     "base": {
@@ -108,12 +108,12 @@
       "deploymentMonths": 18,
       "migrationStartAssets": 18000000,
       "migrationMonths": 24,
-      "terminalReturn": 0.05200980000000001,
+      "terminalReturn": 0.052629800000000004,
       "terminalYield": 0.028307
     },
     "incomeFirst": {
       "deploymentMonths": 12,
-      "terminalReturn": 0.05200980000000001,
+      "terminalReturn": 0.052629800000000004,
       "terminalYield": 0.028307
     },
     "phasePortfolios": [
@@ -121,7 +121,7 @@
         "id": "accumulation",
         "name": "积累期",
         "objective": "先把本金做大，不以当期股息最大化",
-        "targetReturn": 0.08926959459459462,
+        "targetReturn": 0.09031689189189192,
         "companyBaseReturn": 0.10943243243243245,
         "targetYield": 0.023125,
         "allocation": "最终100%股票；已批准茅台25%＋腾讯15%＋招行10%＋福耀10%＋安踏8%＋泡泡6%=74%，其余26%为待研究、待批准股票额度",
@@ -140,21 +140,21 @@
         "id": "income",
         "name": "收息期",
         "objective": "普通股息达到120万元安全线后才视为完成",
-        "targetReturn": 0.05200980000000001,
+        "targetReturn": 0.052629800000000004,
         "targetYield": 0.028307,
         "allocation": "条件蓝图为茅台19%＋招行16%＋中国移动H14%＋质量白电10%＋长电10%＋福耀8%＋现金23%；当前研究硬上限只承保其中58%股票权重，其余42%视为未分配",
         "gate": "先使六席权重通过当届个股研究上限，再验收单一公司普通股息贡献不超过20%。超限权重、空缺席位和未验证DPS不得计入正式日期。"
       }
     ],
     "rules": [
-      "已批准六只股票袖套归一化承保回报为8.93%；终态股息模块已冻结，其日期不进入当前决策。",
-      "10.94%是已批准六只股票袖套的基准机械加权，8.93%是质量折扣承保；最终100%股票组合须在剩余席位批准后重算。",
+      "已批准六只股票袖套归一化承保回报为9.03%；终态股息模块已冻结，其日期不进入当前决策。",
+      "10.94%是已批准六只股票袖套的基准机械加权，9.03%是质量折扣承保；最终100%股票组合须在剩余席位批准后重算。",
       "18个月是机会出现时的部署目标，不是追价期限；没有达到P10的A类公司或P12的B类公司时允许现金超标。",
       "资产达到1800万元只是启动迁移的必要条件；招行、中国移动、白电和长电若未获得更高终态权重承保，只能按当前硬上限计算。宇通只有重新获批后才能参与。",
       "股息全部复投，直到普通股息滚动十二个月达到120万元；特别股息、现金利息和卖出收益不计入达标。",
-      "名义100万元不是购买力目标；按3%规划通胀，2026年100万元购买力和20%缓冲在56年5个月。本模块已冻结，重启时须用实际CPI与最新回报重算。"
+      "名义100万元不是购买力目标；按3%规划通胀，2026年100万元购买力和20%缓冲在54年11个月。本模块已冻结，重启时须用实际CPI与最新回报重算。"
     ],
-    "note": "本模块已冻结为未来研究。当前只能计算已批准六只股票袖套：基准10.94%、承保8.93%；最终100%股票组合在剩余席位批准前没有完整回报率。",
+    "note": "本模块已冻结为未来研究。当前只能计算已批准六只股票袖套：基准10.94%、承保9.03%；最终100%股票组合在剩余席位批准前没有完整回报率。",
     "contributionSensitivity": {
       "status": "scenario-only",
       "actualAnnualContribution": null,
@@ -175,7 +175,7 @@
       "status": "conditional-blueprint-over-current-research-caps",
       "maxHoldings": 7,
       "cashWeight": 0.23,
-      "terminalReturnFloor": 0.05200980000000001,
+      "terminalReturnFloor": 0.052629800000000004,
       "rows": [
         {
           "name": "贵州茅台",
@@ -281,9 +281,9 @@
           "gate": "海外扩产回报、关税、自由现金流和普通分红覆盖通过",
           "qualityGrade": "A",
           "approvedWeight": 0.08,
-          "pessimisticTenYearReturn": 0.036,
-          "baseTenYearReturn": 0.114,
-          "underwrittenTenYearReturn": 0.10289999999999999
+          "pessimisticTenYearReturn": 0.043,
+          "baseTenYearReturn": 0.122,
+          "underwrittenTenYearReturn": 0.11065
         }
       ],
       "constraints": [
@@ -295,14 +295,14 @@
         "腾讯若迁移时基准十年IRR仍不低于12%，不机械卖出；延后迁移或提高资产门槛"
       ],
       "note": "这是未来迁移阶段的条件蓝图，不是2026年的买入清单。招行、中国移动、白电和长电的蓝图权重超过现有个股研究硬上限，超限部分必须等未来重新承保；在此之前正式路径只采用上限内的保守股息率。",
-      "terminalBaseReturn": 0.06083,
+      "terminalBaseReturn": 0.06147,
       "returnAudit": {
         "approvedStockWeight": 0.5800000000000001,
         "cashOrUnallocatedWeight": 0.41999999999999993,
         "cashReturn": 0.015,
-        "baseReturn": 0.06083,
-        "underwrittenReturn": 0.05200980000000001,
-        "pessimisticReturn": 0.01792,
+        "baseReturn": 0.06147,
+        "underwrittenReturn": 0.052629800000000004,
+        "pessimisticReturn": 0.01848,
         "method": "A类悲观/基准/乐观25%/60%/15%，B类40%/50%/10%；只按当前研究硬上限计权重，其余按1.5%现金回报"
       }
     },
@@ -319,7 +319,7 @@
       "routineBuffer": 1.2,
       "dividendGrowthEvidenceYears": 3,
       "projectionYears": 30,
-      "severeTerminalReturn": 0.01792,
+      "severeTerminalReturn": 0.01848,
       "contributionSensitivity": {
         "status": "capacity-unconfirmed",
         "actualAnnualContribution": null,
@@ -405,8 +405,8 @@
     "status": "已建立基线，尚无36个月实绩可用于滚动收益验证",
     "method": "对目标组合各公司的10年悲观/基准/乐观IRR做质量分类概率加权；A类25%/60%/15%，B类40%/50%/10%，现金按1.5%",
     "companyBaseReturn": 0.10943243243243245,
-    "underwritingReturn": 0.08926959459459462,
-    "fullPessimisticReturn": 0.013756756756756758,
+    "underwritingReturn": 0.09031689189189192,
+    "fullPessimisticReturn": 0.014702702702702703,
     "driftRules": [
       "前36个月只跟踪部署进度、买入IRR、正常化股息和投资论文，不用短期涨跌判定路径失败",
       "有满36个月后，滚动年化低于7.5%则使用7%压力路径重算；低于5%且至少两项核心论文恶化时重做组合",
@@ -417,12 +417,12 @@
       "stockWeight": 0.195107526,
       "normalizedAfterTaxDividend": 71177,
       "companyBaseReturn": 0.10943243243243245,
-      "underwritingReturn": 0.08926959459459462
+      "underwritingReturn": 0.09031689189189192
     }
   },
   "honestRestatement": {
     "conclusion": "5年2倍、10年5倍继续作为硬目标，但不能被当作收益承诺；系统必须如实显示当前组合与目标之间的数学缺口。",
-    "quantification": "已批准六只74%股票袖套的基准年化约10.94%，质量折扣承保约8.93%；若剩余26%股票额度取得同等承保回报，10年示意约2.35倍，仍低于5倍目标。最终组合必须在新席位批准后重算。",
+    "quantification": "已批准六只74%股票袖套的基准年化约10.94%，质量折扣承保约9.03%；若剩余26%股票额度取得同等承保回报，10年示意约2.37倍，仍低于5倍目标。最终组合必须在新席位批准后重算。",
     "dividendPath": "当前积累期最终目标是100%股票；现有六只已批准74%、有效硬容量76%，未批准额度临时以现金形式等待。终态股息模块已冻结，不进入当前决策。",
     "source": "年股息100万元达标时钟与安全线复核-20260901.md、最稳最快股息路径双阶段优化-20260901.md、股息路径承保回报与偏离预警-20260901.md、股息100万路径瓶颈与十年安全线条件-20260901.md"
   },
@@ -432,19 +432,19 @@
       "event": "起点：总资产1000万元（股票195.11万＋现金804.89万）"
     },
     {
-      "date": "2034-03",
+      "date": "2034-02",
       "event": "当前积累组合承保：资产约1800万元，只在收息席位通过时开始迁移"
     },
     {
-      "date": "2046-09",
-      "event": "按终态当前研究硬上限：约20年达到100万元税后普通股息能力"
+      "date": "2046-06",
+      "event": "按终态当前研究硬上限：约19年9个月达到100万元税后普通股息能力"
     },
     {
-      "date": "2050-04",
-      "event": "按终态当前研究硬上限：约23年7个月达到120万元，可承受约15%削减"
+      "date": "2050-01",
+      "event": "按终态当前研究硬上限：约23年4个月达到120万元，可承受约15%削减"
     },
     {
-      "date": "2083-02",
+      "date": "2081-08",
       "event": "未来研究：3%规划通胀下的2026年100万元购买力加20%缓冲"
     }
   ],

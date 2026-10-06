@@ -1,8 +1,8 @@
 {
-  "policyVersion": "2026-09-10-v4",
+  "policyVersion": "2026-09-12-independent-build-pool-v1",
   "policyAuthority": {
     "status": "authoritative-execution-policy",
-    "sourceOfTruth": "本文件的targetPortfolio、concentrationPolicy和executionPlan",
+    "sourceOfTruth": "本文件的holdings、tradeLedger、constructionPolicy、independentBuildPool和executionPlan",
     "researchScenarios": [
       "portfolio-efficiency.json"
     ],
@@ -156,9 +156,10 @@
     }
   ],
   "concentrationPolicy": {
-    "maxHoldings": 7,
+    "enabled": false,
+    "maxHoldings": null,
     "currentHoldingCount": 7,
-    "replacementRequired": true,
+    "replacementRequired": false,
     "formalNames": [
       "贵州茅台",
       "腾讯控股",
@@ -167,19 +168,315 @@
       "泡泡玛特",
       "安踏体育"
     ],
-    "rule": "实际持仓与正式目标组合均最多7只；已经满7席时，新公司只能在先卖出一个现有席位后买入，观察池不占席位。",
-    "focusNote": "宇通、宁德、康臣和小商品城均在观察池，不占正式目标仓位。最终目标是100%股票；当前六只已批准74%，其余26%是待研究、待批准的股票额度，不自动分配给观察仓。现有格力、万华仍是实际持仓中的待复核席位。"
+    "rule": "暂不设置持仓席位或单股集中度上限；每家公司先按独立建仓值跟踪，到价后逐笔复核，实际投入仍受可用现金约束。",
+    "focusNote": "独立建仓值是候选容量，不是立即买入指令，也不是承诺按比例买满；候选合计可以超过1000万元，实际成交后其余公司的可用额度自然下降。"
   },
   "finalStockPolicy": {
-    "status": "confirmed-all-equity-target-allocation-incomplete",
+    "status": "confirmed-all-equity-independent-build-capacity",
     "targetStockWeight": 1,
     "targetCashWeight": 0,
-    "approvedSixTargetWeight": 0.74,
-    "approvedSixNormalWeight": 0.64,
-    "approvedSixEffectiveHardCapacity": 0.76,
-    "unallocatedStockWeightAtApprovedTargets": 0.26,
-    "minimumAdditionalCapacityNeeded": 0.24,
-    "rule": "最终以100%股票为配置目标；现金只是等待价格与公司闸门时的临时形态。未通过研究与用户确认的24%—26%股票额度不得伪装成已投资回报，也不得为满仓放宽买价或单股上限。"
+    "independentCandidateCapacity": 20300000,
+    "independentCandidateCapacityRatio": 2.03,
+    "conditionalRepairCapacity": 2900000,
+    "potentialCapacityIncludingRepairs": 23200000,
+    "rule": "最终以100%股票为配置目标；当前阶段先把本金做大。每家公司按独立建仓值评估，候选容量可以超过本金；实际仓位只按真实成交后的市值计算，不融资、不使用衍生品放大。"
+  },
+  "constructionPolicy": {
+    "status": "confirmed-2026-09-12",
+    "principal": 10000000,
+    "candidateCapacity": 20300000,
+    "candidateCapacityRatio": 2.03,
+    "conditionalRepairCapacity": 2900000,
+    "potentialCapacity": 23200000,
+    "noLeverage": true,
+    "rule": "独立建仓值回答的是单家公司在价格和基本面都合格时最多愿意投入多少，不要求候选值合计等于本金。实际仓位按真实市值除以总资产计算。",
+    "completionRule": "建仓完成度按累计成本除以独立建仓值计算，上限100%；市值涨跌不改变已投入成本。",
+    "priorityRule": [
+      "多个标的同时到价时，先比较基准预期回报与安全边际",
+      "回报接近时，优先业务更简单、现金流更可验证、治理更可靠的公司",
+      "任何到价仅获得复核资格，复核后仍须明确确认才形成执行单"
+    ]
+  },
+  "independentBuildPool": [
+    {
+      "name": "贵州茅台",
+      "symbol": "600519.SH",
+      "quality": "A",
+      "buildValue": 2500000,
+      "approvedValue": 2500000,
+      "triggerPrice": 1280,
+      "triggerLabel": "≤1280元",
+      "reviewTargetValue": 300000,
+      "status": "等待价格",
+      "nextAction": "到1280元以下复核首笔30万"
+    },
+    {
+      "name": "腾讯控股",
+      "symbol": "0700.HK",
+      "quality": "A",
+      "buildValue": 1500000,
+      "approvedValue": 1500000,
+      "triggerPrice": 420,
+      "triggerLabel": "≤420港元",
+      "reviewTargetValue": 300000,
+      "status": "已持有·等加仓",
+      "nextAction": "到420港元以下复核累计30万"
+    },
+    {
+      "name": "泡泡玛特",
+      "symbol": "9992.HK",
+      "quality": "A- / B+",
+      "buildValue": 1500000,
+      "approvedValue": 600000,
+      "triggerPrice": 110,
+      "triggerLabel": "≤110港元",
+      "reviewTargetValue": 600000,
+      "status": "已持有·等待价格",
+      "nextAction": "目前仅批准60万；其余90万等待事实解锁"
+    },
+    {
+      "name": "招商银行",
+      "symbol": "600036.SH",
+      "quality": "B+",
+      "buildValue": 1000000,
+      "approvedValue": 1000000,
+      "triggerPrice": 35.7,
+      "triggerLabel": "≤35.7元",
+      "reviewTargetValue": 1000000,
+      "status": "已持有·等加仓",
+      "nextAction": "到价后只补至独立建仓值"
+    },
+    {
+      "name": "福耀玻璃",
+      "symbol": "600660.SH",
+      "quality": "A-",
+      "buildValue": 1000000,
+      "approvedValue": 1000000,
+      "triggerPrice": 51,
+      "triggerLabel": "≤51元",
+      "reviewTargetValue": 600000,
+      "status": "已持有·等待价格",
+      "nextAction": "到51元以下复核累计60万"
+    },
+    {
+      "name": "格力电器",
+      "symbol": "000651.SZ",
+      "quality": "A-",
+      "buildValue": 1000000,
+      "approvedValue": 0,
+      "triggerPrice": null,
+      "triggerLabel": "买价待刷新",
+      "reviewTargetValue": 0,
+      "gateLocked": true,
+      "status": "已有仓位·暂不新增",
+      "nextAction": "刷新两步法买价后再开放新增"
+    },
+    {
+      "name": "迈瑞医疗",
+      "symbol": "300760.SZ",
+      "quality": "A-",
+      "buildValue": 1000000,
+      "approvedValue": 0,
+      "triggerPrice": 121.3,
+      "triggerLabel": "≤121.3元",
+      "reviewTargetValue": 250000,
+      "gateLocked": true,
+      "status": "等待事实闸门",
+      "nextAction": "到价且收入质量恢复后复核25万"
+    },
+    {
+      "name": "安踏体育",
+      "symbol": "2020.HK",
+      "quality": "B+",
+      "buildValue": 800000,
+      "approvedValue": 800000,
+      "triggerPrice": 72,
+      "triggerLabel": "≤72港元",
+      "reviewTargetValue": 300000,
+      "status": "已持有·等待价格",
+      "nextAction": "到72港元以下复核累计30万"
+    },
+    {
+      "name": "万华化学",
+      "symbol": "600309.SH",
+      "quality": "B+",
+      "buildValue": 800000,
+      "approvedValue": 0,
+      "triggerPrice": null,
+      "triggerLabel": "周期闸门未开",
+      "reviewTargetValue": 0,
+      "gateLocked": true,
+      "status": "已有仓位·暂不新增",
+      "nextAction": "现金流与周期位置改善后重估"
+    },
+    {
+      "name": "宁德时代",
+      "symbol": "300750.SZ",
+      "quality": "A-",
+      "buildValue": 800000,
+      "approvedValue": 0,
+      "triggerPrice": 275.5,
+      "triggerLabel": "≤275.5元",
+      "reviewTargetValue": 200000,
+      "status": "等待价格",
+      "nextAction": "到价且现金流闸门通过后复核20万"
+    },
+    {
+      "name": "香港交易所",
+      "symbol": "0388.HK",
+      "quality": "A",
+      "buildValue": 800000,
+      "approvedValue": 0,
+      "triggerPrice": 274,
+      "triggerLabel": "≤274港元",
+      "reviewTargetValue": 200000,
+      "status": "等待价格",
+      "nextAction": "到价后复核成交活跃度与首笔20万"
+    },
+    {
+      "name": "三花智控",
+      "symbol": "002050.SZ",
+      "quality": "B+",
+      "buildValue": 800000,
+      "approvedValue": 0,
+      "triggerPrice": 19.8,
+      "triggerLabel": "≤19.8元",
+      "reviewTargetValue": 200000,
+      "status": "等待价格",
+      "nextAction": "到价后复核机器人预期与传统主业"
+    },
+    {
+      "name": "紫金矿业",
+      "symbol": "601899.SH",
+      "quality": "B+",
+      "buildValue": 800000,
+      "approvedValue": 0,
+      "triggerPrice": 21.14,
+      "triggerLabel": "≤21.14元",
+      "reviewTargetValue": 200000,
+      "status": "等待价格",
+      "nextAction": "到价后按金铜价格中枢复核20万"
+    },
+    {
+      "name": "恒瑞医药",
+      "symbol": "600276.SH",
+      "quality": "B+",
+      "buildValue": 800000,
+      "approvedValue": 0,
+      "triggerPrice": 34,
+      "triggerLabel": "≤34元",
+      "reviewTargetValue": 200000,
+      "status": "等待价格",
+      "nextAction": "到价后复核创新药兑现与首笔20万"
+    },
+    {
+      "name": "康臣药业",
+      "symbol": "1681.HK",
+      "quality": "B+",
+      "buildValue": 800000,
+      "approvedValue": 0,
+      "triggerPrice": 12.59,
+      "triggerLabel": "≤12.59港元",
+      "reviewTargetValue": 150000,
+      "status": "等待价格",
+      "nextAction": "到价后复核集采、集中度与首笔15万"
+    },
+    {
+      "name": "中国平安",
+      "symbol": "02318.HK",
+      "quality": "B+",
+      "buildValue": 800000,
+      "approvedValue": 0,
+      "triggerPrice": 54.38,
+      "preferredPrice": 52,
+      "triggerLabel": "≤54.38港元；优选≤52",
+      "reviewTargetValue": 200000,
+      "status": "到价待复核",
+      "nextAction": "价格达到5年2倍线，只复核首笔20万"
+    },
+    {
+      "name": "农夫山泉",
+      "symbol": "9633.HK",
+      "quality": "B+",
+      "buildValue": 800000,
+      "approvedValue": 0,
+      "triggerPrice": null,
+      "triggerLabel": "同口径估值待补",
+      "reviewTargetValue": 0,
+      "gateLocked": true,
+      "status": "估值锁定",
+      "nextAction": "补齐5年2倍与10年5倍买价"
+    },
+    {
+      "name": "东鹏饮料",
+      "symbol": "605499.SH",
+      "quality": "B+",
+      "buildValue": 800000,
+      "approvedValue": 0,
+      "triggerPrice": null,
+      "triggerLabel": "同口径估值待补",
+      "reviewTargetValue": 0,
+      "gateLocked": true,
+      "status": "估值锁定",
+      "nextAction": "补齐5年2倍与10年5倍买价"
+    },
+    {
+      "name": "小商品城",
+      "symbol": "600415.SH",
+      "quality": "A-",
+      "buildValue": 600000,
+      "approvedValue": 0,
+      "triggerPrice": 11.7,
+      "triggerLabel": "≤11.7元",
+      "reviewTargetValue": 200000,
+      "gateLocked": true,
+      "status": "等待事实闸门",
+      "nextAction": "H股发行与资本开支闸门通过后复核"
+    },
+    {
+      "name": "海天味业",
+      "symbol": "603288.SH",
+      "quality": "B+",
+      "buildValue": 600000,
+      "approvedValue": 0,
+      "triggerPrice": null,
+      "triggerLabel": "同口径估值待补",
+      "reviewTargetValue": 0,
+      "gateLocked": true,
+      "status": "估值锁定",
+      "nextAction": "补齐5年2倍与10年5倍买价"
+    }
+  ],
+  "conditionalBuildPool": [
+    { "name": "宇通客车", "symbol": "600066.SH", "quality": "B+", "buildValue": 800000, "status": "修复观察", "reentry": "国内回款、海外利润与治理同时改善" },
+    { "name": "伟星新材", "symbol": "002372.SZ", "quality": "B", "buildValue": 500000, "status": "修复观察", "reentry": "零售需求企稳，提价不以销量和渠道库存恶化为代价" },
+    { "name": "分众传媒", "symbol": "002027.SZ", "quality": "B", "buildValue": 500000, "status": "并购观察", "reentry": "并购后单股自由现金流和分红未被摊薄" },
+    { "name": "携程集团", "symbol": "9961.HK", "quality": "B+", "buildValue": 500000, "status": "估值观察", "reentry": "增速、利润率与合理买价同时满足" },
+    { "name": "东阿阿胶", "symbol": "000423.SZ", "quality": "B", "buildValue": 600000, "status": "质量复核", "reentry": "增长质量、渠道库存与现金流重新通过两步法" }
+  ],
+  "pingAnReview": {
+    "asOf": "2026-09-11",
+    "shareClass": "H股",
+    "referencePrice": 54,
+    "currency": "HKD",
+    "quality": "B+，条件型好公司",
+    "fiveYearDoublePrice": 54.38,
+    "preferredFirstReviewPrice": 52,
+    "tenYearFivefoldPrice": 38.22,
+    "baseIrr5yAtReference": 0.1505,
+    "baseIrr10yAtReference": 0.1255,
+    "buildValue": 800000,
+    "tiers": [
+      { "price": "≤52港元", "cumulative": 200000, "action": "首笔复核" },
+      { "price": "≤45.26港元", "cumulative": 480000, "action": "达到15%目标线后复核第二档" },
+      { "price": "≤38.22港元", "cumulative": 800000, "action": "达到10年5倍线后复核满额" }
+    ],
+    "pauseConditions": [
+      "寿险新业务价值增长主要靠假设变化而非真实业务改善",
+      "财险综合成本率持续恶化并明显高于96%",
+      "银行资产质量或集团资本充足率出现趋势性下滑",
+      "可转债摊薄、治理或关联交易使每股价值增长失真"
+    ]
   },
   "opportunityCash": {
     "weight": 0,
@@ -220,7 +517,7 @@
     "postCash": 8048924.74,
     "postCashWeight": 0.804892474,
     "rows": [],
-    "withdrawnReason": "腾讯≤460港元、福耀≤57.70元来自旧执行卡，已与最新个股研究的≤420港元、≤55元首档冲突。撤回旧单不等于卖出或改变正式名单；最新条件队列见accumulation-plan.json。"
+    "withdrawnReason": "腾讯≤460港元、福耀≤57.70元和≤55元来自旧执行卡，均已撤回。福耀最新研究确认5年2倍线≤51元、10年5倍线≤37元；撤回旧单不等于卖出或改变正式名单。"
   },
   "deploymentClock": {
     "asOf": "2026-09-10",
@@ -232,10 +529,10 @@
         "action": "当前无订单；等待最新价格与基本面双闸门"
       },
       {
-        "stage": "首批四闸门全部触发",
-        "stockWeight": 0.2771,
-        "cashWeight": 0.7229,
-        "action": "福耀、安踏、腾讯、茅台依次复核；不是预先挂单，也不要求同时成交"
+        "stage": "当前三项已量化闸门全部触发",
+        "stockWeight": 0.2644,
+        "cashWeight": 0.7356,
+        "action": "安踏、腾讯、茅台依次复核；福耀5年线≤51元、10年线≤37元，到价后先重算数量并提交确认"
       },
       {
         "stage": "3个月",
@@ -273,28 +570,29 @@
     "note": "部署没有强制截止日。最终目标是100%股票；当前六只已批准74%、有效硬容量76%，剩余额度必须由合格新席位或重新批准的公司补足。不为100%目标放宽买价和基本面。"
   },
   "deploymentQueue": {
-    "asOf": "2026-09-10",
+    "asOf": "2026-09-11",
     "afterInitialStockWeight": 0.195107526,
     "threeMonthTargetWeight": null,
     "threeMonthGap": 0,
-    "primaryPotential": 819723,
+    "primaryPotential": 693223,
     "coverageRatio": 0,
     "rows": [
       {
         "priority": "A1",
         "name": "福耀玻璃",
-        "trigger": "≤55元",
-        "amount": 126500,
-        "postWeight": 0.20776,
+        "trigger": "5年≤51元；10年≤37元",
+        "triggerPrice": 37,
+        "amount": null,
+        "postWeight": null,
         "status": "等待价格",
-        "gate": "拟加2,300股至公司约4%；海外扩产回报、关税与自由现金流通过后再由用户确认"
+        "gate": "≤51元进入5年2倍复核；≤37元进入10年5倍复核并同时满足两项目标。31.5—33.3元为安全边际区，新增数量届时重算并由用户确认"
       },
       {
         "priority": "A2",
         "name": "安踏体育",
         "trigger": "≤72港元",
         "amount": 185177,
-        "postWeight": 0.22628,
+        "postWeight": 0.21363,
         "status": "等待价格",
         "gate": "拟加3,000股至公司约3%；PUMA资本配置、核心品牌利润率和自由现金流通过后再由用户确认"
       },
@@ -303,7 +601,7 @@
         "name": "腾讯控股",
         "trigger": "≤420港元",
         "amount": 252046,
-        "postWeight": 0.25149,
+        "postWeight": 0.23883,
         "status": "等待价格",
         "gate": "拟加700股至公司约2.9%；AI投入与自由现金流取消条件未触发，用户确认后执行"
       },
@@ -312,7 +610,7 @@
         "name": "贵州茅台",
         "trigger": "1240—1280元",
         "amount": 256000,
-        "postWeight": 0.27708,
+        "postWeight": 0.26443,
         "status": "等待价格并等待腾出实际席位",
         "gate": "拟买200股约2.6%；利润恢复、批价与现金收入未恶化，并先退出一个实际席位"
       }
@@ -421,19 +719,24 @@
       "target": "正常80万元；100万元为硬上限条件仓",
       "tiers": [
         {
-          "price": "≤55",
-          "action": "新增约2,300股，买至约4%累计",
-          "cumulative": 400000
-        },
-        {
-          "price": "≤44",
-          "action": "买至6%累计",
-          "cumulative": 600000
+          "price": "≤51",
+          "action": "达到5年2倍复核线，但尚未满足10年5倍；是否建立小仓须单独确认",
+          "cumulative": null
         },
         {
           "price": "≤37",
-          "action": "基本面不变时完成8%正常仓；10%硬上限须另行重审",
-          "cumulative": 800000
+          "action": "进入10年5倍复核并同时满足两项目标；新增数量按届时总资产与价格重算",
+          "cumulative": null
+        },
+        {
+          "price": "≤33.3",
+          "action": "进入安全边际区；财务与暂停条件通过后再提交仓位草案",
+          "cumulative": null
+        },
+        {
+          "price": "≤31.5",
+          "action": "安全边际进一步扩大；是否做到8%正常仓仍须另行确认",
+          "cumulative": null
         }
       ],
       "cancel": "汽车玻璃毛利率结构性下滑；海外扩产长期不能转化为现金回报；单车价值提升被证伪；治理或关联交易出现重大问题。"
@@ -751,27 +1054,6 @@
         }
       ],
       "cancel": "尿毒清或肾病药连续两期明显下降；现金转化低于80%；重大医保、质量或合规事件；上海华茂等资本配置明显侵蚀现金回报。"
-    },
-    {
-      "name": "美的集团",
-      "maxTarget": "8%",
-      "competes": "核心复利候选；与福耀竞争制造业风险预算，2026H1已纳入但现价回报未过线",
-      "gate": "还原汇率与套保分类后的经营利润、海外利润率、FCF和非核心业务ROIC未恶化",
-      "tiers": [
-        {
-          "price": "≤75.10元",
-          "amount": "15万—20万元首仓"
-        },
-        {
-          "price": "≤61.10元",
-          "amount": "至40万—50万元"
-        },
-        {
-          "price": "≤52.00元",
-          "amount": "复核后至80万元上限"
-        }
-      ],
-      "cancel": "还原汇率与套保后经营利润连续两期下降；海外利润率显著下降；三年累计FCF明显低于净利润；重大并购回报无法验证。"
     }
   ],
   "dividends": {
@@ -884,10 +1166,10 @@
     "wanhua": 56
   },
   "disciplines": [
-    "最终目标是100%股票、0%现金；当前已批准六只合计74%，剩余26%是待研究股票额度，未批准前临时以现金存在。",
-    "单股达到目标权重后停止主动加仓；茅台25%、腾讯15%为默认目标，任何超额仓位必须重新审批。",
+    "最终目标是100%股票、0%永久现金；当前现金只在价格和基本面闸门未通过时等待。",
+    "每家公司按独立建仓值跟踪；候选值可以合计超过本金，但实际买入不得超过可用现金，也不得使用杠杆。",
     "不因下跌本身加仓。第二、三批必须同时确认投资逻辑未恶化。",
-    "当前实际持仓已满7席：腾讯、福耀可在原席位内加仓；茅台或任何新公司买入前，必须先退出格力、万华或另一个明确席位。宇通当前不在买入清单。",
+    "多个标的同时到价时，按预期回报、业务与现金流可验证性、治理和安全边际排序，不机械按候选值比例买入。",
     "每季复盘一次，不按日涨跌改组合。",
     "所有股息在未进入被动收入阶段前全额复投。",
     "若任何公司的基准年化预期低于8%，停止加仓；若护城河或治理被证伪，退出。"

@@ -29,11 +29,26 @@ const formalNames = pf.concentrationPolicy.formalNames;
 const targetNames = pf.targetPortfolio.map(row => row.name);
 const approvedStockWeight = pf.targetPortfolio.reduce((sum, row) => sum + row.weight, 0);
 const finalStockPolicy = pf.finalStockPolicy;
+const independentCapacity = (pf.independentBuildPool || []).reduce((sum, row) => sum + Number(row.buildValue || 0), 0);
+const conditionalCapacity = (pf.conditionalBuildPool || []).reduce((sum, row) => sum + Number(row.buildValue || 0), 0);
 check(JSON.stringify(formalNames) === JSON.stringify(targetNames), '正式名单与目标组合顺序一致');
-check(pf.targetPortfolio.length <= pf.concentrationPolicy.maxHoldings, '正式目标不超过七席');
+check(pf.concentrationPolicy?.enabled === false && pf.concentrationPolicy?.maxHoldings === null
+  && pf.concentrationPolicy?.replacementRequired === false, '当前关闭席位和一进一出上限');
 check(finalStockPolicy?.targetStockWeight === 1 && finalStockPolicy?.targetCashWeight === 0
-  && close(approvedStockWeight, finalStockPolicy.approvedSixTargetWeight)
-  && close(approvedStockWeight + finalStockPolicy.unallocatedStockWeightAtApprovedTargets + pf.opportunityCash.weight, 1), '最终100%股票目标、已批准股票与待批准股票额度口径一致');
+  && independentCapacity === 20300000
+  && independentCapacity === finalStockPolicy.independentCandidateCapacity
+  && conditionalCapacity === finalStockPolicy.conditionalRepairCapacity
+  && independentCapacity + conditionalCapacity === finalStockPolicy.potentialCapacityIncludingRepairs,
+  '最终100%股票目标与2030万元独立候选容量口径一致');
+check((pf.independentBuildPool || []).length === 21
+  && new Set(pf.independentBuildPool.map(row => row.name)).size === pf.independentBuildPool.length
+  && pf.independentBuildPool.every(row => Number(row.buildValue) > 0), '独立建仓池21家公司唯一且建仓值有效');
+check(pf.constructionPolicy?.noLeverage === true
+  && pf.constructionPolicy?.candidateCapacityRatio === 2.03
+  && pf.constructionPolicy?.candidateCapacity === independentCapacity, '候选容量可超过本金但禁止杠杆');
+const pingAn = pf.independentBuildPool.find(row => row.name === '中国平安');
+check(pingAn?.symbol === '02318.HK' && pingAn.buildValue === 800000
+  && close(pingAn.triggerPrice, 54.38) && close(pf.pingAnReview?.preferredFirstReviewPrice, 52), '中国平安H股两步法价格线与80万元建仓值已落地');
 check(pf.policyAuthority.status === 'authoritative-execution-policy', 'portfolio.json声明为唯一执行政策');
 check(efficiency.executionEligible === false && efficiency.authoritativePolicy === 'portfolio.json', '九公司稳健前沿明确隔离为研究情景');
 check(goals.dividendRunway.status === 'historical-research-only' && goals.dividendRunway.executionEligible === false, '旧90%股票达标时钟明确隔离为历史研究');
@@ -123,7 +138,7 @@ check(yutongWarehouse.slotCap === 0 && yutongWarehouse.policyEntryPrice === 21 &
 check(incomeWarehouse.seventhSeatScreen.status === 'structurally-infeasible-under-current-caps'
   && incomeWarehouse.seventhSeatScreen.rows.every(row => row.structuralFeasible === false), '第七席候选没有被价格单项通过误判为可买');
 const monitorScope = new Set(read('watchlist-monitor.json').scope);
-check([...pf.watchlist, ...pf.candidates, ...incomeWarehouse.candidates].every(row => monitorScope.has(row.name)), '观察监控范围覆盖正式观察池、候选池和收息预备库并集');
+check([...pf.independentBuildPool, ...pf.conditionalBuildPool, ...pf.watchlist, ...pf.candidates, ...incomeWarehouse.candidates].every(row => monitorScope.has(row.name)), '观察范围覆盖独立建仓池、修复池、旧观察池和收息预备库并集');
 const purchasingPower = metrics.purchasingPowerAudit;
 const planningPower = purchasingPower.planning;
 check(purchasingPower.rows.length === 3 && purchasingPower.rows.some(row => close(row.inflation, 0.02))
@@ -156,7 +171,7 @@ console.log(JSON.stringify({
   ok: true,
   checked: checks.length,
   policyVersion: pf.policyVersion,
-  targetStructure: `${finalStockPolicy.targetStockWeight * 100}%股票+${finalStockPolicy.targetCashWeight * 100}%现金（已批准${approvedStockWeight * 100}%）`,
+  targetStructure: `${finalStockPolicy.targetStockWeight * 100}%股票终态；独立候选${independentCapacity / 10000}万元；修复观察${conditionalCapacity / 10000}万元`,
   companyBaseReturn: metrics.weightedReturn,
   underwritingReturn: metrics.underwritingWeightedReturn,
   nominal: { months: formalPath.nominal.months, duration: formalPath.nominal.duration, date: formalPath.nominal.date },

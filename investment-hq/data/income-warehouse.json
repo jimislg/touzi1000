@@ -105,26 +105,6 @@
   },
   "candidates": [
     {
-      "priority": 1,
-      "name": "美的集团",
-      "symbol": "000333.SZ",
-      "qualityGrade": "A",
-      "currentPrice": 85.96,
-      "currency": "元",
-      "normalizedDps": 4.3,
-      "afterTaxDps": 4.3,
-      "currentAfterTaxYield": 0.050023,
-      "yieldGatePrice": 82.69,
-      "returnGatePrice": 86.8,
-      "policyEntryPrice": 75.1,
-      "normalPrice": 75.1,
-      "slotCap": 0.03,
-      "coverageStatus": "通过",
-      "fundamentalStatus": "通过",
-      "role": "全球白电与制造现金流分散",
-      "decision": "等待≤75.10元；届时税后率约5.7%、P12回报和现金流同时合格，可建2%，最多3%。"
-    },
-    {
       "priority": 2,
       "name": "中国移动",
       "symbol": "00941.HK",

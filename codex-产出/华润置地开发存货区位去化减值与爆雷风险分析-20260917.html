@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>华润置地开发存货：区位、去化、减值与爆雷风险</title>
+  <style>
+    :root{--ink:#1b2321;--muted:#68736f;--paper:#f3f0e9;--card:#fffdf8;--line:#d8d1c4;--green:#174f43;--green2:#317565;--gold:#a36d22;--red:#98453b;--blue:#335f78;--soft:#e8f0ec}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.72}
+    a{color:var(--green2);text-decoration:none;border-bottom:1px solid #9bb8b0}.wrap{width:min(1160px,calc(100% - 36px));margin:auto}
+    header{background:linear-gradient(125deg,#143e36,#205b50 65%,#7e5b2c);color:#fff;padding:52px 0 42px}.kicker{font-size:13px;letter-spacing:.12em;color:#c9ddd7;text-transform:uppercase}h1{font-family:Georgia,"Songti SC","STSong",serif;font-size:clamp(34px,5vw,58px);line-height:1.13;margin:12px 0 17px;max-width:1030px}.subtitle{font-size:18px;max-width:920px;color:#e8f0ed;margin:0}.meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:25px;font-size:13px;color:#d2e0dc}
+    nav{position:sticky;top:0;z-index:5;background:rgba(243,240,233,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}nav .wrap{display:flex;gap:19px;overflow:auto;white-space:nowrap;padding:12px 0;font-size:13px}nav a{border:0;color:#3e4946}
+    main{padding:34px 0 70px}section{margin-bottom:42px;scroll-margin-top:66px}h2{font-family:Georgia,"Songti SC","STSong",serif;font-size:30px;line-height:1.25;color:#173d35;margin:0 0 18px}h3{font-size:19px;color:#285047;margin:23px 0 10px}p{margin:8px 0 14px}
+    .hero-grid,.grid2,.grid3,.grid4{display:grid;gap:16px}.hero-grid{grid-template-columns:1.38fr .62fr}.grid2{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 3px 14px rgba(25,40,35,.035)}.verdict{font-size:22px;line-height:1.55}.metric{font-size:29px;font-weight:780;line-height:1.2;margin:7px 0}.small,.note{font-size:12px;color:var(--muted)}.stamp{display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:750}.good{background:#e3efe9;color:var(--green)}.watch{background:#f4e9d6;color:#80551c}.risk{background:#f3e2de;color:var(--red)}
+    .callout{border-left:5px solid var(--gold);background:#f7efe1;padding:17px 20px;border-radius:6px;margin:16px 0}.callout.green{border-color:var(--green);background:#e7f0ec}.callout.red{border-color:var(--red);background:#f5e7e4}.callout.blue{border-color:var(--blue);background:#e8eff3}.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:#ece9e1;border-radius:8px;padding:12px 14px;overflow:auto}
+    table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}th,td{padding:11px 12px;border-bottom:1px solid #e5dfd4;text-align:right;vertical-align:top}th{background:#ebe7de;color:#3c4744}th:first-child,td:first-child{text-align:left}tr:last-child td{border-bottom:0}.table-wrap{overflow:auto;border-radius:12px}.pos{color:var(--green);font-weight:750}.neg{color:var(--red);font-weight:750}.center td:not(:first-child),.center th:not(:first-child){text-align:center}
+    .bar-row{display:grid;grid-template-columns:160px 1fr 65px;gap:10px;align-items:center;margin:10px 0;font-size:13px}.bar{height:11px;border-radius:99px;background:#e1ddd4;overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:var(--green2)}.bar.gold i{background:var(--gold)}.bar.red i{background:var(--red)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}.label{font-size:12px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase}.bigline{font-family:Georgia,"Songti SC",serif;font-size:25px;color:#1d5146;line-height:1.35}.facts{border-left:3px solid #789c92;padding-left:15px}.inference{border-left:3px solid #c79a55;padding-left:15px}ul,ol{padding-left:22px}li{margin:6px 0}.sources{font-size:13px;color:#4e5956}.score{font-size:46px;font-weight:820;line-height:1;color:var(--green)}footer{border-top:1px solid var(--line);padding:26px 0 42px;color:var(--muted);font-size:12px}
+    @media(max-width:850px){.hero-grid,.grid2,.grid3,.grid4,.split{grid-template-columns:1fr}.wrap{width:min(100% - 24px,1160px)}header{padding-top:38px}.bar-row{grid-template-columns:118px 1fr 52px}th,td{padding:9px 8px}}
+    @media print{nav{display:none}body{background:#fff}.card,table{box-shadow:none;break-inside:avoid}a{color:inherit;border:0}header{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <div class="kicker">CR Land · Development inventory look-through · Risk underwriting</div>
+    <h1>华润置地开发存货：不太会资金链爆雷，不等于利润不会被减值突袭</h1>
+    <p class="subtitle">从存货构成、区域销售、52个主要开发项目、开工竣工节奏和减值压力测试，判断4,008亿元开发存货究竟是安全垫，还是潜在利润黑洞。</p>
+    <div class="meta"><span>研究日：2026-09-17</span><span>财务截止：2026H1</span><span>销售更新：2026年1—8月</span><span>币种：人民币</span><span>研究结论，不执行组合变更</span></div>
+  </div></header>
+  <nav><div class="wrap"><a href="#answer">结论</a><a href="#inventory">存货结构</a><a href="#region">区域与去化</a><a href="#projects">项目尾部</a><a href="#development">开发进度</a><a href="#stress">减值压力</a><a href="#default">爆雷判断</a><a href="#triggers">跟踪阈值</a><a href="#sources">来源</a></div></nav>
+
+  <main class="wrap">
+    <section id="answer">
+      <div class="hero-grid">
+        <div class="card">
+          <span class="stamp watch">核心判断</span>
+          <p class="verdict"><strong>华润置地的“流动性爆雷”风险低，但开发利润出现一次性明显下滑的风险仍属中等。</strong>现金与融资期限使它很难复制民营房企的债务链断裂；但已完工待售存货在2025年逆势增加、旧项目尾部集中于部分弱城市和远郊板块，减值足以显著吞噬利润。</p>
+          <div class="callout red"><strong>因此，你的前提需要改写：</strong>开发风险可控，可以支持“公司大概率不会因存货而倒下”；但不能推出“业绩不会突然爆雷”。房地产存货只要额外减值5%，税前冲击约200亿元，接近2025年全年核心利润的89%。</div>
+        </div>
+        <div class="card">
+          <div class="label">综合风险评分</div><div class="score">6.5/10</div>
+          <p class="small">10分代表最安全。流动性8.5、库存区位6.5、去化6.0、利润减值4.5、信息透明度5.5。</p>
+          <table><tbody>
+            <tr><td>资金链爆雷</td><td><span class="stamp good">低</span></td></tr>
+            <tr><td>大额存货减值</td><td><span class="stamp watch">中</span></td></tr>
+            <tr><td>开发利润骤降</td><td><span class="stamp watch">中</span></td></tr>
+            <tr><td>长期清库拖累</td><td><span class="stamp watch">中</span></td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div class="grid4" style="margin-top:16px">
+        <div class="card"><div class="label">2026H1开发存货</div><div class="metric">4,008亿元</div><p class="small">占总资产37.1%，半年仅+0.8%。</p></div>
+        <div class="card"><div class="label">已完工待售 / 2025存货</div><div class="metric">27.0%</div><p class="small">1,075亿元，同比+13.9%，是最需警惕的一项。</p></div>
+        <div class="card"><div class="label">累计减值准备</div><div class="metric">136亿元</div><p class="small">约为2025年存货账面额3.4%。</p></div>
+        <div class="card"><div class="label">现金 / 一年内债务</div><div class="metric">1.88×</div><p class="small">流动性风险显著低于利润风险。</p></div>
+      </div>
+    </section>
+
+    <section id="inventory">
+      <h2>一、存货结构：总量在降，但“成品库”在涨</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>合并报表口径</th><th>2024末</th><th>2025末</th><th>变化</th><th>2026H1</th><th>风险解释</th></tr></thead>
+        <tbody>
+          <tr><td>开发中物业</td><td>3,464亿元</td><td>2,902亿元</td><td class="pos">-16.2%</td><td>未单列</td><td>施工、结转和新增拿地共同影响，下降本身偏正面</td></tr>
+          <tr><td>已完工待售物业</td><td>944亿元</td><td>1,075亿元</td><td class="neg">+13.9%</td><td>未单列</td><td>房子已完成却尚未售出，最直接暴露于降价、持有成本和减值</td></tr>
+          <tr><td><strong>开发存货合计</strong></td><td><strong>4,408亿元</strong></td><td><strong>3,977亿元</strong></td><td class="pos"><strong>-9.8%</strong></td><td><strong>4,008亿元</strong></td><td>2026半年+0.8%，总量暂未重新明显扩张</td></tr>
+          <tr><td>累计减值准备</td><td>147亿元</td><td>136亿元</td><td>-7.9%</td><td>未披露</td><td>准备率约3.4%，不能视为最终损失上限</td></tr>
+          <tr><td>当年存货减值</td><td>78.3亿元</td><td>49.7亿元</td><td class="pos">-36.6%</td><td>未披露</td><td>下降是好事，但2025减值仍相当于全年开发核心利润45.8%</td></tr>
+        </tbody>
+      </table></div>
+      <div class="grid2" style="margin-top:16px">
+        <div class="card facts"><strong>事实：</strong>2025年审计师把开发存货可变现净值列为关键审计事项。原因是未来售价、完工成本和销售费用都依赖重大判断，容易发生估计误差或管理层偏差。</div>
+        <div class="card inference"><strong>判断：</strong>“总库存下降”只能证明资产负债表在收缩；“已完工库存上升”则说明有一批项目进入更难处理的尾部阶段。两条证据必须同时看，不能只选对多头有利的一条。</div>
+      </div>
+      <div class="callout blue"><strong>尚缺的关键披露：</strong>华润没有公开给出4,008亿元存货按城市、项目、账面成本和已售比例的完整明细。因此无法精确计算每个城市有多少亿元库存；下面只能用“区域土地储备＋区域销售＋主要项目未售面积”三角交叉验证。</div>
+    </section>
+
+    <section id="region">
+      <h2>二、区位与去化：销售价值向核心区集中，面积去化并不快</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>2026H1区域</th><th>合同销售额</th><th>销售额占比</th><th>销售面积</th><th>推算均价</th><th>开发土储</th><th>粗略年化面积消化率*</th></tr></thead>
+        <tbody>
+          <tr><td>北方</td><td>193亿元</td><td>16.5%</td><td>80.6万㎡</td><td>2.39万元/㎡</td><td>892万㎡</td><td>18.1%</td></tr>
+          <tr><td>南方</td><td>430亿元</td><td>36.9%</td><td>84.0万㎡</td><td class="pos">5.12万元/㎡</td><td>1,293万㎡</td><td class="neg">13.0%</td></tr>
+          <tr><td>华东</td><td>391亿元</td><td>33.6%</td><td>70.4万㎡</td><td class="pos">5.55万元/㎡</td><td>569万㎡</td><td class="pos">24.7%</td></tr>
+          <tr><td>中西部</td><td>151亿元</td><td>13.0%</td><td>81.2万㎡</td><td>1.86万元/㎡</td><td>1,169万㎡</td><td class="neg">13.9%</td></tr>
+          <tr><td><strong>合计</strong></td><td><strong>1,165亿元</strong></td><td>100%</td><td><strong>316.2万㎡</strong></td><td><strong>3.68万元/㎡</strong></td><td><strong>3,923万㎡</strong></td><td><strong>16.1%</strong></td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">* 粗略年化面积消化率＝2026H1销售面积×2÷期末开发土储面积，只用于比较区域压力；土地储备包含尚未开售、商业及不同权益项目，不能当作真实项目去化率。若机械倒算，总土储约需6.2年，但这个数字不能用于精确估值。</p>
+      <div class="grid3" style="margin-top:16px">
+        <div class="card"><span class="stamp good">正面</span><h3>价值结构明显变好</h3><p>南方＋华东贡献70.5%的销售额，却只占48.9%的销售面积。2026年前8个月销售均价约3.68万元/㎡，较2025全年2.53万元/㎡高约45%。这更像城市和项目结构升级，而不是全盘房价上涨。</p></div>
+        <div class="card"><span class="stamp watch">黄灯</span><h3>面积仍在收缩</h3><p>2026H1销售金额+5.6%，但面积-23.2%；前8个月金额+9.0%，面积-20.8%。高价核心盘遮住了面积去化下降，旧项目是否真正清掉仍无法从销售额看出来。</p></div>
+        <div class="card"><span class="stamp watch">黄灯</span><h3>南方和中西部土储重</h3><p>两区合计占开发土储62.7%，粗略年化面积消化率只有13%—14%。南方内部既有深圳广州，也混有惠州、汕尾、万宁等长周期项目，区域均价不能替代项目穿透。</p></div>
+      </div>
+      <div class="callout green"><strong>可见度支撑：</strong>2026H1合同负债1,606亿元，较2025末+11.9%；未结算合同销售1,882亿元，其中973亿元预计在2026年确认。这对未来收入结转有帮助，但合同负债和未结算销售都不是利润保证，低毛利项目结转仍可能压低盈利。</div>
+    </section>
+
+    <section id="projects">
+      <h2>三、52个主要项目穿透：大面积尾部库存确实存在</h2>
+      <p>2025年报列出52个主要发展中物业，合计未售建筑面积约1,978万㎡、按权益折算约1,374万㎡，分别约占期末开发土储的50%和权益土储的50%。这不是完整库存表，而且天然偏向“大项目、慢项目”，但恰好能观察最可能形成尾部风险的资产。</p>
+      <div class="grid2">
+        <div class="card">
+          <h3 style="margin-top:0">按本报告城市风险分组 · 权益未售面积</h3>
+          <div class="bar-row"><span>核心六城</span><div class="bar"><i style="width:12.3%"></i></div><strong>12.3%</strong></div>
+          <div class="bar-row"><span>主流二线/强三线</span><div class="bar gold"><i style="width:50.4%"></i></div><strong>50.4%</strong></div>
+          <div class="bar-row"><span>长周期风险城市</span><div class="bar red"><i style="width:37.3%"></i></div><strong>37.3%</strong></div>
+          <p class="note">核心六城＝北京、上海、深圳、广州、杭州、南京；长周期组为本报告主观划分，含惠州、鄂州、淮安、柳州、汕尾、万宁、揭阳、许昌等。按“面积”统计，不代表按“账面价值”；核心城市按价值的占比很可能更高。</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">这组数据如何解读</h3>
+          <ul>
+            <li><strong>不是说37.3%的公司存货有问题：</strong>它只是52个主要项目样本中的权益未售面积。</li>
+            <li><strong>也不能忽略：</strong>面积大、周期长、城市购买力弱的项目，最容易通过降价和慢周转侵蚀开发利润。</li>
+            <li><strong>“新增土储99%在一二线”不能倒推旧库存：</strong>新拿地质量改善与旧项目尾部风险是两个资产池。</li>
+          </ul>
+        </div>
+      </div>
+      <h3>权益未售面积最大的项目：优先跟踪清单</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>项目</th><th>城市/板块</th><th>权益未售面积</th><th>风险观察</th><th>年报状态</th></tr></thead>
+        <tbody>
+          <tr><td>小径湾</td><td>惠州</td><td>96.5万㎡</td><td class="neg">文旅/远郊大盘，需求周期长</td><td>在建</td></tr>
+          <tr><td>未来城市</td><td>兰州</td><td>76.1万㎡</td><td class="neg">大体量、购买力与人口约束</td><td>在建</td></tr>
+          <tr><td>时代之城</td><td>沈阳</td><td>70.8万㎡</td><td class="watch">大体量，东北市场去化需持续验证</td><td>在建</td></tr>
+          <tr><td>葛店城市综合体</td><td>鄂州</td><td>59.0万㎡</td><td class="neg">非核心城市、依赖武汉外溢</td><td>在建</td></tr>
+          <tr><td>海湾润城</td><td>福州</td><td>58.8万㎡</td><td class="watch">城市较强，但单盘体量大</td><td>在建</td></tr>
+          <tr><td>大连湾</td><td>大连</td><td>53.1万㎡</td><td class="watch">大盘和区域供需压力</td><td>在建</td></tr>
+          <tr><td>经开区明远路项目</td><td>淮安</td><td>48.2万㎡</td><td class="neg">低能级城市长尾</td><td>在建</td></tr>
+          <tr><td>万象天地</td><td>汕尾</td><td>36.4万㎡</td><td class="neg">需求深度有限，综合体开发周期长</td><td>在建</td></tr>
+          <tr><td>公园九里</td><td>重庆</td><td>34.2万㎡</td><td class="watch">城市够大，但行业库存压力高</td><td>在建</td></tr>
+          <tr><td>石梅湾九里</td><td>万宁</td><td>33.0万㎡</td><td class="neg">度假型需求、销售波动大</td><td>在建</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">风险观察为研究判断，不是公司披露的减值结论。权益未售面积＝年报披露未售总建筑面积×公司权益比例；项目层面没有公开账面成本、当期推货、签约率和售价，不能据此直接推算减值金额。</p>
+    </section>
+
+    <section id="development">
+      <h2>四、开发进度：旧盘收缩，新钱转向核心城市</h2>
+      <div class="table-wrap"><table class="center">
+        <thead><tr><th>华润置地控股平台口径*</th><th>2023</th><th>2024</th><th>2025</th><th>两年变化</th></tr></thead>
+        <tbody>
+          <tr><td>新开工面积</td><td>1,157万㎡</td><td>702万㎡</td><td>492万㎡</td><td class="pos">-57.5%</td></tr>
+          <tr><td>竣工面积</td><td>2,028万㎡</td><td>1,614万㎡</td><td>874万㎡</td><td class="pos">-56.9%</td></tr>
+          <tr><td>竣工 / 新开工</td><td>1.75×</td><td>2.30×</td><td>1.77×</td><td>持续以交付和收缩为主</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">* 来自境内主要融资平台“华润置地控股有限公司”跟踪评级，不等同于上市公司完整合并范围；该平台约贡献华润置地2025年权益销售的85%，可作为开发节奏旁证，不能与上市公司存货直接相加。</p>
+      <div class="grid3" style="margin-top:16px">
+        <div class="card"><span class="stamp good">收缩</span><h3>开发强度下降</h3><p>开工与竣工连续缩量，2025竣工仍显著高于新开工，说明公司更重视交付和消化存量。这降低未来资金占用，却也意味着两三年后开发结转规模可能继续下降。</p></div>
+        <div class="card"><span class="stamp watch">成本承诺</span><h3>尚有649亿元开发承诺</h3><p>2025末已签约但尚未计入报表的在建销售物业资本开支约649亿元，相当于当时现金及现金等价物的约56%。它不是立即到期债务，但意味着4,008亿元存货还要继续投入才能变现。</p></div>
+        <div class="card"><span class="stamp good">新钱质量</span><h3>新项目聚焦一二线</h3><p>2026H1新增16宗、284万㎡，总地价341亿元，99%投资位于一二线；2025新增项目也高度集中于北京、上海等核心城市。新资产池的流动性优于旧尾盘。</p></div>
+      </div>
+      <div class="callout"><strong>新风险随之变化：</strong>核心城市地块更好卖，但地价也更高。2026H1开发结转毛利率已降至10.0%；今后的关键不只是“卖得掉”，还要验证“高价拿地后能否赚到合理利润”。</div>
+    </section>
+
+    <section id="stress">
+      <h2>五、减值压力测试：真正可能“爆”的是利润，不是现金链</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>对2026H1存货的额外减值</th><th>税前冲击</th><th>相当于2025核心利润</th><th>相当于2026H1核心利润年化</th><th>含义</th></tr></thead>
+        <tbody>
+          <tr><td>2%</td><td>80亿元</td><td>35.7%</td><td>39.4%</td><td>年度利润明显下修，但不伤偿债能力</td></tr>
+          <tr><td>5%</td><td>200亿元</td><td class="neg">89.1%</td><td class="neg">98.6%</td><td>几乎吃掉一年核心利润，构成业绩“爆雷”</td></tr>
+          <tr><td>10%</td><td>401亿元</td><td class="neg">178.3%</td><td class="neg">197.2%</td><td>可能造成报表亏损，但仍不自动等于债务违约</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">机械压力测试，未考虑所得税、少数股东、合联营分担、减值转回或项目已售比例；作用是观察数量级，不是预测。开发存货的账面成本并非全部同质，真正减值很可能集中在少数旧项目。</p>
+      <div class="grid2" style="margin-top:16px">
+        <div class="card">
+          <div class="label">为什么3.4%的准备率不能让人完全放心</div>
+          <ul>
+            <li>准备是基于管理层对未来售价和成本的估计，具有滞后性。</li>
+            <li>2025年当期减值49.7亿元，已相当于开发核心利润的45.8%。</li>
+            <li>境内融资平台评级报告明确指出，减值主要来自远郊和低能级城市慢销项目。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="label">为什么又不宜把全部存货打同样折扣</div>
+          <ul>
+            <li>华东和南方核心项目推高销售均价，合同负债仍增长。</li>
+            <li>新增土地高度集中于一二线，旧资产与新资产质量不同。</li>
+            <li>开发存货2025年净减少431亿元，说明公司确实在收缩而非无限滚动。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="default">
+      <h2>六、爆雷判断：把“偿债安全”和“盈利安全”彻底分开</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>维度</th><th>最新证据</th><th>结论</th><th>仍需防什么</th></tr></thead>
+        <tbody>
+          <tr><td>短期流动性</td><td>现金989亿元；一年内有息债务约527亿元；现金覆盖1.88倍</td><td class="pos">安全</td><td>现金并非全部自由可用，项目公司和受限资金仍有口径差异</td></tr>
+          <tr><td>期限结构</td><td>约81%有息债务为长期；融资成本2.63%</td><td class="pos">安全</td><td>若高强度拿地叠加销售下降，净债务仍可能上升</td></tr>
+          <tr><td>经营现金流</td><td>2025净经营现金流388亿元；开发存货减少</td><td class="pos">偏强</td><td>房地产现金流受拿地和预收款扰动，一年数据不可外推</td></tr>
+          <tr><td>资产抵押</td><td>抵押融资额度1,362亿元，已使用904亿元</td><td><span class="stamp watch">可控但不轻</span></td><td>优质商业资产承担部分融资功能，不能把全部投资物业看成无负担NAV</td></tr>
+          <tr><td>信用渠道</td><td>S&amp;P BBB+、Moody's Baa1、Fitch A-/稳定</td><td class="pos">行业第一梯队</td><td>评级反映违约概率，不保证股东利润或股价回报</td></tr>
+          <tr><td>盈利安全</td><td>开发毛利率10%；已完工待售存货上升；减值对利润高度敏感</td><td class="neg">并不安全</td><td>降价去化、成本超支、减值和处置收益依赖</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout green"><strong>最准确的表述：</strong>以现有证据，华润置地发生“债务链断裂式爆雷”的概率低；发生“开发利润骤降、减值显著增加、核心利润不及预期”的概率不能忽略。万象城经常性利润能缓冲冲击，但不能让4000亿元开发存货免疫。</div>
+      <div class="callout red"><strong>最可能的认知错误：</strong>因为它是央企、融资成本低，就把库存风险归零。低融资成本解决的是“等得起”，不是“旧项目一定能按账面值卖掉”；等得起会降低被迫甩卖概率，却可能把问题变成长达数年的利润拖累。</div>
+    </section>
+
+    <section id="triggers">
+      <h2>七、什么条件下，才可以把开发风险判断为“基本可控”</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>监控项</th><th>绿灯：风险在下降</th><th>黄灯</th><th>红灯：论文需要重审</th></tr></thead>
+        <tbody>
+          <tr><td>已完工待售存货</td><td>绝对额同比下降≥10%</td><td>持平或小幅增长</td><td class="neg">连续两期增长&gt;10%</td></tr>
+          <tr><td>存货减值</td><td>全年&lt;40亿元且准备率稳定</td><td>40—70亿元</td><td class="neg">&gt;70亿元或准备率明显跳升</td></tr>
+          <tr><td>开发毛利率</td><td>回到并维持≥13%</td><td>10%—13%</td><td class="neg">连续低于10%</td></tr>
+          <tr><td>销售量价</td><td>金额增长且面积降幅收窄至&lt;10%</td><td>仍靠均价/结构拉动</td><td class="neg">金额与面积同时转负</td></tr>
+          <tr><td>旧项目尾部</td><td>惠州、鄂州、兰州、沈阳、大连、淮安等未售面积持续下降</td><td>无项目级更新</td><td class="neg">继续扩容或集中减值</td></tr>
+          <tr><td>杠杆与流动性</td><td>净负债率≤42%，现金/短债≥1.5×</td><td>净负债率42%—45%</td><td class="neg">净负债率&gt;45%且现金覆盖&lt;1.2×</td></tr>
+          <tr><td>拿地纪律</td><td>新增项目兑现销售且开发回报透明</td><td>地价上升、利润率未验证</td><td class="neg">核心城高价地再度形成低毛利库存</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout"><strong>当前信号灯：黄绿之间。</strong>偿债和融资是绿灯；总库存、合同负债、新增土储区位偏绿；已完工待售、销售面积、开发毛利率和项目级透明度仍是黄灯。因此可以提高对“生存安全”的置信度，但还不能把开发业务当成稳定盈利资产。</div>
+      <p><strong>对投资决策的实际影响：</strong>这份分析没有推翻上一份报告“好公司、但现价回报未达你的10年5倍门槛”的结论。它只把开发存货的风险从一个模糊黑箱，拆成了“低违约风险＋中等利润减值风险”。在下一份年报看到已完工待售存货下降前，不应因为央企信用而取消开发业务的估值折价。</p>
+      <p class="note"><a href="华润置地资产拆分分部估值与两步法分析-20260916.html">返回：华润置地资产拆分、分部估值与两步法分析</a></p>
+    </section>
+
+    <section id="sources">
+      <h2>八、数据来源与边界</h2>
+      <div class="grid2">
+        <div class="card facts"><strong>公司事实：</strong>合并存货、减值、主要项目表、经营现金流、资本承诺、销售、土储、合同负债、债务和评级均来自公司或港交所文件。2026年1—8月销售使用9月15日经营公告的媒体转述交叉核对。</div>
+        <div class="card inference"><strong>研究判断：</strong>城市风险分组、权益未售面积、粗略消化率、减值压力测试和风险评分均为自行计算。由于缺少项目账面成本和真实已售比例，不能把面积风险直接转换成亿元减值。</div>
+      </div>
+      <ol class="sources">
+        <li><a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042800937.pdf">华润置地2025年度报告</a>——存货构成、累计减值、当期减值、52个主要项目、经营现金流、资本承诺、抵押融资。</li>
+        <li><a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100127.pdf">华润置地2026年中期业绩公告</a>——2026H1存货、区域销售与土储、合同负债、未结算销售、债务、评级和新增土地。</li>
+        <li><a href="https://www.chinamoney.com.cn/dqs/cm-s-notice-query/fileDownLoad.do?contentId=3363589&amp;mode=save&amp;priority=0">华润置地控股有限公司2026年度跟踪评级报告</a>——境内融资平台的开工、竣工、库存、项目减值来源和流动性旁证；范围小于上市集团。</li>
+        <li><a href="https://estate.caijing.com.cn/20260916/5183725.shtml">财经网：华润置地2026年1—8月经营数据</a>——转述公司9月15日公告，销售金额、面积与经常性收入更新。</li>
+        <li><a href="https://www.crland.com.hk/zhidinews/2026-03-30/2388788.html">华润置地官网：2025年度业绩摘要</a>——全年销售、新增土地和经常性业务基准。</li>
+      </ol>
+      <p class="note">信息完整度：中上；项目级估值置信度：中低；集团偿债判断置信度：较高。房地产开发存货的最终可变现价值必须由项目售价、工程成本和实际回款持续验证。</p>
+    </section>
+  </main>
+  <footer><div class="wrap">仅供个人投资研究，不构成证券交易建议。报告不修改持仓、观察仓、权重或买入价格；任何组合动作需另行确认。</div></footer>
+</body>
+</html>

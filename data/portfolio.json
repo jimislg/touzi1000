@@ -1,0 +1,55 @@
+{
+  "snapshotDate": "2026-08-25",
+  "source": "User-confirmed investment principal RMB10,000,000; holdings and market values from brokerage screenshot dated 2026-08-25 09:31",
+  "currency": "CNY",
+  "hkdToCnyAssumption": 0.8573,
+  "totalAssets": 10000000.00,
+  "reserveCash": 8048924.74,
+  "stockMarketValue": 1951075.26,
+  "goal": {
+    "years": 10,
+    "targetMultiple": 5,
+    "fiveYearMultiple": 2,
+    "annualDividendTarget": 1000000,
+    "cashYieldAssumption": 0.015
+  },
+  "holdings": [
+    { "symbol": "sh600036", "name": "招商银行", "quantity": 22100, "costPrice": 36.9609, "priceCurrency": "CNY", "marketValue": 880685.00 },
+    { "symbol": "sz000651", "name": "格力电器", "quantity": 2300, "costPrice": 43.3100, "priceCurrency": "CNY", "marketValue": 96094.00 },
+    { "symbol": "sh600660", "name": "福耀玻璃", "quantity": 4900, "costPrice": 53.3514, "priceCurrency": "CNY", "marketValue": 278712.00 },
+    { "symbol": "hk02020", "name": "安踏体育", "quantity": 1800, "costPrice": 77.7525, "priceCurrency": "HKD", "marketValue": 112381.29 },
+    { "symbol": "hk09992", "name": "泡泡玛特", "quantity": 3400, "costPrice": 160.5447, "priceCurrency": "HKD", "marketValue": 455772.86 },
+    { "symbol": "hk00700", "name": "腾讯控股", "quantity": 100, "costPrice": 419.5909, "priceCurrency": "HKD", "marketValue": 37898.11 },
+    { "symbol": "sh600309", "name": "万华化学", "quantity": 1200, "costPrice": 56.0880, "priceCurrency": "CNY", "marketValue": 89532.00 }
+  ],
+  "riskFactors": [
+    {
+      "id": "property_credit",
+      "label": "地产与信用周期",
+      "symbols": ["sh600036", "sz000651"],
+      "reason": "招行承受宏观信用与房地产链资产质量影响；格力需求与住宅销售、翻新和渠道库存相关。",
+      "monitor": ["招行不良生成率与信用成本", "房地产和地方融资相关敞口", "格力内销、渠道库存与现金流"]
+    },
+    {
+      "id": "discretionary_demand",
+      "label": "居民可选消费",
+      "symbols": ["hk09992", "hk02020", "sh600519", "sz000651"],
+      "reason": "IP潮玩、运动服饰、高端白酒和大额家电的需求都受就业、收入预期和消费意愿影响。",
+      "monitor": ["收入增长与终端销售的差异", "库存、折扣和渠道回款", "经营现金流相对利润的变化"]
+    },
+    {
+      "id": "brand_product_concentration",
+      "label": "品牌与产品热度",
+      "symbols": ["hk09992", "hk02020", "sh600519"],
+      "reason": "三家公司都依赖品牌溢价；泡泡玛特还承受核心IP热度和新IP接续的特有风险。",
+      "monitor": ["核心品牌或IP的收入集中度", "提价后销量与复购率", "营销投入与自然流量的变化"]
+    },
+    {
+      "id": "global_manufacturing",
+      "label": "全球制造与贸易",
+      "symbols": ["sh600660", "sh600309"],
+      "reason": "汽车玻璃与化工材料都受全球制造周期、能源与原料成本、关税及海外运营影响。",
+      "monitor": ["海外业务收入与利润率", "关税、贸易限制与本地化成本", "产能利用率、价差与资本开支"]
+    }
+  ]
+}

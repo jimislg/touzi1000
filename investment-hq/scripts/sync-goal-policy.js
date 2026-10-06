@@ -491,11 +491,11 @@ evolution.latestPlan.opportunityCash = {
 evolution.latestPlan.initialExecution = {
   status: pf.executionPlan.status,
   buyFirst: false,
-  summary: '腾讯≤460港元与福耀≤57.70元旧计划均已撤回；当前无待执行订单。最新条件队列为福耀≤55、安踏≤72、腾讯≤420、茅台1240—1280，均须到价后重新确认。'
+  summary: '腾讯≤460港元与福耀≤57.70元、≤55元旧计划均已撤回；当前无待执行订单。福耀5年2倍线≤51元、10年5倍线≤37元，数量须到价后重算；安踏≤72、腾讯≤420、茅台1240—1280仍须重新确认。'
 };
 evolution.latestPlan.notes[0] = `最终100%股票；已批准六只${approvedStockPct}%袖套归一化基准约${(baseReturn * 100).toFixed(2)}%，质量折扣承保约${(underwritingReturn * 100).toFixed(2)}%。剩余席位未批准前，不能宣称最终组合回报已确定。`;
 evolution.latestPlan.notes[1] = '当前阶段不考虑股息迁移与终态收息组合；待积累期建仓完成并由用户明确重启后，用当时数据重新研究。';
-evolution.latestPlan.notes[2] = '部署纪律：当前无待执行订单；福耀、安踏、腾讯和茅台依最新价格闸门依次复核。宇通留在观察仓，不在买入清单。';
+evolution.latestPlan.notes[2] = '部署纪律：当前无待执行订单；福耀5年2倍线≤51元、10年5倍线≤37元，两目标同时满足以≤37元约束且不预设数量。安踏、腾讯和茅台依最新价格闸门复核；宇通留在观察仓。';
 evolution.latestPlan.notes[5] = `终态六席77%是条件蓝图；按当前个股研究硬上限只承保58%和${(incomePortfolioAudit.normalYield * 100).toFixed(3)}%税后率。逐股严重复合减息后仍有100万元需约${Math.round(incomePortfolioAudit.severeSafetyAssets / 10000)}万元。`;
 evolution.latestPlan.notes[6] = `旧购买力模型在3%规划通胀下的日常安全线为${routinePowerLabel}；已冻结，不进入当前本金增长决策。`;
 evolution.latestPlan.notes[7] = `在不提高回报和股息率假设时，十年购买力安全线需持续外部净投入约${Math.round(tenYearPowerContribution.routine.annualContribution / 10000 * 10) / 10}万元/年；实际能力尚未确认，不作为正式路径。`;

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>华润置地：资产拆分、分部估值与两步法分析</title>
+  <style>
+    :root{--ink:#19211f;--muted:#67716e;--paper:#f4f1ea;--card:#fffdf8;--line:#d8d2c6;--green:#174f43;--green2:#327768;--gold:#a66e21;--red:#9a4038;--blue:#315f78;--soft:#e9f1ed}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.7}
+    a{color:var(--green2);text-decoration:none;border-bottom:1px solid #9dbab2}.wrap{width:min(1160px,calc(100% - 36px));margin:auto}
+    header{background:linear-gradient(125deg,#123f37,#205d51 66%,#86602d);color:#fff;padding:54px 0 42px}.kicker{font-size:13px;letter-spacing:.12em;color:#c8ddd7;text-transform:uppercase}h1{font-family:Georgia,"Songti SC","STSong",serif;font-size:clamp(35px,5vw,60px);line-height:1.12;margin:12px 0 17px;max-width:980px}.subtitle{font-size:18px;max-width:900px;color:#e8f0ed;margin:0}.meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;font-size:13px;color:#d3e0dc}
+    nav{position:sticky;top:0;z-index:5;background:rgba(244,241,234,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}nav .wrap{display:flex;gap:19px;overflow:auto;white-space:nowrap;padding:12px 0;font-size:13px}nav a{border:0;color:#3c4643}
+    main{padding:34px 0 70px}section{margin-bottom:40px;scroll-margin-top:64px}h2{font-family:Georgia,"Songti SC","STSong",serif;font-size:30px;line-height:1.25;color:#173d35;margin:0 0 18px}h3{font-size:19px;color:#285047;margin:23px 0 10px}p{margin:8px 0 14px}
+    .hero-grid,.grid2,.grid3,.grid4{display:grid;gap:16px}.hero-grid{grid-template-columns:1.35fr .65fr}.grid2{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 3px 14px rgba(25,40,35,.035)}.verdict{font-size:22px;line-height:1.55}.metric{font-size:30px;font-weight:780;line-height:1.2;margin:7px 0}.small,.note{font-size:12px;color:var(--muted)}.stamp{display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:750}.good{background:#e4f0eb;color:var(--green)}.watch{background:#f4ead8;color:#80561e}.risk{background:#f3e2df;color:var(--red)}
+    .callout{border-left:5px solid var(--gold);background:#f7efe1;padding:17px 20px;border-radius:6px;margin:16px 0}.callout.green{border-color:var(--green);background:#e7f0ec}.callout.red{border-color:var(--red);background:#f5e7e4}.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:#eeebe3;border-radius:8px;padding:12px 14px;overflow:auto}
+    table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}th,td{padding:11px 12px;border-bottom:1px solid #e4dfd4;text-align:right;vertical-align:top}th{background:#ebe7de;color:#3c4744}th:first-child,td:first-child{text-align:left}tr:last-child td{border-bottom:0}.table-wrap{overflow:auto;border-radius:12px}.pos{color:var(--green);font-weight:750}.neg{color:var(--red);font-weight:750}.center td:not(:first-child),.center th:not(:first-child){text-align:center}
+    .bar-row{display:grid;grid-template-columns:150px 1fr 62px;gap:10px;align-items:center;margin:9px 0;font-size:13px}.bar{height:11px;border-radius:99px;background:#e1ddd4;overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:var(--green2)}.bar.gold i{background:var(--gold)}.bar.red i{background:var(--red)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}.label{font-size:12px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase}.bigline{font-family:Georgia,"Songti SC",serif;font-size:25px;color:#1d5146;line-height:1.35}.facts{border-left:3px solid #789c92;padding-left:15px}.inference{border-left:3px solid #c79a55;padding-left:15px}ul,ol{padding-left:22px}li{margin:6px 0}.sources{font-size:13px;color:#4e5956}footer{border-top:1px solid var(--line);padding:26px 0 42px;color:var(--muted);font-size:12px}
+    @media(max-width:850px){.hero-grid,.grid2,.grid3,.grid4,.split{grid-template-columns:1fr}.wrap{width:min(100% - 24px,1160px)}header{padding-top:38px}.bar-row{grid-template-columns:115px 1fr 52px}th,td{padding:9px 8px}}
+    @media print{nav{display:none}body{background:#fff}.card,table{box-shadow:none;break-inside:avoid}a{color:inherit;border:0}header{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <div class="kicker">CR Land · Asset map · SOTP · Two-step underwriting</div>
+    <h1>华润置地：账上是重资产，利润已由商业地产主导</h1>
+    <p class="subtitle">把开发、持有型商业、轻资产运营拆开估值，再回答两个问题：它是不是好公司？HK$28.80 是不是适合你目标收益率的好价格？</p>
+    <div class="meta"><span>研究日：2026-09-16</span><span>财务截止：2026H1</span><span>股价：HK$28.80</span><span>币种：人民币；股价与每股估值为港元</span><span>研究结论，不执行组合变更</span></div>
+  </div></header>
+  <nav><div class="wrap"><a href="#answer">结论</a><a href="#assets">资产地图</a><a href="#segments">业务拆分</a><a href="#sotp">分部估值</a><a href="#twostep">两步法</a><a href="#triggers">验证清单</a><a href="#sources">来源</a></div></nav>
+
+  <main class="wrap">
+    <section id="answer">
+      <div class="hero-grid">
+        <div class="card">
+          <span class="stamp good">一句话结论</span>
+          <p class="verdict"><strong>华润置地是“带着开发包袱的优质商业地产平台”，不是普通住宅开发商。</strong>开发物业占总资产约37%，却只贡献34.5%的核心利润；投资物业租赁和轻资产业务用33.3%的收入，贡献65.5%的核心利润。</p>
+          <div class="callout green"><strong>两步法结论：</strong>第一步“好公司”通过，但要给盈利口径与资本强度打折；第二步“好价格”不通过。HK$28.80 低于保守SOTP中枢 HK$33.9，却只对应约5.9%的十年基准年化回报，远低于10年5倍所需的17.46%。</div>
+        </div>
+        <div class="card">
+          <div class="small">2026-09-16 收盘</div><div class="metric">HK$28.80</div>
+          <div class="small">市值（折人民币）</div><div class="metric">约1,770亿元</div>
+          <div class="small">2026H1 归母净资产折价</div><div class="metric">0.61× P/B</div>
+          <p class="note">股价与股本来自腾讯行情；汇率按国家外汇管理局当日中间价 1港元=0.86210元。</p>
+        </div>
+      </div>
+      <div class="grid4" style="margin-top:16px">
+        <div class="card"><div class="label">开发存货 / 总资产</div><div class="metric">37.1%</div><p class="small">4,008亿元，仍是最大单项资产。</p></div>
+        <div class="card"><div class="label">投资物业 / 总资产</div><div class="metric">27.8%</div><p class="small">3,002亿元，商场是绝对核心。</p></div>
+        <div class="card"><div class="label">经常性核心利润占比</div><div class="metric">65.5%</div><p class="small">租赁55.4%＋轻资产10.1%。</p></div>
+        <div class="card"><div class="label">净有息债务</div><div class="metric">1,723亿元</div><p class="small">净负债率41.0%，融资成本2.63%。</p></div>
+      </div>
+    </section>
+
+    <section id="assets">
+      <h2>一、资产到底放在哪里：看资产负债表，而不是看收入</h2>
+      <div class="split">
+        <div class="card">
+          <h3 style="margin-top:0">2026H1 总资产 10,792亿元</h3>
+          <div class="bar-row"><span>开发物业存货</span><div class="bar"><i style="width:37.1%"></i></div><strong>37.1%</strong></div>
+          <div class="bar-row"><span>投资物业</span><div class="bar gold"><i style="width:27.8%"></i></div><strong>27.8%</strong></div>
+          <div class="bar-row"><span>合联营投资</span><div class="bar"><i style="width:8.5%"></i></div><strong>8.5%</strong></div>
+          <div class="bar-row"><span>现金类资产</span><div class="bar"><i style="width:9.7%"></i></div><strong>9.7%</strong></div>
+          <div class="bar-row"><span>应收及往来款</span><div class="bar red"><i style="width:11.7%"></i></div><strong>11.7%</strong></div>
+          <div class="bar-row"><span>其他资产</span><div class="bar"><i style="width:5.2%"></i></div><strong>5.2%</strong></div>
+          <p class="note">自行归类。现金类含现金、定期存款及受限存款；应收及往来款含贸易/其他应收、合同资产、关联方及少数股东往来。合联营项目内部仍混有开发和商业资产，不能再按业务精确切开。</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">投资物业内部：几乎就是“万象城资产池”</h3>
+          <table><tbody>
+            <tr><td>购物中心</td><td><strong>2,463亿元</strong></td><td>占总资产22.8%</td></tr>
+            <tr><td>写字楼</td><td><strong>361亿元</strong></td><td>占总资产3.3%</td></tr>
+            <tr><td>酒店</td><td><strong>115亿元</strong></td><td>占总资产1.1%</td></tr>
+            <tr><td>投资物业账面合计</td><td><strong>3,002亿元</strong></td><td>占总资产27.8%</td></tr>
+          </tbody></table>
+          <p class="note">酒店账面价值含土地使用权，和“投资物业”会计科目并非完全同口径；三项经营资产合计与投资物业科目的小差额不应强行解释为精确业务分类。</p>
+          <div class="callout"><strong>最关键的阅读方式：</strong>资产看上去开发多、商业少，是因为住宅库存周转慢、金额大；利润结构恰好反过来，商业租赁的利润率与稳定性远高于开发。</div>
+        </div>
+      </div>
+      <div class="table-wrap" style="margin-top:16px"><table>
+        <thead><tr><th>资产类别</th><th>账面金额</th><th>占总资产</th><th>投资含义</th></tr></thead>
+        <tbody>
+          <tr><td>开发物业存货</td><td>4,008亿元</td><td>37.1%</td><td>规模最大，也是减值、售价和周转风险的主要来源</td></tr>
+          <tr><td>投资物业</td><td>3,002亿元</td><td>27.8%</td><td>核心价值池，但估值受资本化率、公允价值与资产处置影响</td></tr>
+          <tr><td>合营＋联营</td><td>915亿元</td><td>8.5%</td><td>项目透明度较低；2026H1权益利润仅5.9亿元，同比下降52.9%</td></tr>
+          <tr><td>现金类</td><td>1,041亿元</td><td>9.7%</td><td>覆盖一年内有息债务约1.88倍，流动性强</td></tr>
+          <tr><td>应收、合同资产与往来款</td><td>1,263亿元</td><td>11.7%</td><td>不是现金；需关注回收、关联方及少数股东项目资金占用</td></tr>
+          <tr><td>其他</td><td>563亿元</td><td>5.2%</td><td>包括固定资产、使用权资产、金融资产、税项等</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="segments">
+      <h2>二、三块业务：收入是开发主导，利润是商业主导</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>2026H1</th><th>开发物业</th><th>投资物业租赁</th><th>轻资产管理</th></tr></thead>
+        <tbody>
+          <tr><td>外部收入</td><td>452.6亿元</td><td>141.6亿元</td><td>84.5亿元</td></tr>
+          <tr><td>收入占比</td><td>66.7%</td><td>20.9%</td><td>12.4%</td></tr>
+          <tr><td>核心净利润</td><td>35.1亿元</td><td>56.2亿元</td><td>10.3亿元</td></tr>
+          <tr><td>核心利润占比</td><td>34.5%</td><td class="pos">55.4%</td><td>10.1%</td></tr>
+          <tr><td>盈利质量信号</td><td class="neg">毛利率10.0%</td><td class="pos">毛利率73.3%</td><td>万象生活毛利率38.0%</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">核心利润为公司定义。开发业务35.1亿元含成都万象城与成都木棉花酒店处置收益，因此不能直接年化。</p>
+
+      <div class="grid3" style="margin-top:16px">
+        <div class="card"><span class="stamp risk">第一曲线</span><h3>开发物业：规模大，经济价值最低</h3><p><strong>现状：</strong>收入同比-39.1%，毛利率由15.6%降至10.0%；销售额+5.6%，但面积-23.2%，增长主要由城市和产品结构推动。</p><p><strong>优势：</strong>核心城市拿地、产品力、融资成本和央企信用仍属第一梯队；未结算销售1,882亿元，短期收入有支撑。</p><p><strong>风险：</strong>4,008亿元开发存货是真正的“周期仓位”。若售价下行、地价刚性、去化变慢，10%毛利率很容易被费用、税和减值吃掉。</p><div class="callout red"><strong>我的评价：</strong>它是获取综合体资源与维持规模的底盘，不再是值得给高倍数的利润引擎。</div></div>
+        <div class="card"><span class="stamp good">第二曲线</span><h3>投资物业：华润最值钱的业务</h3><p><strong>商场：</strong>98座自持购物中心，收入124.4亿元、同比+19.4%，出租率98.0%，零售额+16.4%，经营利润率66.0%。</p><p><strong>写字楼：</strong>24栋，收入7.8亿元、同比-4.2%，出租率74.3%。这是商业资产中最弱的一块。</p><p><strong>酒店：</strong>18家，收入9.4亿元、同比+8.3%，入住率68.8%；好转但不具备商场同等壁垒。</p><div class="callout green"><strong>我的评价：</strong>万象城的选址、招商、会员与运营网络是可验证的护城河；价值主要在购物中心，不要把办公楼和酒店一起享受同样溢价。</div></div>
+        <div class="card"><span class="stamp watch">第三曲线</span><h3>轻资产管理：回报率高，但集团披露混合</h3><p><strong>万象生活：</strong>收入92.2亿元、核心净利润22.3亿元；管理138座开业商场、在管面积4.4亿平方米。</p><p><strong>其他：</strong>体育文化收入6.0亿元；租赁住房2.5亿元；代建与咨询4.3亿元。资产管理总规模5,243亿元。</p><p><strong>注意：</strong>集团外部轻资产收入84.5亿元，小于万象生活总收入，因为存在内部交易抵消；不能把两组数字直接相加。</p><div class="callout"><strong>我的评价：</strong>这是资本回报率最好的增长业务，但集团口径核心利润只有10.3亿元，说明少数股东权益和内部抵消必须尊重。</div></div>
+      </div>
+    </section>
+
+    <section id="sotp">
+      <h2>三、分别估值：用“归母核心利润倍数”避免重复扣债</h2>
+      <p>公司没有披露三块业务各自的净债务和归母净资产，无法做完全干净的资产负债表SOTP。以下把公司披露的<strong>归母核心利润</strong>正常化后给不同倍数；它得到的是股权价值，因此不再额外扣集团1,723亿元净债务。若先给企业价值倍数再扣全部净债务，会把债务重复计入并严重低估。</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>业务</th><th>压力估值</th><th>基准估值</th><th>成功估值</th><th>为什么给这个倍数</th></tr></thead>
+        <tbody>
+          <tr><td>开发物业</td><td>40亿利润 × 3倍<br><strong>120亿元</strong></td><td>60亿 × 4.5倍<br><strong>270亿元</strong></td><td>80亿 × 6倍<br><strong>480亿元</strong></td><td>毛利率低、库存重、波动大；剔除处置收益后从低倍数出发</td></tr>
+          <tr><td>投资物业租赁</td><td>105亿 × 11倍<br><strong>1,155亿元</strong></td><td>112.4亿 × 13倍<br><strong>1,461亿元</strong></td><td>118亿 × 15倍<br><strong>1,770亿元</strong></td><td>商场质量高且增长快；但重资本、公允价值和写字楼拖累限制倍数</td></tr>
+          <tr><td>轻资产管理</td><td>18亿 × 14倍<br><strong>252亿元</strong></td><td>20.6亿 × 17倍<br><strong>350亿元</strong></td><td>23亿 × 20倍<br><strong>460亿元</strong></td><td>资本轻、增长性较好；但集团口径利润受少数股东和内部交易影响</td></tr>
+          <tr><td><strong>股权价值合计</strong></td><td><strong>1,527亿元</strong></td><td><strong>2,081亿元</strong></td><td><strong>2,710亿元</strong></td><td>未加入控制权溢价，也未假设行业全面复苏</td></tr>
+          <tr><td><strong>每股价值</strong></td><td class="neg"><strong>HK$24.8</strong></td><td class="pos"><strong>HK$33.9</strong></td><td class="pos"><strong>HK$44.1</strong></td><td>按71.31亿股、1港元=0.86210元</td></tr>
+        </tbody>
+      </table></div>
+      <div class="grid2" style="margin-top:16px">
+        <div class="card"><div class="label">利润法SOTP中枢</div><div class="metric">HK$33.9</div><p>相对现价约+17.5%。这说明华润并不贵，但17.5%的静态折价不等于每年17.5%的复利。</p></div>
+        <div class="card"><div class="label">华润万象生活持股交叉验证</div><div class="metric">约541亿元</div><p>万象生活市值约869亿港元；按最新披露的72.29%持股、当日汇率折算，上市股权价值约541亿元。它约占华润置地当前市值31%，且高于本报告轻资产业务350亿元的基准估值，说明基准SOTP没有把上市子公司的高估值全部算入。</p></div>
+      </div>
+
+      <h3>净资产压力测试：账面值并非不能跌，但市场已计入不少折价</h3>
+      <div class="table-wrap"><table class="center">
+        <thead><tr><th>口径</th><th>开发存货折价</th><th>投资物业折价</th><th>合联营折价</th><th>应收往来折价</th><th>每股净值</th></tr></thead>
+        <tbody>
+          <tr><td>报告归母净资产</td><td>—</td><td>—</td><td>—</td><td>—</td><td>约HK$47.5</td></tr>
+          <tr><td>温和压力</td><td>-10%</td><td>-5%</td><td>-10%</td><td>-5%</td><td>约HK$36.0</td></tr>
+          <tr><td>重度压力</td><td>-20%</td><td>-10%</td><td>-20%</td><td>-10%</td><td>约HK$24.6</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">这是边界测试，不是精确NAV：为保守起见，资产折价全部冲减归母权益，没有按少数股东分担，也未处理递延税。现价HK$28.80位于温和与重度压力之间，市场大致在押注“商业资产优秀，但开发存货仍需较深折价”。</p>
+    </section>
+
+    <section id="twostep">
+      <h2>四、用两步法判断：好公司通过，好价格不通过</h2>
+      <div class="grid2">
+        <div class="card">
+          <div class="label">第一步 · 是不是好公司？</div><p class="bigline">通过，但不是“无条件高质量”。</p>
+          <ul>
+            <li><strong>护城河：通过。</strong>万象城在核心城市的选址、招商、品牌和会员网络难复制，98%出租率和远超社零的销售增长提供证据。</li>
+            <li><strong>财务安全：通过。</strong>净负债率41%、一年内到期债务约19%、现金/短债约1.88倍、融资成本2.63%。</li>
+            <li><strong>盈利质量：有条件通过。</strong>经常性业务占核心利润65.5%，但“核心利润”加回已处置项目累计重估收益，开发利润还含资产处置。</li>
+            <li><strong>再投资：分化。</strong>商业资产与轻资产有复利能力；开发业务仅10%毛利率，继续高强度拿地未必创造价值。</li>
+            <li><strong>股东回报：尚未达标。</strong>2025股息约4.7%毛收益率，但2026中期股息持平，尚不能证明持续增长。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="label">第二步 · 是不是好价格？</div><p class="bigline">对相对价值投资者尚可；对你的复利目标不够。</p>
+          <p>基准模型采用：正常化EPS 2.60元、十年每股利润年增3%、派息率40%、港股通股息税20%、第10年9倍PE、汇率不变。</p>
+          <table><tbody>
+            <tr><td>当前HK$28.80</td><td><strong>十年IRR约5.9%</strong></td></tr>
+            <tr><td>P10 合理持有价</td><td><strong>HK$20.9</strong></td></tr>
+            <tr><td>P12 起步价</td><td><strong>HK$18.0</strong></td></tr>
+            <tr><td>P15 优秀买点</td><td><strong>HK$14.5</strong></td></tr>
+            <tr><td>P17.46 目标达成价</td><td><strong>HK$12.3</strong></td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div class="formula">可接受价格 = Σ[第t年税后股息 ÷ (1+目标回报率)^t] + [第10年EPS × 退出PE ÷ (1+目标回报率)^10]</div>
+      <div class="table-wrap" style="margin-top:16px"><table class="center">
+        <thead><tr><th>十年情景</th><th>起始EPS</th><th>EPS增速</th><th>派息率</th><th>退出PE</th><th>现价IRR</th></tr></thead>
+        <tbody>
+          <tr><td>压力</td><td>2.30元</td><td>-2%</td><td>35%</td><td>7倍</td><td class="neg">-3.1%</td></tr>
+          <tr><td><strong>基准</strong></td><td>2.60元</td><td>+3%</td><td>40%</td><td>9倍</td><td><strong>+5.9%</strong></td></tr>
+          <tr><td>成功</td><td>2.80元</td><td>+7%</td><td>45%</td><td>12倍</td><td class="pos">+14.1%</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout red"><strong>直接结论：</strong>即使成功情景，现价十年IRR约14.1%，仍低于10年5倍要求的17.46%。所以华润置地可以是“更好的公司”，也可以低于保守公允价值，但在你的目标体系里仍不是“更划算的股票”。</div>
+      <p class="note">价格线高度依赖长期增长和退出倍数，不是机械挂单指令。若把长期增长提高到5%或把退出PE提高到11倍，价格线会明显上移；但那需要开发利润止跌、商业持续双位数增长和资本回报率改善共同验证。</p>
+    </section>
+
+    <section id="triggers">
+      <h2>五、接下来只盯六件事，避免被“低PB”或“万象城故事”带偏</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>监控项</th><th>改善阈值</th><th>证伪阈值</th><th>影响哪块估值</th></tr></thead>
+        <tbody>
+          <tr><td>开发毛利率</td><td>回到并稳定在≥13%</td><td>连续低于10%</td><td>开发正常化利润与4.5倍中枢</td></tr>
+          <tr><td>经常性核心利润</td><td>持续≥10%增长</td><td>低于5%或靠处置维持</td><td>商业租赁与轻资产倍数</td></tr>
+          <tr><td>商场同店/零售销售</td><td>继续显著跑赢社零</td><td>同店转负、出租率&lt;96%</td><td>租赁业务13倍中枢</td></tr>
+          <tr><td>写字楼</td><td>出租率回到≥80%</td><td>跌破70%</td><td>商业资产折价</td></tr>
+          <tr><td>净负债率与拿地</td><td>净负债率≤40%，新项目回报透明</td><td>净负债率&gt;45%且拿地继续提速</td><td>股权风险溢价</td></tr>
+          <tr><td>现金分红</td><td>DPS至少随经常性利润增长</td><td>连续持平或下降</td><td>两步法价格线与被动收入目标</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout green"><strong>估值姿态：</strong>“质量折价股，但新资金回报不足”。现价可继续研究和持有逻辑核验，不建议因为SOTP有17%上行就把它等同于高回报买点。本报告不修改持仓、观察仓、权重或建仓价；如需纳入组合，应另出确认稿。</div>
+      <p><strong>与年被动股息100万元目标的关系：</strong>按2025年每股股息1.166元、现价折人民币24.83元，毛股息率约4.7%；假设20%股息税，税后约3.8%。静态需要约2,670万元本金才能形成税后100万元股息，而且DPS尚未证明持续增长，因此不能把华润置地当作单一股息解决方案。</p>
+    </section>
+
+    <section id="sources">
+      <h2>六、事实、假设与数据边界</h2>
+      <div class="grid2">
+        <div class="card facts"><strong>已核实事实：</strong>资产负债表、分部收入/核心利润、商业资产运营数据、债务与股息来自公司公告；价格来自2026-09-16收盘行情；汇率来自外汇管理局。所有百分比与SOTP均由上述数据自行计算。</div>
+        <div class="card inference"><strong>分析假设：</strong>业务利润正常化、估值倍数、资产折价、长期EPS增长、派息率、退出PE及税率均为研究假设，不是公司指引。分部没有独立净债务披露，SOTP只能给区间。</div>
+      </div>
+      <ol class="sources">
+        <li><a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100127.pdf">华润置地：2026年中期业绩公告</a>——核心数据主来源，包含资产负债表、分部利润、商场/办公/酒店、土地储备与债务。</li>
+        <li><a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0330/2026033000055.pdf">华润置地：2025年度业绩公告</a>——全年盈利、股息与历史经营基准。</li>
+        <li><a href="https://www.hkexnews.hk/listedco/listconews/sehk/2025/0428/2025042802318_c.pdf">华润置地：2024年度报告</a>——集团架构及华润万象生活72.29%持股比例；后续股本行情用于交叉核验。</li>
+        <li><a href="https://qt.gtimg.cn/q=hk01109,hk01209">腾讯行情：1109.HK与1209.HK</a>——2026-09-16收盘价、股本与市值；非公司披露。</li>
+        <li><a href="https://www.safe.gov.cn/AppStructured/hlw/RMBQuery.do">国家外汇管理局：人民币汇率中间价</a>——2026-09-16港元中间价86.21元/100港元。</li>
+        <li><a href="最终版-两步投资分析法SOP-v3.0-20260827.md">本地《两步投资分析法SOP v3.0》</a>——P10/P12/P15/P17.46价格分层与收益目标定义。</li>
+      </ol>
+      <p class="note">信息丰富度：A级；估值置信度：中等。最大缺口是项目级存货可变现净值、各分部独立债务/资本开支、商业项目真实资本化率及自由现金流。报告中的精确价格只代表模型输出，不代表精确价值。</p>
+    </section>
+  </main>
+  <footer><div class="wrap">仅供个人研究，不构成证券交易建议。房地产企业的会计价值对售价、资本化率、税项与少数股东结构高度敏感，应以持续现金流验证估值。</div></footer>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "long-term-investment-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "China and Hong Kong equity pool, portfolio and risk tracking dashboard",
+  "scripts": {
+    "start": "node server.js",
+    "update": "node server.js --update-only",
+    "backtest": "node backtest.js",
+    "review:cmb": "node scripts/cmb-valuation.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
