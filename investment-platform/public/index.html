@@ -424,9 +424,10 @@ function poolRow(u,idx){
   const pct=qq&&qq.pct!=null?qq.pct:(Q[u.qt]&&Q[u.qt].pct!=null?Q[u.qt].pct:null);
   const cur=curOf(u);
   const tiers=(u.tiers||[]).map(t=>{
-    if(px==null)return `<span class="pill wait">${t.label} ${t.price}</span>`;
+    const unit=t.cur==='HKD'?'港元':t.cur==='CNY'?'元':'';
+    if(px==null)return `<span class="pill wait">${t.label} ${t.price}${unit}</span>`;
     const st=tierStatus(px,t);
-    return `<span class="pill ${st.c}">${t.label} ${t.price}（${st.s}）</span>`;
+    return `<span class="pill ${st.c}">${t.label} ${t.price}${unit}（${st.s}）</span>`;
   }).join(' ');
   const bp=u.buyPrice;
   let dist='—',status='<span class="pill wait">待定价</span>',hl='';
@@ -443,7 +444,7 @@ function poolRow(u,idx){
     <td class="note">${u.code}</td>
     <td>${px!=null?fmt(px,2):'—'}${qq&&qq.snapshot?'<span class="note"> 快照</span>':''}</td>
     <td class="${pct!=null?cls(pct):''}">${pct!=null?sign(pct):'—'}</td>
-    <td style="white-space:normal">${tiers||'—'}</td>
+    <td style="white-space:normal">${tiers||'<span class="note">无档位报告·待研究</span>'}</td>
     <td><input type="number" class="buyin" step="0.01" data-u="${idx}" data-k="buyPrice" value="${bp!=null?bp:''}" placeholder="待定"> ${cur}</td>
     <td>${dist}</td>
     <td style="text-align:left"><input type="text" class="plan" data-u="${idx}" data-k="plan" value="${plan}"></td>
