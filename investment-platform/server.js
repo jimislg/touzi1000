@@ -52,11 +52,22 @@ const server = http.createServer(async (req,res)=>{
       let body=''; req.on('data',c=>body+=c);
       req.on('end',()=>{
         try{
-          const cfg=JSON.parse(body);
-          fs.writeFileSync(path.join(ROOT,'config.json'), JSON.stringify(cfg,null,2));
+          const patch=JSON.parse(body);
+          // 合并式保存：以磁盘最新版为基底，只覆盖前端可编辑字段，防止全量覆盖
+          const disk=JSON.parse(fs.readFileSync(path.join(ROOT,'config.json')));
+          if(patch.targetCapital>0)disk.targetCapital=patch.targetCapital;
+          if(typeof patch.cash==='number')disk.cash=patch.cash;
+          if(typeof patch.cashYield==='number')disk.cashYield=patch.cashYield;
+          const hp={}; (patch.holdings||[]).forEach(h=>{if(h.code)hp[h.code]=h;});
+          (disk.holdings||[]).forEach(h=>{const p=hp[h.code];if(!p)return;
+            ['shares','cost','dps','buyDate'].forEach(k=>{if(p[k]!=null)h[k]=p[k];});});
+          const up={}; (patch.universe||[]).forEach(x=>{if(x.code)up[x.code]=x;});
+          (disk.universe||[]).forEach(x=>{const p=up[x.code];if(!p)return;
+            ['buyPrice','plan'].forEach(k=>{if(p[k]!==undefined)x[k]=p[k];});});
+          fs.writeFileSync(path.join(ROOT,'config.json'), JSON.stringify(disk,null,2));
           res.writeHead(200,{'Content-Type':'application/json; charset=utf-8'});
-          res.end('{"ok":true,savedAt":"'+new Date().toISOString()+'"}');
-        }catch(e){ res.writeHead(400,{'Content-Type':'application/json'}); res.end('{"ok":false}'); }
+          res.end(JSON.stringify({ok:true,savedAt:new Date().toISOString()}));
+        }catch(e){ res.writeHead(500,{'Content-Type':'application/json; charset=utf-8'}); res.end(JSON.stringify({ok:false,err:String(e)})); }
       });
       return;
     }
