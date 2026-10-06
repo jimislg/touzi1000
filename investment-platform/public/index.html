@@ -265,6 +265,7 @@ function allSymbols(){
   return [...s].join(',');
 }
 async function refresh(manual){
+  const divP=fetch('/api/dividends').then(r=>r.json()).catch(()=>null); // 与行情并行拉取
   try{
     const r=await fetch('/api/quotes?symbols='+encodeURIComponent(allSymbols()));
     const j=await r.json();
@@ -277,6 +278,19 @@ async function refresh(manual){
     $('netDot').className='dot off';
     $('netText').textContent='服务未启动 · 双击 investment-platform/启动投资平台.command';
   }
+  // 股息自动更新：近12个月已实施除息口径；用户手工改过的(dpsManual)以手工值为准
+  try{
+    const dj=await divP;
+    if(dj&&dj.ok&&dj.dividends){
+      let n=0;
+      CFG.holdings.forEach(h=>{
+        const d=dj.dividends[h.code];
+        if(d&&d.dps>0&&!h.dpsManual){h.dps=d.dps;h.dpsSource=d.source+'（自动'+(d.tag==='cache'?'·缓存':'·实时')+'）';n++;}
+      });
+      if(n)$('saveText').textContent='↻ 股息已按最新公告自动更新 '+n+' 只';
+      setTimeout(()=>{if($('saveText').textContent.startsWith('↻'))$('saveText').textContent='';},5000);
+    }
+  }catch(_){}
   renderAll();
   if(manual&&timer){clearInterval(timer);autoLoop();}
 }
@@ -359,7 +373,7 @@ function wireInputs(){
   }));
   $('divTable').addEventListener('change',e=>{
     const i=e.target.dataset.h,k=e.target.dataset.k;if(i==null||!k)return;
-    if(k==='dps')CFG.holdings[+i].dps=parseFloat(e.target.value)||0;
+    if(k==='dps'){CFG.holdings[+i].dps=parseFloat(e.target.value)||0;CFG.holdings[+i].dpsManual=true;} // 手工改过则锁定，不再被自动覆盖
     else if(k==='buyDate')CFG.holdings[+i].buyDate=e.target.value||'2026-06-30';
     renderAll();
   });
@@ -637,7 +651,7 @@ window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.return
 async function saveConfig(auto){
   const patch={
     targetCapital:CFG.targetCapital, cash:CFG.cash, cashYield:CFG.cashYield,
-    holdings:CFG.holdings.map(h=>({code:h.code,shares:h.shares,cost:h.cost,dps:h.dps,buyDate:h.buyDate})),
+    holdings:CFG.holdings.map(h=>({code:h.code,shares:h.shares,cost:h.cost,dps:h.dps,buyDate:h.buyDate,dpsManual:h.dpsManual===true})),
     universe:CFG.universe.map(u=>({code:u.code,buyPrice:u.buyPrice!=null?u.buyPrice:null,plan:u.plan||''}))
   };
   try{
