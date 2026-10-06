@@ -156,7 +156,7 @@
 <!-- 股息 -->
 <section id="div">
   <h2>股息目标追踪 <span class="tag">税前100万/年 · 实仓成本口径</span></h2>
-  <p class="desc">实仓展示：<b>成本股息率 = DPS ÷ 持仓成本价</b>（非现价）。税率按买入日在后台自动计算：A股持股&gt;1年免税、1个月-1年10%、&lt;1个月20%——现有持仓统一按 <b>2026-06-30</b> 买入起算（2027-06-30 后转免税，期间分红按10%档）；港股通固定20%。买入日仅存后台用于计税，不在表格展示；新增股票如买入日不同，改 config.json 的 buyDate 即可。</p>
+  <p class="desc">实仓展示：<b>成本股息率 = DPS ÷ 持仓成本价</b>（非现价）。<b>DPS 按最新公告口径填写</b>：最近12个月内已实施的分红（今年中期已派+最近一次已派发的年度末期；今年中期未派发或金额未定的，用上一年度末期代替）——悬停 DPS 输入框可看每只的取数依据。税率按买入日在后台自动计算：A股持股&gt;1年免税、1个月-1年10%、&lt;1个月20%——现有持仓统一按 <b>2026-06-30</b> 买入起算（2027-06-30 后转免税）；港股通固定20%。分红一年只更新几次，年报/中报季后按公告核对即可；买入日仅存后台。</p>
   <div class="tw" id="divTable"></div>
   <div class="cards" id="divCards" style="margin-top:11px"></div>
 </section>
@@ -548,7 +548,7 @@ function renderDiv(){
       <td>${h.name}<br><span class="note">${t.tag}</span></td>
       <td>${fmt(x.px,2)}</td>
       <td>${fmt(h.cost,2)}${h.market==='HK'?'<br><span class="note">≈'+fmt(costCNY,2)+'元</span>':''}</td>
-      <td><input type="number" step="0.01" data-h="${i}" data-k="dps" value="${h.dps}">${h.market==='HK'?' 港元':' 元'}</td>
+      <td><input type="number" step="0.01" data-h="${i}" data-k="dps" value="${h.dps}" title="${(h.dpsSource||'手工估算值，未核对公告').replace(/"/g,'&quot;')}">${h.market==='HK'?' 港元':' 元'}</td>
       <td><b>${y.toFixed(2)}%</b></td>
       <td>${fmt(dPre,0)}</td><td>${fmt(dPost,0)}</td>
     </tr>`;}).join('');
