@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>郎刚的投资工作平台 · 三步法 v3.4</title>
+<style>
+  :root{
+    --bg:#f4f5f7; --card:#ffffff; --ink:#1f2d3d; --muted:#6b7280; --line:#e5e7eb;
+    --up:#d5423a; --down:#1e9e6a; --accent:#2456a6; --amber:#b45309; --flag:#c2410c;
+    --good-bg:#ecfdf5; --bad-bg:#fef2f2; --warn-bg:#fffbeb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  header{background:linear-gradient(135deg,#16324f,#2456a6);color:#fff;padding:26px 0 18px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  header h1{font-size:22px;font-weight:700}
+  header .sub{font-size:13px;opacity:.85;margin-top:4px}
+  nav{position:sticky;top:0;z-index:9;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 4px rgba(0,0,0,.04)}
+  nav .wrap{display:flex;gap:2px;overflow-x:auto}
+  nav a{padding:11px 13px;font-size:13.5px;color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent}
+  nav a:hover{color:var(--accent);border-color:var(--accent)}
+  section{padding:26px 0 6px}
+  h2{font-size:18px;margin-bottom:4px}
+  h2 .tag{font-size:11px;font-weight:400;color:#fff;background:var(--accent);border-radius:4px;padding:2px 7px;vertical-align:3px;margin-left:8px}
+  .desc{font-size:13px;color:var(--muted);margin-bottom:14px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .card .k{font-size:12px;color:var(--muted)}
+  .card .v{font-size:22px;font-weight:700;margin-top:2px}
+  .card .s{font-size:12px;color:var(--muted);margin-top:2px}
+  .up{color:var(--up)} .down{color:var(--down)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+  th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{background:#f9fafb;color:var(--muted);font-weight:600;font-size:12.5px}
+  td:first-child,th:first-child{text-align:left}
+  tr:last-child td{border-bottom:none}
+  .bar{height:7px;border-radius:4px;background:#eef1f5;min-width:70px;position:relative;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .pill{display:inline-block;font-size:11px;border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:1px}
+  .pill.A{background:#e8f0fe;color:#2456a6}.pill.B{background:#fef3e2;color:#b45309}
+  .pill.hold{background:#ecfdf5;color:#0f766e}
+  .flag-red{background:var(--bad-bg);border-left:4px solid var(--up)}
+  .flag-amber{background:var(--warn-bg);border-left:4px solid var(--amber)}
+  .flag-green{background:var(--good-bg);border-left:4px solid var(--down)}
+  .flag{border-radius:8px;padding:11px 14px;font-size:13.5px;margin-bottom:9px}
+  .flag b{display:block;margin-bottom:2px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+  .note{font-size:12px;color:var(--muted)}
+  input[type=number]{width:88px;padding:5px 7px;border:1px solid var(--line);border-radius:6px;font-size:13px;text-align:right}
+  input.wide{width:130px}
+  .btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:8px 16px;font-size:13.5px;cursor:pointer}
+  .btn:hover{opacity:.9}
+  .calc-out{background:#f9fafb;border:1px dashed var(--line);border-radius:8px;padding:12px 14px;margin-top:10px;font-size:13.5px}
+  .tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+  .tier{background:#fff;border:1px solid var(--line);border-radius:8px;text-align:center;padding:8px 4px}
+  .tier .t{font-size:11px;color:var(--muted)}.tier .p{font-size:16px;font-weight:700}
+  footer{padding:26px 0 34px;font-size:12px;color:var(--muted)}
+  .muted{color:var(--muted)}
+  .method li{margin:5px 0 5px 18px;font-size:13.5px}
+  .method h3{font-size:14px;margin:12px 0 4px;color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>郎刚的投资工作平台 <span style="font-size:13px;font-weight:400;opacity:.8">《三步个股投资分析法 + 第四步组合决策》v3.4</span></h1>
+    <div class="sub">数据截至 2026-10-06 上午（券商/自选截图口径） · 硬约束：避免不可接受的永久性资本损失 · 主要目标：10年期末财富争取5000万 · 终态：第10年税前100万可持续年股息 · 路径检查：第5年2000万</div>
+  </div>
+</header>
+
+<nav><div class="wrap">
+  <a href="#dash">目标驾驶舱</a><a href="#hold">持仓体检</a><a href="#comp">合规引擎</a>
+  <a href="#classA">A类池</a><a href="#classB">B类池</a><a href="#watch">观察池·档位跟踪</a>
+  <a href="#div">股息目标追踪</a><a href="#calc">IRR·档位计算器</a><a href="#method">方法论速查</a>
+</div></nav>
+
+<div class="wrap">
+
+<!-- ═══════════ 目标驾驶舱 ═══════════ -->
+<section id="dash">
+  <h2>目标驾驶舱 <span class="tag">动态目标缺口</span></h2>
+  <p class="desc">财富基数默认取证券账户总资产（股票市值÷仓位）。若你还有房产/存款等其他资产，在下方修改基数，全部指标自动重算。</p>
+  <div class="cards" id="dashCards"></div>
+  <div class="card" style="margin-bottom:12px">
+    <span class="k">财富基数（总资产，万元）</span>
+    <input type="number" id="baseInput" class="wide" step="0.1" style="margin-left:10px">
+    <span class="note" style="margin-left:10px" id="baseHint"></span>
+  </div>
+  <div id="gapBox"></div>
+</section>
+
+<!-- ═══════════ 持仓体检 ═══════════ -->
+<section id="hold">
+  <h2>持仓体检 <span class="tag">7只标的 · 数据来自券商截图</span></h2>
+  <p class="desc">权重同时给出「占总资产」与「占股票市值」两个口径；仓位上限按 v3.4 以<b>总资产</b>为基数。市值/盈亏单位：人民币（港股已按 0.8548 折算）。</p>
+  <div id="holdTable"></div>
+  <div class="cards" id="holdCards" style="margin-top:12px"></div>
+</section>
+
+<!-- ═══════════ 合规引擎 ═══════════ -->
+<section id="comp">
+  <h2>合规引擎 <span class="tag">v3.4 硬规则自动检查</span></h2>
+  <p class="desc">规则：单股绝对硬约束25%；A类·目标达成型硬上限20%／接近目标型15%／组合辅助型10%；B类硬上限8%；单股&gt;20%须做集中度压力测试；金融板块合计≤48%。</p>
+  <div id="compFlags"></div>
+</section>
+
+<!-- ═══════════ A类池 ═══════════ -->
+<section id="classA">
+  <h2>A类公司池 <span class="tag">核心复利候选 · 9家</span></h2>
+  <p class="desc">你已筛定的 A 类。持仓中的标的带标记；贵州茅台为空仓者身份跟踪（已清仓，任何分析按无持仓处理）。</p>
+  <div id="aTable"></div>
+</section>
+
+<!-- ═══════════ B类池 ═══════════ -->
+<section id="classB">
+  <h2>B类公司池 <span class="tag">优秀但有条件 · 22家（含A/H两地）</span></h2>
+  <p class="desc">B类硬上限8%（占总资产），必须写明条件与折扣后才可建仓。</p>
+  <div id="bTable"></div>
+</section>
+
+<!-- ═══════════ 观察池 ═══════════ -->
+<section id="watch">
+  <h2>观察池 · 档位跟踪 <span class="tag">与本期研究报告联动</span></h2>
+  <p class="desc">档位来自本期 v3.4／v3.2 报告。带「待重审」标记的历史报告，其价格线按冻结规则须按 v3.4 重审后方可作为下单依据。</p>
+  <div id="watchTable"></div>
+</section>
+
+<!-- ═══════════ 股息目标 ═══════════ -->
+<section id="div">
+  <h2>股息目标追踪 <span class="tag">税前100万/年 · 逐持仓计算</span></h2>
+  <p class="desc">股息率为<b>预设估计值[估]</b>，请按各公司最新财报核验后修改，修改后自动重算。港股通红利税20%已计入；A股持股&gt;1年免税。</p>
+  <div id="divTable"></div>
+  <div class="cards" id="divCards" style="margin-top:12px"></div>
+</section>
+
+<!-- ═══════════ 计算器 ═══════════ -->
+<section id="calc">
+  <h2>IRR · 档位计算器 <span class="tag">与 SOP 模型同公式</span></h2>
+  <p class="desc">输入正常化EPS、年增速、派息率、退出PE、现价、红利税率，输出10年IRR、四档价格与标签。默认预填分众传媒备考口径示例。</p>
+  <div class="card" id="calcForm">
+    正常化EPS(元) <input type="number" id="cEps" step="0.001" value="0.292">
+    年增速% <input type="number" id="cG" step="0.1" value="3">
+    派息率% <input type="number" id="cPay" step="1" value="95">
+    退出PE <input type="number" id="cX" step="0.5" value="14">
+    现价(元) <input type="number" id="cP" step="0.01" value="4.73">
+    红利税% <input type="number" id="cTax" step="1" value="0">
+    <button class="btn" onclick="runCalc()">计算</button>
+  </div>
+  <div class="calc-out" id="calcOut">填写参数后点击「计算」。</div>
+</section>
+
+<!-- ═══════════ 方法论 ═══════════ -->
+<section id="method">
+  <h2>方法论速查 <span class="tag">v3.4 核心纪律</span></h2>
+  <div class="grid2">
+    <div class="card method">
+      <h3>流程（前三步研究 → 第四步组合，防火墙隔离）</h3>
+      <li><b>第零步</b>：研究准备·双源核验·一票否决（诚信/杠杆/流动性红线）</li>
+      <li><b>第一步</b>：细分市场三轴——需求轴（结构性vs周期必答）／利润池轴（产能分层）／范式风险 → 参数传导 + 风险去重（同一风险只罚一次）</li>
+      <li><b>第二步</b>：好公司八维 → A（核心复利）/B（优秀但有条件）/C/D；A/B才进观察池</li>
+      <li><b>对标</b>：茅台（质量标尺）+ 最优直接竞争者，只比公司不比价格</li>
+      <li><b>第三步</b>：审计门9条全过 → 正常化盈利 → 三情景 + 概率加权期末财富 → 经济价值区间（10%默认／B类·强周期12%）+ 四档价格</li>
+      <li><b>第四步</b>（拟交易才触发）：三重机会成本 → 纳入前后测算 → 仓位与分档；<b>不得倒推修改前三步</b></li>
+      <h3>四档价格与标签</h3>
+      <li>P10/H10=10年10%：回报门槛参考，不作唯一安全边际锚</li>
+      <li>P12：初始关注价，最低新增资金门槛</li>
+      <li>P15：优秀机会价，正常仓位门槛；P17.46：目标机会价</li>
+      <li>标签：目标达成型≥17.46%／接近目标型15-17.46%／组合辅助型10-15%／回报不合格&lt;10%（不投新增资金）</li>
+    </div>
+    <div class="card method">
+      <h3>仓位与分档建仓（占总资产）</h3>
+      <li>A·目标达成型：首3-5%／正常10-15%／硬20%；A·接近目标：2-4%／8-12%／硬15%</li>
+      <li>A·组合辅助：2-3%／5-8%／硬10%；B类：首1-2%／3-5%／硬8%；单股绝对硬约束25%</li>
+      <li>分档：≤P12累计25% → ≤P15累计60% → ≤P17.46累计100%</li>
+      <h3>A/H 双门槛（多上市地）</h3>
+      <li>H较A折价≥25% <b>且</b> 绝对价格≤自身档位，两道全过才有行动资格</li>
+      <li>买入永远锚定绝对价格与税后人民币回报；折价扩大≠买入信号；折价仅因A股上涨时不触发</li>
+      <li>港股通红利税20%；A股持股&gt;1年免税</li>
+      <h3>红线精选（完整25条见SOP）</h3>
+      <li>禁止把TTM峰值利润当正常利润；禁止为得出「可以买」而调参</li>
+      <li>禁止因低PE/低PB/高股息单独认定便宜；禁止直接加权各情景IRR</li>
+      <li>价格下跌不是加仓理由；旧价格线自动冻结，历史报告须重审</li>
+      <h3>更新节奏</h3>
+      <li>年报完整重跑前三步；中报更新经营+复核三轴；股价进入档位→先刷新数据再走第四步，禁止用旧价格表下单</li>
+    </div>
+  </div>
+</section>
+
+<footer>
+  本平台为个人决策辅助工具，所有结论以《三步个股分析与第四步组合决策SOP v3.4》完整流程为准；预估字段均以[估]标注，使用前请按财报核验。
+  生成：2026-10-06 · 数据源：招商证券持仓截图 / 自选列表截图 / 本期研究报告。
+</footer>
+</div>
+
+<script>
+/* ═══════════════════ 数据配置区（可直接编辑本文件更新） ═══════════════════ */
+const CFG = {
+  asOf: "2026-10-06 上午（截图口径）",
+  hkdcny: 0.8548,
+  positionPct: 62.04,          // 券商显示仓位%
+  goals: { main10y: 5000, check5y: 2000, dividend: 100, pathCAGR: 0.1746 },
+  // divY: 预设股息率估计[估]，需按财报核验；label: A类的回报标签(未知则填"")
+  holdings: [
+    {name:"招商银行", code:"SH600036", mkt:"A",  grade:"B", label:"", shares:22100, price:41.26, cost:36.9609, mv:911846.00, pl:95010.18, plPct:11.63, divY:4.8},
+    {name:"泡泡玛特", code:"HK09992", mkt:"HK",  grade:"A", label:"", shares:3400, price:152.60, cost:161.1833, mv:443504.43, pl:-24945.82, plPct:-5.33, divY:1.5},
+    {name:"福耀玻璃", code:"SH600660", mkt:"A",  grade:"A", label:"", shares:4900, price:53.58, cost:52.3514, mv:262542.00, pl:6019.98, plPct:2.35, divY:3.5},
+    {name:"安踏体育", code:"HK02020", mkt:"HK",  grade:"B", label:"", shares:1800, price:73.75, cost:77.0571, mv:113474.70, pl:-5088.45, plPct:-4.29, divY:2.4},
+    {name:"格力电器", code:"SZ000651", mkt:"A",  grade:"B", label:"", shares:2300, price:38.28, cost:41.31, mv:88044.00, pl:-6969.00, plPct:-7.33, divY:6.0},
+    {name:"万华化学", code:"SH600309", mkt:"A",  grade:"B", label:"", shares:1200, price:68.90, cost:55.2780, mv:82680.00, pl:16346.45, plPct:24.64, divY:3.2},
+    {name:"腾讯控股", code:"HK00700", mkt:"HK",  grade:"A", label:"目标达成型", shares:100, price:431.00, cost:421.2598, mv:36841.88, pl:832.59, plPct:2.31, divY:1.3},
+  ],
+  classA: [
+    {name:"长江电力", code:"SH600900", px:28.54, chg:0.56,  ytd:8.85},
+    {name:"宁德时代", code:"SZ300750", px:291.11, chg:1.50, ytd:-19.20},
+    {name:"迈瑞医疗", code:"SZ300760", px:161.32, chg:1.45, ytd:-13.75},
+    {name:"腾讯控股", code:"HK00700", px:426.8, chg:0.90,  ytd:-27.92},
+    {name:"泡泡玛特", code:"HK09992", px:149.7, chg:-0.13, ytd:-18.83},
+    {name:"农夫山泉", code:"HK09633", px:39.54, chg:-1.10, ytd:-13.32},
+    {name:"宇通客车", code:"SH600066", px:26.72, chg:1.44,  ytd:-13.34},
+    {name:"福耀玻璃", code:"SH600660", px:53.58, chg:1.09,  ytd:-13.97},
+    {name:"贵州茅台", code:"SH600519", px:1258.62, chg:1.86, ytd:-6.45},
+  ],
+  classB: [
+    {name:"中国海洋石油", code:"HK00883", px:23.56, chg:0.60, ytd:17.31},
+    {name:"中国平安",    code:"HK02318", px:51.85, chg:0.19, ytd:-15.99},
+    {name:"华润置地",    code:"HK01109", px:29.80, chg:1.36, ytd:13.35},
+    {name:"安踏体育",    code:"HK02020", px:73.65, chg:0.55, ytd:-5.39},
+    {name:"伟星新材",    code:"SZ002372", px:8.74,  chg:5.68, ytd:-13.45},
+    {name:"XD扬农化工",  code:"SH600486", px:51.18, chg:1.93, ytd:-24.94},
+    {name:"康臣药业",    code:"HK01681", px:14.86, chg:2.55, ytd:0.53},
+    {name:"名创优品",    code:"HK09896", px:17.50, chg:1.39, ytd:-50.76},
+    {name:"携程集团-S",  code:"HK09961", px:301.0, chg:-0.20, ytd:-45.67},
+    {name:"XD中国移动",  code:"SH600941", px:95.80, chg:1.00, ytd:-0.50},
+    {name:"中国移动",    code:"HK00941", px:78.95, chg:0.06, ytd:3.23},
+    {name:"小商品城",    code:"SH600415", px:11.08, chg:3.36, ytd:-27.33},
+    {name:"恒瑞医药",    code:"SH600276", px:47.20, chg:3.46, ytd:-20.44},
+    {name:"招商银行",    code:"SH600036", px:41.26, chg:1.85, ytd:3.30},
+    {name:"海天味业",    code:"HK03288", px:25.22, chg:-0.24, ytd:-19.18},
+    {name:"海天味业",    code:"SH603288", px:33.17, chg:0.79, ytd:-7.61},
+    {name:"中国平安",    code:"SH601318", px:53.29, chg:1.50, ytd:-18.05},
+    {name:"伊利股份",    code:"SH600887", px:27.30, chg:0.22, ytd:-1.20},
+    {name:"东阿阿胶",    code:"SZ000423", px:45.95, chg:1.57, ytd:-0.88},
+    {name:"格力电器",    code:"SZ000651", px:38.28, chg:0.47, ytd:2.49},
+    {name:"万华化学",    code:"SH600309", px:68.90, chg:1.83, ytd:-7.71},
+    {name:"分众传媒",    code:"SZ002027", px:4.73,  chg:1.72, ytd:-32.54},
+  ],
+  // watch: 观察池（来自研究报告）。reverify=true 表示历史报告价格线须按v3.4重审后才能下单
+  watch: [
+    {name:"中国平安H", code:"HK02318", grade:"A-", px:51.85, tier:"P12=59.90 / P10=69.80", irr:"基准10年14.00%（5年18.53%）", status:"可以买（首仓2%，A/H各半执行注记）", reverify:true,
+     note:"v3.2专项报告10-06；H≤49.91时股息率反超A股、全维度胜出；金融板块48%约束下受招行持仓挤压"},
+    {name:"腾讯控股", code:"HK00700", grade:"A", px:426.8, tier:"现价≈P17.46档（10-02口径）", irr:"基准10年17.37%（v3.2口径）", status:"持有；加仓需先跑第四步", reverify:true,
+     note:"现价431（持仓截图）低于成本线附近；A/H无此问题（港股通20%红利税已计）"},
+    {name:"中海油H", code:"HK00883", grade:"B", px:23.56, tier:"H10=22.2 / H12=19.1 / H15=15.6", irr:"基准10年9.12%；概率加权6.90%", status:"观察池—等待价格", reverify:false,
+     note:"v3.4全流程报告；≤22.2进入观察，≤19.1触发第四步；Brent两年中枢站上72-75则升级"},
+    {name:"分众传媒", code:"SZ002027", grade:"B", px:4.73, tier:"P10=4.09 / P12=3.57 / P15=2.95", irr:"基准10年7.93%（回报不合格）", status:"观察池—等待价格", reverify:false,
+     note:"v3.4报告；备考新潮口径，正常化扣非46.5亿[判断]；消费品客户修复是关键变量"},
+    {name:"宁德时代", code:"SZ300750", grade:"A", px:291.11, tier:"档位待补", irr:"基准10年12.95%（组合辅助型）", status:"观察但不纳入新增（五标的对比口径）", reverify:true,
+     note:"全球化/产能/去宁化风险已在10-05系列讨论中梳理；档位需按v3.4重算"},
+    {name:"海天味业H", code:"HK03288", grade:"B", px:25.22, tier:"档位待补", irr:"基准10年8.14%（回报不合格）", status:"等待价格", reverify:true,
+     note:"五标的对比口径；A股33.17同口径更贵"},
+  ],
+};
+/* ═══════════════════ 以下为引擎，一般无需修改 ═══════════════════ */
+
+const fmt = (n, d=0) => n.toLocaleString("zh-CN", {minimumFractionDigits:d, maximumFractionDigits:d});
+const wan = n => n/10000;
+const cls = n => n>=0 ? "up" : "down";
+const sign = n => (n>=0?"+":"") + fmt(n,2) + "%";
+
+// —— 基础推导 ——
+const totMV = CFG.holdings.reduce((s,h)=>s+h.mv,0);
+let base = totMV / (CFG.positionPct/100);      // 总资产
+const cash = base - totMV;
+let otherAssets = 0;                            // 其他资产（可编辑）
+
+// —— 合规阈值 ——
+function hardLimit(h){
+  if(h.grade==="A"){
+    if(h.label==="目标达成型") return 20;
+    if(h.label==="接近目标型") return 15;
+    if(h.label==="组合辅助型") return 10;
+    return 20; // 标签未定 → 按最宽硬上限检查，另给黄牌
+  }
+  if(h.grade==="B") return 8;
+  return 0;
+}
+
+// —— 目标驾驶舱 ——
+function renderDash(){
+  const B = (base + otherAssets);
+  const g = CFG.goals;
+  const cagr = (target, n) => (Math.pow(target*10000/B, 1/n)-1)*100;
+  const c5 = cagr(g.check5y,5), c10 = cagr(g.main10y,10);
+  const w5 = Math.pow(1+g.pathCAGR,5), w10 = Math.pow(1+g.pathCAGR,10);
+  const p5 = B*w5, p10 = B*w10;
+  const div10 = p10*0.04; // 4%股息率假设
+  const cards = [
+    {k:"财富基数（总资产）", v:fmt(B/10000,1)+" 万", s:otherAssets>0?`含其他资产 ${fmt(otherAssets/10000,1)} 万`:"证券账户口径（可修改）"},
+    {k:"股票市值 / 仓位", v:fmt(totMV/10000,1)+" 万", s:`仓位 ${CFG.positionPct}% · 现金 ${fmt(cash/10000,1)} 万`},
+    {k:"持仓总盈亏", v:(totMV && CFG.holdings.reduce((s,h)=>s+h.pl,0)>=0?"+":"")+fmt(CFG.holdings.reduce((s,h)=>s+h.pl,0),0)+" 元", s:"截图口径 · 不含已了结盈亏", cls:CFG.holdings.reduce((s,h)=>s+h.pl,0)>=0?"up":"down"},
+    {k:"目标线年化", v:"17.46%", s:"10年5倍 · 5年2倍≈14.87%"},
+  ];
+  document.getElementById("dashCards").innerHTML = cards.map(c=>
+    `<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||""}">${c.v}</div><div class="s">${c.s}</div></div>`).join("");
+  document.getElementById("baseInput").value = (base/10000).toFixed(1);
+  document.getElementById("baseHint").textContent = `= 股票 ${fmt(totMV/10000,1)}万 ÷ 仓位${CFG.positionPct}%；若含房产/存款等其他资产，请直接调大此基数`;
+  const verdict = (need, cap) => need > cap
+    ? `<span class="up">需年化 ${need.toFixed(1)}% — 远超目标线，靠收益无法弥补，须提高本金或调整目标基数</span>`
+    : `<span class="down">需年化 ${need.toFixed(1)}% — 低于目标线，可行</span>`;
+  document.getElementById("gapBox").innerHTML = `
+    <div class="card">
+      <b style="font-size:14px">动态目标缺口（v3.4：第5年2000万检查 / 第10年5000万 / 税前100万股息）</b>
+      <table style="margin-top:8px;border:none"><tbody style="border:none">
+        <tr><td style="text-align:left">第5年 2000万</td><td>${verdict(c5, g.pathCAGR*100)}</td><td>按17.46%路径 → ${fmt(p5/10000,0)}万</td></tr>
+        <tr><td style="text-align:left">第10年 5000万</td><td>${verdict(c10, g.pathCAGR*100)}</td><td>按17.46%路径 → ${fmt(p10/10000,0)}万</td></tr>
+        <tr><td style="text-align:left">第10年税前股息 100万</td><td colspan="2">17.46%路径下市值 ${fmt(p10/10000,0)}万 × 4%股息率 ≈ <b>${fmt(div10/10000,0)}万/年</b>，缺口 <b class="up">${fmt((g.dividend-div10)/10000,0)}万</b> → 需更高股息率组合或更大市值</td></tr>
+      </tbody></table>
+    </div>`;
+}
+document.getElementById("baseInput").addEventListener("change", e=>{
+  const v = parseFloat(e.target.value);
+  if(v>0){ base = v*10000; otherAssets = Math.max(0, base - totMV/(CFG.positionPct/100)); renderDash(); renderDiv(); }
+});
+
+// —— 持仓表 ——
+function renderHoldings(){
+  const rows = CFG.holdings.slice().sort((a,b)=>b.mv-a.mv).map(h=>{
+    const wA = h.mv/base*100, wS = h.mv/totMV*100, lim = hardLimit(h);
+    const over = wA>lim, near = !over && wA>lim*0.8;
+    const barC = over ? "var(--up)" : near ? "var(--amber)" : "var(--down)";
+    return `<tr>
+      <td>${h.name} <span class="pill ${h.grade}">${h.grade}${h.label?("·"+h.label):""}</span>${h.mkt==="HK"?'<span class="pill hold">港</span>':""}<br><span class="note">${h.code}</span></td>
+      <td>${fmt(h.shares)}</td>
+      <td>${fmt(h.price,2)}${h.mkt==="HK"?" 港元":""}<br><span class="note">成本 ${fmt(h.cost,4)}</span></td>
+      <td>${fmt(h.mv,0)}</td>
+      <td class="${cls(h.pl)}">${(h.pl>=0?"+":"")+fmt(h.pl,0)}<br>${sign(h.plPct)}</td>
+      <td><div class="bar"><i style="width:${Math.min(wA/25*100,100)}%;background:${barC}"></i></div><span class="note">${wA.toFixed(2)}%（占股票 ${wS.toFixed(2)}%）</span></td>
+      <td>${over?`<b class="up">超限（上限${lim}%）</b>`:`${wA.toFixed(1)}% / ${lim}%`}</td>
+    </tr>`;
+  }).join("");
+  document.getElementById("holdTable").innerHTML = `<table><thead><tr>
+    <th>标的</th><th>数量</th><th>现价/成本</th><th>市值(元)</th><th>盈亏</th><th>占总资产权重</th><th>权重/硬上限</th>
+  </tr></thead><tbody>${rows}</tbody></table>`;
+  const totalPL = CFG.holdings.reduce((s,h)=>s+h.pl,0);
+  document.getElementById("holdCards").innerHTML = [
+    {k:"股票市值", v:fmt(totMV,0)+" 元", s:"折前含港股"},
+    {k:"持仓总盈亏", v:(totalPL>=0?"+":"")+fmt(totalPL,0)+" 元", cls:cls(totalPL), s:"浮动盈亏合计"},
+    {k:"现金（推算）", v:fmt(cash,0)+" 元", s:`仓位 ${CFG.positionPct}%，余为现金/逆回购`},
+    {k:"港股敞口", v:fmt(CFG.holdings.filter(h=>h.mkt==="HK").reduce((s,h)=>s+h.mv,0)/totMV*100,1)+"%", s:"红利税20% · 汇率 0.8548"},
+  ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||""}">${c.v}</div><div class="s">${c.s}</div></div>`).join("");
+}
+
+// —— 合规引擎 ——
+function renderComp(){
+  const flags = [];
+  const z = CFG.holdings.find(h=>h.name==="招商银行");
+  const zw = z.mv/base*100;
+  flags.push({t:"red", h:`招商银行 ${zw.toFixed(1)}% — 三重超限（最严重违规）`,
+    b:`B类硬上限8%，实际 ${zw.toFixed(1)}%（超 ${(zw-8).toFixed(1)}pct）；同时突破 A类最高档 20% 与 25% 绝对硬约束。且 >20% 触发「集中度压力测试」义务。` +
+      `执行：新增资金在招行降至20%以下前，不用于任何新买入；减持节奏（分红再投/上涨兑现/机会切换）按第四步决策，不因短期价格恐慌抛售。`});
+  const pp = CFG.holdings.find(h=>h.name==="泡泡玛特");
+  const pw = pp.mv/base*100;
+  flags.push({t:"amber", h:`泡泡玛特 ${pw.toFixed(1)}% — A类但回报标签未定`,
+    b:`占总资产 ${pw.toFixed(1)}%，低于 A类 20% 硬上限（通过）；但占股票市值 ${ (pp.mv/totMV*100).toFixed(1) }%。历史结论（10-05）：按股票市值口径曾超硬约束，「减持再平衡优先于新买入」。请补做 v3.4 完整评级以确定其标签与对应上限。`});
+  const top2 = (CFG.holdings.slice().sort((a,b)=>b.mv-a.mv)[0].mv + CFG.holdings.slice().sort((a,b)=>b.mv-a.mv)[1].mv)/base*100;
+  flags.push({t: top2>35?"amber":"green", h:`前二集中度 ${top2.toFixed(1)}%（招行+泡泡）`,
+    b: top2>35 ? "两只标的占组合超过1/3，且分属银行/消费两个高相关于宏观利率与消费景气的风格，建议在第四步做相关性压力测试。" : "集中度可接受。"});
+  const fin = z.mv/base*100;
+  flags.push({t:"green", h:`金融板块 ${fin.toFixed(1)}%（上限48%）`, b:"仅招行一只金融持仓，板块约束通过；但个体超限（见第一条）。"});
+  flags.push({t:"amber", h:"港股持仓 3 只 — 红利税20%已在股息追踪中计入", b:"腾讯/安踏/泡泡的分红按税后80%计算；A股持股>1年免税。"});
+  flags.push({t:"green", h:"现金 %.1f万 — 干火药充足".replace("%.1f", fmt(cash/10000,1)), b:"在招行超限整改前，现金的唯一合规去向是：偿还/再平衡降招行权重，或存入低风险资产。"});
+  document.getElementById("compFlags").innerHTML = flags.map(f=>
+    `<div class="flag flag-${f.t}"><b>${f.h}</b>${f.b}</div>`).join("");
+}
+
+// —— A/B类池 ——
+function poolTable(list, holdCodes){
+  const held = new Set(CFG.holdings.map(h=>h.code));
+  return `<table><thead><tr><th>公司</th><th>代码</th><th>现价</th><th>今日涨跌</th><th>年初至今</th></tr></thead><tbody>` +
+    list.map(s=>`<tr>
+      <td>${s.name}${held.has(s.code)?'<span class="pill hold">持仓中</span>':""}${s.code==="SH600519"?'<span class="pill B">空仓跟踪</span>':""}</td>
+      <td class="note">${s.code}</td><td>${fmt(s.px,2)}</td>
+      <td class="${cls(s.chg)}">${sign(s.chg)}</td><td class="${cls(s.ytd)}">${sign(s.ytd)}</td>
+    </tr>`).join("") + `</tbody></table>`;
+}
+document.getElementById("aTable").innerHTML = poolTable(CFG.classA);
+document.getElementById("bTable").innerHTML = poolTable(CFG.classB);
+
+// —— 观察池 ——
+function renderWatch(){
+  document.getElementById("watchTable").innerHTML = `<table><thead><tr>
+    <th>标的</th><th>评级</th><th>现价</th><th>档位</th><th>基准IRR</th><th>状态/行动</th><th>备注</th>
+  </tr></thead><tbody>` + CFG.watch.map(w=>`<tr>
+    <td>${w.name} ${w.reverify?'<span class="pill B">价格线待重审</span>':'<span class="pill hold">v3.4口径</span>'}<br><span class="note">${w.code}</span></td>
+    <td>${w.grade}</td><td>${fmt(w.px,2)}</td><td>${w.tier}</td><td>${w.irr}</td>
+    <td>${w.status}</td><td class="note" style="white-space:normal;max-width:280px">${w.note}</td>
+  </tr>`).join("") + `</tbody></table>`;
+}
+
+// —— 股息追踪 ——
+let cashYield = 1.5;   // 现金收益率%[估]，可在表格中修改
+function renderDiv(){
+  const rows = CFG.holdings.map((h,i)=>{
+    const d_pre = h.mv * h.divY/100;
+    const tax = h.mkt==="HK" ? 0.20 : 0;
+    const d_post = d_pre*(1-tax);
+    return `<tr>
+      <td>${h.name}<br><span class="note">${h.mkt==="HK"?"港股通税20%":"A股>1年免税[估]"}</span></td>
+      <td>${fmt(h.mv,0)}</td>
+      <td><input type="number" step="0.1" value="${h.divY}" data-i="${i}" style="width:70px"> %</td>
+      <td>${fmt(d_pre,0)}</td><td>${fmt(d_post,0)}</td>
+    </tr>`;
+  }).join("");
+  const totPost = CFG.holdings.reduce((s,h)=>s + h.mv*h.divY/100*(h.mkt==="HK"?0.8:1), 0);
+  const totCash = cash*cashYield/100;
+  const tot = totPost + totCash;
+  document.getElementById("divTable").innerHTML = `<table><thead><tr>
+    <th>标的</th><th>市值(元)</th><th>股息率[估·可改]</th><th>税前股息</th><th>税后股息</th>
+  </tr></thead><tbody>${rows}
+    <tr><td><b>现金（活钱+）</b></td><td>${fmt(cash,0)}</td><td><input type="number" step="0.1" value="${cashYield}" id="cashY" style="width:70px"> %</td><td>${fmt(totCash,0)}</td><td>${fmt(totCash,0)}</td></tr>
+    <tr><td><b>合计</b></td><td></td><td></td><td><b>${fmt(totPost+totCash,0)}</b></td><td><b>${fmt(tot,0)}</b></td></tr>
+  </tbody></table>`;
+  const gap = CFG.goals.dividend*10000 - tot;
+  document.getElementById("divCards").innerHTML = [
+    {k:"当前税后年股息[估]", v:fmt(tot,0)+" 元", s:"按预设股息率估计，核验后自动更新"},
+    {k:"距税前100万目标", v:fmt(Math.abs(gap),0)+" 元 "+(gap>=0?"缺口":"超出"), cls:gap>=0?"up":"down", s:`需组合市值 ${fmt(CFG.goals.dividend*10000/0.04,0)} 元（@4%股息率）`},
+    {k:"组合加权股息率[估]", v:(totPost/totMV*100).toFixed(2)+"%", s:"招商银行为主要贡献（权重+高股息）"},
+    {k:"股息目标达成率", v:(tot/(CFG.goals.dividend*10000)*100).toFixed(1)+"%", s:"当前税后年股息 ÷ 100万"},
+  ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||""}">${c.v}</div><div class="s">${c.s}</div></div>`).join("");
+  document.querySelectorAll("#divTable input[data-i]").forEach(inp=>{
+    inp.addEventListener("change", e=>{
+      CFG.holdings[+e.target.dataset.i].divY = parseFloat(e.target.value)||0; renderDiv();
+    });
+  });
+  const cy = document.getElementById("cashY");
+  if(cy) cy.addEventListener("change", e=>{ cashYield = parseFloat(e.target.value)||0; renderDiv(); });
+}
+
+// —— 计算器 ——
+function priceAt(eps,g,pay,tax,x,r,n){
+  let e=eps, s=0;
+  for(let t=1;t<=n;t++){ e*=(1+g); s+=e*pay*(1-tax)/Math.pow(1+r,t); }
+  return s + e*Math.pow(1+g,n)*x/Math.pow(1+r,n);
+}
+function irrOf(eps,g,pay,tax,x,p,n){
+  let lo=-0.5, hi=1.0;
+  for(let i=0;i<200;i++){ const m=(lo+hi)/2; (priceAt(eps,g,pay,tax,x,m,n)>p)?lo=m:hi=m; }
+  return (lo+hi)/2;
+}
+function runCalc(){
+  const eps=+document.getElementById("cEps").value, g=(+document.getElementById("cG").value)/100,
+        pay=(+document.getElementById("cPay").value)/100, x=+document.getElementById("cX").value,
+        p=+document.getElementById("cP").value, tax=(+document.getElementById("cTax").value)/100;
+  if(!(eps>0&&p>0)){ document.getElementById("calcOut").textContent="参数无效"; return; }
+  const r10=irrOf(eps,g,pay,tax,x,p,10), r5=irrOf(eps,g,pay,tax,x,p,5);
+  const label = r10>=0.1746?"目标达成型":r10>=0.15?"接近目标型":r10>=0.10?"组合辅助型":"回报不合格（不投新增资金）";
+  const lc = r10>=0.1746?"down":r10>=0.15?"":r10>=0.10?"":"up";
+  const tiers=[["P10",0.10],["P12",0.12],["P15",0.15],["P17.46",0.1746]].map(([t,r])=>
+    `<div class="tier"><div class="t">${t}</div><div class="p">${priceAt(eps,g,pay,tax,x,r,10).toFixed(2)}</div></div>`).join("");
+  document.getElementById("calcOut").innerHTML =
+    `10年IRR <b class="${cls(r10-0.1246)}">${(r10*100).toFixed(2)}%</b> ｜ 5年IRR ${(r5*100).toFixed(2)}% ｜ 税后股息率 ${(eps*pay*(1-tax)/p*100).toFixed(2)}%<br>
+     标签：<b class="${lc}">${label}</b>（以基准情景参数计，实际须按SOP三情景+概率加权后判定）<br>
+     <div class="tiers">${tiers}</div>
+     <div class="note" style="margin-top:6px">四档价格为同参数下的10年目标回报倒算价；进入第四步前还需通过审计门与三情景检验。</div>`;
+}
+
+// init
+renderDash(); renderHoldings(); renderComp(); renderWatch(); renderDiv(); runCalc();
+</script>
+</body>
+</html>
