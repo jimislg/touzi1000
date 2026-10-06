@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>郎刚的投资工作平台 v3.4 · 实时</title>
+<style>
+  :root{--bg:#f4f5f7;--card:#fff;--ink:#1f2d3d;--muted:#6b7280;--line:#e5e7eb;
+    --up:#d5423a;--down:#1e9e6a;--accent:#2456a6;--amber:#b45309;
+    --good-bg:#ecfdf5;--bad-bg:#fef2f2;--warn-bg:#fffbeb}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  header{background:linear-gradient(135deg,#16324f,#2456a6);color:#fff;padding:20px 0 14px}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 18px}
+  header h1{font-size:20px;font-weight:700}
+  header .sub{font-size:12.5px;opacity:.85;margin-top:3px}
+  .topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+  .topbar .wrap{display:flex;align-items:center;gap:14px;padding:8px 18px;flex-wrap:wrap}
+  .dot{width:9px;height:9px;border-radius:50%;background:#9ca3af;display:inline-block;margin-right:5px}
+  .dot.on{background:var(--down);box-shadow:0 0 0 3px rgba(30,158,106,.15)}
+  .dot.off{background:var(--up)}
+  .topbar .t{font-size:12.5px;color:var(--muted)}
+  .topbar a{color:var(--muted);font-size:13px;text-decoration:none;padding:4px 8px;border-radius:5px}
+  .topbar a:hover{background:#f0f3f8;color:var(--accent)}
+  .btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:7px 15px;font-size:13px;cursor:pointer}
+  .btn.ghost{background:#eef2f8;color:var(--accent)}
+  .btn:hover{opacity:.92}
+  section{padding:24px 0 4px}
+  h2{font-size:17px;margin-bottom:3px}
+  h2 .tag{font-size:11px;font-weight:400;color:#fff;background:var(--accent);border-radius:4px;padding:2px 7px;vertical-align:3px;margin-left:8px}
+  .desc{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px;margin-bottom:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+  .card .k{font-size:11.5px;color:var(--muted)}
+  .card .v{font-size:21px;font-weight:700;margin-top:2px}
+  .card .s{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .up{color:var(--up)} .down{color:var(--down)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px}
+  th,td{padding:8px 9px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{background:#f9fafb;color:var(--muted);font-weight:600;font-size:12px}
+  td:first-child,th:first-child{text-align:left}
+  tr:last-child td{border-bottom:none}
+  .pill{display:inline-block;font-size:10.5px;border-radius:20px;padding:1px 8px;margin-left:5px;vertical-align:1px}
+  .pill.A{background:#e8f0fe;color:#2456a6}.pill.B{background:#fef3e2;color:#b45309}
+  .pill.hold{background:#ecfdf5;color:#0f766e}
+  .pill.trig{background:var(--bad-bg);color:var(--up)}
+  .pill.near{background:var(--warn-bg);color:var(--amber)}
+  .pill.wait{background:#f3f4f6;color:#6b7280}
+  .flag{border-radius:8px;padding:10px 13px;font-size:13px;margin-bottom:8px}
+  .flag b{display:block;margin-bottom:2px}
+  .flag-red{background:var(--bad-bg);border-left:4px solid var(--up)}
+  .flag-amber{background:var(--warn-bg);border-left:4px solid var(--amber)}
+  .flag-green{background:var(--good-bg);border-left:4px solid var(--down)}
+  .note{font-size:11.5px;color:var(--muted)}
+  input[type=number]{width:76px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;font-size:12.5px;text-align:right}
+  input.wide{width:120px}
+  .bar{height:7px;border-radius:4px;background:#eef1f5;min-width:64px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .calc-out{background:#f9fafb;border:1px dashed var(--line);border-radius:8px;padding:12px 14px;margin-top:10px;font-size:13.5px}
+  .tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+  .tier{background:#fff;border:1px solid var(--line);border-radius:8px;text-align:center;padding:7px 4px}
+  .tier .t{font-size:11px;color:var(--muted)}.tier .p{font-size:15px;font-weight:700}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:880px){.grid2{grid-template-columns:1fr}}
+  .method li{margin:4px 0 4px 18px;font-size:13px}
+  .method h3{font-size:13.5px;margin:11px 0 3px;color:var(--accent)}
+  footer{padding:22px 0 32px;font-size:11.5px;color:var(--muted)}
+  .tw{overflow-x:auto}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <h1>郎刚的投资工作平台 <span style="font-size:12px;font-weight:400;opacity:.8">三步法 v3.4 · 实时行情版</span></h1>
+  <div class="sub">硬约束：避免永久性资本损失 · 主要目标：10年期末财富5000万 · 终态：第10年税前100万股息 · 路径检查：第5年2000万 · 仓位基准：目标本金1000万全部投完</div>
+</div></header>
+
+<div class="topbar"><div class="wrap">
+  <span class="dot off" id="netDot"></span><span class="t" id="netText">连接中…</span>
+  <span class="t" id="fxText"></span>
+  <button class="btn" onclick="refresh(true)">立即刷新</button>
+  <label class="t"><input type="checkbox" id="autoChk" checked> 30秒自动刷新</label>
+  <button class="btn ghost" onclick="saveConfig()">保存修改</button>
+  <span class="t" id="saveText"></span>
+  <span style="flex:1"></span>
+  <a href="#dash">驾驶舱</a><a href="#pos">目标仓位预警</a><a href="#sig">信号中心</a>
+  <a href="#poolA">A类池</a><a href="#poolB">B类池</a><a href="#div">股息</a><a href="#calc">计算器</a><a href="#method">方法论</a>
+</div></div>
+
+<div class="wrap">
+
+<!-- 驾驶舱 -->
+<section id="dash">
+  <h2>目标驾驶舱 <span class="tag">1000万目标本金口径</span></h2>
+  <p class="desc">目标本金可编辑并保存。核心逻辑：1000万全部投完并实现17.46%年化 → 5年2229万（≥2000万✓）、10年4968万（≈5000万✓）、按4%股息率≈199万/年（≥100万✓）。三个目标在「投完+达标」前提下自洽。</p>
+  <div class="card" style="margin-bottom:11px">
+    <span class="k">目标本金（万元）</span>
+    <input type="number" id="tcInput" class="wide" step="10" style="margin-left:8px">
+    <span class="note" style="margin-left:8px">账户现金 <input type="number" id="cashInput" step="0.1" style="width:90px"> 万（可改并保存）</span>
+  </div>
+  <div class="cards" id="dashCards"></div>
+  <div id="gapBox"></div>
+</section>
+
+<!-- 目标仓位预警 -->
+<section id="pos">
+  <h2>持仓 · 目标仓位预警 <span class="tag">权重=市值÷1000万目标本金</span></h2>
+  <p class="desc">预警基准是目标本金全部投完后的权重，而非当前账户权重——新增资金进入不会稀释警示。上限：A·目标达成型20%／接近型15%／辅助型10%；B类8%；绝对硬约束25%。股数与每股股息可直接改并保存。</p>
+  <div class="tw" id="posTable"></div>
+  <div class="cards" id="posCards" style="margin-top:11px"></div>
+</section>
+
+<!-- 信号中心 -->
+<section id="sig">
+  <h2>信号中心 <span class="tag">价格触发 + 仓位预警 汇总</span></h2>
+  <p class="desc">价格信号规则：现价 ≤ 档位价 → 已触发（可进下一步流程）；距档位 ≤ +5% → 接近；否则等待。触发≠下单，仍须按SOP先刷新前三步数据再走第四步。</p>
+  <div id="sigBox"></div>
+</section>
+
+<!-- A类池 -->
+<section id="poolA">
+  <h2>A类公司池 · 实时跟踪 <span class="tag">9家</span></h2>
+  <p class="desc">价格实时拉取；带档位的标的双击档位行为触发线。茅台为空仓跟踪。</p>
+  <div class="tw" id="aTable"></div>
+</section>
+
+<!-- B类池 -->
+<section id="poolB">
+  <h2>B类公司池 · 实时跟踪 <span class="tag">22家（含A/H两地）</span></h2>
+  <p class="desc">B类硬上限8%（目标本金口径）。</p>
+  <div class="tw" id="bTable"></div>
+</section>
+
+<!-- 股息 -->
+<section id="div">
+  <h2>股息目标追踪 <span class="tag">税前100万/年</span></h2>
+  <p class="desc">每股股息DPS[估]可编辑保存，股息率=DPS÷实时价自动重算；港股通扣20%红利税，A股持股>1年免税。</p>
+  <div class="tw" id="divTable"></div>
+  <div class="cards" id="divCards" style="margin-top:11px"></div>
+</section>
+
+<!-- 计算器 -->
+<section id="calc">
+  <h2>IRR · 档位计算器 <span class="tag">与SOP同公式</span></h2>
+  <div class="card">
+    正常化EPS <input type="number" id="cEps" step="0.001" value="0.292">
+    年增速% <input type="number" id="cG" step="0.1" value="3">
+    派息率% <input type="number" id="cPay" step="1" value="95">
+    退出PE <input type="number" id="cX" step="0.5" value="14">
+    现价 <input type="number" id="cP" step="0.01" value="4.73">
+    红利税% <input type="number" id="cTax" step="1" value="0">
+    <button class="btn" onclick="runCalc()">计算</button>
+  </div>
+  <div class="calc-out" id="calcOut"></div>
+</section>
+
+<!-- 方法论 -->
+<section id="method">
+  <h2>方法论速查 <span class="tag">v3.4</span></h2>
+  <div class="grid2">
+    <div class="card method">
+      <h3>流程（前三步研究 → 第四步组合，防火墙）</h3>
+      <li><b>第零步</b>准备·双源核验·一票否决</li>
+      <li><b>第一步</b>细分市场三轴（需求/利润池/范式风险）+ 传导 + 风险去重</li>
+      <li><b>第二步</b>八维 → A/B/C/D；A/B才进观察池</li>
+      <li><b>对标</b>茅台 + 最优竞争者，只比公司不比价格</li>
+      <li><b>第三步</b>审计门9条 → 正常化 → 三情景+概率加权 → 经济价值区间 + 四档价格</li>
+      <li><b>第四步</b>（拟交易才触发）三重机会成本 → 仓位分档；不得倒推修改前三步</li>
+      <h3>档位与标签</h3>
+      <li>P10=10年10%（门槛参考）；P12初始关注/最低新增门槛；P15优秀机会价；P17.46目标机会价</li>
+      <li>目标达成型≥17.46%／接近型15-17.46%／辅助型10-15%／回报不合格&lt;10%（不投新增）</li>
+    </div>
+    <div class="card method">
+      <h3>仓位（占目标本金）与分档</h3>
+      <li>A·目标达成：3-5%/10-15%/硬20%；A·接近：2-4%/8-12%/硬15%；A·辅助：2-3%/5-8%/硬10%；B：1-2%/3-5%/硬8%；绝对25%</li>
+      <li>分档建仓：≤P12累计25% → ≤P15累计60% → ≤P17.46累计100%</li>
+      <h3>A/H 双门槛</h3>
+      <li>H较A折价≥25% 且 绝对价≤自身档位，两道全过才行动；折价扩大≠买入信号</li>
+      <h3>红线精选</h3>
+      <li>禁止TTM峰值当正常利润；禁止为「可以买」调参；价格下跌不是加仓理由；旧价格线冻结，历史报告须按v3.4重审</li>
+      <h3>更新节奏</h3>
+      <li>年报重跑前三步；股价进入档位→先刷新数据再走第四步，禁止用旧价格表下单</li>
+    </div>
+  </div>
+</section>
+
+<footer>
+  工作平台由本地服务提供实时行情（腾讯接口，30秒刷新；离线时显示快照价）。所有档位/评级以《三步个股分析与第四步组合决策SOP v3.4》研究报告为准，DPS等估计字段请按财报核验。
+</footer>
+</div>
+
+<script>
+/* ════════ 引擎 ════════ */
+let CFG=null, Q={}, lastFetch=null, timer=null;
+const $=id=>document.getElementById(id);
+const fmt=(n,d=0)=>(n==null||isNaN(n))?'—':n.toLocaleString('zh-CN',{minimumFractionDigits:d,maximumFractionDigits:d});
+const cls=n=>n>=0?'up':'down';
+const sign=n=>(n>=0?'+':'')+fmt(n,2)+'%';
+const q=(h)=>{const x=Q[h.qt];return x&&x.price?x:h.px?{price:h.px,snapshot:true}:null;};
+
+function limitOf(h){
+  if(h.grade==='A'){
+    if(h.label==='目标达成型')return 20;
+    if(h.label==='接近目标型')return 15;
+    if(h.label==='组合辅助型')return 10;
+    return 20;
+  }
+  return h.grade==='B'?8:0;
+}
+function hkd(){const x=Q['whHKDCNY'];return x&&x.price?x.price:(CFG.hkdcnyFallback||0.8548);}
+
+async function loadConfig(){
+  const r=await fetch('/api/config'); CFG=await r.json();
+  $('tcInput').value=(CFG.targetCapital/10000).toFixed(0);
+  $('cashInput').value=(CFG.cash/10000).toFixed(1);
+  wireInputs(); runCalc();
+}
+function allSymbols(){
+  const s=new Set();
+  CFG.holdings.forEach(h=>s.add(h.qt));
+  CFG.universe.forEach(u=>s.add(u.qt));
+  s.add('whHKDCNY');
+  return [...s].join(',');
+}
+async function refresh(manual){
+  try{
+    const r=await fetch('/api/quotes?symbols='+encodeURIComponent(allSymbols()));
+    const j=await r.json();
+    if(j.ok){Q=j.quotes;lastFetch=new Date();
+      $('netDot').className='dot on';$('netText').textContent='行情在线 · '+lastFetch.toLocaleTimeString('zh-CN');
+      const hk=Q['whHKDCNY'];
+      $('fxText').textContent=hk&&hk.price?('HKD/CNY '+hk.price.toFixed(4)):'';
+    } else throw 0;
+  }catch(e){
+    $('netDot').className='dot off';$('netText').textContent='行情离线 · 显示快照价';
+  }
+  renderAll();
+  if(manual&&timer){clearInterval(timer);autoLoop();}
+}
+function autoLoop(){if($('autoChk').checked){timer=setInterval(()=>refresh(false),30000);}else if(timer){clearInterval(timer);timer=null;}}
+$('autoChk').addEventListener('change',autoLoop);
+
+/* —— 持仓市值/盈亏（实时） —— */
+function hLive(h){
+  const qq=q(h); if(!qq)return null;
+  const px=qq.price;
+  const mvCNY = h.market==='HK' ? h.shares*px*hkd() : h.shares*px;
+  const costCNY = h.market==='HK' ? h.shares*h.cost*hkd() : h.shares*h.cost;
+  return {px,mvCNY,costCNY,pl:mvCNY-costCNY,plPct:(mvCNY/costCNY-1)*100,snap:!!qq.snapshot,dpsCNY:h.market==='HK'?h.dps*hkd():h.dps};
+}
+function renderAll(){renderDash();renderPos();renderSignals();renderPools();renderDiv();}
+
+/* —— 驾驶舱 —— */
+function renderDash(){
+  const TC=CFG.targetCapital, g=CFG.pathCAGR;
+  const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
+  const account=inv+CFG.cash;
+  const w5=Math.pow(1+g,5),w10=Math.pow(1+g,10);
+  const cards=[
+    {k:'目标本金',v:fmt(TC/10000,0)+' 万',s:'全部投完后的仓位基准'},
+    {k:'已投证券市值',v:fmt(inv/10000,1)+' 万',s:'占目标本金 '+(inv/TC*100).toFixed(1)+'%'},
+    {k:'未投缺口',v:fmt((TC-inv)/10000,0)+' 万',s:'现金 '+fmt(CFG.cash/10000,1)+' 万 + 待增资金'},
+    {k:'账户总资产（当前）',v:fmt(account/10000,1)+' 万',s:'证券账户口径'},
+  ];
+  $('dashCards').innerHTML=cards.map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
+  const path5=TC*w5,path10=TC*w10,div10=path10*0.04;
+  $('gapBox').innerHTML=`<div class="flag flag-green"><b>目标自洽性：1000万投完 + 17.46%年化 = 三个目标全部达成</b>
+    5年后 ${fmt(path5/10000,0)}万（检查线2000万 ✓） · 10年后 ${fmt(path10/10000,0)}万（目标5000万 ≈✓） · 10年期末按4%股息率 ≈ ${fmt(div10/10000,0)}万/年（≥100万 ✓）。
+    <span class="note">当前唯一缺口是投放进度：${(inv/TC*100).toFixed(1)}%已投，未投 ${(TC-inv>0?'':'')}${fmt((TC-inv)/10000,0)}万 按纪律只能在标的进入档位后分档投放——未投资金的机会成本是目标路径的最大拖累，宁可等档位，不可为投而投。</span></div>`;
+}
+function wireInputs(){
+  $('tcInput').addEventListener('change',e=>{const v=parseFloat(e.target.value);if(v>0)CFG.targetCapital=v*10000;renderAll();});
+  $('cashInput').addEventListener('change',e=>{const v=parseFloat(e.target.value);if(v>=0)CFG.cash=v*10000;renderAll();});
+  $('posTable').addEventListener('change',e=>{const i=e.target.dataset.h,k=e.target.dataset.k;if(i!=null&&k){CFG.holdings[i][k]=parseFloat(e.target.value)||0;renderAll();}});
+  $('divTable').addEventListener('change',e=>{const i=e.target.dataset.h;if(i!=null&&e.target.dataset.k==='dps'){CFG.holdings[i].dps=parseFloat(e.target.value)||0;renderAll();}});
+}
+
+/* —— 目标仓位预警 —— */
+function renderPos(){
+  const TC=CFG.targetCapital;
+  const rows=CFG.holdings.map((h,i)=>{
+    const x=hLive(h);if(!x)return '';
+    const w=x.mvCNY/TC*100,lim=limitOf(h);
+    const over=w>lim,near=!over&&w>lim*0.8;
+    const room=(lim-w)*TC/10000;
+    const barC=over?'var(--up)':near?'var(--amber)':'var(--down)';
+    return `<tr>
+      <td>${h.name}<span class="pill ${h.grade}">${h.grade}${h.label?'·'+h.label:''}</span>${h.market==='HK'?'<span class="pill hold">港</span>':''}<br><span class="note">${h.code}${x.snap?' · 快照':''}</span></td>
+      <td>${fmt(x.px,2)}${x.snap?'':' <span class="note">实时</span>'}</td>
+      <td><input type="number" data-h="${i}" data-k="shares" value="${h.shares}"></td>
+      <td>${fmt(x.mvCNY,0)}</td>
+      <td class="${cls(x.pl)}">${(x.pl>=0?'+':'')+fmt(x.pl,0)}<br>${sign(x.plPct)}</td>
+      <td><div class="bar"><i style="width:${Math.min(w/25*100,100)}%;background:${barC}"></i></div><span class="note">${w.toFixed(2)}%</span></td>
+      <td>${lim}%</td>
+      <td>${over?`<b class="up">超限 ${(w-lim).toFixed(1)}pct</b>`:near?`<b style="color:var(--amber)">接近上限</b>`:'<span class="down">可配</span>'}</td>
+      <td>${over?'<span class="up">需减持</span>':fmt(Math.max(room,0),0)+' 万'}</td>
+    </tr>`;}).join('');
+  $('posTable').innerHTML=`<table><thead><tr>
+    <th>标的</th><th>现价</th><th>股数(可改)</th><th>市值(元)</th><th>盈亏</th><th>占目标本金</th><th>上限</th><th>预警</th><th>可加空间</th>
+  </tr></thead><tbody>${rows}</tbody></table>`;
+  const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
+  const pl=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.pl:0);},0);
+  $('posCards').innerHTML=[
+    {k:'合计已投 / 目标本金',v:(inv/CFG.targetCapital*100).toFixed(1)+'%',s:fmt(inv/10000,1)+' 万 / '+fmt(CFG.targetCapital/10000,0)+' 万'},
+    {k:'持仓总盈亏（实时）',v:(pl>=0?'+':'')+fmt(pl,0)+' 元',cls:cls(pl),s:'相对成本，含汇率变动'},
+    {k:'港股敞口',v:fmt(CFG.holdings.filter(h=>h.market==='HK').reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0)/inv*100,1)+'%',s:'红利税20%已计入股息模块'},
+  ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
+}
+
+/* —— 信号中心 —— */
+function tierStatus(px,t){
+  if(px<=t.price)return {s:'已触发',c:'trig'};
+  if(px<=t.price*1.05)return {s:'接近',c:'near'};
+  return {s:'等待',c:'wait'};
+}
+function renderSignals(){
+  const flags=[];
+  // 仓位预警（目标本金口径）
+  CFG.holdings.forEach(h=>{
+    const x=hLive(h);if(!x)return;
+    const w=x.mvCNY/CFG.targetCapital*100,lim=limitOf(h);
+    if(w>lim)flags.push({t:'red',h:`仓位超限：${h.name} ${w.toFixed(1)}% > ${h.grade}类上限${lim}%`,
+      b:`按1000万目标本金计超 ${(w-lim).toFixed(1)}pct（≈${fmt((w-lim)/100*CFG.targetCapital/10000,0)}万）。B类上限8%为硬规则；减持节奏按第四步决策，不因价格恐慌抛售。`});
+    else if(w>lim*0.8)flags.push({t:'amber',h:`接近上限：${h.name} ${w.toFixed(1)}% / ${lim}%`,b:'继续加仓空间有限，新资金优先给未达限的A类标的。'});
+  });
+  // 价格触发（股票池）
+  CFG.universe.forEach(u=>{
+    if(!u.tiers||!u.tiers.length)return;
+    const qq=q(u);if(!qq)return;const px=qq.price;
+    u.tiers.forEach(t=>{
+      const st=tierStatus(px,t);
+      if(st.c==='trig')flags.push({t:st.c==='trig'?'red':'amber',h:`价格触发：${u.name} ${fmt(px,2)} ≤ ${t.label} ${t.price}${t.cur==='HKD'?'港元':'元'}`,
+        b:`${u.note||''} 触发≠下单：先按v3.4刷新前三步数据，再走第四步。`});
+      else if(st.c==='near')flags.push({t:'amber',h:`接近档位：${u.name} ${fmt(px,2)}，距 ${t.label} ${t.price} 仅 +${((px/t.price-1)*100).toFixed(1)}%`,b:u.note||''});
+    });
+  });
+  // 未投缺口提醒
+  const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
+  flags.push({t:'amber',h:`投放进度 ${(inv/CFG.targetCapital*100).toFixed(1)}%：未投 ${fmt((CFG.targetCapital-inv)/10000,0)} 万`,
+    b:'目标路径的最大拖累是闲置资金。按分档规则：只有标的≤P12才开始投放，等待本身是纪律的一部分。'});
+  if(!flags.length)flags.push({t:'green',h:'当前无信号',b:'全部标的处于等待区间、仓位未超限。'});
+  $('sigBox').innerHTML=flags.map(f=>`<div class="flag flag-${f.t}"><b>${f.h}</b>${f.b}</div>`).join('');
+}
+
+/* —— 股票池 —— */
+function poolRow(u){
+  const held=CFG.holdings.find(h=>h.code===u.code);
+  const qq=q(u);const px=qq?qq.price:null;
+  const pct=qq&&qq.pct!=null?qq.pct:(Q[u.qt]&&Q[u.qt].pct!=null?Q[u.qt].pct:null);
+  const tiers=(u.tiers||[]).map(t=>{
+    if(px==null)return `<span class="pill wait">${t.label} ${t.price}</span>`;
+    const st=tierStatus(px,t);
+    return `<span class="pill ${st.c}">${t.label} ${t.price}（${st.s}）</span>`;
+  }).join(' ')||'—';
+  const nearTier=(u.tiers||[]).length&&px!=null
+    ? (u.tiers.map(t=>({t,d:(px/t.price-1)*100})).sort((a,b)=>a.d-b.d)[0]) : null;
+  return `<tr>
+    <td>${u.name}<span class="pill ${u.grade}">${u.grade}</span>${held?'<span class="pill hold">持仓</span>':''}${u.note?'<br><span class="note">'+u.note+'</span>':''}</td>
+    <td class="note">${u.code}</td>
+    <td>${px!=null?fmt(px,2):'—'}${qq&&qq.snapshot?'<span class="note"> 快照</span>':''}</td>
+    <td class="${pct!=null?cls(pct):''}">${pct!=null?sign(pct):'—'}</td>
+    <td style="white-space:normal">${tiers}</td>
+    <td>${nearTier?(nearTier.d>0?'+'+nearTier.d.toFixed(1)+'%':'<b class="up">'+nearTier.d.toFixed(1)+'%</b>'):'—'}</td>
+  </tr>`;
+}
+function renderPools(){
+  const head=`<thead><tr><th>公司</th><th>代码</th><th>现价</th><th>今日</th><th>档位跟踪</th><th>距最近档位</th></tr></thead>`;
+  const A=CFG.universe.filter(u=>u.grade==='A'),B=CFG.universe.filter(u=>u.grade==='B');
+  $('aTable').innerHTML=`<table>${head}<tbody>${A.map(poolRow).join('')}</tbody></table>`;
+  $('bTable').innerHTML=`<table>${head}<tbody>${B.map(poolRow).join('')}</tbody></table>`;
+}
+
+/* —— 股息 —— */
+function renderDiv(){
+  const rows=CFG.holdings.map((h,i)=>{
+    const x=hLive(h);if(!x)return '';
+    const dpsCNY=h.market==='HK'?h.dps*hkd():h.dps;
+    const pre=x.mvCNY/x.px*dpsCNY/(h.market==='HK'?1:1); // shares*dps
+    const dPre=h.shares*(h.market==='HK'?h.dps*hkd():h.dps);
+    const dPost=h.market==='HK'?dPre*0.8:dPre;
+    const y=dpsCNY/x.px*100;
+    return `<tr>
+      <td>${h.name}<br><span class="note">${h.market==='HK'?'港股通税20%':'A股>1年免税'}</span></td>
+      <td>${fmt(x.px,2)}</td>
+      <td><input type="number" step="0.01" data-h="${i}" data-k="dps" value="${h.dps}">${h.market==='HK'?' 港元':' 元'}</td>
+      <td>${y.toFixed(2)}%</td><td>${fmt(dPre,0)}</td><td>${fmt(dPost,0)}</td>
+    </tr>`;}).join('');
+  const dPost=CFG.holdings.reduce((s,h)=>{const x=hLive(h);if(!x)return s;const d=h.shares*(h.market==='HK'?h.dps*hkd():h.dps);return s+(h.market==='HK'?d*0.8:d);},0);
+  const dPre=CFG.holdings.reduce((s,h)=>{const x=hLive(h);if(!x)return s;return s+h.shares*(h.market==='HK'?h.dps*hkd():h.dps);},0);
+  const cashDiv=CFG.cash*CFG.cashYield/100;
+  const tot=dPost+cashDiv;
+  $('divTable').innerHTML=`<table><thead><tr>
+    <th>标的</th><th>现价</th><th>DPS[估·可改]</th><th>股息率</th><th>税前股息(元/年)</th><th>税后股息(元/年)</th>
+  </tr></thead><tbody>${rows}
+  <tr><td><b>现金</b>（收益率<input type="number" id="cyIn" step="0.1" value="${CFG.cashYield}" style="width:56px">%）</td><td></td><td></td><td>${CFG.cashYield}%</td><td>${fmt(cashDiv,0)}</td><td>${fmt(cashDiv,0)}</td></tr>
+  <tr><td><b>合计</b></td><td></td><td></td><td></td><td><b>${fmt(dPre+cashDiv,0)}</b></td><td><b>${fmt(tot,0)}</b></td></tr></tbody></table>`;
+  const cy=$('cyIn');if(cy)cy.addEventListener('change',e=>{CFG.cashYield=parseFloat(e.target.value)||0;renderDiv();});
+  const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
+  $('divCards').innerHTML=[
+    {k:'当前税后年股息[估]',v:fmt(tot,0)+' 元',s:'DPS为估计值，请按财报核验'},
+    {k:'股息目标达成率',v:(tot/1000000*100).toFixed(1)+'%',cls:tot<1000000?'up':'down',s:'对税前100万目标'},
+    {k:'组合股息率（税前）',v:(dPre/inv*100).toFixed(2)+'%',s:'按实时市值加权'},
+    {k:'投满1000万@当前结构',v:fmt(tot/inv*CFG.targetCapital/10000,0)+' 万/年',s:'同结构同股息率线性外推（近似）'},
+  ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
+}
+
+/* —— 计算器 —— */
+function priceAt(eps,g,pay,tax,x,r,n){let e=eps,s=0;for(let t=1;t<=n;t++){e*=(1+g);s+=e*pay*(1-tax)/Math.pow(1+r,t);}return s+e*Math.pow(1+g,n)*x/Math.pow(1+r,n);}
+function irrOf(eps,g,pay,tax,x,p,n){let lo=-0.5,hi=1;for(let i=0;i<200;i++){const m=(lo+hi)/2;(priceAt(eps,g,pay,tax,x,m,n)>p)?lo=m:hi=m;}return(lo+hi)/2;}
+function runCalc(){
+  const eps=+$('cEps').value,g=(+$('cG').value)/100,pay=(+$('cPay').value)/100,x=+$('cX').value,p=+$('cP').value,tax=(+$('cTax').value)/100;
+  if(!(eps>0&&p>0)){$('calcOut').textContent='参数无效';return;}
+  const r10=irrOf(eps,g,pay,tax,x,p,10),r5=irrOf(eps,g,pay,tax,x,p,5);
+  const label=r10>=0.1746?'目标达成型':r10>=0.15?'接近目标型':r10>=0.10?'组合辅助型':'回报不合格（不投新增资金）';
+  const tiers=[['P10',0.10],['P12',0.12],['P15',0.15],['P17.46',0.1746]].map(([t,r])=>`<div class="tier"><div class="t">${t}</div><div class="p">${priceAt(eps,g,pay,tax,x,r,10).toFixed(2)}</div></div>`).join('');
+  $('calcOut').innerHTML=`10年IRR <b class="${r10>=0.1246?'':'up'}">${(r10*100).toFixed(2)}%</b> ｜ 5年IRR ${(r5*100).toFixed(2)}% ｜ 税后股息率 ${(eps*pay*(1-tax)/p*100).toFixed(2)}%<br>
+    标签：<b>${label}</b>（基准参数口径；实际按三情景+概率加权判定）<div class="tiers">${tiers}</div>
+    <div class="note" style="margin-top:5px">触发档位后：先刷新前三步数据，再走第四步。</div>`;
+}
+
+/* —— 保存 —— */
+async function saveConfig(){
+  try{
+    const r=await fetch('/api/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(CFG)});
+    const j=await r.json();
+    $('saveText').textContent=j.ok?('已保存 '+new Date().toLocaleTimeString('zh-CN')):'保存失败';
+  }catch(e){$('saveText').textContent='保存失败（服务未启动？）';}
+  setTimeout(()=>$('saveText').textContent='',4000);
+}
+
+/* —— 启动 —— */
+(async()=>{
+  await loadConfig();
+  await refresh(false);
+  autoLoop();
+})();
+</script>
+</body>
+</html>
