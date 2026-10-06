@@ -43,9 +43,9 @@
   .pill{display:inline-block;font-size:10.5px;border-radius:20px;padding:1px 8px;margin-left:5px;vertical-align:1px}
   .pill.A{background:#e8f0fe;color:#2456a6}.pill.B{background:#fef3e2;color:#b45309}
   .pill.hold{background:#ecfdf5;color:#0f766e}
-  .pill.trig{background:var(--bad-bg);color:var(--up)}
+  .pill.trig{background:var(--good-bg);color:var(--down)}
   .pill.near{background:var(--warn-bg);color:var(--amber)}
-  tr.row-trig td{background:var(--bad-bg) !important}
+  tr.row-trig td{background:var(--good-bg) !important}
   tr.row-near td{background:var(--warn-bg) !important}
   .pill.wait{background:#f3f4f6;color:#6b7280}
   .flag{border-radius:8px;padding:10px 13px;font-size:13px;margin-bottom:8px}
@@ -124,7 +124,7 @@
 <!-- A类池 -->
 <section id="poolA">
   <h2>A类公司池 · 实时跟踪 <span class="tag">9家</span></h2>
-  <p class="desc">每只展示：<b>购买触发价</b>（现价≤触发价→<b style="color:var(--up)">整行标红</b>「可购入」；≤+5%→<b style="color:var(--amber)">整行标黄</b>「接近」；否则灰「等待」）和<b>建仓策略</b>（首仓/正常/硬上限或条件说明）。状态列已前置到第二列，一眼扫状态即可。触发价与建仓策略均可直接修改，「保存修改」后持久化。</p>
+  <p class="desc">每只展示：<b>购买触发价</b>（现价≤触发价→<b style="color:var(--down)">整行标绿</b>「可购入」；≤+5%→<b style="color:var(--amber)">整行标黄</b>「接近」；否则灰「等待」）和<b>建仓策略</b>（首仓/正常/硬上限或条件说明）。状态列已前置到第二列，一眼扫状态即可。触发价与建仓策略均可直接修改，「保存修改」后持久化。</p>
   <div class="tw" id="aTable"></div>
 </section>
 
