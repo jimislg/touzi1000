@@ -10,6 +10,8 @@ const fs = require('fs');
 const path = require('path');
 const PORT = process.env.PORT || 8307;
 const ROOT = __dirname;
+/* 本地默认只绑127.0.0.1；云端沙箱注入PORT环境变量时绑0.0.0.0（发布要求） */
+const HOST = process.env.HOST || (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
 
 function fetchRemote(url){ return new Promise((resolve,reject)=>{
   http.get(url, res=>{ const cs=[]; res.on('data',c=>cs.push(c)); res.on('end',()=>resolve(Buffer.concat(cs))); })
@@ -88,8 +90,40 @@ function parseQuotes(text){
   return out;
 }
 
+/* —— 访问口令闸门：config.json 存在 accessKey 时启用。
+ * 线上发布后 URL 可能被他人碰见，而站内是全部持仓成本，必须口令保护。
+ * 本地把 accessKey 删除或置空即可关闭闸门。 —— */
+function gateCheck(req,res,u){
+  let key=null;
+  try{key=JSON.parse(fs.readFileSync(path.join(ROOT,'config.json'),'utf8')).accessKey||null;}catch(_){}
+  if(!key)return true;
+  const cookies=(req.headers.cookie||'').split(/;\s*/).reduce((o,c)=>{const i=c.indexOf('=');
+    if(i>0)o[c.slice(0,i)]=decodeURIComponent(c.slice(i+1));return o;},{});
+  if(cookies.ak===key)return true;
+  if(u.searchParams.get('key')===key){
+    res.writeHead(302,{'Set-Cookie':`ak=${encodeURIComponent(key)}; Path=/; HttpOnly; Max-Age=31536000`,'Location':u.pathname||'/'});
+    res.end(); return false;
+  }
+  if(u.pathname.startsWith('/api/')){
+    res.writeHead(401,{'Content-Type':'application/json; charset=utf-8'});
+    res.end(JSON.stringify({ok:false,err:'unauthorized'})); return false;
+  }
+  res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});
+  res.end('<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>访问验证</title></head>'
+    +'<body style="margin:0;font-family:-apple-system,\'PingFang SC\',sans-serif;display:flex;justify-content:center;align-items:flex-start;padding-top:16vh;background:#f4f6f9">'
+    +'<form method="GET" style="text-align:center;background:#fff;padding:40px 48px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.08)">'
+    +'<h2 style="margin:0 0 6px;color:#1a2233">投资工作平台</h2>'
+    +'<p style="margin:0 0 18px;color:#8a93a6;font-size:13px">请输入访问口令</p>'
+    +'<input name="key" type="password" autofocus placeholder="访问口令" required'
+    +' style="padding:10px 14px;border-radius:8px;border:1px solid #d8dee8;font-size:15px;width:200px;outline:none">'
+    +'<button style="display:block;margin:16px auto 0;padding:10px 36px;border-radius:8px;border:0;background:#2563eb;color:#fff;font-size:15px;cursor:pointer">进入</button>'
+    +'</form></body></html>');
+  return false;
+}
+
 const server = http.createServer(async (req,res)=>{
   const u=new URL(req.url,'http://localhost');
+  if(!gateCheck(req,res,u))return;
   try{
     if(u.pathname==='/api/quotes'){
       const symbols=u.searchParams.get('symbols')||'';
@@ -162,8 +196,8 @@ const server = http.createServer(async (req,res)=>{
     res.writeHead(404); res.end('Not Found');
   }catch(e){ res.writeHead(500,{'Content-Type':'application/json'}); res.end(JSON.stringify({ok:false,error:e.message})); }
 });
-server.listen(PORT,'127.0.0.1',()=>{
-  console.log('投资工作平台已启动: http://127.0.0.1:'+PORT);
+server.listen(PORT,HOST,()=>{
+  console.log('投资工作平台已启动: http://'+(HOST==='0.0.0.0'?'0.0.0.0':'127.0.0.1')+':'+PORT);
 }).on('error',e=>{
   if(e.code==='EADDRINUSE'){ // 已有健康实例在跑：安静退出，避免launchd反复拉起撞端口
     http.get('http://127.0.0.1:'+PORT+'/api/config',r=>{ console.log('端口已被健康实例占用，本实例退出'); process.exit(0); })

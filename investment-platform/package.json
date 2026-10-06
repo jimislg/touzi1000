@@ -1,0 +1,9 @@
+{
+  "name": "investment-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "个人投资工作平台（零npm依赖，Node单端口HTTP服务）",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
