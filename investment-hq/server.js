@@ -1147,7 +1147,10 @@ function buildDecisionMetrics(payload) {
       : null;
     const reportHardLimit = firstPercent(stock?.position?.hard);
     const absoluteHardLimit = 0.25;
-    const effectiveHardLimit = reportHardLimit == null ? absoluteHardLimit : Math.min(reportHardLimit, absoluteHardLimit);
+    const sopGradeLimit = grade === 'A' ? 0.20 : grade === 'B' ? 0.08 : 0;
+    const effectiveHardLimit = Math.min(reportHardLimit == null ? sopGradeLimit : reportHardLimit, sopGradeLimit, absoluteHardLimit);
+    const sopReady = String(stock?.methodologyVersion || '').toLowerCase() === 'v3.4'
+      && String(stock?.valuationAudit?.status || '').toLowerCase() === 'pass';
     return {
       ...t,
       grade,
@@ -1161,6 +1164,7 @@ function buildDecisionMetrics(payload) {
       baseWealthMultiple: Number.isFinite(baseIrr) ? Math.pow(1 + baseIrr, 10) : null,
       reportHardLimit,
       effectiveHardLimit,
+      sopReady,
       limitBreach: t.weight > effectiveHardLimit + 1e-9
     };
   });
@@ -1184,7 +1188,9 @@ function buildDecisionMetrics(payload) {
     : null;
   const required5 = Math.pow(2, 1 / 5) - 1;
   const required10 = Math.pow(5, 1 / 10) - 1;
-  const executableStocks = payload.stocks.filter(s => s.grade === 'A' || s.grade === 'B');
+  const executableStocks = payload.stocks.filter(s => (s.grade === 'A' || s.grade === 'B')
+    && String(s.methodologyVersion || '').toLowerCase() === 'v3.4'
+    && String(s.valuationAudit?.status || '').toLowerCase() === 'pass');
   const executableIrrs = executableStocks.map(s => Number(s?.scenarios?.base?.irr10y)).filter(Number.isFinite);
   const maxBaseIrr = executableIrrs.length ? Math.max(...executableIrrs) : null;
   const hardTargetStocks = executableStocks.filter(s => Number(s?.scenarios?.base?.irr10y) >= required10).map(s => ({
@@ -1254,7 +1260,7 @@ function buildDecisionMetrics(payload) {
     alerts.push({ severity: 'red', title: '实际持仓超过七席上限', detail: `券商成交账本当前有${activeHoldingCount}只持仓，超过政策上限${maxHoldings}只。事实记录保留，但新增资金暂停；必须明确选择退出席位后再恢复执行。` });
   }
   if (normalizedWeightedReturn != null && normalizedWeightedReturn < required10) {
-    alerts.push({ severity: 'red', title: '10年5倍存在结构性缺口', detail: `目标组合按报告基准IRR加权仅 ${(normalizedWeightedReturn * 100).toFixed(2)}%，低于所需 ${(required10 * 100).toFixed(2)}% ${(required10 - normalizedWeightedReturn > 0 ? '约' + ((required10 - normalizedWeightedReturn) * 100).toFixed(2) + '个百分点' : '')}。` });
+    alerts.push({ severity: 'red', title: '10年5倍存在结构性缺口', detail: `目标组合按基准期末财富加权后逆算年化仅 ${(normalizedWeightedReturn * 100).toFixed(2)}%，低于所需 ${(required10 * 100).toFixed(2)}% ${(required10 - normalizedWeightedReturn > 0 ? '约' + ((required10 - normalizedWeightedReturn) * 100).toFixed(2) + '个百分点' : '')}。` });
   }
   if (!hardTargetStocks.length) {
     alerts.push({ severity: 'red', title: '当前没有可执行标的满足10年5倍硬目标', detail: `A/B类股票最高基准十年IRR为 ${maxBaseIrr == null ? '无法计算' : (maxBaseIrr * 100).toFixed(1) + '%'}，低于所需 ${(required10 * 100).toFixed(2)}%；不能靠重新分配旧价格下的仓位解决。` });
@@ -1265,7 +1271,7 @@ function buildDecisionMetrics(payload) {
       alerts.push({ severity: 'amber', title: '有个别标的达到硬目标，但不足以支撑整个组合', detail: `${names}。高IRR来自基准假设且可承载仓位有限，不能据此把组合目标标记为可实现。` });
     }
   }
-  if (concentrationEnabled) targetRows.filter(r => r.limitBreach).forEach(r => alerts.push({ severity: 'red', title: `${r.name}目标仓位越过报告硬上限`, detail: `目标 ${(r.weight * 100).toFixed(0)}%，报告硬上限 ${(r.effectiveHardLimit * 100).toFixed(0)}%；超额部分只能是待批准条件仓，不能视为默认配置。` }));
+  targetRows.filter(r => r.limitBreach).forEach(r => alerts.push({ severity: 'red', title: `${r.name}目标仓位越过v3.4硬上限`, detail: `目标 ${(r.weight * 100).toFixed(0)}%，当前有效硬上限 ${(r.effectiveHardLimit * 100).toFixed(0)}%；超额部分不能视为默认配置。A类超过20%还须有集中度压测与单独批准，绝对不得超过25%。` }));
   if ((pf.cash || 0) / (pf.totalAssets || 1) > 0.7) alerts.push({ severity: 'amber', title: '现金占比高，存在长期踏空风险', detail: `待部署现金约 ${((pf.cash || 0) / 10000).toFixed(1)}万元；应靠H12/H15/H17.46与第四步组合闸门分批投入，不靠主观等最低价。` });
   if ((pf.executionPlan?.rows || []).length && pf.executionPlan?.status?.includes('待执行')) alerts.push({ severity: 'amber', title: '首次建仓尚未执行', detail: `计划净使用现金约 ${(pf.executionPlan.expectedNetCashUse / 10000).toFixed(1)}万元；执行后股票仓约 ${(pf.executionPlan.postStockWeight * 100).toFixed(1)}%。执行以最新部署卡为准，万华当前暂不卖出。` });
   if (concentrationEnabled && pf.deploymentQueue?.threeMonthGap > 0) {
@@ -1281,7 +1287,7 @@ function buildDecisionMetrics(payload) {
     });
   } else {
     if (accelerated) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `当前${pf.targetPortfolio.length}只正式目标占位路径约${accelerated.nominal.duration}达到名义100万元，但约${accelerated.safety.duration}才达到120万元安全线；空缺席位通过后必须重新计算。` });
-    if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `质量折扣后的承保路线约${accelerated.nominal.duration}达到名义线、约${accelerated.safety.duration}达到安全线；积累期承保年化${(accelerated.accumulationReturn * 100).toFixed(2)}%，不再把${(normalizedWeightedReturn * 100).toFixed(2)}%的公司基准机械加权当成保守承诺。` });
+    if (accelerated) alerts.push({ severity: 'green', title: '最快的稳健路径不是现在追高股息', detail: `质量折扣后的承保路线约${accelerated.nominal.duration}达到税前100万元目标；20%额外缓冲的时点仅作压测参考。积累期承保年化${(accelerated.accumulationReturn * 100).toFixed(2)}%，不把${(normalizedWeightedReturn * 100).toFixed(2)}%的基准路径当成保守承诺。` });
     if (incomePortfolioAudit?.holdingCount < incomePortfolioAudit?.maxHoldings) alerts.push({ severity: 'red', title: '终态收息席位尚未补齐', detail: `当前只识别${incomePortfolioAudit.holdingCount}只收入资产，第${incomePortfolioAudit.holdingCount + 1}席保持空缺并计入现金；宇通、宁德、康臣均不得自动补位。当前路径只是保守占位测算，不是完整终态验收。` });
     if (incomePortfolioAudit?.overweightRows?.length) alerts.push({
       severity: 'red',

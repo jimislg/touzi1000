@@ -94,7 +94,7 @@ function manualCalibrationFor(name, symbol = '') {
   const calibrations = state.data?.portfolio?.manualCalibrations || {};
   const listing = String(symbol).toUpperCase().endsWith('.HK') ? 'h'
     : /\.(SH|SZ)$/i.test(String(symbol)) ? 'a' : '';
-  const listingKey = listing ? `${stock.key}-${listing}` : stock.key;
+  const listingKey = listing && stock.multiListing ? `${stock.key}-${listing}` : stock.key;
   const raw = calibrations[listingKey] ?? (listing === 'h' ? calibrations[stock.key] : undefined);
   const value = Number(raw);
   return Number.isFinite(value) && value > 0 ? { key: listingKey, value, listing } : null;
@@ -396,6 +396,7 @@ function renderGoals() {
     const manualGate = manualCalibrationFor(row.name, row.symbol);
     const firstGate = executionPriceFor(row.name, row.firstGate, row.symbol);
     const triggered = price <= firstGate;
+    const readiness = sopReadinessFor(row.name);
     const targetGate = manualGate
       ? `≤${fmtNum(firstGate)} <span class="price-src">人工校准</span>`
       : row.fiveYearDoubleGate != null && row.tenYearFiveXGate != null
@@ -406,7 +407,7 @@ function renderGoals() {
       <td class="num">${fmtNum(price)} ${esc(row.currency)}</td><td class="num">${fmtPct(row.underwrittenReturn, 2)}</td>
       <td class="num">${targetGate}</td>
       <td class="num">${fmtPct(row.normalWeight, 0)} / ${fmtPct(row.hardWeight, 0)}</td>
-      <td>${triggered ? '<span class="badge pass">到价待复核</span>' : '<span class="badge neutral">未到价</span>'}<div style="margin-top:4px">${esc(row.action)}</div></td>
+      <td>${triggered ? (readiness.executable ? '<span class="badge pass">可进入第四步复核</span>' : `<span class="badge doubt">到价·${esc(readiness.label)}</span>`) : `<span class="badge neutral">未到价·${esc(readiness.label)}</span>`}<div style="margin-top:4px">${esc(readiness.executable ? row.action : readiness.detail)}</div></td>
     </tr>`;
   }).join('');
   const growthCandidateRows = (accumulationPlan?.growthSeatCandidates || []).map(row => {
@@ -454,7 +455,7 @@ function renderGoals() {
   <div class="risk-grid">${dm.alerts.map(a => `<div class="risk-card ${alertClass(a.severity)}"><b>${esc(a.title)}</b><span>${esc(a.detail)}</span></div>`).join('')}</div>
 
   <div class="goal-cards">
-    ${g.targets.filter(t => showDividendPlanning || t.id !== 'dividend1m').map(t => `
+    ${g.targets.map(t => `
     <div class="goal-card ${t.id === 'double5' ? 'g-accent' : t.id === 'dividend1m' ? 'g-green' : ''}">
       <div class="g-name">${esc(t.name)}</div>
       <div class="g-value">${t.targetValue ? fmtWan(t.targetValue) : '100万/年'}</div>
@@ -794,19 +795,19 @@ function renderGoals() {
     ${showDividendPlanning ? `<div class="card">
       <h2>股息路线 <span class="tag">按目标仓位满仓估算 · 随「持仓与建仓」中的目标配置联动</span></h2>
       <div class="stat-row" style="margin-bottom:14px">
-        <div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
+        <div class="stat"><div class="s-label">当前年税前股息</div><div class="s-value">${fmtWan(dm.currentDividendPreTax)}</div><small>税后到手${fmtWan(dm.currentDividendAfterTax)}</small></div>
         <div class="stat"><div class="s-label">首轮交易后</div><div class="s-value blue">${fmtWan(dm.postInitialDividend)}</div></div>
-        <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(totalDiv)}+</div></div>
+        <div class="stat"><div class="s-label">满目标仓年税前股息</div><div class="s-value green">${fmtWan(dm.targetDividendPreTax)}</div><small>税后到手${fmtWan(dm.targetDividendAfterTax)}</small></div>
         <div class="stat"><div class="s-label">目标</div><div class="s-value">100万/年</div></div>
         <div class="stat"><div class="s-label">满仓后缺口</div><div class="s-value red">${fmtWan(dm.dividendGap)}</div></div>
       </div>
       <div class="progress" title="当前估算 vs 目标"><div class="${totalDiv / 1000000 >= 0.5 ? 'good' : totalDiv / 1000000 >= 0.25 ? 'warn' : ''}" style="width:${Math.min(100, totalDiv / 10000).toFixed(1)}%"></div></div>
-      <div class="note">达成路径：按终态税后股息率${fmtPct(pf.currentDividendBaseline.terminalYield, 2)}测算，年股息100万元需资产约${(pf.currentDividendBaseline.assetsNeeded / 10000).toFixed(0)}万元；正常安全线按120万元股息约需${(pf.currentDividendBaseline.assetsNeeded * 1.2 / 10000).toFixed(0)}万元。</div>
+      <div class="note">正式验收是税前年股息100万元；税后实际到手同表披露，不另设统一80万元或120万元目标。历史“税后终态收益率”模型仅作压力参考。</div>
       <p style="font-size:13.5px;margin-top:12px;color:var(--ink-2)">${esc(g.honestRestatement.dividendPath)}</p>
       <table style="margin-top:8px">
-        <thead><tr><th>公司</th><th class="num">目标仓位</th><th class="num">税后股息率</th><th class="num">年税后股息</th></tr></thead>
+        <thead><tr><th>公司</th><th class="num">目标仓位</th><th class="num">税前 / 税后股息率</th><th class="num">年税前 / 税后股息</th></tr></thead>
         <tbody>${pf.dividends.perStock.map(d => `
-          <tr><td>${esc(d.name)}</td><td class="num">${fmtWan(d.targetValue)}</td><td class="num">${d.afterTaxYield != null ? fmtPct(d.afterTaxYield, 2) : '待补充'}</td><td class="num">${d.afterTaxYield != null ? fmtWan(d.targetValue * d.afterTaxYield) : '—'}</td></tr>`).join('')}
+          <tr><td>${esc(d.name)}</td><td class="num">${fmtWan(d.targetValue)}</td><td class="num">${d.afterTaxYield != null ? `${fmtPct(d.afterTaxYield / (1 - Number(d.dividendTaxRate || 0)), 2)} / ${fmtPct(d.afterTaxYield, 2)}` : '待补充'}</td><td class="num">${d.afterTaxYield != null ? `${fmtWan(d.targetValue * d.afterTaxYield / (1 - Number(d.dividendTaxRate || 0)))} / ${fmtWan(d.targetValue * d.afterTaxYield)}` : '—'}</td></tr>`).join('')}
         </tbody>
       </table>
       ${pf.dividends.missingNote ? `<div class="note" style="color:var(--amber)">${esc(pf.dividends.missingNote)}</div>` : ''}
@@ -826,7 +827,7 @@ function renderGoals() {
         <label>原始持仓附件<input class="edit-input" id="snapFile" type="file" accept="image/png,image/jpeg,image/webp,application/pdf,.csv,.json" style="width:100%"></label>
         <label>总资产（元）<input class="edit-input" id="snapAssets" type="number" min="1" step="0.01" value="${Number(pf.totalAssets).toFixed(2)}" style="width:100%"></label>
         <label>现金（元）<input class="edit-input" id="snapCash" type="number" min="0" step="0.01" value="${Number(pf.cash).toFixed(2)}" style="width:100%"></label>
-        <label>正常化税后普通股息（元/年）<input class="edit-input" id="snapDividend" type="number" min="0" step="1" value="${Number(dm.currentDividend).toFixed(0)}" style="width:100%"></label>
+        <label>正常化税后实际到手普通股息（元/年）<input class="edit-input" id="snapDividend" type="number" min="0" step="1" value="${Number(dm.currentDividendAfterTax).toFixed(0)}" style="width:100%"></label>
         <label>滚动12个月实收普通股息（可空）<input class="edit-input" id="snapTtm" type="number" min="0" step="1" style="width:100%"></label>
         <label>本期净入金（入金为正，出金为负）<input class="edit-input" id="snapExternalFlow" type="number" step="0.01" value="0" style="width:100%"></label>
       </div>
@@ -1397,6 +1398,7 @@ function renderPortfolio() {
   const pingAn = pf.pingAnReview || {};
   const pingAnPool = snapshots.find(item => item.row.name === '中国平安');
   const pingAnAh = pingAnPool?.ahDecision || ahDecisionFor('中国平安');
+  const pingAnReadiness = sopReadinessFor('中国平安');
   const conditionalRows = (pf.conditionalBuildPool || []).map(row => `<tr>
     <td><b>${esc(row.name)}</b> <span class="quality-chip">${esc(row.quality)}</span></td><td class="num">${fmtWan(row.buildValue)}</td><td><span class="badge doubt">${esc(row.status)}</span></td><td>${esc(row.reentry)}</td>
   </tr>`).join('');
@@ -1451,8 +1453,8 @@ function renderPortfolio() {
       <div><span>H股当前动态有效上限</span><b>≤${fmtNum(pingAnAh?.effectiveHCeiling)} 港元</b></div>
     </div>
     <div class="table-scroll"><table><thead><tr><th>上市地</th><th>绝对价格门槛</th><th>相对价格门槛</th><th>当前结论</th></tr></thead><tbody>
-      <tr><td><b>A股 601318.SH</b></td><td>≤${fmtNum(pingAnAh?.aLimit)}元（自身H12/人工线）</td><td>不适用</td><td>${pingAnAh?.aPass ? '<span class="badge pass">可进入第四步复核</span>' : '<span class="badge neutral">等待价格</span>'}</td></tr>
-      <tr><td><b>H股 02318.HK</b></td><td>≤${fmtNum(pingAnAh?.hLimit)}港元（人工校准）</td><td>较A股人民币等值折价≥${fmtPct(pingAnAh?.minDiscount, 0)}</td><td>${pingAnAh?.hPass ? '<span class="badge pass">双门槛通过</span>' : '<span class="badge doubt">双门槛未同时通过</span>'}</td></tr>
+      <tr><td><b>A股 601318.SH</b></td><td>≤${fmtNum(pingAnAh?.aLimit)}元（自身H12/人工线取严）</td><td>不适用</td><td>${pingAnAh?.aPass ? `<span class="badge doubt">价格线已到·${esc(pingAnReadiness.label)}</span>` : '<span class="badge neutral">等待价格</span>'}</td></tr>
+      <tr><td><b>H股 02318.HK</b></td><td>≤${fmtNum(pingAnAh?.hLimit)}港元（H12/人工线取严）</td><td>较A股人民币等值折价≥${fmtPct(pingAnAh?.minDiscount, 0)}</td><td>${pingAnAh?.hPass ? `<span class="badge doubt">双价格门槛已到·${esc(pingAnReadiness.label)}</span>` : '<span class="badge doubt">双价格门槛未同时通过</span>'}</td></tr>
     </tbody></table></div>
     <details class="compact-details"><summary>暂停条件（${(pingAn.pauseConditions || []).length}项）</summary><ul class="check-list">${(pingAn.pauseConditions || []).map(item => `<li class="no">${esc(item)}</li>`).join('')}</ul></details>
     <div class="note">50港元是H股绝对价格线，不代表自动通过。按当前A股价格和汇率，25%折价对应H股须≤${fmtNum(pingAnAh?.relativeHCeiling)}港元；执行上限取“人工线50”与“相对线”的较低值，即≤${fmtNum(pingAnAh?.effectiveHCeiling)}港元。A股按自身价格线独立判断。</div>
