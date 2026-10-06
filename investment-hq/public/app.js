@@ -88,6 +88,93 @@ function livePriceHtml(name, fallbackPrice, currency) {
   return fallbackPrice != null ? `${fmtNum(fallbackPrice)} <span class="price-src">${esc(currency || '')}·文档时点</span>` : '—';
 }
 
+function manualCalibrationFor(name, symbol = '') {
+  const stock = (state.data?.stocks || []).find(item => item.name === name);
+  if (!stock) return null;
+  const calibrations = state.data?.portfolio?.manualCalibrations || {};
+  const listing = String(symbol).toUpperCase().endsWith('.HK') ? 'h'
+    : /\.(SH|SZ)$/i.test(String(symbol)) ? 'a' : '';
+  const listingKey = listing ? `${stock.key}-${listing}` : stock.key;
+  const raw = calibrations[listingKey] ?? (listing === 'h' ? calibrations[stock.key] : undefined);
+  const value = Number(raw);
+  return Number.isFinite(value) && value > 0 ? { key: listingKey, value, listing } : null;
+}
+
+function stockFor(name) {
+  return (state.data?.stocks || []).find(item => item.name === name) || null;
+}
+
+function sopReadinessFor(name) {
+  const stock = stockFor(name);
+  if (!stock) return { status: 'missing', executable: false, label: '待补数据', detail: '缺少标准个股研究底稿' };
+  if (stock.autoParsed) return { status: 'draft', executable: false, label: '自动解析待核对', detail: '自动解析结果不可用于下单' };
+  if (stock.grade === 'C' || stock.grade === 'D') return { status: 'quality-fail', executable: false, label: '质量未过', detail: `${stock.grade}类不进入第四步` };
+  const versionPass = String(stock.methodologyVersion || '').toLowerCase() === 'v3.4';
+  const auditPass = String(stock.valuationAudit?.status || '').toLowerCase() === 'pass';
+  if (versionPass && auditPass) return { status: 'ready', executable: true, label: 'v3.4已通过', detail: '前三步与估值审计均通过' };
+  return { status: 'legacy', executable: false, label: '待v3.4重审', detail: '保留旧报告与价格线；到价后先刷新前三步及四座勾稽桥' };
+}
+
+function firstPercentValue(value) {
+  const match = String(value ?? '').match(/(\d+(?:\.\d+)?)\s*%/);
+  return match ? Number(match[1]) / 100 : null;
+}
+
+function sopPositionCapFor(name) {
+  const stock = stockFor(name);
+  if (!stock || stock.grade === 'C' || stock.grade === 'D') return 0;
+  if (stock.grade === 'B') return Math.min(firstPercentValue(stock.position?.hard) ?? 0.08, 0.08);
+  return Math.min(firstPercentValue(stock.position?.hard) ?? 0.10, 0.20);
+}
+
+function executionPriceFor(name, fallback, symbol = '') {
+  const manual = manualCalibrationFor(name, symbol)?.value;
+  const stock = stockFor(name);
+  const ownH12 = String(symbol).toUpperCase().endsWith('.HK') && stock?.multiListing?.h
+    ? Number(stock.multiListing.h.H12)
+    : /\.(SH|SZ)$/i.test(String(symbol)) && stock?.multiListing?.a
+      ? Number(stock.multiListing.a.H12)
+      : Number(stock?.prices?.P12);
+  const candidates = [manual, ownH12, Number(fallback)].filter(value => Number.isFinite(value) && value > 0);
+  return candidates.length ? Math.min(...candidates) : null;
+}
+
+function executionPriceUnit(label = '') {
+  return String(label).includes('港元') ? '港元' : '元';
+}
+
+function calibratedAction(name, action, fallbackLabel = '', symbol = '') {
+  const calibration = manualCalibrationFor(name, symbol);
+  if (!calibration) return action;
+  const effective = executionPriceFor(name, null, symbol);
+  const threshold = `到${fmtNum(effective)}${executionPriceUnit(fallbackLabel)}以下`;
+  return /^到.*?以下/.test(String(action || ''))
+    ? String(action).replace(/^到.*?以下/, threshold)
+    : `${threshold}复核；${action || '到价不自动买入'}`;
+}
+
+function ahDecisionFor(name) {
+  const stock = (state.data?.stocks || []).find(item => item.name === name);
+  const multi = stock?.multiListing;
+  if (!multi?.a?.symbol || !multi?.h?.symbol) return null;
+  const aPrice = Number(liveQuote(multi.a.symbol)?.price);
+  const hPrice = Number(liveQuote(multi.h.symbol)?.price);
+  const fx = Number(multi.fxHkdCny);
+  const minDiscount = Number(multi.minHDiscount);
+  const aLimit = executionPriceFor(name, multi.a.H12, multi.a.symbol);
+  const hLimit = executionPriceFor(name, multi.h.H12, multi.h.symbol);
+  const discount = Number.isFinite(aPrice) && aPrice > 0 && Number.isFinite(hPrice) && Number.isFinite(fx)
+    ? 1 - hPrice * fx / aPrice : null;
+  const relativeHCeiling = Number.isFinite(aPrice) && Number.isFinite(fx) && fx > 0
+    ? aPrice * (1 - minDiscount) / fx : null;
+  const effectiveHCeiling = Number.isFinite(relativeHCeiling) ? Math.min(hLimit, relativeHCeiling) : hLimit;
+  const aPass = Number.isFinite(aPrice) && aPrice <= aLimit;
+  const hAbsolutePass = Number.isFinite(hPrice) && hPrice <= hLimit;
+  const hDiscountPass = discount != null && discount >= minDiscount;
+  return { stock, multi, aPrice, hPrice, fx, minDiscount, aLimit, hLimit, discount, relativeHCeiling, effectiveHCeiling,
+    aPass, hAbsolutePass, hDiscountPass, hPass: hAbsolutePass && hDiscountPass };
+}
+
 /* ---------- 迷你 Markdown 渲染 ---------- */
 function inlineMd(s) {
   return esc(s)
@@ -243,6 +330,8 @@ function renderGoals() {
   const goalHeldByName = new Map((pf.holdings || []).map(row => [row.name, row]));
   const goalPoolSnapshots = (pf.independentBuildPool || []).map(row => buildPoolSnapshot(pf, row, goalHeldByName));
   const goalActionableRows = goalPoolSnapshots.filter(row => row.actionable);
+  const goalPriceHitRows = goalPoolSnapshots.filter(row => row.priceTriggered);
+  const goalReadyRows = goalPoolSnapshots.filter(row => row.readiness.executable);
   const goalActionableAmount = goalActionableRows.reduce((sum, row) => sum + row.reviewAmount, 0);
   const totalDiv = dm.targetDividend;
   const baseReturn = dm.weightedReturn;
@@ -304,10 +393,12 @@ function renderGoals() {
   const formalGrowthRows = (accumulationPlan?.formalRows || []).map(row => {
     const quote = liveQuote(row.symbol);
     const price = Number(quote?.price ?? row.latestPrice);
-    const triggered = row.name === '贵州茅台'
-      ? price >= 1240 && price <= Number(row.firstGate)
-      : price <= Number(row.firstGate);
-    const targetGate = row.fiveYearDoubleGate != null && row.tenYearFiveXGate != null
+    const manualGate = manualCalibrationFor(row.name, row.symbol);
+    const firstGate = executionPriceFor(row.name, row.firstGate, row.symbol);
+    const triggered = price <= firstGate;
+    const targetGate = manualGate
+      ? `≤${fmtNum(firstGate)} <span class="price-src">人工校准</span>`
+      : row.fiveYearDoubleGate != null && row.tenYearFiveXGate != null
       ? `5年≤${fmtNum(row.fiveYearDoubleGate)}<br><span style="font-size:11px;color:var(--ink-3)">10年≤${fmtNum(row.tenYearFiveXGate)}</span>`
       : (row.name === '贵州茅台' ? '1240—1280' : `≤${fmtNum(row.firstGate)}`);
     return `<tr class="${triggered ? 'best-row' : ''}">
@@ -335,21 +426,21 @@ function renderGoals() {
       <div><span>当前股票仓位</span><b>${fmtPct(pf.stockMarketValue / pf.totalAssets, 1)}</b><small>${fmtWan(pf.stockMarketValue)}</small></div>
       <div><span>最终股票目标</span><b class="green">100%</b><small>现金仅等待条件</small></div>
       <div><span>独立候选容量</span><b>${fmtWan(constructionPolicy.candidateCapacity)}</b><small>${(pf.independentBuildPool || []).length}家公司 · 可超过本金</small></div>
-      <div><span>到价待复核</span><b class="${goalActionableRows.length ? 'green' : ''}">${goalActionableRows.length}家 · ${fmtWan(goalActionableAmount)}</b><small>${goalActionableRows.map(row => row.row.name).join('、') || '暂无'}</small></div>
+      <div><span>v3.4就绪 / 到价</span><b class="${goalActionableRows.length ? 'green' : ''}">${goalReadyRows.length}家 / ${goalPriceHitRows.length}家</b><small>${goalActionableRows.length}家可进入第四步 · ${fmtWan(goalActionableAmount)}</small></div>
     </div>
     <div class="policy-strip"><b>执行口径：</b>候选建仓值不是组合权重，也不是订单；实际投入受可用现金约束。多个标的同时到价时逐一比较，再由你确认。</div>
   </div>` : ''}
 
   <div class="card decision-cockpit">
-    <h2>已批准袖套的回报算术 <span class="tag">只描述现有六只，不代表2030万元候选池</span></h2>
+    <h2>已批准袖套的回报演算 <span class="tag">期末财富加权后逆算CAGR · 不代表历史候选池</span></h2>
     <div class="stat-row" style="margin-top:12px">
-      <div class="stat"><div class="s-label">六只袖套基准年化</div><div class="s-value ${baseReturn >= dm.required5 ? 'green' : 'red'}">${fmtPct(baseReturn, 2)}</div></div>
-      <div class="stat"><div class="s-label">六只袖套承保年化</div><div class="s-value blue">${fmtPct(dm.underwritingWeightedReturn, 2)}</div></div>
+      <div class="stat"><div class="s-label">${pf.targetPortfolio.length}只袖套基准CAGR</div><div class="s-value ${baseReturn >= dm.required5 ? 'green' : 'red'}">${fmtPct(baseReturn, 2)}</div></div>
+      <div class="stat"><div class="s-label">${pf.targetPortfolio.length}只袖套承保CAGR</div><div class="s-value blue">${fmtPct(dm.underwritingWeightedReturn, 2)}</div></div>
       <div class="stat"><div class="s-label">同质补齐5年示意</div><div class="s-value">2.00 / ${underwritingFive.toFixed(2)}倍</div></div>
       <div class="stat"><div class="s-label">同质补齐10年示意</div><div class="s-value">5.00 / ${underwritingTen.toFixed(2)}倍</div></div>
       <div class="stat"><div class="s-label">距10年5倍年化缺口</div><div class="s-value red">${fmtPct(dm.required10 - dm.underwritingWeightedReturn, 2)}</div></div>
-      ${showDividendPlanning ? `<div class="stat"><div class="s-label">当前年税后股息</div><div class="s-value">${fmtWan(dm.currentDividend)}</div></div>
-      <div class="stat"><div class="s-label">满目标仓年税后股息</div><div class="s-value green">${fmtWan(dm.targetDividend)}+</div></div>` : ''}
+      ${showDividendPlanning ? `<div class="stat"><div class="s-label">当前年税前 / 税后股息</div><div class="s-value">${fmtWan(dm.currentDividendPreTax)} / ${fmtWan(dm.currentDividendAfterTax)}</div></div>
+      <div class="stat"><div class="s-label">满目标仓税前 / 税后股息</div><div class="s-value green">${fmtWan(dm.targetDividendPreTax)} / ${fmtWan(dm.targetDividendAfterTax)}</div></div>` : ''}
     </div>
     <div class="goal-bridge">
       <span><b>当前报告时点</b>${fmtPct(baseReturn, 2)} → 10年${baseTen.toFixed(2)}倍</span>
@@ -375,7 +466,7 @@ function renderGoals() {
 
   ${showDividendPlanning ? `<div class="card">
     <h2>十年路线 <span class="tag">本金1000万 · ${esc(g.asOf)}</span></h2>
-    <div class="card-sub">当前正式目标${pf.targetPortfolio.length}/${pf.concentrationPolicy.maxHoldings}席：目标股票${fmtPct(1 - pf.opportunityCash.weight, 0)}＋现金${fmtPct(pf.opportunityCash.weight, 0)}；公司基准机械加权${fmtPct(baseReturn, 2)}，质量折扣后承保年化${fmtPct(dm.underwritingWeightedReturn, 2)}。</div>
+    <div class="card-sub">当前正式目标${pf.targetPortfolio.length}/${pf.concentrationPolicy.maxHoldings}席：目标股票${fmtPct(1 - pf.opportunityCash.weight, 0)}＋现金${fmtPct(pf.opportunityCash.weight, 0)}；基准期末财富逆算年化${fmtPct(baseReturn, 2)}，情景期末财富加权后承保年化${fmtPct(dm.underwritingWeightedReturn, 2)}。</div>
     <div class="timeline">
       <div class="timeline-bar">
         ${g.timeline.map((t, i) => `
@@ -399,7 +490,7 @@ function renderGoals() {
   </div>` : ''}
 
   ${showDividendPlanning && runway && runway.status !== 'historical-research-only' ? `<div class="card">
-    <h2>年股息100万元达标时钟 <span class="tag">计入现金部署拖累 · 名义线与安全线分开</span></h2>
+    <h2>税前年股息100万元达标时钟 <span class="tag">唯一正式目标 · 税后实际到手另行披露</span></h2>
     <div class="card-sub">从当前${fmtPct(runway.startStockWeight, 2)}股票仓位出发；部署期按月线性提高到${fmtPct(runway.targetStockWeight, 0)}，现金按${fmtPct(runway.cashReturn, 1)}年化。结果是模型路径，不是收益承诺。</div>
     ${baseRunway ? `<div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">纪律基准名义线</div><div class="s-value green">${esc(baseRunway.nominalDuration)}</div></div>
@@ -422,11 +513,11 @@ function renderGoals() {
       </tr>`).join('')}</tbody>
     </table>
     ${baseRunway ? `<div class="note">基准资产里程碑：${baseRunway.milestones.map(m => `${fmtWan(m.value)}约${esc(m.duration)}（${esc(m.date)}）`).join('；')}。迁移前提未满足时，不能把账面资产机械乘以4.19%视为已获得股息。</div>` : ''}
-    <div class="honest" style="margin-top:10px"><b>正确目标：</b>100万元只是名义线；真正“稳”应以120万元普通股息安全线验收。${esc(runway.note || '')}</div>
+    <div class="honest" style="margin-top:10px"><b>目标口径：</b>正式目标始终是税前100万元。120万元若出现，仅作为20%压力缓冲参考，不构成新目标。${esc(runway.note || '')}</div>
   </div>` : ''}
 
   ${showDividendPlanning && acceleration ? `<div class="card">
-    <h2>承保路径对照 <span class="tag">质量优先 · 尚未证明更快 · 120万元才验收</span></h2>
+    <h2>承保路径对照 <span class="tag">质量优先 · 税前100万元为验收目标 · 20%缓冲只是压测</span></h2>
     <div class="card-sub">${acceleratedPath && incomeFirstPath ? `“立即转高股息”模型的安全线比正式两阶段路线快${acceleratedPath.safety.months - incomeFirstPath.safety.months}个月，但当前没有候选通过全部闸门，因此不可执行。` : ''}保留两阶段路线，是因为积累期公司质量、风险分散和上行可选性更好；公司基准机械加权只保留为上行执行线。</div>
     ${acceleratedPath ? `<div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">推荐名义线</div><div class="s-value green">${esc(acceleratedPath.nominal.duration)}</div></div>
@@ -652,7 +743,7 @@ function renderGoals() {
   </div>` : ''}
 
   ${showDividendPlanning && tracking ? `<div class="card">
-    <h2>月度持仓快照 <span class="tag">上传实际持仓 · 自动统计 · 当前不设席位上限</span><button class="btn primary" id="addGoalSnapshot" style="float:right">上传月度持仓</button></h2>
+    <h2>月度持仓快照 <span class="tag">上传实际持仓 · 自动统计 · 席位数不预设，个股硬上限仍有效</span><button class="btn primary" id="addGoalSnapshot" style="float:right">上传月度持仓</button></h2>
     <div class="card-sub">每月上传券商持仓或CSV/JSON，系统保留原始凭证并统计持仓数量、集中度、现金、非目标持仓与股息路径；不会把计划仓位当成实际持仓。</div>
     <div class="stat-row" style="margin-top:12px">
       <div class="stat"><div class="s-label">最新快照</div><div class="s-value">${esc(tracking.latest?.date || '—')}</div></div>
@@ -1182,19 +1273,53 @@ function buildPoolSnapshot(pf, row, heldByName) {
   const fallbackPrice = row.name === '中国平安' ? Number(pf.pingAnReview?.referencePrice) : null;
   const price = quote?.price ?? fallbackPrice;
   const locked = row.gateLocked === true;
-  const trigger = Number(row.triggerPrice);
-  const triggered = !locked && Number.isFinite(price) && Number.isFinite(trigger) && price <= trigger;
+  const readiness = sopReadinessFor(row.name);
+  const stock = stockFor(row.name);
+  const quality = stock?.grade || '待核对';
+  const sopCap = sopPositionCapFor(row.name);
+  const sopCapValue = sopCap * Number(pf.totalAssets || pf.constructionPolicy?.principal || 0);
+  const effectiveBuildValue = readiness.executable ? Math.min(Number(row.buildValue) || 0, sopCapValue) : 0;
+  const capBreach = Number(row.buildValue || 0) > sopCapValue + 1;
+  const calibration = manualCalibrationFor(row.name, row.symbol);
+  const trigger = executionPriceFor(row.name, row.triggerPrice, row.symbol);
+  const unit = executionPriceUnit(row.triggerLabel);
+  const ahDecision = ahDecisionFor(row.name);
+  const manualText = calibration && Number.isFinite(trigger) && calibration.value !== trigger
+    ? `（人工线${fmtNum(calibration.value)}，SOP有效线取严后${fmtNum(trigger)}）`
+    : calibration ? `（人工校准）` : '';
+  const triggerLabel = ahDecision
+    ? `A≤${fmtNum(ahDecision.aLimit)}元；H≤${fmtNum(trigger)}港元且折价≥${fmtPct(ahDecision.minDiscount, 0)}`
+    : Number.isFinite(trigger) ? `≤${fmtNum(trigger)}${unit}${manualText}` : (row.triggerLabel || '待估值');
+  const baseNextAction = calibratedAction(row.name, row.nextAction, row.triggerLabel, row.symbol);
+  const nextAction = ahDecision
+    ? `A股${ahDecision.aPass ? '已过自身价格线' : '等待自身价格线'}；H股绝对价${ahDecision.hAbsolutePass ? '通过' : '未过'}、当前折价${fmtPct(ahDecision.discount, 1)}${ahDecision.hDiscountPass ? '通过' : '未达25%'}，动态有效上限${fmtNum(ahDecision.effectiveHCeiling)}港元`
+    : baseNextAction;
+  const priceTriggered = !locked && (ahDecision
+    ? (ahDecision.aPass || ahDecision.hPass)
+    : Number.isFinite(price) && Number.isFinite(trigger) && price <= trigger);
   const cost = holdingCostCny(holding);
   const completion = row.buildValue > 0 ? Math.min(1, cost / row.buildValue) : 0;
-  const reviewCeiling = Math.min(Number(row.reviewTargetValue) || 0, Number(row.buildValue) || 0);
-  const reviewAmount = triggered ? Math.max(0, reviewCeiling - cost) : 0;
-  const actionable = triggered && reviewAmount >= 1000;
+  const reviewCeiling = Math.min(Number(row.reviewTargetValue) || 0, effectiveBuildValue);
+  const reviewAmount = priceTriggered && readiness.executable ? Math.max(0, reviewCeiling - cost) : 0;
+  const actionable = priceTriggered && readiness.executable && reviewAmount >= 1000;
   let status = row.status || '等待价格';
-  if (locked) status = row.status || '等待事实闸门';
+  if (!readiness.executable && priceTriggered) status = `到价·${readiness.label}`;
+  else if (!readiness.executable) status = readiness.label;
+  else if (locked) status = row.status || '等待事实闸门';
+  else if (actionable && ahDecision) status = ahDecision.hPass
+    ? (ahDecision.aPass ? 'A/H均可复核' : 'H股可复核')
+    : 'A股可复核·H股等待';
   else if (actionable) status = '到价待复核';
+  else if (ahDecision && !ahDecision.hDiscountPass) status = '等待A/H折价';
   else if (holding) status = '已持有·等价格';
   else status = '等待价格';
-  return { row, holding, quote, price, locked, triggered, actionable, reviewAmount, cost, completion, status };
+  const listingGap = /600036\.SH|600660\.SH/.test(String(row.symbol || '')) && !stock?.multiListing
+    ? 'A股可独立跟踪；H股缺独立价格档与25%折价数据，不可执行。'
+    : '';
+  const guardedNextAction = !readiness.executable
+    ? `${readiness.detail}${priceTriggered ? '；价格线已到，现在只触发重审，不形成买入建议' : ''}${listingGap ? ` ${listingGap}` : ''}`
+    : `${nextAction}${listingGap ? ` ${listingGap}` : ''}`;
+  return { row, holding, quote, price, locked, triggered: priceTriggered, priceTriggered, actionable, reviewAmount, cost, completion, status, trigger, triggerLabel, nextAction: guardedNextAction, calibration, ahDecision, readiness, quality, sopCap, sopCapValue, effectiveBuildValue, capBreach };
 }
 
 function renderPortfolio() {
@@ -1208,20 +1333,25 @@ function renderPortfolio() {
   const liveTotalAssets = Number(pf.cash || 0) + liveStockValue;
   const snapshots = pool.map(row => buildPoolSnapshot(pf, row, heldByName));
   const actionableRows = snapshots.filter(item => item.actionable);
+  const priceHitRows = snapshots.filter(item => item.priceTriggered);
+  const readyRows = snapshots.filter(item => item.readiness.executable);
+  const sopEligibleCapacity = snapshots.reduce((sum, item) => sum + item.effectiveBuildValue, 0);
   const actionableAmount = actionableRows.reduce((sum, item) => sum + item.reviewAmount, 0);
   const candidateCapacity = Number(policy.candidateCapacity) || pool.reduce((sum, row) => sum + Number(row.buildValue || 0), 0);
   const conditionalCapacity = Number(policy.conditionalRepairCapacity) || (pf.conditionalBuildPool || []).reduce((sum, row) => sum + Number(row.buildValue || 0), 0);
 
   const filterCounts = {
     '全部': snapshots.length,
-    '到价': actionableRows.length,
+    '到价': priceHitRows.length,
     '已持有': snapshots.filter(item => item.holding).length,
-    '待解锁': snapshots.filter(item => item.locked).length
+    '待解锁': snapshots.filter(item => item.locked).length,
+    '待重审': snapshots.filter(item => !item.readiness.executable).length
   };
   const filteredPool = snapshots.filter(item => {
-    if (state.buildPoolFilter === '到价') return item.actionable;
+    if (state.buildPoolFilter === '到价') return item.priceTriggered;
     if (state.buildPoolFilter === '已持有') return Boolean(item.holding);
     if (state.buildPoolFilter === '待解锁') return item.locked;
+    if (state.buildPoolFilter === '待重审') return !item.readiness.executable;
     return true;
   }).sort((a, b) => Number(b.actionable) - Number(a.actionable) || Number(Boolean(b.holding)) - Number(Boolean(a.holding)) || b.row.buildValue - a.row.buildValue);
 
@@ -1243,28 +1373,30 @@ function renderPortfolio() {
       <td class="num">${fmtPct(marketValue / liveTotalAssets, 1)}</td>
       <td class="num">${item ? fmtWan(item.row.buildValue) : '—'}</td>
       <td>${item ? completionHtml(item) : '<span class="muted">未纳入候选池</span>'}</td>
-      <td>${item ? esc(item.row.nextAction) : '保留观察，等待新结论'}</td>
+      <td>${item ? esc(item.nextAction) : '保留观察，等待新结论'}</td>
     </tr>`;
   }).join('');
 
   const poolRows = filteredPool.map(item => {
     const approved = Number(item.row.approvedValue) || 0;
     const quoteMark = item.quote ? '<div class="price-src">实时</div>' : (item.price != null ? '<div class="price-src">分析时点</div>' : '');
+    const priceCell = item.ahDecision
+      ? `<b>A ${fmtNum(item.ahDecision.aPrice)}元</b><div class="price-src">H ${fmtNum(item.ahDecision.hPrice)}港元 · 实时</div>`
+      : item.price != null ? `<b>${fmtNum(item.price)}</b>${quoteMark}` : '—';
     return `<tr class="${item.actionable ? 'actionable-row' : ''}">
-      <td><b>${esc(item.row.name)}</b> <span class="quality-chip">${esc(item.row.quality)}</span><div class="row-meta">${esc(item.row.symbol)}</div></td>
-      <td class="num">${item.price != null ? `<b>${fmtNum(item.price)}</b>${quoteMark}` : '—'}</td>
-      <td class="num"><b>${fmtWan(item.row.buildValue)}</b>${approved ? `<div class="price-src">已批准${fmtWan(approved)}</div>` : '<div class="price-src">候选值</div>'}</td>
+      <td><b>${esc(item.row.name)}</b> <span class="quality-chip">${esc(item.quality)}</span><div class="row-meta">${esc(item.row.symbol)} · ${esc(item.readiness.label)}</div></td>
+      <td class="num">${priceCell}</td>
+      <td class="num"><b>${fmtWan(item.row.buildValue)}</b>${approved ? `<div class="price-src">历史批准${fmtWan(approved)}</div>` : '<div class="price-src">历史候选值</div>'}${item.capBreach ? `<div class="price-src" style="color:var(--red)">SOP上限${fmtPct(item.sopCap, 0)}</div>` : ''}</td>
       <td>${completionHtml(item)}</td>
-      <td class="num"><b>${esc(item.row.triggerLabel || '待估值')}</b></td>
+      <td class="num"><b>${esc(item.triggerLabel)}</b></td>
       <td>${statusBadge(item)}${item.actionable ? `<div class="row-meta">可复核${fmtWan(item.reviewAmount)}</div>` : ''}</td>
-      <td class="next-action">${esc(item.row.nextAction)}</td>
+      <td class="next-action">${esc(item.nextAction)}</td>
     </tr>`;
   }).join('');
 
   const pingAn = pf.pingAnReview || {};
   const pingAnPool = snapshots.find(item => item.row.name === '中国平安');
-  const pingAnPrice = pingAnPool?.price ?? pingAn.referencePrice;
-  const pingAnTiers = (pingAn.tiers || []).map(tier => `<tr><td><b>${esc(tier.price)}</b></td><td>${esc(tier.action)}</td><td class="num"><b>${fmtWan(tier.cumulative)}</b></td></tr>`).join('');
+  const pingAnAh = pingAnPool?.ahDecision || ahDecisionFor('中国平安');
   const conditionalRows = (pf.conditionalBuildPool || []).map(row => `<tr>
     <td><b>${esc(row.name)}</b> <span class="quality-chip">${esc(row.quality)}</span></td><td class="num">${fmtWan(row.buildValue)}</td><td><span class="badge doubt">${esc(row.status)}</span></td><td>${esc(row.reentry)}</td>
   </tr>`).join('');
@@ -1276,14 +1408,14 @@ function renderPortfolio() {
   el.innerHTML = `
   <div class="portfolio-hero card">
     <div class="hero-head">
-      <div><div class="eyebrow">当前唯一主动任务</div><h2>把本金做大 <span class="tag">最终100%股票 · 当前不设席位上限</span></h2></div>
+      <div><div class="eyebrow">当前唯一主动任务</div><h2>把本金做大 <span class="tag">最终100%股票 · 席位数不预设 · 个股仍受硬上限</span></h2></div>
       <button class="btn primary" id="recordTrade">＋ 登记实际成交</button>
     </div>
     <div class="tracking-kpis">
       <div><span>实际股票仓位</span><b>${fmtPct(liveStockValue / liveTotalAssets, 1)}</b><small>${fmtWan(liveStockValue)}</small></div>
       <div><span>可用现金</span><b>${fmtWan(pf.cash)}</b><small>${fmtPct(Number(pf.cash) / liveTotalAssets, 1)}</small></div>
       <div><span>独立候选容量</span><b>${fmtWan(candidateCapacity)}</b><small>${fmtPct(candidateCapacity / Number(policy.principal || pf.totalAssets), 0)}本金</small></div>
-      <div><span>到价待复核</span><b class="${actionableRows.length ? 'green' : ''}">${actionableRows.length}家 · ${fmtWan(actionableAmount)}</b><small>不是已批准订单</small></div>
+      <div><span>v3.4执行就绪</span><b class="${readyRows.length ? 'green' : ''}">${readyRows.length}家 · ${fmtWan(sopEligibleCapacity)}</b><small>${priceHitRows.length}家到价，${actionableRows.length}家可进入第四步</small></div>
     </div>
     <div class="policy-strip"><b>口径：</b>${esc(policy.rule || '')} 多标的同时到价时按“预期回报 → 业务与现金流可验证性 → 治理与安全边际”排序。</div>
   </div>
@@ -1298,7 +1430,7 @@ function renderPortfolio() {
 
   <div class="card pool-card">
     <div class="hero-head">
-      <div><h2>独立建仓池 <span class="tag">21家公司 · 合计${fmtWan(candidateCapacity)}</span></h2><div class="card-sub">建仓值是单家公司条件满足时的独立上限，不是按比例配满的目标组合。</div></div>
+      <div><h2>独立建仓池 <span class="tag">${pool.length}家历史跟踪 · 合计${fmtWan(candidateCapacity)}</span></h2><div class="card-sub">历史建仓值仅保留追溯；通过 v3.4 前三步、估值审计和仓位上限后，才计入可执行容量。</div></div>
       <div class="filter-bar pool-filters">${Object.entries(filterCounts).map(([name, count]) => `<button data-pool-filter="${name}" class="${state.buildPoolFilter === name ? 'active' : ''}">${name} ${count}</button>`).join('')}</div>
     </div>
     <div class="table-scroll"><table class="pool-table">
@@ -1309,23 +1441,26 @@ function renderPortfolio() {
 
   <div class="card pingan-focus">
     <div class="hero-head">
-      <div><div class="eyebrow">本次新增重点</div><h2>中国平安 H股 <span class="tag">${esc(pingAn.quality)} · 数据截至${esc(pingAn.asOf)}</span></h2></div>
+      <div><div class="eyebrow">A/H双上市地决策</div><h2>中国平安 A股 / H股 <span class="tag">${esc(pingAn.quality)} · v3.4双门槛</span></h2></div>
       ${pingAnPool ? statusBadge(pingAnPool) : ''}
     </div>
     <div class="pingan-summary">
-      <div><span>参考 / 最新价</span><b>${fmtNum(pingAnPrice)} 港元</b></div>
-      <div><span>5年2倍线</span><b>${fmtNum(pingAn.fiveYearDoublePrice)} 港元</b></div>
-      <div><span>优选首笔复核</span><b>≤${fmtNum(pingAn.preferredFirstReviewPrice)} 港元</b></div>
-      <div><span>基准IRR</span><b>5年${fmtPct(pingAn.baseIrr5yAtReference, 1)} · 10年${fmtPct(pingAn.baseIrr10yAtReference, 1)}</b></div>
+      <div><span>A股最新 / 执行线</span><b>${fmtNum(pingAnAh?.aPrice)} / ≤${fmtNum(pingAnAh?.aLimit)} 元</b></div>
+      <div><span>H股最新 / 人工线</span><b>${fmtNum(pingAnAh?.hPrice)} / ≤${fmtNum(pingAnAh?.hLimit)} 港元</b></div>
+      <div><span>H较A人民币折价</span><b class="${pingAnAh?.hDiscountPass ? 'green' : 'red'}">${fmtPct(pingAnAh?.discount, 1)} / 要求≥${fmtPct(pingAnAh?.minDiscount, 0)}</b></div>
+      <div><span>H股当前动态有效上限</span><b>≤${fmtNum(pingAnAh?.effectiveHCeiling)} 港元</b></div>
     </div>
-    <div class="table-scroll"><table><thead><tr><th>价格</th><th>动作</th><th class="num">累计建仓值</th></tr></thead><tbody>${pingAnTiers}</tbody></table></div>
+    <div class="table-scroll"><table><thead><tr><th>上市地</th><th>绝对价格门槛</th><th>相对价格门槛</th><th>当前结论</th></tr></thead><tbody>
+      <tr><td><b>A股 601318.SH</b></td><td>≤${fmtNum(pingAnAh?.aLimit)}元（自身H12/人工线）</td><td>不适用</td><td>${pingAnAh?.aPass ? '<span class="badge pass">可进入第四步复核</span>' : '<span class="badge neutral">等待价格</span>'}</td></tr>
+      <tr><td><b>H股 02318.HK</b></td><td>≤${fmtNum(pingAnAh?.hLimit)}港元（人工校准）</td><td>较A股人民币等值折价≥${fmtPct(pingAnAh?.minDiscount, 0)}</td><td>${pingAnAh?.hPass ? '<span class="badge pass">双门槛通过</span>' : '<span class="badge doubt">双门槛未同时通过</span>'}</td></tr>
+    </tbody></table></div>
     <details class="compact-details"><summary>暂停条件（${(pingAn.pauseConditions || []).length}项）</summary><ul class="check-list">${(pingAn.pauseConditions || []).map(item => `<li class="no">${esc(item)}</li>`).join('')}</ul></details>
-    <div class="note">54.38港元只是5年2倍的复核线；优先等待≤52港元再审首笔20万元。到价不自动买入。</div>
+    <div class="note">50港元是H股绝对价格线，不代表自动通过。按当前A股价格和汇率，25%折价对应H股须≤${fmtNum(pingAnAh?.relativeHCeiling)}港元；执行上限取“人工线50”与“相对线”的较低值，即≤${fmtNum(pingAnAh?.effectiveHCeiling)}港元。A股按自身价格线独立判断。</div>
   </div>
 
   <details class="card compact-details">
     <summary>修复观察池 · 5家公司 · 条件容量${fmtWan(conditionalCapacity)}</summary>
-    <div class="card-sub">不计入2030万元主动候选池；只有经营或估值条件修复后才转入。</div>
+    <div class="card-sub">不计入${fmtWan(candidateCapacity)}主动候选池；只有经营或估值条件修复后才转入。</div>
     <div class="table-scroll"><table><thead><tr><th>公司</th><th class="num">条件建仓值</th><th>状态</th><th>转入条件</th></tr></thead><tbody>${conditionalRows}</tbody></table></div>
   </details>
 
@@ -1365,7 +1500,7 @@ function priceBarHtml(s) {
   const curPos = cur != null ? pos(cur) : null;
   const status = cur != null && P17 != null && cur <= P17 ? ' <span class="badge pass">≤目标达成价</span>' : '';
   const dualGoal = s.newCapitalGate?.fiveYearDoublePrice != null && s.newCapitalGate?.tenYearFiveXPrice != null
-    ? `<div class="labels" style="margin-top:6px"><span><b>5年2倍</b> ≤${fmtNum(s.newCapitalGate.fiveYearDoublePrice)}</span><span><b>10年5倍</b> ≤${fmtNum(s.newCapitalGate.tenYearFiveXPrice)}</span></div>`
+    ? `<div class="labels" style="margin-top:6px"><span><b>5年路径检查</b> ≤${fmtNum(s.newCapitalGate.fiveYearDoublePrice)}</span><span><b>10年5倍</b> ≤${fmtNum(s.newCapitalGate.tenYearFiveXPrice)}</span></div>`
     : '';
   return `
   <div class="sc-pricebar">
@@ -1382,9 +1517,13 @@ function priceBarHtml(s) {
 
 function executionAction(s, current, calibration) {
   if (!Number.isFinite(current)) return '先更新行情';
+  const readiness = sopReadinessFor(s.name);
   if (s.grade === 'C' || s.grade === 'D') return `质量未过执行门：${s.tradeStatus?.reason || '只观察，不买入'}`;
   if (s.tradeStatus?.paused) return `暂停买入：${s.tradeStatus.reason || '等待基本面闸门解除'}`;
-  if (Number.isFinite(calibration) && current <= calibration) return '已到人工校准点：先查财报与取消条件';
+  const effective = executionPriceFor(s.name, s.prices?.P12, s.symbol);
+  if (!readiness.executable && Number.isFinite(effective) && current <= effective) return `已到有效价格线：${readiness.label}，先刷新前三步和估值审计`;
+  if (!readiness.executable) return `${readiness.label}；旧价格线只用于跟踪`;
+  if (Number.isFinite(effective) && current <= effective) return '已到SOP有效线：可进入第四步复核，不自动买入';
   const fiveYearDoublePrice = Number(s.newCapitalGate?.fiveYearDoublePrice);
   const tenYearFiveXPrice = Number(s.newCapitalGate?.tenYearFiveXPrice);
   if (Number.isFinite(fiveYearDoublePrice) && current > fiveYearDoublePrice) {
@@ -1409,26 +1548,42 @@ function executionAction(s, current, calibration) {
 function researchExecutionTable(stocks) {
   const calibrations = state.data.portfolio.manualCalibrations || {};
   return `<div class="card execution-table-card">
-    <h2>股票池执行价格总表 <span class="tag">系统价格来自报告；“校准买入点”由你维护并保存到本机</span></h2>
+    <h2>股票池执行价格总表 <span class="tag">人工价格保留；有效触发线取人工线与H12中更严者</span></h2>
     <div class="table-scroll"><table>
       <thead><tr><th>公司</th><th>质量 / 回报</th><th class="num">现价</th><th class="num">H12</th><th class="num">H15</th><th class="num">5年检查点</th><th class="num">10年5倍 / H17.46</th><th class="num">校准买入点</th><th>当前动作</th></tr></thead>
       <tbody>${stocks.map(s => {
         const q = liveQuote(s.name), current = q ? q.price : Number(s.currentPrice);
         const calibration = Number(calibrations[s.key]);
+        const readiness = sopReadinessFor(s.name);
+        const effectiveLine = executionPriceFor(s.name, s.prices?.P12, s.symbol);
+        const ah = ahDecisionFor(s.name);
+        const currentCell = ah
+          ? `A ${fmtNum(ah.aPrice)}元<div class="price-src">H ${fmtNum(ah.hPrice)}港元</div>`
+          : `${Number.isFinite(current) ? fmtNum(current) : '—'}${q ? '<div class="price-src">实时</div>' : ''}`;
+        const h12Cell = ah ? `A ${fmtNum(ah.multi.a.H12)}<div class="price-src">H ${fmtNum(ah.multi.h.H12)}</div>` : (s.prices?.P12 != null ? fmtNum(s.prices.P12) : '—');
+        const h15Cell = ah ? `A ${fmtNum(ah.multi.a.H15)}<div class="price-src">H ${fmtNum(ah.multi.h.H15)}</div>` : (s.prices?.P15 != null ? fmtNum(s.prices.P15) : '—');
+        const h1746Cell = ah ? `A ${fmtNum(ah.multi.a.H17_46)}<div class="price-src">H ${fmtNum(ah.multi.h.H17_46)}</div>`
+          : (s.newCapitalGate?.tenYearFiveXPrice != null ? fmtNum(s.newCapitalGate.tenYearFiveXPrice) : (s.prices?.P17 != null ? fmtNum(s.prices.P17) : '—'));
+        const calibrationCell = ah
+          ? `<label class="price-src">A股</label><input class="calibration-input" data-key="${esc(s.key)}-a" type="number" min="0" step="0.01" value="${fmtNum(ah.aLimit)}"><label class="price-src">H股</label><input class="calibration-input" data-key="${esc(s.key)}-h" type="number" min="0" step="0.01" value="${fmtNum(ah.hLimit)}">`
+          : `<input class="calibration-input" data-key="${esc(s.key)}" type="number" min="0" step="0.01" value="${Number.isFinite(calibration) ? calibration : ''}" placeholder="人工维护">`;
+        const action = ah
+          ? `${readiness.executable ? '' : `${readiness.label}；` }A股${ah.aPass ? '价格线已到' : '等待价格'}；H股${ah.hPass ? '双价格门槛已到' : `等待：绝对价${ah.hAbsolutePass ? '已过' : '未过'}、折价${fmtPct(ah.discount, 1)}${ah.hDiscountPass ? '已过' : '未达25%'}`}${readiness.executable ? '；可进入第四步复核' : '；到价仅触发v3.4重审'}`
+          : executionAction(s, current, calibration);
         return `<tr>
           <td><b>${esc(s.name)}</b><div style="font-size:11px;color:var(--ink-3)">${esc(s.symbol || '')}</div></td>
-          <td>${badgeGrade(s.grade)} <span class="chip">${esc(s.gradeLabel)}</span><div style="font-size:11px;margin-top:4px">基准IRR ${fmtPct(s.scenarios?.base?.irr10y, 1)}</div></td>
-          <td class="num">${Number.isFinite(current) ? fmtNum(current) : '—'}${q ? '<div class="price-src">实时</div>' : ''}</td>
-          <td class="num">${s.prices?.P12 != null ? fmtNum(s.prices.P12) : '—'}</td>
-          <td class="num">${s.prices?.P15 != null ? fmtNum(s.prices.P15) : '—'}</td>
+          <td>${badgeGrade(s.grade)} <span class="chip">${esc(readiness.label)}</span><div style="font-size:11px;margin-top:4px">基准IRR ${fmtPct(s.scenarios?.base?.irr10y, 1)}${Number.isFinite(effectiveLine) ? ` · 有效线${fmtNum(effectiveLine)}` : ''}</div></td>
+          <td class="num">${currentCell}</td>
+          <td class="num">${h12Cell}</td>
+          <td class="num">${h15Cell}</td>
           <td class="num">${s.newCapitalGate?.fiveYearDoublePrice != null ? fmtNum(s.newCapitalGate.fiveYearDoublePrice) : '—'}</td>
-          <td class="num">${s.newCapitalGate?.tenYearFiveXPrice != null ? fmtNum(s.newCapitalGate.tenYearFiveXPrice) : (s.prices?.P17 != null ? fmtNum(s.prices.P17) : '—')}</td>
-          <td class="num"><input class="calibration-input" data-key="${esc(s.key)}" type="number" min="0" step="0.01" value="${Number.isFinite(calibration) ? calibration : ''}" placeholder="人工维护"></td>
-          <td class="execution-action">${esc(executionAction(s, current, calibration))}</td>
+          <td class="num">${h1746Cell}</td>
+          <td class="num">${calibrationCell}</td>
+          <td class="execution-action">${esc(action)}</td>
         </tr>`;
       }).join('')}</tbody>
     </table></div>
-    <div class="note" id="calibrationStatus">修改后按回车或移开输入框自动保存。人工校准点只覆盖执行提醒，不会篡改报告H12/H15/H17.46。</div>
+    <div class="note" id="calibrationStatus">修改后按回车或移开输入框自动保存。人工校准点会保留，但不得放宽H12；旧报告到价后只触发v3.4重审，不自动形成第四步建议。</div>
   </div>`;
 }
 
@@ -1454,7 +1609,7 @@ function renderResearch() {
         <div>
           <div class="sc-name">${esc(s.name)} ${s.autoParsed ? '<span class="badge doubt">自动解析</span>' : ''}</div>
           <div class="sc-meta">${esc(s.symbol || '')} · ${esc(s.market || '')} · 分析于 ${esc(s.analysisDate)}</div>
-          <div style="margin-top:6px">${badgeGrade(s.grade)} <span class="chip">${esc(s.gradeLabel || '未定标签')}</span></div>
+          <div style="margin-top:6px">${badgeGrade(s.grade)} <span class="chip">${esc(sopReadinessFor(s.name).label)}</span></div>
         </div>
         <div class="sc-irr">
           <div class="v ${irrClass(s.scenarios?.base?.irr10y)}">${s.scenarios?.base?.irr10y != null ? fmtPct(s.scenarios.base.irr10y, 1) : '—'}</div>
@@ -1521,17 +1676,19 @@ function openStockModal(s) {
     <table>
       <thead><tr><th>目标</th><th class="num">最高复核价</th><th>说明</th></tr></thead>
       <tbody>
-        <tr><td><b>5年2倍</b></td><td class="num">≤${fmtNum(s.newCapitalGate.fiveYearDoublePrice)}</td><td>对应年化约14.87%</td></tr>
+        <tr><td><b>5年路径检查点</b></td><td class="num">≤${fmtNum(s.newCapitalGate.fiveYearDoublePrice)}</td><td>对应年化约14.87%，只用于检查路径，不是独立硬门槛</td></tr>
         <tr><td><b>10年5倍</b></td><td class="num">≤${fmtNum(s.newCapitalGate.tenYearFiveXPrice)}</td><td>对应年化约17.46%；两目标同时满足时采用此约束线</td></tr>
       </tbody>
     </table>` : '';
 
   const autoBanner = s.autoParsed ? `<div class="honest" style="margin:10px 0"><b>自动解析草稿：</b>本卡片由文档标题和正文关键数字自动提取（${esc(s.analysisDate)}），四档价格与IRR可能有误，请点击底部链接核对原文；确认后可补全 data/stocks/ 下的标准JSON。</div>` : '';
+  const readiness = sopReadinessFor(s.name);
 
   openModal(`
     <h2>${esc(s.name)} ${badgeGrade(s.grade)} <span class="chip">${esc(s.gradeLabel || '')}</span></h2>
     <div class="m-sub">${esc(s.symbol || '')} · ${esc(s.market || '')} · ${esc(s.companyType || '')} · 分析日期 ${esc(s.analysisDate)} · 现价 ${livePriceHtml(s.name, s.currentPrice, s.prices?.currency)}${s.priceNote ? '（' + esc(s.priceNote) + '）' : ''}</div>
     ${autoBanner}
+    <div class="honest" style="margin:10px 0"><b>SOP执行状态：${esc(readiness.label)}</b>。${esc(readiness.detail)}。旧价格线保留用于触发重审，不作为自动买入指令。</div>
     ${s.tradeStatus?.paused ? `<div class="honest" style="margin:10px 0"><b>交易暂停：</b>${esc(s.tradeStatus.reason || '等待基本面闸门解除')}。价格到档也不构成买入指令。</div>` : ''}
     ${s.oneLiner ? `<p style="font-size:14px;margin:10px 0"><b>生意本质：</b>${esc(s.oneLiner)}</p>` : ''}
     ${s.stage1Conclusion ? `<div class="mirror" style="margin:10px 0">${esc(s.stage1Conclusion)}</div>` : ''}

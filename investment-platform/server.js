@@ -72,4 +72,16 @@ const server = http.createServer(async (req,res)=>{
     res.writeHead(404); res.end('Not Found');
   }catch(e){ res.writeHead(500,{'Content-Type':'application/json'}); res.end(JSON.stringify({ok:false,error:e.message})); }
 });
-server.listen(PORT,'127.0.0.1',()=>console.log('投资工作平台已启动: http://127.0.0.1:'+PORT));
+server.listen(PORT,'127.0.0.1',()=>{
+  console.log('投资工作平台已启动: http://127.0.0.1:'+PORT);
+}).on('error',e=>{
+  if(e.code==='EADDRINUSE'){ // 已有健康实例在跑：安静退出，避免launchd反复拉起撞端口
+    http.get('http://127.0.0.1:'+PORT+'/api/config',r=>{ console.log('端口已被健康实例占用，本实例退出'); process.exit(0); })
+        .on('error',()=>{ console.error('端口被占用且探测失败: '+e.message); process.exit(1); });
+  } else { console.error('监听失败: '+e.message); process.exit(1); }
+});
+/* 守护：未捕获异常只记日志不退出（配合launchd KeepAlive双保险） */
+const logErr=t=>{ const line=new Date().toISOString()+' ['+t+'] '+ (arguments.length?'':'') + '\n';
+  try{ fs.appendFileSync(path.join(ROOT,'server.log'),line); }catch(_){} };
+process.on('uncaughtException',e=>{ try{fs.appendFileSync(path.join(ROOT,'server.log'),new Date().toISOString()+' uncaught: '+e.stack+'\n');}catch(_){} });
+process.on('unhandledRejection',e=>{ try{fs.appendFileSync(path.join(ROOT,'server.log'),new Date().toISOString()+' unhandledRejection: '+String(e&&e.stack||e)+'\n');}catch(_){} });

@@ -1136,10 +1136,14 @@ function buildDecisionMetrics(payload) {
     const scenarioWeights = grade === 'A'
       ? { pessimistic: 0.25, base: 0.60, optimistic: 0.15 }
       : { pessimistic: 0.40, base: 0.50, optimistic: 0.10 };
-    const underwritingIrr = [pessimisticIrr, reportBaseIrr, optimisticIrr].every(Number.isFinite)
-      ? pessimisticIrr * scenarioWeights.pessimistic
-        + reportBaseIrr * scenarioWeights.base
-        + optimisticIrr * scenarioWeights.optimistic
+    // SOP v3.4：情景先加权期末财富，再逆算 CAGR；不得直接对 IRR 做算术平均。
+    const underwritingWealthMultiple = [pessimisticIrr, reportBaseIrr, optimisticIrr].every(Number.isFinite)
+      ? Math.pow(1 + pessimisticIrr, 10) * scenarioWeights.pessimistic
+        + Math.pow(1 + reportBaseIrr, 10) * scenarioWeights.base
+        + Math.pow(1 + optimisticIrr, 10) * scenarioWeights.optimistic
+      : null;
+    const underwritingIrr = underwritingWealthMultiple != null && underwritingWealthMultiple > 0
+      ? Math.pow(underwritingWealthMultiple, 1 / 10) - 1
       : null;
     const reportHardLimit = firstPercent(stock?.position?.hard);
     const absoluteHardLimit = 0.25;
@@ -1151,9 +1155,10 @@ function buildDecisionMetrics(payload) {
       pessimisticIrr: Number.isFinite(pessimisticIrr) ? pessimisticIrr : null,
       optimisticIrr: Number.isFinite(optimisticIrr) ? optimisticIrr : null,
       underwritingIrr,
+      underwritingWealthMultiple,
       scenarioWeights,
       returnLabel: executableReturnLabel(grade, baseIrr),
-      weightedContribution: Number.isFinite(baseIrr) ? t.weight * baseIrr : null,
+      baseWealthMultiple: Number.isFinite(baseIrr) ? Math.pow(1 + baseIrr, 10) : null,
       reportHardLimit,
       effectiveHardLimit,
       limitBreach: t.weight > effectiveHardLimit + 1e-9
@@ -1163,14 +1168,19 @@ function buildDecisionMetrics(payload) {
   const cashReturn = Number(pf.opportunityCash?.baseAnnualReturn);
   const cashCoveredWeight = Number.isFinite(cashReturn) ? cashWeight : 0;
   const coveredWeight = targetRows.reduce((s, r) => s + (r.baseIrr == null ? 0 : r.weight), 0) + cashCoveredWeight;
-  const weightedReturn = targetRows.reduce((s, r) => s + (r.weightedContribution || 0), 0)
-    + (Number.isFinite(cashReturn) ? cashWeight * cashReturn : 0);
-  const normalizedWeightedReturn = coveredWeight > 0 ? weightedReturn / coveredWeight : null;
+  const portfolioBaseTerminalWealth = targetRows.reduce((s, r) =>
+    s + (Number.isFinite(r.baseWealthMultiple) ? r.weight * r.baseWealthMultiple : 0), 0)
+    + (Number.isFinite(cashReturn) ? cashWeight * Math.pow(1 + cashReturn, 10) : 0);
+  const normalizedWeightedReturn = coveredWeight > 0 && portfolioBaseTerminalWealth > 0
+    ? Math.pow(portfolioBaseTerminalWealth / coveredWeight, 1 / 10) - 1
+    : null;
   const underwritingCoveredWeight = targetRows.reduce((sum, row) =>
     sum + (Number.isFinite(row.underwritingIrr) ? row.weight : 0), 0) + cashCoveredWeight;
-  const underwritingWeightedReturn = underwritingCoveredWeight > 0
-    ? (targetRows.reduce((sum, row) => sum + (Number.isFinite(row.underwritingIrr) ? row.weight * row.underwritingIrr : 0), 0)
-      + (Number.isFinite(cashReturn) ? cashWeight * cashReturn : 0)) / underwritingCoveredWeight
+  const portfolioUnderwritingTerminalWealth = targetRows.reduce((sum, row) =>
+    sum + (Number.isFinite(row.underwritingWealthMultiple) ? row.weight * row.underwritingWealthMultiple : 0), 0)
+    + (Number.isFinite(cashReturn) ? cashWeight * Math.pow(1 + cashReturn, 10) : 0);
+  const underwritingWeightedReturn = underwritingCoveredWeight > 0 && portfolioUnderwritingTerminalWealth > 0
+    ? Math.pow(portfolioUnderwritingTerminalWealth / underwritingCoveredWeight, 1 / 10) - 1
     : null;
   const required5 = Math.pow(2, 1 / 5) - 1;
   const required10 = Math.pow(5, 1 / 10) - 1;
@@ -1190,18 +1200,41 @@ function buildDecisionMetrics(payload) {
   }));
   const compliantWeight = compliantRows.reduce((s, r) => s + r.recommendedWeight, 0);
   const reserveWeight = Math.max(cashWeight, 1 - compliantWeight);
-  const compliantContribution = compliantRows.reduce((s, r) => s + (r.baseIrr == null ? 0 : r.recommendedWeight * r.baseIrr), 0);
-  const reserveRequiredReturn = reserveWeight > 0 ? (required10 - compliantContribution) / reserveWeight : null;
-  const calculatedTargetDividend = (pf.dividends?.perStock || []).reduce((sum, d) =>
-    sum + (Number.isFinite(d.afterTaxYield) ? d.targetValue * d.afterTaxYield : 0), 0);
-  const targetDividend = calculatedTargetDividend;
+  const compliantTerminalWealth = compliantRows.reduce((s, r) =>
+    s + (r.baseIrr == null ? 0 : r.recommendedWeight * Math.pow(1 + r.baseIrr, 10)), 0);
+  const requiredReserveMultiple = reserveWeight > 0 ? (5 - compliantTerminalWealth) / reserveWeight : null;
+  const reserveRequiredReturn = requiredReserveMultiple != null && requiredReserveMultiple > 0
+    ? Math.pow(requiredReserveMultiple, 1 / 10) - 1
+    : null;
+  const dividendRows = pf.dividends?.perStock || [];
+  const beforeTaxYield = d => {
+    const afterTaxYield = Number(d.afterTaxYield);
+    const taxRate = Number(d.dividendTaxRate) || 0;
+    return Number.isFinite(afterTaxYield) && taxRate < 1 ? afterTaxYield / (1 - taxRate) : null;
+  };
+  const targetDividendAfterTax = dividendRows.reduce((sum, d) =>
+    sum + (Number.isFinite(Number(d.afterTaxYield)) ? Number(d.targetValue) * Number(d.afterTaxYield) : 0), 0);
+  const targetDividendPreTax = dividendRows.reduce((sum, d) => {
+    const y = beforeTaxYield(d);
+    return sum + (Number.isFinite(y) ? Number(d.targetValue) * y : 0);
+  }, 0);
+  // 保留 legacy 字段名，但其语义回归 SOP 的税前 100 万目标。
+  const targetDividend = targetDividendPreTax;
   const holdingByName = new Map((pf.holdings || []).map(h => [h.name, h]));
   const baselineCurrentDividend = Number(pf.currentDividendBaseline?.current);
-  const currentDividend = Number.isFinite(baselineCurrentDividend) ? baselineCurrentDividend
-    : (pf.dividends?.perStock || []).reduce((sum, d) => {
+  const estimatedCurrentAfterTax = dividendRows.reduce((sum, d) => {
       const held = holdingByName.get(d.name);
-      return sum + (held && Number.isFinite(d.afterTaxYield) ? held.marketValue * d.afterTaxYield : 0);
+      return sum + (held && Number.isFinite(Number(d.afterTaxYield)) ? Number(held.marketValue) * Number(d.afterTaxYield) : 0);
     }, 0);
+  const estimatedCurrentPreTax = dividendRows.reduce((sum, d) => {
+    const held = holdingByName.get(d.name);
+    const y = beforeTaxYield(d);
+    return sum + (held && Number.isFinite(y) ? Number(held.marketValue) * y : 0);
+  }, 0);
+  const currentDividendAfterTax = Number.isFinite(baselineCurrentDividend) ? baselineCurrentDividend : estimatedCurrentAfterTax;
+  const grossUpRatio = estimatedCurrentAfterTax > 0 ? estimatedCurrentPreTax / estimatedCurrentAfterTax : 1;
+  const currentDividendPreTax = currentDividendAfterTax * grossUpRatio;
+  const currentDividend = currentDividendPreTax;
   const postInitialDividend = optionalNumber(pf.currentDividendBaseline?.postInitialTrade);
   const postSeatReplacementDividend = optionalNumber(pf.currentDividendBaseline?.postSeatReplacement);
   const postTencentSecondTierDividend = optionalNumber(pf.currentDividendBaseline?.postTencentSecondTier);
@@ -1233,7 +1266,7 @@ function buildDecisionMetrics(payload) {
     }
   }
   if (concentrationEnabled) targetRows.filter(r => r.limitBreach).forEach(r => alerts.push({ severity: 'red', title: `${r.name}目标仓位越过报告硬上限`, detail: `目标 ${(r.weight * 100).toFixed(0)}%，报告硬上限 ${(r.effectiveHardLimit * 100).toFixed(0)}%；超额部分只能是待批准条件仓，不能视为默认配置。` }));
-  if ((pf.cash || 0) / (pf.totalAssets || 1) > 0.7) alerts.push({ severity: 'amber', title: '现金占比高，存在长期踏空风险', detail: `待部署现金约 ${((pf.cash || 0) / 10000).toFixed(1)}万元；应靠P12/P15/P17与基本面闸门分批投入，不靠主观等最低价。` });
+  if ((pf.cash || 0) / (pf.totalAssets || 1) > 0.7) alerts.push({ severity: 'amber', title: '现金占比高，存在长期踏空风险', detail: `待部署现金约 ${((pf.cash || 0) / 10000).toFixed(1)}万元；应靠H12/H15/H17.46与第四步组合闸门分批投入，不靠主观等最低价。` });
   if ((pf.executionPlan?.rows || []).length && pf.executionPlan?.status?.includes('待执行')) alerts.push({ severity: 'amber', title: '首次建仓尚未执行', detail: `计划净使用现金约 ${(pf.executionPlan.expectedNetCashUse / 10000).toFixed(1)}万元；执行后股票仓约 ${(pf.executionPlan.postStockWeight * 100).toFixed(1)}%。执行以最新部署卡为准，万华当前暂不卖出。` });
   if (concentrationEnabled && pf.deploymentQueue?.threeMonthGap > 0) {
     const covered = Number(pf.deploymentQueue.coverageRatio) >= 1;
@@ -1244,7 +1277,7 @@ function buildDecisionMetrics(payload) {
     alerts.unshift({
       severity: 'green',
       title: '当前阶段已切换为本金增长优先',
-      detail: `最终目标已确认为100%股票，现金只是等待合格价格与公司闸门时的临时形态。当前${(pf.independentBuildPool || []).length}家公司独立候选容量约${((pf.constructionPolicy?.candidateCapacity || 0) / 10000).toFixed(0)}万元，可超过本金；实际投入仍以可用现金和逐笔确认约束。`
+      detail: `最终目标已确认为100%股票，现金只是等待合格价格与公司闸门时的临时形态。当前${(pf.independentBuildPool || []).length}家公司为历史跟踪池；只有通过 v3.4 前三步与估值审计的标的，才能进入第四步资本配置。`
     });
   } else {
     if (accelerated) alerts.push({ severity: 'amber', title: '名义100万元不是安全达标', detail: `当前${pf.targetPortfolio.length}只正式目标占位路径约${accelerated.nominal.duration}达到名义100万元，但约${accelerated.safety.duration}才达到120万元安全线；空缺席位通过后必须重新计算。` });
@@ -1274,6 +1307,8 @@ function buildDecisionMetrics(payload) {
     required10,
     weightedReturn: normalizedWeightedReturn,
     underwritingWeightedReturn,
+    portfolioBaseTerminalWealth,
+    portfolioUnderwritingTerminalWealth,
     underwritingCoveredWeight,
     coveredWeight,
     cashWeight,
@@ -1291,6 +1326,10 @@ function buildDecisionMetrics(payload) {
     reserveRequiredReturn,
     targetDividend,
     currentDividend,
+    targetDividendPreTax,
+    targetDividendAfterTax,
+    currentDividendPreTax,
+    currentDividendAfterTax,
     postInitialDividend,
     postSeatReplacementDividend,
     postTencentSecondTierDividend,
