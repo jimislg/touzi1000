@@ -64,7 +64,10 @@ const server = http.createServer(async (req,res)=>{
           const up={}; (patch.universe||[]).forEach(x=>{if(x.code)up[x.code]=x;});
           (disk.universe||[]).forEach(x=>{const p=up[x.code];if(!p)return;
             ['buyPrice','plan'].forEach(k=>{if(p[k]!==undefined)x[k]=p[k];});});
-          fs.writeFileSync(path.join(ROOT,'config.json'), JSON.stringify(disk,null,2));
+          const fp=path.join(ROOT,'config.json');
+          try{fs.copyFileSync(fp,fp+'.backup');}catch(_){}       // 保险④：写前备份，坏写可回滚
+          fs.writeFileSync(fp, JSON.stringify(disk,null,2));
+          try{fs.appendFileSync(path.join(ROOT,'server.log'),new Date().toISOString()+' saved: holdings='+(patch.holdings||[]).length+' universe='+(patch.universe||[]).length+'\n');}catch(_){} // 审计留痕
           res.writeHead(200,{'Content-Type':'application/json; charset=utf-8'});
           res.end(JSON.stringify({ok:true,savedAt:new Date().toISOString()}));
         }catch(e){ res.writeHead(500,{'Content-Type':'application/json; charset=utf-8'}); res.end(JSON.stringify({ok:false,err:String(e)})); }

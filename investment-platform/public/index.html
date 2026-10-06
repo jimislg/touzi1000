@@ -235,9 +235,27 @@ function hkd(){const x=Q['whHKDCNY'];return x&&x.price?x.price:(CFG.hkdcnyFallba
 
 async function loadConfig(){
   const r=await fetch('/api/config'); CFG=await r.json();
+  // 保险①的恢复侧：服务端为空而本地镜像有值 = 上次保存失败的字段 → 自动找回
+  let restored=0;
+  try{
+    const m=JSON.parse(localStorage.getItem(LS_KEY)||'null');
+    if(m){
+      CFG.holdings.forEach(h=>{const s=m.holdings&&m.holdings[h.code];if(!s)return;
+        ['shares','cost','dps'].forEach(k=>{if(!(h[k]>0)&&typeof s[k]==='number'&&s[k]>0){h[k]=s[k];restored++;}});
+        if(!h.buyDate&&s.buyDate){h.buyDate=s.buyDate;restored++;}});
+      CFG.universe.forEach(u=>{const s=m.universe&&m.universe[u.code];if(!s)return;
+        if(u.buyPrice==null&&s.buyPrice!=null){u.buyPrice=s.buyPrice;restored++;}
+        if(!u.plan&&s.plan){u.plan=s.plan;restored++;}});
+    }
+  }catch(e){}
   $('tcInput').value=(CFG.targetCapital/10000).toFixed(0);
   $('cashInput').value=(CFG.cash/10000).toFixed(1);
   wireInputs(); fillCalcSel(); runCalc();
+  if(restored>0){
+    dirty=true;scheduleAutoSave();
+    $('saveText').textContent='↩ 已从本地缓存找回 '+restored+' 项上次未保存的修改，正在自动补存…';
+    setTimeout(()=>$('saveText').textContent='',8000);
+  }
 }
 function allSymbols(){
   const s=new Set();
@@ -600,8 +618,24 @@ function runCalc(){
     <div class="note" style="margin-top:6px">写入触发价后自动保存并全站联动（股票池/持仓预警/信号中心）。${wb?wb+' ':''}提醒：H股须同时满足A/H双门槛（折价≥25%），本工具只算绝对价格。</div>`;
 }
 
+/* —— 编辑保险①②③：本地镜像 + 2秒自动保存 + 离开拦截 —— */
+const LS_KEY='ip_edit_mirror_v1';
+let dirty=false, autoT=null;
+function snapshotEdit(){ // 每次改动立即镜像全部可编辑字段到localStorage（浏览器崩溃也能找回）
+  try{
+    const m={t:Date.now(),holdings:{},universe:{}};
+    CFG.holdings.forEach(h=>{m.holdings[h.code]={shares:h.shares,cost:h.cost,dps:h.dps,buyDate:h.buyDate};});
+    CFG.universe.forEach(u=>{m.universe[u.code]={buyPrice:u.buyPrice,plan:u.plan||''};});
+    localStorage.setItem(LS_KEY,JSON.stringify(m));
+  }catch(e){}
+}
+function scheduleAutoSave(){if(autoT)clearTimeout(autoT);autoT=setTimeout(()=>saveConfig(true),2000);} // 改动2秒后自动保存
+function markDirty(){dirty=true;snapshotEdit();scheduleAutoSave();}
+document.addEventListener('change',e=>{if(e.target.matches&&e.target.matches('input,select'))markDirty();});
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='有未保存的修改，离开将丢失（2秒内会自动保存，建议稍等再刷新）';}});
+
 /* —— 保存（合并式：只提交可编辑字段，不覆盖服务端其他数据） —— */
-async function saveConfig(){
+async function saveConfig(auto){
   const patch={
     targetCapital:CFG.targetCapital, cash:CFG.cash, cashYield:CFG.cashYield,
     holdings:CFG.holdings.map(h=>({code:h.code,shares:h.shares,cost:h.cost,dps:h.dps,buyDate:h.buyDate})),
@@ -610,11 +644,13 @@ async function saveConfig(){
   try{
     const r=await fetch('/api/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(patch)});
     const j=await r.json();
-    $('saveText').textContent=j.ok?('✓ 已保存到磁盘 '+new Date().toLocaleTimeString('zh-CN')):('✗ 保存失败：'+(j.err||''));
-    if(!j.ok)alert('保存失败：'+(j.err||'未知错误')+'\n\n你的修改还在页面上，请截图备份后重试。');
+    if(j.ok){dirty=false;snapshotEdit();
+      $('saveText').textContent='✓ 已保存到磁盘 '+new Date().toLocaleTimeString('zh-CN')+(auto?'（自动）':'');
+    }
+    else{$('saveText').textContent='✗ 保存失败：'+(j.err||'');alert('保存失败：'+(j.err||'未知错误')+'\n\n你的修改已同时存在浏览器本地缓存，刷新后也会自动找回；请检查服务后重试。');}
   }catch(e){
     $('saveText').textContent='✗ 保存失败（服务未启动）';
-    alert('保存失败：服务未响应。\n\n你的修改还在页面上，请勿刷新本页！先重启服务（双击 investment-platform/启动投资平台.command），再点保存。');
+    alert('保存失败：服务未响应。\n\n你的修改已同时存在浏览器本地缓存，【刷新页面也不会丢】——服务恢复后会自动找回并补存。可重启服务：双击 investment-platform/启动投资平台.command');
   }
   setTimeout(()=>$('saveText').textContent='',6000);
 }
