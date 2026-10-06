@@ -353,8 +353,8 @@ function renderGoals() {
     </div>
     <div class="goal-bridge">
       <span><b>当前报告时点</b>${fmtPct(baseReturn, 2)} → 10年${baseTen.toFixed(2)}倍</span>
-      <span><b>全部按P15买入</b>15.00% → 10年4.05倍</span>
-      <span><b>全部按P17.46买入</b>17.46% → 10年5.00倍</span>
+      <span><b>全部按H15买入</b>15.00% → 10年4.05倍</span>
+      <span><b>全部按H17.46买入</b>17.46% → 10年5.00倍</span>
     </div>
     <div class="honest" style="margin-top:12px"><b>核心判断：</b>${esc(hardTargetSummary)}目标仓位是“最终上限”，不是现在必须买满的指令；硬目标只能靠更低买价、盈利兑现和持续发现高质量高回报机会实现。</div>
   </div>
@@ -1654,7 +1654,7 @@ function renderMethod() {
     <h2>第三步：好价格 <span class="tag">只有A类和B类公司进入估值</span></h2>
     <div class="grid-2" style="gap:14px">
       <div>
-        <h3 style="font-size:14px;margin-bottom:8px">四档价格（10年倒算）</h3>
+        <h3 style="font-size:14px;margin-bottom:8px">经济价值与四档回报价格（10年倒算）</h3>
         <table><thead><tr><th>档位</th><th>要求</th><th>含义</th></tr></thead>
         <tbody>${priceTiers.map(t => `<tr><td><b>${esc(t.id)}</b></td><td>${esc(t.requirement)}</td><td>${esc(t.meaning)}</td></tr>`).join('')}</tbody></table>
         <h3 style="font-size:14px;margin:14px 0 8px">投资标签</h3>

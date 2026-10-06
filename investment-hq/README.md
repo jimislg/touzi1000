@@ -5,7 +5,7 @@
 ## 启动
 
 ```bash
-cd /Users/bytedance/Documents/郎刚的芒格/investment-hq
+cd /Users/jimislg/Documents/郎刚的芒格/investment-hq
 npm start               # 默认端口 4280
 node server.js 4290     # 或指定端口
 ```
