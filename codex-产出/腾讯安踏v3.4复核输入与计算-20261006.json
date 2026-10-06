@@ -1,0 +1,1235 @@
+{
+  "date": "2026-10-06",
+  "framework": "v3.4",
+  "status": "research_sensitivity_only_not_trade_ready",
+  "fxHkdCny": 0.8544,
+  "dividendTaxRateAssumption": 0.2,
+  "fees": 0,
+  "feesNote": "未核实际渠道与佣金，展示费用前敏感性",
+  "reinvestment": "股息持有现金不再投资；IRR按到账年度折现；期末财富不等于IRR复利",
+  "tencent": {
+    "price": 428.2,
+    "questionPrices": [
+      420,
+      400
+    ],
+    "epsRmbLow": 25.980751904700533,
+    "epsRmbHigh": 29.299,
+    "epsCategory": "拼接nonIFRS稀释EPS及全额SBC扣回诊断，非经审计正常化",
+    "dpsHkd": 5.3,
+    "reportedTtmApproxEpsRmb": 25.444,
+    "scenarios": [
+      {
+        "name": "悲观",
+        "g1": 0.03,
+        "g2": 0.03,
+        "pe": 10,
+        "weight": 0.25
+      },
+      {
+        "name": "基准诊断",
+        "g1": 0.09,
+        "g2": 0.07,
+        "pe": 14,
+        "weight": 0.5
+      },
+      {
+        "name": "乐观",
+        "g1": 0.13,
+        "g2": 0.1,
+        "pe": 18,
+        "weight": 0.25
+      }
+    ],
+    "peSensitivity": [
+      12,
+      14,
+      16,
+      18
+    ]
+  },
+  "anta": {
+    "price": 71.4,
+    "questionPrices": [
+      72,
+      70
+    ],
+    "sharesTtmMillion": 2898.769315068493,
+    "epsRmbLow": 5.127348327698443,
+    "epsRmbHigh": 5.127348327698443,
+    "epsCategory": "重建TTM剔一次性稀释EPS，不等于所有者收益正常化",
+    "reportedTtmEpsRmb": 5.66171302927988,
+    "dpsHkd": 2.59,
+    "scenarios": [
+      {
+        "name": "悲观",
+        "g1": 0.03,
+        "g2": 0.03,
+        "pe": 10,
+        "weight": 0.25
+      },
+      {
+        "name": "基准诊断无修复",
+        "g1": 0.08,
+        "g2": 0.08,
+        "pe": 12,
+        "weight": 0.5
+      },
+      {
+        "name": "乐观",
+        "g1": 0.12,
+        "g2": 0.1,
+        "pe": 17,
+        "weight": 0.25
+      }
+    ],
+    "peSensitivity": [
+      10,
+      12,
+      14,
+      17
+    ]
+  },
+  "cashBridgeStatus": {
+    "tencent": "normal_owner_earnings_not_reconciled",
+    "anta": "normal_parent_owner_earnings_not_reconciled"
+  },
+  "sources": {
+    "sop": "codex-产出/最终版-三步个股分析与第四步组合决策SOP-v3.4-20261006.md",
+    "tencentH1": "https://www.tencent.com/wp-content/uploads/2026/08/E700_IR.pdf",
+    "tencentFY2025": "https://static.www.tencent.com/uploads/2026/03/18/f78591955e05a6db4e31e128bdaefefa.pdf",
+    "antaH1": "https://links.sgx.com/FileOpen/EANTA2026IRSGX.ashx?App=Announcement&FileID=902451",
+    "antaFY": "https://links.sgx.com/FileOpen/EANTA2025ARSGX.ashx?App=Announcement&FileID=888579"
+  },
+  "results": {
+    "arithmetic": {
+      "antaShares": 2898.769315068493,
+      "antaExOneoffEps": 5.127348327698443,
+      "antaReportedEps": 5.66171302927988,
+      "antaPEReported": 10.774859072601071,
+      "antaPEAdjusted": 11.897799037847594,
+      "antaFcfLikeForLikeGrowth": 0.19748764415156517,
+      "tencentSbcSensitiveEps": 25.980751904700533
+    },
+    "companies": {
+      "tencent": {
+        "scenarios": [
+          {
+            "price": 428.2,
+            "epsRmb": 25.980751904700533,
+            "paths": [
+              {
+                "name": "悲观",
+                "weight": 0.25,
+                "g1": 0.03,
+                "g2": 0.03,
+                "pe": 10,
+                "horizons": {
+                  "5": {
+                    "postIrr": -0.02642208552639541,
+                    "preIrr": -0.023495371588128144,
+                    "postDividends": 23.18605790943201,
+                    "preDividends": 28.982572386790025,
+                    "terminal": 352.51418672682206,
+                    "unreinvestedWealthMultiple": 0.8773943125554743,
+                    "terminalFractionAtIrr": 0.9411879746015767
+                  },
+                  "10": {
+                    "postIrr": 0.007255255093074564,
+                    "preIrr": 0.010221627884987039,
+                    "postDividends": 50.065053729054966,
+                    "preDividends": 62.58131716131874,
+                    "terminal": 408.660557495354,
+                    "unreinvestedWealthMultiple": 1.0712882093050187,
+                    "terminalFractionAtIrr": 0.887811244656972
+                  }
+                }
+              },
+              {
+                "name": "基准诊断",
+                "weight": 0.5,
+                "g1": 0.09,
+                "g2": 0.07,
+                "pe": 14,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.09954971278780167,
+                    "preIrr": 0.1022541389693713,
+                    "postDividends": 27.65893855517595,
+                    "preDividends": 34.57367319396997,
+                    "terminal": 655.0146318544063,
+                    "unreinvestedWealthMultiple": 1.5942867127734288,
+                    "terminalFractionAtIrr": 0.9517655724035099
+                  },
+                  "10": {
+                    "postIrr": 0.09029965821118446,
+                    "preIrr": 0.09304346517228279,
+                    "postDividends": 67.80156482402288,
+                    "preDividends": 84.75195603002862,
+                    "terminal": 918.691905541221,
+                    "unreinvestedWealthMultiple": 2.303814736957599,
+                    "terminalFractionAtIrr": 0.9037836231352302
+                  }
+                }
+              },
+              {
+                "name": "乐观",
+                "weight": 0.25,
+                "g1": 0.13,
+                "g2": 0.1,
+                "pe": 18,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.19704167486845325,
+                    "preIrr": 0.199588230975822,
+                    "postDividends": 31.04827254663212,
+                    "preDividends": 38.810340683290065,
+                    "terminal": 1008.4519233262441,
+                    "unreinvestedWealthMultiple": 2.4276043808334338,
+                    "terminalFractionAtIrr": 0.9582132738773828
+                  },
+                  "10": {
+                    "postIrr": 0.15288200638758676,
+                    "preIrr": 0.15545667851304523,
+                    "postDividends": 83.5101152719376,
+                    "preDividends": 104.38764408992188,
+                    "terminal": 1624.1219070361503,
+                    "unreinvestedWealthMultiple": 3.98793092552099,
+                    "terminalFractionAtIrr": 0.9143729116943712
+                  }
+                }
+              }
+            ],
+            "weightedWealth": 2.4167121521853017,
+            "weightedCagr": 0.09225110460621999,
+            "stressedWealth": 2.209253689991874,
+            "stressedCagr": 0.08249165966362737
+          },
+          {
+            "price": 428.2,
+            "epsRmb": 29.299,
+            "paths": [
+              {
+                "name": "悲观",
+                "weight": 0.25,
+                "g1": 0.03,
+                "g2": 0.03,
+                "pe": 10,
+                "horizons": {
+                  "5": {
+                    "postIrr": -0.0035932012062409036,
+                    "preIrr": -0.0008073232379713358,
+                    "postDividends": 23.18605790943201,
+                    "preDividends": 28.982572386790025,
+                    "terminal": 397.5371149685826,
+                    "unreinvestedWealthMultiple": 0.9825389371275447,
+                    "terminalFractionAtIrr": 0.9452520058972667
+                  },
+                  "10": {
+                    "postIrr": 0.018647188829933437,
+                    "preIrr": 0.02145781024272353,
+                    "postDividends": 50.065053729054966,
+                    "preDividends": 62.58131716131874,
+                    "terminal": 460.85447095509636,
+                    "unreinvestedWealthMultiple": 1.1931796466234268,
+                    "terminalFractionAtIrr": 0.8947036976265906
+                  }
+                }
+              },
+              {
+                "name": "基准诊断",
+                "weight": 0.5,
+                "g1": 0.09,
+                "g2": 0.07,
+                "pe": 14,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.12554153961557513,
+                    "preIrr": 0.1281229323984886,
+                    "postDividends": 27.65893855517595,
+                    "preDividends": 34.57367319396997,
+                    "terminal": 738.6727593218767,
+                    "unreinvestedWealthMultiple": 1.7896583322677548,
+                    "terminalFractionAtIrr": 0.9549877071050692
+                  },
+                  "10": {
+                    "postIrr": 0.10278993040851547,
+                    "preIrr": 0.10539642143107153,
+                    "postDividends": 67.80156482402276,
+                    "preDividends": 84.75195603002862,
+                    "terminal": 1036.0267570078431,
+                    "unreinvestedWealthMultiple": 2.577833540009028,
+                    "terminalFractionAtIrr": 0.9094867783679244
+                  }
+                }
+              },
+              {
+                "name": "乐观",
+                "weight": 0.25,
+                "g1": 0.13,
+                "g2": 0.1,
+                "pe": 18,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.22547303373671113,
+                    "preIrr": 0.22790896179937759,
+                    "postDividends": 31.048272546632006,
+                    "preDividends": 38.81034068328995,
+                    "terminal": 1137.2508774925,
+                    "unreinvestedWealthMultiple": 2.7283959599232417,
+                    "terminalFractionAtIrr": 0.9609279417822821
+                  },
+                  "10": {
+                    "postIrr": 0.1661955624546826,
+                    "preIrr": 0.16864628223468447,
+                    "postDividends": 83.5101152719376,
+                    "preDividends": 104.38764408992188,
+                    "terminal": 1831.5539107104469,
+                    "unreinvestedWealthMultiple": 4.472358771560916,
+                    "terminalFractionAtIrr": 0.9193041022533043
+                  }
+                }
+              }
+            ],
+            "weightedWealth": 2.7053013745506,
+            "weightedCagr": 0.1046420347096646,
+            "stressedWealth": 2.4721097236344454,
+            "stressedCagr": 0.09472938147563359
+          },
+          {
+            "price": 420,
+            "epsRmb": 25.980751904700533,
+            "paths": [
+              {
+                "name": "悲观",
+                "weight": 0.25,
+                "g1": 0.03,
+                "g2": 0.03,
+                "pe": 10,
+                "horizons": {
+                  "5": {
+                    "postIrr": -0.02256352757473329,
+                    "preIrr": -0.019603638908512633,
+                    "postDividends": 23.18605790943201,
+                    "preDividends": 28.982572386790025,
+                    "terminal": 352.51418672682206,
+                    "unreinvestedWealthMultiple": 0.8945243919910811,
+                    "terminalFractionAtIrr": 0.9407724852391647
+                  },
+                  "10": {
+                    "postIrr": 0.009304643073013819,
+                    "preIrr": 0.012302234933878942,
+                    "postDividends": 50.065053729054966,
+                    "preDividends": 62.58131716131874,
+                    "terminal": 408.660557495354,
+                    "unreinvestedWealthMultiple": 1.0922038362485929,
+                    "terminalFractionAtIrr": 0.8869328111016505
+                  }
+                }
+              },
+              {
+                "name": "基准诊断",
+                "weight": 0.5,
+                "g1": 0.09,
+                "g2": 0.07,
+                "pe": 14,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.10389527591062919,
+                    "preIrr": 0.10663174788720575,
+                    "postDividends": 27.65893855517595,
+                    "preDividends": 34.57367319396997,
+                    "terminal": 655.0146318544063,
+                    "unreinvestedWealthMultiple": 1.6254132628799576,
+                    "terminalFractionAtIrr": 0.951398225551889
+                  },
+                  "10": {
+                    "postIrr": 0.09250806073360562,
+                    "preIrr": 0.09528228464917554,
+                    "postDividends": 67.80156482402288,
+                    "preDividends": 84.75195603002862,
+                    "terminal": 918.691905541221,
+                    "unreinvestedWealthMultiple": 2.3487939770601045,
+                    "terminalFractionAtIrr": 0.9029716179722581
+                  }
+                }
+              },
+              {
+                "name": "乐观",
+                "weight": 0.25,
+                "g1": 0.13,
+                "g2": 0.1,
+                "pe": 18,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.20176388159535008,
+                    "preIrr": 0.20434159230685134,
+                    "postDividends": 31.04827254663212,
+                    "preDividends": 38.810340683290065,
+                    "terminal": 1008.4519233262441,
+                    "unreinvestedWealthMultiple": 2.475000466363991,
+                    "terminalFractionAtIrr": 0.9578779395564336
+                  },
+                  "10": {
+                    "postIrr": 0.15520943410261523,
+                    "preIrr": 0.1578136848691324,
+                    "postDividends": 83.5101152719376,
+                    "preDividends": 104.38764408992188,
+                    "terminal": 1624.1219070361503,
+                    "unreinvestedWealthMultiple": 4.065790529304971,
+                    "terminalFractionAtIrr": 0.9136125666404676
+                  }
+                }
+              }
+            ],
+            "weightedWealth": 2.463895579918443,
+            "weightedCagr": 0.09436508784331377,
+            "stressedWealth": 2.2523867382250486,
+            "stressedCagr": 0.0845867541095584
+          },
+          {
+            "price": 420,
+            "epsRmb": 29.299,
+            "paths": [
+              {
+                "name": "悲观",
+                "weight": 0.25,
+                "g1": 0.03,
+                "g2": 0.03,
+                "pe": 10,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.00035165910847612114,
+                    "preIrr": 0.003169626038279527,
+                    "postDividends": 23.18605790943201,
+                    "preDividends": 28.982572386790025,
+                    "terminal": 397.5371149685826,
+                    "unreinvestedWealthMultiple": 1.001721840185749,
+                    "terminalFractionAtIrr": 0.9448544381975323
+                  },
+                  "10": {
+                    "postIrr": 0.020715385432324873,
+                    "preIrr": 0.023556121399997187,
+                    "postDividends": 50.065053729054966,
+                    "preDividends": 62.58131716131874,
+                    "terminal": 460.85447095509636,
+                    "unreinvestedWealthMultiple": 1.216475058771789,
+                    "terminalFractionAtIrr": 0.8938567097219428
+                  }
+                }
+              },
+              {
+                "name": "基准诊断",
+                "weight": 0.5,
+                "g1": 0.09,
+                "g2": 0.07,
+                "pe": 14,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.12998581143050358,
+                    "preIrr": 0.13259826734223223,
+                    "postDividends": 27.65893855517595,
+                    "preDividends": 34.57367319396997,
+                    "terminal": 738.6727593218767,
+                    "unreinvestedWealthMultiple": 1.8245992806596492,
+                    "terminalFractionAtIrr": 0.9546360736135351
+                  },
+                  "10": {
+                    "postIrr": 0.10501946169350929,
+                    "preIrr": 0.1076553367791927,
+                    "postDividends": 67.80156482402276,
+                    "preDividends": 84.75195603002862,
+                    "terminal": 1036.0267570078431,
+                    "unreinvestedWealthMultiple": 2.628162671028252,
+                    "terminalFractionAtIrr": 0.9087039425376477
+                  }
+                }
+              },
+              {
+                "name": "乐观",
+                "weight": 0.25,
+                "g1": 0.13,
+                "g2": 0.1,
+                "pe": 18,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.23030351828361917,
+                    "preIrr": 0.2327696940133649,
+                    "postDividends": 31.048272546632006,
+                    "preDividends": 38.81034068328995,
+                    "terminal": 1137.2508774925,
+                    "unreinvestedWealthMultiple": 2.781664642950314,
+                    "terminalFractionAtIrr": 0.9606068084086034
+                  },
+                  "10": {
+                    "postIrr": 0.16854588465456566,
+                    "preIrr": 0.17102521304769158,
+                    "postDividends": 83.5101152719376,
+                    "preDividends": 104.38764408992188,
+                    "terminal": 1831.5539107104469,
+                    "unreinvestedWealthMultiple": 4.559676252339011,
+                    "terminalFractionAtIrr": 0.9185709641075529
+                  }
+                }
+              }
+            ],
+            "weightedWealth": 2.758119163291826,
+            "weightedCagr": 0.10677999981175268,
+            "stressedWealth": 2.520374723000642,
+            "stressedCagr": 0.09684816126155815
+          },
+          {
+            "price": 400,
+            "epsRmb": 25.980751904700533,
+            "paths": [
+              {
+                "name": "悲观",
+                "weight": 0.25,
+                "g1": 0.03,
+                "g2": 0.03,
+                "pe": 10,
+                "horizons": {
+                  "5": {
+                    "postIrr": -0.012754515465390248,
+                    "preIrr": -0.009708792686470458,
+                    "postDividends": 23.18605790943201,
+                    "preDividends": 28.982572386790025,
+                    "terminal": 352.51418672682206,
+                    "unreinvestedWealthMultiple": 0.9392506115906352,
+                    "terminalFractionAtIrr": 0.9397034646763721
+                  },
+                  "10": {
+                    "postIrr": 0.01450002472242351,
+                    "preIrr": 0.017578371554164307,
+                    "postDividends": 50.065053729054966,
+                    "preDividends": 62.58131716131874,
+                    "terminal": 408.660557495354,
+                    "unreinvestedWealthMultiple": 1.1468140280610224,
+                    "terminalFractionAtIrr": 0.8846716542595938
+                  }
+                }
+              },
+              {
+                "name": "基准诊断",
+                "weight": 0.5,
+                "g1": 0.09,
+                "g2": 0.07,
+                "pe": 14,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.11494158450804381,
+                    "preIrr": 0.11776102530644816,
+                    "postDividends": 27.65893855517595,
+                    "preDividends": 34.57367319396997,
+                    "terminal": 655.0146318544063,
+                    "unreinvestedWealthMultiple": 1.7066839260239555,
+                    "terminalFractionAtIrr": 0.9504525514838309
+                  },
+                  "10": {
+                    "postIrr": 0.09810606922955556,
+                    "preIrr": 0.10095902068647067,
+                    "postDividends": 67.80156482402288,
+                    "preDividends": 84.75195603002862,
+                    "terminal": 918.691905541221,
+                    "unreinvestedWealthMultiple": 2.46623367591311,
+                    "terminalFractionAtIrr": 0.9008800708142769
+                  }
+                }
+              },
+              {
+                "name": "乐观",
+                "weight": 0.25,
+                "g1": 0.13,
+                "g2": 0.1,
+                "pe": 18,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.21376707473648648,
+                    "preIrr": 0.2164254857640716,
+                    "postDividends": 31.04827254663212,
+                    "preDividends": 38.810340683290065,
+                    "terminal": 1008.4519233262441,
+                    "unreinvestedWealthMultiple": 2.5987504896821907,
+                    "terminalFractionAtIrr": 0.9570143396234879
+                  },
+                  "10": {
+                    "postIrr": 0.1611087566230266,
+                    "preIrr": 0.1637895977148608,
+                    "postDividends": 83.5101152719376,
+                    "preDividends": 104.38764408992188,
+                    "terminal": 1624.1219070361503,
+                    "unreinvestedWealthMultiple": 4.26908005577022,
+                    "terminalFractionAtIrr": 0.9116531345904615
+                  }
+                }
+              }
+            ],
+            "weightedWealth": 2.5870903589143657,
+            "weightedCagr": 0.09971755985456432,
+            "stressedWealth": 2.3650060751363013,
+            "stressedCagr": 0.08989140089483283
+          },
+          {
+            "price": 400,
+            "epsRmb": 29.299,
+            "paths": [
+              {
+                "name": "悲观",
+                "weight": 0.25,
+                "g1": 0.03,
+                "g2": 0.03,
+                "pe": 10,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.010379813353572964,
+                    "preIrr": 0.013280825319291423,
+                    "postDividends": 23.18605790943201,
+                    "preDividends": 28.982572386790025,
+                    "terminal": 397.5371149685826,
+                    "unreinvestedWealthMultiple": 1.0518079321950367,
+                    "terminalFractionAtIrr": 0.9438313236994982
+                  },
+                  "10": {
+                    "postIrr": 0.02595822660733671,
+                    "preIrr": 0.02887687761321278,
+                    "postDividends": 50.065053729054966,
+                    "preDividends": 62.58131716131874,
+                    "terminal": 460.85447095509636,
+                    "unreinvestedWealthMultiple": 1.2772988117103783,
+                    "terminalFractionAtIrr": 0.8916759061869871
+                  }
+                }
+              },
+              {
+                "name": "基准诊断",
+                "weight": 0.5,
+                "g1": 0.09,
+                "g2": 0.07,
+                "pe": 14,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.1412827883514628,
+                    "preIrr": 0.14397568759424206,
+                    "postDividends": 27.65893855517595,
+                    "preDividends": 34.57367319396997,
+                    "terminal": 738.6727593218767,
+                    "unreinvestedWealthMultiple": 1.9158292446926317,
+                    "terminalFractionAtIrr": 0.9537306800832256
+                  },
+                  "10": {
+                    "postIrr": 0.11067081018848135,
+                    "preIrr": 0.11338275519192387,
+                    "postDividends": 67.80156482402276,
+                    "preDividends": 84.75195603002862,
+                    "terminal": 1036.0267570078431,
+                    "unreinvestedWealthMultiple": 2.7595708045796647,
+                    "terminalFractionAtIrr": 0.9066870197951578
+                  }
+                }
+              },
+              {
+                "name": "乐观",
+                "weight": 0.25,
+                "g1": 0.13,
+                "g2": 0.1,
+                "pe": 18,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.2425816963970321,
+                    "preIrr": 0.24512624073324518,
+                    "postDividends": 31.048272546632006,
+                    "preDividends": 38.81034068328995,
+                    "terminal": 1137.2508774925,
+                    "unreinvestedWealthMultiple": 2.9207478750978297,
+                    "terminalFractionAtIrr": 0.9597796315506462
+                  },
+                  "10": {
+                    "postIrr": 0.17450302428484143,
+                    "preIrr": 0.17705644596875258,
+                    "postDividends": 83.5101152719376,
+                    "preDividends": 104.38764408992188,
+                    "terminal": 1831.5539107104469,
+                    "unreinvestedWealthMultiple": 4.787660064955961,
+                    "terminalFractionAtIrr": 0.9166811925181136
+                  }
+                }
+              }
+            ],
+            "weightedWealth": 2.896025121456417,
+            "weightedCagr": 0.11219319239018088,
+            "stressedWealth": 2.6463934591506737,
+            "stressedCagr": 0.10221277783143967
+          }
+        ],
+        "matrices": [
+          {
+            "price": 428.2,
+            "epsRmb": 25.980751904700533,
+            "pe": 12,
+            "irr": 0.07457163402702738
+          },
+          {
+            "price": 428.2,
+            "epsRmb": 25.980751904700533,
+            "pe": 14,
+            "irr": 0.09029965821118446
+          },
+          {
+            "price": 428.2,
+            "epsRmb": 25.980751904700533,
+            "pe": 16,
+            "irr": 0.10418768574942139
+          },
+          {
+            "price": 428.2,
+            "epsRmb": 25.980751904700533,
+            "pe": 18,
+            "irr": 0.11663955032644358
+          },
+          {
+            "price": 428.2,
+            "epsRmb": 29.299,
+            "pe": 12,
+            "irr": 0.08680728040888275
+          },
+          {
+            "price": 428.2,
+            "epsRmb": 29.299,
+            "pe": 14,
+            "irr": 0.10278993040851547
+          },
+          {
+            "price": 428.2,
+            "epsRmb": 29.299,
+            "pe": 16,
+            "irr": 0.11689676751169265
+          },
+          {
+            "price": 428.2,
+            "epsRmb": 29.299,
+            "pe": 18,
+            "irr": 0.12954057892972293
+          },
+          {
+            "price": 420,
+            "epsRmb": 25.980751904700533,
+            "pe": 12,
+            "irr": 0.07675373174529254
+          },
+          {
+            "price": 420,
+            "epsRmb": 25.980751904700533,
+            "pe": 14,
+            "irr": 0.09250806073360562
+          },
+          {
+            "price": 420,
+            "epsRmb": 25.980751904700533,
+            "pe": 16,
+            "irr": 0.10641959376629828
+          },
+          {
+            "price": 420,
+            "epsRmb": 25.980751904700533,
+            "pe": 18,
+            "irr": 0.11889273386143773
+          },
+          {
+            "price": 420,
+            "epsRmb": 29.299,
+            "pe": 12,
+            "irr": 0.08900981190779877
+          },
+          {
+            "price": 420,
+            "epsRmb": 29.299,
+            "pe": 14,
+            "irr": 0.10501946169350929
+          },
+          {
+            "price": 420,
+            "epsRmb": 29.299,
+            "pe": 16,
+            "irr": 0.11915039241357894
+          },
+          {
+            "price": 420,
+            "epsRmb": 29.299,
+            "pe": 18,
+            "irr": 0.13181598828741425
+          },
+          {
+            "price": 400,
+            "epsRmb": 25.980751904700533,
+            "pe": 12,
+            "irr": 0.08228534908684215
+          },
+          {
+            "price": 400,
+            "epsRmb": 25.980751904700533,
+            "pe": 14,
+            "irr": 0.09810606922955556
+          },
+          {
+            "price": 400,
+            "epsRmb": 25.980751904700533,
+            "pe": 16,
+            "irr": 0.11207694302077675
+          },
+          {
+            "price": 400,
+            "epsRmb": 25.980751904700533,
+            "pe": 18,
+            "irr": 0.12460380486238154
+          },
+          {
+            "price": 400,
+            "epsRmb": 29.299,
+            "pe": 12,
+            "irr": 0.09459300082553501
+          },
+          {
+            "price": 400,
+            "epsRmb": 29.299,
+            "pe": 14,
+            "irr": 0.11067081018848135
+          },
+          {
+            "price": 400,
+            "epsRmb": 29.299,
+            "pe": 16,
+            "irr": 0.12486257798752176
+          },
+          {
+            "price": 400,
+            "epsRmb": 29.299,
+            "pe": 18,
+            "irr": 0.13758319030461086
+          }
+        ]
+      },
+      "anta": {
+        "scenarios": [
+          {
+            "price": 71.4,
+            "epsRmb": 5.127348327698443,
+            "paths": [
+              {
+                "name": "悲观",
+                "weight": 0.25,
+                "g1": 0.03,
+                "g2": 0.03,
+                "pe": 10,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.026828485772036337,
+                    "preIrr": 0.03480944114886875,
+                    "postDividends": 11.33054528026959,
+                    "preDividends": 14.163181600336998,
+                    "terminal": 69.5693116363093,
+                    "unreinvestedWealthMultiple": 1.133051217319032,
+                    "terminalFractionAtIrr": 0.8535519397830392
+                  },
+                  "10": {
+                    "postIrr": 0.04447312555410232,
+                    "preIrr": 0.05248336866038372,
+                    "postDividends": 24.465752671368378,
+                    "preDividends": 30.58219083921047,
+                    "terminal": 80.6498993468707,
+                    "unreinvestedWealthMultiple": 1.472208011459931,
+                    "terminalFractionAtIrr": 0.7310261588916667
+                  }
+                }
+              },
+              {
+                "name": "基准诊断无修复",
+                "weight": 0.5,
+                "g1": 0.08,
+                "g2": 0.08,
+                "pe": 12,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.11308634162872744,
+                    "preIrr": 0.12089659058553648,
+                    "postDividends": 13.128044964249597,
+                    "preDividends": 16.410056205312003,
+                    "terminal": 105.81119181770859,
+                    "unreinvestedWealthMultiple": 1.665815641203896,
+                    "terminalFractionAtIrr": 0.8673395013774075
+                  },
+                  "10": {
+                    "postIrr": 0.11215128102853089,
+                    "preIrr": 0.11995998251470852,
+                    "postDividends": 32.41745002371442,
+                    "preDividends": 40.521812529643,
+                    "terminal": 155.4713549774297,
+                    "unreinvestedWealthMultiple": 2.631495868363363,
+                    "terminalFractionAtIrr": 0.7521656697964599
+                  }
+                }
+              },
+              {
+                "name": "乐观",
+                "weight": 0.25,
+                "g1": 0.12,
+                "g2": 0.1,
+                "pe": 17,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.23127472229346246,
+                    "preIrr": 0.238407959866752,
+                    "postDividends": 14.742671697510389,
+                    "preDividends": 18.428339621888,
+                    "terminal": 179.79210509973,
+                    "unreinvestedWealthMultiple": 2.724576705843703,
+                    "terminalFractionAtIrr": 0.889810625503061
+                  },
+                  "10": {
+                    "postIrr": 0.1787036496615818,
+                    "preIrr": 0.18587350960577054,
+                    "postDividends": 39.26520491878023,
+                    "preDividends": 49.08150614847523,
+                    "terminal": 289.55698318416637,
+                    "unreinvestedWealthMultiple": 4.605352774551072,
+                    "terminalFractionAtIrr": 0.7834107900392251
+                  }
+                }
+              }
+            ],
+            "weightedWealth": 2.8351381306844323,
+            "weightedCagr": 0.10983245882207382,
+            "stressedWealth": 2.6205164996847037,
+            "stressedCagr": 0.10113024039297591
+          },
+          {
+            "price": 72,
+            "epsRmb": 5.127348327698443,
+            "paths": [
+              {
+                "name": "悲观",
+                "weight": 0.25,
+                "g1": 0.03,
+                "g2": 0.03,
+                "pe": 10,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.0250052411475562,
+                    "preIrr": 0.032945432331023095,
+                    "postDividends": 11.33054528026959,
+                    "preDividends": 14.163181600336998,
+                    "terminal": 69.5693116363093,
+                    "unreinvestedWealthMultiple": 1.1236091238413735,
+                    "terminalFractionAtIrr": 0.8539939212977727
+                  },
+                  "10": {
+                    "postIrr": 0.04347603349656792,
+                    "preIrr": 0.05144696079004374,
+                    "postDividends": 24.465752671368378,
+                    "preDividends": 30.58219083921047,
+                    "terminal": 80.6498993468707,
+                    "unreinvestedWealthMultiple": 1.4599396113644316,
+                    "terminalFractionAtIrr": 0.7318912358413665
+                  }
+                }
+              },
+              {
+                "name": "基准诊断无修复",
+                "weight": 0.5,
+                "g1": 0.08,
+                "g2": 0.08,
+                "pe": 12,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.11111772043588142,
+                    "preIrr": 0.11888718187870928,
+                    "postDividends": 13.128044964249597,
+                    "preDividends": 16.410056205312003,
+                    "terminal": 105.81119181770859,
+                    "unreinvestedWealthMultiple": 1.6519338441938638,
+                    "terminalFractionAtIrr": 0.867758227756167
+                  },
+                  "10": {
+                    "postIrr": 0.11109752464147815,
+                    "preIrr": 0.1188669526108771,
+                    "postDividends": 32.41745002371442,
+                    "preDividends": 40.521812529643,
+                    "terminal": 155.4713549774297,
+                    "unreinvestedWealthMultiple": 2.609566736127002,
+                    "terminalFractionAtIrr": 0.7530019253094093
+                  }
+                }
+              },
+              {
+                "name": "乐观",
+                "weight": 0.25,
+                "g1": 0.12,
+                "g2": 0.1,
+                "pe": 17,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.22911174064707607,
+                    "preIrr": 0.23620616819261586,
+                    "postDividends": 14.742671697510389,
+                    "preDividends": 18.428339621888,
+                    "terminal": 179.79210509973,
+                    "unreinvestedWealthMultiple": 2.701871899961672,
+                    "terminalFractionAtIrr": 0.8901870770531867
+                  },
+                  "10": {
+                    "postIrr": 0.17759839775636965,
+                    "preIrr": 0.1847304672228115,
+                    "postDividends": 39.26520491878023,
+                    "preDividends": 49.08150614847523,
+                    "terminal": 289.55698318416637,
+                    "unreinvestedWealthMultiple": 4.566974834763148,
+                    "terminalFractionAtIrr": 0.7842047812438101
+                  }
+                }
+              }
+            ],
+            "weightedWealth": 2.811511979595396,
+            "weightedCagr": 0.1089041117974463,
+            "stressedWealth": 2.598678862187332,
+            "stressedCagr": 0.10020917255587092
+          },
+          {
+            "price": 70,
+            "epsRmb": 5.127348327698443,
+            "paths": [
+              {
+                "name": "悲观",
+                "weight": 0.25,
+                "g1": 0.03,
+                "g2": 0.03,
+                "pe": 10,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.031158123067666632,
+                    "preIrr": 0.039236605915633604,
+                    "postDividends": 11.33054528026959,
+                    "preDividends": 14.163181600336998,
+                    "terminal": 69.5693116363093,
+                    "unreinvestedWealthMultiple": 1.1557122416654126,
+                    "terminalFractionAtIrr": 0.8524979229199238
+                  },
+                  "10": {
+                    "postIrr": 0.046839232918035045,
+                    "preIrr": 0.05494358370269625,
+                    "postDividends": 24.465752671368378,
+                    "preDividends": 30.58219083921047,
+                    "terminal": 80.6498993468707,
+                    "unreinvestedWealthMultiple": 1.5016521716891296,
+                    "terminalFractionAtIrr": 0.7289636695154965
+                  }
+                }
+              },
+              {
+                "name": "基准诊断无修复",
+                "weight": 0.5,
+                "g1": 0.08,
+                "g2": 0.08,
+                "pe": 12,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.11776102150760781,
+                    "preIrr": 0.12566886633644747,
+                    "postDividends": 13.128044964249597,
+                    "preDividends": 16.410056205312003,
+                    "terminal": 105.81119181770859,
+                    "unreinvestedWealthMultiple": 1.6991319540279741,
+                    "terminalFractionAtIrr": 0.8663407881159206
+                  },
+                  "10": {
+                    "postIrr": 0.11465169837434719,
+                    "preIrr": 0.12255441680454948,
+                    "postDividends": 32.41745002371442,
+                    "preDividends": 40.521812529643,
+                    "terminal": 155.4713549774297,
+                    "unreinvestedWealthMultiple": 2.6841257857306307,
+                    "terminalFractionAtIrr": 0.7501714343146968
+                  }
+                }
+              },
+              {
+                "name": "乐观",
+                "weight": 0.25,
+                "g1": 0.12,
+                "g2": 0.1,
+                "pe": 17,
+                "horizons": {
+                  "5": {
+                    "postIrr": 0.23641058198555387,
+                    "preIrr": 0.24363670580297947,
+                    "postDividends": 14.742671697510389,
+                    "preDividends": 18.428339621888,
+                    "terminal": 179.79210509973,
+                    "unreinvestedWealthMultiple": 2.7790682399605773,
+                    "terminalFractionAtIrr": 0.8889124941831186
+                  },
+                  "10": {
+                    "postIrr": 0.1813260361253789,
+                    "preIrr": 0.18858638171259512,
+                    "postDividends": 39.26520491878023,
+                    "preDividends": 49.08150614847523,
+                    "terminal": 289.55698318416637,
+                    "unreinvestedWealthMultiple": 4.697459830042094,
+                    "terminalFractionAtIrr": 0.7815166681757106
+                  }
+                }
+              }
+            ],
+            "weightedWealth": 2.891840893298121,
+            "weightedCagr": 0.11203239618447225,
+            "stressedWealth": 2.6729268296783983,
+            "stressedCagr": 0.10331292800267011
+          }
+        ],
+        "matrices": [
+          {
+            "price": 71.4,
+            "epsRmb": 5.127348327698443,
+            "pe": 10,
+            "irr": 0.09517570446449575
+          },
+          {
+            "price": 71.4,
+            "epsRmb": 5.127348327698443,
+            "pe": 12,
+            "irr": 0.11215128102853089
+          },
+          {
+            "price": 71.4,
+            "epsRmb": 5.127348327698443,
+            "pe": 14,
+            "irr": 0.1269789232610513
+          },
+          {
+            "price": 71.4,
+            "epsRmb": 5.127348327698443,
+            "pe": 17,
+            "irr": 0.14625687441448354
+          },
+          {
+            "price": 72,
+            "epsRmb": 5.127348327698443,
+            "pe": 10,
+            "irr": 0.09413020987989651
+          },
+          {
+            "price": 72,
+            "epsRmb": 5.127348327698443,
+            "pe": 12,
+            "irr": 0.11109752464147815
+          },
+          {
+            "price": 72,
+            "epsRmb": 5.127348327698443,
+            "pe": 14,
+            "irr": 0.1259174954153902
+          },
+          {
+            "price": 72,
+            "epsRmb": 5.127348327698443,
+            "pe": 17,
+            "irr": 0.14518491721624838
+          },
+          {
+            "price": 70,
+            "epsRmb": 5.127348327698443,
+            "pe": 10,
+            "irr": 0.09765667140920187
+          },
+          {
+            "price": 70,
+            "epsRmb": 5.127348327698443,
+            "pe": 12,
+            "irr": 0.11465169837434719
+          },
+          {
+            "price": 70,
+            "epsRmb": 5.127348327698443,
+            "pe": 14,
+            "irr": 0.12949741686975635
+          },
+          {
+            "price": 70,
+            "epsRmb": 5.127348327698443,
+            "pe": 17,
+            "irr": 0.1488001965623883
+          }
+        ]
+      }
+    },
+    "maxSolverDifference": 2.220446049250313e-16,
+    "additional": {
+      "tencent": {
+        "priceCompressionLoss": 0.3,
+        "doubleHitLoss": 0.44,
+        "zeroGrowthPeCompressionIrr": -0.02339307063440882,
+        "epsDown20PeDown30DividendHalfIrr": -0.049837731806727514,
+        "terminalFxStress": [
+          {
+            "multiplier": 0.9,
+            "irr": 0.07951422566661781
+          },
+          {
+            "multiplier": 1,
+            "irr": 0.09029965821118446
+          },
+          {
+            "multiplier": 1.1,
+            "irr": 0.10018756759144154
+          }
+        ],
+        "dividendYieldPretax": 0.01237739374124241,
+        "dividendYieldPosttax": 0.00990191499299393,
+        "growthRequired": [
+          {
+            "target": 0.12,
+            "uniformGrowthNoRerating": 0.10901859217463683
+          },
+          {
+            "target": 0.1746,
+            "uniformGrowthNoRerating": 0.1630832485431507
+          }
+        ]
+      },
+      "anta": {
+        "priceCompressionLoss": 0.3,
+        "doubleHitLoss": 0.44,
+        "zeroGrowthPeCompressionIrr": -0.0011337693425538808,
+        "epsDown20PeDown30DividendHalfIrr": -0.03741501332291547,
+        "terminalFxStress": [
+          {
+            "multiplier": 0.9,
+            "irr": 0.10226606186585141
+          },
+          {
+            "multiplier": 1,
+            "irr": 0.11215128102853089
+          },
+          {
+            "multiplier": 1.1,
+            "irr": 0.12126850761880548
+          }
+        ],
+        "dividendYieldPretax": 0.036274509803921565,
+        "dividendYieldPosttax": 0.029019607843137254,
+        "growthRequired": [
+          {
+            "target": 0.12,
+            "uniformGrowthNoRerating": 0.08841463414634132
+          },
+          {
+            "target": 0.1746,
+            "uniformGrowthNoRerating": 0.14147484756097561
+          }
+        ],
+        "h1AnnualizedDiagnostic": {
+          "epsRmb": 5.611210527917069,
+          "price72Irr": 0.11971519818425114
+        }
+      }
+    }
+  }
+}
