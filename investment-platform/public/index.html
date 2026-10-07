@@ -317,6 +317,14 @@ function renderAll(){renderDash();renderPos();renderSignals();renderDeploy();ren
 /* 资金口径（郎刚10-08定）：总本金=可投资资金(输入) + 已投市值(持仓实时倒算)；证券持仓不可视为可动用现金 */
 function invMV(){return CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);}
 function totalCapital(){return (CFG.investable!=null?CFG.investable:CFG.cash||0)+invMV();}
+/* 价格→隐含IRR：对四档（H10/H12/H15/H17.46）对数插值，档外沿邻档斜率外推（口径与估值引擎一致） */
+function irrAt(px,ps){
+  const lv=[0.10,0.12,0.15,0.1746];
+  if(px>=ps[0])return Math.max(0.10-Math.log(px/ps[0])*(0.02/Math.log(ps[0]/ps[1])),-0.3);
+  if(px<=ps[3])return Math.min(0.1746+Math.log(ps[3]/px)*(0.0246/Math.log(ps[2]/ps[3])),0.4);
+  for(let i=0;i<3;i++){if(px<=ps[i]&&px>=ps[i+1]){const f=(Math.log(px)-Math.log(ps[i+1]))/(Math.log(ps[i])-Math.log(ps[i+1]));return lv[i+1]+f*(lv[i]-lv[i+1]);}}
+  return null;
+}
 
 /* —— 驾驶舱：目标 vs 当前进度 —— */
 function renderDash(){
@@ -338,25 +346,30 @@ function renderDash(){
   const divNow=preA*0.9+preHK*0.8+cashDiv;       // A股10%档（6-30买入未满1年）
   const divAfterFree=preA+preHK*0.8+cashDiv;      // 2027-06-30 A股免税后
   const costYield=costBasis>0?(preA+preHK)/costBasis:0;
-  // 组合隐含IRR：各持仓成本对四档价格（H10/H12/H15/H17.46）对数插值，市值加权
-  let wSum=0,wIrr=0,cov=0;
+  // 组合隐含IRR：双口径——远期（现价对四档，决策相关）+ 成本（买入时点质量参考）。市值加权
+  // 口径说明（郎刚10-08指出成本口径问题）：已买持仓的未来回报由现价相对档位决定，成本是沉没成本；
+  // 成本口径仅回答"当初买得好不好"，不用于推演未来路径。
+  let wSum=0,wIrr=0,wCost=0,cov=0;
   CFG.holdings.forEach(h=>{
     const u=CFG.universe.find(v=>v.code===h.code);
     if(!u||!u.tiers||u.tiers.length<4)return;
     const ps=u.tiers.map(t=>t&&t.price).filter(p=>p!=null&&p>0);
     if(ps.length<4)return;
     const x=hLive(h);if(!x)return;
-    const c=h.cost,lv=[0.10,0.12,0.15,0.1746];let irr=null;
-    if(c>=ps[0]){irr=0.10-Math.log(c/ps[0])*(0.02/Math.log(ps[0]/ps[1]));if(irr<-0.3)irr=-0.3;}
-    else if(c<=ps[3]){irr=0.1746+Math.log(ps[3]/c)*(0.0246/Math.log(ps[2]/ps[3]));if(irr>0.4)irr=0.4;}
-    else{for(let i=0;i<3;i++){if(c<=ps[i]&&c>=ps[i+1]){const f=(Math.log(c)-Math.log(ps[i+1]))/(Math.log(ps[i])-Math.log(ps[i+1]));irr=lv[i+1]+f*(lv[i]-lv[i+1]);break;}}}
-    if(irr==null)return;
-    wSum+=x.mvCNY;wIrr+=x.mvCNY*irr;cov++;
+    const iF=irrAt(x.px,ps),iC=irrAt(h.cost,ps);
+    if(iF==null||iC==null)return;
+    wSum+=x.mvCNY;wIrr+=x.mvCNY*iF;wCost+=x.mvCNY*iC;cov++;
   });
   const pIrr=wSum>0?wIrr/wSum:null;
+  const costIrr=wSum>0?wCost/wSum:null;
   const cashPct=account>0?investable/account:0;
-  const reqAfterCash=cashPct>0&&cashPct<1?((1+g)-cashPct*(1+CFG.cashYield/100))/(1-cashPct)-1:g;
   const realPath10=pIrr!=null?inv*Math.pow(1+pIrr,10)+investable*Math.pow(1+CFG.cashYield/100,10):null;
+  // 达标要求（一次性投放口径，郎刚10-08纠正"永久闲置口径"）：
+  // 持仓按现价IRR复利10年 → 剩余缺口由可投资金一次性投放补足，求所需年化。
+  // 旧公式((1+g)-cashPct*(1+cy))/(1-cashPct)隐含"现金占比每年永久维持80.7%"，推出86%无行动含义，已废弃。
+  const need10=pIrr!=null?50000000-inv*Math.pow(1+pIrr,10):null;
+  const dep12=pIrr!=null?inv*Math.pow(1+pIrr,10)+investable*Math.pow(1.12,10):null;
+  const reqDeploy=(need10!=null&&investable>0)?(need10>investable*Math.pow(1+CFG.cashYield/100,10)?Math.pow(need10/investable,1/10)-1:CFG.cashYield/100):null;
   // 四组：目标 vs 当前
   const rows=[
     {k:'投资额',goalTxt:fmt(TC/1e4,0)+' 万',curTxt:fmt(inv/1e4,1)+' 万',pct:inv/TC*100,
@@ -368,7 +381,7 @@ function renderDash(){
     {k:'年股息（税后）',goalTxt:'100万/年',curTxt:fmt(divNow,0)+' 元/年',pct:divNow/1000000*100,
      note:'A股按10%档计；2027-06-30 A股免税后升至约 '+fmt(divAfterFree,0)+' 元/年。按当前成本股息率 '+(costYield*100).toFixed(2)+'% 外推，支撑100万税前股息需本金约 '+fmt(1000000/costYield/1e4,0)+' 万。'},
     pIrr!=null?{k:'组合预期回报',goalTxt:'17.46%年化',curTxt:(pIrr*100).toFixed(1)+'%',pct:pIrr/g*100,
-     note:'持仓成本对四档（H10/H12/H15/H17.46）对数插值、市值加权，覆盖 '+cov+'/'+CFG.holdings.length+' 只。现实路径推演：10年≈ '+fmt(realPath10/1e4,0)+' 万（目标 4,968 万）。缺口只能靠「找到更高回报标的+投放」补，不靠调高预测。现金占 '+(cashPct*100).toFixed(1)+'%，拖累后持仓部分需年化 '+(reqAfterCash*100).toFixed(1)+'%。'}:null,
+     note:'现价对四档（H10/H12/H15/H17.46）对数插值、市值加权，覆盖 '+cov+'/'+CFG.holdings.length+' 只；成本口径 '+((costIrr??0)*100).toFixed(1)+'%（差值=买入后已实现涨跌，成本口径 '+((costIrr??0)>(pIrr??0)?'虚高':'虚低')+'）。现实路径10年≈ '+fmt(realPath10/1e4,0)+' 万（现金按1%闲置，目标 4,968 万）。剩余资金达标要求：一次性投放需年化 '+(reqDeploy*100).toFixed(1)+'%；若只按12%合格线投放，10年合计≈'+fmt(dep12/1e4,0)+' 万。缺口只能靠「更高回报标的+投放」补，不靠调高预测。'}:null,
   ].filter(r=>r).map(r=>`<tr>
     <td><b>${r.k}</b></td><td>${r.goalTxt}</td><td><b>${r.curTxt}</b><br><span class="note">${r.pct.toFixed(1)}%</span></td>
     <td style="min-width:130px"><div class="bar"><i style="width:${Math.min(r.pct,100)}%;background:${r.pct<30?'var(--amber)':'var(--down)'}"></i></div></td>
@@ -379,13 +392,13 @@ function renderDash(){
     {k:'已投 / 目标本金',v:(inv/TC*100).toFixed(1)+'%',s:fmt(inv/1e4,1)+' / '+fmt(TC/1e4,0)+' 万'},
     {k:'当前路径 5年 / 10年',v:fmt(account*w5/1e4,0)+' / '+fmt(account*w10/1e4,0)+' 万',s:'现有资产按17.46%复利，不含新增投放'},
     {k:'税后年股息[估]',v:fmt(divNow,0)+' 元',s:'满1年A股免税后 '+fmt(divAfterFree,0)+' 元'},
-    pIrr!=null?{k:'组合隐含IRR（市值加权）',v:(pIrr*100).toFixed(1)+'%',cls:pIrr<0.12?'up':'',s:'对目标17.46%；现实路径10年≈ '+fmt(realPath10/1e4,0)+' 万'}:null,
-    {k:'现金拖累后要求回报',v:(reqAfterCash*100).toFixed(1)+'%',s:'可投资金占 '+(cashPct*100).toFixed(1)+'% → 持仓需此年化才整体17.46%'},
+    pIrr!=null?{k:'组合远期IRR（现价·市值加权）',v:(pIrr*100).toFixed(1)+'%',cls:pIrr<0.12?'up':'',s:'成本口径 '+((costIrr??0)*100).toFixed(1)+'%（沉没成本，仅参考）；现实路径10年≈ '+fmt(realPath10/1e4,0)+' 万（现金按1%闲置）'}:null,
+    {k:'达标要求·剩余资金年化',v:reqDeploy!=null?(reqDeploy*100).toFixed(1)+'%':'—',s:'一次性投放口径：需补缺口 '+fmt(Math.max(need10,0)/1e4,0)+' 万（持仓按现价IRR复利后）；对照12%合格线投放10年合计≈'+(dep12!=null?fmt(dep12/1e4,0)+' 万':'—')},
   ].filter(c=>c).map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
   $('gapBox').innerHTML=`<div class="tw"><table><thead><tr>
     <th>指标</th><th>目标</th><th>当前</th><th>进度</th><th>缺口与路径</th>
   </tr></thead><tbody>${rows}</tbody></table></div>
-  <div class="note" style="margin-top:8px">口径：目标本金=可投资资金（输入）+已投市值（持仓倒算）；进度=当前÷目标；5年/10年资产按目标线17.46%复利推演，未含新增资金投放（投资额行单独跟踪投放进度）。三个目标在「本金投完+17.46%达标」前提下自洽。当前两个拖累：投放进度 ${(inv/TC*100).toFixed(1)}%、组合预期回报 ${pIrr!=null?(pIrr*100).toFixed(1)+'%':'—'}（目标17.46%）。</div>`;
+  <div class="note" style="margin-top:8px">口径：目标本金=可投资资金（输入）+已投市值（持仓倒算）；组合回报=现价对四档插值（远期口径，成本为沉没成本仅参考）；剩余资金要求=一次性投放口径（不假设永久闲置）；进度=当前÷目标；5年/10年资产按目标线17.46%复利推演，未含新增资金投放（投资额行单独跟踪投放进度）。当前两个拖累：投放进度 ${(inv/TC*100).toFixed(1)}%、组合预期回报 ${pIrr!=null?(pIrr*100).toFixed(1)+'%':'—'}（目标17.46%）。</div>`;
   const im=$('invMvShow'),ts=$('tcShow');
   if(im)im.textContent=fmt(inv/1e4,1);
   if(ts)ts.textContent=fmt(TC/1e4,1);
