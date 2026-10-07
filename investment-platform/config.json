@@ -1,5 +1,5 @@
 {
-  "cash": 1186362,
+  "cash": 8061067,
   "asOfNote": "快照价=2026-10-06上午截图；行情在线时自动覆盖",
   "holdings": [
     {
@@ -1089,6 +1089,7 @@
   "accessKey": "lg2026",
   "cashYield": 1,
   "divTaxNote": "A股红利税按buyDate起算：>1年0%／1个月-1年10%／<1个月20%；港股通固定20%；现有持仓统一按2026-06-30买入计",
+  "investable": 8061067,
   "targetCapital": 10000000,
   "hkdcnyFallback": 0.8548
 }

@@ -198,6 +198,7 @@ const server = http.createServer(async (req,res)=>{
           // 合并式保存：以磁盘最新版为基底，只覆盖前端可编辑字段，防止全量覆盖
           const disk=JSON.parse(fs.readFileSync(CFG_PATH()));
           if(patch.targetCapital>0)disk.targetCapital=patch.targetCapital;
+          if(typeof patch.investable==='number')disk.investable=patch.investable;   // 郎刚10-08：可投资资金为用户输入主字段
           if(typeof patch.cash==='number')disk.cash=patch.cash;
           if(typeof patch.cashYield==='number')disk.cashYield=patch.cashYield;
           const hp={}; (patch.holdings||[]).forEach(h=>{if(h.code)hp[h.code]=h;});

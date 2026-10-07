@@ -113,12 +113,12 @@
 
 <!-- 驾驶舱 -->
 <section id="dash">
-  <h2>目标驾驶舱 <span class="tag">1000万目标本金口径</span></h2>
-  <p class="desc">目标本金可编辑并保存。核心逻辑：1000万全部投完并实现17.46%年化 → 5年2229万（≥2000万✓）、10年4968万（≈5000万✓）、按4%股息率≈199万/年（≥100万✓）。三个目标在「投完+达标」前提下自洽。</p>
+  <h2>目标驾驶舱 <span class="tag">目标本金＝可投资金（输入）＋已投（持仓倒算）</span></h2>
+  <p class="desc">输入现有可投资资金（银行存款、理财、证券户现金等一切可动用的钱；证券账户内的持仓不能视为可动用现金），已投部分由持仓账户实时倒算。核心逻辑（以1000万目标本金为例）：全部投完并实现17.46%年化 → 5年2229万（≥2000万✓）、10年4968万（≈5000万✓）、按4%股息率≈199万/年（≥100万✓）。三个目标在「投完+达标」前提下自洽。</p>
   <div class="card" style="margin-bottom:11px">
-    <span class="k">目标本金（万元）</span>
-    <input type="number" id="tcInput" class="wide" step="10" style="margin-left:8px">
-    <span class="note" style="margin-left:8px">账户现金 <input type="number" id="cashInput" step="0.1" style="width:90px"> 万（可改并保存）</span>
+    <span class="k">现有可投资资金（万元）</span>
+    <input type="number" id="investInput" class="wide" step="1" style="margin-left:8px">
+    <span class="note" style="margin-left:8px">已投市值 <b id="invMvShow">—</b> 万（持仓实时倒算）→ 目标本金 <b id="tcShow">—</b> 万（输入可改并保存）</span>
   </div>
   <div class="cards" id="dashCards"></div>
   <div id="gapBox"></div>
@@ -142,7 +142,7 @@
 <!-- 资金部署地图 -->
 <section id="deploy">
   <h2>资金部署地图 <span class="tag">触发需资金 vs 可用现金</span></h2>
-  <p class="desc">回答「钱等标的，还是标的等钱」：可部署标的（研究完成、非回报不合格）中，现价已进入触发价或距触发价≤+5%的，按「上限×目标本金−现有持仓」估需资金，对照账户现金给出缺口。回报不合格／质量观察／补研究／暂停／旧档位冻结标的不参与部署（研究完成度原则）。触发≠下单。</p>
+  <p class="desc">回答「钱等标的，还是标的等钱」：可部署标的（研究完成、非回报不合格）中，现价已进入触发价或距触发价≤+5%的，按「上限×目标本金−现有持仓」估需资金，对照现有可投资金给出缺口。回报不合格／质量观察／补研究／暂停／旧档位冻结标的不参与部署（研究完成度原则）。触发≠下单。</p>
   <div class="tw" id="deployTable"></div>
   <div class="cards" id="deployCards" style="margin-top:11px"></div>
   <div class="note" id="deployNote" style="margin-top:8px"></div>
@@ -257,8 +257,7 @@ async function loadConfig(){
         if(!u.plan&&s.plan){u.plan=s.plan;restored++;}});
     }
   }catch(e){}
-  $('tcInput').value=(CFG.targetCapital/10000).toFixed(0);
-  $('cashInput').value=(CFG.cash/10000).toFixed(1);
+  $('investInput').value=((CFG.investable!=null?CFG.investable:CFG.cash)/10000).toFixed(1);
   wireInputs(); fillCalcSel(); runCalc();
   if(restored>0){
     dirty=true;scheduleAutoSave();
@@ -315,12 +314,16 @@ function hLive(h){
   return {px,mvCNY,costCNY,pl:mvCNY-costCNY,plPct:(mvCNY/costCNY-1)*100,snap:!!qq.snapshot,dpsCNY:h.market==='HK'?h.dps*hkd():h.dps};
 }
 function renderAll(){renderDash();renderPos();renderSignals();renderDeploy();renderPools();renderDiv();}
+/* 资金口径（郎刚10-08定）：总本金=可投资资金(输入) + 已投市值(持仓实时倒算)；证券持仓不可视为可动用现金 */
+function invMV(){return CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);}
+function totalCapital(){return (CFG.investable!=null?CFG.investable:CFG.cash||0)+invMV();}
 
 /* —— 驾驶舱：目标 vs 当前进度 —— */
 function renderDash(){
-  const TC=CFG.targetCapital, g=CFG.pathCAGR;
-  const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
-  const account=inv+CFG.cash;
+  const TC=totalCapital(), g=CFG.pathCAGR;
+  const inv=invMV();
+  const investable=TC-inv;
+  const account=TC;
   const w5=Math.pow(1+g,5),w10=Math.pow(1+g,10);
   // 股息（成本口径 + 按买入日计税，与股息模块同逻辑）
   let preA=0,preHK=0,costBasis=0;
@@ -331,7 +334,7 @@ function renderDash(){
     if(h.market==='HK')preHK+=d;else preA+=d;
     costBasis+=h.shares*costCNY;
   });
-  const cashDiv=CFG.cash*CFG.cashYield/100;
+  const cashDiv=investable*CFG.cashYield/100;
   const divNow=preA*0.9+preHK*0.8+cashDiv;       // A股10%档（6-30买入未满1年）
   const divAfterFree=preA+preHK*0.8+cashDiv;      // 2027-06-30 A股免税后
   const costYield=costBasis>0?(preA+preHK)/costBasis:0;
@@ -351,17 +354,17 @@ function renderDash(){
     wSum+=x.mvCNY;wIrr+=x.mvCNY*irr;cov++;
   });
   const pIrr=wSum>0?wIrr/wSum:null;
-  const cashPct=account>0?CFG.cash/account:0;
+  const cashPct=account>0?investable/account:0;
   const reqAfterCash=cashPct>0&&cashPct<1?((1+g)-cashPct*(1+CFG.cashYield/100))/(1-cashPct)-1:g;
-  const realPath10=pIrr!=null?inv*Math.pow(1+pIrr,10)+CFG.cash*Math.pow(1+CFG.cashYield/100,10):null;
+  const realPath10=pIrr!=null?inv*Math.pow(1+pIrr,10)+investable*Math.pow(1+CFG.cashYield/100,10):null;
   // 四组：目标 vs 当前
   const rows=[
-    {k:'投资额',goalTxt:'1,000万',curTxt:fmt(inv/1e4,1)+' 万',pct:inv/TC*100,
-     note:'未投缺口 '+fmt((TC-inv)/1e4,0)+' 万（账户现金 '+fmt(CFG.cash/1e4,0)+' 万 + 待增资金）。按纪律只在标的进入档位后分档投放，宁缺毋滥。'},
+    {k:'投资额',goalTxt:fmt(TC/1e4,0)+' 万',curTxt:fmt(inv/1e4,1)+' 万',pct:inv/TC*100,
+     note:'已投市值由持仓账户实时倒算；未投 '+fmt((TC-inv)/1e4,0)+' 万＝现有可投资资金。按纪律只在标的进入档位后分档投放，宁缺毋滥。'},
     {k:'5年后资产',goalTxt:'2,000万',curTxt:fmt(account/1e4,1)+' 万',pct:account/20000000*100,
-     note:'当前总资产按17.46%复利5年仅到 '+fmt(account*w5/1e4,0)+' 万；仅靠现有资产达标需年化 '+((Math.pow(20000000/account,0.2)-1)*100).toFixed(1)+'%——必须靠新增投放与复利双轮。'},
+     note:'当前总资产按17.46%复利5年到 '+fmt(account*w5/1e4,0)+' 万；仅靠现有资产达标需年化 '+((Math.pow(20000000/account,0.2)-1)*100).toFixed(1)+'%——必须靠新增投放与复利双轮。'},
     {k:'10年后资产',goalTxt:'5,000万',curTxt:fmt(account/1e4,1)+' 万',pct:account/50000000*100,
-     note:'当前总资产按17.46%复利10年到 '+fmt(account*w10/1e4,0)+' 万；1000万全部投完+17.46%才能到 4,968 万。'},
+     note:'当前总资产按17.46%复利10年到 '+fmt(account*w10/1e4,0)+' 万；目标本金 '+fmt(TC/1e4,0)+' 万全部投完+17.46%才到 '+fmt(TC*w10/1e4,0)+' 万。'},
     {k:'年股息（税后）',goalTxt:'100万/年',curTxt:fmt(divNow,0)+' 元/年',pct:divNow/1000000*100,
      note:'A股按10%档计；2027-06-30 A股免税后升至约 '+fmt(divAfterFree,0)+' 元/年。按当前成本股息率 '+(costYield*100).toFixed(2)+'% 外推，支撑100万税前股息需本金约 '+fmt(1000000/costYield/1e4,0)+' 万。'},
     pIrr!=null?{k:'组合预期回报',goalTxt:'17.46%年化',curTxt:(pIrr*100).toFixed(1)+'%',pct:pIrr/g*100,
@@ -372,21 +375,23 @@ function renderDash(){
     <td style="white-space:normal;font-size:12px;color:var(--muted)">${r.note}</td>
   </tr>`).join('');
   $('dashCards').innerHTML=[
-    {k:'账户总资产（当前）',v:fmt(account/1e4,1)+' 万',s:'证券 '+fmt(inv/1e4,1)+' 万 + 现金 '+fmt(CFG.cash/1e4,1)+' 万'},
+    {k:'总资产（当前）',v:fmt(account/1e4,1)+' 万',s:'已投 '+fmt(inv/1e4,1)+' 万 + 可投资金 '+fmt(investable/1e4,1)+' 万（倒算）'},
     {k:'已投 / 目标本金',v:(inv/TC*100).toFixed(1)+'%',s:fmt(inv/1e4,1)+' / '+fmt(TC/1e4,0)+' 万'},
     {k:'当前路径 5年 / 10年',v:fmt(account*w5/1e4,0)+' / '+fmt(account*w10/1e4,0)+' 万',s:'现有资产按17.46%复利，不含新增投放'},
     {k:'税后年股息[估]',v:fmt(divNow,0)+' 元',s:'满1年A股免税后 '+fmt(divAfterFree,0)+' 元'},
     pIrr!=null?{k:'组合隐含IRR（市值加权）',v:(pIrr*100).toFixed(1)+'%',cls:pIrr<0.12?'up':'',s:'对目标17.46%；现实路径10年≈ '+fmt(realPath10/1e4,0)+' 万'}:null,
-    {k:'现金拖累后要求回报',v:(reqAfterCash*100).toFixed(1)+'%',s:'现金占 '+(cashPct*100).toFixed(1)+'% → 持仓需此年化才整体17.46%'},
+    {k:'现金拖累后要求回报',v:(reqAfterCash*100).toFixed(1)+'%',s:'可投资金占 '+(cashPct*100).toFixed(1)+'% → 持仓需此年化才整体17.46%'},
   ].filter(c=>c).map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
   $('gapBox').innerHTML=`<div class="tw"><table><thead><tr>
     <th>指标</th><th>目标</th><th>当前</th><th>进度</th><th>缺口与路径</th>
   </tr></thead><tbody>${rows}</tbody></table></div>
-  <div class="note" style="margin-top:8px">口径：进度=当前÷目标；5年/10年资产按目标线17.46%复利推演，未含新增资金投放（投资额行单独跟踪投放进度）。三个目标在「1000万投完+17.46%达标」前提下自洽。当前两个拖累：投放进度 ${(inv/TC*100).toFixed(1)}%、组合预期回报 ${pIrr!=null?(pIrr*100).toFixed(1)+'%':'—'}（目标17.46%）。</div>`;
+  <div class="note" style="margin-top:8px">口径：目标本金=可投资资金（输入）+已投市值（持仓倒算）；进度=当前÷目标；5年/10年资产按目标线17.46%复利推演，未含新增资金投放（投资额行单独跟踪投放进度）。三个目标在「本金投完+17.46%达标」前提下自洽。当前两个拖累：投放进度 ${(inv/TC*100).toFixed(1)}%、组合预期回报 ${pIrr!=null?(pIrr*100).toFixed(1)+'%':'—'}（目标17.46%）。</div>`;
+  const im=$('invMvShow'),ts=$('tcShow');
+  if(im)im.textContent=fmt(inv/1e4,1);
+  if(ts)ts.textContent=fmt(TC/1e4,1);
 }
 function wireInputs(){
-  $('tcInput').addEventListener('change',e=>{const v=parseFloat(e.target.value);if(v>0)CFG.targetCapital=v*10000;renderAll();});
-  $('cashInput').addEventListener('change',e=>{const v=parseFloat(e.target.value);if(v>=0)CFG.cash=v*10000;renderAll();});
+  $('investInput').addEventListener('change',e=>{const v=parseFloat(e.target.value);if(v>=0){CFG.investable=v*10000;CFG.cash=CFG.investable;CFG.targetCapital=totalCapital();}renderAll();});
   $('posTable').addEventListener('change',e=>{
     const i=e.target.dataset.h,k=e.target.dataset.k;if(i==null||!k)return;
     if(k==='uniBuy'){ // 触发价写入股票池同code条目（单一数据源，全局联动）
@@ -426,7 +431,7 @@ function priceSignal(h,i){
   return `${inSel}<br><span class="pill wait">等待</span><span class="note"> 跌至${fmt(bp,2)}以下才可加</span>`;
 }
 function renderPos(){
-  const TC=CFG.targetCapital;
+  const TC=totalCapital();
   const rows=CFG.holdings.map((h,i)=>{
     const x=hLive(h);if(!x)return '';
     const w=x.mvCNY/TC*100,lim=limitOf(h);
@@ -455,7 +460,7 @@ function renderPos(){
   const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
   const pl=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.pl:0);},0);
   $('posCards').innerHTML=[
-    {k:'合计已投 / 目标本金',v:(inv/CFG.targetCapital*100).toFixed(1)+'%',s:fmt(inv/10000,1)+' 万 / '+fmt(CFG.targetCapital/10000,0)+' 万'},
+    {k:'合计已投 / 目标本金',v:(inv/TC*100).toFixed(1)+'%',s:fmt(inv/10000,1)+' 万 / '+fmt(TC/10000,0)+' 万'},
     {k:'持仓总盈亏（实时）',v:(pl>=0?'+':'')+fmt(pl,0)+' 元',cls:cls(pl),s:'相对成本，含汇率变动'},
     {k:'港股敞口',v:fmt(CFG.holdings.filter(h=>h.market==='HK').reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0)/inv*100,1)+'%',s:'红利税20%已计入股息模块'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
@@ -472,7 +477,7 @@ function uniCap(u){
   return u.grade==='B'?8:0;
 }
 function renderDeploy(){
-  const TC=CFG.targetCapital;
+  const TC=totalCapital();
   const blockedRe=/(回报不合格|暂停|质量观察|补研究|旧档位冻结)/;
   const blocked=CFG.universe.filter(u=>blockedRe.test(u.plan||'')).length;
   const rows=[];let needTrig=0,needNear=0,watch=0;
@@ -491,7 +496,7 @@ function renderDeploy(){
     else watch++;
   });
   rows.sort((a,b)=>a.dist-b.dist);
-  const needAll=needTrig+needNear,gap=needAll-CFG.cash;
+  const needAll=needTrig+needNear,gap=needAll-CFG.investable;
   const trig=rows.filter(r=>r.st==='trig'),near=rows.filter(r=>r.st==='near');
   const rowHtml=r=>`<tr>
     <td>${r.u.name}<span class="pill ${r.u.grade}">${r.u.grade}</span>${String(r.u.code).includes('HK')?'<span class="pill hold">港</span>':''}</td>
@@ -507,8 +512,8 @@ function renderDeploy(){
   $('deployCards').innerHTML=[
     {k:'已触发需资金',v:fmt(needTrig/1e4,0)+' 万',s:trig.length+' 只：'+(trig.map(r=>r.u.name).join('、')||'—')},
     {k:'接近(≤+5%)需资金',v:fmt(needNear/1e4,0)+' 万',s:near.length+' 只：'+(near.map(r=>r.u.name).join('、')||'—')},
-    {k:'可用现金',v:fmt(CFG.cash/1e4,1)+' 万',s:'现金收益 '+CFG.cashYield+'%/年'},
-    {k:gap>0?'资金缺口':'现金富余',v:fmt(Math.abs(gap)/1e4,0)+' 万',cls:gap>0?'up':'down',s:'触发+接近合计 '+fmt(needAll/1e4,0)+' 万 vs 现金 '+fmt(CFG.cash/1e4,0)+' 万'},
+    {k:'可投资金',v:fmt(CFG.investable/1e4,1)+' 万',s:'含银行/理财/证券户现金；收益 '+CFG.cashYield+'%/年'},
+    {k:gap>0?'资金缺口':'现金富余',v:fmt(Math.abs(gap)/1e4,0)+' 万',cls:gap>0?'up':'down',s:'触发+接近合计 '+fmt(needAll/1e4,0)+' 万 vs 可投资金 '+fmt(CFG.investable/1e4,0)+' 万'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
   $('deployNote').innerHTML=`另有 ${watch} 只可部署标的观望中（距触发价>+5%）；${blocked} 只因回报不合格／研究未完成／暂停不参与部署（研究完成度原则）。触发≠下单，进入档位后仍须走第四步流程。`;
 }
@@ -524,16 +529,16 @@ function renderSignals(){
   // ① 仓位信号（目标本金口径，最高优先级）
   CFG.holdings.forEach(h=>{
     const x=hLive(h);if(!x)return;
-    const w=x.mvCNY/CFG.targetCapital*100,lim=limitOf(h);
+    const w=x.mvCNY/totalCapital()*100,lim=limitOf(h);
     if(w>lim)rows.push({pri:0,rowCls:'row-over',badge:'仓位超限',bcls:'b-over',
       name:h.name,pills:`<span class="pill ${h.grade}">${h.grade}</span>`,
       val:'权重 '+w.toFixed(1)+'%',gate:'上限 '+lim+'%',
       dev:'<b class="up">超 '+(w-lim).toFixed(1)+'pct</b>',
-      note:'≈超 '+fmt((w-lim)/100*CFG.targetCapital/10000,0)+' 万。减持节奏按第四步决策，不因价格恐慌抛售'});
+      note:'≈超 '+fmt((w-lim)/100*totalCapital()/10000,0)+' 万。减持节奏按第四步决策，不因价格恐慌抛售'});
     else if(w>lim*0.8)rows.push({pri:1.5,rowCls:'row-near',badge:'仓位接近',bcls:'b-near',
       name:h.name,pills:`<span class="pill ${h.grade}">${h.grade}</span>`,
       val:'权重 '+w.toFixed(1)+'%',gate:'上限 '+lim+'%',
-      dev:'余 '+fmt((lim-w)*CFG.targetCapital/10000,0)+' 万空间',
+      dev:'余 '+fmt((lim-w)*totalCapital()/10000,0)+' 万空间',
       note:'继续加仓空间有限，新资金优先给未达限的标的'});
   });
   // ② 价格信号（股票池·购买触发价为唯一行动门槛）
@@ -563,7 +568,7 @@ function renderSignals(){
     {cls:nOver?'red':'',k:'仓位预警（最优先）',n:nOver,s:namesOf(0)},
     {cls:nTrig?'green':'',k:'已触发·可进流程',n:nTrig,s:namesOf(1)},
     {cls:nNear?'amber':'',k:'接近（≤+5%）',n:nNear,s:namesOf(1.5,2)},
-    {cls:'',k:'投放进度',n:(inv/CFG.targetCapital*100).toFixed(1)+'%',s:'未投 '+fmt((CFG.targetCapital-inv)/10000,0)+' 万 · 等待也是纪律'},
+    {cls:'',k:'投放进度',n:(inv/totalCapital()*100).toFixed(1)+'%',s:'未投 '+fmt((totalCapital()-inv)/10000,0)+' 万（=可投资金）· 等待也是纪律'},
   ].map(c=>`<div class="sig-chip ${c.cls}"><div class="k">${c.k}</div><div class="n">${c.n}</div><div class="s" title="${c.s}">${c.s}</div></div>`).join('');
   // ④ 清单
   const list=rows.length?`<div class="tw"><table><thead><tr>
@@ -661,7 +666,7 @@ function renderDiv(){
     costBasis+=h.shares*costCNY;
     if(h.market==='HK')preHK+=d;else preA+=d;
   });
-  const cashDiv=CFG.cash*CFG.cashYield/100;
+  const cashDiv=(CFG.investable!=null?CFG.investable:CFG.cash)*CFG.cashYield/100;
   const tot=dPost+cashDiv;
   const totAfterFree=preA+preHK*0.8+cashDiv; // A股满1年免税后
   $('divTable').innerHTML=`<table><thead><tr>
@@ -734,7 +739,7 @@ window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.return
 /* —— 保存（合并式：只提交可编辑字段，不覆盖服务端其他数据） —— */
 async function saveConfig(auto){
   const patch={
-    targetCapital:CFG.targetCapital, cash:CFG.cash, cashYield:CFG.cashYield,
+    targetCapital:totalCapital(), investable:CFG.investable, cash:CFG.investable, cashYield:CFG.cashYield,
     holdings:CFG.holdings.map(h=>({code:h.code,shares:h.shares,cost:h.cost,dps:h.dps,buyDate:h.buyDate,dpsManual:h.dpsManual===true})),
     universe:CFG.universe.map(u=>({code:u.code,buyPrice:u.buyPrice!=null?u.buyPrice:null,plan:u.plan||''}))
   };
