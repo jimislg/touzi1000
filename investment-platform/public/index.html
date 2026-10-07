@@ -75,6 +75,8 @@
   input[type=number]{width:76px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;font-size:12.5px;text-align:right}
   input.wide{width:120px}
   input.plan{width:100%;min-width:200px;text-align:left;font-size:12px;padding:4px 6px;border:1px dashed var(--line);border-radius:6px}
+  input.tagin{width:110px;text-align:left;font-size:12px;padding:3px 6px;border:1px dashed var(--line);border-radius:6px}
+  tr.taghead td{background:#eef1f5;font-weight:600;font-size:12.5px;color:var(--ink);text-align:left;padding:6px 9px;letter-spacing:.5px}
   input.buyin{width:70px}
   .bar{height:7px;border-radius:4px;background:#eef1f5;min-width:64px;overflow:hidden}
   .bar i{display:block;height:100%;border-radius:4px}
@@ -150,15 +152,15 @@
 
 <!-- A类池 -->
 <section id="poolA">
-  <h2>A类公司池 · 实时跟踪 <span class="tag">9家</span></h2>
+  <h2>A类公司池 · 实时跟踪 <span class="tag" id="aCount">…</span></h2>
   <p class="desc">每只展示：<b>购买触发价</b>（现价≤触发价→<b style="color:var(--down)">整行标绿</b>「可购入」；≤+5%→<b style="color:var(--amber)">整行标黄</b>「接近」；否则灰「等待」）和<b>建仓策略</b>。档位中 <b>✓=已触发</b>、<b>≈=距档位5%内</b>。状态列在第二列，一眼扫即可。触发价与建仓策略均可直接修改，「保存修改」后持久化（保存失败会弹窗提示，修改不会丢）。</p>
   <div class="tw" id="aTable"></div>
 </section>
 
 <!-- B类池 -->
 <section id="poolB">
-  <h2>B类公司池 · 实时跟踪 <span class="tag">22家（含A/H两地）</span></h2>
-  <p class="desc">同A类：购买触发价与建仓策略可直接修改保存。B类硬上限8%（目标本金口径）；「回报不合格」标的任何价格不投新增。</p>
+  <h2>B/C类公司池 · 实时跟踪 <span class="tag" id="bCount">…</span></h2>
+  <p class="desc">同A类：标签、触发价、建仓策略可直接修改保存（标签≤10字，改完自动重新分组）。B类硬上限8%（目标本金口径）；「回报不合格」标的任何价格不投新增；C类=经济性观察，补齐证据前不部署资金。</p>
   <div class="tw" id="bTable"></div>
 </section>
 
@@ -417,7 +419,7 @@ function wireInputs(){
   });
   ['aTable','bTable'].forEach(id=>$(id).addEventListener('change',e=>{
     const i=e.target.dataset.u,k=e.target.dataset.u!=null?e.target.dataset.k:null;if(i==null||!k)return;
-    if(k==='plan'){CFG.universe[+i][k]=e.target.value;}
+    if(k==='plan'||k==='bizTag'){CFG.universe[+i][k]=e.target.value.trim();} // 标签改完 renderAll 即重新分组
     else{const v=e.target.value.trim();CFG.universe[+i][k]=v===''?null:(parseFloat(v)||null);}
     renderAll();
   }));
@@ -632,14 +634,30 @@ function poolRow(u,idx){
     <td><input type="number" class="buyin" step="0.01" data-u="${idx}" data-k="buyPrice" value="${bp!=null?bp:''}" placeholder="待定"> ${cur}</td>
     <td>${dist}</td>
     <td style="text-align:left"><input type="text" class="plan" data-u="${idx}" data-k="plan" value="${plan}"></td>
+    <td><input type="text" class="tagin" maxlength="10" data-u="${idx}" data-k="bizTag" value="${u.bizTag||''}" placeholder="≤10字" title="经营标签（≤10字），改完自动重新分组。口径见《股票池实战筛选-说人话版-20261008》"></td>
   </tr>`;
 }
 function renderPools(){
-  const head=`<thead><tr><th>公司</th><th>状态</th><th>代码</th><th>现价</th><th>今日</th><th>档位跟踪</th><th>购买触发价(可改)</th><th>距触发</th><th>建仓策略(可改)</th></tr></thead>`;
-  const A=CFG.universe.filter(u=>u.grade==='A'),B=CFG.universe.filter(u=>u.grade==='B');
+  const head=`<thead><tr><th>公司</th><th>状态</th><th>代码</th><th>现价</th><th>今日</th><th>档位跟踪</th><th>购买触发价(可改)</th><th>距触发</th><th>建仓策略(可改)</th><th>标签(可改)</th></tr></thead>`;
+  // 标签二级分组（郎刚10-08定）：grade=A/B表为一级，表内按 bizTag 分组为二级。
+  // 组顺序按《股票池实战筛选-说人话版-20261008》的类别序；手工改出新标签 → 新组排在已知组之后。
+  const TAG_ORDER=['强生意·盯盈利持续','强业务·盯关键风险','内需强·忌套复苏','资源周期·价格随行','稳健收息·无提价权','贸易枢纽·收租模式'];
   const idxOf=u=>CFG.universe.indexOf(u);
-  $('aTable').innerHTML=`<table>${head}<tbody>${A.map(u=>poolRow(u,idxOf(u))).join('')}</tbody></table>`;
-  $('bTable').innerHTML=`<table>${head}<tbody>${B.map(u=>poolRow(u,idxOf(u))).join('')}</tbody></table>`;
+  const grouped=list=>{
+    const map=new Map();
+    list.forEach(u=>{const t=(u.bizTag||'').trim()||'未标签';if(!map.has(t))map.set(t,[]);map.get(t).push(u);});
+    const keys=[...map.keys()].sort((a,b)=>{
+      const ia=TAG_ORDER.indexOf(a),ib=TAG_ORDER.indexOf(b);
+      return (ia<0?TAG_ORDER.length:ia)-(ib<0?TAG_ORDER.length:ib);
+    });
+    return keys.map(t=>`<tr class="taghead"><td colspan="10">▍${t} · ${map.get(t).length}家</td></tr>`+map.get(t).map(u=>poolRow(u,idxOf(u))).join('')).join('');
+  };
+  const A=CFG.universe.filter(u=>u.grade==='A'),BC=CFG.universe.filter(u=>u.grade!=='A');
+  $('aTable').innerHTML=`<table>${head}<tbody>${grouped(A)}</tbody></table>`;
+  $('bTable').innerHTML=`<table>${head}<tbody>${grouped(BC)}</tbody></table>`;
+  const ac=$('aCount'),bc=$('bCount');
+  if(ac)ac.textContent=A.length+'家';
+  if(bc)bc.textContent=BC.length+'家（含A/H两地）';
 }
 
 /* —— 股息（实仓成本口径 + 按买入日计税） —— */

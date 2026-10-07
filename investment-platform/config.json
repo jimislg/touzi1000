@@ -140,7 +140,8 @@
           "price": 12.1
         }
       ],
-      "buyPrice": 20
+      "buyPrice": 20,
+      "bizTag": "稳健收息·无提价权"
     },
     {
       "px": 291.11,
@@ -172,7 +173,8 @@
           "price": 208.1
         }
       ],
-      "buyPrice": 260
+      "buyPrice": 260,
+      "bizTag": "强生意·盯盈利持续"
     },
     {
       "px": 161.32,
@@ -204,7 +206,8 @@
           "price": 70.7
         }
       ],
-      "buyPrice": 120
+      "buyPrice": 120,
+      "bizTag": "强生意·盯盈利持续"
     },
     {
       "px": 426.8,
@@ -236,7 +239,8 @@
           "price": 238.8
         }
       ],
-      "buyPrice": 420
+      "buyPrice": 420,
+      "bizTag": "强生意·盯盈利持续"
     },
     {
       "px": 149.7,
@@ -270,7 +274,8 @@
       ],
       "buyPrice": 140,
       "evidenceGap": "海外同店/渠道利润率归因；IP复购与新品接替；库存去化",
-      "researchStatus": "partial"
+      "researchStatus": "partial",
+      "bizTag": "强业务·盯关键风险"
     },
     {
       "px": 39.54,
@@ -302,7 +307,8 @@
           "price": 23.5
         }
       ],
-      "buyPrice": 27
+      "buyPrice": 27,
+      "bizTag": "强生意·盯盈利持续"
     },
     {
       "px": 26.72,
@@ -319,7 +325,8 @@
           "price": 28
         }
       ],
-      "buyPrice": 24
+      "buyPrice": 24,
+      "bizTag": "强生意·盯盈利持续"
     },
     {
       "px": 53.58,
@@ -351,7 +358,8 @@
           "price": 34.2
         }
       ],
-      "buyPrice": 50
+      "buyPrice": 50,
+      "bizTag": "强生意·盯盈利持续"
     },
     {
       "px": 1258.62,
@@ -383,7 +391,8 @@
           "price": 652
         }
       ],
-      "buyPrice": 1150
+      "buyPrice": 1150,
+      "bizTag": "强生意·盯盈利持续"
     },
     {
       "px": 23.56,
@@ -415,7 +424,8 @@
           "price": 13.2
         }
       ],
-      "buyPrice": 19.1
+      "buyPrice": 19.1,
+      "bizTag": "资源周期·价格随行"
     },
     {
       "px": 51.85,
@@ -452,7 +462,8 @@
           "price": 49.91
         }
       ],
-      "buyPrice": 48.2
+      "buyPrice": 48.2,
+      "bizTag": "内需强·忌套复苏"
     },
     {
       "px": 29.8,
@@ -484,7 +495,8 @@
           "price": 8.8
         }
       ],
-      "buyPrice": 18
+      "buyPrice": 18,
+      "bizTag": "内需强·忌套复苏"
     },
     {
       "px": 73.65,
@@ -516,7 +528,8 @@
           "price": 44.2
         }
       ],
-      "buyPrice": 70
+      "buyPrice": 70,
+      "bizTag": "强业务·盯关键风险"
     },
     {
       "px": 8.74,
@@ -550,7 +563,8 @@
       ],
       "buyPrice": 5,
       "evidenceGap": "非经常性1.75亿性质；并购现金回报",
-      "researchStatus": "partial"
+      "researchStatus": "partial",
+      "bizTag": "内需强·忌套复苏"
     },
     {
       "px": 51.18,
@@ -582,7 +596,8 @@
           "price": 18.7
         }
       ],
-      "buyPrice": 42
+      "buyPrice": 42,
+      "bizTag": "资源周期·价格随行"
     },
     {
       "px": 14.86,
@@ -614,7 +629,8 @@
           "price": 8.4
         }
       ],
-      "buyPrice": 12
+      "buyPrice": 12,
+      "bizTag": "强业务·盯关键风险"
     },
     {
       "px": 17.5,
@@ -648,7 +664,8 @@
       ],
       "buyPrice": 15,
       "evidenceGap": "海外直营单位经济；永辉投资回报；库存账龄",
-      "researchStatus": "partial"
+      "researchStatus": "partial",
+      "bizTag": "强业务·盯关键风险"
     },
     {
       "px": 301,
@@ -680,7 +697,8 @@
           "price": 142
         }
       ],
-      "buyPrice": 280
+      "buyPrice": 280,
+      "bizTag": "强业务·盯关键风险"
     },
     {
       "px": 95.8,
@@ -712,7 +730,8 @@
           "price": 45.3
         }
       ],
-      "buyPrice": 80
+      "buyPrice": 80,
+      "bizTag": "稳健收息·无提价权"
     },
     {
       "px": 78.95,
@@ -744,7 +763,8 @@
           "price": 46.5
         }
       ],
-      "buyPrice": 60
+      "buyPrice": 60,
+      "bizTag": "稳健收息·无提价权"
     },
     {
       "px": 11.08,
@@ -776,7 +796,8 @@
           "price": 6.1
         }
       ],
-      "buyPrice": 8.5
+      "buyPrice": 8.5,
+      "bizTag": "贸易枢纽·收租模式"
     },
     {
       "px": 47.2,
@@ -808,7 +829,8 @@
           "price": 18.1
         }
       ],
-      "buyPrice": 35
+      "buyPrice": 35,
+      "bizTag": "强业务·盯关键风险"
     },
     {
       "px": 41.26,
@@ -840,7 +862,8 @@
           "price": 21.7
         }
       ],
-      "buyPrice": 36
+      "buyPrice": 36,
+      "bizTag": "内需强·忌套复苏"
     },
     {
       "px": 25.22,
@@ -872,7 +895,8 @@
           "price": 12.7
         }
       ],
-      "buyPrice": 20
+      "buyPrice": 20,
+      "bizTag": "强生意·盯盈利持续"
     },
     {
       "px": 33.17,
@@ -904,7 +928,8 @@
           "price": 15.3
         }
       ],
-      "buyPrice": 20
+      "buyPrice": 20,
+      "bizTag": "强生意·盯盈利持续"
     },
     {
       "px": 53.29,
@@ -936,7 +961,8 @@
           "price": 33.1
         }
       ],
-      "buyPrice": 50
+      "buyPrice": 50,
+      "bizTag": "内需强·忌套复苏"
     },
     {
       "px": 27.3,
@@ -970,7 +996,8 @@
       ],
       "buyPrice": 21,
       "evidenceGap": "液奶量价；澳优ROIC；短借646.77亿与存款错配穿透",
-      "researchStatus": "partial"
+      "researchStatus": "partial",
+      "bizTag": "强业务·盯关键风险"
     },
     {
       "px": 45.95,
@@ -987,7 +1014,8 @@
           "price": 41
         }
       ],
-      "buyPrice": 42
+      "buyPrice": 42,
+      "bizTag": "强业务·盯关键风险"
     },
     {
       "px": 38.28,
@@ -1019,7 +1047,8 @@
           "price": 22.8
         }
       ],
-      "buyPrice": 36
+      "buyPrice": 36,
+      "bizTag": "强业务·盯关键风险"
     },
     {
       "px": 68.9,
@@ -1051,7 +1080,8 @@
           "price": 31.4
         }
       ],
-      "buyPrice": 56
+      "buyPrice": 56,
+      "bizTag": "资源周期·价格随行"
     },
     {
       "px": 4.73,
@@ -1083,7 +1113,8 @@
           "price": 2.55
         }
       ],
-      "buyPrice": 4.09
+      "buyPrice": 4.09,
+      "bizTag": "内需强·忌套复苏"
     }
   ],
   "accessKey": "lg2026",
