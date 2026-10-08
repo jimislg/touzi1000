@@ -220,7 +220,8 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   await run('posSort={k:"irr",dir:-1};renderAll()');
   T('年化降序：有档位的腾讯排前(招行null恒最后)',firstTr().includes('腾讯控股'));
   await run('posSort={k:null,dir:-1};renderAll()');
-  T('汇总卡含"预计年股息"合计',el('posCards').innerHTML.includes('预计年股息（税后·当前持仓）'));
+  T('汇总卡含"预计年股息（税后·全口径）"且与股息模块同口径（含现金）',el('posCards').innerHTML.includes('预计年股息（税后·全口径）')&&el('posCards').innerHTML.includes('与股息模块一致'));
+  T('持仓表股息率双口径标注（成本/现价）',el('posTable').innerHTML.includes('成本 ')&&el('posTable').innerHTML.includes(' · 现价 '));
 
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);

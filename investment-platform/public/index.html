@@ -572,10 +572,14 @@ function renderPos(){
     const over=w>lim,near=!over&&w>lim*0.8;
     const room=(lim-w)*TC/10000;
     const barC=over?'var(--up)':near?'var(--amber)':'var(--down)';
-    // 预计股息 / 预计年化（郎刚10-08需求）
-    const divC=divTaxOf(h),divY=x.mvCNY>0?divC/x.mvCNY*100:0;
+    // 预计股息 / 预计年化（郎刚10-08需求；股息率双口径标注，与股息模块对齐）
+    const divC=divTaxOf(h);
+    const dpsCNY=h.market==='HK'?h.dps*hkd():h.dps;
+    const costCNY=h.market==='HK'?h.cost*hkd():h.cost;
+    const yCost=costCNY>0?dpsCNY/costCNY*100:0;
+    const yPx=x.mvCNY>0?divC/x.mvCNY*100:0;
     const firr=fwdIrrOf(h);
-    const divCell=`${fmt(divC,0)} 元<br><span class="note">股息率 ${divY.toFixed(2)}%${h.market==='HK'?' · 税后':''}</span>`;
+    const divCell=`${fmt(divC,0)} 元<br><span class="note">成本 ${yCost.toFixed(2)}% · 现价 ${yPx.toFixed(2)}%${h.market==='HK'?' · 税后':''}</span>`;
     const irrCell=firr!=null
       ?`<b class="${firr>=0.12?'up':''}">${(firr*100).toFixed(1)}%</b><br><span class="note">${firr>=0.12?'≥12%合格线':'低于12%合格线'}</span>`
       :'<span class="note">—</span><br><span class="note">未定四档</span>';
@@ -604,10 +608,11 @@ function renderPos(){
   const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
   const pl=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.pl:0);},0);
   const divSum=CFG.holdings.reduce((s,h)=>s+divTaxOf(h),0);
+  const cashDiv2=(CFG.investable!=null?CFG.investable:CFG.cash)*(CFG.cashYield||0)/100;
   $('posCards').innerHTML=[
     {k:'合计已投 / 目标本金',v:(inv/TC*100).toFixed(1)+'%',s:fmt(inv/10000,1)+' 万 / '+fmt(TC/10000,0)+' 万'},
     {k:'持仓总盈亏（实时）',v:(pl>=0?'+':'')+fmt(pl,0)+' 元',cls:cls(pl),s:'相对成本，含汇率变动'},
-    {k:'预计年股息（税后·当前持仓）',v:fmt(divSum,0)+' 元',s:'股息率 '+(inv>0?(divSum/inv*100).toFixed(2):'0')+'% · A股10%/H股20%税后'},
+    {k:'预计年股息（税后·全口径）',v:fmt(divSum+cashDiv2,0)+' 元',s:'持仓 '+fmt(divSum,0)+' + 现金 '+fmt(cashDiv2,0)+'（'+(CFG.cashYield||0)+'%）· 与股息模块一致'},
     {k:'港股敞口',v:fmt(CFG.holdings.filter(h=>h.market==='HK').reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0)/inv*100,1)+'%',s:'红利税20%已计入股息模块'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
 }
