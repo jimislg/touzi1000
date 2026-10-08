@@ -89,6 +89,9 @@
   .b-trig{background:var(--btrig-bg);color:var(--btrig-ink)}
   .b-near{background:var(--warn-bg);color:var(--amber)}
   tr.row-over td{background:var(--bad-bg) !important}
+  tr.row-irr td{background:var(--good-bg) !important;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent)}
+  details>summary{list-style:none}
+  details>summary::-webkit-details-marker{display:none}
   tr.row-exec td.sig-main{text-decoration:line-through;color:var(--muted)}
   tr.row-exec td{opacity:.72}
   tr.row-dim td{opacity:.45;text-decoration:line-through}
@@ -421,7 +424,7 @@ function renderDash(){
   // 组合隐含IRR：双口径——远期（现价对四档，决策相关）+ 成本（买入时点质量参考）。市值加权
   // 口径说明（郎刚10-08指出成本口径问题）：已买持仓的未来回报由现价相对档位决定，成本是沉没成本；
   // 成本口径仅回答"当初买得好不好"，不用于推演未来路径。
-  let wSum=0,wIrr=0,wCost=0,cov=0;
+  let wSum=0,wIrr=0,wCost=0,cov=0;const irrRows=[];
   CFG.holdings.forEach(h=>{
     const u=CFG.universe.find(v=>v.code===h.code);
     if(!u||!u.tiers||u.tiers.length<4)return;
@@ -431,6 +434,7 @@ function renderDash(){
     const iF=irrAt(x.px,ps),iC=irrAt(h.cost,ps);
     if(iF==null||iC==null)return;
     wSum+=x.mvCNY;wIrr+=x.mvCNY*iF;wCost+=x.mvCNY*iC;cov++;
+    irrRows.push({name:h.name,px:x.px,irr:iF,w:x.mvCNY});
   });
   const pIrr=wSum>0?wIrr/wSum:null;
   const costIrr=wSum>0?wCost/wSum:null;
@@ -454,12 +458,16 @@ function renderDash(){
      note:'当前总资产按17.46%复利10年到 '+fmt(account*w10/1e4,0)+' 万；目标本金 '+fmt(TC/1e4,0)+' 万全部投完+17.46%才到 '+fmt(TC*w10/1e4,0)+' 万。'},
     {k:'年股息（税后）',goalTxt:'100万/年',curTxt:fmt(divNow,0)+' 元/年',pct:divNow/1000000*100,
      note:'A股按10%档计；2027-06-30 A股免税后升至约 '+fmt(divAfterFree,0)+' 元/年。按当前成本股息率 '+(costYield*100).toFixed(2)+'% 外推，支撑100万税前股息需本金约 '+fmt(1000000/costYield/1e4,0)+' 万。'},
-    pIrr!=null?{k:'组合预期回报',goalTxt:'17.46%年化',curTxt:(pIrr*100).toFixed(1)+'%',pct:pIrr/g*100,
+    pIrr!=null?{k:'组合预期回报',goalTxt:'17.46%年化',curTxt:(pIrr*100).toFixed(1)+'%',pct:pIrr/g*100,rowCls:'row-irr',big:true,
+     detail:`<details style="margin-top:5px"><summary style="cursor:pointer;font-size:12px;color:var(--accent);user-select:none">怎么算的？逐只明细 ▾</summary>
+       <div style="font-size:11.5px;color:var(--muted);margin:5px 0 3px">算法：每只持仓用「现价 ÷ 自定四档(H10/H12/H15/H17.46)」对数插值得出该只的隐含年化，再按市值加权平均。当前覆盖 ${cov}/${CFG.holdings.length} 只（未定四档的持仓不参与）。</div>
+       <table style="font-size:11.5px;border-collapse:collapse">${irrRows.map(r=>`<tr><td style="padding:2px 10px 2px 0">${r.name}</td><td style="padding:2px 10px 2px 0;color:var(--muted)">现价 ${fmt(r.px,2)}</td><td style="padding:2px 10px 2px 0">隐含 <b>${(r.irr*100).toFixed(1)}%</b></td><td style="padding:2px 10px 2px 0;color:var(--muted)">市值权重 ${(r.w/wSum*100).toFixed(0)}%</td></tr>`).join('')}
+       <tr><td style="padding:3px 10px 0 0"><b>加权平均</b></td><td></td><td style="padding:3px 10px 0 0"><b style="font-size:13px">${(pIrr*100).toFixed(1)}%</b></td><td></td></tr></table></details>`,
      note:'现价对四档（H10/H12/H15/H17.46）对数插值、市值加权，覆盖 '+cov+'/'+CFG.holdings.length+' 只；成本口径 '+((costIrr??0)*100).toFixed(1)+'%（差值=买入后已实现涨跌，成本口径 '+((costIrr??0)>(pIrr??0)?'虚高':'虚低')+'）。现实路径10年≈ '+fmt(realPath10/1e4,0)+' 万（现金按1%闲置，目标 4,968 万）。剩余资金达标要求：一次性投放需年化 '+(reqDeploy*100).toFixed(1)+'%；若只按12%合格线投放，10年合计≈'+fmt(dep12/1e4,0)+' 万。缺口只能靠「更高回报标的+投放」补，不靠调高预测。'}:null,
-  ].filter(r=>r).map(r=>`<tr>
-    <td><b>${r.k}</b></td><td>${r.goalTxt}</td><td><b>${r.curTxt}</b><br><span class="note">${r.pct.toFixed(1)}%</span></td>
+  ].filter(r=>r).map(r=>`<tr class="${r.rowCls||''}">
+    <td><b>${r.k}</b></td><td>${r.goalTxt}</td><td><b ${r.big?'style="font-size:17px"':''}>${r.curTxt}</b><br><span class="note">${r.pct.toFixed(1)}%</span></td>
     <td style="min-width:130px"><div class="bar"><i style="width:${Math.min(r.pct,100)}%;background:${r.pct<30?'var(--amber)':'var(--down)'}"></i></div></td>
-    <td style="white-space:normal;font-size:12px;color:var(--muted)">${r.note}</td>
+    <td style="white-space:normal;font-size:12px;color:var(--muted)">${r.note}${r.detail||''}</td>
   </tr>`).join('');
   $('dashCards').innerHTML=[
     {k:'总资产（当前）',v:fmt(account/1e4,1)+' 万',s:'已投 '+fmt(inv/1e4,1)+' 万 + 可投资金 '+fmt(investable/1e4,1)+' 万（倒算）'},

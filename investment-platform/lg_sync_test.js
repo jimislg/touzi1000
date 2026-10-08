@@ -223,6 +223,15 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('汇总卡含"预计年股息（税后·全口径）"且与股息模块同口径（含现金）',el('posCards').innerHTML.includes('预计年股息（税后·全口径）')&&el('posCards').innerHTML.includes('与股息模块一致'));
   T('持仓表股息率双口径标注（成本/现价）',el('posTable').innerHTML.includes('成本 ')&&el('posTable').innerHTML.includes(' · 现价 '));
 
+  /* —— 组合预期回报凸显+算式明细（郎刚10-08：9.8%怎么算的、这一栏要凸显）—— */
+  await run('renderAll()');
+  T('缺口表：组合预期回报行高亮(row-irr)',el('gapBox').innerHTML.includes('row-irr'));
+  T('缺口表：9.8%加大显示(17px)',el('gapBox').innerHTML.includes('font-size:17px'));
+  T('缺口表：含"怎么算的？逐只明细"展开',el('gapBox').innerHTML.includes('怎么算的？逐只明细'));
+  T('缺口表：明细含算法说明（对数插值+市值加权）',el('gapBox').innerHTML.includes('对数插值')&&el('gapBox').innerHTML.includes('市值加权平均'));
+  T('缺口表：明细含逐只隐含回报与权重',el('gapBox').innerHTML.includes('隐含 <b>')&&el('gapBox').innerHTML.includes('市值权重'));
+  T('缺口表：明细含加权平均结果',el('gapBox').innerHTML.includes('加权平均'));
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});
