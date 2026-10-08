@@ -137,7 +137,7 @@
 <!-- 驾驶舱 -->
 <section id="dash">
   <h2>目标驾驶舱 <span class="tag">目标本金＝可投资金（输入）＋已投（持仓倒算）</span></h2>
-  <p class="desc">输入现有可投资资金（银行存款、理财、证券户现金等一切可动用的钱；证券账户内的持仓不能视为可动用现金），已投部分由持仓账户实时倒算。核心逻辑（以1000万目标本金为例）：全部投完并实现17.46%年化 → 5年2229万（≥2000万✓）、10年4968万（≈5000万✓）、按4%股息率≈199万/年（≥100万✓）。三个目标在「投完+达标」前提下自洽。</p>
+  <p class="desc">输入现有可投资资金（银行存款、理财、证券户现金等一切可动用的钱；证券账户内的持仓不能视为可动用现金），已投部分由持仓账户实时倒算。核心逻辑（以1000万目标本金为例）：全部投完并实现17.46%年化 → 5年2229万（≥2000万✓）、10年5000万（=5000万✓）、按4%股息率≈199万/年（≥100万✓）。注意：这是「投完+达标」的演算基准，不代表现状推演——现状路径见下方「现实路径」卡（持仓按实际IRR、现金按实际收益）。</p>
   <div class="card" style="margin-bottom:11px">
     <span class="k">现有可投资资金（万元）</span>
     <input type="number" id="investInput" class="wide" step="1" style="margin-left:8px">
@@ -417,7 +417,9 @@ function renderDash(){
   const pIrr=wSum>0?wIrr/wSum:null;
   const costIrr=wSum>0?wCost/wSum:null;
   const cashPct=account>0?investable/account:0;
+  const realPath5=pIrr!=null?inv*Math.pow(1+pIrr,5)+investable*Math.pow(1+CFG.cashYield/100,5):null;
   const realPath10=pIrr!=null?inv*Math.pow(1+pIrr,10)+investable*Math.pow(1+CFG.cashYield/100,10):null;
+  const blend=pIrr!=null?(inv*pIrr+investable*CFG.cashYield/100)/account:null; // 郎刚10-08：总资产口径折算年化（现金拖累显性化）
   // 达标要求（一次性投放口径，郎刚10-08纠正"永久闲置口径"）：
   // 持仓按现价IRR复利10年 → 剩余缺口由可投资金一次性投放补足，求所需年化。
   // 旧公式((1+g)-cashPct*(1+cy))/(1-cashPct)隐含"现金占比每年永久维持80.7%"，推出86%无行动含义，已废弃。
@@ -444,15 +446,20 @@ function renderDash(){
   $('dashCards').innerHTML=[
     {k:'总资产（当前）',v:fmt(account/1e4,1)+' 万',s:'已投 '+fmt(inv/1e4,1)+' 万 + 可投资金 '+fmt(investable/1e4,1)+' 万（倒算）'},
     {k:'已投 / 目标本金',v:(inv/TC*100).toFixed(1)+'%',s:fmt(inv/1e4,1)+' / '+fmt(TC/1e4,0)+' 万'},
-    {k:'当前路径 5年 / 10年',v:fmt(account*w5/1e4,0)+' / '+fmt(account*w10/1e4,0)+' 万',s:'现有资产按17.46%复利，不含新增投放'},
+    /* 郎刚10-08纠口径：旧"当前路径"把未投现金也按17.46%复利（与"不含新增投放"自相矛盾、不现实）。
+       现实路径=持仓按远期IRR、现金按cashYield复利（现状推演）；17.46%全投完演算降为达标参照。 */
+    pIrr!=null?{k:'现实路径 5年 / 10年',v:fmt(realPath5/1e4,0)+' / '+fmt(realPath10/1e4,0)+' 万',
+      s:'现状推演：持仓按IRR '+(pIrr*100).toFixed(1)+'%、未投现金按 '+CFG.cashYield+'%/年复利，不新增投放。达标参照（全部投完且17.46%）：'+fmt(account*w5/1e4,0)+' / '+fmt(account*w10/1e4,0)+' 万'}:null,
     {k:'税后年股息[估]',v:fmt(divNow,0)+' 元',s:'满1年A股免税后 '+fmt(divAfterFree,0)+' 元'},
-    pIrr!=null?{k:'组合远期IRR（现价·市值加权）',v:(pIrr*100).toFixed(1)+'%',cls:pIrr<0.12?'up':'',s:'成本口径 '+((costIrr??0)*100).toFixed(1)+'%（沉没成本，仅参考）；现实路径10年≈ '+fmt(realPath10/1e4,0)+' 万（现金按1%闲置）'}:null,
-    {k:'达标要求·剩余资金年化',v:reqDeploy!=null?(reqDeploy*100).toFixed(1)+'%':'—',s:'一次性投放口径：需补缺口 '+fmt(Math.max(need10,0)/1e4,0)+' 万（持仓按现价IRR复利后）；对照12%合格线投放10年合计≈'+(dep12!=null?fmt(dep12/1e4,0)+' 万':'—')},
+    pIrr!=null?{k:'组合远期IRR（现价·市值加权）',v:(pIrr*100).toFixed(1)+'%',cls:pIrr<0.12?'up':'',
+      s:'口径：现价相对自定档位(H10~H17.46)的隐含空间，不含股息/增长/现金；折算到总资产年化≈'+(blend*100).toFixed(1)+'%（'+(investable/account*100).toFixed(0)+'%现金按1%拖累）。成本口径 '+((costIrr??0)*100).toFixed(1)+'% 仅参考'}:null,
+    {k:'达标要求·剩余资金年化',v:reqDeploy!=null?(reqDeploy*100).toFixed(1)+'%':'—',
+      s:pIrr!=null?('逻辑：5000万 − 持仓按IRR复利10年终值 '+fmt(inv*Math.pow(1+pIrr,10)/1e4,0)+' 万 = 缺口 '+fmt(Math.max(need10,0)/1e4,0)+' 万，由剩余 '+fmt(investable/1e4,0)+' 万独自补齐 → (缺口/剩余资金)^(1/10)−1。对照：12%合格线10年合计≈'+(dep12!=null?fmt(dep12/1e4,0)+' 万（距目标差 '+fmt(Math.max(5000-dep12/1e4,0),0)+' 万）':'—')+'；达标须靠19%级机会、加大投放或调整目标'):'一次性投放口径'},
   ].filter(c=>c).map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
   $('gapBox').innerHTML=`<div class="tw"><table><thead><tr>
     <th>指标</th><th>目标</th><th>当前</th><th>进度</th><th>缺口与路径</th>
   </tr></thead><tbody>${rows}</tbody></table></div>
-  <div class="note" style="margin-top:8px">口径：目标本金=可投资资金（输入）+已投市值（持仓倒算）；组合回报=现价对四档插值（远期口径，成本为沉没成本仅参考）；剩余资金要求=一次性投放口径（不假设永久闲置）；进度=当前÷目标；5年/10年资产按目标线17.46%复利推演，未含新增资金投放（投资额行单独跟踪投放进度）。当前两个拖累：投放进度 ${(inv/TC*100).toFixed(1)}%、组合预期回报 ${pIrr!=null?(pIrr*100).toFixed(1)+'%':'—'}（目标17.46%）。</div>`;
+  <div class="note" style="margin-top:8px">口径：目标本金=可投资资金（输入）+已投市值（持仓倒算）；组合回报=现价对四档插值（远期口径，隐含空间、非总回报预测，成本为沉没成本仅参考）；剩余资金要求=一次性投放口径（不假设永久闲置）；进度=当前÷目标；目标线演算=全部投完且17.46%（达标基准，非现状推演），现状推演见「现实路径」卡（持仓按实际IRR、现金按实际收益）。当前两个拖累：投放进度 ${(inv/TC*100).toFixed(1)}%、组合隐含回报 ${pIrr!=null?(pIrr*100).toFixed(1)+'%':'—'}（目标17.46%）。</div>`;
   const im=$('invMvShow'),ts=$('tcShow');
   if(im)im.textContent=fmt(inv/1e4,1);
   if(ts)ts.textContent=fmt(TC/1e4,1);

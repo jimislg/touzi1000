@@ -166,6 +166,14 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   await run('renderAll()');
   T('过期交易(>3天)不标记已执行，回到未执行口径',!el('sigBox').innerHTML.includes('已触发·已执行')&&el('sigBox').innerHTML.includes('（尚未登记买入'));
 
+  /* —— 驾驶舱口径修正（郎刚10-08：未投现金不能按17.46%复利）—— */
+  await run('renderAll()');
+  T('驾驶舱：主卡改为"现实路径"',el('dashCards').innerHTML.includes('现实路径 5年 / 10年'));
+  T('驾驶舱：现实路径不含旧"按17.46%复利，不含新增投放"口径',!el('dashCards').innerHTML.includes('按17.46%复利，不含新增投放'));
+  T('驾驶舱：17.46%全投完降为达标参照',el('dashCards').innerHTML.includes('达标参照（全部投完且17.46%）'));
+  T('驾驶舱：IRR卡含总资产折算年化（现金拖累显性化）',el('dashCards').innerHTML.includes('折算到总资产年化≈'));
+  T('驾驶舱：达标卡含计算逻辑说明',el('dashCards').innerHTML.includes('(缺口/剩余资金)^(1/10)−1'));
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});
