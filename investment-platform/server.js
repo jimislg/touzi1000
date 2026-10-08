@@ -201,6 +201,7 @@ const server = http.createServer(async (req,res)=>{
           if(typeof patch.investable==='number')disk.investable=patch.investable;   // 郎刚10-08：可投资资金为用户输入主字段
           if(typeof patch.cash==='number')disk.cash=patch.cash;
           if(typeof patch.cashYield==='number')disk.cashYield=patch.cashYield;
+          if(Array.isArray(patch.dismissedSignals))disk.dismissedSignals=patch.dismissedSignals; // 郎刚10-08：手工划掉的信号key
           const hp={}; (patch.holdings||[]).forEach(h=>{if(h.code)hp[h.code]=h;});
           (disk.holdings||[]).forEach(h=>{const p=hp[h.code];if(!p)return;
             ['shares','cost','dps','buyDate','dpsManual'].forEach(k=>{if(p[k]!=null)h[k]=p[k];});});

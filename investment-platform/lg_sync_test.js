@@ -174,6 +174,35 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('驾驶舱：IRR卡含总资产折算年化（现金拖累显性化）',el('dashCards').innerHTML.includes('折算到总资产年化≈'));
   T('驾驶舱：达标卡含计算逻辑说明',el('dashCards').innerHTML.includes('(缺口/剩余资金)^(1/10)−1'));
 
+  /* —— 信号划线与手工划掉（郎刚10-08：已执行划线，手工划掉不再通知）—— */
+  run('CFG.trades=[{date:"2026-10-08",code:"0700.HK",name:"腾讯控股",price:417.3,shares:1600,amtCNY:637680}]');
+  run('CFG.universe.push({code:"02020.HK",name:"安踏体育",grade:"B",qt:"hk02020",buyPrice:75})'); // 接近档(415/75? 不,75*1.05=78.75>415? 需构造接近)
+  run('CFG.universe.pop()'); // 上面价格不合实际，撤销——用仓位接近档构造
+  run('CFG.dismissedSignals=[]');
+  await run('renderAll()');
+  T('已执行行带 row-exec 划线样式',el('sigBox').innerHTML.includes('row-exec')&&el('sigBox').innerHTML.includes('sig-main'));
+  T('未划掉时清单含"划掉"操作',el('sigBox').innerHTML.includes('>划掉</span>'));
+
+  // 手工划掉腾讯触发信号 → row-dim + 徽标"已划掉" + chips 不再计数
+  run('CFG.dismissedSignals.push("trig:0700.HK")');
+  await run('renderAll()');
+  T('划掉后行变 row-dim',el('sigBox').innerHTML.includes('row-dim'));
+  T('划掉后徽标显示"已划掉"',el('sigBox').innerHTML.includes('已划掉'));
+  T('划掉后总览chip不再标"已执行"(不再通知)',!el('sigBox').innerHTML.includes('已触发·已执行'));
+  T('划掉行出现"恢复"入口',el('sigBox').innerHTML.includes('>恢复</span>'));
+  T('划掉行的明细说明仍保留（可追溯）',el('sigBox').innerHTML.includes('10/08已买入'));
+
+  // 恢复
+  run('CFG.dismissedSignals=[]');
+  await run('renderAll()');
+  T('恢复后重新计数，"已触发·已执行"回归',el('sigBox').innerHTML.includes('已触发·已执行')&&!el('sigBox').innerHTML.includes('row-dim'));
+
+  // cfgSig 覆盖 dismissedSignals（双端同步依据）
+  const sig1=run('cfgSig(CFG)');
+  run('CFG.dismissedSignals.push("near:02020.HK")');
+  T('cfgSig 包含 dismissedSignals 变化',run('cfgSig(CFG)')!==sig1);
+  run('CFG.dismissedSignals=[]');
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});

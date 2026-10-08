@@ -1,5 +1,57 @@
 {
   "cash": 7422979,
+  "trades": [
+    {
+      "code": "0700.HK",
+      "date": "2026-10-08",
+      "name": "腾讯控股",
+      "time": "09:40:13",
+      "price": 419.6,
+      "amtCNY": 221548.8,
+      "amtHKD": 251760,
+      "shares": 600
+    },
+    {
+      "code": "0700.HK",
+      "date": "2026-10-08",
+      "name": "腾讯控股",
+      "time": "10:26:20",
+      "price": 418,
+      "amtCNY": 73568,
+      "amtHKD": 83600,
+      "shares": 200
+    },
+    {
+      "code": "02020.HK",
+      "date": "2026-10-08",
+      "name": "安踏体育",
+      "time": "13:32:53",
+      "price": 71.8,
+      "amtCNY": 50547.2,
+      "amtHKD": 57440,
+      "shares": 800
+    },
+    {
+      "code": "0700.HK",
+      "date": "2026-10-08",
+      "name": "腾讯控股",
+      "time": "13:36:33",
+      "price": 416,
+      "amtCNY": 109824,
+      "amtHKD": 124800,
+      "shares": 300
+    },
+    {
+      "code": "0700.HK",
+      "date": "2026-10-08",
+      "name": "腾讯控股",
+      "time": "13:39:23",
+      "price": 415,
+      "amtCNY": 182600,
+      "amtHKD": 207500,
+      "shares": 500
+    }
+  ],
   "asOfNote": "快照价=2026-10-06上午截图；行情在线时自动覆盖",
   "holdings": [
     {
@@ -93,7 +145,7 @@
       "dpsSource": "最近12个月=2026中期0.81(2026-09-11派)+2025末期1.25(2026-05派)"
     },
     {
-      "px": 415.0,
+      "px": 415,
       "qt": "hk00700",
       "dps": 5.3,
       "code": "0700.HK",
@@ -140,8 +192,8 @@
           "price": 12.1
         }
       ],
-      "buyPrice": 20,
-      "bizTag": "水电垄断·电价受管"
+      "bizTag": "水电垄断·电价受管",
+      "buyPrice": 20
     },
     {
       "px": 291.11,
@@ -173,8 +225,8 @@
           "price": 208.1
         }
       ],
-      "buyPrice": 260,
-      "bizTag": "份额垄断·价随锂盐"
+      "bizTag": "份额垄断·价随锂盐",
+      "buyPrice": 260
     },
     {
       "px": 161.32,
@@ -206,11 +258,11 @@
           "price": 70.7
         }
       ],
-      "buyPrice": 120,
-      "bizTag": "国产替代·集采限价"
+      "bizTag": "国产替代·集采限价",
+      "buyPrice": 120
     },
     {
-      "px": 415.0,
+      "px": 415,
       "qt": "hk00700",
       "code": "0700.HK",
       "name": "腾讯控股",
@@ -239,8 +291,8 @@
           "price": 238.8
         }
       ],
-      "buyPrice": 420,
-      "bizTag": "社交垄断·提价克制"
+      "bizTag": "社交垄断·提价克制",
+      "buyPrice": 420
     },
     {
       "px": 149.7,
@@ -272,10 +324,10 @@
           "price": 93.8
         }
       ],
+      "bizTag": "IP溢价·提价权强",
       "buyPrice": 140,
       "evidenceGap": "海外同店/渠道利润率归因；IP复购与新品接替；库存去化",
-      "researchStatus": "partial",
-      "bizTag": "IP溢价·提价权强"
+      "researchStatus": "partial"
     },
     {
       "px": 39.54,
@@ -307,8 +359,8 @@
           "price": 23.5
         }
       ],
-      "buyPrice": 27,
-      "bizTag": "水饮提价权强"
+      "bizTag": "水饮提价权强",
+      "buyPrice": 27
     },
     {
       "px": 26.72,
@@ -325,8 +377,8 @@
           "price": 28
         }
       ],
-      "buyPrice": 24,
-      "bizTag": "客车龙头·价随车型"
+      "bizTag": "客车龙头·价随车型",
+      "buyPrice": 24
     },
     {
       "px": 53.58,
@@ -358,8 +410,8 @@
           "price": 34.2
         }
       ],
-      "buyPrice": 50,
-      "bizTag": "全球寡头·议价强"
+      "bizTag": "全球寡头·议价强",
+      "buyPrice": 50
     },
     {
       "px": 1258.62,
@@ -391,8 +443,8 @@
           "price": 652
         }
       ],
-      "buyPrice": 1150,
-      "bizTag": "品牌提价权最强"
+      "bizTag": "品牌提价权最强",
+      "buyPrice": 1150
     },
     {
       "px": 23.56,
@@ -424,8 +476,8 @@
           "price": 13.2
         }
       ],
-      "buyPrice": 19.1,
-      "bizTag": "低成本·价随油价"
+      "bizTag": "低成本·价随油价",
+      "buyPrice": 19.1
     },
     {
       "px": 51.85,
@@ -462,8 +514,8 @@
           "price": 49.91
         }
       ],
-      "buyPrice": 48.2,
-      "bizTag": "保险·价随利率"
+      "bizTag": "保险·价随利率",
+      "buyPrice": 48.2
     },
     {
       "px": 29.8,
@@ -495,8 +547,8 @@
           "price": 8.8
         }
       ],
-      "buyPrice": 18,
-      "bizTag": "地产·价随楼市"
+      "bizTag": "地产·价随楼市",
+      "buyPrice": 18
     },
     {
       "px": 71.8,
@@ -528,8 +580,8 @@
           "price": 44.2
         }
       ],
-      "buyPrice": 70,
-      "bizTag": "多品牌零售·价随款"
+      "bizTag": "多品牌零售·价随款",
+      "buyPrice": 70
     },
     {
       "px": 8.74,
@@ -561,10 +613,10 @@
           "price": 3.3
         }
       ],
+      "bizTag": "管件品牌·随装修",
       "buyPrice": 5,
       "evidenceGap": "非经常性1.75亿性质；并购现金回报",
-      "researchStatus": "partial",
-      "bizTag": "管件品牌·随装修"
+      "researchStatus": "partial"
     },
     {
       "px": 51.18,
@@ -596,8 +648,8 @@
           "price": 18.7
         }
       ],
-      "buyPrice": 42,
-      "bizTag": "农药·价随周期"
+      "bizTag": "农药·价随周期",
+      "buyPrice": 42
     },
     {
       "px": 14.86,
@@ -629,8 +681,8 @@
           "price": 8.4
         }
       ],
-      "buyPrice": 12,
-      "bizTag": "肾科细分·提价有限"
+      "bizTag": "肾科细分·提价有限",
+      "buyPrice": 12
     },
     {
       "px": 17.5,
@@ -662,10 +714,10 @@
           "price": 9.1
         }
       ],
+      "bizTag": "规模采购·低价定位",
       "buyPrice": 15,
       "evidenceGap": "海外直营单位经济；永辉投资回报；库存账龄",
-      "researchStatus": "partial",
-      "bizTag": "规模采购·低价定位"
+      "researchStatus": "partial"
     },
     {
       "px": 301,
@@ -697,8 +749,8 @@
           "price": 142
         }
       ],
-      "buyPrice": 280,
-      "bizTag": "平台双头·佣金稳"
+      "bizTag": "平台双头·佣金稳",
+      "buyPrice": 280
     },
     {
       "px": 95.8,
@@ -730,8 +782,8 @@
           "price": 45.3
         }
       ],
-      "buyPrice": 80,
-      "bizTag": "垄断·定价受管制"
+      "bizTag": "垄断·定价受管制",
+      "buyPrice": 80
     },
     {
       "px": 78.95,
@@ -763,8 +815,8 @@
           "price": 46.5
         }
       ],
-      "buyPrice": 60,
-      "bizTag": "垄断·定价受管制"
+      "bizTag": "垄断·定价受管制",
+      "buyPrice": 60
     },
     {
       "px": 11.08,
@@ -796,8 +848,8 @@
           "price": 6.1
         }
       ],
-      "buyPrice": 8.5,
-      "bizTag": "市场垄断·租金可控"
+      "bizTag": "市场垄断·租金可控",
+      "buyPrice": 8.5
     },
     {
       "px": 47.2,
@@ -829,8 +881,8 @@
           "price": 18.1
         }
       ],
-      "buyPrice": 35,
-      "bizTag": "创新药·价随医保"
+      "bizTag": "创新药·价随医保",
+      "buyPrice": 35
     },
     {
       "px": 41.26,
@@ -862,8 +914,8 @@
           "price": 21.7
         }
       ],
-      "buyPrice": 36,
-      "bizTag": "零售行·价随息差"
+      "bizTag": "零售行·价随息差",
+      "buyPrice": 36
     },
     {
       "px": 25.22,
@@ -895,8 +947,8 @@
           "price": 12.7
         }
       ],
-      "buyPrice": 20,
-      "bizTag": "渠道垄断·提价温和"
+      "bizTag": "渠道垄断·提价温和",
+      "buyPrice": 20
     },
     {
       "px": 33.17,
@@ -928,8 +980,8 @@
           "price": 15.3
         }
       ],
-      "buyPrice": 20,
-      "bizTag": "渠道垄断·提价温和"
+      "bizTag": "渠道垄断·提价温和",
+      "buyPrice": 20
     },
     {
       "px": 53.29,
@@ -961,8 +1013,8 @@
           "price": 33.1
         }
       ],
-      "buyPrice": 50,
-      "bizTag": "保险·价随利率"
+      "bizTag": "保险·价随利率",
+      "buyPrice": 50
     },
     {
       "px": 27.3,
@@ -994,10 +1046,10 @@
           "price": 14.1
         }
       ],
+      "bizTag": "奶业双头·提价弱",
       "buyPrice": 21,
       "evidenceGap": "液奶量价；澳优ROIC；短借646.77亿与存款错配穿透",
-      "researchStatus": "partial",
-      "bizTag": "奶业双头·提价弱"
+      "researchStatus": "partial"
     },
     {
       "px": 45.95,
@@ -1014,8 +1066,8 @@
           "price": 41
         }
       ],
-      "buyPrice": 42,
-      "bizTag": "单品垄断·提价试错"
+      "bizTag": "单品垄断·提价试错",
+      "buyPrice": 42
     },
     {
       "px": 38.28,
@@ -1047,8 +1099,8 @@
           "price": 22.8
         }
       ],
-      "buyPrice": 36,
-      "bizTag": "双寡头·价随促销"
+      "bizTag": "双寡头·价随促销",
+      "buyPrice": 36
     },
     {
       "px": 68.9,
@@ -1080,8 +1132,8 @@
           "price": 31.4
         }
       ],
-      "buyPrice": 56,
-      "bizTag": "MDI寡头·提价强"
+      "bizTag": "MDI寡头·提价强",
+      "buyPrice": 56
     },
     {
       "px": 4.73,
@@ -1113,8 +1165,8 @@
           "price": 2.55
         }
       ],
-      "buyPrice": 4.09,
-      "bizTag": "梯媒垄断·价随预算"
+      "bizTag": "梯媒垄断·价随预算",
+      "buyPrice": 4.09
     }
   ],
   "accessKey": "lg2026",
@@ -1123,56 +1175,5 @@
   "investable": 7422979,
   "targetCapital": 10000000,
   "hkdcnyFallback": 0.8548,
-  "trades": [
-    {
-      "date": "2026-10-08",
-      "time": "09:40:13",
-      "code": "0700.HK",
-      "name": "腾讯控股",
-      "price": 419.6,
-      "shares": 600,
-      "amtHKD": 251760.0,
-      "amtCNY": 221548.8
-    },
-    {
-      "date": "2026-10-08",
-      "time": "10:26:20",
-      "code": "0700.HK",
-      "name": "腾讯控股",
-      "price": 418.0,
-      "shares": 200,
-      "amtHKD": 83600.0,
-      "amtCNY": 73568.0
-    },
-    {
-      "date": "2026-10-08",
-      "time": "13:32:53",
-      "code": "02020.HK",
-      "name": "安踏体育",
-      "price": 71.8,
-      "shares": 800,
-      "amtHKD": 57440.0,
-      "amtCNY": 50547.2
-    },
-    {
-      "date": "2026-10-08",
-      "time": "13:36:33",
-      "code": "0700.HK",
-      "name": "腾讯控股",
-      "price": 416.0,
-      "shares": 300,
-      "amtHKD": 124800.0,
-      "amtCNY": 109824.0
-    },
-    {
-      "date": "2026-10-08",
-      "time": "13:39:23",
-      "code": "0700.HK",
-      "name": "腾讯控股",
-      "price": 415.0,
-      "shares": 500,
-      "amtHKD": 207500.0,
-      "amtCNY": 182600.0
-    }
-  ]
+  "dismissedSignals": []
 }
