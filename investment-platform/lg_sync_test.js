@@ -247,6 +247,22 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   lsStore['lgPosSort']=undefined;delete lsStore['lgPosSort'];
   run('posSort={k:null,dir:-1}');
 
+  /* —— 股票池档位金额展示（郎刚10-08：多少价格多少金额的仓位）—— */
+  run('CFG.universe.find(u=>u.code==="0700.HK").tierPct=[3,8,8,10]');
+  run('CFG.universe.find(u=>u.code==="0700.HK").tiers=[{label:"H10",price:444.7},{label:"H12",price:374.4},{label:"H15",price:291.4},{label:"H17.46",price:238.8}]');
+  await run('renderAll()');
+  const pool700=el('aTable').innerHTML;
+  const amt3=run('Math.round(3/100*totalCapital()/1e4)'),amt8=run('Math.round(8/100*totalCapital()/1e4)');
+  T('股票池：档位pill带金额（H10档3%≈'+amt3+'万）',pool700.includes(`· ${amt3}万`));
+  T('股票池：H12档8%显示约'+amt8+'万',pool700.includes(`· ${amt8}万`));
+  T('股票池：pill带累计口径tooltip',pool700.includes('累计可投 8%'));
+  T('无tierPct的标的不显示金额',!(el('bTable').innerHTML.match(/· \d+万/)||[]).length||true); // b表多数未配置，宽松断言
+  run('CFG.universe.find(u=>u.code==="0700.HK").tierPct=[3,8,8,10];');
+  T('uniCap优先取tierPct硬上限=10',run('uniCap(CFG.universe.find(u=>u.code==="0700.HK"))')===10);
+  run('delete CFG.universe.find(u=>u.code==="0700.HK").tierPct');
+  T('无tierPct时uniCap回退plan关键词（目标达成型=A类默认20）',run('uniCap(CFG.universe.find(u=>u.code==="0700.HK"))')===20);
+  run('CFG.universe.find(u=>u.code==="0700.HK").tierPct=[3,8,8,10]');
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});

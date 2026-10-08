@@ -226,6 +226,12 @@
         }
       ],
       "bizTag": "份额垄断·价随锂盐",
+      "tierPct": [
+        3,
+        8,
+        8,
+        10
+      ],
       "buyPrice": 260
     },
     {
@@ -292,6 +298,12 @@
         }
       ],
       "bizTag": "社交垄断·提价克制",
+      "tierPct": [
+        3,
+        8,
+        8,
+        10
+      ],
       "buyPrice": 420
     },
     {
@@ -325,6 +337,12 @@
         }
       ],
       "bizTag": "IP溢价·提价权强",
+      "tierPct": [
+        5,
+        15,
+        15,
+        20
+      ],
       "buyPrice": 140,
       "evidenceGap": "海外同店/渠道利润率归因；IP复购与新品接替；库存去化",
       "researchStatus": "partial"
@@ -444,6 +462,12 @@
         }
       ],
       "bizTag": "品牌提价权最强",
+      "tierPct": [
+        0,
+        3,
+        9,
+        null
+      ],
       "buyPrice": 1150
     },
     {
@@ -477,6 +501,12 @@
         }
       ],
       "bizTag": "低成本·价随油价",
+      "tierPct": [
+        2,
+        5,
+        5,
+        8
+      ],
       "buyPrice": 19.1
     },
     {
@@ -515,6 +545,12 @@
         }
       ],
       "bizTag": "保险·价随利率",
+      "tierPct": [
+        2,
+        6,
+        6,
+        8
+      ],
       "buyPrice": 48.2
     },
     {
@@ -715,6 +751,12 @@
         }
       ],
       "bizTag": "规模采购·低价定位",
+      "tierPct": [
+        2,
+        5,
+        5,
+        8
+      ],
       "buyPrice": 15,
       "evidenceGap": "海外直营单位经济；永辉投资回报；库存账龄",
       "researchStatus": "partial"
@@ -816,6 +858,12 @@
         }
       ],
       "bizTag": "垄断·定价受管制",
+      "tierPct": [
+        0,
+        2,
+        4,
+        8
+      ],
       "buyPrice": 60
     },
     {
@@ -1014,6 +1062,12 @@
         }
       ],
       "bizTag": "保险·价随利率",
+      "tierPct": [
+        2,
+        6,
+        6,
+        8
+      ],
       "buyPrice": 50
     },
     {
@@ -1166,6 +1220,12 @@
         }
       ],
       "bizTag": "梯媒垄断·价随预算",
+      "tierPct": [
+        2,
+        5,
+        5,
+        8
+      ],
       "buyPrice": 4.09
     }
   ],
@@ -1173,7 +1233,9 @@
   "cashYield": 1,
   "divTaxNote": "A股红利税按buyDate起算：>1年0%／1个月-1年10%／<1个月20%；港股通固定20%；现有持仓统一按2026-06-30买入计",
   "investable": 7422979,
-  "targetCapital": 10000000,
+  "targetCapital": 9968811.872,
   "hkdcnyFallback": 0.8548,
-  "dismissedSignals": []
+  "dismissedSignals": [
+    "over:600036.SH"
+  ]
 }

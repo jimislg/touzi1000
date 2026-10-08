@@ -350,7 +350,7 @@ $('autoChk').addEventListener('change',autoLoop);
 function cfgSig(c){
   return JSON.stringify({inv:c.investable,cy:c.cashYield,
     h:(c.holdings||[]).map(h=>[h.code,h.shares,h.cost,h.buyDate,h.dpsManual===true]), // dps除外：股息模块每轮自动更新，非服务端变更信号
-    u:(c.universe||[]).map(u=>[u.code,u.buyPrice,u.plan,u.bizTag,u.grade,u.label,u.tiers]),
+    u:(c.universe||[]).map(u=>[u.code,u.buyPrice,u.plan,u.bizTag,u.grade,u.label,u.tiers,u.tierPct]),
     d:(c.dismissedSignals||[]).slice().sort()}); // 郎刚10-08：手工划掉的信号key，双端同步
 }
 async function syncConfig(){
@@ -628,6 +628,7 @@ function renderPos(){
 
 /* —— 资金部署地图：触发需资金 vs 可用现金 —— */
 function uniCap(u){
+  if(u.tierPct&&u.tierPct.length===4&&u.tierPct[3]!=null)return u.tierPct[3]; // 郎刚10-08：档位金额口径，硬上限=最深处累计%
   if(u.grade==='A'){
     const t=(u.plan||'')+(u.note||'');
     if(t.includes('辅助'))return 10;
@@ -777,12 +778,15 @@ function poolRow(u,idx){
   const qq=q(u);const px=qq?qq.price:null;
   const pct=qq&&qq.pct!=null?qq.pct:(Q[u.qt]&&Q[u.qt].pct!=null?Q[u.qt].pct:null);
   const cur=curOf(u);
-  const tiers=(u.tiers||[]).map(t=>{
+  const tp=u.tierPct,TCv=totalCapital();
+  const amtOf=i=>(tp&&tp[i]!=null&&tp[i]>0)?` · ${Math.round(tp[i]/100*TCv/1e4)}万`:'';
+  const amtTitle=i=>(tp&&tp[i]!=null)?`（累计可投 ${tp[i]}% ≈ ${fmt(tp[i]/100*TCv/1e4,0)} 万，占目标本金；来源见个股分析）`:'';
+  const tiers=(u.tiers||[]).map((t,i)=>{
     const unit=t.cur==='HKD'?'港元':t.cur==='CNY'?'元':'';
-    if(px==null)return `<span class="pill wait">${t.label} ${t.price}${unit}</span>`;
+    if(px==null)return `<span class="pill wait" title="${amtTitle(i)}">${t.label} ${t.price}${unit}${amtOf(i)}</span>`;
     const st=tierStatus(px,t);
     const mark=st.c==='trig'?' ✓':st.c==='near'?' ≈':'';
-    return `<span class="pill ${st.c}">${t.label} ${t.price}${unit}${mark}</span>`;
+    return `<span class="pill ${st.c}" title="${amtTitle(i)}">${t.label} ${t.price}${unit}${mark}${amtOf(i)}</span>`;
   }).join(' ');
   const bp=u.buyPrice;
   let dist='—',status='<span class="pill wait">待定价</span>',hl='';
