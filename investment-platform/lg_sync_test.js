@@ -203,6 +203,25 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('cfgSig 包含 dismissedSignals 变化',run('cfgSig(CFG)')!==sig1);
   run('CFG.dismissedSignals=[]');
 
+  /* —— 持仓表预计股息/预计年收益率（郎刚10-08需求）—— */
+  await run('posSort={k:null,dir:-1};renderAll()');
+  T('持仓表含"预计股息(税后·年)"列',el('posTable').innerHTML.includes('预计股息(税后·年)'));
+  T('持仓表含"预计年收益率"列',el('posTable').innerHTML.includes('预计年收益率'));
+  // 税口径：港股×0.8、A股×0.9（期望值按当前CFG动态算，不受前面场景股数影响）
+  T('腾讯税后股息=股数×dps×fx×0.8(港税)',run('(h=>Math.abs(divTaxOf(h)-h.shares*h.dps*hkd()*0.8)<1)(CFG.holdings.find(h=>h.code==="0700.HK"))')===true);
+  T('招行税后股息=股数×dps×0.9(A股税)',run('(h=>Math.abs(divTaxOf(h)-h.shares*h.dps*0.9)<1)(CFG.holdings.find(h=>h.code==="600036.SH"))')===true);
+  // 腾讯现价415在四档[380,340,290,255]之外上方 → 隐含回报=10%-ln(415/380)斜率外推≈8.4%
+  const irr700=run('fwdIrrOf(CFG.holdings.find(h=>h.code==="0700.HK"))');
+  T('腾讯预计年化=现价对四档插值(约8.4%)',irr700!=null&&Math.abs(irr700-0.0842)<0.01);
+  T('招行无四档→显示"未定四档"',el('posTable').innerHTML.includes('未定四档'));
+  // 排序：股息降序=招行(40098)在腾讯(6157)前
+  await run('posSort={k:"div",dir:-1};renderAll()');
+  T('股息降序：招行排腾讯前',firstTr().includes('招商银行'));
+  await run('posSort={k:"irr",dir:-1};renderAll()');
+  T('年化降序：有档位的腾讯排前(招行null恒最后)',firstTr().includes('腾讯控股'));
+  await run('posSort={k:null,dir:-1};renderAll()');
+  T('汇总卡含"预计年股息"合计',el('posCards').innerHTML.includes('预计年股息（税后·当前持仓）'));
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});

@@ -375,6 +375,17 @@ function hLive(h){
   return {px,mvCNY,costCNY,pl:mvCNY-costCNY,plPct:(mvCNY/costCNY-1)*100,snap:!!qq.snapshot,dpsCNY:h.market==='HK'?h.dps*hkd():h.dps};
 }
 function renderAll(){renderDash();renderPos();renderSignals();renderDeploy();renderPools();renderDiv();}
+/* 持仓行级指标（郎刚10-08需求：预计股息+预计年收益率） */
+function divTaxOf(h){ // 税后预计年股息(CNY)：A股10%红利税(未满1年)·H股20%代扣，口径与股息模块一致
+  const x=hLive(h);if(!x)return 0;
+  return h.shares*x.dpsCNY*(h.market==='HK'?0.8:0.9);
+}
+function fwdIrrOf(h){ // 预计年收益率=现价对自定四档插值的隐含回报（与驾驶舱IRR同口径）；未定档返回null
+  const x=hLive(h);if(!x)return null;
+  const u=CFG.universe.find(v=>v.code===h.code);
+  const ps=((u&&u.tiers)||[]).map(t=>t&&t.price).filter(p=>p!=null);
+  return ps.length>=4?irrAt(x.px,ps):null;
+}
 /* 资金口径（郎刚10-08定）：总本金=可投资资金(输入) + 已投市值(持仓实时倒算)；证券持仓不可视为可动用现金 */
 function invMV(){return CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);}
 function totalCapital(){return (CFG.investable!=null?CFG.investable:CFG.cash||0)+invMV();}
@@ -542,6 +553,8 @@ function renderPos(){
     lim:e=>limitOf(e.h),
     sig:e=>{const bp=buyPriceOf(e.h),x=hLive(e.h);return bp!=null?x.px/bp-1:null;}, // 距触发价涨幅；未定价(null)恒排最后
     pos:e=>hLive(e.h).mvCNY/TC*100-limitOf(e.h), // 超限程度
+    div:e=>divTaxOf(e.h),
+    irr:e=>fwdIrrOf(e.h),
   };
   if(posSort.k&&sk[posSort.k]){
     const f=sk[posSort.k];
@@ -559,6 +572,13 @@ function renderPos(){
     const over=w>lim,near=!over&&w>lim*0.8;
     const room=(lim-w)*TC/10000;
     const barC=over?'var(--up)':near?'var(--amber)':'var(--down)';
+    // 预计股息 / 预计年化（郎刚10-08需求）
+    const divC=divTaxOf(h),divY=x.mvCNY>0?divC/x.mvCNY*100:0;
+    const firr=fwdIrrOf(h);
+    const divCell=`${fmt(divC,0)} 元<br><span class="note">股息率 ${divY.toFixed(2)}%${h.market==='HK'?' · 税后':''}</span>`;
+    const irrCell=firr!=null
+      ?`<b class="${firr>=0.12?'up':''}">${(firr*100).toFixed(1)}%</b><br><span class="note">${firr>=0.12?'≥12%合格线':'低于12%合格线'}</span>`
+      :'<span class="note">—</span><br><span class="note">未定四档</span>';
     // 仓位信号：带具体条件
     let posSig;
     if(over)posSig=`<b class="up">超限 ${(w-lim).toFixed(1)}pct</b><br><span class="note">减持至 ${fmt(lim*TC/10000,0)} 万内前禁止加仓</span>`;
@@ -570,20 +590,24 @@ function renderPos(){
       <td><input type="number" data-h="${i}" data-k="shares" value="${h.shares}"></td>
       <td>${fmt(x.mvCNY,0)}</td>
       <td class="${cls(x.pl)}">${(x.pl>=0?'+':'')+fmt(x.pl,0)}<br>${sign(x.plPct)}</td>
+      <td style="white-space:normal">${divCell}</td>
+      <td style="white-space:normal">${irrCell}</td>
       <td><div class="bar"><i style="width:${Math.min(w/25*100,100)}%;background:${barC}"></i></div><span class="note">${w.toFixed(2)}%</span></td>
       <td>${lim}%</td>
       <td style="white-space:normal">${priceSignal(h,i)}</td>
       <td style="white-space:normal">${posSig}</td>
     </tr>`;}).join('');
-  const posThs=[['name','标的'],['px','现价'],['shares','股数(可改)'],['mv','市值(元)'],['pl','盈亏'],['w','占目标本金'],['lim','上限'],['sig','价格信号(触发价可改)'],['pos','仓位信号']];
+  const posThs=[['name','标的'],['px','现价'],['shares','股数(可改)'],['mv','市值(元)'],['pl','盈亏'],['div','预计股息(税后·年)'],['irr','预计年收益率'],['w','占目标本金'],['lim','上限'],['sig','价格信号(触发价可改)'],['pos','仓位信号']];
   $('posTable').innerHTML=`<table><thead><tr>${posThs.map(([k,t])=>
     `<th data-sk="${k}" class="${posSort.k===k?'sort-on':''}">${t}${posSort.k===k?(posSort.dir===1?' ▲':' ▼'):''}</th>`).join('')}
   </tr></thead><tbody>${rows}</tbody></table>`;
   const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
   const pl=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.pl:0);},0);
+  const divSum=CFG.holdings.reduce((s,h)=>s+divTaxOf(h),0);
   $('posCards').innerHTML=[
     {k:'合计已投 / 目标本金',v:(inv/TC*100).toFixed(1)+'%',s:fmt(inv/10000,1)+' 万 / '+fmt(TC/10000,0)+' 万'},
     {k:'持仓总盈亏（实时）',v:(pl>=0?'+':'')+fmt(pl,0)+' 元',cls:cls(pl),s:'相对成本，含汇率变动'},
+    {k:'预计年股息（税后·当前持仓）',v:fmt(divSum,0)+' 元',s:'股息率 '+(inv>0?(divSum/inv*100).toFixed(2):'0')+'% · A股10%/H股20%税后'},
     {k:'港股敞口',v:fmt(CFG.holdings.filter(h=>h.market==='HK').reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0)/inv*100,1)+'%',s:'红利税20%已计入股息模块'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
 }
