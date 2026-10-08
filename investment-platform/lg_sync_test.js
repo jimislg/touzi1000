@@ -1,0 +1,118 @@
+#!/usr/bin/env node
+/* vm 冒烟测试：配置自动跟随（syncConfig）
+ * 场景1：外部登记交易（config变更）→ 下一轮 refresh 自动套用，驾驶舱数字跟随
+ * 场景2：本地有未保存修改(dirty) → 不套用，等自动保存后对齐
+ * 场景3：配置无变化 → 不动作不提示
+ * 场景4：正在输入框打字 → 不套用
+ */
+const fs=require('fs'),path=require('path'),vm=require('vm');
+const html=fs.readFileSync(path.join(__dirname,'public','index.html'),'utf8');
+const m=html.match(/<script>([\s\S]*?)<\/script>\s*<\/body>/);
+if(!m){console.error('✗ 未找到主script块');process.exit(1);}
+let js=m[1];
+if(!js.includes('async function syncConfig()')){console.error('✗ syncConfig 未注入');process.exit(1);}
+// 固化约定：vm 作用域外部可访问 CFG/dirty → var 桥接
+js=js.replace('let CFG=null, Q={}, lastFetch=null, timer=null;','var CFG=null, Q={}, lastFetch=null, timer=null;');
+js=js.replace("let dirty=false, autoT=null;","var dirty=false, autoT=null;");
+
+/* —— DOM stub —— */
+const els={};
+function el(id){
+  if(!els[id])els[id]={id,value:'',textContent:'',innerHTML:'',className:'',checked:true,style:{},
+    dataset:{},classList:{toggle(){return false;},contains(){return false;},add(){}},
+    addEventListener(){},focus(){},select(){}};
+  return els[id];
+}
+const docStub={
+  getElementById:el,
+  querySelector:()=>null,
+  addEventListener(){},
+  documentElement:el('html'),
+  activeElement:null,
+  hidden:false,
+  body:el('body'),
+};
+const sandbox={
+  document:docStub, window:{addEventListener(){}},
+  localStorage:{getItem:()=>null,setItem(){},removeItem(){}},
+  alert(){}, setInterval(){return 0;}, clearInterval(){}, setTimeout(){return 0;}, clearTimeout(){},
+  fetch:()=>Promise.resolve({json:()=>Promise.resolve({ok:false})}),
+  Date, Math, JSON, console, URL, encodeURIComponent, decodeURIComponent, isNaN, parseFloat, parseInt,
+  Array, Object, String, Number, RegExp, Map, Set, Promise, Error,
+};
+sandbox.globalThis=sandbox;
+vm.createContext(sandbox);
+
+/* —— fetch stub：可切换的配置响应 —— */
+const cfgA={investable:8061000,cash:8061000,cashYield:1,pathCAGR:0.1746,hkdcnyFallback:0.8548,
+  holdings:[
+    {code:'0700.HK',name:'腾讯控股',market:'HK',qt:'hk00700',shares:100,cost:421.26,dps:5.3},
+    {code:'600036.SH',name:'招商银行',market:'A',qt:'sh600036',shares:22100,cost:36.96,dps:2.016},
+  ],
+  universe:[{code:'0700.HK',name:'腾讯控股',grade:'A',qt:'hk00700',buyPrice:420,plan:'目标达成型',bizTag:'社交垄断·提价克制',tiers:[{label:'H10',price:380},{label:'H12',price:340},{label:'H15',price:290},{label:'H17.46',price:255}]}]};
+const cfgB=JSON.parse(JSON.stringify(cfgA)); // 外部登记交易后
+cfgB.investable=7422979;cfgB.cash=7422979;
+cfgB.holdings[0].shares=1700;cfgB.holdings[0].cost=417.52;
+cfgB.trades=[{date:'2026-10-08',code:'0700.HK',shares:1600}];
+let serverCfg=cfgA;
+const quotes={ok:true,quotes:{hk00700:{price:415,prevClose:420,pct:-1.5},sh600036:{price:41.75,prevClose:41.26,pct:1.2},whHKDCNY:{price:0.8542}}};
+sandbox.fetch=(url)=>{
+  const u=String(url);
+  if(u.includes('/api/config'))return Promise.resolve({json:()=>Promise.resolve(JSON.parse(JSON.stringify(serverCfg)))});
+  if(u.includes('/api/quotes'))return Promise.resolve({json:()=>Promise.resolve(quotes)});
+  if(u.includes('/api/dividends'))return Promise.resolve({json:()=>Promise.resolve({ok:false})});
+  return Promise.resolve({json:()=>Promise.resolve({ok:false})});
+};
+
+vm.runInContext(js,sandbox,{filename:'index.html<script>'});
+
+(async()=>{
+  const run=s=>vm.runInContext(s,sandbox);
+  let pass=0,fail=0;
+  const T=(name,cond)=>{cond?pass++:fail++;console.log((cond?'✓':'✗ FAIL')+' '+name);};
+
+  await run('(async()=>{await loadConfig();await refresh(false);})()');
+  T('初始加载：腾讯=100股',run('CFG.holdings.find(h=>h.code==="0700.HK").shares')===100);
+  T('初始加载：saveText 无同步提示',!el('saveText').textContent.includes('↺'));
+
+  // 场景3：无变化 → 不动作
+  let r=await run('syncConfig()');
+  T('场景3 配置无变化 → syncConfig=false',r===false);
+  T('场景3 无提示',!el('saveText').textContent.includes('↺'));
+
+  // 场景1：外部登记交易（config 变更）→ refresh 流程内自动套用
+  serverCfg=cfgB;
+  await run('refresh(false)');
+  T('场景1 腾讯股数已跟随=1700',run('CFG.holdings.find(h=>h.code==="0700.HK").shares')===1700);
+  T('场景1 可投资金已跟随=7422979',run('CFG.investable')===7422979);
+  T('场景1 investInput 输入框已刷新',Math.abs(parseFloat(el('investInput').value)-742.3)<0.05);
+  T('场景1 saveText 显示同步提示',el('saveText').textContent.includes('↺'));
+
+  // 场景2：本地有未保存修改 → 不套用
+  serverCfg=cfgA; // 模拟另一轮外部又变回
+  await run('dirty=true');
+  r=await run('syncConfig()');
+  T('场景2 dirty=true → syncConfig=false',r===false);
+  T('场景2 股数保持1700不被覆盖',run('CFG.holdings.find(h=>h.code==="0700.HK").shares')===1700);
+  await run('dirty=false');
+
+  // 场景4：正在输入 → 不套用
+  serverCfg=cfgB;
+  docStub.activeElement={tagName:'INPUT'};
+  r=await run('syncConfig()');
+  T('场景4 正在输入 → syncConfig=false',r===false);
+  docStub.activeElement=null;
+  r=await run('syncConfig()');
+  T('场景4 输入结束 → 恢复自动套用',r===false); // cfgB已是当前值 → 无变化=false，但要回到可同步态
+  serverCfg=cfgA;
+  r=await run('syncConfig()');
+  T('场景4 输入结束后外部变更可套用',r===true);
+
+  // 回归：renderAll 各模块在新CFG下不抛错
+  await run('refresh(false)');
+  T('回归 refresh 全量渲染不抛错',true);
+  T('回归 持仓表已渲染',el('posTable').innerHTML.includes('腾讯'));
+
+  console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
+  process.exit(fail?1:0);
+})().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});

@@ -306,6 +306,9 @@ async function refresh(manual){
     $('netDot').className='dot off';
     $('netText').textContent='服务未启动 · 双击 investment-platform/启动投资平台.command';
   }
+  // 持仓/资金自动跟随：每轮与行情一起重拉配置，外部变更（登记交易等）自动套用
+  let synced=false;
+  try{synced=await syncConfig();}catch(_){}
   // 股息自动更新：近12个月已实施除息口径；用户手工改过的(dpsManual)以手工值为准
   try{
     const dj=await divP;
@@ -319,11 +322,39 @@ async function refresh(manual){
       setTimeout(()=>{if($('saveText').textContent.startsWith('↻'))$('saveText').textContent='';},5000);
     }
   }catch(_){}
+  if(synced){
+    $('saveText').textContent='↺ 持仓/资金已自动同步最新状态';
+    setTimeout(()=>{if($('saveText').textContent==='↺ 持仓/资金已自动同步最新状态')$('saveText').textContent='';},5000);
+  }
   renderAll();
   if(manual&&timer){clearInterval(timer);autoLoop();}
 }
 function autoLoop(){if($('autoChk').checked){timer=setInterval(()=>refresh(false),30000);}else if(timer){clearInterval(timer);timer=null;}}
 $('autoChk').addEventListener('change',autoLoop);
+
+/* —— 配置自动跟随（郎刚10-08：驾驶舱数字必须跟随持仓变化）——
+ * 页面之外发生的变更（对话里登记交易、另一台设备保存、云端修改），过去只能整页手动刷新才能看到。
+ * 现在每轮刷新顺带重拉 /api/config：内容有变 + 本地无未保存修改 + 用户没在输入框打字 → 自动套用并重渲染。 */
+function cfgSig(c){
+  return JSON.stringify({inv:c.investable,cy:c.cashYield,
+    h:(c.holdings||[]).map(h=>[h.code,h.shares,h.cost,h.buyDate,h.dpsManual===true]), // dps除外：股息模块每轮自动更新，非服务端变更信号
+    u:(c.universe||[]).map(u=>[u.code,u.buyPrice,u.plan,u.bizTag,u.grade,u.label,u.tiers])});
+}
+async function syncConfig(){
+  try{
+    const r=await fetch('/api/config');const j=await r.json();
+    if(!j||!Array.isArray(j.holdings)||!CFG)return false;
+    if(cfgSig(j)===cfgSig(CFG))return false; // 内容无变化
+    if(dirty)return false;                   // 本地有未保存修改 → 等2秒自动保存落盘后下一轮对齐
+    const ae=document.activeElement;
+    if(ae&&(ae.tagName==='INPUT'||ae.tagName==='SELECT'||ae.tagName==='TEXTAREA'))return false; // 正在输入不打扰
+    CFG=j;
+    $('investInput').value=((CFG.investable!=null?CFG.investable:CFG.cash)/10000).toFixed(1);
+    fillCalcSel();
+    return true;
+  }catch(_){return false;}
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh(false);}); // 切回标签页立即拉最新
 
 /* —— 持仓市值/盈亏（实时） —— */
 function hLive(h){
