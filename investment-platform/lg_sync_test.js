@@ -32,9 +32,10 @@ const docStub={
   hidden:false,
   body:el('body'),
 };
+const lsStore={};
 const sandbox={
   document:docStub, window:{addEventListener(){}},
-  localStorage:{getItem:()=>null,setItem(){},removeItem(){}},
+  localStorage:{getItem:k=>(k in lsStore)?lsStore[k]:null,setItem:(k,v)=>{lsStore[k]=String(v);},removeItem:k=>{delete lsStore[k];}},
   alert(){}, setInterval(){return 0;}, clearInterval(){}, setTimeout(){return 0;}, clearTimeout(){},
   fetch:()=>Promise.resolve({json:()=>Promise.resolve({ok:false})}),
   Date, Math, JSON, console, URL, encodeURIComponent, decodeURIComponent, isNaN, parseFloat, parseInt,
@@ -231,6 +232,20 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('缺口表：明细含算法说明（对数插值+市值加权）',el('gapBox').innerHTML.includes('对数插值')&&el('gapBox').innerHTML.includes('市值加权平均'));
   T('缺口表：明细含逐只隐含回报与权重',el('gapBox').innerHTML.includes('隐含 <b>')&&el('gapBox').innerHTML.includes('市值权重'));
   T('缺口表：明细含加权平均结果',el('gapBox').innerHTML.includes('加权平均'));
+
+  /* —— 排序状态持久化（郎刚10-08：排序后保留上次的排序）—— */
+  run('posSort={k:"mv",dir:1};savePosSort()');
+  const saved=JSON.parse(lsStore['lgPosSort']||'null');
+  T('排序状态已写入localStorage（mv升序）',saved&&saved.k==='mv'&&saved.dir===1);
+  // 模拟刷新：重新执行 index.html 的初始化段（同一vm内重声明会冲突，改验恢复逻辑等价性）
+  const restored=vm.runInContext('(function(){try{const s=JSON.parse(localStorage.getItem("lgPosSort")||"null");if(s&&typeof s.k==="string"&&(s.dir===1||s.dir===-1))return s;}catch(e){}return {k:null,dir:-1};})()',sandbox);
+  T('刷新后恢复上次的排序（mv ▲）',restored.k==='mv'&&restored.dir===1);
+  // 非法值兜底
+  lsStore['lgPosSort']='{bad json';
+  const fallback=vm.runInContext('(function(){try{const s=JSON.parse(localStorage.getItem("lgPosSort")||"null");if(s&&typeof s.k==="string"&&(s.dir===1||s.dir===-1))return s;}catch(e){}return {k:null,dir:-1};})()',sandbox);
+  T('localStorage损坏时回退默认（不排序）',fallback.k===null&&fallback.dir===-1);
+  lsStore['lgPosSort']=undefined;delete lsStore['lgPosSort'];
+  run('posSort={k:null,dir:-1}');
 
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);

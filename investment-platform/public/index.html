@@ -497,6 +497,7 @@ function wireInputs(){
     const k=th.dataset.sk;
     if(posSort.k===k)posSort.dir*=-1;
     else{posSort.k=k;posSort.dir=(k==='name')?1:-1;} // 名称首点升序；数值首点降序
+    try{savePosSort();}catch(_){} // 排序状态持久化，刷新/重开保留
     renderAll();
   });
   $('posTable').addEventListener('change',e=>{
@@ -923,7 +924,13 @@ function runCalc(){
 /* —— 编辑保险①②③：本地镜像 + 2秒自动保存 + 离开拦截 —— */
 const LS_KEY='ip_edit_mirror_v1';
 let dirty=false, autoT=null;
-let posSort={k:null,dir:-1}; // 持仓表表头排序状态：null=保持config原始顺序；名称默认升序，数值默认降序（大的在前），再点一次反向
+let posSort=(function(){ // 持仓表排序状态持久化（郎刚10-08：排序后保留上次的排序）
+  try{const s=JSON.parse(localStorage.getItem('lgPosSort')||'null');
+    if(s&&typeof s.k==='string'&&(s.dir===1||s.dir===-1))return s;
+  }catch(e){}
+  return {k:null,dir:-1};
+})();
+function savePosSort(){try{localStorage.setItem('lgPosSort',JSON.stringify(posSort));}catch(_){}}
 function snapshotEdit(){ // 每次改动立即镜像全部可编辑字段到localStorage（浏览器崩溃也能找回）
   try{
     const m={t:Date.now(),holdings:{},universe:{}};
