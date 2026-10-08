@@ -7,23 +7,38 @@
 <style>
   :root{--bg:#f4f5f7;--card:#fff;--ink:#1f2d3d;--muted:#6b7280;--line:#e5e7eb;
     --up:#d5423a;--down:#1e9e6a;--accent:#2456a6;--amber:#b45309;
-    --good-bg:#ecfdf5;--bad-bg:#fef2f2;--warn-bg:#fffbeb}
+    --good-bg:#ecfdf5;--bad-bg:#fef2f2;--warn-bg:#fffbeb;
+    --thbg:#f9fafb;--hover:#f0f3f8;--ghost:#eef2f8;--stripe:#eef1f5;
+    --grad1:#16324f;--grad2:#2456a6;--head-ink:#fff;
+    --pilla-bg:#e8f0fe;--pilla-ink:#2456a6;--pillb-bg:#fef3e2;--pillb-ink:#b45309;
+    --pillhold-bg:#ecfdf5;--pillhold-ink:#0f766e;--pillwait-bg:#f3f4f6;--pillwait-ink:#6b7280;
+    --bover-bg:#fee2e2;--bover-ink:#b91c1c;--btrig-bg:#d1fae5;--btrig-ink:#0f766e}
+  html.dark{--bg:#0f141a;--card:#161d26;--ink:#e6eaf1;--muted:#93a0b4;--line:#27313e;
+    --up:#ff7a6e;--down:#41d99b;--accent:#7aa7ff;--amber:#f5b04d;
+    --good-bg:#122a20;--bad-bg:#2f1618;--warn-bg:#2e2510;
+    --thbg:#1b2330;--hover:#222b38;--ghost:#222b38;--stripe:#1d2632;
+    --grad1:#0d1b2a;--grad2:#1d3a5f;--head-ink:#e6eaf1;
+    --pilla-bg:#1c2b47;--pilla-ink:#9db9ff;--pillb-bg:#33261a;--pillb-ink:#f5b269;
+    --pillhold-bg:#12301f;--pillhold-ink:#5fe0a8;--pillwait-bg:#242b35;--pillwait-ink:#9aa5b5;
+    --bover-bg:#3d171a;--bover-ink:#ff9a8d;--btrig-bg:#0f3325;--btrig-ink:#5fe0a8}
+  html.dark body{background:var(--bg)}
+  html.dark input{background:var(--card);color:var(--ink)}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
-  header{background:linear-gradient(135deg,#16324f,#2456a6);color:#fff;padding:20px 0 14px}
+  header{background:linear-gradient(135deg,var(--grad1),var(--grad2));color:var(--head-ink);padding:20px 0 14px}
   .wrap{max-width:1220px;margin:0 auto;padding:0 18px}
   header h1{font-size:20px;font-weight:700}
   header .sub{font-size:12.5px;opacity:.85;margin-top:3px}
-  .topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+  .topbar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
   .topbar .wrap{display:flex;align-items:center;gap:14px;padding:8px 18px;flex-wrap:wrap}
   .dot{width:9px;height:9px;border-radius:50%;background:#9ca3af;display:inline-block;margin-right:5px}
   .dot.on{background:var(--down);box-shadow:0 0 0 3px rgba(30,158,106,.15)}
   .dot.off{background:var(--up)}
   .topbar .t{font-size:12.5px;color:var(--muted)}
   .topbar a{color:var(--muted);font-size:13px;text-decoration:none;padding:4px 8px;border-radius:5px}
-  .topbar a:hover{background:#f0f3f8;color:var(--accent)}
+  .topbar a:hover{background:var(--hover);color:var(--accent)}
   .btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:7px 15px;font-size:13px;cursor:pointer}
-  .btn.ghost{background:#eef2f8;color:var(--accent)}
+  .btn.ghost{background:var(--ghost);color:var(--accent)}
   .btn:hover{opacity:.92}
   section{padding:24px 0 4px}
   h2{font-size:17px;margin-bottom:3px}
@@ -37,7 +52,7 @@
   .up{color:var(--up)} .down{color:var(--down)}
   table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px}
   th,td{padding:8px 9px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
-  th{background:#f9fafb;color:var(--muted);font-weight:600;font-size:12px}
+  th{background:var(--thbg);color:var(--muted);font-weight:600;font-size:12px}
   td:first-child,th:first-child{text-align:left}
   tr:last-child td{border-bottom:none}
   .pill{display:inline-block;font-size:10.5px;border-radius:20px;padding:1px 8px;margin-left:5px;vertical-align:1px}
@@ -45,13 +60,13 @@
   td.tierscol .pill{margin:2px 4px 2px 0}
   td.namecol{min-width:170px;white-space:normal !important;vertical-align:middle}
   td.namecol .note{display:block;max-width:260px;white-space:normal}
-  .pill.A{background:#e8f0fe;color:#2456a6}.pill.B{background:#fef3e2;color:#b45309}
-  .pill.hold{background:#ecfdf5;color:#0f766e}
+  .pill.A{background:var(--pilla-bg);color:var(--pilla-ink)}.pill.B{background:var(--pillb-bg);color:var(--pillb-ink)}
+  .pill.hold{background:var(--pillhold-bg);color:var(--pillhold-ink)}
   .pill.trig{background:var(--good-bg);color:var(--down)}
   .pill.near{background:var(--warn-bg);color:var(--amber)}
   tr.row-trig td{background:var(--good-bg) !important}
   tr.row-near td{background:var(--warn-bg) !important}
-  .pill.wait{background:#f3f4f6;color:#6b7280}
+  .pill.wait{background:var(--pillwait-bg);color:var(--pillwait-ink)}
   .flag{border-radius:8px;padding:10px 13px;font-size:13px;margin-bottom:8px}
   .flag b{display:block;margin-bottom:2px}
   .flag-red{background:var(--bad-bg);border-left:4px solid var(--up)}
@@ -67,8 +82,8 @@
   .sig-chip.green{border-left-color:var(--down);background:var(--good-bg)}
   .sig-chip.amber{border-left-color:var(--amber);background:var(--warn-bg)}
   .badge{display:inline-block;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;white-space:nowrap}
-  .b-over{background:#fee2e2;color:#b91c1c}
-  .b-trig{background:#d1fae5;color:#0f766e}
+  .b-over{background:var(--bover-bg);color:var(--bover-ink)}
+  .b-trig{background:var(--btrig-bg);color:var(--btrig-ink)}
   .b-near{background:var(--warn-bg);color:var(--amber)}
   tr.row-over td{background:var(--bad-bg) !important}
   .note{font-size:11.5px;color:var(--muted)}
@@ -76,13 +91,13 @@
   input.wide{width:120px}
   input.plan{width:100%;min-width:200px;text-align:left;font-size:12px;padding:4px 6px;border:1px dashed var(--line);border-radius:6px}
   input.tagin{width:110px;text-align:left;font-size:12px;padding:3px 6px;border:1px dashed var(--line);border-radius:6px}
-  tr.taghead td{background:#eef1f5;font-weight:600;font-size:12.5px;color:var(--ink);text-align:left;padding:6px 9px;letter-spacing:.5px}
+  tr.taghead td{background:var(--stripe);font-weight:600;font-size:12.5px;color:var(--ink);text-align:left;padding:6px 9px;letter-spacing:.5px}
   input.buyin{width:70px}
-  .bar{height:7px;border-radius:4px;background:#eef1f5;min-width:64px;overflow:hidden}
+  .bar{height:7px;border-radius:4px;background:var(--stripe);min-width:64px;overflow:hidden}
   .bar i{display:block;height:100%;border-radius:4px}
-  .calc-out{background:#f9fafb;border:1px dashed var(--line);border-radius:8px;padding:12px 14px;margin-top:10px;font-size:13.5px}
+  .calc-out{background:var(--thbg);border:1px dashed var(--line);border-radius:8px;padding:12px 14px;margin-top:10px;font-size:13.5px}
   .tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
-  .tier{background:#fff;border:1px solid var(--line);border-radius:8px;text-align:center;padding:7px 4px}
+  .tier{background:var(--card);border:1px solid var(--line);border-radius:8px;text-align:center;padding:7px 4px}
   .tier .t{font-size:11px;color:var(--muted)}.tier .p{font-size:15px;font-weight:700}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   @media(max-width:880px){.grid2{grid-template-columns:1fr}}
@@ -91,6 +106,8 @@
   footer{padding:22px 0 32px;font-size:11.5px;color:var(--muted)}
   .tw{overflow-x:auto}
 </style>
+  <!-- 主题防闪：必须在首屏渲染前执行；标签故意写成 <script > 以便测试脚本仍取主script块 -->
+  <script >try{if(localStorage.getItem("lgTheme")==="dark")document.documentElement.classList.add("dark")}catch(e){}</script>
 </head>
 <body>
 
@@ -105,6 +122,7 @@
   <button class="btn" onclick="refresh(true)">立即刷新</button>
   <label class="t"><input type="checkbox" id="autoChk" checked> 30秒自动刷新</label>
   <button class="btn ghost" onclick="saveConfig()">保存修改</button>
+  <button class="btn ghost" id="themeBtn" onclick="toggleTheme()" title="切换日间/夜间模式">🌙 夜间</button>
   <span class="t" id="saveText"></span>
   <span style="flex:1"></span>
   <a href="#dash">驾驶舱</a><a href="#pos">目标仓位预警</a><a href="#sig">信号中心</a><a href="#deploy">资金部署</a>
@@ -790,7 +808,17 @@ async function saveConfig(auto){
   setTimeout(()=>$('saveText').textContent='',6000);
 }
 
+/* —— 主题切换（夜间模式，郎刚10-08需求） —— */
+function toggleTheme(){
+  const d=document.documentElement.classList.toggle('dark');
+  try{localStorage.setItem('lgTheme',d?'dark':'light')}catch(e){}
+  const b=document.getElementById('themeBtn');
+  if(b)b.textContent=d?'☀️ 日间':'🌙 夜间';
+  renderAll();
+}
+
 /* —— 启动 —— */
+  {const tb=document.getElementById("themeBtn");if(tb)tb.textContent=document.documentElement.classList.contains("dark")?"☀️ 日间":"🌙 夜间";}
 (async()=>{
   await loadConfig();
   await refresh(false);
