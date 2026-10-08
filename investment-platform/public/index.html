@@ -53,6 +53,9 @@
   table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px}
   th,td{padding:8px 9px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
   th{background:var(--thbg);color:var(--muted);font-weight:600;font-size:12px}
+  th[data-sk]{cursor:pointer;user-select:none}
+  th[data-sk]:hover{color:var(--accent)}
+  th.sort-on{color:var(--accent)}
   td:first-child,th:first-child{text-align:left}
   tr:last-child td{border-bottom:none}
   .pill{display:inline-block;font-size:10.5px;border-radius:20px;padding:1px 8px;margin-left:5px;vertical-align:1px}
@@ -456,6 +459,13 @@ function renderDash(){
 }
 function wireInputs(){
   $('investInput').addEventListener('change',e=>{const v=parseFloat(e.target.value);if(v>=0){CFG.investable=v*10000;CFG.cash=CFG.investable;CFG.targetCapital=totalCapital();}renderAll();});
+  $('posTable').addEventListener('click',e=>{ // 表头点击排序（郎刚10-08需求）
+    const th=e.target.closest('th[data-sk]');if(!th)return;
+    const k=th.dataset.sk;
+    if(posSort.k===k)posSort.dir*=-1;
+    else{posSort.k=k;posSort.dir=(k==='name')?1:-1;} // 名称首点升序；数值首点降序
+    renderAll();
+  });
   $('posTable').addEventListener('change',e=>{
     const i=e.target.dataset.h,k=e.target.dataset.k;if(i==null||!k)return;
     if(k==='uniBuy'){ // 触发价写入股票池同code条目（单一数据源，全局联动）
@@ -496,8 +506,31 @@ function priceSignal(h,i){
 }
 function renderPos(){
   const TC=totalCapital();
-  const rows=CFG.holdings.map((h,i)=>{
-    const x=hLive(h);if(!x)return '';
+  /* 表头排序（郎刚10-08需求）：行数据先带排序键，排序后再渲染；data-h 绑定原始索引，股数编辑不受排序影响 */
+  const entries=CFG.holdings.map((h,i)=>({h,i})).filter(e=>hLive(e.h));
+  const sk={
+    name:e=>e.h.name,
+    px:e=>hLive(e.h).px,
+    shares:e=>+e.h.shares||0,
+    mv:e=>hLive(e.h).mvCNY,
+    pl:e=>hLive(e.h).pl,
+    w:e=>hLive(e.h).mvCNY/TC*100,
+    lim:e=>limitOf(e.h),
+    sig:e=>{const bp=buyPriceOf(e.h),x=hLive(e.h);return bp!=null?x.px/bp-1:null;}, // 距触发价涨幅；未定价(null)恒排最后
+    pos:e=>hLive(e.h).mvCNY/TC*100-limitOf(e.h), // 超限程度
+  };
+  if(posSort.k&&sk[posSort.k]){
+    const f=sk[posSort.k];
+    entries.sort((a,b)=>{
+      const va=f(a),vb=f(b);
+      if(typeof va==='string'||typeof vb==='string')return String(va).localeCompare(String(vb),'zh')*posSort.dir;
+      const ea=va==null||!isFinite(va),eb=vb==null||!isFinite(vb);
+      if(ea&&eb)return 0;if(ea)return 1;if(eb)return -1; // 空值恒排最后
+      return (va-vb)*posSort.dir;
+    });
+  }
+  const rows=entries.map(({h,i})=>{
+    const x=hLive(h);
     const w=x.mvCNY/TC*100,lim=limitOf(h);
     const over=w>lim,near=!over&&w>lim*0.8;
     const room=(lim-w)*TC/10000;
@@ -518,8 +551,9 @@ function renderPos(){
       <td style="white-space:normal">${priceSignal(h,i)}</td>
       <td style="white-space:normal">${posSig}</td>
     </tr>`;}).join('');
-  $('posTable').innerHTML=`<table><thead><tr>
-    <th>标的</th><th>现价</th><th>股数(可改)</th><th>市值(元)</th><th>盈亏</th><th>占目标本金</th><th>上限</th><th>价格信号(触发价可改)</th><th>仓位信号</th>
+  const posThs=[['name','标的'],['px','现价'],['shares','股数(可改)'],['mv','市值(元)'],['pl','盈亏'],['w','占目标本金'],['lim','上限'],['sig','价格信号(触发价可改)'],['pos','仓位信号']];
+  $('posTable').innerHTML=`<table><thead><tr>${posThs.map(([k,t])=>
+    `<th data-sk="${k}" class="${posSort.k===k?'sort-on':''}">${t}${posSort.k===k?(posSort.dir===1?' ▲':' ▼'):''}</th>`).join('')}
   </tr></thead><tbody>${rows}</tbody></table>`;
   const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
   const pl=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.pl:0);},0);
@@ -803,6 +837,7 @@ function runCalc(){
 /* —— 编辑保险①②③：本地镜像 + 2秒自动保存 + 离开拦截 —— */
 const LS_KEY='ip_edit_mirror_v1';
 let dirty=false, autoT=null;
+let posSort={k:null,dir:-1}; // 持仓表表头排序状态：null=保持config原始顺序；名称默认升序，数值默认降序（大的在前），再点一次反向
 function snapshotEdit(){ // 每次改动立即镜像全部可编辑字段到localStorage（浏览器崩溃也能找回）
   try{
     const m={t:Date.now(),holdings:{},universe:{}};

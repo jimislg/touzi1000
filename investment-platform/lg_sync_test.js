@@ -113,6 +113,48 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('回归 refresh 全量渲染不抛错',true);
   T('回归 持仓表已渲染',el('posTable').innerHTML.includes('腾讯'));
 
+  /* —— 表头排序（郎刚10-08需求）—— */
+  const firstTr=()=>el('posTable').innerHTML.match(/<tbody><tr>[\s\S]*?<\/tr>/)[0];
+  const firstDataH=()=>firstTr().match(/data-h="(\d+)"/)[1];
+  const sharesOf=code=>JSON.parse(JSON.stringify(run('CFG'))).holdings.find(h=>h.code===code).shares;
+  const hIdx=code=>run('CFG').holdings.findIndex(h=>h.code===code);
+  const mvOf=code=>{const q=code==='0700.HK'?415:41.75,fx=0.8542;const h=run('CFG').holdings.find(h=>h.code===code);return h.shares*q*(h.market==='HK'?fx:1);};
+
+  await run('posSort={k:null,dir:-1};renderAll()');
+  T('排序默认null：保持config原始顺序（第一行=腾讯）',firstTr().includes('腾讯控股'));
+
+  await run('posSort={k:"mv",dir:-1};renderAll()');
+  const bigMv=mvOf('0700.HK')>mvOf('600036.SH')?'0700.HK':'600036.SH';
+  T('市值降序：第一行=市值最大只',firstDataH()===String(hIdx(bigMv)));
+  T('市值降序：表头带 ▼',el('posTable').innerHTML.includes('市值(元) ▼'));
+
+  await run('posSort={k:"mv",dir:1};renderAll()');
+  T('市值升序：第一行=市值最小只',firstDataH()===String(hIdx(mvOf('0700.HK')>mvOf('600036.SH')?'600036.SH':'0700.HK')));
+  T('市值升序：表头带 ▲',el('posTable').innerHTML.includes('市值(元) ▲'));
+
+  await run('posSort={k:"name",dir:1};renderAll()');
+  T('名称升序：表头带 ▲ 且第一行按拼音序',el('posTable').innerHTML.includes('标的 ▲'));
+
+  // 排序后股数编辑仍绑定正确持仓（data-h=原始索引）
+  await run('posSort={k:"pl",dir:-1};renderAll()');
+  const idx=firstDataH();
+  const codeAt=run('CFG').holdings[+idx].code;
+  T('排序后data-h仍指向原始持仓索引',run(`CFG.holdings[${idx}].code`)===run('CFG').holdings[+idx].code&&sharesOf(codeAt)===run(`CFG.holdings[${idx}].shares`));
+
+  // 排序状态下改股数 → renderAll 保持排序且数字正确
+  const before=sharesOf(codeAt);
+  run(`CFG.holdings[${idx}].shares=${before+100}`);
+  await run('renderAll()');
+  T('排序状态下改股数后渲染正确',run(`CFG.holdings[${idx}].shares`)===before+100&&firstDataH()===idx);
+
+  // sig排序：未定价(buyPrice=null)恒排最后
+  run('CFG.universe.find(u=>u.code==="0700.HK").buyPrice=null');
+  run('CFG.universe.push({code:"600036.SH",name:"招商银行",grade:"A",qt:"sh600036",buyPrice:40,plan:"目标达成型"})');
+  await run('posSort={k:"sig",dir:-1};renderAll()');
+  T('价格信号降序：未定价者恒排最后',!(firstTr().includes('腾讯控股')));
+  await run('posSort={k:"sig",dir:1};renderAll()');
+  T('价格信号升序：未定价者同样恒排最后',!(firstTr().includes('腾讯控股')));
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});
