@@ -622,22 +622,36 @@ function tierStatus(px,t){
   if(px<=t.price*1.05)return {s:'接近',c:'near'};
   return {s:'等待',c:'wait'};
 }
+/* —— 交易日志联动（郎刚10-08：已买入的公司提醒要反映已执行）—— */
+function recentTrades(code,days=3){
+  const cut=new Date(Date.now()-days*86400000).toISOString().slice(0,10);
+  return (CFG.trades||[]).filter(t=>t.code===code&&t.date&&t.date>=cut);
+}
+function tradeNote(code){ // 近期买入汇总 → 一句话执行记录；无近期交易返回null
+  const ts=recentTrades(code);if(!ts.length)return null;
+  const sh=ts.reduce((s,t)=>s+(+t.shares||0),0);
+  const amtC=ts.reduce((s,t)=>s+(+t.amtCNY||0),0);
+  const wsum=ts.reduce((s,t)=>s+(+t.price||0)*(+t.shares||0),0);
+  const d=[...new Set(ts.map(t=>t.date.slice(5).replace('-','/')))].join('、');
+  return `${d}已买入 ${sh.toLocaleString()}股 @均价${(wsum/Math.max(sh,1)).toFixed(1)}，合计 ${fmt(amtC/10000,1)} 万（已登记）`;
+}
 function renderSignals(){
-  const rows=[]; // {pri, name, pills, badge, bcls, val, gate, dev, note, rowCls}
+  const rows=[]; // {pri, name, pills, badge, bcls, val, gate, dev, note, rowCls, exec}
   // ① 仓位信号（目标本金口径，最高优先级）
   CFG.holdings.forEach(h=>{
     const x=hLive(h);if(!x)return;
     const w=x.mvCNY/totalCapital()*100,lim=limitOf(h);
-    if(w>lim)rows.push({pri:0,rowCls:'row-over',badge:'仓位超限',bcls:'b-over',
-      name:h.name,pills:`<span class="pill ${h.grade}">${h.grade}</span>`,
+    const tn=tradeNote(h.code);
+    if(w>lim)rows.push({pri:0,rowCls:'row-over',badge:'仓位超限',bcls:'b-over',exec:!!tn,
+      name:h.name,pills:`<span class="pill ${h.grade}">${h.grade}</span>${tn?'<span class="pill hold">已执行</span>':''}`,
       val:'权重 '+w.toFixed(1)+'%',gate:'上限 '+lim+'%',
       dev:'<b class="up">超 '+(w-lim).toFixed(1)+'pct</b>',
-      note:'≈超 '+fmt((w-lim)/100*totalCapital()/10000,0)+' 万。减持节奏按第四步决策，不因价格恐慌抛售'});
-    else if(w>lim*0.8)rows.push({pri:1.5,rowCls:'row-near',badge:'仓位接近',bcls:'b-near',
-      name:h.name,pills:`<span class="pill ${h.grade}">${h.grade}</span>`,
+      note:'≈超 '+fmt((w-lim)/100*totalCapital()/10000,0)+' 万。减持节奏按第四步决策，不因价格恐慌抛售'+(tn?'；'+tn:'')});
+    else if(w>lim*0.8)rows.push({pri:1.5,rowCls:'row-near',badge:'仓位接近',bcls:'b-near',exec:!!tn,
+      name:h.name,pills:`<span class="pill ${h.grade}">${h.grade}</span>${tn?'<span class="pill hold">已执行</span>':''}`,
       val:'权重 '+w.toFixed(1)+'%',gate:'上限 '+lim+'%',
       dev:'余 '+fmt((lim-w)*totalCapital()/10000,0)+' 万空间',
-      note:'继续加仓空间有限，新资金优先给未达限的标的'});
+      note:'继续加仓空间有限，新资金优先给未达限的标的'+(tn?'；'+tn:'')});
   });
   // ② 价格信号（股票池·购买触发价为唯一行动门槛）
   CFG.universe.forEach(u=>{
@@ -645,26 +659,27 @@ function renderSignals(){
     const trigTiers=(u.tiers||[]).filter(t=>px<=t.price).map(t=>t.label);
     if(u.buyPrice==null)return;
     const held=CFG.holdings.some(h=>h.code===u.code);
-    const pills=`<span class="pill ${u.grade}">${u.grade}</span>${held?'<span class="pill hold">持仓</span>':''}`;
-    if(px<=u.buyPrice)rows.push({pri:1,rowCls:'row-trig',badge:'已触发',bcls:'b-trig',
+    const tn=tradeNote(u.code);
+    const pills=`<span class="pill ${u.grade}">${u.grade}</span>${held?'<span class="pill hold">持仓</span>':''}${tn?'<span class="pill hold">已执行</span>':''}`;
+    if(px<=u.buyPrice)rows.push({pri:1,rowCls:'row-trig',badge:tn?'已触发·已执行':'已触发',bcls:'b-trig',exec:!!tn,
       name:u.name,pills,val:fmt(px,2)+' '+cur,gate:'≤ '+fmt(u.buyPrice,2),
       dev:'<b class="down">现价已入档</b>',
-      note:(trigTiers.length?'档位 '+trigTiers.join(' / ')+' 同步触发；':'')+(u.plan?'按「'+u.plan+'」分档':'先定价再行动')});
-    else if(px<=u.buyPrice*1.05)rows.push({pri:2,rowCls:'row-near',badge:'接近',bcls:'b-near',
+      note:(trigTiers.length?'档位 '+trigTiers.join(' / ')+' 同步触发；':'')+(u.plan?'按「'+u.plan+'」分档':'先定价再行动')+(tn?'；'+tn:'（尚未登记买入，触发≠下单）')});
+    else if(px<=u.buyPrice*1.05)rows.push({pri:2,rowCls:'row-near',badge:'接近',bcls:'b-near',exec:!!tn,
       name:u.name,pills,val:fmt(px,2)+' '+cur,gate:fmt(u.buyPrice,2),
       dev:'+'+((px/u.buyPrice-1)*100).toFixed(1)+'%',
-      note:trigTiers.length?'档位 '+trigTiers.join(' / ')+' 已触发；跌至触发价即可行动':'距触发价 5% 内，可开始关注'});
+      note:(trigTiers.length?'档位 '+trigTiers.join(' / ')+' 已触发；跌至触发价即可行动':'距触发价 5% 内，可开始关注')+(tn?'；'+tn:'')});
   });
   rows.sort((a,b)=>a.pri-b.pri || a.name.localeCompare(b.name,'zh'));
   // ③ 总览 chips
-  const namesOf=(...pris)=>rows.filter(r=>pris.includes(r.pri)).map(r=>r.name).join('、')||'—';
+  const namesOf=(...pris)=>rows.filter(r=>pris.includes(r.pri)).map(r=>r.name+(r.exec?'（已执行）':'')).join('、')||'—';
   const nOver=rows.filter(r=>r.pri===0).length;
   const nTrig=rows.filter(r=>r.pri===1).length;
   const nNear=rows.filter(r=>r.pri===1.5||r.pri===2).length;
   const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
   const chips=[
     {cls:nOver?'red':'',k:'仓位预警（最优先）',n:nOver,s:namesOf(0)},
-    {cls:nTrig?'green':'',k:'已触发·可进流程',n:nTrig,s:namesOf(1)},
+    {cls:nTrig?'green':'',k:(nTrig&&rows.filter(r=>r.pri===1).every(r=>r.exec))?'已触发·已执行':'已触发·可进流程',n:nTrig,s:namesOf(1)},
     {cls:nNear?'amber':'',k:'接近（≤+5%）',n:nNear,s:namesOf(1.5,2)},
     {cls:'',k:'投放进度',n:(inv/totalCapital()*100).toFixed(1)+'%',s:'未投 '+fmt((totalCapital()-inv)/10000,0)+' 万（=可投资金）· 等待也是纪律'},
   ].map(c=>`<div class="sig-chip ${c.cls}"><div class="k">${c.k}</div><div class="n">${c.n}</div><div class="s" title="${c.s}">${c.s}</div></div>`).join('');

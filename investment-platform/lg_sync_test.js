@@ -155,6 +155,17 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   await run('posSort={k:"sig",dir:1};renderAll()');
   T('价格信号升序：未定价者同样恒排最后',!(firstTr().includes('腾讯控股')));
 
+  /* —— 交易日志联动（郎刚10-08：已买入公司提醒要反映已执行）—— */
+  run('CFG.universe.find(u=>u.code==="0700.HK").buyPrice=420');
+  run('CFG.trades=[{date:"2026-10-08",code:"0700.HK",name:"腾讯控股",price:417.3,shares:1600,amtCNY:637680}]');
+  await run('renderAll()');
+  T('信号中心：已触发行徽标变"已触发·已执行"',el('sigBox').innerHTML.includes('已触发·已执行'));
+  T('信号中心：说明含买入明细',el('sigBox').innerHTML.includes('10/08已买入')&&el('sigBox').innerHTML.includes('1,600股'));
+  T('总览chip副标题带（已执行）',el('sigBox').innerHTML.includes('腾讯控股（已执行）'));
+  run('CFG.trades=[{date:"2026-09-01",code:"0700.HK",shares:100,price:400,amtCNY:40000}]');
+  await run('renderAll()');
+  T('过期交易(>3天)不标记已执行，回到未执行口径',!el('sigBox').innerHTML.includes('已触发·已执行')&&el('sigBox').innerHTML.includes('（尚未登记买入'));
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});
