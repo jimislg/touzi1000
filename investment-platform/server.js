@@ -166,21 +166,15 @@ const server = http.createServer(async (req,res)=>{
       }
       return;
     }
-    /* 配置读取：云端为唯一数据源；云端不可达或本地有积压修改时服务本地缓存。
-     * 云端返回的新数据会自动回写本地缓存文件（含写前备份）。 */
+    /* 配置读取：云端为唯一数据源，GET 只读不写本地（郎刚10-10：消除只读请求的写入副作用——
+     * 旧版 GET 会用云端回写本地缓存，覆盖本地未推云的合法修改，10-08 tierPct 丢失即此机制）。
+     * 本地缓存的刷新只发生在 POST 保存时；云端不可达时降级读本地缓存。 */
     if(u.pathname==='/api/config'&&req.method==='GET'){
       const serveLocal=()=>{ try{ res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}); res.end(fs.readFileSync(CFG_PATH())); }
         catch(e){ res.writeHead(500,{'Content-Type':'application/json'}); res.end(JSON.stringify({ok:false,error:e.message})); } };
       if(cloudDirty){ serveLocal(); pushCloud(JSON.parse(fs.readFileSync(CFG_PATH(),'utf8'))); return; }
       withTimeout(store.read(),6000).then(r=>{
         if(r.ok && r.cfg && Array.isArray(r.cfg.holdings)){
-          try{ // 云端为准，刷新本地缓存
-            const curText=fs.readFileSync(CFG_PATH(),'utf8');
-            if(JSON.stringify(JSON.parse(curText))!==JSON.stringify(r.cfg)){
-              try{fs.copyFileSync(CFG_PATH(),CFG_PATH()+'.backup');}catch(_){}
-              fs.writeFileSync(CFG_PATH(),JSON.stringify(r.cfg,null,2));
-            }
-          }catch(_){}
           res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
           res.end(JSON.stringify(r.cfg));
         } else {
@@ -195,13 +189,22 @@ const server = http.createServer(async (req,res)=>{
       req.on('end',async()=>{
         try{
           const patch=JSON.parse(body);
-          // 合并式保存：以磁盘最新版为基底，只覆盖前端可编辑字段，防止全量覆盖
-          const disk=JSON.parse(fs.readFileSync(CFG_PATH()));
+          // 合并式保存：基底=云端最新版（唯一数据源，防本地缓存滞后导致云端改动被回滚）；
+          // 云端不可达时降级磁盘基底并标记dirty（后续GET补同步）。郎刚10-10：随GET回写副作用一并修正。
+          let disk=null;
+          try{
+            const r=await withTimeout(store.read(),6000);
+            if(r.ok&&r.cfg&&Array.isArray(r.cfg.holdings))disk=r.cfg;
+            else clog('POST基底读云失败: '+r.err);
+          }catch(e){ clog('POST基底读云异常: '+e.message); }
+          if(!disk){ disk=JSON.parse(fs.readFileSync(CFG_PATH())); cloudDirty=true; clog('POST基底降级本地磁盘'); }
           if(patch.targetCapital>0)disk.targetCapital=patch.targetCapital;
           if(typeof patch.investable==='number')disk.investable=patch.investable;   // 郎刚10-08：可投资资金为用户输入主字段
           if(typeof patch.cash==='number')disk.cash=patch.cash;
           if(typeof patch.cashYield==='number')disk.cashYield=patch.cashYield;
+          if(typeof patch.annualContribution==='number')disk.annualContribution=patch.annualContribution; // 郎刚10-10：每年外部追加投入（工资结余等）
           if(Array.isArray(patch.dismissedSignals))disk.dismissedSignals=patch.dismissedSignals; // 郎刚10-08：手工划掉的信号key
+          if(patch.dismissedReasons&&typeof patch.dismissedReasons==='object'&&!Array.isArray(patch.dismissedReasons))disk.dismissedReasons=patch.dismissedReasons; // 郎刚10-10：划掉/超限的例外决策记录{key:原因}
           const hp={}; (patch.holdings||[]).forEach(h=>{if(h.code)hp[h.code]=h;});
           (disk.holdings||[]).forEach(h=>{const p=hp[h.code];if(!p)return;
             ['shares','cost','dps','buyDate','dpsManual'].forEach(k=>{if(p[k]!=null)h[k]=p[k];});});

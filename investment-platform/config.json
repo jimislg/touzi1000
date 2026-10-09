@@ -91,7 +91,7 @@
       "code": "600660.SH",
       "cost": 52.3514,
       "name": "福耀玻璃",
-      "grade": "A",
+      "grade": "B",
       "label": "",
       "market": "A",
       "shares": 4900,
@@ -1233,9 +1233,11 @@
   "cashYield": 1,
   "divTaxNote": "A股红利税按buyDate起算：>1年0%／1个月-1年10%／<1个月20%；港股通固定20%；现有持仓统一按2026-06-30买入计",
   "investable": 7422979,
-  "targetCapital": 9968811.872,
+  "targetCapital": 9999385.64,
   "hkdcnyFallback": 0.8548,
+  "dismissedReasons": {},
   "dismissedSignals": [
     "over:600036.SH"
-  ]
+  ],
+  "annualContribution": 0
 }

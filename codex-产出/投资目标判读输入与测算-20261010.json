@@ -1,0 +1,357 @@
+{
+  "date": "2026-10-10 Asia/Shanghai",
+  "scope": "personal investment goal scenario analysis, no formal individual equity valuation or trade sizing",
+  "source_config_path": "/Users/jimislg/Documents/郎刚的芒格/investment-platform/config.json",
+  "source_config_sha256": "59a624e372b8528a5d4d1295c6e5f6c05bfe236c36eed971c48397458177ebad",
+  "source_config_mtime": 1791585158.5098045,
+  "source_config_changed": false,
+  "methodology_path": "/Users/jimislg/.workbuddy/skills/investment-advisor/references/methodology-v3.4.json",
+  "fx_reference": {
+    "hkd_to_cny": 0.8528,
+    "date": "2026-10-09",
+    "sources": [
+      "https://wise.com/zh-cn/currency-converter/hkd-to-cny-rate/history",
+      "https://cn.investing.com/currencies/hkd-cny-historical-data"
+    ],
+    "note": "indicative midpoint, not transaction settlement FX"
+  },
+  "holdings": [
+    {
+      "name": "招商银行",
+      "code": "600036.SH",
+      "market": "A",
+      "shares": 22100,
+      "config_price": 41.26,
+      "reference_close_20261009": 41.42,
+      "market_value_cny": 915382.0,
+      "ttm_dps_config": 2.016,
+      "dps_currency": "CNY",
+      "trailing_dividend_cny_current_shares": 44553.6,
+      "holdings_grade": "B",
+      "universe_grade": "B",
+      "recorded_buyDate": "2026-06-30"
+    },
+    {
+      "name": "泡泡玛特",
+      "code": "09992.HK",
+      "market": "HK",
+      "shares": 3400,
+      "config_price": 152.6,
+      "reference_close_20261009": 152.3,
+      "market_value_cny": 441596.89600000007,
+      "ttm_dps_config": 2.7248,
+      "dps_currency": "HKD",
+      "trailing_dividend_cny_current_shares": 7900.612096,
+      "holdings_grade": "A",
+      "universe_grade": "A",
+      "recorded_buyDate": "2026-06-30"
+    },
+    {
+      "name": "福耀玻璃",
+      "code": "600660.SH",
+      "market": "A",
+      "shares": 4900,
+      "config_price": 53.58,
+      "reference_close_20261009": 54.0,
+      "market_value_cny": 264600.0,
+      "ttm_dps_config": 3.1,
+      "dps_currency": "CNY",
+      "trailing_dividend_cny_current_shares": 15190.0,
+      "holdings_grade": "A",
+      "universe_grade": "B",
+      "recorded_buyDate": "2026-06-30"
+    },
+    {
+      "name": "安踏体育",
+      "code": "02020.HK",
+      "market": "HK",
+      "shares": 2600,
+      "config_price": 71.8,
+      "reference_close_20261009": 72.65,
+      "market_value_cny": 161085.39200000002,
+      "ttm_dps_config": 2.59,
+      "dps_currency": "HKD",
+      "trailing_dividend_cny_current_shares": 5742.7552,
+      "holdings_grade": "B",
+      "universe_grade": "B",
+      "recorded_buyDate": "2026-06-30"
+    },
+    {
+      "name": "格力电器",
+      "code": "000651.SZ",
+      "market": "A",
+      "shares": 2300,
+      "config_price": 38.28,
+      "reference_close_20261009": 38.83,
+      "market_value_cny": 89309.0,
+      "ttm_dps_config": 3,
+      "dps_currency": "CNY",
+      "trailing_dividend_cny_current_shares": 6900,
+      "holdings_grade": "B",
+      "universe_grade": "B",
+      "recorded_buyDate": "2026-06-30"
+    },
+    {
+      "name": "万华化学",
+      "code": "600309.SH",
+      "market": "A",
+      "shares": 1200,
+      "config_price": 68.9,
+      "reference_close_20261009": 70.2,
+      "market_value_cny": 84240.0,
+      "ttm_dps_config": 2.06,
+      "dps_currency": "CNY",
+      "trailing_dividend_cny_current_shares": 2472.0,
+      "holdings_grade": "B",
+      "universe_grade": "B",
+      "recorded_buyDate": "2026-06-30"
+    },
+    {
+      "name": "腾讯控股",
+      "code": "0700.HK",
+      "market": "HK",
+      "shares": 1700,
+      "config_price": 415,
+      "reference_close_20261009": 424.8,
+      "market_value_cny": 615858.048,
+      "ttm_dps_config": 5.3,
+      "dps_currency": "HKD",
+      "trailing_dividend_cny_current_shares": 7683.728,
+      "holdings_grade": "A",
+      "universe_grade": "A",
+      "recorded_buyDate": "2026-06-30"
+    }
+  ],
+  "cash_cny": 7422979,
+  "stocks_cny": 2572071.336,
+  "total_reference_assets_cny": 9995050.336,
+  "total_config_snapshot_assets_cny": 9974230.896,
+  "config_targetCapital": 9999385.64,
+  "cash_fraction": 0.7426654944662002,
+  "goals": {
+    "five_year_assets": 20000000.0,
+    "ten_year_assets": 50000000.0,
+    "sustainable_annual_gross_dividends": 1000000.0,
+    "five_year_required_cagr": 0.14881210219778218,
+    "ten_year_required_cagr": 0.1746770986119246
+  },
+  "assumptions": {
+    "remaining_horizons_years": [
+      5,
+      10
+    ],
+    "fixed_original_goal_dates": "not confirmed; full remaining horizons are optimistic conditional assumptions, not a date reset",
+    "base_external_contributions": 0,
+    "base_withdrawals": 0,
+    "dividends_reinvested_and_already_in_total_return": true,
+    "returns": "hypothetical net CNY total returns; includes dividend taxes and investment fee effects conceptually; no actual stock forecast",
+    "cash_yield": 0.01,
+    "terminal_dividend_yields": [
+      0.02,
+      0.03,
+      0.04,
+      0.05
+    ],
+    "stress_dividend_cut": 0.2,
+    "inflation_sensitivity": 0.03
+  },
+  "instant_deployment_wealth": [
+    {
+      "assumed_net_total_return": 0.06,
+      "wealth_5y_cny": 13375632.009034676,
+      "wealth_10y_cny": 17899612.871055484
+    },
+    {
+      "assumed_net_total_return": 0.08,
+      "wealth_5y_cny": 14686008.087714078,
+      "wealth_10y_cny": 21578564.01939018
+    },
+    {
+      "assumed_net_total_return": 0.1,
+      "wealth_5y_cny": 16097128.516631365,
+      "wealth_10y_cny": 25924586.447319992
+    },
+    {
+      "assumed_net_total_return": 0.12,
+      "wealth_5y_cny": 17614693.832814973,
+      "wealth_10y_cny": 31043109.17837581
+    },
+    {
+      "assumed_net_total_return": 0.1486983549970351,
+      "wealth_5y_cny": 19990100.672000006,
+      "wealth_10y_cny": 39980201.344000034
+    },
+    {
+      "assumed_net_total_return": 0.17461894308801895,
+      "wealth_5y_cny": 22349611.98982811,
+      "wealth_10y_cny": 49975251.67999997
+    }
+  ],
+  "delayed_deployment_wealth": [
+    {
+      "cash_deployment_delay_years": 0,
+      "post_deployment_net_total_return": 0.1,
+      "cash_yield": 0.01,
+      "wealth_5y_cny": 16097128.516631367,
+      "wealth_10y_cny": 25924586.447319996
+    },
+    {
+      "cash_deployment_delay_years": 1,
+      "post_deployment_net_total_return": 0.1,
+      "cash_yield": 0.01,
+      "wealth_5y_cny": 15119009.996780366,
+      "wealth_10y_cny": 24349316.789914757
+    },
+    {
+      "cash_deployment_delay_years": 2,
+      "post_deployment_net_total_return": 0.1,
+      "cash_yield": 0.01,
+      "wealth_5y_cny": 14220919.355826264,
+      "wealth_10y_cny": 22902932.831751768
+    },
+    {
+      "cash_deployment_delay_years": 5,
+      "post_deployment_net_total_return": 0.1,
+      "cash_yield": 0.01,
+      "wealth_5y_cny": 11943972.13802261,
+      "wealth_10y_cny": 19235886.568006802
+    },
+    {
+      "cash_deployment_delay_years": 10,
+      "post_deployment_net_total_return": 0.1,
+      "cash_yield": 0.01,
+      "wealth_5y_cny": 11943972.13802261,
+      "wealth_10y_cny": 14870877.474452078
+    }
+  ],
+  "contribution_requirements": [
+    {
+      "net_total_return": 0.08,
+      "years": 5,
+      "target_cny": 20000000.0,
+      "required_external_year_end_contribution_cny": 905804.2209651014
+    },
+    {
+      "net_total_return": 0.08,
+      "years": 10,
+      "target_cny": 50000000.0,
+      "required_external_year_end_contribution_cny": 1961917.1937781558
+    },
+    {
+      "net_total_return": 0.08,
+      "years": 10,
+      "target_cny": 25000000.0,
+      "required_external_year_end_contribution_cny": 236179.9763512724
+    },
+    {
+      "net_total_return": 0.08,
+      "years": 10,
+      "target_cny": 31250000.0,
+      "required_external_year_end_contribution_cny": 667614.2807079933
+    },
+    {
+      "net_total_return": 0.1,
+      "years": 5,
+      "target_cny": 20000000.0,
+      "required_external_year_end_contribution_cny": 639280.5168414329
+    },
+    {
+      "net_total_return": 0.1,
+      "years": 10,
+      "target_cny": 50000000.0,
+      "required_external_year_end_contribution_cny": 1510621.3303226766
+    },
+    {
+      "net_total_return": 0.1,
+      "years": 10,
+      "target_cny": 25000000.0,
+      "required_external_year_end_contribution_cny": 0
+    },
+    {
+      "net_total_return": 0.1,
+      "years": 10,
+      "target_cny": 31250000.0,
+      "required_external_year_end_contribution_cny": 334145.17627558566
+    },
+    {
+      "net_total_return": 0.12,
+      "years": 5,
+      "target_cny": 20000000.0,
+      "required_external_year_end_contribution_cny": 375470.40437392547
+    },
+    {
+      "net_total_return": 0.12,
+      "years": 10,
+      "target_cny": 50000000.0,
+      "required_external_year_end_contribution_cny": 1080242.5785396732
+    },
+    {
+      "net_total_return": 0.12,
+      "years": 10,
+      "target_cny": 25000000.0,
+      "required_external_year_end_contribution_cny": 0
+    },
+    {
+      "net_total_return": 0.12,
+      "years": 10,
+      "target_cny": 31250000.0,
+      "required_external_year_end_contribution_cny": 11789.500542597829
+    }
+  ],
+  "dividend_capital_sensitivities": [
+    {
+      "gross_yield": 0.02,
+      "normal_capital": 50000000.0,
+      "capital_to_survive_20pct_dividend_cut": 62500000.0
+    },
+    {
+      "gross_yield": 0.03,
+      "normal_capital": 33333333.333333336,
+      "capital_to_survive_20pct_dividend_cut": 41666666.666666664
+    },
+    {
+      "gross_yield": 0.04,
+      "normal_capital": 25000000.0,
+      "capital_to_survive_20pct_dividend_cut": 31250000.0
+    },
+    {
+      "gross_yield": 0.05,
+      "normal_capital": 20000000.0,
+      "capital_to_survive_20pct_dividend_cut": 24999999.999999996
+    }
+  ],
+  "raw_dividend_ttm_cny": 90442.695296,
+  "conditional_income_with_fuy_2point2": 86032.695296,
+  "cash_interest_assumed_cny": 74229.79000000001,
+  "math_checks": "float closed-form vs independent Decimal year-by-year accumulation, all differences <0.001 CNY; actual account XIRR not available due missing full dated cashflow ledger",
+  "prices_sources": {
+    "600036.SH": [
+      "https://cn.investing.com/equities/merchants-bank-historical-data",
+      "https://hk.finance.yahoo.com/quote/600036.SS/history/"
+    ],
+    "0700.HK": [
+      "https://content.etnet.com.hk/content/cpyrevamp/sc/stock_quote.php?code=00700",
+      "https://www.hstong.com/quotes/10000-00700-HK"
+    ],
+    "09992.HK": [
+      "https://cn.investing.com/equities/pop-mart-international-group-historical-data",
+      "https://www.hstong.com/quotes/10000-09992-HK"
+    ],
+    "02020.HK": [
+      "https://cn.investing.com/equities/anta-sports-historical-data",
+      "https://content.etnet.com.hk/content/cpyrevamp/sc/stock_quote.php?code=02020"
+    ],
+    "600660.SH": [
+      "https://cn.investing.com/equities/fuyao-glass-historical-data",
+      "https://quotedx.cfi.cn/quote1365_600660.html"
+    ],
+    "000651.SZ": [
+      "https://www.hstong.com/quotes/30000-000651-SZ",
+      "https://www.stockddx.com/quote/000651.html"
+    ],
+    "600309.SH": [
+      "https://cn.investing.com/equities/yantai-wanhua-historical-data"
+    ],
+    "price_verification_limitation": "Wanhua Oct9 has one date-aligned readable source; prices are reference estimates, not execution quotes"
+  }
+}

@@ -270,6 +270,44 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('无tierPct时uniCap回退plan关键词（目标达成型=A类默认20）',run('uniCap(CFG.universe.find(u=>u.code==="0700.HK"))')===20);
   run('CFG.universe.find(u=>u.code==="0700.HK").tierPct=[3,8,8,10]');
 
+  /* —— 任务书评审落地（郎刚10-10）：外部投入推演/例外决策记录/等级漂移/买入日可见 —— */
+  // ① 外部投入推演：AC=0 时显示引导；设 50 万后显示含投入路径
+  run('CFG.annualContribution=0');
+  await run('renderAll()');
+  T('现实路径卡：未设投入时显示引导语',el('dashCards').innerHTML.includes('未设外部追加投入'));
+  run('CFG.annualContribution=500000');
+  await run('renderAll()');
+  T('现实路径卡：设50万/年后显示含投入推演',el('dashCards').innerHTML.includes('含每年追加 50 万'));
+  T('达标卡：含投入后距目标差更新',el('dashCards').innerHTML.includes('含每年追加50万后现实路径10年'));
+  // 数学断言：页面显示的"含投入10年"=realPath10+annFV(blend,10)
+  const expect10=run('(function(){const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);const cy=CFG.cashYield/100;let wS=0,wI=0;CFG.holdings.forEach(h=>{const u=CFG.universe.find(v=>v.code===h.code);if(!u||!u.tiers||u.tiers.length<4)return;const ps=u.tiers.map(t=>t&&t.price).filter(p=>p!=null&&p>0);if(ps.length<4)return;const x=hLive(h);if(!x)return;const iF=irrAt(x.px,ps);if(iF==null)return;wS+=x.mvCNY;wI+=x.mvCNY*iF;});const pIrr=wS>0?wI/wS:null;if(pIrr==null)return null;const real10=inv*Math.pow(1+pIrr,10)+CFG.investable*Math.pow(1+cy,10);const blend=(inv*pIrr+CFG.investable*cy)/(inv+CFG.investable);const ac=CFG.annualContribution*((Math.pow(1+blend,10)-1)/blend);return (real10+ac)/1e4;})()');
+  const shown=el('dashCards').innerHTML.match(/含每年追加 50 万（按综合年化 [\d.]+% 复利）：10年≈ ([\d,]+) 万/);
+  T('含投入推演数值=realPath10+annFV公式（10年）',shown&&expect10!=null&&Math.abs(parseFloat(shown[1].replace(/,/g,''))-Math.round(expect10))<2);
+  // ② 例外决策记录：划掉带原因 → dismissedReasons 持久化 + 行内显示
+  run('CFG.dismissedSignals=["over:600036.SH"];CFG.dismissedReasons={"over:600036.SH":"历史遗留，逢高减持"}');
+  await run('renderAll()');
+  T('信号行显示例外决策原因',el('sigBox').innerHTML.includes('📝 例外决策：历史遗留，逢高减持'));
+  run('delete CFG.dismissedReasons["over:600036.SH"]');
+  // ③ 等级漂移告警：构造持仓A/池内B
+  const fy=run('CFG.holdings.find(h=>h.code==="600660.SH")');
+  if(fy){
+    run('CFG.holdings.find(h=>h.code==="600660.SH").grade="A"');
+    await run('renderAll()');
+    T('持仓表：等级漂移时显示⚠池内B告警',el('posTable').innerHTML.includes('⚠池内'));
+    T('gradeDrift返回池内等级',run('gradeDrift(CFG.holdings.find(h=>h.code==="600660.SH"))')==='B');
+    run('CFG.holdings.find(h=>h.code==="600660.SH").grade="B"'); // 还原（真实config已对齐）
+  }
+  // ④ 买入日可见
+  await run('renderAll()');
+  const bd=run('CFG.holdings[0].buyDate||"?"');
+  T('持仓表：标的列显示买入日（买入'+bd+'）',el('posTable').innerHTML.includes('买入'+bd));
+  // ⑤ cfgSig 纳入新字段（同步覆盖）
+  const s1=run('cfgSig(CFG)');
+  run('CFG.annualContribution=123456');
+  const s2=run('cfgSig(CFG)');
+  T('cfgSig感知annualContribution变化',s1!==s2);
+  run('CFG.annualContribution=500000');
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});
