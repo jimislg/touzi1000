@@ -706,12 +706,12 @@ function renderSignals(){
     const x=hLive(h);if(!x)return;
     const w=x.mvCNY/totalCapital()*100,lim=limitOf(h);
     const tn=tradeNote(h.code);
-    if(w>lim)rows.push({pri:0,rowCls:'row-over',badge:'仓位超限',bcls:'b-over',exec:!!tn,dk:'over:'+h.code,
+    if(w>lim)rows.push({pri:0,rowCls:'row-over',badge:'仓位超限',bcls:'b-over',exec:false,dk:'over:'+h.code,
       name:h.name,pills:`<span class="pill ${h.grade}">${h.grade}</span>${tn?'<span class="pill hold">已执行</span>':''}`,
       val:'权重 '+w.toFixed(1)+'%',gate:'上限 '+lim+'%',
       dev:'<b class="up">超 '+(w-lim).toFixed(1)+'pct</b>',
       note:'≈超 '+fmt((w-lim)/100*totalCapital()/10000,0)+' 万。减持节奏按第四步决策，不因价格恐慌抛售'+(tn?'；'+tn:'')});
-    else if(w>lim*0.8)rows.push({pri:1.5,rowCls:'row-near',badge:'仓位接近',bcls:'b-near',exec:!!tn,dk:'posnear:'+h.code,
+    else if(w>lim*0.8)rows.push({pri:1.5,rowCls:'row-near',badge:'仓位接近',bcls:'b-near',exec:false,dk:'posnear:'+h.code,
       name:h.name,pills:`<span class="pill ${h.grade}">${h.grade}</span>${tn?'<span class="pill hold">已执行</span>':''}`,
       val:'权重 '+w.toFixed(1)+'%',gate:'上限 '+lim+'%',
       dev:'余 '+fmt((lim-w)*totalCapital()/10000,0)+' 万空间',
@@ -729,10 +729,10 @@ function renderSignals(){
       name:u.name,pills,val:fmt(px,2)+' '+cur,gate:'≤ '+fmt(u.buyPrice,2),
       dev:'<b class="down">现价已入档</b>',
       note:(trigTiers.length?'档位 '+trigTiers.join(' / ')+' 同步触发；':'')+(u.plan?'按「'+u.plan+'」分档':'先定价再行动')+(tn?'；'+tn:'（尚未登记买入，触发≠下单）')});
-    else if(px<=u.buyPrice*1.05)rows.push({pri:2,rowCls:'row-near',badge:'接近',bcls:'b-near',exec:!!tn,dk:'near:'+u.code,
+    else if(px<=u.buyPrice*1.05)rows.push({pri:2,rowCls:'row-near',badge:'接近',bcls:'b-near',exec:false,dk:'near:'+u.code,
       name:u.name,pills,val:fmt(px,2)+' '+cur,gate:fmt(u.buyPrice,2),
       dev:'+'+((px/u.buyPrice-1)*100).toFixed(1)+'%',
-      note:(trigTiers.length?'档位 '+trigTiers.join(' / ')+' 已触发；跌至触发价即可行动':'距触发价 5% 内，可开始关注')+(tn?'；'+tn:'')});
+      note:(trigTiers.length?'档位 '+trigTiers.join(' / ')+' 已触发；跌至触发价即可行动':'距触发价 5% 内，可开始关注')+(tn?'；'+tn+'（已买入，此行为后续档位参考，不自动划线）':'')});
   });
   rows.forEach(r=>{r.off=dis.includes(r.dk);}); // off=手工划掉
   // 已执行→自动划线；手工划掉→整行淡出划线，且不再进总览计数（不再通知）

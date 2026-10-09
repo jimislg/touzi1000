@@ -184,6 +184,13 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('已执行行带 row-exec 划线样式',el('sigBox').innerHTML.includes('row-exec')&&el('sigBox').innerHTML.includes('sig-main'));
   T('未划掉时清单含"划掉"操作',el('sigBox').innerHTML.includes('>划掉</span>'));
 
+  // 回归（郎刚10-09：接近状态不应被自动划线——已买入后价格回到触发价上方，提醒仍是活的）
+  run('CFG.universe.find(u=>u.code==="0700.HK").buyPrice=400'); // 现价415 → 接近档(400,420]
+  await run('renderAll()');
+  T('接近档的已买入行不自动划线（无row-exec）',!el('sigBox').innerHTML.includes('row-exec')&&el('sigBox').innerHTML.includes('接近'));
+  T('接近档仍保留"已执行"徽标与买入明细',el('sigBox').innerHTML.includes('已执行')&&el('sigBox').innerHTML.includes('10/08已买入'));
+  run('CFG.universe.find(u=>u.code==="0700.HK").buyPrice=420');
+
   // 手工划掉腾讯触发信号 → row-dim + 徽标"已划掉" + chips 不再计数
   run('CFG.dismissedSignals.push("trig:0700.HK")');
   await run('renderAll()');
