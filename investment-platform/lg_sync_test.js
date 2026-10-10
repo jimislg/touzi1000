@@ -581,6 +581,16 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
     T('席位策略：安踏三档未到档→全dim（现价71.8>67.6）',openRow.includes('pill dim')&&!(openRow.includes('安踏')&&openRow.includes('✓')));
   }
 
+  // 郎刚10-10晚：泡泡玛特三张长期条件单（140/125/110 HKD，tierPct[7.1,8.8,10.1]）替代旧H四档
+  run('CFG.universe.push({code:"09992.HK",name:"泡泡玛特",grade:"A",qt:"hk09992",px:149.7,dps:2.7248,plan:"条件单三档：≤140买2,000股23.88万→≤125买1,600股17.06万→≤110买1,400股13.13万",tiers:[{cur:"HKD",label:"条件单1",price:140},{cur:"HKD",label:"条件单2",price:125},{cur:"HKD",label:"条件单3",price:110}],tierPct:[7.1,8.8,10.1]})');
+  await run('renderAll()');
+  {
+    const openRow=el('seatTable').innerHTML.split('<tr>').find(r=>r.includes('第五·开放竞争'))||'';
+    T('席位策略：第五席泡泡=条件单三档pill（条件单1 140港元）',openRow.includes('泡泡玛特')&&openRow.includes('条件单1')&&openRow.includes('140')&&openRow.includes('港元'));
+    T('席位策略：第五席泡泡不再渲染旧H四档（H10 172.7）',!(openRow.includes('泡泡')&&openRow.includes('172.7')));
+    T('席位策略：泡泡三档未到档→全dim（现价149.7>140）',openRow.includes('pill dim')&&!(openRow.includes('泡泡')&&openRow.includes('✓')));
+  }
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});
