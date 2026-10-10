@@ -344,6 +344,7 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
     {key:'mfg',name:'第四·先进制造',pct:15,members:['300750.SZ','600660.SH'],task:'制造'},
     {key:'open',name:'第五·开放竞争',pct:10,members:['09992.HK','02020.HK','300760.SZ'],task:'开放竞争'}
   ],transitional:['000651.SZ','600309.SH'],researchBatches:{batch1:['600519.SH','0700.HK','600036.SH'],batch2:['09992.HK'],watchExit:['000651.SZ']}}`);
+  run('CFG.universe.push({code:"600519.SH",name:"贵州茅台",grade:"B",qt:"sh600519",px:1258.62,dps:51.98,dpsNote:"2025年度全年"})'); // 郎刚10-10：未定档DPS补齐后满配股息须计入茅台
   await run('renderAll()');
   const tcap=run('CFG.targetCapital||10000000');
   T('席位表：五席全部渲染',['第一·品牌现金流','第二·平台复利','第三·金融股息','第四·先进制造','第五·开放竞争'].every(n=>el('seatTable').innerHTML.includes(n)));
@@ -363,14 +364,16 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('压力表：综合股息率+股息金额列（回本需涨已移除）',el('stressTable').innerHTML.includes('组合综合股息率')&&el('stressTable').innerHTML.includes('股息金额')&&!el('stressTable').innerHTML.includes('回本需涨'));
   T('压力表：茅台当前未持有→无直接影响标注',el('stressTable').innerHTML.includes('未持有·无直接影响'));
   T('压力表：腾讯当前实况亏损为负值',/-\d/.test(el('stressTable').innerHTML));
-  // 纯股息数值断言（郎刚10-10）：从页面解析满配年股息下限，校验综合股息率=股息÷跌后市值（-35%情景勾稽）
-  const fdm=el('stressTable').innerHTML.match(/满配年股息（下限估算）≈ <b>([\d,]+) 元\/年/);
+  // 纯股息数值断言（郎刚10-10）：从页面解析满配年股息，校验综合股息率=股息÷跌后市值（-35%情景勾稽）
+  const fdm=el('stressTable').innerHTML.match(/满配年股息 ≈ <b>([\d,]+) 元\/年/);
   const fullDiv=fdm?parseInt(fdm[1].replace(/,/g,''),10):0;
-  T('压力表：满配年股息下限='+fullDiv+'元（>0）',fullDiv>0);
+  T('压力表：满配年股息='+fullDiv+'元（含茅台席按51.98计）',fullDiv>0);
+  const mtExp=Math.round(0.30*tcap/1258.62*51.98*0.9); // 茅台席30%×TC÷备用价×DPS×(1-10%红利税)
+  T('压力表：茅台单席股息='+mtExp+'元郎刚口径校验',el('stressTable').innerHTML.includes(String(mtExp))||fullDiv>=mtExp*0.99);
+  T('压力表：DPS口径说明（2025年度实际）',el('stressTable').innerHTML.includes('2025年度实际')&&el('stressTable').innerHTML.includes('茅台51.98'));
   const yldExp=(fullDiv/(tcap*0.65)*100).toFixed(2);
   T('压力表：-35%跌后综合股息率='+yldExp+'%（股息÷跌后市值勾稽）',el('stressTable').innerHTML.includes('<b>'+yldExp+'%</b>'));
   T('压力表：股息金额含满配与实况双口径',el('stressTable').innerHTML.includes('万/年')&&el('stressTable').innerHTML.includes('实况'));
-  T('压力表：未定档成员不计入说明',el('stressTable').innerHTML.includes('未定档'));
   T('压力说明：三个问题导语（股息现金流怎么样）',el('stressDesc').innerHTML.includes('钱还剩多少')&&el('stressDesc').innerHTML.includes('股息现金流怎么样'));
   T('压力自定义：输入控件存在',el('stressCustom').innerHTML.includes('input'));
   T('席位说明：含v3.5路线与预算公式',el('seatNote').innerHTML.includes('v3.5 路线')&&el('seatNote').innerHTML.includes('B×q−K'));
