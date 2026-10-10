@@ -693,7 +693,7 @@ function renderDeploy(){
     <td style="white-space:normal"><span class="note">${(r.u.plan||'').slice(0,40)}</span></td>
   </tr>`;
   $('deployTable').innerHTML=`<table><thead><tr>
-    <th>标的</th><th>状态</th><th>现价</th><th>触发价</th><th>距离</th><th>至上限还需</th><th>建仓策略摘要</th>
+    <th>标的</th><th>状态</th><th>现价</th><th>触发价</th><th>距离</th><th title="距该标的个股硬上限（tierPct最深档累计%，占目标本金）的剩余可投金额 = 上限市值 − 当前持仓市值">至上限还有余额</th><th>建仓策略摘要</th>
   </tr></thead><tbody>${rows.map(rowHtml).join('')||'<tr><td colspan="7" class="note">当前无可部署标的处于触发/接近状态</td></tr>'}</tbody></table>`;
   $('deployCards').innerHTML=[
     {k:'已触发需资金',v:fmt(needTrig/1e4,0)+' 万',s:trig.length+' 只：'+(trig.map(r=>r.u.name).join('、')||'—')},
