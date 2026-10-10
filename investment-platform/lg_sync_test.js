@@ -20,7 +20,8 @@ const els={};
 function el(id){
   if(!els[id])els[id]={id,value:'',textContent:'',innerHTML:'',className:'',checked:true,style:{},
     dataset:{},classList:{toggle(){return false;},contains(){return false;},add(){}},
-    addEventListener(){},focus(){},select(){}};
+    _h:{},
+    addEventListener(type,fn){this._h[type]=fn;},focus(){},select(){}};
   return els[id];
 }
 const docStub={
@@ -426,6 +427,19 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   run('seatSort={k:"yld",dir:-1}');await run('renderAll()');
   T('席位排序：股息率排序生效',el('seatTable').innerHTML.includes('持仓股息率 ▼'));
   run('seatSort={k:null,dir:-1}');await run('renderAll()');
+
+  // 席位权重手工可调（郎刚10-10）：改权重→预算/汇总联动；非法值还原（vm内直接调用捕获的change处理器）
+  T('席位权重：行内含数字输入框',/data-seat="0" data-k="pct"/.test(el('seatTable').innerHTML));
+  const oldPct=run('CFG.seats.list[0].pct');
+  const seatChg=v=>run(`(function(){const t=document.getElementById("seatTable");const h=t._h&&t._h.change;if(!h)throw new Error("no change handler");h({target:{dataset:{seat:"0",k:"pct"},value:"${v}"}});})()`);
+  seatChg('36');await run('renderAll()');
+  T('席位权重：36%写入CFG',run('CFG.seats.list[0].pct')===36);
+  T('席位权重：预算联动≈360万',el('seatTable').innerHTML.includes('≈360万'));
+  T('席位权重：输入框值同步36',/data-seat="0" data-k="pct" value="36"/.test(el('seatTable').innerHTML));
+  seatChg('150');
+  T('席位权重：非法值150还原',run('CFG.seats.list[0].pct')===36);
+  seatChg(String(oldPct));
+  T('席位权重：恢复原值'+oldPct,run('CFG.seats.list[0].pct')===oldPct);
 
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
