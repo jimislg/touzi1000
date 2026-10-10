@@ -390,7 +390,8 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   {
     const hd=el('stressTable').innerHTML.match(/<thead><tr>([\s\S]*?)<\/tr><\/thead>/);
     const cols=hd?hd[1].match(/<th>([^<]*)<\/th>/g).map(s=>s.replace(/<\/?th>/g,'')):[];
-    T('压力表：列序=10列且历史参照在最后（复核报告：采用冲击与历史参照分列）',cols.length===10&&cols[9].includes('历史参照'));
+    T('压力表：列序=9列且历史参照在最后（郎刚10-10晚：实况剩余列删除）',cols.length===9&&cols[8].includes('历史参照')&&!cols.includes('当前实况剩余'));
+    T('压力表：实况亏损列含占总资产比小注',el('stressTable').innerHTML.includes('占总资产'));
     T('压力表：含「采用冲击」列且茅台腰斩采用−50%≠历史−56%',cols.includes('采用冲击*')&&el('stressTable').innerHTML.includes('−50%'));
     T('压力表：静态股息抵亏年数列（原股息回本周期改名，口径注明非恢复预测）',cols.includes('静态股息抵亏年数')&&el('stressTable').innerHTML.includes('亏损÷年股息现金流')&&el('stressTable').innerHTML.includes('不是恢复预测'));
     T('压力表：无频率预测措辞（十年一遇已移除）',!el('stressTable').innerHTML.includes('十年一遇'));
