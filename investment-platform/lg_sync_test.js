@@ -571,6 +571,16 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
     T('席位策略：福耀三档未到档→全dim（现价53.58>48）',mfgRow.includes('pill dim')&&!(mfgRow.includes('福耀')&&mfgRow.includes('✓')));
   }
 
+  // 郎刚10-10晚：安踏三张长期条件单（67.6/58.5/49.2 HKD，tierPct[4.5,7.7,10.5]）替代旧H四档
+  run('CFG.universe.push({code:"02020.HK",name:"安踏体育",grade:"B",qt:"hk02020",px:71.8,dps:2.45,plan:"条件单三档：≤67.60买4,000股23.9万→≤58.50买6,400股32万→≤49.20买6,600股28万",tiers:[{cur:"HKD",label:"条件单1",price:67.6},{cur:"HKD",label:"条件单2",price:58.5},{cur:"HKD",label:"条件单3",price:49.2}],tierPct:[4.5,7.7,10.5]})');
+  await run('renderAll()');
+  {
+    const openRow=el('seatTable').innerHTML.split('<tr>').find(r=>r.includes('第五·开放竞争'))||'';
+    T('席位策略：第五席安踏=条件单三档pill（条件单1 67.6港元）',openRow.includes('条件单1')&&openRow.includes('67.6')&&openRow.includes('港元'));
+    T('席位策略：第五席安踏不再渲染旧H四档（H10/H17.46）',!(openRow.includes('安踏')&&openRow.includes('H17.46')));
+    T('席位策略：安踏三档未到档→全dim（现价71.8>67.6）',openRow.includes('pill dim')&&!(openRow.includes('安踏')&&openRow.includes('✓')));
+  }
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});
