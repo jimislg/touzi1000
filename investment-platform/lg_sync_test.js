@@ -591,6 +591,16 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
     T('席位策略：泡泡三档未到档→全dim（现价149.7>140）',openRow.includes('pill dim')&&!(openRow.includes('泡泡')&&openRow.includes('✓')));
   }
 
+  // 郎刚10-10晚：茅台三买点（1150/1050/950各100万，tierPct[10,20,30]）替代同日早间四档（L1-L4），880馈赠档取消
+  run('Object.assign(CFG.universe.find(u=>u.code==="600519.SH"),{plan:"三买点：1150-1200建100万主力底仓→1050-1100加仓100万→950以下打满300万",tiers:[{cur:"CNY",label:"T1·主力底仓",price:1150},{cur:"CNY",label:"T2·估值出清加仓",price:1050},{cur:"CNY",label:"T3·黑天鹅贪婪档",price:950}],tierPct:[10,20,30]})');
+  await run('renderAll()');
+  {
+    const brandRow=el('seatTable').innerHTML.split('<tr>').find(r=>r.includes('第一·品牌现金流'))||'';
+    T('席位策略：第一席茅台=三买点pill（T1·主力底仓1150元）',brandRow.includes('T1·主力底仓')&&brandRow.includes('1,150')&&brandRow.includes('元'));
+    T('席位策略：第一席茅台不再渲染旧四档（L1·前哨/L4·馈赠880）',!brandRow.includes('L1·前哨')&&!brandRow.includes('880'));
+    T('席位策略：茅台三档未到档→全dim（现价1258>1150）',brandRow.includes('pill dim')&&!(brandRow.includes('茅台')&&brandRow.includes('✓')));
+  }
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});
