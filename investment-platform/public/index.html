@@ -907,7 +907,15 @@ function renderSeats(){
       return (va-vb)*seatSort.dir;
     });
   }
-  const seatThs=[['name','席位'],['memb','构成（成员·现值）'],['tgt','目标成本'],['mv','当前市值'],['cost','持仓成本'],['yld','持仓股息率'],['prog','进度'],['room','剩余空间'],['task','投资任务']];
+  const seatThs=[['name','席位'],['memb','构成（成员·现值）'],['tgt','目标成本'],['mv','当前市值'],['cost','持仓成本'],['yld','持仓股息率'],['prog','进度'],['room','剩余空间'],['strat','建仓策略']];
+  /* 郎刚10-10晚：投资任务列→建仓策略列（读各成员universe的plan分档文本；无plan成员回退席位task） */
+  const stratHtml=st=>{
+    const lines=(st.members||[]).map(code=>{
+      const u=CFG.universe.find(x=>x.code===code);
+      return u?`<b>${u.name}</b><br><span class="note">${String(u.plan||'待定档').slice(0,120)}</span>`:null;
+    }).filter(Boolean);
+    return lines.length?lines.join('<br>'):`<span class="note">${st.task||''}</span>`;
+  };
   const rowHtml=r=>{
     const yCell=(r.mv>0)
       ?`<b>${r.yPx.toFixed(2)}%</b><br><span class="note">成本 ${r.yCost!=null?r.yCost.toFixed(2)+'%':'—'} · 现价（税后）</span>`
@@ -921,10 +929,10 @@ function renderSeats(){
     <td>${yCell}</td>
     <td>${r.mv>0?'<b>'+r.prog.toFixed(1)+'%</b>':'—'}</td>
     <td>${fmt(Math.max(r.B-r.mv,0)/1e4,0)} 万</td>
-    <td style="white-space:normal"><span class="note">${r.st.task||''}</span></td>
+    <td style="white-space:normal">${stratHtml(r.st)}</td>
   </tr>`;};
   $('seatTable').innerHTML=`<table><thead><tr>${seatThs.map(([k,t])=>
-    k==='memb'||k==='task'?`<th>${t}</th>`:
+    k==='memb'||k==='strat'?`<th>${t}</th>`:
     `<th data-sk="${k}" class="${seatSort.k===k?'sort-on':''}">${t}${seatSort.k===k?(seatSort.dir===1?' ▲':' ▼'):''}</th>`).join('')}
   </tr></thead><tbody>${rows.map(rowHtml).join('')}</tbody></table>`;
   /* 集中度压力测试 v3（郎刚10-10两轮迭代：v2情景表保留，回本时间改为「纯股息回本」——
@@ -1032,19 +1040,30 @@ function renderSignals(){
   // ② 价格信号（股票池·购买触发价为唯一行动门槛）
   CFG.universe.forEach(u=>{
     const qq=q(u);if(!qq)return;const px=qq.price;const cur=curOf(u);
-    const trigTiers=(u.tiers||[]).filter(t=>px<=t.price).map(t=>t.label);
+    /* 郎刚10-10晚：提醒按分档建仓策略——已到最深档+累计预算+下一档距离 */
+    const ladderTxt=()=>{
+      const ts=u.tiers||[];if(!ts.length)return '';
+      let deep=null,deepI=-1,next=null;
+      ts.forEach((t,i)=>{if(px<=t.price){deep=t;deepI=i;}else if(deep&&!next)next=t;});
+      if(!deep)return next?'未到档；最近档 '+next.label+'（'+fmt(next.price,1)+'）还差 '+((px/next.price-1)*100).toFixed(1)+'%':'';
+      const pct=(u.tierPct||[])[deepI];
+      const amt=pct!=null?'（累计'+pct+'%≈'+fmt(pct/100*totalCapital()/1e4,0)+'万）':'';
+      const nx=next?'；下一档 '+next.label+'（'+fmt(next.price,1)+'）还差 '+((px/next.price-1)*100).toFixed(1)+'%':'；已到最深档';
+      return '已到 '+deep.label+' 档'+amt+nx;
+    };
     if(u.buyPrice==null)return;
     const held=CFG.holdings.some(h=>h.code===u.code);
     const tn=tradeNote(u.code);
     const pills=`<span class="pill ${u.grade}">${u.grade}</span>${held?'<span class="pill hold">持仓</span>':''}${tn?'<span class="pill hold">已执行</span>':''}`;
+    const lad=ladderTxt();
     if(px<=u.buyPrice)rows.push({pri:1,rowCls:'row-trig',badge:tn?'已触发·已执行':'已触发',bcls:'b-trig',exec:!!tn,dk:'trig:'+u.code,
       name:u.name,pills,val:fmt(px,2)+' '+cur,gate:'≤ '+fmt(u.buyPrice,2),
       dev:'<b class="down">现价已入档</b>',
-      note:(trigTiers.length?'档位 '+trigTiers.join(' / ')+' 同步触发；':'')+(u.plan?'按「'+u.plan+'」分档':'先定价再行动')+(tn?'；'+tn:'（尚未登记买入，触发≠下单）')});
+      note:(lad?lad+'；':'')+(u.plan?'按「'+u.plan.slice(0,60)+'…」分档执行':'先定价再行动')+(tn?'；'+tn:'（尚未登记买入，触发≠下单）')});
     else if(px<=u.buyPrice*1.05)rows.push({pri:2,rowCls:'row-near',badge:'接近',bcls:'b-near',exec:false,dk:'near:'+u.code,
       name:u.name,pills,val:fmt(px,2)+' '+cur,gate:fmt(u.buyPrice,2),
       dev:'+'+((px/u.buyPrice-1)*100).toFixed(1)+'%',
-      note:(trigTiers.length?'档位 '+trigTiers.join(' / ')+' 已触发；跌至触发价即可行动':'距触发价 5% 内，可开始关注')+(tn?'；'+tn+'（已买入，此行为后续档位参考，不自动划线）':'')});
+      note:(lad?lad+'；':((u.tiers||[]).length?'':'距触发价 5% 内，可开始关注；'))+'跌至触发价即可行动'+(tn?'；'+tn+'（已买入，此行为后续档位参考，不自动划线）':'')});
   });
   rows.forEach(r=>{r.off=dis.includes(r.dk);}); // off=手工划掉
   // 已执行→自动划线；手工划掉→整行淡出划线，且不再进总览计数（不再通知）

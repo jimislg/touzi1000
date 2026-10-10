@@ -164,6 +164,17 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('信号中心：已触发行徽标变"已触发·已执行"',el('sigBox').innerHTML.includes('已触发·已执行'));
   T('信号中心：说明含买入明细',el('sigBox').innerHTML.includes('10/08已买入')&&el('sigBox').innerHTML.includes('1,600股'));
   T('总览chip副标题带（已执行）',el('sigBox').innerHTML.includes('腾讯控股（已执行）'));
+  // 郎刚10-10晚：提醒按分档建仓策略——已到最深档+累计预算+下一档距离（按夹具档位动态计算）
+  {
+    const tpx=run('Q["hk00700"]&&Q["hk00700"].price');
+    const lad=run('(function(){const u=CFG.universe.find(u=>u.code==="0700.HK");const px=Q["hk00700"].price;const ts=u.tiers||[];let deep=null,deepI=-1,next=null;ts.forEach((t,i)=>{if(px<=t.price){deep=t;deepI=i;}else if(deep&&!next)next=t;});if(!deep)return next?"未到档":"none";const pct=(u.tierPct||[])[deepI];return "已到 "+deep.label+" 档"+(pct!=null?"（累计"+pct+"%":"")+"§"+(next?next.label:"");})()');
+    const sb=el('sigBox').innerHTML;
+    if(lad==='none'){T('信号中心：腾讯无档位提醒（夹具无tiers）',true);}
+    else{
+      T('信号中心：腾讯分档提醒「'+lad.split('§')[0]+'…」',sb.includes(lad.split('§')[0]));
+      if(lad.split('§')[0].startsWith('已到')&&lad.split('§')[1])T('信号中心：腾讯提醒含下一档'+lad.split('§')[1]+'距离',sb.includes('下一档 '+lad.split('§')[1]+'（')&&sb.includes('还差'));
+    }
+  }
   run('CFG.trades=[{date:"2026-09-01",code:"0700.HK",shares:100,price:400,amtCNY:40000}]');
   await run('renderAll()');
   T('过期交易(>3天)不标记已执行，回到未执行口径',!el('sigBox').innerHTML.includes('已触发·已执行')&&el('sigBox').innerHTML.includes('（尚未登记买入'));
@@ -344,7 +355,8 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
     {key:'mfg',name:'第四·先进制造',pct:15,members:['300750.SZ','600660.SH'],task:'制造'},
     {key:'open',name:'第五·开放竞争',pct:10,members:['09992.HK','02020.HK','300760.SZ'],task:'开放竞争'}
   ],transitional:['000651.SZ','600309.SH'],researchBatches:{batch1:['600519.SH','0700.HK','600036.SH'],batch2:['09992.HK'],watchExit:['000651.SZ']}}`);
-  run('CFG.universe.push({code:"600519.SH",name:"贵州茅台",grade:"B",qt:"sh600519",px:1258.62,dps:51.98,dpsNote:"2025年度全年"})'); // 郎刚10-10：未定档DPS补齐后满配股息须计入茅台
+  run('CFG.universe.push({code:"600519.SH",name:"贵州茅台",grade:"B",qt:"sh600519",px:1258.62,dps:51.98,dpsNote:"2025年度全年",plan:"L1·防踏空前哨（10%进度）→L2·合理估值加仓（40%）→L3·安全边际重击（80%，=H12）→L4·极端馈赠（打满）；1200-1400现价区坚决不买"})'); // 郎刚10-10：未定档DPS补齐后满配股息须计入茅台
+  run('CFG.universe.find(u=>u.code==="0700.HK").plan="A·组合辅助型四档建仓：L1·研究关注 ≤444.7(H10) → L2·合理估值 ≤374.4(H12) → L3·深度价值 ≤291.4(H15) → L4·极端馈赠 ≤238.8(H17.46)"'); // 郎刚10-10晚：腾讯四档建仓策略
   await run('renderAll()');
   const tcap=run('CFG.targetCapital||10000000');
   T('席位表：五席全部渲染',['第一·品牌现金流','第二·平台复利','第三·金融股息','第四·先进制造','第五·开放竞争'].every(n=>el('seatTable').innerHTML.includes(n)));
@@ -489,6 +501,9 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   run('CFG.targetCapital='+tc0);await run('renderAll()');
 
   /* —— 席位表新维度：持仓成本/目标成本/持仓股息率 + 表头排序（郎刚10-10需求）—— */
+  T('席位表：建仓策略列替换投资任务（郎刚10-10晚）',el('seatTable').innerHTML.includes('建仓策略')&&!el('seatTable').innerHTML.includes('<th>投资任务</th>'));
+  T('席位表：茅台席建仓策略含四档文本',el('seatTable').innerHTML.includes('L1·防踏空前哨')&&el('seatTable').innerHTML.includes('1200-1400现价区坚决不买'));
+  T('席位表：腾讯席建仓策略含L1-L4档位',el('seatTable').innerHTML.includes('L1·研究关注')&&el('seatTable').innerHTML.includes('L4·极端馈赠'));
   T('席位表：含目标成本列',el('seatTable').innerHTML.includes('目标成本'));
   T('席位表：含持仓成本列',el('seatTable').innerHTML.includes('持仓成本'));
   T('席位表：含持仓股息率列',el('seatTable').innerHTML.includes('持仓股息率'));
