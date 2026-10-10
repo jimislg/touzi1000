@@ -511,6 +511,10 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('席位表：茅台档位pill（'+pillOf("600519.SH",0)+'）',el('seatTable').innerHTML.includes(pillOf("600519.SH",0))&&el('seatTable').innerHTML.includes(pillOf("600519.SH",3)));
   T('席位表：腾讯席档位pill（'+pillOf("0700.HK",0)+'）',el('seatTable').innerHTML.includes(pillOf("0700.HK",0)));
   T('席位表：档位pill悬浮含完整plan文案',el('seatTable').innerHTML.includes('title="A·组合辅助型四档建仓'));
+  // 郎刚10-10晚三版：已到档（现价≤触发价）pill醒目trig+✓，未到档弱化dim
+  T('席位表：腾讯H10已到档→醒目✓（夹具现价415≤444.7）',/pill trig[^>]*>✓ H10 444\.7港元/.test(el('seatTable').innerHTML));
+  T('席位表：腾讯H12未到档→弱化dim',/pill dim[^>]*>H12 374\.4港元/.test(el('seatTable').innerHTML));
+  T('席位表：茅台现价1258未到任何档→四档全dim',el('seatTable').innerHTML.match(/600519|贵州茅台/)&&!/✓ L1·前哨/.test(el('seatTable').innerHTML)&&/pill dim[^>]*>L1·前哨 1,150元/.test(el('seatTable').innerHTML));
   T('席位表：含目标成本列',el('seatTable').innerHTML.includes('目标成本'));
   T('席位表：含持仓成本列',el('seatTable').innerHTML.includes('持仓成本'));
   T('席位表：含持仓股息率列',el('seatTable').innerHTML.includes('持仓股息率'));
