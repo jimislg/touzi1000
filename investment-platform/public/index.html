@@ -801,14 +801,34 @@ function renderSeats(){
     k==='memb'||k==='task'?`<th>${t}</th>`:
     `<th data-sk="${k}" class="${seatSort.k===k?'sort-on':''}">${t}${seatSort.k===k?(seatSort.dir===1?' ▲':' ▼'):''}</th>`).join('')}
   </tr></thead><tbody>${rows.map(rowHtml).join('')}</tbody></table>`;
-  /* 集中度压力测试 v2（郎刚10-10：原卡片式"只剩多少钱"没有参考意义，改为情景表——
-     每个情景都是历史上真实发生过的跌幅，回答三个问题：钱剩多少/亏了多少/按17.46%年化几年长回来）*/
+  /* 集中度压力测试 v3（郎刚10-10两轮迭代：v2情景表保留，回本时间改为「纯股息回本」——
+     亏损÷年股息现金流，不靠价格修复；回答三个问题：钱剩多少/亏了多少/靠股息几年赚回来）*/
   const cashNow=(CFG.investable!=null?CFG.investable:CFG.cash||0),stockNow=invMV(),assetNow=cashNow+stockNow;
-  const LN_T=Math.log(1.1746); // 目标年化17.46%（达标基准）
   const wOf=code=>{const st=(S.list||[]).find(s=>(s.members||[]).includes(code));return st?(st.pct/100):0;};
   const wM=wOf('600519.SH'),wT=wOf('0700.HK'),wD=wM+wT;
   const heldLoss=(codes,ss)=>codes.reduce((s,code)=>{const h=CFG.holdings.find(x=>x.code===code);if(!h)return s;const x=hLive(h);return s+(x?x.mvCNY*ss:0);},0);
-  const yearsBack=d=>Math.log(1/(1-d))/LN_T;
+  /* 纯股息口径：满配年股息（下限估算）=各席位预算按现价折股数×税后DPS（港股80%代扣/A股90%），
+     同席多成员等分（招行/平安、宁德/福耀、泡泡/安踏/迈瑞）；DPS未定档成员（茅台/平安/宁德/迈瑞）不计入→下限，实际更快 */
+  const hkdR=hkd();
+  const divCNYof=(code,amountCNY)=>{
+    const h=CFG.holdings.find(x=>x.code===code),u=CFG.universe.find(x=>x.code===code);
+    const dps=h&&h.dps!=null?h.dps:(u&&u.dps!=null?u.dps:null);
+    const x=h?hLive(h):null;
+    const px=(u&&u.px!=null)?u.px:(x?x.px:null); // 价格来源：股票池备用价→持仓实时价
+    const mkt=h&&h.market?h.market:(u&&u.code.endsWith('.HK')?'HK':'A');
+    if(!(dps>0)||!(px>0))return null;
+    const pxCNY=mkt==='HK'?px*hkdR:px;
+    if(!(pxCNY>0))return null;
+    return amountCNY/pxCNY*dps*(mkt==='HK'?0.8:0.9)*(mkt==='HK'?hkdR:1);
+  };
+  const fullDiv=(S.list||[]).reduce((s,st)=>{
+    const mem=(st.members||[]);if(!mem.length)return s;
+    const per=st.pct/100*TC/mem.length;
+    return s+mem.reduce((t,code)=>t+(divCNYof(code,per)||0),0);
+  },0);
+  const curDiv=CFG.holdings.reduce((s,h)=>s+divTaxOf(h),0); // 当前持仓税后年股息（与股息模块同源）
+  const divYrs=(loss,div)=>(loss>0&&div>0)?(loss/div):null;
+  const yrsTxt=y=>y==null?'—':(y<1?'不满1年':y.toFixed(1)+' 年');
   const scn=[
     {n:'整体 -20%',lv:'普通熊市',ref:'2018年A股、2022年港股都出现过；持有期内的常规颠簸',shock:0.20,only:null,ss:0.20},
     {n:'整体 -35%',lv:'深度熊市',ref:'2022年沪深300自高点约-40%；好公司也会跟着市场一起跌',shock:0.35,only:null,ss:0.35},
@@ -817,12 +837,11 @@ function renderSeats(){
     {n:'腾讯腰斩',lv:'单点风险',ref:'2021-22年真实发生（775→198港元，-74%）；检验第二席'+Math.round(wT*100)+'%的集中度代价',shock:wT*0.5,only:['0700.HK'],ss:0.5},
     {n:'双核同跌 -40%',lv:'单点风险叠加',ref:'2022年A股+港股双杀；通胀或监管让茅台腾讯一起出问题',shock:wD*0.4,only:['600519.SH','0700.HK'],ss:0.4},
   ];
-  $('stressDesc').innerHTML='压力测试只回答三个问题：<b>大跌之后钱还剩多少？亏了多少？按目标年化 17.46% 几年长回来？</b>情景全部采用<b>历史上真实发生过</b>的跌幅（不是吓唬人的假设）。「满配」＝目标本金全部按五席配置成股票；「当前实况」＝现金不动、只按实际持仓算。';
+  $('stressDesc').innerHTML='压力测试只回答三个问题：<b>大跌之后钱还剩多少？亏了多少？靠股息几年赚回来？</b>情景全部采用<b>历史上真实发生过</b>的跌幅（不是吓唬人的假设）。「满配」＝目标本金全部按五席配置成股票；「当前实况」＝现金不动、只按实际持仓算。回本时间＝亏损÷年股息现金流（<b>纯股息口径</b>，不指望价格修复）。';
   const rows2=scn.map(s=>{
     const fullRem=TC*(1-s.shock),fullLoss=TC*s.shock;
     const back=s.shock>0?`+${(s.shock/(1-s.shock)*100).toFixed(0)}%`:'—';
-    const yrs=s.shock>0?yearsBack(s.shock):0;
-    const yrsTxt=s.shock>0?(yrs<1?'不满1年':yrs.toFixed(1)+' 年'):'—';
+    const fYrs=divYrs(fullLoss,fullDiv);
     let curRem,curLoss,curNote='';
     if(s.only){
       curLoss=heldLoss(s.only,s.ss);
@@ -830,30 +849,32 @@ function renderSeats(){
       if(!heldAny)curNote='<br><span class="note">未持有·无直接影响</span>';
     }else curLoss=stockNow*s.ss;
     curRem=assetNow-curLoss;
+    const cYrs=divYrs(curLoss,curDiv);
     return `<tr>
       <td><b>${s.n}</b><br><span class="pill wait">${s.lv}</span></td>
       <td style="white-space:normal"><span class="note">${s.ref}</span></td>
       <td class="down">${fmt(fullRem/1e4,0)} 万</td>
       <td class="down">-${fmt(fullLoss/1e4,0)} 万</td>
       <td><b>${back}</b></td>
-      <td>${yrsTxt}</td>
+      <td><b>${yrsTxt(fYrs)}</b></td>
       <td>${fmt(curRem/1e4,0)} 万</td>
-      <td class="${curLoss>0?'down':''}">-${fmt(curLoss/1e4,1)} 万${curNote}</td>
+      <td class="${curLoss>0?'down':''}">-${fmt(curLoss/1e4,1)} 万${curLoss>0?'<br><span class="note">靠股息 '+yrsTxt(cYrs)+'</span>':curNote}</td>
     </tr>`;
   }).join('');
   $('stressTable').innerHTML=`<table><thead><tr>
-    <th>情景</th><th>历史参照（都真实发生过）</th><th>满配剩余</th><th>满配亏损</th><th>回本需涨</th><th>回本时间*</th><th>当前实况剩余</th><th>当前实况亏损</th>
+    <th>情景</th><th>历史参照（都真实发生过）</th><th>满配剩余</th><th>满配亏损</th><th>回本需涨</th><th>回本时间(纯股息)*</th><th>当前实况剩余</th><th>当前实况亏损</th>
   </tr></thead><tbody>${rows2}</tbody></table>
-  <div class="note" style="margin-top:6px">* 回本时间按目标年化 17.46% 复利测算（跌 35% 要涨 54% 才回本，这就是不碰杠杆、不满仓单一股票的原因）。实际修复通常快于表格：跌出来的低价正是分档建仓的买点，股息再投也在低位加速复利。</div>`;
-  // 自定义情景：输入任意整体跌幅，即时算满配/当前实况
+  <div class="note" style="margin-top:6px">* 纯股息回本＝亏损÷年股息现金流，假设跌后每股分红不变、股息不再投、不含价格修复（实际回本会更快：跌出来的低价正是分档建仓买点，股息再投在低位加速复利）。<br>满配年股息（下限估算）≈ <b>${fmt(fullDiv,0)} 元/年</b>——DPS 未定档成员（茅台/平安/宁德/迈瑞）未计入，实际回本更快；当前持仓年股息（税后）≈ <b>${fmt(curDiv,0)} 元/年</b>。跌 35% 要涨 54% 才能靠价格回本，这就是不碰杠杆、不满仓单一股票的原因。</div>`;
+  // 自定义情景：输入任意整体跌幅，即时算满配/当前实况（纯股息回本口径）
   window.stressCustom=v=>{
     const d=(parseFloat(v)||0)/100;
     if(!(d>0&&d<0.95)){$('stressCustom').innerHTML=`<span class="k">自己算一个：</span><input type="number" min="1" max="90" step="1" value="${v||''}" oninput="stressCustom(this.value)"><span class="k">%</span> <span class="note">输入 1-90 之间的整数跌幅</span>`;return;}
     const curLoss=stockNow*d,curRem=assetNow-curLoss;
+    const fY=divYrs(TC*d,fullDiv),cY=divYrs(curLoss,curDiv);
     $('stressCustom').innerHTML=`<span class="k">自己算一个：</span><input type="number" min="1" max="90" step="1" value="${v}" oninput="stressCustom(this.value)"><span class="k">% 整体跌幅 → </span>
-      满配剩余 <b>${fmt(TC*(1-d)/1e4,0)} 万</b>（亏 ${fmt(TC*d/1e4,0)} 万）｜
-      当前实况剩余 <b>${fmt(curRem/1e4,0)} 万</b>（亏 ${fmt(curLoss/1e4,1)} 万）｜
-      回本需涨 <b>+${(d/(1-d)*100).toFixed(0)}%</b> ≈ <b>${yearsBack(d)<1?'不满1年':yearsBack(d).toFixed(1)+' 年'}</b>（按17.46%）`;
+      满配剩余 <b>${fmt(TC*(1-d)/1e4,0)} 万</b>（亏 ${fmt(TC*d/1e4,0)} 万，靠股息 ${yrsTxt(fY)}）｜
+      当前实况剩余 <b>${fmt(curRem/1e4,0)} 万</b>（亏 ${fmt(curLoss/1e4,1)} 万，靠股息 ${yrsTxt(cY)}）｜
+      回本需涨 <b>+${(d/(1-d)*100).toFixed(0)}%</b>`;
   };
   window.stressCustom('');
   $('seatNote').innerHTML=`<b>v3.5 路线</b>（建议书第十二节）：阶段0 数据与制度修正（现金对账、10-08结算单、批次成本）→ 阶段1 核心审计（茅台/腾讯/招行/平安优先）→ 阶段2 首轮配置（合格价格才动）→ 阶段3 优势集中 → 阶段4 长期收敛。<br><b>买入预算公式</b>（v3.5 已签发）：可追加上限 = max[0, min(B×q−K, L−V, C−F)]——B席位预算、q价档累计比例、K累计净投入、L集中度上限、V当前市值、C可用现金、F预留费用；同一公司A/H合并K与V，交易价与税费各自算；<b>卖出后K的释放规则待定</b>。<br><b>四项确认记录（郎刚 2026-10-10 确认通过，按现行口径执行）</b>：①目标固定起算/截止日；②家庭必要现金与负债；③最大可承受回撤；④完整入出金流水。<br>压力测试为静态情景，不含现金缓冲与新增投入；满配情景直接取本表五席权重（茅台${Math.round(wM*100)}%/腾讯${Math.round(wT*100)}%），持仓变动实时反映在「当前实况」列。`;
