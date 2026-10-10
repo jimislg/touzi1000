@@ -560,6 +560,17 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
     T('席位策略：第三席三档未到档→全dim弱化（现价52.83>50）',finRow.includes('pill dim')&&!finRow.includes('✓'));
   }
 
+  // 郎刚10-10晚：福耀三梯队（48/42/36，tierPct[6.1,10.7,15]）替代旧H四档；现价53.58等待区0部署
+  run('CFG.universe.push({code:"600660.SH",name:"福耀玻璃",grade:"B",qt:"sh600660",px:53.58,dps:2.1,plan:"三梯队：53-55现价区4900股锁定一股不追→T1≤48投35万→T2≤42投45万→T3≤36投43.5万打满150万",tiers:[{cur:"CNY",label:"T1·防守加仓",price:48},{cur:"CNY",label:"T2·安全边际",price:42},{cur:"CNY",label:"T3·周期底重击",price:36}],tierPct:[6.1,10.7,15]})');
+  run('CFG.seats.list.find(s=>s.key==="mfg").members=["300750.SZ","600660.SH"]');
+  await run('renderAll()');
+  {
+    const mfgRow=el('seatTable').innerHTML.split('<tr>').find(r=>r.includes('第四·先进制造'))||'';
+    T('席位策略：第四席福耀=三梯队pill（T1·防守加仓48元）',mfgRow.includes('T1·防守加仓')&&mfgRow.includes('T3·周期底重击'));
+    T('席位策略：第四席福耀不再渲染旧H四档（H10/H17.46）',!mfgRow.includes('H10')&&!mfgRow.includes('H17.46'));
+    T('席位策略：福耀三档未到档→全dim（现价53.58>48）',mfgRow.includes('pill dim')&&!(mfgRow.includes('福耀')&&mfgRow.includes('✓')));
+  }
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});
