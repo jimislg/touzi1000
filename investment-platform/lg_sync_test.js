@@ -308,6 +308,53 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('cfgSig感知annualContribution变化',s1!==s2);
   run('CFG.annualContribution=500000');
 
+  /* —— 最终仓·五席位 + 压力测试 + 研究批次（郎刚10-10：Gemini建议书落地）—— */
+  // ① 无seats配置时的兜底
+  run('delete CFG.seats');
+  await run('renderAll()');
+  T('席位模块：无seats配置显示兜底提示',el('seatTable').innerHTML.includes('未配置席位结构'));
+  // ② 注入建议稿seats
+  run(`CFG.seats={version:'gemini-v1.0',list:[
+    {key:'brand',name:'第一·品牌现金流',pct:30,members:['600519.SH'],task:'第一核心'},
+    {key:'platform',name:'第二·平台复利',pct:25,members:['0700.HK'],task:'第二核心'},
+    {key:'fin',name:'第三·金融股息',pct:20,members:['600036.SH','2318.HK'],task:'股息/复投'},
+    {key:'mfg',name:'第四·先进制造',pct:15,members:['300750.SZ','600660.SH'],task:'制造'},
+    {key:'open',name:'第五·开放竞争',pct:10,members:['09992.HK','02020.HK','300760.SZ'],task:'开放竞争'}
+  ],transitional:['000651.SZ','600309.SH'],researchBatches:{batch1:['600519.SH','0700.HK','600036.SH'],batch2:['09992.HK'],watchExit:['000651.SZ']}}`);
+  await run('renderAll()');
+  const tcap=run('CFG.targetCapital||10000000');
+  T('席位表：五席全部渲染',['第一·品牌现金流','第二·平台复利','第三·金融股息','第四·先进制造','第五·开放竞争'].every(n=>el('seatTable').innerHTML.includes(n)));
+  T('席位表：茅台预算=30%×目标本金('+run('Math.round(0.30*'+tcap+'/1e4)')+'万)',el('seatTable').innerHTML.includes('万'));
+  const tencentSeatMv=run('(h=>h.shares*hLive(h).mvCNY/h.shares)(CFG.holdings.find(h=>h.code==="0700.HK"))');
+  T('席位表：腾讯现值计入第二席('+run('Math.round('+tencentSeatMv+'/1e4*10)/10')+'万)',el('seatTable').innerHTML.includes(String(Math.round(tencentSeatMv/1e4*10)/10)));
+  T('席位表：未持仓成员显示"未建仓/候选"',el('seatTable').innerHTML.includes('未建仓')||el('seatTable').innerHTML.includes('候选'));
+  T('席位卡：五席预算合计=100%',el('seatCards').innerHTML.includes('五席预算合计')&&el('seatCards').innerHTML.includes('30% + 25% + 20% + 15% + 10%'));
+  T('席位卡：过渡仓卡存在',el('seatCards').innerHTML.includes('过渡仓'));
+  T('席位卡：距满配空间卡存在',el('seatCards').innerHTML.includes('距满配空间'));
+  // ③ 压力测试卡：满配-20%=TC×0.8（fallback 1000万→800万）
+  T('压力卡：满配-20%档',el('stressCards').innerHTML.includes('满配-20%'));
+  T('压力卡：满配后腾讯腰斩',el('stressCards').innerHTML.includes('满配后腾讯腰斩'));
+  T('压力卡：含当前实况-35%对照',el('stressCards').innerHTML.includes('当前实况-35%'));
+  T('压力卡数值：-20%情景='+(tcap*0.8/1e4).toFixed(0)+'万',el('stressCards').innerHTML.includes((tcap*0.8/1e4).toFixed(0)+' 万'));
+  T('压力卡数值：腾讯腰斩='+(tcap*0.875/1e4).toFixed(0)+'万',el('stressCards').innerHTML.includes((tcap*0.875/1e4).toFixed(0)+' 万'));
+  T('席位说明：含v3.5路线与预算公式',el('seatNote').innerHTML.includes('v3.5 路线')&&el('seatNote').innerHTML.includes('B×q−K'));
+  T('席位说明：含四项待确认',el('seatNote').innerHTML.includes('四项待郎刚确认'));
+  // ④ 研究批次pill
+  run('CFG.universe.push({code:"09992.HK",name:"泡泡玛特",grade:"A",qt:"hk09992",buyPrice:140,plan:"A类"})');
+  run('CFG.universe.push({code:"000651.SZ",name:"格力电器",grade:"B",qt:"sz000651",buyPrice:36,plan:"B类"})');
+  await run('renderAll()');
+  T('股票池：腾讯带研1批次pill',el('aTable').innerHTML.includes('研1'));
+  T('股票池：泡泡带研2批次pill',el('aTable').innerHTML.includes('研2'));
+  T('股票池：格力带退出观察pill',el('bTable').innerHTML.includes('退出观察'));
+  T('批次pill带建议书出处tooltip',el('aTable').innerHTML.includes('建议书第十一节'));
+  run('CFG.universe.pop();CFG.universe.pop()');
+  // ⑤ cfgSig 感知 seats
+  const sA=run('cfgSig(CFG)');
+  run('CFG.seats.list[0].pct=35');
+  T('cfgSig感知seats变化',run('cfgSig(CFG)')!==sA);
+  run('CFG.seats.list[0].pct=30');
+  T('部署地图：含口径并存说明',el('deployNote').innerHTML.includes('口径并存')&&el('deployNote').innerHTML.includes('席位预算制'));
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});

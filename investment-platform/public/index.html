@@ -182,6 +182,17 @@
   <div class="note" id="deployNote" style="margin-top:8px"></div>
 </section>
 
+<!-- 最终仓·五席位 -->
+<section id="seatsSec">
+  <h2>最终仓 · 五席位 <span class="tag">建议稿 v1.0 · 待郎刚确认</span></h2>
+  <p class="desc">来源：Gemini《长期复利投资综合建议书》V1.0（2026-10-10）。结构＝<b>茅台30%／腾讯25%／金融共享20%／制造共享15%／第五竞争席10%</b>，长期方向＝1000万最终全部配置股票（分五阶段收敛，不强制季度满仓）。<b style="color:var(--amber)">⚠️ 茅台30%、腾讯25%超出旧「25%绝对硬约束」，须经 v3.5 组合政策签发并过压力测试后才生效</b>；本表是预算视图，不是买入指令，旧档位口径并行有效直至 v3.5 签发。</p>
+  <div class="cards" id="seatCards"></div>
+  <div class="tw" id="seatTable" style="margin-top:11px"></div>
+  <h2 style="margin-top:18px;font-size:16px">集中度压力测试 <span class="tag">满配情景 vs 当前实况</span></h2>
+  <div class="cards" id="stressCards"></div>
+  <div class="note" id="seatNote" style="margin-top:8px"></div>
+</section>
+
 <!-- A类池 -->
 <section id="poolA">
   <h2>A类公司池 · 实时跟踪 <span class="tag" id="aCount">…</span></h2>
@@ -359,7 +370,8 @@ function cfgSig(c){
     h:(c.holdings||[]).map(h=>[h.code,h.shares,h.cost,h.buyDate,h.dpsManual===true,h.grade]), // dps除外：股息模块每轮自动更新，非服务端变更信号
     u:(c.universe||[]).map(u=>[u.code,u.buyPrice,u.plan,u.bizTag,u.grade,u.label,u.tiers,u.tierPct]),
     d:(c.dismissedSignals||[]).slice().sort(), // 郎刚10-08：手工划掉的信号key，双端同步
-    dr:c.dismissedReasons||{}}); // 郎刚10-10：划掉/超限的例外决策记录，双端同步
+    dr:c.dismissedReasons||{}, // 郎刚10-10：划掉/超限的例外决策记录，双端同步
+    se:JSON.stringify(c.seats||null)}); // 郎刚10-10：五席位最终仓结构（建议稿），双端同步
 }
 async function syncConfig(){
   try{
@@ -386,7 +398,7 @@ function hLive(h){
   const costCNY = h.market==='HK' ? h.shares*h.cost*hkd() : h.shares*h.cost;
   return {px,mvCNY,costCNY,pl:mvCNY-costCNY,plPct:(mvCNY/costCNY-1)*100,snap:!!qq.snapshot,dpsCNY:h.market==='HK'?h.dps*hkd():h.dps};
 }
-function renderAll(){renderDash();renderPos();renderSignals();renderDeploy();renderPools();renderDiv();}
+function renderAll(){renderDash();renderPos();renderSignals();renderDeploy();renderSeats();renderPools();renderDiv();}
 /* 持仓行级指标（郎刚10-08需求：预计股息+预计年收益率） */
 function divTaxOf(h){ // 税后预计年股息(CNY)：A股10%红利税(未满1年)·H股20%代扣，口径与股息模块一致
   const x=hLive(h);if(!x)return 0;
@@ -701,7 +713,66 @@ function renderDeploy(){
     {k:'可投资金',v:fmt(CFG.investable/1e4,1)+' 万',s:'含银行/理财/证券户现金；收益 '+CFG.cashYield+'%/年'},
     {k:gap>0?'资金缺口':'现金富余',v:fmt(Math.abs(gap)/1e4,0)+' 万',cls:gap>0?'up':'down',s:'触发+接近合计 '+fmt(needAll/1e4,0)+' 万 vs 可投资金 '+fmt(CFG.investable/1e4,0)+' 万'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
-  $('deployNote').innerHTML=`另有 ${watch} 只可部署标的观望中（距触发价>+5%）；${blocked} 只因回报不合格／研究未完成／暂停不参与部署（研究完成度原则）。触发≠下单，进入档位后仍须走第四步流程。`;
+  $('deployNote').innerHTML=`另有 ${watch} 只可部署标的观望中（距触发价>+5%）；${blocked} 只因回报不合格／研究未完成／暂停不参与部署（研究完成度原则）。触发≠下单，进入档位后仍须走第四步流程。<br>⚖️ 口径并存：本表按旧「硬上限×分母−持仓市值」估需资金；v3.5 建议改为席位预算制（可追加上限=max[0, min(B×q−K, L−V, C−F)]），两套口径并行展示于下方「最终仓·五席位」，切换待 v3.5 签发。`;
+}
+
+/* —— 最终仓·五席位（Gemini建议书V1.0建议稿 2026-10-10，待郎刚确认后转正）—— */
+function seatCfg(){return (CFG.seats&&Array.isArray(CFG.seats.list))?CFG.seats:null;}
+function renderSeats(){
+  const S=seatCfg(),TC=CFG.targetCapital||10000000; // 预算分母=目标本金规划基数（静态），与建议书1000万口径一致
+  if(!S){$('seatCards').innerHTML='';$('seatTable').innerHTML='<div class="note">未配置席位结构（seats）。</div>';$('stressCards').innerHTML='';$('seatNote').innerHTML='';return;}
+  const nameOf=code=>{const u=CFG.universe.find(x=>x.code===code);return u?u.name:code;};
+  let mvAll=0,costAll=0;
+  const rows=S.list.map(st=>{
+    let mv=0,cost=0;const parts=[];
+    (st.members||[]).forEach(code=>{
+      const h=CFG.holdings.find(x=>x.code===code);
+      const u=CFG.universe.find(x=>x.code===code);
+      let seg=nameOf(code);
+      if(h){const x=hLive(h);if(x){mv+=x.mvCNY;cost+=x.costCNY;seg+=' <span class="note">'+fmt(x.mvCNY/1e4,1)+'万</span>';}}
+      else seg+=' <span class="pill wait">'+(u?'未建仓':'候选')+'</span>';
+      parts.push(seg);
+    });
+    mvAll+=mv;costAll+=cost;
+    const B=st.pct/100*TC;
+    return {st,B,mv,cost,prog:B>0?mv/B*100:0,parts};
+  });
+  const trans=(S.transitional||[]).map(code=>{
+    const h=CFG.holdings.find(x=>x.code===code);let mv=0;
+    if(h){const x=hLive(h);if(x)mv=x.mvCNY;}
+    return {name:nameOf(code),mv};
+  });
+  const transMV=trans.reduce((s,t)=>s+t.mv,0);
+  const pctSum=S.list.reduce((s,x)=>s+(x.pct||0),0);
+  const BAll=pctSum/100*TC,stockAll=mvAll+transMV;
+  $('seatCards').innerHTML=[
+    {k:'五席预算合计',v:fmt(BAll/1e4,0)+' 万',s:S.list.map(x=>x.pct+'%').join(' + ')+' = '+pctSum+'% · 目标本金 '+fmt(TC/1e4,0)+' 万'+(Math.abs(pctSum-100)>0.01?' · ⚠️权重合计≠100%':'')},
+    {k:'五席内已配置市值',v:fmt(mvAll/1e4,1)+' 万',s:'进度 '+(BAll>0?(mvAll/BAll*100).toFixed(1):'0.0')+'% · 距预算剩余 '+fmt(Math.max(BAll-mvAll,0)/1e4,0)+' 万（已投入成本 '+fmt(costAll/1e4,1)+' 万）'},
+    {k:'过渡仓（不占席位预算）',v:fmt(transMV/1e4,1)+' 万',s:trans.length?trans.map(t=>t.name+' '+fmt(t.mv/1e4,1)+'万').join('、')+'；去向待定，不因目标5席立即卖出':'无'},
+    {k:'距满配空间',v:fmt(Math.max(TC-stockAll,0)/1e4,0)+' 万',s:'当前股票总市值 '+fmt(stockAll/1e4,1)+' 万 / 目标 '+fmt(TC/1e4,0)+' 万（差额=可投现金待部署）'},
+  ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
+  const rowHtml=r=>`<tr>
+    <td>${r.st.name}<span class="pill hold">${r.st.pct}%</span></td>
+    <td>${r.parts.join('<br>')}</td>
+    <td>${fmt(r.B/1e4,0)} 万</td>
+    <td>${r.mv>0?fmt(r.mv/1e4,1)+' 万':'—'}</td>
+    <td>${r.cost>0?fmt(r.cost/1e4,1)+' 万':'—'}</td>
+    <td>${r.mv>0?'<b>'+r.prog.toFixed(1)+'%</b>':'—'}</td>
+    <td>${fmt(Math.max(r.B-r.mv,0)/1e4,0)} 万</td>
+    <td style="white-space:normal"><span class="note">${r.st.task||''}</span></td>
+  </tr>`;
+  $('seatTable').innerHTML=`<table><thead><tr><th>席位</th><th>构成（成员·现值）</th><th>预算</th><th>当前市值</th><th>已投入成本</th><th>进度</th><th>剩余空间</th><th>投资任务</th></tr></thead><tbody>${rows.map(rowHtml).join('')}</tbody></table>`;
+  /* 集中度压力测试：满配=目标本金全股票静态测算（与建议书第十节同口径）；当前实况=现金不动、股票按情景缩水 */
+  const cashNow=(CFG.investable!=null?CFG.investable:CFG.cash||0),stockNow=invMV(),assetNow=cashNow+stockNow;
+  const pet=(x,k)=>`<div class="card"><div class="k">${k}</div><div class="v down">${fmt(x/1e4,0)} 万</div><div class="s">较当前资产 ${fmt(assetNow/1e4,0)} 万 ${x<assetNow?'↓':''}</div></div>`;
+  $('stressCards').innerHTML=
+    pet(TC*0.80,'满配-20% → 800万档')+
+    pet(TC*0.65,'满配-35% → 650万档')+
+    pet(TC*0.50,'满配-50% → 500万档')+
+    pet(TC-0.30*TC*0.5,'满配后茅台腰斩(-50%)')+
+    pet(TC-0.25*TC*0.5,'满配后腾讯腰斩(-50%)')+
+    pet(cashNow+stockNow*0.65,'当前实况-35%');
+  $('seatNote').innerHTML=`<b>v3.5 路线</b>（建议书第十二节）：阶段0 数据与制度修正（现金对账、10-08结算单、批次成本）→ 阶段1 核心审计（茅台/腾讯/招行/平安优先）→ 阶段2 首轮配置（合格价格才动）→ 阶段3 优势集中 → 阶段4 长期收敛。<br><b>买入预算公式</b>（v3.5 草案）：可追加上限 = max[0, min(B×q−K, L−V, C−F)]——B席位预算、q价档累计比例、K累计净投入、L集中度上限、V当前市值、C可用现金、F预留费用；同一公司A/H合并K与V，交易价与税费各自算；<b>卖出后K的释放规则待定</b>。<br><b>四项待郎刚确认</b>：①目标固定起算/截止日；②家庭必要现金与负债；③最大可承受回撤；④完整入出金流水。压力测试为静态情景，不含现金缓冲与新增投入。`;
 }
 
 /* —— 信号中心 v2：总览chip + 优先级清单（每公司一行，统一提醒只出现一次） —— */
@@ -799,6 +870,15 @@ function renderSignals(){
 
 /* —— 股票池 —— */
 function curOf(u){return u.code.endsWith('.HK')?'港元':'元';}
+/* 研究优先级批次（建议书第十一节：研究优先级与交易优先级分开管理） */
+function batchPill(code){
+  const S=seatCfg();if(!S||!S.researchBatches)return '';
+  const b=S.researchBatches;
+  if((b.batch1||[]).includes(code))return '<span class="pill trig" title="研究优先级·首批（建议书第十一节）：计划预算占比最高，估值与现金桥审计最优先">研1</span>';
+  if((b.batch2||[]).includes(code))return '<span class="pill near" title="研究优先级·第二批：第五席竞争候选，第二批现金流初评">研2</span>';
+  if((b.watchExit||[]).includes(code))return '<span class="pill wait" title="观察与退出判断：不被历史成本绑架，也不因回本/反弹而留">退出观察</span>';
+  return '';
+}
 function poolRow(u,idx){
   const held=CFG.holdings.find(h=>h.code===u.code);
   const qq=q(u);const px=qq?qq.price:null;
@@ -825,7 +905,7 @@ function poolRow(u,idx){
   }
   const plan=u.plan||(u.grade==='A'?'A类：首仓3-5%／正常10-15%／硬20%':'B类：首仓1-2%／正常3-5%／硬8%');
   return `<tr${hl}>
-    <td class="namecol">${u.name}<span class="pill ${u.grade}">${u.grade}</span>${u.researchStatus&&u.researchStatus!=='done'?`<span class="pill wait" title="证据缺口：${u.evidenceGap||'见note'}">研·${u.researchStatus==='partial'?'部分':'未做'}</span>`:''}${held?'<span class="pill hold">持仓</span>':''}${u.note?'<br><span class="note">'+u.note+'</span>':''}</td>
+    <td class="namecol">${u.name}<span class="pill ${u.grade}">${u.grade}</span>${batchPill(u.code)}${u.researchStatus&&u.researchStatus!=='done'?`<span class="pill wait" title="证据缺口：${u.evidenceGap||'见note'}">研·${u.researchStatus==='partial'?'部分':'未做'}</span>`:''}${held?'<span class="pill hold">持仓</span>':''}${u.note?'<br><span class="note">'+u.note+'</span>':''}</td>
     <td>${status}</td>
     <td class="note">${u.code}</td>
     <td>${px!=null?fmt(px,2):'—'}${qq&&qq.snapshot?'<span class="note"> 快照</span>':''}</td>

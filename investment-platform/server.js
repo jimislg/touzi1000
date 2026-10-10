@@ -205,6 +205,7 @@ const server = http.createServer(async (req,res)=>{
           if(typeof patch.annualContribution==='number')disk.annualContribution=patch.annualContribution; // 郎刚10-10：每年外部追加投入（工资结余等）
           if(Array.isArray(patch.dismissedSignals))disk.dismissedSignals=patch.dismissedSignals; // 郎刚10-08：手工划掉的信号key
           if(patch.dismissedReasons&&typeof patch.dismissedReasons==='object'&&!Array.isArray(patch.dismissedReasons))disk.dismissedReasons=patch.dismissedReasons; // 郎刚10-10：划掉/超限的例外决策记录{key:原因}
+          if(patch.seats&&typeof patch.seats==='object'&&!Array.isArray(patch.seats))disk.seats=patch.seats; // 郎刚10-10：五席位最终仓结构（建议稿）
           const hp={}; (patch.holdings||[]).forEach(h=>{if(h.code)hp[h.code]=h;});
           (disk.holdings||[]).forEach(h=>{const p=hp[h.code];if(!p)return;
             ['shares','cost','dps','buyDate','dpsManual'].forEach(k=>{if(p[k]!=null)h[k]=p[k];});});
