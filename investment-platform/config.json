@@ -1253,7 +1253,7 @@
   ],
   "annualContribution": 0,
   "seats": {
-    "version": "gemini-v1.0-建议稿-20261010",
+    "version": "gemini-v1.0-正式版-郎刚已确认-20261010",
     "list": [
       {
         "key": "brand",
@@ -1327,6 +1327,9 @@
         "000651.SZ",
         "600309.SH"
       ]
-    }
+    },
+    "confirmed": true,
+    "confirmedAt": "2026-10-10",
+    "confirmedBy": "郎刚"
   }
 }

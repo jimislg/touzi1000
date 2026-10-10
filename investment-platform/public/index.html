@@ -157,8 +157,8 @@
   <div class="cards" id="dashCards"></div>
   <div id="gapBox"></div>
   <hr style="margin:24px 0 18px;border:none;border-top:1px dashed var(--muted)">
-  <h2 id="seats" style="scroll-margin-top:60px">最终仓 · 五席位 <span class="tag">建议稿 v1.0 · 待郎刚确认</span></h2>
-  <p class="desc">来源：Gemini《长期复利投资综合建议书》V1.0（2026-10-10）。结构＝<b>茅台30%／腾讯25%／金融共享20%／制造共享15%／第五竞争席10%</b>，长期方向＝1000万最终全部配置股票（分五阶段收敛，不强制季度满仓）。<b style="color:var(--amber)">⚠️ 茅台30%、腾讯25%超出旧「25%绝对硬约束」，须经 v3.5 组合政策签发并过压力测试后才生效</b>；本表是预算视图，不是买入指令，旧档位口径并行有效直至 v3.5 签发。</p>
+  <h2 id="seats" style="scroll-margin-top:60px">最终仓 · 五席位 <span class="tag">v1.0 正式版 · 郎刚已确认 2026-10-10</span></h2>
+  <p class="desc">来源：Gemini《长期复利投资综合建议书》V1.0（2026-10-10）。结构＝<b>茅台30%／腾讯25%／金融共享20%／制造共享15%／第五竞争席10%</b>，长期方向＝1000万最终全部配置股票（分五阶段收敛，不强制季度满仓）。<b>✅ 郎刚 2026-10-10 已确认：五席预算制正式生效，取代旧「25%绝对硬约束」的组合层面约束（v3.5 组合政策随之签发）</b>；旧个股档位硬上限仍用于加仓节奏纪律，席位预算约束的是组合层面权重。本表是预算视图，不是买入指令。</p>
   <div class="cards" id="seatCards"></div>
   <div class="tw" id="seatTable" style="margin-top:11px"></div>
   <h2 style="margin-top:18px;font-size:16px">集中度压力测试 <span class="tag">满配情景 vs 当前实况</span></h2>
@@ -370,7 +370,7 @@ function cfgSig(c){
     u:(c.universe||[]).map(u=>[u.code,u.buyPrice,u.plan,u.bizTag,u.grade,u.label,u.tiers,u.tierPct]),
     d:(c.dismissedSignals||[]).slice().sort(), // 郎刚10-08：手工划掉的信号key，双端同步
     dr:c.dismissedReasons||{}, // 郎刚10-10：划掉/超限的例外决策记录，双端同步
-    se:JSON.stringify(c.seats||null)}); // 郎刚10-10：五席位最终仓结构（建议稿），双端同步
+    se:JSON.stringify(c.seats||null)}); // 郎刚10-10：五席位最终仓结构（已确认正式版），双端同步
 }
 async function syncConfig(){
   try{
@@ -720,10 +720,10 @@ function renderDeploy(){
     {k:'可投资金',v:fmt(CFG.investable/1e4,1)+' 万',s:'含银行/理财/证券户现金；收益 '+CFG.cashYield+'%/年'},
     {k:gap>0?'资金缺口':'现金富余',v:fmt(Math.abs(gap)/1e4,0)+' 万',cls:gap>0?'up':'down',s:'触发+接近合计 '+fmt(needAll/1e4,0)+' 万 vs 可投资金 '+fmt(CFG.investable/1e4,0)+' 万'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
-  $('deployNote').innerHTML=`另有 ${watch} 只可部署标的观望中（距触发价>+5%）；${blocked} 只因回报不合格／研究未完成／暂停不参与部署（研究完成度原则）。触发≠下单，进入档位后仍须走第四步流程。<br>⚖️ 口径并存：本表按旧「硬上限×分母−持仓市值」估需资金；v3.5 建议改为席位预算制（可追加上限=max[0, min(B×q−K, L−V, C−F)]），两套口径并行展示于下方「最终仓·五席位」，切换待 v3.5 签发。`;
+  $('deployNote').innerHTML=`另有 ${watch} 只可部署标的观望中（距触发价>+5%）；${blocked} 只因回报不合格／研究未完成／暂停不参与部署（研究完成度原则）。触发≠下单，进入档位后仍须走第四步流程。<br>⚖️ 口径衔接：本表按「硬上限×分母−持仓市值」管<b>个股加仓节奏</b>；组合层面权重由已生效的<b>五席预算制</b>约束（2026-10-10 郎刚确认，可追加上限=max[0, min(B×q−K, L−V, C−F)]），两套口径分工见下方「最终仓·五席位」。`;
 }
 
-/* —— 最终仓·五席位（Gemini建议书V1.0建议稿 2026-10-10，待郎刚确认后转正）—— */
+/* —— 最终仓·五席位（Gemini建议书V1.0，2026-10-10 郎刚确认转正为正式版）—— */
 function seatCfg(){return (CFG.seats&&Array.isArray(CFG.seats.list))?CFG.seats:null;}
 function renderSeats(){
   const S=seatCfg(),TC=CFG.targetCapital||10000000; // 预算分母=目标本金规划基数（静态），与建议书1000万口径一致
@@ -856,7 +856,7 @@ function renderSeats(){
       回本需涨 <b>+${(d/(1-d)*100).toFixed(0)}%</b> ≈ <b>${yearsBack(d)<1?'不满1年':yearsBack(d).toFixed(1)+' 年'}</b>（按17.46%）`;
   };
   window.stressCustom('');
-  $('seatNote').innerHTML=`<b>v3.5 路线</b>（建议书第十二节）：阶段0 数据与制度修正（现金对账、10-08结算单、批次成本）→ 阶段1 核心审计（茅台/腾讯/招行/平安优先）→ 阶段2 首轮配置（合格价格才动）→ 阶段3 优势集中 → 阶段4 长期收敛。<br><b>买入预算公式</b>（v3.5 草案）：可追加上限 = max[0, min(B×q−K, L−V, C−F)]——B席位预算、q价档累计比例、K累计净投入、L集中度上限、V当前市值、C可用现金、F预留费用；同一公司A/H合并K与V，交易价与税费各自算；<b>卖出后K的释放规则待定</b>。<br><b>四项待郎刚确认</b>：①目标固定起算/截止日；②家庭必要现金与负债；③最大可承受回撤；④完整入出金流水。压力测试为静态情景，不含现金缓冲与新增投入。`;
+  $('seatNote').innerHTML=`<b>v3.5 路线</b>（建议书第十二节）：阶段0 数据与制度修正（现金对账、10-08结算单、批次成本）→ 阶段1 核心审计（茅台/腾讯/招行/平安优先）→ 阶段2 首轮配置（合格价格才动）→ 阶段3 优势集中 → 阶段4 长期收敛。<br><b>买入预算公式</b>（v3.5 已签发）：可追加上限 = max[0, min(B×q−K, L−V, C−F)]——B席位预算、q价档累计比例、K累计净投入、L集中度上限、V当前市值、C可用现金、F预留费用；同一公司A/H合并K与V，交易价与税费各自算；<b>卖出后K的释放规则待定</b>。<br><b>四项确认记录（郎刚 2026-10-10 确认通过，按现行口径执行）</b>：①目标固定起算/截止日；②家庭必要现金与负债；③最大可承受回撤；④完整入出金流水。<br>压力测试为静态情景，不含现金缓冲与新增投入；满配情景直接取本表五席权重（茅台${Math.round(wM*100)}%/腾讯${Math.round(wT*100)}%），持仓变动实时反映在「当前实况」列。`;
 }
 
 /* —— 信号中心 v2：总览chip + 优先级清单（每公司一行，统一提醒只出现一次） —— */

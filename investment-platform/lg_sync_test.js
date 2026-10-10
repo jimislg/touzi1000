@@ -343,7 +343,7 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('压力说明：三个问题导语',el('stressDesc').innerHTML.includes('钱还剩多少')&&el('stressDesc').innerHTML.includes('几年长回来'));
   T('压力自定义：输入控件存在',el('stressCustom').innerHTML.includes('input'));
   T('席位说明：含v3.5路线与预算公式',el('seatNote').innerHTML.includes('v3.5 路线')&&el('seatNote').innerHTML.includes('B×q−K'));
-  T('席位说明：含四项待确认',el('seatNote').innerHTML.includes('四项待郎刚确认'));
+  T('席位说明：四项已确认记录（郎刚2026-10-10）',el('seatNote').innerHTML.includes('四项确认记录')&&el('seatNote').innerHTML.includes('2026-10-10'));
   // ④ 研究批次pill
   run('CFG.universe.push({code:"09992.HK",name:"泡泡玛特",grade:"A",qt:"hk09992",buyPrice:140,plan:"A类"})');
   run('CFG.universe.push({code:"000651.SZ",name:"格力电器",grade:"B",qt:"sz000651",buyPrice:36,plan:"B类"})');
@@ -358,7 +358,24 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   run('CFG.seats.list[0].pct=35');
   T('cfgSig感知seats变化',run('cfgSig(CFG)')!==sA);
   run('CFG.seats.list[0].pct=30');
-  T('部署地图：含口径并存说明',el('deployNote').innerHTML.includes('口径并存')&&el('deployNote').innerHTML.includes('席位预算制'));
+  T('部署地图：口径衔接说明（个股节奏vs组合预算）',el('deployNote').innerHTML.includes('口径衔接')&&el('deployNote').innerHTML.includes('五席预算制'));
+  T('转正：v3.5已签发表述',el('seatNote').innerHTML.includes('v3.5 已签发'));
+  /* —— 前后联动验证（郎刚10-10：席位/压力不能是孤岛）—— */
+  // ① 改目标本金 → 席位预算与压力值同步变
+  const tc0=run('CFG.targetCapital');
+  run('CFG.targetCapital=12000000');await run('renderAll()');
+  T('联动：目标本金1200万→茅台席预算=360万',el('seatTable').innerHTML.includes('360 万'));
+  T('联动：压力表满配-20%剩余=960万',el('stressTable').innerHTML.includes('960 万'));
+  // ② 改持仓股数 → 席位市值/进度/当前实况同步变
+  const tk=run('CFG.holdings.find(h=>h.code==="0700.HK")?1:0')? '0700.HK':null;
+  if(tk){
+    const mv0=run('(function(){const h=CFG.holdings.find(h=>h.code==="0700.HK");const x=hLive(h);return Math.round(x.mvCNY);})()');
+    run('const _h=CFG.holdings.find(h=>h.code==="0700.HK");_h.shares=Math.round(_h.shares*2)');await run('renderAll()');
+    const mv1=run('(function(){const h=CFG.holdings.find(h=>h.code==="0700.HK");const x=hLive(h);return Math.round(x.mvCNY);})()');
+    T('联动：腾讯股数翻倍→席位市值约翻倍('+(mv0/1e4).toFixed(0)+'万→'+(mv1/1e4).toFixed(0)+'万)',Math.abs(mv1-mv0*2)<mv0*0.01&&el('seatTable').innerHTML.includes(String(Math.round(mv1/1e4*10)/10)));
+    run('const _h2=CFG.holdings.find(h=>h.code==="0700.HK");_h2.shares=Math.round(_h2.shares/2)');
+  }
+  run('CFG.targetCapital='+tc0);await run('renderAll()');
 
   /* —— 席位表新维度：持仓成本/目标成本/持仓股息率 + 表头排序（郎刚10-10需求）—— */
   T('席位表：含目标成本列',el('seatTable').innerHTML.includes('目标成本'));
