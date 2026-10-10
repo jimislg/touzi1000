@@ -355,6 +355,27 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   run('CFG.seats.list[0].pct=30');
   T('部署地图：含口径并存说明',el('deployNote').innerHTML.includes('口径并存')&&el('deployNote').innerHTML.includes('席位预算制'));
 
+  /* —— 席位表新维度：持仓成本/目标成本/持仓股息率 + 表头排序（郎刚10-10需求）—— */
+  T('席位表：含目标成本列',el('seatTable').innerHTML.includes('目标成本'));
+  T('席位表：含持仓成本列',el('seatTable').innerHTML.includes('持仓成本'));
+  T('席位表：含持仓股息率列',el('seatTable').innerHTML.includes('持仓股息率'));
+  T('席位表：表头带data-sk排序键',/th data-sk="(tgt|mv|cost|yld|prog|room|name)"/.test(el('seatTable').innerHTML));
+  T('席位表：股息率双口径标注（成本+现价）',el('seatTable').innerHTML.includes('成本')&&el('seatTable').innerHTML.includes('现价（税后）'));
+  // 股息率数值断言：第二席=腾讯独占，税后股息/现值
+  const seatYld=run('(function(){const h=CFG.holdings.find(h=>h.code==="0700.HK");const x=hLive(h);const d=h.shares*x.dpsCNY*0.8;return (d/x.mvCNY*100).toFixed(2);})()');
+  T('席位股息率：腾讯席位现价口径='+seatYld+'%',el('seatTable').innerHTML.includes('<b>'+seatYld+'%</b>'));
+  // 排序：按当前市值降序渲染后，最大市值席位的名字应排在HTML最前（stub无querySelector，用索引比较）
+  run('seatSort={k:"mv",dir:-1}');await run('renderAll()');
+  const seatHtml=el('seatTable').innerHTML;
+  const mvs=run('CFG.seats.list.map(st=>{let mv=0;(st.members||[]).forEach(c=>{const h=CFG.holdings.find(x=>x.code===c);if(h){const x=hLive(h);if(x)mv+=x.mvCNY;}});return {n:st.name,mv};})');
+  const sorted=[...mvs].sort((a,b)=>b.mv-a.mv);
+  const idxs=sorted.map(s=>seatHtml.indexOf(s.n));
+  T('席位排序：市值降序序次正确('+sorted.map(s=>s.n.slice(0,2)+Math.round(s.mv/1e4)+'万').join('>')+')',idxs.every((v,i)=>v>=0&&(i===0||v>idxs[i-1])));
+  T('席位排序：表头显示▼',el('seatTable').innerHTML.includes('当前市值 ▼'));
+  run('seatSort={k:"yld",dir:-1}');await run('renderAll()');
+  T('席位排序：股息率排序生效',el('seatTable').innerHTML.includes('持仓股息率 ▼'));
+  run('seatSort={k:null,dir:-1}');await run('renderAll()');
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});

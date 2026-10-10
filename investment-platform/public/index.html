@@ -526,6 +526,14 @@ function wireInputs(){
     try{savePosSort();}catch(_){} // 排序状态持久化，刷新/重开保留
     renderAll();
   });
+  $('seatTable').addEventListener('click',e=>{ // 席位表表头点击排序（郎刚10-10需求）
+    const th=e.target.closest('th[data-sk]');if(!th)return;
+    const k=th.dataset.sk;
+    if(seatSort.k===k)seatSort.dir*=-1;
+    else{seatSort.k=k;seatSort.dir=(k==='name')?1:-1;}
+    try{saveSeatSort();}catch(_){}
+    renderAll();
+  });
   $('posTable').addEventListener('change',e=>{
     const i=e.target.dataset.h,k=e.target.dataset.k;if(i==null||!k)return;
     if(k==='uniBuy'){ // 触发价写入股票池同code条目（单一数据源，全局联动）
@@ -721,18 +729,21 @@ function renderSeats(){
   const nameOf=code=>{const u=CFG.universe.find(x=>x.code===code);return u?u.name:code;};
   let mvAll=0,costAll=0;
   const rows=S.list.map(st=>{
-    let mv=0,cost=0;const parts=[];
+    let mv=0,cost=0,div=0,costBase=0;const parts=[];
     (st.members||[]).forEach(code=>{
       const h=CFG.holdings.find(x=>x.code===code);
       const u=CFG.universe.find(x=>x.code===code);
       let seg=nameOf(code);
-      if(h){const x=hLive(h);if(x){mv+=x.mvCNY;cost+=x.costCNY;seg+=' <span class="note">'+fmt(x.mvCNY/1e4,1)+'万</span>';}}
+      if(h){const x=hLive(h);if(x){mv+=x.mvCNY;cost+=x.costCNY;div+=divTaxOf(h);costBase+=(+h.shares||0)*x.dpsCNY;seg+=' <span class="note">'+fmt(x.mvCNY/1e4,1)+'万</span>';}}
       else seg+=' <span class="pill wait">'+(u?'未建仓':'候选')+'</span>';
       parts.push(seg);
     });
     mvAll+=mv;costAll+=cost;
     const B=st.pct/100*TC;
-    return {st,B,mv,cost,prog:B>0?mv/B*100:0,parts};
+    // 持仓股息率双口径（与持仓表一致）：成本=税前DPS/成本，现价=税后股息/现值；空席返回null排最后
+    return {st,B,mv,cost,div,prog:B>0?mv/B*100:0,parts,
+      yCost:(cost>0&&costBase>0)?costBase/cost*100:null,
+      yPx:mv>0?div/mv*100:null};
   });
   const trans=(S.transitional||[]).map(code=>{
     const h=CFG.holdings.find(x=>x.code===code);let mv=0;
@@ -744,21 +755,50 @@ function renderSeats(){
   const BAll=pctSum/100*TC,stockAll=mvAll+transMV;
   $('seatCards').innerHTML=[
     {k:'五席预算合计',v:fmt(BAll/1e4,0)+' 万',s:S.list.map(x=>x.pct+'%').join(' + ')+' = '+pctSum+'% · 目标本金 '+fmt(TC/1e4,0)+' 万'+(Math.abs(pctSum-100)>0.01?' · ⚠️权重合计≠100%':'')},
-    {k:'五席内已配置市值',v:fmt(mvAll/1e4,1)+' 万',s:'进度 '+(BAll>0?(mvAll/BAll*100).toFixed(1):'0.0')+'% · 距预算剩余 '+fmt(Math.max(BAll-mvAll,0)/1e4,0)+' 万（已投入成本 '+fmt(costAll/1e4,1)+' 万）'},
+    {k:'五席内已配置市值',v:fmt(mvAll/1e4,1)+' 万',s:'进度 '+(BAll>0?(mvAll/BAll*100).toFixed(1):'0.0')+'% · 距预算剩余 '+fmt(Math.max(BAll-mvAll,0)/1e4,0)+' 万（持仓成本 '+fmt(costAll/1e4,1)+' 万）'},
     {k:'过渡仓（不占席位预算）',v:fmt(transMV/1e4,1)+' 万',s:trans.length?trans.map(t=>t.name+' '+fmt(t.mv/1e4,1)+'万').join('、')+'；去向待定，不因目标5席立即卖出':'无'},
     {k:'距满配空间',v:fmt(Math.max(TC-stockAll,0)/1e4,0)+' 万',s:'当前股票总市值 '+fmt(stockAll/1e4,1)+' 万 / 目标 '+fmt(TC/1e4,0)+' 万（差额=可投现金待部署）'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
-  const rowHtml=r=>`<tr>
+  /* 席位表排序（郎刚10-10需求）：与持仓表同一套 data-sk 事件机制，状态持久化 lgSeatSort */
+  const seatSk={
+    name:r=>r.st.name,
+    tgt:r=>r.B,
+    mv:r=>r.mv||null,
+    cost:r=>r.cost||null,
+    yld:r=>r.yPx,
+    prog:r=>r.mv>0?r.prog:null,
+    room:r=>Math.max(r.B-r.mv,0),
+  };
+  if(seatSort.k&&seatSk[seatSort.k]){
+    const f=seatSk[seatSort.k];
+    rows.sort((a,b)=>{
+      const va=f(a),vb=f(b);
+      if(typeof va==='string'||typeof vb==='string')return String(va).localeCompare(String(vb),'zh')*seatSort.dir;
+      const ea=va==null||!isFinite(va),eb=vb==null||!isFinite(vb);
+      if(ea&&eb)return 0;if(ea)return 1;if(eb)return -1;
+      return (va-vb)*seatSort.dir;
+    });
+  }
+  const seatThs=[['name','席位'],['memb','构成（成员·现值）'],['tgt','目标成本'],['mv','当前市值'],['cost','持仓成本'],['yld','持仓股息率'],['prog','进度'],['room','剩余空间'],['task','投资任务']];
+  const rowHtml=r=>{
+    const yCell=(r.mv>0)
+      ?`<b>${r.yPx.toFixed(2)}%</b><br><span class="note">成本 ${r.yCost!=null?r.yCost.toFixed(2)+'%':'—'} · 现价（税后）</span>`
+      :'<span class="note">—</span>';
+    return `<tr>
     <td>${r.st.name}<span class="pill hold">${r.st.pct}%</span></td>
     <td>${r.parts.join('<br>')}</td>
     <td>${fmt(r.B/1e4,0)} 万</td>
     <td>${r.mv>0?fmt(r.mv/1e4,1)+' 万':'—'}</td>
     <td>${r.cost>0?fmt(r.cost/1e4,1)+' 万':'—'}</td>
+    <td>${yCell}</td>
     <td>${r.mv>0?'<b>'+r.prog.toFixed(1)+'%</b>':'—'}</td>
     <td>${fmt(Math.max(r.B-r.mv,0)/1e4,0)} 万</td>
     <td style="white-space:normal"><span class="note">${r.st.task||''}</span></td>
-  </tr>`;
-  $('seatTable').innerHTML=`<table><thead><tr><th>席位</th><th>构成（成员·现值）</th><th>预算</th><th>当前市值</th><th>已投入成本</th><th>进度</th><th>剩余空间</th><th>投资任务</th></tr></thead><tbody>${rows.map(rowHtml).join('')}</tbody></table>`;
+  </tr>`;};
+  $('seatTable').innerHTML=`<table><thead><tr>${seatThs.map(([k,t])=>
+    k==='memb'||k==='task'?`<th>${t}</th>`:
+    `<th data-sk="${k}" class="${seatSort.k===k?'sort-on':''}">${t}${seatSort.k===k?(seatSort.dir===1?' ▲':' ▼'):''}</th>`).join('')}
+  </tr></thead><tbody>${rows.map(rowHtml).join('')}</tbody></table>`;
   /* 集中度压力测试：满配=目标本金全股票静态测算（与建议书第十节同口径）；当前实况=现金不动、股票按情景缩水 */
   const cashNow=(CFG.investable!=null?CFG.investable:CFG.cash||0),stockNow=invMV(),assetNow=cashNow+stockNow;
   const pet=(x,k)=>`<div class="card"><div class="k">${k}</div><div class="v down">${fmt(x/1e4,0)} 万</div><div class="s">较当前资产 ${fmt(assetNow/1e4,0)} 万 ${x<assetNow?'↓':''}</div></div>`;
@@ -1038,6 +1078,13 @@ let posSort=(function(){ // 持仓表排序状态持久化（郎刚10-08：排�
   return {k:null,dir:-1};
 })();
 function savePosSort(){try{localStorage.setItem('lgPosSort',JSON.stringify(posSort));}catch(_){}}
+let seatSort=(function(){ // 席位表排序状态持久化（郎刚10-10：五席位可按表头排序）
+  try{const s=JSON.parse(localStorage.getItem('lgSeatSort')||'null');
+    if(s&&typeof s.k==='string'&&(s.dir===1||s.dir===-1))return s;
+  }catch(e){}
+  return {k:null,dir:-1};
+})();
+function saveSeatSort(){try{localStorage.setItem('lgSeatSort',JSON.stringify(seatSort));}catch(_){}}
 function snapshotEdit(){ // 每次改动立即镜像全部可编辑字段到localStorage（浏览器崩溃也能找回）
   try{
     const m={t:Date.now(),holdings:{},universe:{}};
