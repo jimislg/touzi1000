@@ -373,6 +373,15 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('压力表：DPS口径说明（2025年度实际）',el('stressTable').innerHTML.includes('2025年度实际')&&el('stressTable').innerHTML.includes('茅台51.98'));
   const yldExp=(fullDiv/(tcap*0.65)*100).toFixed(2);
   T('压力表：-35%跌后综合股息率='+yldExp+'%（股息÷跌后市值勾稽）',el('stressTable').innerHTML.includes('<b>'+yldExp+'%</b>'));
+  // 郎刚10-10晚：历史参照移到最后一列 + 新增股息回本周期列（纯股息口径，满配/实况双行）
+  {
+    const hd=el('stressTable').innerHTML.match(/<thead><tr>([\s\S]*?)<\/tr><\/thead>/);
+    const cols=hd?hd[1].match(/<th>([^<]*)<\/th>/g).map(s=>s.replace(/<\/?th>/g,'')):[];
+    T('压力表：列序=9列且历史参照在最后',cols.length===9&&cols[8].includes('历史参照'));
+    T('压力表：含股息回本周期列且口径注明纯股息',cols.includes('股息回本周期')&&el('stressTable').innerHTML.includes('亏损÷年股息现金流'));
+    const y35=(tcap*0.35)/fullDiv; // -35%满配回本年数=亏损÷年股息
+    T('压力表：-35%满配股息回本≈'+y35.toFixed(1)+'年勾稽',el('stressTable').innerHTML.includes(y35.toFixed(1)+' 年'));
+  }
   T('压力表：股息金额含满配与实况双口径',el('stressTable').innerHTML.includes('万/年')&&el('stressTable').innerHTML.includes('实况'));
   T('压力说明：三个问题导语（股息现金流怎么样）',el('stressDesc').innerHTML.includes('钱还剩多少')&&el('stressDesc').innerHTML.includes('股息现金流怎么样'));
   T('压力自定义：输入控件存在',el('stressCustom').innerHTML.includes('input'));
