@@ -360,17 +360,18 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('压力表：每情景带历史参照',['塑化剂','775→198','2008','2018年A股'].every(x=>el('stressTable').innerHTML.includes(x)));
   T('压力表：满配-20%剩余='+(tcap*0.8/1e4).toFixed(0)+'万',el('stressTable').innerHTML.includes((tcap*0.8/1e4).toFixed(0)+' 万'));
   T('压力表：腾讯腰斩满配剩余='+(tcap*0.875/1e4).toFixed(0)+'万',el('stressTable').innerHTML.includes((tcap*0.875/1e4).toFixed(0)+' 万'));
-  T('压力表：含回本需涨与回本时间(纯股息)列',el('stressTable').innerHTML.includes('回本需涨')&&el('stressTable').innerHTML.includes('回本时间(纯股息)'));
+  T('压力表：综合股息率+股息金额列（回本需涨已移除）',el('stressTable').innerHTML.includes('组合综合股息率')&&el('stressTable').innerHTML.includes('股息金额')&&!el('stressTable').innerHTML.includes('回本需涨'));
   T('压力表：茅台当前未持有→无直接影响标注',el('stressTable').innerHTML.includes('未持有·无直接影响'));
   T('压力表：腾讯当前实况亏损为负值',/-\d/.test(el('stressTable').innerHTML));
-  // 纯股息数值断言（郎刚10-10）：从页面解析满配年股息下限，校验>0且-35%回本年数=亏损÷该股息
+  // 纯股息数值断言（郎刚10-10）：从页面解析满配年股息下限，校验综合股息率=股息÷跌后市值（-35%情景勾稽）
   const fdm=el('stressTable').innerHTML.match(/满配年股息（下限估算）≈ <b>([\d,]+) 元\/年/);
   const fullDiv=fdm?parseInt(fdm[1].replace(/,/g,''),10):0;
-  const yrsExp=(tcap*0.35/fullDiv).toFixed(1);
   T('压力表：满配年股息下限='+fullDiv+'元（>0）',fullDiv>0);
-  T('压力表：满配-35%纯股息回本='+yrsExp+'年（与股息勾稽）',el('stressTable').innerHTML.includes('<b>'+yrsExp+' 年</b>'));
-  T('压力表：未定档成员不计入说明',el('stressTable').innerHTML.includes('未定档')&&el('stressTable').innerHTML.includes('实际回本更快'));
-  T('压力说明：三个问题导语（靠股息几年赚回来）',el('stressDesc').innerHTML.includes('钱还剩多少')&&el('stressDesc').innerHTML.includes('靠股息几年赚回来'));
+  const yldExp=(fullDiv/(tcap*0.65)*100).toFixed(2);
+  T('压力表：-35%跌后综合股息率='+yldExp+'%（股息÷跌后市值勾稽）',el('stressTable').innerHTML.includes('<b>'+yldExp+'%</b>'));
+  T('压力表：股息金额含满配与实况双口径',el('stressTable').innerHTML.includes('万/年')&&el('stressTable').innerHTML.includes('实况'));
+  T('压力表：未定档成员不计入说明',el('stressTable').innerHTML.includes('未定档'));
+  T('压力说明：三个问题导语（股息现金流怎么样）',el('stressDesc').innerHTML.includes('钱还剩多少')&&el('stressDesc').innerHTML.includes('股息现金流怎么样'));
   T('压力自定义：输入控件存在',el('stressCustom').innerHTML.includes('input'));
   T('席位说明：含v3.5路线与预算公式',el('seatNote').innerHTML.includes('v3.5 路线')&&el('seatNote').innerHTML.includes('B×q−K'));
   T('席位说明：四项已确认记录（郎刚2026-10-10）',el('seatNote').innerHTML.includes('四项确认记录')&&el('seatNote').innerHTML.includes('2026-10-10'));
