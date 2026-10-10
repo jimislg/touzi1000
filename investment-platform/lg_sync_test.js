@@ -548,6 +548,18 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   seatChg(String(oldPct));
   T('席位权重：恢复原值'+oldPct,run('CFG.seats.list[0].pct')===oldPct);
 
+  // 郎刚10-10晚纠错（"这里难道不是平安的A股"）：第三席平安执行口径=A股三梯队（T0 50/T1 45/T2 40 CNY），
+  // H股2318.HK只留v3.4档位作回报参照、不进席位members。防回归：fin成员换601318.SH后须渲染A股三梯队pill、不得再出现H档pill
+  run('CFG.universe.push({code:"601318.SH",name:"中国平安",grade:"B",qt:"sh601318",px:52.83,dps:2.7,plan:"三梯队：50以上耐心等待一股不买→T0≤50→T1≤45→T2≤40打满100万",tiers:[{cur:"CNY",label:"T0·中性公允",price:50},{cur:"CNY",label:"T1·安全折扣",price:45},{cur:"CNY",label:"T2·悲观极值",price:40}],tierPct:[3.5,7,10]})');
+  run('CFG.seats.list.find(s=>s.key==="fin").members=["600036.SH","601318.SH"]');
+  await run('renderAll()');
+  {
+    const finRow=el('seatTable').innerHTML.split('<tr>').find(r=>r.includes('第三·金融股息'))||'';
+    T('席位策略：第三席平安=A股三梯队pill（T0·中性公允50元）',finRow.includes('T0·中性公允')&&finRow.includes('50'));
+    T('席位策略：第三席不再渲染H股档位pill（H10/H12）',!finRow.includes('H10')&&!finRow.includes('H12'));
+    T('席位策略：第三席三档未到档→全dim弱化（现价52.83>50）',finRow.includes('pill dim')&&!finRow.includes('✓'));
+  }
+
   console.log('\n结果: '+pass+' 通过, '+fail+' 失败');
   process.exit(fail?1:0);
 })().catch(e=>{console.error('✗ 测试异常:',e);process.exit(1);});
