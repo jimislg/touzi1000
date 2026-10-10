@@ -777,11 +777,32 @@ function renderSeats(){
   const transMV=trans.reduce((s,t)=>s+t.mv,0);
   const pctSum=S.list.reduce((s,x)=>s+(x.pct||0),0);
   const BAll=pctSum/100*TC,stockAll=mvAll+transMV;
+  /* 满配年股息（下限估算）=各席位预算按现价折股数×税后DPS（港股80%代扣/A股90%），
+     同席多成员等分（招行/平安、宁德/福耀、泡泡/安踏/迈瑞）；DPS未定档成员不计入→下限，实际更快 */
+  const hkdR=hkd();
+  const divCNYof=(code,amountCNY)=>{
+    const h=CFG.holdings.find(x=>x.code===code),u=CFG.universe.find(x=>x.code===code);
+    const dps=h&&h.dps!=null?h.dps:(u&&u.dps!=null?u.dps:null);
+    const x=h?hLive(h):null;
+    const px=(u&&u.px!=null)?u.px:(x?x.px:null); // 价格来源：股票池备用价→持仓实时价
+    const mkt=h&&h.market?h.market:(u&&u.code.endsWith('.HK')?'HK':'A');
+    if(!(dps>0)||!(px>0))return null;
+    const pxCNY=mkt==='HK'?px*hkdR:px;
+    if(!(pxCNY>0))return null;
+    return amountCNY/pxCNY*dps*(mkt==='HK'?0.8:0.9)*(mkt==='HK'?hkdR:1);
+  };
+  const fullDiv=(S.list||[]).reduce((s,st)=>{
+    const mem=(st.members||[]);if(!mem.length)return s;
+    const per=st.pct/100*TC/mem.length;
+    return s+mem.reduce((t,code)=>t+(divCNYof(code,per)||0),0);
+  },0);
+  const curDiv=CFG.holdings.reduce((s,h)=>s+divTaxOf(h),0); // 当前持仓税后年股息（与股息模块同源）
   $('seatCards').innerHTML=[
     {k:'五席预算合计',v:fmt(BAll/1e4,0)+' 万',s:S.list.map(x=>x.pct+'%').join(' + ')+' = '+pctSum+'% · 目标本金 '+fmt(TC/1e4,0)+' 万'+(Math.abs(pctSum-100)>0.01?' · ⚠️权重合计≠100%':'')},
     {k:'五席内已配置市值',v:fmt(mvAll/1e4,1)+' 万',s:'进度 '+(BAll>0?(mvAll/BAll*100).toFixed(1):'0.0')+'% · 距预算剩余 '+fmt(Math.max(BAll-mvAll,0)/1e4,0)+' 万（持仓成本 '+fmt(costAll/1e4,1)+' 万）'},
     {k:'过渡仓（不占席位预算）',v:fmt(transMV/1e4,1)+' 万',s:trans.length?trans.map(t=>t.name+' '+fmt(t.mv/1e4,1)+'万').join('、')+'；去向待定，不因目标5席立即卖出':'无'},
     {k:'距满配空间',v:fmt(Math.max(TC-stockAll,0)/1e4,0)+' 万',s:'当前股票总市值 '+fmt(stockAll/1e4,1)+' 万 / 目标 '+fmt(TC/1e4,0)+' 万（差额=可投现金待部署）'},
+    {k:'预计年股息（满配）',v:fmt(fullDiv/1e4,1)+' 万/年',s:'五席配满后按 2025年度实际 DPS 估算（A股红利税10%计、港股通20%）；当前实况 '+fmt(curDiv/1e4,1)+' 万/年 · 满配股息率 '+(TC>0?(fullDiv/TC*100).toFixed(2):'—')+'%'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
   /* 席位表排序（郎刚10-10需求）：与持仓表同一套 data-sk 事件机制，状态持久化 lgSeatSort */
   const seatSk={
@@ -829,26 +850,7 @@ function renderSeats(){
   const wOf=code=>{const st=(S.list||[]).find(s=>(s.members||[]).includes(code));return st?(st.pct/100):0;};
   const wM=wOf('600519.SH'),wT=wOf('0700.HK'),wD=wM+wT;
   const heldLoss=(codes,ss)=>codes.reduce((s,code)=>{const h=CFG.holdings.find(x=>x.code===code);if(!h)return s;const x=hLive(h);return s+(x?x.mvCNY*ss:0);},0);
-  /* 纯股息口径：满配年股息（下限估算）=各席位预算按现价折股数×税后DPS（港股80%代扣/A股90%），
-     同席多成员等分（招行/平安、宁德/福耀、泡泡/安踏/迈瑞）；DPS未定档成员（茅台/平安/宁德/迈瑞）不计入→下限，实际更快 */
-  const hkdR=hkd();
-  const divCNYof=(code,amountCNY)=>{
-    const h=CFG.holdings.find(x=>x.code===code),u=CFG.universe.find(x=>x.code===code);
-    const dps=h&&h.dps!=null?h.dps:(u&&u.dps!=null?u.dps:null);
-    const x=h?hLive(h):null;
-    const px=(u&&u.px!=null)?u.px:(x?x.px:null); // 价格来源：股票池备用价→持仓实时价
-    const mkt=h&&h.market?h.market:(u&&u.code.endsWith('.HK')?'HK':'A');
-    if(!(dps>0)||!(px>0))return null;
-    const pxCNY=mkt==='HK'?px*hkdR:px;
-    if(!(pxCNY>0))return null;
-    return amountCNY/pxCNY*dps*(mkt==='HK'?0.8:0.9)*(mkt==='HK'?hkdR:1);
-  };
-  const fullDiv=(S.list||[]).reduce((s,st)=>{
-    const mem=(st.members||[]);if(!mem.length)return s;
-    const per=st.pct/100*TC/mem.length;
-    return s+mem.reduce((t,code)=>t+(divCNYof(code,per)||0),0);
-  },0);
-  const curDiv=CFG.holdings.reduce((s,h)=>s+divTaxOf(h),0); // 当前持仓税后年股息（与股息模块同源）
+  /* 纯股息口径：满配年股息 divCNYof/fullDiv 已在上方席位卡片区计算（同一数据源） */
   const divYrs=(loss,div)=>(loss>0&&div>0)?(loss/div):null;
   const yrsTxt=y=>y==null?'—':(y<1?'不满1年':y.toFixed(1)+' 年');
   const scn=[

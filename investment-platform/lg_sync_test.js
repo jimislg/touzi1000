@@ -355,6 +355,15 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('席位卡：五席预算合计=100%',el('seatCards').innerHTML.includes('五席预算合计')&&el('seatCards').innerHTML.includes('30% + 25% + 20% + 15% + 10%'));
   T('席位卡：过渡仓卡存在',el('seatCards').innerHTML.includes('过渡仓'));
   T('席位卡：距满配空间卡存在',el('seatCards').innerHTML.includes('距满配空间'));
+  // 郎刚10-10晚：新增预计年股息卡（满配口径），数值须与压力表脚注的满配年股息勾稽一致
+  {
+    const sc=el('seatCards').innerHTML;
+    const cm=sc.match(/预计年股息（满配）<\/div><div class="v">([\d.]+) 万\/年/);
+    const fnm=el('stressTable').innerHTML.match(/满配年股息 ≈ <b>([\d,]+) 元\/年/);
+    if(!cm||!fnm)console.log('  [debug] cardMatch=',!!cm,'footnoteMatch=',!!fnm,'| seatCards片段:',sc.slice(sc.indexOf('预计年股息')-40,sc.indexOf('预计年股息')+300)||'(无)','| 脚注片段:',el('stressTable').innerHTML.slice(el('stressTable').innerHTML.indexOf('满配年股息')-10,el('stressTable').innerHTML.indexOf('满配年股息')+80)||'(无)');
+    T('席位卡：预计年股息卡存在且=压力表脚注满配年股息',!!cm&&!!fnm&&cm[1]===(parseInt(fnm[1].replace(/,/g,''),10)/1e4).toFixed(1));
+  }
+
   // ③ 压力测试 v2：情景表（郎刚10-10重做——历史参照+回本时间+当前实况+自定义输入）
   T('压力表：三档整体情景齐全',['整体 -20%','整体 -35%','整体 -50%'].every(x=>el('stressTable').innerHTML.includes(x)));
   T('压力表：三个单点情景齐全',['茅台腰斩','腾讯腰斩','双核同跌'].every(x=>el('stressTable').innerHTML.includes(x)));
