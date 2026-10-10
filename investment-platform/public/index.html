@@ -956,10 +956,10 @@ function renderSeats(){
     if(s.only){
       curLoss=heldLoss(s.only,s.ss);
       const heldAny=s.only.some(code=>{const h=CFG.holdings.find(x=>x.code===code);return h&&hLive(h);});
-      if(!heldAny)curNote='<br><span class="note">未持有·无直接影响</span>';
+      if(!heldAny)curNote=' · 未持有无直接影响';
     }else curLoss=stockNow*s.ss;
     const cYrs=divYrs(curLoss,curDiv);
-    const curPct=assetNow>0?curLoss/assetNow*100:null; // 郎刚10-10晚：实况剩余列删除（平凡减法），改为亏损占总资产比并入亏损列小注
+    const curPct=assetNow>0?curLoss/assetNow*100:null; // 郎刚10-10晚：实况剩余/实况亏损列均删（用户判定无意义），实况信息压缩为抵亏年数列小注
     return `<tr>
       <td><b>${s.n}</b><br><span class="pill wait">${s.lv}</span></td>
       <td><b>−${(s.shock*100).toFixed(1).replace(/\.0$/,'')}%</b>${s.only&&s.only.length>1?'<br><span class="note">成员均分冲击</span>':''}</td>
@@ -967,13 +967,12 @@ function renderSeats(){
       <td class="down">-${fmt(fullLoss/1e4,0)} 万</td>
       <td><b>${fYld!=null?fYld.toFixed(2)+'%':'—'}</b><br><span class="note">实况成本 ${cYldCost!=null?cYldCost.toFixed(2)+'%':'—'}</span></td>
       <td><b>${fmt(fullDiv/1e4,1)} 万/年</b><br><span class="note">实况 ${fmt(curDiv/1e4,1)} 万/年</span></td>
-      <td><b>${yrsTxt(fY)}</b><br><span class="note">实况 ${yrsTxt(cYrs)}</span></td>
-      <td class="${curLoss>0?'down':''}">-${fmt(curLoss/1e4,1)} 万${curPct!=null&&curLoss>0?'<br><span class="note">占总资产 '+curPct.toFixed(1)+'%</span>':''}${curNote}</td>
+      <td><b>${yrsTxt(fY)}</b><br><span class="note">实况 ${yrsTxt(cYrs)}${curPct!=null&&curLoss>0?' · 亏占总资产 '+curPct.toFixed(1)+'%':''}${curNote}</span></td>
       <td style="white-space:normal"><span class="note">${s.ref}</span></td>
     </tr>`;
   }).join('');
   $('stressTable').innerHTML=`<table><thead><tr>
-    <th>情景</th><th>采用冲击*</th><th>满配剩余</th><th>满配亏损</th><th>成本股息率*</th><th>股息金额</th><th>静态股息抵亏年数</th><th>当前实况亏损</th><th>历史参照（都真实发生过）</th>
+    <th>情景</th><th>采用冲击*</th><th>满配剩余</th><th>满配亏损</th><th>成本股息率*</th><th>股息金额</th><th>静态股息抵亏年数</th><th>历史参照（都真实发生过）</th>
   </tr></thead><tbody>${rows2}</tbody></table>
   <div class="note" style="margin-top:6px">* <b>采用冲击</b>＝本表显式建模参数，与「历史参照」（含日期与幅度）分列，非完整历史回放；茅台腰斩/腾讯腰斩/双核同跌按席位预算权重折算到组合层面，同席多成员分配未知（等分仅为备选情景标注）。<b>成本股息率</b>＝年股息÷<b>持有成本</b>（主显满配＝目标本金、小注实况＝持仓成本合计；假设每股分红不变）——价格涨跌不改变成本股息率，它衡量的是「这笔本金的现金收益率」；跌后市值口径的股息率抬升只对尚未买入的新资金有意义（分档建仓锁定高息窗口），不作为本表指标。<b>股息金额</b>＝满配/当前实况的年税后股息现金流（普通DPS口径，宁德特别股息单列不计入）。<b>静态股息抵亏年数</b>＝亏损÷年股息现金流（假设股息不变、无复投、期间口径混合——<b>是静态抵亏年数，不是恢复预测</b>：股息花掉后累计收到亏损同额现金，证券市值未必恢复；股息削减或TTM滚出时结果继续变化）。主显为满配口径、小注为当前实况。<br><b>三个视角的状态</b>：①价格压力＝本表（价格冲击，显式参数）；②普通股息压力＝满配税前普通股息约 <b>${fmt(fullDivGross,0)} 元/年</b>（税后 ${fmt(fullDiv,0)}，去宁德特别股息），对100万税前目标覆盖率约 <b>${(fullDivGross/1000000*100).toFixed(1)}%</b>——参考基线（候选按2025年度普通DPS、持仓按TTM混合，逐项见dpsNote），<b>非审计后的可持续普通股息基线</b>；③永久损失压力＝<b>无法估算</b>——缺已批准的经济价值压力模型，价格回撤不能冒充永久损失。<br>满配年股息（税后·普通）≈ <b>${fmt(fullDiv,0)} 元/年</b>；另含宁德一次性特别股息税后约 <b>${fmt(fullDivSpec,0)} 元/年</b>（不计入普通股息目标）。普通DPS逐成员口径与来源见股票池 dpsNote（茅台51.98／平安2.70／宁德普通2.178＋特别4.779／迈瑞4.38等）；A股红利税保守按10%计（持股>1年实际免税，按批次）、港股通20%。当前持仓年股息（税后）≈ <b>${fmt(curDiv,0)} 元/年</b>。</div>`;
   // 自定义情景：输入任意整体跌幅，即时算满配/当前实况（纯股息回本口径）
@@ -989,7 +988,7 @@ function renderSeats(){
       成本股息率：满配 <b>${fYld!=null?fYld.toFixed(2)+'%':'—'}</b> / 实况成本 <b>${cYldCost!=null?cYldCost.toFixed(2)+'%':'—'}</b>（持有成本口径，不随跌幅变化），股息金额不变`;
   };
   window.stressCustom('');
-  $('seatNote').innerHTML=`<b>v3.5 路线</b>（建议书第十二节）：阶段0 数据与制度修正（现金对账、10-08结算单、批次成本）→ 阶段1 核心审计（茅台/腾讯/招行/平安优先）→ 阶段2 首轮配置（合格价格才动）→ 阶段3 优势集中 → 阶段4 长期收敛。<br><b>买入预算公式</b>（v3.5 已签发）：可追加上限 = max[0, min(B×q−K, L−V, C−F)]——B席位预算、q价档累计比例、K累计净投入、L集中度上限、V当前市值、C可用现金、F预留费用；同一公司A/H合并K与V，交易价与税费各自算；<b>卖出后K的释放规则待定</b>。<br><b>四项确认记录（郎刚 2026-10-10 确认通过，按现行口径执行）</b>：①目标固定起算/截止日；②家庭必要现金与负债；③最大可承受回撤；④完整入出金流水。<br>压力测试为静态情景，不含现金缓冲与新增投入；满配情景直接取本表五席权重（茅台${Math.round(wM*100)}%/腾讯${Math.round(wT*100)}%），持仓变动实时反映在「当前实况」列。`;
+  $('seatNote').innerHTML=`<b>v3.5 路线</b>（建议书第十二节）：阶段0 数据与制度修正（现金对账、10-08结算单、批次成本）→ 阶段1 核心审计（茅台/腾讯/招行/平安优先）→ 阶段2 首轮配置（合格价格才动）→ 阶段3 优势集中 → 阶段4 长期收敛。<br><b>买入预算公式</b>（v3.5 已签发）：可追加上限 = max[0, min(B×q−K, L−V, C−F)]——B席位预算、q价档累计比例、K累计净投入、L集中度上限、V当前市值、C可用现金、F预留费用；同一公司A/H合并K与V，交易价与税费各自算；<b>卖出后K的释放规则待定</b>。<br><b>四项确认记录（郎刚 2026-10-10 确认通过，按现行口径执行）</b>：①目标固定起算/截止日；②家庭必要现金与负债；③最大可承受回撤；④完整入出金流水。<br>压力测试为静态情景，不含现金缓冲与新增投入；满配情景直接取本表五席权重（茅台${Math.round(wM*100)}%/腾讯${Math.round(wT*100)}%），持仓变动实时反映在各列「实况」小注。`;
 }
 
 /* —— 信号中心 v2：总览chip + 优先级清单（每公司一行，统一提醒只出现一次） —— */
