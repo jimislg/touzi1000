@@ -908,11 +908,22 @@ function renderSeats(){
     });
   }
   const seatThs=[['name','席位'],['memb','构成（成员·现值）'],['tgt','目标成本'],['mv','当前市值'],['cost','持仓成本'],['yld','持仓股息率'],['prog','进度'],['room','剩余空间'],['strat','建仓策略']];
-  /* 郎刚10-10晚：投资任务列→建仓策略列（读各成员universe的plan分档文本；无plan成员回退席位task） */
+  /* 郎刚10-10晚：投资任务列→建仓策略列。二版（截图反馈）：档位渲染成 pill「L1·前哨 1150元 · 30万」
+     （label+触发价+tierPct累计金额），够简单清晰；完整 plan 文案挪到 pill 悬浮提示 */
   const stratHtml=st=>{
+    const TCv=totalCapital();
     const lines=(st.members||[]).map(code=>{
       const u=CFG.universe.find(x=>x.code===code);
-      return u?`<b>${u.name}</b><br><span class="note">${String(u.plan||'待定档').slice(0,120)}</span>`:null;
+      if(!u)return null;
+      const planTit=String(u.plan||'').replace(/"/g,'&quot;');
+      const pills=(u.tiers||[]).map((t,i)=>{
+        const pct=(u.tierPct||[])[i];
+        const amt=pct!=null?fmt(pct/100*TCv/1e4,0)+'万':'';
+        const cur=t.cur==='HKD'?'港元':'元';
+        return `<span class="pill hold" style="margin:2px 4px 2px 0;display:inline-block" title="${planTit}">${t.label} ${fmt(t.price,t.price%1?1:0)}${cur}${amt?' · '+amt:''}</span>`;
+      }).join(' ');
+      const nm=(st.members||[]).length>1?`<b>${u.name}</b><br>`:'';
+      return nm+(pills||`<span class="note" title="${planTit}">${String(u.plan||'待定档').slice(0,120)}</span>`);
     }).filter(Boolean);
     return lines.length?lines.join('<br>'):`<span class="note">${st.task||''}</span>`;
   };
