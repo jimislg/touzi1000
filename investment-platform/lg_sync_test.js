@@ -371,7 +371,7 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('压力表：每情景带历史参照',['塑化剂','775→198','2008','2018年A股'].every(x=>el('stressTable').innerHTML.includes(x)));
   T('压力表：满配-20%剩余='+(tcap*0.8/1e4).toFixed(0)+'万',el('stressTable').innerHTML.includes((tcap*0.8/1e4).toFixed(0)+' 万'));
   T('压力表：腾讯腰斩满配剩余='+(tcap*0.875/1e4).toFixed(0)+'万',el('stressTable').innerHTML.includes((tcap*0.875/1e4).toFixed(0)+' 万'));
-  T('压力表：综合股息率+股息金额列（回本需涨已移除）',el('stressTable').innerHTML.includes('组合综合股息率')&&el('stressTable').innerHTML.includes('股息金额')&&!el('stressTable').innerHTML.includes('回本需涨'));
+  T('压力表：成本股息率+股息金额列（回本需涨已移除）',el('stressTable').innerHTML.includes('成本股息率')&&el('stressTable').innerHTML.includes('股息金额')&&!el('stressTable').innerHTML.includes('回本需涨'));
   T('压力表：茅台当前未持有→无直接影响标注',el('stressTable').innerHTML.includes('未持有·无直接影响'));
   T('压力表：腾讯当前实况亏损为负值',/-\d/.test(el('stressTable').innerHTML));
   // 纯股息数值断言（郎刚10-10）：从页面解析满配年股息，校验综合股息率=股息÷跌后市值（-35%情景勾稽）
@@ -382,8 +382,10 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('压力表：茅台单席股息='+mtExp+'元郎刚口径校验',el('stressTable').innerHTML.includes(String(mtExp))||fullDiv>=mtExp*0.99);
   T('压力表：DPS口径=普通股息混合口径注明（复核报告要求，不再声称全体2025年度实际）',el('stressTable').innerHTML.includes('非审计后的可持续普通股息基线')&&el('stressTable').innerHTML.includes('普通DPS逐成员口径')&&!el('stressTable').innerHTML.includes('全体成员均按'));
   T('压力表：宁德特别股息单列且不计入普通股息目标',el('stressTable').innerHTML.includes('特别股息')&&el('stressTable').innerHTML.includes('宁德普通2.178'));
-  const yldExp=(fullDiv/(tcap*0.65)*100).toFixed(2);
-  T('压力表：-35%跌后综合股息率='+yldExp+'%（股息÷跌后市值勾稽）',el('stressTable').innerHTML.includes('<b>'+yldExp+'%</b>'));
+  // 郎刚10-10晚：股息率改持有成本口径——满配=fullDiv÷TC（常数，不随冲击变），实况=curDiv÷持仓成本合计
+  const yldCost=(fullDiv/tcap*100).toFixed(2);
+  T('压力表：成本股息率(满配)='+yldCost+'%（股息÷目标本金勾稽，所有情景同值）',el('stressTable').innerHTML.split('<b>'+yldCost+'%</b>').length>=6); // 表头1+6情景=7处出现
+  T('压力表：口径注明=年股息÷持有成本且跌后市值口径仅对新资金',el('stressTable').innerHTML.includes('年股息÷<b>持有成本</b>')&&el('stressTable').innerHTML.includes('分档建仓锁定高息窗口'));
   // 复核报告P0-C：采用冲击显式列 + 静态股息抵亏年数改名 + 乘法说明 + 永久损失视角 + 覆盖率
   {
     const hd=el('stressTable').innerHTML.match(/<thead><tr>([\s\S]*?)<\/tr><\/thead>/);
