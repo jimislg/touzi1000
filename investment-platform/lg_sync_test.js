@@ -331,12 +331,17 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('席位卡：五席预算合计=100%',el('seatCards').innerHTML.includes('五席预算合计')&&el('seatCards').innerHTML.includes('30% + 25% + 20% + 15% + 10%'));
   T('席位卡：过渡仓卡存在',el('seatCards').innerHTML.includes('过渡仓'));
   T('席位卡：距满配空间卡存在',el('seatCards').innerHTML.includes('距满配空间'));
-  // ③ 压力测试卡：满配-20%=TC×0.8（fallback 1000万→800万）
-  T('压力卡：满配-20%档',el('stressCards').innerHTML.includes('满配-20%'));
-  T('压力卡：满配后腾讯腰斩',el('stressCards').innerHTML.includes('满配后腾讯腰斩'));
-  T('压力卡：含当前实况-35%对照',el('stressCards').innerHTML.includes('当前实况-35%'));
-  T('压力卡数值：-20%情景='+(tcap*0.8/1e4).toFixed(0)+'万',el('stressCards').innerHTML.includes((tcap*0.8/1e4).toFixed(0)+' 万'));
-  T('压力卡数值：腾讯腰斩='+(tcap*0.875/1e4).toFixed(0)+'万',el('stressCards').innerHTML.includes((tcap*0.875/1e4).toFixed(0)+' 万'));
+  // ③ 压力测试 v2：情景表（郎刚10-10重做——历史参照+回本时间+当前实况+自定义输入）
+  T('压力表：三档整体情景齐全',['整体 -20%','整体 -35%','整体 -50%'].every(x=>el('stressTable').innerHTML.includes(x)));
+  T('压力表：三个单点情景齐全',['茅台腰斩','腾讯腰斩','双核同跌'].every(x=>el('stressTable').innerHTML.includes(x)));
+  T('压力表：每情景带历史参照',['塑化剂','775→198','2008','2018年A股'].every(x=>el('stressTable').innerHTML.includes(x)));
+  T('压力表：满配-20%剩余='+(tcap*0.8/1e4).toFixed(0)+'万',el('stressTable').innerHTML.includes((tcap*0.8/1e4).toFixed(0)+' 万'));
+  T('压力表：腾讯腰斩满配剩余='+(tcap*0.875/1e4).toFixed(0)+'万',el('stressTable').innerHTML.includes((tcap*0.875/1e4).toFixed(0)+' 万'));
+  T('压力表：含回本需涨与回本时间列',el('stressTable').innerHTML.includes('回本需涨')&&el('stressTable').innerHTML.includes('回本时间'));
+  T('压力表：茅台当前未持有→无直接影响标注',el('stressTable').innerHTML.includes('未持有·无直接影响'));
+  T('压力表：腾讯当前实况亏损为负值',/-\d/.test(el('stressTable').innerHTML));
+  T('压力说明：三个问题导语',el('stressDesc').innerHTML.includes('钱还剩多少')&&el('stressDesc').innerHTML.includes('几年长回来'));
+  T('压力自定义：输入控件存在',el('stressCustom').innerHTML.includes('input'));
   T('席位说明：含v3.5路线与预算公式',el('seatNote').innerHTML.includes('v3.5 路线')&&el('seatNote').innerHTML.includes('B×q−K'));
   T('席位说明：含四项待确认',el('seatNote').innerHTML.includes('四项待郎刚确认'));
   // ④ 研究批次pill
