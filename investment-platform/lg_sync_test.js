@@ -205,6 +205,28 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   await run('renderAll()');
   T('恢复后重新计数，"已触发·已执行"回归',el('sigBox').innerHTML.includes('已触发·已执行')&&!el('sigBox').innerHTML.includes('row-dim'));
 
+  // 前后联动（郎刚10-10）：划掉的信号在持仓表同步划线（数据保留+可恢复）
+  const overDk=run('(function(){const TC=totalCapital();for(const h of CFG.holdings){const x=hLive(h);if(!x)continue;const w=x.mvCNY/TC*100;if(w>limitOf(h))return "over:"+h.code;}return null;})()');
+  if(overDk){
+    run('CFG.dismissedSignals.push("'+overDk+'")');await run('renderAll()');
+    const code=overDk.slice(5);
+    const rowHtml=el('posTable').innerHTML.split('<tr').find(s=>s.includes(code))||'';
+    T('联动：划掉'+overDk+'→持仓表该行同步划线+恢复入口',rowHtml.includes('已划掉·恢复')&&rowHtml.includes('line-through'));
+    T('联动：划掉后数据保留（超限字样仍在）',rowHtml.includes('超限'));
+    T('联动：例外原因随行显示',rowHtml.includes('例外：')||!run('CFG.dismissedReasons&&CFG.dismissedReasons["'+overDk+'"]'));
+    run('CFG.dismissedSignals=CFG.dismissedSignals.filter(k=>k!=="'+overDk+'")');await run('renderAll()');
+    T('联动：恢复后持仓表解除划线',!el('posTable').innerHTML.includes('已划掉·恢复'));
+  }else{
+    // 无超限持仓时用价格信号验证同一机制
+    const nearDk=run('(function(){for(const h of CFG.holdings){const bp=buyPriceOf(h);const x=hLive(h);if(bp!=null&&x&&x.px<=bp*1.05)return (x.px<=bp?"trig:":"near:")+h.code;}return null;})()');
+    if(nearDk){
+      run('CFG.dismissedSignals.push("'+nearDk+'")');await run('renderAll()');
+      T('联动：划掉'+nearDk+'→持仓表同步划线+恢复入口',el('posTable').innerHTML.includes('已划掉·恢复'));
+      run('CFG.dismissedSignals=CFG.dismissedSignals.filter(k=>k!=="'+nearDk+'")');await run('renderAll()');
+      T('联动：恢复后持仓表解除划线',!el('posTable').innerHTML.includes('已划掉·恢复'));
+    }
+  }
+
   // cfgSig 覆盖 dismissedSignals（双端同步依据）
   const sig1=run('cfgSig(CFG)');
   run('CFG.dismissedSignals.push("near:02020.HK")');

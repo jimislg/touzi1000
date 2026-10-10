@@ -171,7 +171,7 @@
 <!-- 目标仓位预警 -->
 <section id="pos">
   <h2>持仓 · 目标仓位预警 <span class="tag">权重=市值÷1000万目标本金</span></h2>
-  <p class="desc">预警拆成两个独立维度——<b>价格信号</b>：现价对比购买触发价（≤触发价=可加仓；距触发价≤+5%=接近；否则等待），触发价可直接修改；<b>仓位信号</b>：按目标本金全部投完后的权重检查（超限给减持金额、未超限给可加金额）。上限：A·目标达成型20%／接近型15%／辅助型10%；B类8%；绝对硬约束25%。股数可直接改并保存。</p>
+  <p class="desc">预警拆成两个独立维度——<b>价格信号</b>：现价对比购买触发价（≤触发价=可加仓；距触发价≤+5%=接近；否则等待），触发价可直接修改；<b>仓位信号</b>：按目标本金全部投完后的权重检查（超限给减持金额、未超限给可加金额）。上限：A·目标达成型20%／接近型15%／辅助型10%；B类8%；绝对硬约束25%。股数可直接改并保存。在信号中心划掉的预警，此处<b>同步划线</b>（数据保留，点「已划掉·恢复」可恢复，两端联动）。</p>
   <div class="tw" id="posTable"></div>
   <div class="cards" id="posCards" style="margin-top:11px"></div>
 </section>
@@ -517,6 +517,27 @@ function renderDash(){
   if(im)im.textContent=fmt(inv/1e4,1);
   if(ts)ts.textContent=fmt(TC/1e4,1);
 }
+function toggleSignal(dk,undo){ // 信号划掉/恢复单一入口（信号中心与持仓表共用，郎刚10-10前后联动）
+  const cur=CFG.dismissedSignals||(CFG.dismissedSignals=[]);
+  const i=cur.indexOf(dk);
+  if(undo){
+    if(i>=0)cur.splice(i,1);
+    if(CFG.dismissedReasons)delete CFG.dismissedReasons[dk];
+  }else if(i<0){
+    cur.push(dk);
+    // 郎刚10-10：招行超限被划掉无记录的教训——划掉时可选填例外决策原因，行内留痕可追溯
+    let reason='';
+    try{reason=(prompt('可选：记录例外决策原因（如"历史遗留仓位，计划逢高减持"）\n留空则直接划掉、不留原因。','')||'').trim();}catch(_){}
+    if(reason)(CFG.dismissedReasons||(CFG.dismissedReasons={}))[dk]=reason;
+  }
+  markDirty(); // 2秒后自动保存（本地+云端双写）
+  renderAll();
+}
+function toggleSignalWrap(dk,inner){ // 已划掉的信号：划线呈现但不删除，附恢复入口与例外原因（前后联动）
+  if(!dk||!(CFG.dismissedSignals||[]).includes(dk))return inner;
+  const rs=CFG.dismissedReasons&&CFG.dismissedReasons[dk]?'<br><span class="note">例外：'+CFG.dismissedReasons[dk]+'</span>':'';
+  return `<span style="text-decoration:line-through;color:var(--muted)">${inner}</span><br><span class="sigact" data-dk="${dk}" data-undo="1" title="恢复该预警（信号中心同步恢复）">已划掉·恢复</span>${rs}`;
+}
 function wireInputs(){
   $('investInput').addEventListener('change',e=>{const v=parseFloat(e.target.value);if(v>=0){CFG.investable=v*10000;CFG.cash=CFG.investable;CFG.targetCapital=totalCapital();}renderAll();});
   $('contribInput').addEventListener('change',e=>{const v=parseFloat(e.target.value);CFG.annualContribution=(isFinite(v)&&v>=0)?v*10000:0;renderAll();}); // 郎刚10-10：每年外部追加投入（工资结余等）
@@ -548,21 +569,11 @@ function wireInputs(){
   });
   $('sigBox').addEventListener('click',e=>{ // 信号手工划掉/恢复（郎刚10-08需求；10-10补例外决策记录）
     const t=e.target.closest('.sigact[data-dk]');if(!t)return;
-    const dk=t.dataset.dk,undo=t.dataset.undo==='1';
-    const cur=CFG.dismissedSignals||(CFG.dismissedSignals=[]);
-    const i=cur.indexOf(dk);
-    if(undo){
-      if(i>=0)cur.splice(i,1);
-      if(CFG.dismissedReasons)delete CFG.dismissedReasons[dk];
-    }else if(i<0){
-      cur.push(dk);
-      // 郎刚10-10：招行超限被划掉无记录的教训——划掉时可选填例外决策原因，行内留痕可追溯
-      let reason='';
-      try{reason=(prompt('可选：记录例外决策原因（如"历史遗留仓位，计划逢高减持"）\n留空则直接划掉、不留原因。','')||'').trim();}catch(_){}
-      if(reason)(CFG.dismissedReasons||(CFG.dismissedReasons={}))[dk]=reason;
-    }
-    markDirty(); // 2秒后自动保存（本地+云端双写）
-    renderAll();
+    toggleSignal(t.dataset.dk,t.dataset.undo==='1');
+  });
+  $('posTable').addEventListener('click',e=>{ // 郎刚10-10：持仓表预警与信号中心前后联动——同key同步划掉/恢复
+    const t=e.target.closest('.sigact[data-dk]');if(!t)return;
+    toggleSignal(t.dataset.dk,t.dataset.undo==='1');
   });
   ['aTable','bTable'].forEach(id=>$(id).addEventListener('change',e=>{
     const i=e.target.dataset.u,k=e.target.dataset.u!=null?e.target.dataset.k:null;if(i==null||!k)return;
@@ -636,11 +647,13 @@ function renderPos(){
     const irrCell=firr!=null
       ?`<b class="${firr>=0.12?'up':''}">${(firr*100).toFixed(1)}%</b><br><span class="note">${firr>=0.12?'≥12%合格线':'低于12%合格线'}</span>`
       :'<span class="note">—</span><br><span class="note">未定四档</span>';
-    // 仓位信号：带具体条件
-    let posSig;
-    if(over)posSig=`<b class="up">超限 ${(w-lim).toFixed(1)}pct</b><br><span class="note">减持至 ${fmt(lim*TC/10000,0)} 万内前禁止加仓</span>`;
-    else if(near)posSig=`<b style="color:var(--amber)">接近上限</b><br><span class="note">仅余 ${fmt(room,0)} 万空间</span>`;
+    // 仓位信号：带具体条件；被划掉时与信号中心同步划线（郎刚10-10前后联动，key与信号中心同源）
+    let posSig,psDk=null;
+    if(over){posSig=`<b class="up">超限 ${(w-lim).toFixed(1)}pct</b><br><span class="note">减持至 ${fmt(lim*TC/10000,0)} 万内前禁止加仓</span>`;psDk='over:'+h.code;}
+    else if(near){posSig=`<b style="color:var(--amber)">接近上限</b><br><span class="note">仅余 ${fmt(room,0)} 万空间</span>`;psDk='posnear:'+h.code;}
     else posSig=`<span class="down">未超限</span><br><span class="note">可加 ${fmt(room,0)} 万至 ${lim}%</span>`;
+    const bp0=buyPriceOf(h);
+    const prDk=bp0==null?null:(x.px<=bp0?'trig:'+h.code:(x.px<=bp0*1.05?'near:'+h.code:null));
     return `<tr>
       <td>${h.name}<span class="pill ${h.grade}">${h.grade}${h.label?'·'+h.label:''}</span>${gradeDrift(h)?`<span class="pill wait" title="持仓${h.grade}与池内${gradeDrift(h)}不一致，以池内研究结论为准（10-10已对齐福耀）">⚠池内${gradeDrift(h)}</span>`:''}${h.market==='HK'?'<span class="pill hold">港</span>':''}<br><span class="note" title="buyDate=当前批次最早买入日。A股红利税按持有期：<1年10%、≥1年免税；港股通固定20%代扣">${h.code} · 买入${h.buyDate||'?'}${x.snap?' · 快照':''}</span></td>
       <td>${fmt(x.px,2)}${x.snap?'':' <span class="note">实时</span>'}</td>
@@ -651,8 +664,8 @@ function renderPos(){
       <td style="white-space:normal">${irrCell}</td>
       <td><div class="bar"><i style="width:${Math.min(w/25*100,100)}%;background:${barC}"></i></div><span class="note">${w.toFixed(2)}%</span></td>
       <td>${lim}%</td>
-      <td style="white-space:normal">${priceSignal(h,i)}</td>
-      <td style="white-space:normal">${posSig}</td>
+      <td style="white-space:normal">${toggleSignalWrap(prDk,priceSignal(h,i))}</td>
+      <td style="white-space:normal">${toggleSignalWrap(psDk,posSig)}</td>
     </tr>`;}).join('');
   const posThs=[['name','标的'],['px','现价'],['shares','股数(可改)'],['mv','市值(元)'],['pl','盈亏'],['div','预计股息(税后·年)'],['irr','预计年收益率'],['w','占目标本金'],['lim','上限'],['sig','价格信号(触发价可改)'],['pos','仓位信号']];
   $('posTable').innerHTML=`<table><thead><tr>${posThs.map(([k,t])=>
