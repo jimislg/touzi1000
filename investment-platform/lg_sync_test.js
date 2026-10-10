@@ -355,13 +355,14 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('席位卡：五席预算合计=100%',el('seatCards').innerHTML.includes('五席预算合计')&&el('seatCards').innerHTML.includes('30% + 25% + 20% + 15% + 10%'));
   T('席位卡：过渡仓卡存在',el('seatCards').innerHTML.includes('过渡仓'));
   T('席位卡：距满配空间卡存在',el('seatCards').innerHTML.includes('距满配空间'));
-  // 郎刚10-10晚：新增预计年股息卡（满配口径），数值须与压力表脚注的满配年股息勾稽一致
+  // 郎刚10-10晚：新增预计年股息卡（满配·普通口径），数值须与压力表脚注的满配年股息勾稽一致
   {
     const sc=el('seatCards').innerHTML;
-    const cm=sc.match(/预计年股息（满配）<\/div><div class="v">([\d.]+) 万\/年/);
-    const fnm=el('stressTable').innerHTML.match(/满配年股息 ≈ <b>([\d,]+) 元\/年/);
+    const cm=sc.match(/预计年股息（满配·普通）<\/div><div class="v">([\d.]+) 万\/年/);
+    const fnm=el('stressTable').innerHTML.match(/满配年股息（税后·普通）≈ <b>([\d,]+) 元\/年/);
     if(!cm||!fnm)console.log('  [debug] cardMatch=',!!cm,'footnoteMatch=',!!fnm,'| seatCards片段:',sc.slice(sc.indexOf('预计年股息')-40,sc.indexOf('预计年股息')+300)||'(无)','| 脚注片段:',el('stressTable').innerHTML.slice(el('stressTable').innerHTML.indexOf('满配年股息')-10,el('stressTable').innerHTML.indexOf('满配年股息')+80)||'(无)');
     T('席位卡：预计年股息卡存在且=压力表脚注满配年股息',!!cm&&!!fnm&&cm[1]===(parseInt(fnm[1].replace(/,/g,''),10)/1e4).toFixed(1));
+    T('席位卡：满配卡标注特别股息单列（宁德4.779不计入）',sc.includes('特别股息')&&sc.includes('单列'));
   }
 
   // ③ 压力测试 v2：情景表（郎刚10-10重做——历史参照+回本时间+当前实况+自定义输入）
@@ -374,22 +375,29 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('压力表：茅台当前未持有→无直接影响标注',el('stressTable').innerHTML.includes('未持有·无直接影响'));
   T('压力表：腾讯当前实况亏损为负值',/-\d/.test(el('stressTable').innerHTML));
   // 纯股息数值断言（郎刚10-10）：从页面解析满配年股息，校验综合股息率=股息÷跌后市值（-35%情景勾稽）
-  const fdm=el('stressTable').innerHTML.match(/满配年股息 ≈ <b>([\d,]+) 元\/年/);
+  const fdm=el('stressTable').innerHTML.match(/满配年股息（税后·普通）≈ <b>([\d,]+) 元\/年/);
   const fullDiv=fdm?parseInt(fdm[1].replace(/,/g,''),10):0;
   T('压力表：满配年股息='+fullDiv+'元（含茅台席按51.98计）',fullDiv>0);
   const mtExp=Math.round(0.30*tcap/1258.62*51.98*0.9); // 茅台席30%×TC÷备用价×DPS×(1-10%红利税)
   T('压力表：茅台单席股息='+mtExp+'元郎刚口径校验',el('stressTable').innerHTML.includes(String(mtExp))||fullDiv>=mtExp*0.99);
-  T('压力表：DPS口径说明（2025年度实际）',el('stressTable').innerHTML.includes('2025年度实际')&&el('stressTable').innerHTML.includes('茅台51.98'));
+  T('压力表：DPS口径=普通股息混合口径注明（复核报告要求，不再声称全体2025年度实际）',el('stressTable').innerHTML.includes('非审计后的可持续普通股息基线')&&el('stressTable').innerHTML.includes('普通DPS逐成员口径')&&!el('stressTable').innerHTML.includes('全体成员均按'));
+  T('压力表：宁德特别股息单列且不计入普通股息目标',el('stressTable').innerHTML.includes('特别股息')&&el('stressTable').innerHTML.includes('宁德普通2.178'));
   const yldExp=(fullDiv/(tcap*0.65)*100).toFixed(2);
   T('压力表：-35%跌后综合股息率='+yldExp+'%（股息÷跌后市值勾稽）',el('stressTable').innerHTML.includes('<b>'+yldExp+'%</b>'));
-  // 郎刚10-10晚：历史参照移到最后一列 + 新增股息回本周期列（纯股息口径，满配/实况双行）
+  // 复核报告P0-C：采用冲击显式列 + 静态股息抵亏年数改名 + 乘法说明 + 永久损失视角 + 覆盖率
   {
     const hd=el('stressTable').innerHTML.match(/<thead><tr>([\s\S]*?)<\/tr><\/thead>/);
     const cols=hd?hd[1].match(/<th>([^<]*)<\/th>/g).map(s=>s.replace(/<\/?th>/g,'')):[];
-    T('压力表：列序=9列且历史参照在最后',cols.length===9&&cols[8].includes('历史参照'));
-    T('压力表：含股息回本周期列且口径注明纯股息',cols.includes('股息回本周期')&&el('stressTable').innerHTML.includes('亏损÷年股息现金流'));
-    const y35=(tcap*0.35)/fullDiv; // -35%满配回本年数=亏损÷年股息
-    T('压力表：-35%满配股息回本≈'+y35.toFixed(1)+'年勾稽',el('stressTable').innerHTML.includes(y35.toFixed(1)+' 年'));
+    T('压力表：列序=10列且历史参照在最后（复核报告：采用冲击与历史参照分列）',cols.length===10&&cols[9].includes('历史参照'));
+    T('压力表：含「采用冲击」列且茅台腰斩采用−50%≠历史−56%',cols.includes('采用冲击*')&&el('stressTable').innerHTML.includes('−50%'));
+    T('压力表：静态股息抵亏年数列（原股息回本周期改名，口径注明非恢复预测）',cols.includes('静态股息抵亏年数')&&el('stressTable').innerHTML.includes('亏损÷年股息现金流')&&el('stressTable').innerHTML.includes('不是恢复预测'));
+    T('压力表：无频率预测措辞（十年一遇已移除）',!el('stressTable').innerHTML.includes('十年一遇'));
+    T('压力表：乘法联合冲击说明（价格−20%×汇率−10%=−28%）',el('stressDesc').innerHTML.includes('−28%')&&el('stressDesc').innerHTML.includes('(1+价格)×(1+汇率)−1'));
+    T('压力表：永久损失视角=无法估算（价格回撤不冒充永久损失）',el('stressTable').innerHTML.includes('永久损失压力＝<b>无法估算</b>'));
+    const grossm=el('stressTable').innerHTML.match(/满配税前普通股息约 <b>([\d,]+) 元\/年/);
+    T('压力表：普通股息覆盖率=税前口径÷100万',!!grossm&&el('stressTable').innerHTML.includes('覆盖率约 <b>'+(parseInt(grossm[1].replace(/,/g,''),10)/1000000*100).toFixed(1)+'%</b>'));
+    const y35=(tcap*0.35)/fullDiv; // -35%满配抵亏年数=亏损÷年股息
+    T('压力表：-35%满配静态抵亏≈'+y35.toFixed(1)+'年勾稽',el('stressTable').innerHTML.includes(y35.toFixed(1)+' 年'));
   }
   T('压力表：股息金额含满配与实况双口径',el('stressTable').innerHTML.includes('万/年')&&el('stressTable').innerHTML.includes('实况'));
   T('压力说明：三个问题导语（股息现金流怎么样）',el('stressDesc').innerHTML.includes('钱还剩多少')&&el('stressDesc').innerHTML.includes('股息现金流怎么样'));
@@ -410,7 +418,55 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   run('CFG.seats.list[0].pct=35');
   T('cfgSig感知seats变化',run('cfgSig(CFG)')!==sA);
   run('CFG.seats.list[0].pct=30');
-  T('部署地图：口径衔接说明（个股节奏vs组合预算）',el('deployNote').innerHTML.includes('口径衔接')&&el('deployNote').innerHTML.includes('五席预算制'));
+  T('部署地图：口径衔接说明（研究空间/席位预算内空间/批准可执行额三层）',el('deployNote').innerHTML.includes('口径衔接')&&el('deployNote').innerHTML.includes('批准可执行额')&&el('deployNote').innerHTML.includes('批准可执行额一律为0'));
+  T('部署地图：三列表头齐全且批准可执行额=0',el('deployTable').innerHTML.includes('研究空间')&&el('deployTable').innerHTML.includes('席位预算内空间')&&el('deployTable').innerHTML.includes('批准可执行额')&&el('deployTable').innerHTML.includes('<b>0 元</b>'));
+  // 复核报告P0-B：统一预算函数 budgetCalc 业务行为
+  {
+    // 验收4夹具：B=250万、q=25%、K=60万 → 成本余额2.5万（不是用市值60万扣250万得190万）
+    const fx=run('budgetCalc("TEST.FX",{B:2500000,q:0.25,K:600000,L:null,C:1e12})');
+    T('budgetCalc：B=250万q=25%K=60万→成本余额2.5万（成本口径，非市值扣减）',fx.costRemain===25000);
+    T('budgetCalc：L缺失时条件上限不输出完整值（缺失不伪装）',fx.condCap==null&&fx.blockers.some(b=>b.includes('风险限额')));
+    const ap=run('budgetCalc("0700.HK")');
+    T('budgetCalc：批准可执行额=0且阻断原因含审计unknown',ap.approved===0&&ap.blockers.some(b=>b.includes('unknown')));
+    // 共享席：招行与平安同席，B相同且seatV合并计入全席（不各自重复使用20%）
+    const bCMB=run('budgetCalc("600036.SH")').B, bPA=run('budgetCalc("2318.HK")').B;
+    T('budgetCalc：金融共享席两成员同B（20%预算共享不翻倍）',bCMB===bPA&&bCMB>0);
+    // A/H合并：给平安A添加模拟持仓+报价→2318.HK的V包含A股市值
+    run('Q.sh601318={price:50,prevClose:50,pct:0}');
+    run('CFG.holdings.push({code:"601318.SH",name:"中国平安A",shares:1000,cost:50,market:"A",qt:"sh601318",dps:2.7})');
+    await run('renderAll()');
+    const vA=run('budgetCalc("2318.HK")').V;
+    T('budgetCalc：平安A持仓计入2318.HK发行人V（A/H合并）',vA>=1000*50-1&&vA>0);
+    run('CFG.holdings.pop()');run('delete Q.sh601318');await run('renderAll()');
+    // 联动缺陷修复：席位权重改变→部署表席位预算内空间变化
+    const w0=run('CFG.seats.list[1].pct'); // 腾讯25%
+    run('CFG.seats.list[1].pct=45');await run('renderAll()');
+    const dt45=el('deployTable').innerHTML;
+    run('CFG.seats.list[1].pct=25');await run('renderAll()');
+    const dt25=el('deployTable').innerHTML;
+    T('部署地图：席位权重25%→45%改变部署表席位预算内空间（修复联动缺失）',dt45!==dt25||!dt45.includes('席位预算内空间'));
+  }
+  // 复核报告P0-A：股息更新三态（停派0/失败/正常）
+  {
+    const h1=run('CFG.holdings.find(h=>h.code==="0700.HK")');
+    run('(function(){const h=CFG.holdings.find(h=>h.code==="0700.HK");h.dps=5.3;h.dpsManual=false;h.dpsStale=false;applyDivUpdate(h,{dps:0,source:"测试公告",asOf:"2026-10-10"});})()');
+    T('股息三态：已确认停派dps=0覆盖原正DPS且来源注明',h1.dps===0&&/停派/.test(h1.dpsSource));
+    run('(function(){const h=CFG.holdings.find(h=>h.code==="0700.HK");h.dps=5.3;h.dpsStale=false;applyDivUpdate(h,{dps:null,source:"接口"});})()');
+    T('股息三态：接口失败保留旧值并标陈旧',h1.dps===5.3&&h1.dpsStale===true);
+    run('(function(){const h=CFG.holdings.find(h=>h.code==="0700.HK");h.dpsStale=false;applyDivUpdate(h,{dps:5.3,source:"公告"});})()');
+    T('股息三态：正常更新清除陈旧标记',h1.dpsStale===false);
+    // 特别股息不提高普通股息：宁德配置仅普通2.178（注入测试条目校验分账字段）
+    run('CFG.universe.push({code:"300750.SZ",name:"宁德时代",grade:"A",qt:"sz300750",buyPrice:260,plan:"A类",px:291.11,dps:2.178,dpsSpecial:4.779,dpsNote:"测试"})');
+    const ct=run('CFG.universe.find(u=>u.code==="300750.SZ")');
+    T('股息分账：宁德dps=2.178普通、dpsSpecial=4.779单列',ct&&ct.dps===2.178&&ct.dpsSpecial===4.779);
+    run('CFG.universe.pop()');
+    // 真实config镜像独立校验（第二条计算路径：直接读文件，不经vm）
+    const realCfg=JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'),'utf8'));
+    const ndReal=realCfg.universe.find(u=>u.code==='300750.SZ');
+    T('config真实镜像：宁德dps=2.178普通+dpsSpecial=4.779（复核报告P0拆分）',ndReal&&ndReal.dps===2.178&&ndReal.dpsSpecial===4.779);
+  }
+  T('股息页分账：现金利息单列且不进覆盖率',el('divCards').innerHTML.includes('现金利息[单列]')&&el('divCards').innerHTML.includes('普通股息覆盖率[税前]'));
+  T('部署地图：口径衔接说明（个股节奏vs组合预算）',el('deployNote').innerHTML.includes('口径衔接')&&el('deployNote').innerHTML.includes('批准可执行额'));
   T('转正：v3.5已签发表述',el('seatNote').innerHTML.includes('v3.5 已签发'));
   /* —— 前后联动验证（郎刚10-10：席位/压力不能是孤岛）—— */
   // ① 改目标本金 → 席位预算与压力值同步变

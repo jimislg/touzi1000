@@ -289,6 +289,24 @@ function limitOf(h){
   return h.grade==='B'?8:0;
 }
 function hkd(){const x=Q['whHKDCNY'];return x&&x.price?x.price:(CFG.hkdcnyFallback||0.8548);}
+/* 股息更新三态（复核报告P0：停派0/缺失/失败必须分开，不得把失败当停派或新数据）
+ * 返回true=发生了变更。dps>0→更新；dps===0（已确认）→覆盖清零并注明来源；dps缺失(null/undefined)→接口失败，保留上次可信值并标陈旧 */
+function applyDivUpdate(h,d){
+  if(!d||h.dpsManual)return false;
+  if(d.dps>0){
+    const changed=h.dps!==d.dps||h.dpsStale;
+    h.dps=d.dps;h.dpsSource=d.source+'（自动'+(d.tag==='cache'?'·缓存':'·实时')+'）';h.dpsStale=false;h.dpsAsOf=d.asOf||new Date().toISOString().slice(0,10);
+    return changed;
+  }
+  if(d.dps===0||d.dps==='0'){ // 已确认停派：必须覆盖原正DPS，不得静默保留
+    const changed=h.dps!==0;
+    h.dps=0;h.dpsSource='已确认停派（'+(d.source||'公告')+'，'+(d.asOf||new Date().toISOString().slice(0,10))+'）';h.dpsStale=false;
+    return changed;
+  }
+  // dps缺失=接口失败/无数据：保留上次可信值，标注陈旧与日期（不误判为停派，也不当新数据）
+  h.dpsStale=true;h.dpsAsOf=h.dpsAsOf||new Date().toISOString().slice(0,10);
+  return false;
+}
 
 async function loadConfig(){
   const r=await fetch('/api/config'); CFG=await r.json();
@@ -343,10 +361,7 @@ async function refresh(manual){
     const dj=await divP;
     if(dj&&dj.ok&&dj.dividends){
       let n=0;
-      CFG.holdings.forEach(h=>{
-        const d=dj.dividends[h.code];
-        if(d&&d.dps>0&&!h.dpsManual){h.dps=d.dps;h.dpsSource=d.source+'（自动'+(d.tag==='cache'?'·缓存':'·实时')+'）';n++;}
-      });
+      CFG.holdings.forEach(h=>{ if(applyDivUpdate(h,dj.dividends[h.code]))n++; });
       if(n)$('saveText').textContent='↻ 股息已按最新公告自动更新 '+n+' 只';
       setTimeout(()=>{if($('saveText').textContent.startsWith('↻'))$('saveText').textContent='';},5000);
     }
@@ -482,7 +497,7 @@ function renderDash(){
     {k:'10年后资产',goalTxt:'5,000万',curTxt:fmt(account/1e4,1)+' 万',pct:account/50000000*100,
      note:'当前总资产按17.46%复利10年到 '+fmt(account*w10/1e4,0)+' 万；目标本金 '+fmt(TC/1e4,0)+' 万全部投完+17.46%才到 '+fmt(TC*w10/1e4,0)+' 万。'},
     {k:'年股息（税后）',goalTxt:'100万/年',curTxt:fmt(divNow,0)+' 元/年',pct:divNow/1000000*100,
-     note:'A股按10%档计；2027-06-30 A股免税后升至约 '+fmt(divAfterFree,0)+' 元/年。按当前成本股息率 '+(costYield*100).toFixed(2)+'% 外推，支撑100万税前股息需本金约 '+fmt(1000000/costYield/1e4,0)+' 万。'},
+     note:'A股按10%档计；2027-06-30 A股免税后升至约 '+fmt(divAfterFree,0)+' 元/年。按当前成本股息率 '+(costYield*100).toFixed(2)+'% 外推，支撑100万税前股息需本金约 '+fmt(1000000/costYield/1e4,0)+' 万。此为税后可用收入口径；100万目标按税前普通股息计，参考覆盖率见股息页（普通股息与现金利息已分账）。'},
     pIrr!=null?{k:'组合预期回报',goalTxt:'17.46%年化',curTxt:(pIrr*100).toFixed(1)+'%',pct:pIrr/g*100,rowCls:'row-irr',big:true,
      detail:`<details style="margin-top:5px"><summary style="cursor:pointer;font-size:12px;color:var(--accent);user-select:none">怎么算的？逐只明细 ▾</summary>
        <div style="font-size:11.5px;color:var(--muted);margin:5px 0 3px">算法：每只持仓用「现价 ÷ 自定四档(H10/H12/H15/H17.46)」对数插值得出该只的隐含年化，再按市值加权平均。当前覆盖 ${cov}/${CFG.holdings.length} 只（未定四档的持仓不参与）。</div>
@@ -703,6 +718,53 @@ function uniCap(u){
   }
   return u.grade==='B'?8:0;
 }
+/* —— 统一预算函数（复核报告P0：一套预算计算供部署/席位/信号调用，页面不得各自实现）——
+ * 条件上限=max(0,min(B×q−K, L−V, C−F))；批准可执行额须过行动门（审计/研究/价格档/A-H门槛）。
+ * B=席位成本预算（规划分母，非实时市值）；q=现价所处最深档累计比例；
+ * K=批次结算累计净投入（平台未建账→显式缺失，持仓成本≠K，不得冒充）；L=风险限额（未配置→缺失）；
+ * V=同发行人当前市值（A/H合并）；C=可用现金；F=费用缓冲（未配置→0并标注）。
+ * 缺失不伪装为0或默认通过：K/L缺失时条件上限不可完整计算，仅展示研究空间与阻断原因。 */
+const AH_PAIR={'2318.HK':'601318.SH','601318.SH':'2318.HK'}; // 同发行人A/H合并映射（可扩展）
+function issuerCodes(code){const p=AH_PAIR[code];return p?[code,p]:[code];}
+function budgetCalc(code,ov){
+  ov=ov||{};
+  const S=seatCfg(),TC=CFG.targetCapital||10000000;
+  const st=S?S.list.find(s=>(s.members||[]).includes(code)):null;
+  const u=CFG.universe.find(x=>x.code===code)||{};
+  const B=ov.B!=null?ov.B:(st?st.pct/100*TC:null);
+  const h=CFG.holdings.find(x=>x.code===code);
+  const qq=q(u);
+  const px=(qq&&qq.price)?qq.price:((u.px!=null)?u.px:null);
+  const tiers=(u.tiers||[]).map(t=>t&&t.price);
+  const tp=(u.tierPct&&u.tierPct.length===4)?u.tierPct:null;
+  let qPct=ov.q!=null?ov.q:0,inTier=false;
+  if(px!=null&&tp&&tiers.length===4){for(let i=3;i>=0;i--){if(px<=tiers[i]){qPct=tp[i]/100;inTier=true;break;}}}
+  const K=ov.K!=null?ov.K:null;            // 缺失：批次结算未建账
+  const L=ov.L!=null?ov.L:null;            // 缺失：风险限额未配置
+  const C=ov.C!=null?ov.C:(CFG.investable!=null?CFG.investable:CFG.cash||0);
+  const F=ov.F!=null?ov.F:0;               // 未配置→0并标注
+  let V=0,seatV=0;
+  issuerCodes(code).forEach(cd=>{const hh=CFG.holdings.find(x=>x.code===cd);if(hh){const x=hLive(hh);if(x){V+=x.mvCNY;if(st&&(st.members||[]).includes(cd))seatV+=x.mvCNY;}}});
+  if(ov.V!=null)V=ov.V;
+  const seatRoomMv=st?Math.max(B-seatV,0):null; // 市值口径代理（缺K时唯一可算的席位余量，须标注）
+  const costRemain=(B!=null&&qPct>0&&K!=null)?Math.max(B*qPct-K,0):null;
+  const parts=[];
+  if(costRemain!=null)parts.push(costRemain);
+  if(L!=null)parts.push(Math.max(L-V,0));
+  parts.push(Math.max(C-F,0));
+  const condCap=(costRemain!=null&&L!=null)?Math.max(0,Math.min.apply(null,parts)):null;
+  const blockers=[];
+  if(!st)blockers.push('不在五席位内——旧个股上限口径，仅研究节奏参考');
+  if(K==null)blockers.push('K（累计净投入）缺失：批次结算汇率与费用未建账，B×q−K不可算');
+  if(L==null)blockers.push('L（风险限额）未配置');
+  if(!inTier)blockers.push('价格未进入任何行动档（q=0）');
+  if(u.grade!=='A')blockers.push('非A类——质量/研究门槛未过');
+  blockers.push('审计状态与研究完成度无正交字段（按unknown）——行动门未过，批准可执行额=0');
+  const K_release='未定案：卖出释放规则缺失，不自动扩额度';
+  return {code,seatKey:st?st.key:null,seatName:st?st.name:null,B,qPct,K,V,L,C,F,
+    seatV,seatRoomMv,uniNeed:tp?Math.max(tp[3]/100*TC-V,0):null,
+    costRemain,condCap,approved:0,blockers,K_release,inTier};
+}
 function renderDeploy(){
   const TC=totalCapital();
   const blockedRe=/(回报不合格|暂停|质量观察|补研究|旧档位冻结)/;
@@ -725,24 +787,29 @@ function renderDeploy(){
   rows.sort((a,b)=>a.dist-b.dist);
   const needAll=needTrig+needNear,gap=needAll-CFG.investable;
   const trig=rows.filter(r=>r.st==='trig'),near=rows.filter(r=>r.st==='near');
-  const rowHtml=r=>`<tr>
-    <td>${r.u.name}<span class="pill ${r.u.grade}">${r.u.grade}</span>${String(r.u.code).includes('HK')?'<span class="pill hold">港</span>':''}</td>
+  const rowHtml=r=>{
+    const bc=budgetCalc(r.u.code);
+    const blockers=bc.blockers.join('；');
+    return `<tr>
+    <td>${r.u.name}<span class="pill ${r.u.grade}">${r.u.grade}</span>${String(r.u.code).includes('HK')?'<span class="pill hold">港</span>':''}${bc.seatName?'<br><span class="note">'+bc.seatName+'</span>':''}</td>
     <td><span class="pill ${r.st}">${r.txt}</span></td>
     <td>${fmt(r.px,2)}</td><td>${fmt(r.bp,2)}</td>
     <td>${r.dist<=0?r.dist.toFixed(1):'+'+r.dist.toFixed(1)}%</td>
     <td>${fmt(r.need/1e4,0)} 万</td>
+    <td title="席位成本预算B−该席全部成员当前市值（缺K的市值口径代理，下跌会放大，非成本口径余量）">${bc.seatRoomMv!=null?fmt(bc.seatRoomMv/1e4,0)+' 万':'—'}</td>
+    <td class="down" title="${blockers.replace(/"/g,'&quot;')}"><b>0 元</b><br><span class="note">${bc.blockers.length}项阻断：${bc.blockers[0].split('：')[0]}…</span></td>
     <td style="white-space:normal"><span class="note">${(r.u.plan||'').slice(0,40)}</span></td>
-  </tr>`;
+  </tr>`;};
   $('deployTable').innerHTML=`<table><thead><tr>
-    <th>标的</th><th>状态</th><th>现价</th><th>触发价</th><th>距离</th><th title="距该标的个股硬上限（tierPct最深档累计%，占目标本金）的剩余可投金额 = 上限市值 − 当前持仓市值">至上限还有余额</th><th>建仓策略摘要</th>
-  </tr></thead><tbody>${rows.map(rowHtml).join('')||'<tr><td colspan="7" class="note">当前无可部署标的处于触发/接近状态</td></tr>'}</tbody></table>`;
+    <th>标的</th><th>状态</th><th>现价</th><th>触发价</th><th>距离</th><th title="距该标的个股硬上限（tierPct最深档累计%，占目标本金）的剩余可投金额 = 上限市值 − 当前持仓市值。研究空间口径，不是可执行额度">研究空间</th><th title="席位成本预算B−席位成员市值合计（缺K市值口径代理，随席位权重联动）">席位预算内空间</th><th title="统一预算函数输出：审计/研究/价格档任一未过即0">批准可执行额</th><th>建仓策略摘要</th>
+  </tr></thead><tbody>${rows.map(rowHtml).join('')||'<tr><td colspan="9" class="note">当前无可部署标的处于触发/接近状态</td></tr>'}</tbody></table>`;
   $('deployCards').innerHTML=[
     {k:'已触发需资金',v:fmt(needTrig/1e4,0)+' 万',s:trig.length+' 只：'+(trig.map(r=>r.u.name).join('、')||'—')},
     {k:'接近(≤+5%)需资金',v:fmt(needNear/1e4,0)+' 万',s:near.length+' 只：'+(near.map(r=>r.u.name).join('、')||'—')},
     {k:'可投资金',v:fmt(CFG.investable/1e4,1)+' 万',s:'含银行/理财/证券户现金；收益 '+CFG.cashYield+'%/年'},
     {k:gap>0?'资金缺口':'现金富余',v:fmt(Math.abs(gap)/1e4,0)+' 万',cls:gap>0?'up':'down',s:'触发+接近合计 '+fmt(needAll/1e4,0)+' 万 vs 可投资金 '+fmt(CFG.investable/1e4,0)+' 万'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
-  $('deployNote').innerHTML=`另有 ${watch} 只可部署标的观望中（距触发价>+5%）；${blocked} 只因回报不合格／研究未完成／暂停不参与部署（研究完成度原则）。触发≠下单，进入档位后仍须走第四步流程。<br>⚖️ 口径衔接：本表按「硬上限×分母−持仓市值」管<b>个股加仓节奏</b>；组合层面权重由已生效的<b>五席预算制</b>约束（2026-10-10 郎刚确认，可追加上限=max[0, min(B×q−K, L−V, C−F)]），两套口径分工见下方「最终仓·五席位」。`;
+  $('deployNote').innerHTML=`另有 ${watch} 只可部署标的观望中（距触发价>+5%）；${blocked} 只因回报不合格／研究未完成／暂停不参与部署（研究完成度原则）。触发≠下单，进入档位后仍须走第四步流程。<br>⚖️ 口径衔接（复核报告20261010后）：<b>「研究空间」</b>=旧个股硬上限×分母−持仓市值，仅管个股加仓节奏；<b>「席位预算内空间」</b>=席位成本预算B−席位成员市值（缺K的市值口径代理，随席位权重联动）；<b>「批准可执行额」</b>由统一预算函数 budgetCalc 输出（条件上限=max[0, min(B×q−K, L−V, C−F)]），当前 K（批次结算累计净投入）与 L（风险限额）无数据源、审计状态按unknown——<b>批准可执行额一律为0</b>，阻断原因见悬浮提示。价格下跌可放大市值口径空间，但不增加成本预算；卖出释放规则未定案前不自动扩额度。`;
 }
 
 /* —— 最终仓·五席位（Gemini建议书V1.0，2026-10-10 郎刚确认转正为正式版）—— */
@@ -777,24 +844,40 @@ function renderSeats(){
   const transMV=trans.reduce((s,t)=>s+t.mv,0);
   const pctSum=S.list.reduce((s,x)=>s+(x.pct||0),0);
   const BAll=pctSum/100*TC,stockAll=mvAll+transMV;
-  /* 满配年股息（下限估算）=各席位预算按现价折股数×税后DPS（港股80%代扣/A股90%），
-     同席多成员等分（招行/平安、宁德/福耀、泡泡/安踏/迈瑞）；DPS未定档成员不计入→下限，实际更快 */
+  /* 满配年股息＝各席位预算按价折股数×税后普通DPS（港股80%代扣/A股90%），
+     同席多成员等分（建模假设，非批准的执行比例）；价格来源：持仓实时价→股票池备用价；
+     特别股息（dpsSpecial，如宁德4.779）单列，不计入普通股息目标 */
   const hkdR=hkd();
-  const divCNYof=(code,amountCNY)=>{
+  const divCNYof=(code,amountCNY,withSpecial,gross)=>{
     const h=CFG.holdings.find(x=>x.code===code),u=CFG.universe.find(x=>x.code===code);
     const dps=h&&h.dps!=null?h.dps:(u&&u.dps!=null?u.dps:null);
+    const dsp=(withSpecial&&u&&u.dpsSpecial!=null)?u.dpsSpecial:0;
     const x=h?hLive(h):null;
-    const px=(u&&u.px!=null)?u.px:(x?x.px:null); // 价格来源：股票池备用价→持仓实时价
+    const px=(x&&x.px)?x.px:(u&&u.px!=null?u.px:null); // 价格来源：实时报价→股票池备用价
     const mkt=h&&h.market?h.market:(u&&u.code.endsWith('.HK')?'HK':'A');
-    if(!(dps>0)||!(px>0))return null;
+    if(!((dps+dsp)>0)||!(px>0))return null;
     const pxCNY=mkt==='HK'?px*hkdR:px;
     if(!(pxCNY>0))return null;
-    return amountCNY/pxCNY*dps*(mkt==='HK'?0.8:0.9)*(mkt==='HK'?hkdR:1);
+    const tax=gross?1:(mkt==='HK'?0.8:0.9);
+    return amountCNY/pxCNY*(dps+dsp)*tax*(mkt==='HK'?hkdR:1);
   };
-  const fullDiv=(S.list||[]).reduce((s,st)=>{
+  const fullDiv=(S.list||[]).reduce((s,st)=>{ // 普通股息税后（不含特别）
     const mem=(st.members||[]);if(!mem.length)return s;
     const per=st.pct/100*TC/mem.length;
-    return s+mem.reduce((t,code)=>t+(divCNYof(code,per)||0),0);
+    return s+mem.reduce((t,code)=>t+(divCNYof(code,per,false,false)||0),0);
+  },0);
+  const fullDivGross=(S.list||[]).reduce((s,st)=>{ // 普通股息税前（覆盖率用）
+    const mem=(st.members||[]);if(!mem.length)return s;
+    const per=st.pct/100*TC/mem.length;
+    return s+mem.reduce((t,code)=>t+(divCNYof(code,per,false,true)||0),0);
+  },0);
+  const fullDivSpec=(S.list||[]).reduce((s,st)=>{ // 特别股息单列（一次性，不计入可持续普通股息）
+    const mem=(st.members||[]);if(!mem.length)return s;
+    const per=st.pct/100*TC/mem.length;
+    return s+mem.reduce((t,code)=>{
+      const wS=divCNYof(code,per,true),base=divCNYof(code,per,false);
+      return t+((wS!=null&&base!=null)?wS-base:0);
+    },0);
   },0);
   const curDiv=CFG.holdings.reduce((s,h)=>s+divTaxOf(h),0); // 当前持仓税后年股息（与股息模块同源）
   $('seatCards').innerHTML=[
@@ -802,7 +885,7 @@ function renderSeats(){
     {k:'五席内已配置市值',v:fmt(mvAll/1e4,1)+' 万',s:'进度 '+(BAll>0?(mvAll/BAll*100).toFixed(1):'0.0')+'% · 距预算剩余 '+fmt(Math.max(BAll-mvAll,0)/1e4,0)+' 万（持仓成本 '+fmt(costAll/1e4,1)+' 万）'},
     {k:'过渡仓（不占席位预算）',v:fmt(transMV/1e4,1)+' 万',s:trans.length?trans.map(t=>t.name+' '+fmt(t.mv/1e4,1)+'万').join('、')+'；去向待定，不因目标5席立即卖出':'无'},
     {k:'距满配空间',v:fmt(Math.max(TC-stockAll,0)/1e4,0)+' 万',s:'当前股票总市值 '+fmt(stockAll/1e4,1)+' 万 / 目标 '+fmt(TC/1e4,0)+' 万（差额=可投现金待部署）'},
-    {k:'预计年股息（满配）',v:fmt(fullDiv/1e4,1)+' 万/年',s:'五席配满后按 2025年度实际 DPS 估算（A股红利税10%计、港股通20%）；当前实况 '+fmt(curDiv/1e4,1)+' 万/年 · 满配股息率 '+(TC>0?(fullDiv/TC*100).toFixed(2):'—')+'%'},
+    {k:'预计年股息（满配·普通）',v:fmt(fullDiv/1e4,1)+' 万/年',s:'五席配满后按普通DPS估算（A股红利税10%计、港股通20%）；宁德特别股息'+fmt(fullDivSpec/1e4,1)+'万/年单列不计入；当前实况 '+fmt(curDiv/1e4,1)+' 万/年 · 满配股息率 '+(TC>0?(fullDiv/TC*100).toFixed(2):'—')+'%'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
   /* 席位表排序（郎刚10-10需求）：与持仓表同一套 data-sk 事件机制，状态持久化 lgSeatSort */
   const seatSk={
@@ -856,12 +939,12 @@ function renderSeats(){
   const scn=[
     {n:'整体 -20%',lv:'普通熊市',ref:'2018年A股、2022年港股都出现过；持有期内的常规颠簸',shock:0.20,only:null,ss:0.20},
     {n:'整体 -35%',lv:'深度熊市',ref:'2022年沪深300自高点约-40%；好公司也会跟着市场一起跌',shock:0.35,only:null,ss:0.35},
-    {n:'整体 -50%',lv:'系统性危机',ref:'2008金融危机、2015下半年A股；十年一遇级别',shock:0.50,only:null,ss:0.50},
+    {n:'整体 -50%',lv:'系统性危机',ref:'2008金融危机、2015下半年A股（深幅历史情景，无频率预测含义）',shock:0.50,only:null,ss:0.50},
     {n:'茅台腰斩',lv:'单点风险',ref:'2013-14年塑化剂+反腐真实发生（茅台-56%）；检验第一席'+Math.round(wM*100)+'%的集中度代价',shock:wM*0.5,only:['600519.SH'],ss:0.5},
     {n:'腾讯腰斩',lv:'单点风险',ref:'2021-22年真实发生（775→198港元，-74%）；检验第二席'+Math.round(wT*100)+'%的集中度代价',shock:wT*0.5,only:['0700.HK'],ss:0.5},
     {n:'双核同跌 -40%',lv:'单点风险叠加',ref:'2022年A股+港股双杀；通胀或监管让茅台腾讯一起出问题',shock:wD*0.4,only:['600519.SH','0700.HK'],ss:0.4},
   ];
-  $('stressDesc').innerHTML='压力测试只回答三个问题：<b>大跌之后钱还剩多少？亏了多少？股息现金流怎么样？</b>情景全部采用<b>历史上真实发生过</b>的跌幅（不是吓唬人的假设）。「满配」＝目标本金全部按五席配置成股票；「当前实况」＝现金不动、只按实际持仓算。组合综合股息率＝年股息÷跌后市值（<b>每股分红不变</b>假设，跌后股息率被动抬高）；靠股息回本年限见「股息回本周期」列。';
+  $('stressDesc').innerHTML='压力测试只回答三个问题：<b>大跌之后钱还剩多少？亏了多少？股息现金流怎么样？</b>情景全部采用<b>历史上真实发生过</b>的跌幅（不是吓唬人的假设）。「满配」＝目标本金全部按五席配置成股票；「当前实况」＝现金不动、只按实际持仓算。<b>「采用冲击」是显式建模参数，与历史参照（含日期口径）分列</b>——如茅台历史−56%、采用−50%，非完整历史回放。组合综合股息率＝年股息÷跌后市值（<b>每股分红不变</b>假设）：<b>跌后股息率上升不等于现金收入增加，也不代表未来派息有保证</b>；低价是重新研究的触发器，不是收入承诺。港股价格与汇率联合冲击按乘法 (1+价格)×(1+汇率)−1（如价格−20%×汇率−10%＝−28%，不是−30%）。';
   const rows2=scn.map(s=>{
     const fullRem=TC*(1-s.shock),fullLoss=TC*s.shock;
     /* 郎刚10-10：回本需涨列→组合综合股息率+股息金额（DPS不变假设下，跌后股息率被动抬高=低价买入锁高息）*/
@@ -880,6 +963,7 @@ function renderSeats(){
     const cYld=(curStockRem>0&&curDiv>0)?curDiv/curStockRem*100:null;
     return `<tr>
       <td><b>${s.n}</b><br><span class="pill wait">${s.lv}</span></td>
+      <td><b>−${(s.shock*100).toFixed(1).replace(/\.0$/,'')}%</b>${s.only&&s.only.length>1?'<br><span class="note">成员均分冲击</span>':''}</td>
       <td class="down">${fmt(fullRem/1e4,0)} 万</td>
       <td class="down">-${fmt(fullLoss/1e4,0)} 万</td>
       <td><b>${fYld!=null?fYld.toFixed(2)+'%':'—'}</b><br><span class="note">跌前 ${baseYld!=null?baseYld.toFixed(2)+'%':'—'}</span></td>
@@ -891,9 +975,9 @@ function renderSeats(){
     </tr>`;
   }).join('');
   $('stressTable').innerHTML=`<table><thead><tr>
-    <th>情景</th><th>满配剩余</th><th>满配亏损</th><th>组合综合股息率*</th><th>股息金额</th><th>股息回本周期</th><th>当前实况剩余</th><th>当前实况亏损</th><th>历史参照（都真实发生过）</th>
+    <th>情景</th><th>采用冲击*</th><th>满配剩余</th><th>满配亏损</th><th>组合综合股息率*</th><th>股息金额</th><th>静态股息抵亏年数</th><th>当前实况剩余</th><th>当前实况亏损</th><th>历史参照（都真实发生过）</th>
   </tr></thead><tbody>${rows2}</tbody></table>
-  <div class="note" style="margin-top:6px">* 组合综合股息率＝年股息÷跌后市值（假设跌后每股分红不变）——跌得越深，同样的股息对应越高的股息率：<b>低价区正是分档建仓锁定高股息的窗口</b>。股息金额＝满配/当前实况的年税后股息现金流。<b>股息回本周期</b>＝亏损÷年股息现金流（纯股息口径：DPS不变、不再投、不含价格修复），主显为满配口径、小注为当前实况。<br>满配年股息 ≈ <b>${fmt(fullDiv,0)} 元/年</b>——五席全部成员均按<b>2025年度实际 DPS</b> 计（口径与来源见股票池 dpsNote：茅台51.98／平安2.70／宁德6.957含特别股息／迈瑞4.38）；A股红利税保守按10%计（持股>1年实际免税）、港股通20%。当前持仓年股息（税后）≈ <b>${fmt(curDiv,0)} 元/年</b>。</div>`;
+  <div class="note" style="margin-top:6px">* <b>采用冲击</b>＝本表显式建模参数，与「历史参照」（含日期与幅度）分列，非完整历史回放；茅台腰斩/腾讯腰斩/双核同跌按席位预算权重折算到组合层面，同席多成员分配未知（等分仅为备选情景标注）。<b>组合综合股息率</b>＝年股息÷跌后市值（假设跌后每股分红不变）——跌得越深同样的股息对应越高的股息率，但<b>这不增加现金收入、也不保证未来派息</b>；低价区是重新研究的窗口，不是收入承诺。<b>股息金额</b>＝满配/当前实况的年税后股息现金流（普通DPS口径，宁德特别股息单列不计入）。<b>静态股息抵亏年数</b>＝亏损÷年股息现金流（假设股息不变、无复投、期间口径混合——<b>是静态抵亏年数，不是恢复预测</b>：股息花掉后累计收到亏损同额现金，证券市值未必恢复；股息削减或TTM滚出时结果继续变化）。主显为满配口径、小注为当前实况。<br><b>三个视角的状态</b>：①价格压力＝本表（价格冲击，显式参数）；②普通股息压力＝满配税前普通股息约 <b>${fmt(fullDivGross,0)} 元/年</b>（税后 ${fmt(fullDiv,0)}，去宁德特别股息），对100万税前目标覆盖率约 <b>${(fullDivGross/1000000*100).toFixed(1)}%</b>——参考基线（候选按2025年度普通DPS、持仓按TTM混合，逐项见dpsNote），<b>非审计后的可持续普通股息基线</b>；③永久损失压力＝<b>无法估算</b>——缺已批准的经济价值压力模型，价格回撤不能冒充永久损失。<br>满配年股息（税后·普通）≈ <b>${fmt(fullDiv,0)} 元/年</b>；另含宁德一次性特别股息税后约 <b>${fmt(fullDivSpec,0)} 元/年</b>（不计入普通股息目标）。普通DPS逐成员口径与来源见股票池 dpsNote（茅台51.98／平安2.70／宁德普通2.178＋特别4.779／迈瑞4.38等）；A股红利税保守按10%计（持股>1年实际免税，按批次）、港股通20%。当前持仓年股息（税后）≈ <b>${fmt(curDiv,0)} 元/年</b>。</div>`;
   // 自定义情景：输入任意整体跌幅，即时算满配/当前实况（纯股息回本口径）
   window.stressCustom=v=>{
     const d=(parseFloat(v)||0)/100;
@@ -1097,7 +1181,7 @@ function renderDiv(){
       <td>${h.name}<br><span class="note">${t.tag}</span></td>
       <td>${fmt(x.px,2)}</td>
       <td>${fmt(h.cost,2)}${h.market==='HK'?'<br><span class="note">≈'+fmt(costCNY,2)+'元</span>':''}</td>
-      <td><input type="number" step="0.01" data-h="${i}" data-k="dps" value="${h.dps}" title="${(h.dpsSource||'手工估算值，未核对公告').replace(/"/g,'&quot;')}">${h.market==='HK'?' 港元':' 元'}</td>
+      <td><input type="number" step="0.01" data-h="${i}" data-k="dps" value="${h.dps}" title="${((h.dpsSource||'手工估算值，未核对公告')+(h.dpsStale?'；⚠️数据陈旧：上次成功更新 '+(h.dpsAsOf||'—')+'，接口失败中':'')).replace(/"/g,'&quot;')}">${h.market==='HK'?' 港元':' 元'}${h.dpsStale?'<br><span class="pill wait" title="接口失败，保留上次可信值">陈旧</span>':''}${(h.dps===0&&!h.dpsManual&&/停派/.test(h.dpsSource||''))?'<br><span class="pill down">已确认停派</span>':''}</td>
       <td><b>${y.toFixed(2)}%</b></td>
       <td>${fmt(dPre,0)}</td><td>${fmt(dPost,0)}</td>
     </tr>`;}).join('');
@@ -1124,10 +1208,10 @@ function renderDiv(){
   const inv=CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);
   const wYield=costBasis>0?dPre/costBasis*100:0;
   $('divCards').innerHTML=[
-    {k:'当前税后年股息[估]',v:fmt(tot,0)+' 元',s:'A股按10%档（6-30买入未满1年），满1年后自动转免税'},
-    {k:'A股免税转折日',v:'2027-06-30',cls:'down',s:'统一按6-30买入起算；此后A股股息税0%，税后年股息升至约 '+fmt(totAfterFree,0)+' 元'},
+    {k:'股票普通股息[税后·估]',v:fmt(dPost,0)+' 元/年',s:'普通DPS口径（宁德特别股息未持有、不涉及）；A股按10%档（6-30买入未满1年），满1年后自动转免税'},
+    {k:'现金利息[单列]',v:fmt(cashDiv,0)+' 元/年',s:'现金×'+CFG.cashYield+'%——利息不是普通股息，不计入股息目标覆盖'},
     {k:'加权成本股息率(税前)',v:wYield.toFixed(2)+'%',s:'Σ股息÷Σ成本，实仓口径（现价口径 '+(dPre/inv*100).toFixed(2)+'%）'},
-    {k:'股息目标达成率',v:(tot/1000000*100).toFixed(1)+'%',cls:tot<1000000?'up':'down',s:'对税前100万目标'},
+    {k:'普通股息覆盖率[税前]',v:(dPre/1000000*100).toFixed(1)+'%',cls:'down',s:'税前股票普通股息÷100万目标（参考基线：配置DPS口径，非审计可持续普通股息）；税后+现金利息合计 '+fmt(tot,0)+' 元仅作可用收入披露'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
 }
 
