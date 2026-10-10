@@ -137,7 +137,7 @@
   <button class="btn ghost" id="themeBtn" onclick="toggleTheme()" title="切换日间/夜间模式">🌙 夜间</button>
   <span class="t" id="saveText"></span>
   <span style="flex:1"></span>
-  <a href="#dash">驾驶舱</a><a href="#pos">目标仓位预警</a><a href="#sig">信号中心</a><a href="#deploy">资金部署</a>
+  <a href="#dash">驾驶舱</a><a href="#seats">最终仓</a><a href="#pos">目标仓位预警</a><a href="#sig">信号中心</a><a href="#deploy">资金部署</a>
   <a href="#poolA">A类池</a><a href="#poolB">B类池</a><a href="#div">股息</a><a href="#calc">档位复核器</a><a href="#method">方法论</a>
 </div></div>
 
@@ -156,6 +156,14 @@
   </div>
   <div class="cards" id="dashCards"></div>
   <div id="gapBox"></div>
+  <hr style="margin:24px 0 18px;border:none;border-top:1px dashed var(--muted)">
+  <h2 id="seats" style="scroll-margin-top:60px">最终仓 · 五席位 <span class="tag">建议稿 v1.0 · 待郎刚确认</span></h2>
+  <p class="desc">来源：Gemini《长期复利投资综合建议书》V1.0（2026-10-10）。结构＝<b>茅台30%／腾讯25%／金融共享20%／制造共享15%／第五竞争席10%</b>，长期方向＝1000万最终全部配置股票（分五阶段收敛，不强制季度满仓）。<b style="color:var(--amber)">⚠️ 茅台30%、腾讯25%超出旧「25%绝对硬约束」，须经 v3.5 组合政策签发并过压力测试后才生效</b>；本表是预算视图，不是买入指令，旧档位口径并行有效直至 v3.5 签发。</p>
+  <div class="cards" id="seatCards"></div>
+  <div class="tw" id="seatTable" style="margin-top:11px"></div>
+  <h2 style="margin-top:18px;font-size:16px">集中度压力测试 <span class="tag">满配情景 vs 当前实况</span></h2>
+  <div class="cards" id="stressCards"></div>
+  <div class="note" id="seatNote" style="margin-top:8px"></div>
 </section>
 
 <!-- 目标仓位预警 -->
@@ -180,17 +188,6 @@
   <div class="tw" id="deployTable"></div>
   <div class="cards" id="deployCards" style="margin-top:11px"></div>
   <div class="note" id="deployNote" style="margin-top:8px"></div>
-</section>
-
-<!-- 最终仓·五席位 -->
-<section id="seatsSec">
-  <h2>最终仓 · 五席位 <span class="tag">建议稿 v1.0 · 待郎刚确认</span></h2>
-  <p class="desc">来源：Gemini《长期复利投资综合建议书》V1.0（2026-10-10）。结构＝<b>茅台30%／腾讯25%／金融共享20%／制造共享15%／第五竞争席10%</b>，长期方向＝1000万最终全部配置股票（分五阶段收敛，不强制季度满仓）。<b style="color:var(--amber)">⚠️ 茅台30%、腾讯25%超出旧「25%绝对硬约束」，须经 v3.5 组合政策签发并过压力测试后才生效</b>；本表是预算视图，不是买入指令，旧档位口径并行有效直至 v3.5 签发。</p>
-  <div class="cards" id="seatCards"></div>
-  <div class="tw" id="seatTable" style="margin-top:11px"></div>
-  <h2 style="margin-top:18px;font-size:16px">集中度压力测试 <span class="tag">满配情景 vs 当前实况</span></h2>
-  <div class="cards" id="stressCards"></div>
-  <div class="note" id="seatNote" style="margin-top:8px"></div>
 </section>
 
 <!-- A类池 -->
