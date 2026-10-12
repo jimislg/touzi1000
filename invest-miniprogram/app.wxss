@@ -1,0 +1,68 @@
+/* 全局样式：与网页版暗色主题同源（#0f141a / #161d26 / #27313e） */
+page {
+  background: #0f141a;
+  color: #e6eaf1;
+  font-size: 28rpx;
+  font-family: -apple-system, 'PingFang SC', sans-serif;
+  line-height: 1.5;
+}
+.wrap { padding: 20rpx 24rpx 60rpx; }
+.card {
+  background: #161d26;
+  border: 1rpx solid #27313e;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+.k { font-size: 23rpx; color: #93a0b4; }
+.s { font-size: 23rpx; color: #93a0b4; margin-top: 4rpx; }
+.v { font-size: 40rpx; font-weight: 600; margin-top: 6rpx; }
+.unit { font-size: 24rpx; font-weight: 400; color: #93a0b4; }
+.muted { color: #93a0b4; }
+.b { font-weight: 600; font-size: 30rpx; }
+.up { color: #ff7a6e; }
+.down { color: #41d99b; }
+.rowline { display: flex; justify-content: space-between; margin-top: 10rpx; font-size: 25rpx; flex-wrap: wrap; }
+.hr { height: 1rpx; background: #27313e; margin: 18rpx 0; }
+.line1 { display: flex; align-items: center; flex-wrap: wrap; }
+.line2 { display: flex; align-items: baseline; margin-top: 8rpx; flex-wrap: wrap; }
+.px { font-size: 32rpx; font-weight: 600; }
+/* pill 体系（与网页版一致：trig醒目绿=已到档，dim灰=未到档） */
+.pill {
+  display: inline-block;
+  padding: 2rpx 14rpx;
+  border-radius: 8rpx;
+  font-size: 21rpx;
+  line-height: 1.7;
+  margin: 4rpx 10rpx 4rpx 0;
+}
+.pill.trig { background: #122a20; color: #41d99b; border: 1rpx solid #1e5c40; font-weight: 600; }
+.pill.dim { background: transparent; color: #93a0b4; border: 1rpx solid #27313e; }
+.pill.A { background: #1c2b47; color: #9db9ff; }
+.pill.B { background: #33261a; color: #f5b269; }
+.pill.hold { background: #12301f; color: #5fe0a8; }
+.pill.wait { background: #242b35; color: #9aa5b5; }
+.pill.near { background: #2e2510; color: #f5b04d; }
+.badge { display: inline-block; padding: 2rpx 14rpx; border-radius: 8rpx; font-size: 21rpx; font-weight: 600; }
+.badge.b-over { background: #3d171a; color: #ff9a8d; }
+.badge.b-trig { background: #0f3325; color: #5fe0a8; }
+.badge.b-near { background: #2e2510; color: #f5b04d; }
+/* 顶部状态条 */
+.topbar { display: flex; align-items: center; font-size: 23rpx; color: #93a0b4; padding: 8rpx 4rpx 20rpx; }
+.topbar .fx { margin-left: auto; }
+.dot { width: 14rpx; height: 14rpx; border-radius: 50%; display: inline-block; margin-right: 10rpx; }
+.dot.on { background: #41d99b; }
+.dot.off { background: #f5b04d; }
+/* 错误提示卡 */
+.errcard { border-color: #4a3a12; color: #f5b04d; font-size: 24rpx; }
+/* 策略全文展开框 */
+.planbox {
+  margin-top: 12rpx;
+  padding: 16rpx;
+  background: #0f141a;
+  border: 1rpx dashed #27313e;
+  border-radius: 10rpx;
+  font-size: 23rpx;
+  color: #93a0b4;
+  white-space: normal;
+}
