@@ -362,12 +362,26 @@ function seatsModel (expanded) {
   }, st)
 }
 
+const WATCH_FILTERS = [
+  { key: 'all', label: '全部', hint: '查看全部观察标的。', match: () => true },
+  { key: 'trig', label: '可购入', hint: '现价已到触发价；价格触发不等于下单。', match: x => x.trig },
+  { key: 'near', label: '接近', hint: '现价高于触发价、不超过触发价的5%；按距离由近到远排列。', match: x => x.near },
+  { key: 'wait', label: '等待', hint: '现价高于触发价5%以上，继续等待。', match: x => x.waiting },
+  { key: 'held', label: '持仓', hint: '查看当前已经持有的公司。', match: x => x.held },
+  { key: 'unheld', label: '未持仓', hint: '查看观察池中尚未持有的公司。', match: x => !x.held },
+  { key: 'a', label: 'A类', hint: '查看平台当前归为A类的公司。', match: x => x.grade === 'A' },
+  { key: 'b', label: 'B类', hint: '查看平台当前归为B类的公司。', match: x => x.grade === 'B' },
+  { key: 'research', label: '研究待补', hint: '只显示已标记为未完成或部分完成研究的公司。', match: x => x.researchPending },
+  { key: 'exit', label: '退出观察', hint: '查看平台已列入退出观察名单的公司。', match: x => x.exitWatch }
+]
+
 function watchModel (expanded, filter) {
   const st = statusModel()
   if (!state.CFG) return Object.assign({ loading: true }, st)
   const C = state.CFG
   expanded = expanded || {}
-  filter = filter || 'all'
+  const selected = WATCH_FILTERS.find(x => x.key === filter) || WATCH_FILTERS[0]
+  filter = selected.key
   const TCv = totalCapital()
   const S = C.seats, b = (S && S.researchBatches) || {}
   const all = C.universe.map(u => {
@@ -396,6 +410,10 @@ function watchModel (expanded, filter) {
     const batch = (b.batch1 || []).includes(u.code) ? '研1' : (b.batch2 || []).includes(u.code) ? '研2' : (b.watchExit || []).includes(u.code) ? '退出观察' : ''
     return {
       code: u.code, name: u.name, grade: u.grade || '—', batch, held, trig,
+      near: status === '接近', waiting: status === '等待',
+      distancePct: u.buyPrice > 0 && px != null ? (px / u.buyPrice - 1) * 100 : null,
+      researchPending: !!u.researchStatus && u.researchStatus !== 'done',
+      exitWatch: (b.watchExit || []).includes(u.code),
       research: (u.researchStatus && u.researchStatus !== 'done') ? '研·' + (u.researchStatus === 'partial' ? '部分' : '未做') : '',
       px: px != null ? fmt(px, 2) : '—', cur: curOf(u),
       pctTxt: dayPct != null ? sign(dayPct) : '—', pctCls: dayPct != null ? clsN(dayPct) : 'muted',
@@ -404,17 +422,14 @@ function watchModel (expanded, filter) {
       expanded: !!expanded[u.code]
     }
   })
-  const n = {
-    all: all.length,
-    trig: all.filter(x => x.trig).length,
-    held: all.filter(x => x.held).length,
-    a: all.filter(x => x.grade === 'A').length
-  }
-  let rows = all
-  if (filter === 'trig') rows = all.filter(x => x.trig)
-  else if (filter === 'held') rows = all.filter(x => x.held)
-  else if (filter === 'a') rows = all.filter(x => x.grade === 'A')
-  return Object.assign({ loading: false, rows, n, filter }, st)
+  const n = {}
+  const filters = WATCH_FILTERS.map(f => {
+    n[f.key] = all.filter(f.match).length
+    return { key: f.key, label: f.label, count: n[f.key] }
+  })
+  const rows = all.filter(selected.match)
+  if (filter === 'near') rows.sort((a, b) => a.distancePct - b.distancePct || a.code.localeCompare(b.code))
+  return Object.assign({ loading: false, rows, n, filter, filters, filterHint: selected.hint, filterLabel: selected.label }, st)
 }
 
 module.exports = {
