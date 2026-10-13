@@ -1,0 +1,3 @@
+.grid4 { display: flex; margin-top: 14rpx; }
+.grid4 .cell { flex: 1; font-size: 25rpx; }
+.grid4 .cell .k { margin-bottom: 2rpx; }

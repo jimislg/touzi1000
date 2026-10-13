@@ -1,0 +1,4 @@
+# 本机生成物：含可访问个人数据的配置和持仓，不纳入公开源码归档。
+/utils/config.js
+/utils/snapshot.js
+/project.private.config.json

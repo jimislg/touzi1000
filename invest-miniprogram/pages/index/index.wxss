@@ -1,0 +1,25 @@
+.chips { display: flex; flex-wrap: wrap; gap: 16rpx; margin-bottom: 20rpx; }
+.sigchip {
+  flex: 1 1 44%;
+  min-width: 300rpx;
+  background: #161d26;
+  border: 1rpx solid #27313e;
+  border-left: 8rpx solid #cbd5e1;
+  border-radius: 14rpx;
+  padding: 18rpx 22rpx;
+  box-sizing: border-box;
+}
+.sigchip.red { border-left-color: #ff7a6e; }
+.sigchip.green { border-left-color: #41d99b; }
+.sigchip.amber { border-left-color: #f5b04d; }
+.sigchip .n { font-size: 38rpx; font-weight: 600; margin: 4rpx 0 2rpx; }
+.sigchip .s {
+  font-size: 21rpx; color: #93a0b4;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.sigrow { padding: 14rpx 0; border-bottom: 1rpx solid #1d2632; }
+.sigrow:last-child { border-bottom: none; }
+.sigrow.dim { opacity: 0.42; }
+.sigrow.dim .badge { text-decoration: line-through; }
+.sigrow .note { font-size: 22rpx; color: #93a0b4; margin-top: 6rpx; }
+.notecard { font-size: 23rpx; color: #93a0b4; }
