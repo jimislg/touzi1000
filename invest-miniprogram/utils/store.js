@@ -172,7 +172,11 @@ function req (path) {
   return new Promise((resolve, reject) => {
     wx.request({
       url: CONF.BASE + path,
-      header: { Cookie: 'ak=' + CONF.KEY },
+      header: {
+        Cookie: 'ak=' + CONF.KEY,
+        /* 平台WAF拦含MicroMessenger的UA(403)，显式覆盖为浏览器UA（部分机型忽略此头，忽略时需走云函数代理方案） */
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) langang-invest-mp/1.0'
+      },
       success (r) {
         if (r.statusCode === 401) return reject({ type: 'auth', status: 401 })
         if (r.statusCode === 200) return resolve(r.data)
