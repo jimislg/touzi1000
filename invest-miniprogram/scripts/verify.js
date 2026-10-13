@@ -25,12 +25,12 @@ T('lazyCodeLoading=requiredComponents', appJson.lazyCodeLoading === 'requiredCom
 T('tabBar 每项 pagePath 都在 pages 中', appJson.tabBar.list.every(t => appJson.pages.includes(t.pagePath)))
 T('首屏为总览页', appJson.pages[0] === 'pages/index/index')
 
-/* ③ 禁用语法扫描 */
+/* ③ 禁用语法扫描（应用代码；libs/ 为官方云SDK bundle，豁免——其内部含 .cloud 路径与 fetch 引用属正常） */
 const srcFiles = []
 ;(function walk (d) {
   fs.readdirSync(d).forEach(f => {
     const p = path.join(d, f)
-    if (fs.statSync(p).isDirectory()) { if (!/node_modules/.test(p) && !/\/scripts$/.test(p)) walk(p) } else if (/\.(js|wxml|wxss)$/.test(f)) srcFiles.push(p)
+    if (fs.statSync(p).isDirectory()) { if (!/node_modules/.test(p) && !/\/scripts$/.test(p) && !/\/libs$/.test(p)) walk(p) } else if (/\.(js|wxml|wxss)$/.test(f)) srcFiles.push(p)
   })
 })(ROOT)
 const forbidden = [/<div[\s>]/, /<span[\s>]/, /<img[\s>]/, /\blocalStorage\b/, /\bdocument\./, /\bwindow\./, /\bfetch\(/, /createWorkBuddyCloud/, /\/\.cloud\//]
@@ -39,13 +39,25 @@ srcFiles.forEach(f => {
   const bad = forbidden.filter(re => re.test(s))
   T('禁用语法扫描 ' + path.relative(ROOT, f), bad.length === 0)
 })
+const LIB = path.join(ROOT, 'libs', 'workbuddy-cloud.js')
+T('libs/workbuddy-cloud.js 官方SDK存在', fs.existsSync(LIB) && fs.statSync(LIB).size > 400000)
 
 /* ④ 生成物存在且可解析 */
 let CONF = null, SNAP = null
 try { CONF = JSON.parse(fs.readFileSync(path.join(ROOT, 'utils/config.js'), 'utf8').replace(/^\/\*[\s\S]*?\*\/\s*module\.exports = /, '').replace(/\s*$/, '')) } catch (e) { console.log(e.message) }
-T('utils/config.js 生成且含 BASE/KEY', !!(CONF && CONF.BASE && CONF.KEY))
+T('utils/config.js 生成且含 MP_ENDPOINT/PUB_KEY', !!(CONF && CONF.MP_ENDPOINT && CONF.PUB_KEY && CONF.PUB_KEY.indexOf('wbpk_') === 0))
 try { eval('SNAP = ' + fs.readFileSync(path.join(ROOT, 'utils/snapshot.js'), 'utf8').replace(/^\/\*[\s\S]*?\*\/\s*module\.exports = /, '')) } catch (e) { console.log(e.message) }
 T('utils/snapshot.js 生成且含 cfg/quotes/savedAt', !!(SNAP && SNAP.cfg && SNAP.quotes && SNAP.savedAt))
+
+/* ④' 行情解析与 server.js 同源校验（合成 gtimg 样本：idx3现价/idx4昨收/idx30时间/idx32涨跌幅） */
+const QQ = require(path.join(ROOT, 'utils/quotes.js'))
+{
+  const f = []
+  f[0] = '1485.00'; f[1] = '1470.00'; f[27] = '20261014150000'; f[29] = '1.02'
+  const s = 'v_sh600519="1~guizhou~600519~' + f.join('~') + '"'
+  const q = QQ.parseQuotes(s).sh600519
+  T('parseQuotes 同源(price/prevClose/pct/time)', q && q.price === 1485 && q.prevClose === 1470 && q.pct === 1.02 && q.time === '20261014150000')
+}
 
 /* ⑤ wx 桩空跑四个页面模型，与网页版口径核对 */
 global.wx = { request () {} }

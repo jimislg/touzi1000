@@ -1,5 +1,5 @@
-/* 由 scripts/build.js 生成（口令源自 investment-platform/config.json），勿手改 */
+/* 由 scripts/build.js 生成（源自 investment-platform/publicConfig.json），勿手改 */
 module.exports = {
-  "BASE": "https://langang-invest.app.workbuddy.host",
-  "KEY": "lg2026"
+  "MP_ENDPOINT": "https://mp-api.app.workbuddy.host",
+  "PUB_KEY": "wbpk_gbej9BkoGhKucYLRYVROyU_4nz6kDrcG7B0YwJI2EPMgy0LL8LUOlhg"
 }

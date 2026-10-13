@@ -1,5 +1,6 @@
 /* 数据层：快照秒开 → 实时覆盖。计算口径与网页版 public/index.html 完全同源。
- * 数据源 = langang-invest.app.workbuddy.host（云端唯一数据源），小程序为纯只读客户端。 */
+ * 实时链路 = 官方云SDK→共享网关→平台云数据库（config）+ 腾讯行情源直拉（行情）。
+ * 平台网站域名被 WAF 拦 MicroMessenger UA（403），小程序全程不经过它。小程序为纯只读客户端。 */
 const CONF = require('./config')
 
 let SNAP = null
@@ -161,6 +162,8 @@ function fullDivOf () {
 }
 
 /* ── 网络层 ── */
+const CLOUD = require('./cloud')
+const QUOTES = require('./quotes')
 function allSymbols () {
   const s = [], seen = {}
   ;(state.CFG.holdings || []).forEach(h => { if (h.qt && !seen[h.qt]) { seen[h.qt] = 1; s.push(h.qt) } })
@@ -168,39 +171,25 @@ function allSymbols () {
   s.push('whHKDCNY')
   return s.join(',')
 }
-function req (path) {
-  return new Promise((resolve, reject) => {
-    wx.request({
-      url: CONF.BASE + path,
-      header: {
-        Cookie: 'ak=' + CONF.KEY,
-        /* 平台WAF拦含MicroMessenger的UA(403)，显式覆盖为浏览器UA（部分机型忽略此头，忽略时需走云函数代理方案） */
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) langang-invest-mp/1.0'
-      },
-      success (r) {
-        if (r.statusCode === 401) return reject({ type: 'auth', status: 401 })
-        if (r.statusCode === 200) return resolve(r.data)
-        reject({ type: 'http', status: r.statusCode, body: typeof r.data === 'string' ? r.data.slice(0, 60) : '' })
-      },
-      fail (e) { reject({ type: 'network', msg: (e && e.errMsg) || '' }) }
-    })
-  })
-}
+/* config 走官方 SDK → 共享网关 → 平台云数据库（app_config 单行 JSONB）；
+ * 行情直连腾讯行情源。两条链路都不经过被 WAF 拦的网站域名。 */
 function reload () {
   state.loading = true
-  return req('/api/config').then(cfg => {
+  return Promise.resolve().then(() => {
+    if (!CLOUD) throw { type: 'sdk' }
+    return CLOUD.database.from('app_config').select('data').limit(1)
+  }).then(r => {
+    if (r.error) throw { type: 'db', body: (r.error.kind || '') + ':' + ((r.error.message || '') + '').slice(0, 40) }
+    const row = r.data && r.data[0]
+    const cfg = row && (typeof row.data === 'string' ? JSON.parse(row.data) : row.data)
     if (!cfg || !Array.isArray(cfg.holdings)) throw { type: 'data', body: cfg ? JSON.stringify(cfg).slice(0, 60) : '空' }
     state.CFG = cfg
-    return req('/api/quotes?symbols=' + encodeURIComponent(allSymbols()))
-  }).then(qj => {
-    if (qj && qj.ok && qj.quotes) {
-      state.Q = qj.quotes
-      state.lastFetch = qj.fetchedAt
-      state.source = 'live'
-      state.error = null
-    } else {
-      state.error = { type: 'quotes', body: qj ? JSON.stringify(qj).slice(0, 60) : '空' }
-    }
+    return QUOTES.fetchQuotes(allSymbols())
+  }).then(quotes => {
+    state.Q = quotes
+    state.lastFetch = new Date().toISOString()
+    state.source = 'live'
+    state.error = null
   }).catch(e => {
     state.error = (e && e.type) ? e : { type: 'unknown', body: String(e).slice(0, 60) }
   }).then(() => {
@@ -223,8 +212,11 @@ function statusModel () {
   let errText = null
   const e = state.error
   if (e) {
-    if (e.type === 'auth') errText = '口令校验失败（401）：平台 accessKey 已变更，小程序口令需重新生成。'
-    else if (e.type === 'network') errText = '实时数据请求失败（' + (e.msg || '网络错误') + '）。若为域名校验拦截：请到微信公众平台→开发管理→开发设置→服务器域名，把 ' + CONF.BASE.replace('https://', '') + ' 加入 request 合法域名；或在手机上打开小程序右上角「…」→开发调试后重试。以下为离线快照数据。'
+    const hint = '请到微信公众平台→开发管理→开发设置→服务器域名，把 ' + CONF.MP_ENDPOINT.replace('https://', '') + ' 和 ' + QUOTES.GTIMG.replace('https://', '') + ' 加入 request 合法域名；或在手机上打开小程序右上角「…」→开发调试后重试。'
+    if (e.type === 'db') errText = '云数据库读取失败（' + (e.body || '未知') + '），以下为离线快照。'
+    else if (e.type === 'sdk') errText = '云客户端初始化失败，以下为离线快照。'
+    else if (e.type === 'network') errText = '实时数据请求失败（' + (e.msg || '网络错误') + '）。' + hint + '以下为离线快照数据。'
+    else if (e.type === 'qhttp') errText = '行情源返回异常（HTTP ' + e.status + '），以下为离线快照。'
     else errText = '实时数据暂不可达（类型:' + e.type + (e.status ? ' /HTTP' + e.status : '') + (e.body ? ' 详情:' + e.body : '') + '），以下为离线快照（' + dateOf(state.snapshotAt) + '）。'
   }
   return { source: state.source, statusText: text, fxText: fx, errorMsg: errText }
