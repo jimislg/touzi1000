@@ -5,4 +5,6 @@
   border-radius: 999rpx; padding: 8rpx 26rpx;
 }
 .fbtn.on { color: #7aa7ff; border-color: #7aa7ff; }
+.filterhint { color: #93a0b4; font-size: 23rpx; line-height: 1.6; margin: -4rpx 0 20rpx; }
+.empty { text-align: center; padding: 36rpx 20rpx; line-height: 1.8; }
 .pills { margin-top: 10rpx; }

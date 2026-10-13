@@ -10,10 +10,14 @@
 
   <block wx:else>
     <view class="filters">
-      <text class="fbtn {{model.filter==='all'?'on':''}}" data-f="all" bindtap="setFilter">全部 {{model.n.all}}</text>
-      <text class="fbtn {{model.filter==='trig'?'on':''}}" data-f="trig" bindtap="setFilter">可购入 {{model.n.trig}}</text>
-      <text class="fbtn {{model.filter==='held'?'on':''}}" data-f="held" bindtap="setFilter">持仓 {{model.n.held}}</text>
-      <text class="fbtn {{model.filter==='a'?'on':''}}" data-f="a" bindtap="setFilter">A类 {{model.n.a}}</text>
+      <text wx:for="{{model.filters}}" wx:key="key" class="fbtn {{model.filter===item.key?'on':''}}"
+            data-f="{{item.key}}" bindtap="setFilter">{{item.label}} {{item.count}}</text>
+    </view>
+    <view class="filterhint">{{model.filterHint}}</view>
+
+    <view wx:if="{{!model.rows.length}}" class="card empty">
+      <view>当前没有“{{model.filterLabel}}”标的</view>
+      <view class="muted">可以切换其他标签查看。</view>
     </view>
 
     <view class="card" wx:for="{{model.rows}}" wx:key="code" data-code="{{item.code}}" bindtap="toggle">
@@ -21,6 +25,7 @@
         <text class="b">{{item.name}}</text>
         <text class="pill {{item.grade}}">{{item.grade}}</text>
         <text wx:if="{{item.batch}}" class="pill wait">{{item.batch}}</text>
+        <text wx:if="{{item.exitWatch && item.batch!=='退出观察'}}" class="pill wait">退出观察</text>
         <text wx:if="{{item.held}}" class="pill hold">持仓</text>
         <text wx:if="{{item.research}}" class="pill wait">{{item.research}}</text>
         <text wx:if="{{item.bcls}}" class="badge {{item.bcls}}" style="margin-left:auto">{{item.status}}</text>
