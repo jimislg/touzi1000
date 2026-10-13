@@ -9,7 +9,7 @@ try { SNAP = require('./snapshot') } catch (e) { SNAP = null }
 const state = {
   CFG: (SNAP && SNAP.cfg) || null,
   Q: (SNAP && SNAP.quotes) || {},
-  source: SNAP ? 'snapshot' : 'loading', /* live | snapshot | loading */
+  source: SNAP ? 'snapshot' : 'loading', /* live | stale | snapshot | loading */
   lastFetch: null,
   snapshotAt: (SNAP && SNAP.savedAt) || null,
   error: null,
@@ -164,39 +164,49 @@ function fullDivOf () {
 /* ── 网络层 ── */
 const CLOUD = require('./cloud')
 const QUOTES = require('./quotes')
-function allSymbols () {
+const ERRORS = require('./errors')
+function allSymbols (cfg) {
   const s = [], seen = {}
-  ;(state.CFG.holdings || []).forEach(h => { if (h.qt && !seen[h.qt]) { seen[h.qt] = 1; s.push(h.qt) } })
-  ;(state.CFG.universe || []).forEach(u => { if (u.qt && !seen[u.qt]) { seen[u.qt] = 1; s.push(u.qt) } })
+  ;(cfg.holdings || []).forEach(h => { if (h.qt && !seen[h.qt]) { seen[h.qt] = 1; s.push(h.qt) } })
+  ;(cfg.universe || []).forEach(u => { if (u.qt && !seen[u.qt]) { seen[u.qt] = 1; s.push(u.qt) } })
   s.push('whHKDCNY')
   return s.join(',')
 }
 /* config 走官方 SDK → 共享网关 → 平台云数据库（app_config 单行 JSONB）；
  * 行情直连腾讯行情源。两条链路都不经过被 WAF 拦的网站域名。 */
+let pendingLoad = null
 function reload () {
+  if (pendingLoad) return pendingLoad
   state.loading = true
-  return Promise.resolve().then(() => {
+  let nextCFG
+  pendingLoad = Promise.resolve().then(() => {
     if (!CLOUD) throw { type: 'sdk' }
     return CLOUD.database.from('app_config').select('data').limit(1)
   }).then(r => {
-    if (r.error) throw { type: 'db', body: (r.error.kind || '') + ':' + ((r.error.message || '') + '').slice(0, 40) }
+    if (!r) throw { type: 'data', body: '云数据库返回为空' }
+    if (r.error) throw ERRORS.databaseError(r)
     const row = r.data && r.data[0]
     const cfg = row && (typeof row.data === 'string' ? JSON.parse(row.data) : row.data)
-    if (!cfg || !Array.isArray(cfg.holdings)) throw { type: 'data', body: cfg ? JSON.stringify(cfg).slice(0, 60) : '空' }
-    state.CFG = cfg
-    return QUOTES.fetchQuotes(allSymbols())
+    if (!cfg || !Array.isArray(cfg.holdings) || !Array.isArray(cfg.universe)) throw { type: 'data', body: '配置缺少持仓或观察池' }
+    nextCFG = cfg
+    return QUOTES.fetchQuotes(allSymbols(cfg))
   }).then(quotes => {
+    // 两条链路均成功才提交一组数据，避免新配置混用旧行情。
+    state.CFG = nextCFG
     state.Q = quotes
     state.lastFetch = new Date().toISOString()
     state.source = 'live'
     state.error = null
   }).catch(e => {
-    state.error = (e && e.type) ? e : { type: 'unknown', body: String(e).slice(0, 60) }
+    state.error = (e && e.type) ? e : { type: 'unknown', body: ERRORS.clean(e) }
+    if (state.source === 'live') state.source = 'stale'
   }).then(() => {
     state.loading = false
     state._lastLoad = Date.now()
+    pendingLoad = null
     emit()
   })
+  return pendingLoad
 }
 function init () { reload() }
 function maybeReload () {
@@ -208,16 +218,21 @@ function statusModel () {
   const fx = state.Q.whHKDCNY && state.Q.whHKDCNY.price ? 'HKD/CNY ' + state.Q.whHKDCNY.price.toFixed(4) : ''
   let text = '加载中…'
   if (state.source === 'live' && state.lastFetch) text = '实时 · ' + hhmm(state.lastFetch)
+  else if (state.source === 'stale') text = '上次成功数据 · ' + dateOf(state.lastFetch) + '（刷新失败）'
   else if (state.source === 'snapshot') text = '离线快照 · ' + dateOf(state.snapshotAt)
   let errText = null
   const e = state.error
   if (e) {
-    const hint = '请到微信公众平台→开发管理→开发设置→服务器域名，把 ' + CONF.MP_ENDPOINT.replace('https://', '') + ' 和 ' + QUOTES.GTIMG.replace('https://', '') + ' 加入 request 合法域名；或在手机上打开小程序右上角「…」→开发调试后重试。'
-    if (e.type === 'db') errText = '云数据库读取失败（' + (e.body || '未知') + '），以下为离线快照。'
-    else if (e.type === 'sdk') errText = '云客户端初始化失败，以下为离线快照。'
-    else if (e.type === 'network') errText = '实时数据请求失败（' + (e.msg || '网络错误') + '）。' + hint + '以下为离线快照数据。'
-    else if (e.type === 'qhttp') errText = '行情源返回异常（HTTP ' + e.status + '），以下为离线快照。'
-    else errText = '实时数据暂不可达（类型:' + e.type + (e.status ? ' /HTTP' + e.status : '') + (e.body ? ' 详情:' + e.body : '') + '），以下为离线快照（' + dateOf(state.snapshotAt) + '）。'
+    const hint = '请在微信公众平台→开发管理→开发设置→服务器域名，将 ' + CONF.MP_ENDPOINT + ' 和 https://qt.gtimg.cn 加入 request 合法域名，再重新预览。电脑的“不校验域名”设置不会自动应用到手机。'
+    const fallback = state.source === 'stale' ? '当前保留上次成功数据，尚未更新。' : (state.CFG ? '当前显示离线快照。' : '当前无可用数据。')
+    const detail = ERRORS.clean(e.body || e.msg || '未知错误')
+    if (e.type === 'domain' || /url not in domain list/i.test(detail)) errText = '微信阻止了未配置的请求域名（' + detail + '）。' + hint
+    else if (e.type === 'db') errText = '云数据库读取失败（' + (e.status ? 'HTTP ' + e.status + ' · ' : '') + detail + '）。'
+    else if (e.type === 'sdk') errText = '云客户端初始化失败。'
+    else if (e.type === 'network') errText = '网络请求失败（' + detail + '）。请检查手机网络；若提示域名校验失败，请核对 request 合法域名。'
+    else if (e.type === 'qhttp') errText = '行情源返回异常（HTTP ' + e.status + '）。'
+    else errText = '实时数据暂不可达（类型:' + e.type + (e.status ? ' /HTTP' + e.status : '') + ' 详情:' + detail + '）。'
+    errText += fallback
   }
   return { source: state.source, statusText: text, fxText: fx, errorMsg: errText }
 }
@@ -241,7 +256,7 @@ function indexModel () {
     tc: fmt(TC / 1e4, 1),
     inv: fmt(investable / 1e4, 1),
     mv: fmt(inv / 1e4, 1),
-    pl: fmt(pl / 1e4, 2), plPct: (inv / costAll - 1).toFixed(2) + '', plCls: clsN(pl),
+    pl: fmt(pl / 1e4, 2), plPct: costAll > 0 ? ((inv / costAll - 1) * 100).toFixed(2) : '—', plCls: clsN(pl),
     curDiv: fmt(curDiv / 1e4, 2),
     nOver: act.filter(r => r.pri === 0).length, overNames: names(0),
     nTrig: act.filter(r => r.pri === 1).length, trigNames: names(1),

@@ -1,39 +1,39 @@
-# 投资平台小程序（只读客户端）
+# 投资平台微信小程序
 
-手机浏览投资平台的微信小程序。**纯只读**，不写任何数据；数据唯一来源是线上平台 `https://langang-invest.app.workbuddy.host`。
+只读展示总览、持仓、策略席位和观察池。启动时显示本地快照，随后通过 WorkBuddy 官方小程序 SDK 读取云数据库，通过腾讯行情接口更新价格。计算口径沿用平台。
 
-## 页面结构
+## 本地配置与构建
 
-| Tab | 内容 |
-|---|---|
-| 总览 | 总资产/浮盈/税后年股息 + 信号清单（已触发/接近/仓位预警；网页端已划掉的信号淡出显示并标注） |
-| 持仓 | 7 只持仓：现价/市值/成本/浮盈/权重/税后股息 |
-| 策略 | 五大席位：预算/进度/空间 + 每成员档位 pill（到档 ✓ 高亮）+ 满配年股息（含宁德特别股息单列）+ 过渡仓 |
-| 观察 | 30 标的观察池：档位/状态（可购入·接近·等待）/研究批次，可筛选 |
+本项目需要本机相邻的 investment-platform 目录及其 publicConfig.json、config.json。scripts/build.js 使用平台访问配置只读拉取线上数据，生成以下本机文件：
 
-## 技术要点
+- utils/config.js：共享网关与 publishableKey。
+- utils/snapshot.js：包含个人持仓与成本的离线快照。
 
-- **计算口径与网页版 public/index.html 同源**：totalCapital / hLive / divCNYof / ladderTxt / pill 金额（totalCapital×tierPct）全部移植自网页版
-- **快照秒开 + 实时覆盖**：`utils/snapshot.js` 为构建时生成的离线快照（config + 行情），小程序启动立即渲染快照，随后 `wx.request` 拉取 `/api/config`、`/api/quotes` 覆盖为实时数据
-- **口令注入**：`utils/config.js` 由 `scripts/build.js` 在构建时从 `investment-platform/config.json` 读取 accessKey 生成（源码中不出现口令字面量）。平台口令变更后重跑 build 即可
-- **scripts/ 目录不打包**：project.config.json `packOptions.ignore` 已排除，verify 的禁用语法扫描同样跳过
+这两个生成物不在公开源码归档中。不要将平台口令、完整快照、预览码或含这些文件的 Git 历史推送到公开仓库。持有 publishableKey 能否读到数据取决于云数据库权限，不能仅凭“公开密钥”的名称认定可以公开个人数据。
 
-## 使用步骤（微信开发者工具）
-
-1. 下载安装「微信开发者工具」（stable 版）
-2. 导入项目 → 选择本目录（invest-miniprogram）→ AppID 选「测试号」即可（touristappid 已预填）
-3. 预览/真机调试：工具栏「预览」扫码即可在手机打开
-4. 正式发布需要自己的小程序 AppID；注意**个人主体无法选择股票信息类目**，作为自用工具建议不上线、仅用「体验版」（把你的微信号加为体验成员即可长期使用）
-
-## 域名白名单
-
-`urlCheck: false` 已关（开发/体验版可直接请求）。若发布正式版，需到公众平台→开发管理→开发设置→服务器域名，把 `langang-invest.app.workbuddy.host` 加入 **request 合法域名**。
-
-## 数据更新流程
-
-平台数据（档位/持仓/口令）变更后，在本目录跑：
-
-```bash
-node scripts/build.js   # 重新生成 utils/config.js + utils/snapshot.js
-node scripts/verify.js  # 交付前校验（结构 + 口径空跑）
+```sh
+node scripts/build.js
+node scripts/verify.js
+node scripts/verify-network.js
+# 可选：只读连接真实服务，模拟微信 UA / Referer
+node scripts/verify-network.js --live
 ```
+
+verify-network.js 在不提供浏览器 URL、Headers、fetch 的隔离环境中加载原版 SDK，覆盖域名拒绝、超时、SSL 错误、HTTP 错误、刷新失败及恢复。不手改 libs/workbuddy-cloud.js。
+
+## 手机端配置与验收
+
+在微信公众平台的开发管理 → 开发设置 → 服务器域名中配置两个 **request 合法域名**：
+
+```text
+https://mp-api.app.workbuddy.host
+https://qt.gtimg.cn
+```
+
+开发者工具的 urlCheck: false 不代表手机已经配置合法域名。配置后刷新开发者工具的域名信息并重新生成预览包，以关闭调试的手机实际请求为验收依据。若后台不接受域名，需要另行部署符合要求的代理或云函数；本次没有新增云服务。
+
+SDK 的 error 信封也可能来自本机 wx.request 失败，不能据此断言请求到达网关。新版保留错误消息、代码和 HTTP 状态，识别域名拒绝并给出操作提示。
+
+只有配置和行情均成功才更新数据；刷新失败保留原有完整数据并标明失败。桌面线上测试不验证手机域名白名单，不等于真机通过。手机验收需确认顶部显示“实时”，四页正常，并在关闭调试后重新打开仍能刷新。
+
+生成预览码时，将输出路径设在本机 codex-产出 目录。预览码有有效期，长期使用需要另行上传版本并在微信后台设置体验版；成功生成预览码不代表已设置体验版。
