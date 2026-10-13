@@ -174,9 +174,9 @@ function req (path) {
       url: CONF.BASE + path,
       header: { Cookie: 'ak=' + CONF.KEY },
       success (r) {
-        if (r.statusCode === 401) return reject({ type: 'auth' })
+        if (r.statusCode === 401) return reject({ type: 'auth', status: 401 })
         if (r.statusCode === 200) return resolve(r.data)
-        reject({ type: 'http', status: r.statusCode })
+        reject({ type: 'http', status: r.statusCode, body: typeof r.data === 'string' ? r.data.slice(0, 60) : '' })
       },
       fail (e) { reject({ type: 'network', msg: (e && e.errMsg) || '' }) }
     })
@@ -185,7 +185,7 @@ function req (path) {
 function reload () {
   state.loading = true
   return req('/api/config').then(cfg => {
-    if (!cfg || !Array.isArray(cfg.holdings)) throw { type: 'data' }
+    if (!cfg || !Array.isArray(cfg.holdings)) throw { type: 'data', body: cfg ? JSON.stringify(cfg).slice(0, 60) : '空' }
     state.CFG = cfg
     return req('/api/quotes?symbols=' + encodeURIComponent(allSymbols()))
   }).then(qj => {
@@ -195,10 +195,10 @@ function reload () {
       state.source = 'live'
       state.error = null
     } else {
-      state.error = { type: 'quotes' }
+      state.error = { type: 'quotes', body: qj ? JSON.stringify(qj).slice(0, 60) : '空' }
     }
   }).catch(e => {
-    state.error = (e && e.type) ? e : { type: 'unknown' }
+    state.error = (e && e.type) ? e : { type: 'unknown', body: String(e).slice(0, 60) }
   }).then(() => {
     state.loading = false
     state._lastLoad = Date.now()
@@ -221,7 +221,7 @@ function statusModel () {
   if (e) {
     if (e.type === 'auth') errText = '口令校验失败（401）：平台 accessKey 已变更，小程序口令需重新生成。'
     else if (e.type === 'network') errText = '实时数据请求失败（' + (e.msg || '网络错误') + '）。若为域名校验拦截：请到微信公众平台→开发管理→开发设置→服务器域名，把 ' + CONF.BASE.replace('https://', '') + ' 加入 request 合法域名；或在手机上打开小程序右上角「…」→开发调试后重试。以下为离线快照数据。'
-    else errText = '实时数据暂不可达，以下为离线快照（' + dateOf(state.snapshotAt) + '）。'
+    else errText = '实时数据暂不可达（类型:' + e.type + (e.status ? ' /HTTP' + e.status : '') + (e.body ? ' 详情:' + e.body : '') + '），以下为离线快照（' + dateOf(state.snapshotAt) + '）。'
   }
   return { source: state.source, statusText: text, fxText: fx, errorMsg: errText }
 }
