@@ -419,21 +419,27 @@ function divTaxOf(h){ // 税后预计年股息(CNY)：A股10%红利税(未满1�
   const x=hLive(h);if(!x)return 0;
   return h.shares*x.dpsCNY*(h.market==='HK'?0.8:0.9);
 }
-function fwdIrrOf(h){ // 预计年收益率=现价对自定四档插值的隐含回报（与驾驶舱IRR同口径）；未定档返回null
+function fwdIrrOf(h){ // 预计年收益率=现价对自定档位插值的隐含回报（与驾驶舱IRR同口径）；未定档返回null
   const x=hLive(h);if(!x)return null;
   const u=CFG.universe.find(v=>v.code===h.code);
   const ps=((u&&u.tiers)||[]).map(t=>t&&t.price).filter(p=>p!=null);
-  return ps.length>=4?irrAt(x.px,ps):null;
+  return ps.length>=3?irrAt(x.px,ps):null;
 }
 /* 资金口径（郎刚10-08定）：总本金=可投资资金(输入) + 已投市值(持仓实时倒算)；证券持仓不可视为可动用现金 */
 function invMV(){return CFG.holdings.reduce((s,h)=>{const x=hLive(h);return s+(x?x.mvCNY:0);},0);}
 function totalCapital(){return (CFG.investable!=null?CFG.investable:CFG.cash||0)+invMV();}
-/* 价格→隐含IRR：对四档（H10/H12/H15/H17.46）对数插值，档外沿邻档斜率外推（口径与估值引擎一致） */
+/* 价格→隐含IRR：对档位对数插值，档外沿邻档斜率外推（口径与估值引擎一致）。
+ * 锚映射：四档=H10/H12/H15/H17.46→[10%,12%,15%,17.46%]；10-10三档条件单体系=T0/T1/T2↔P12/P15/P17.46
+ * （与"≤P12累计25%→≤P15累计60%→≤P17.46累计100%"三点建仓纪律同构，P10仅为门槛参考不建仓）→锚[12%,15%,17.46%]。
+ * 通用规则：n档取锚谱系最深的n个。 */
 function irrAt(px,ps){
-  const lv=[0.10,0.12,0.15,0.1746];
-  if(px>=ps[0])return Math.max(0.10-Math.log(px/ps[0])*(0.02/Math.log(ps[0]/ps[1])),-0.3);
-  if(px<=ps[3])return Math.min(0.1746+Math.log(ps[3]/px)*(0.0246/Math.log(ps[2]/ps[3])),0.4);
-  for(let i=0;i<3;i++){if(px<=ps[i]&&px>=ps[i+1]){const f=(Math.log(px)-Math.log(ps[i+1]))/(Math.log(ps[i])-Math.log(ps[i+1]));return lv[i+1]+f*(lv[i]-lv[i+1]);}}
+  const A=[0.10,0.12,0.15,0.1746];
+  const n=ps.length;
+  if(n<2)return null;
+  const lv=A.slice(A.length-n);
+  if(px>=ps[0])return Math.max(lv[0]-Math.log(px/ps[0])*((lv[1]-lv[0])/Math.log(ps[0]/ps[1])),-0.3);
+  if(px<=ps[n-1])return Math.min(lv[n-1]+Math.log(ps[n-1]/px)*((lv[n-1]-lv[n-2])/Math.log(ps[n-2]/ps[n-1])),0.4);
+  for(let i=0;i<n-1;i++){if(px<=ps[i]&&px>=ps[i+1]){const f=(Math.log(px)-Math.log(ps[i+1]))/(Math.log(ps[i])-Math.log(ps[i+1]));return lv[i+1]+f*(lv[i]-lv[i+1]);}}
   return null;
 }
 
@@ -463,9 +469,9 @@ function renderDash(){
   let wSum=0,wIrr=0,wCost=0,cov=0;const irrRows=[];
   CFG.holdings.forEach(h=>{
     const u=CFG.universe.find(v=>v.code===h.code);
-    if(!u||!u.tiers||u.tiers.length<4)return;
+    if(!u||!u.tiers||u.tiers.length<3)return;
     const ps=u.tiers.map(t=>t&&t.price).filter(p=>p!=null&&p>0);
-    if(ps.length<4)return;
+    if(ps.length<3)return;
     const x=hLive(h);if(!x)return;
     const iF=irrAt(x.px,ps),iC=irrAt(h.cost,ps);
     if(iF==null||iC==null)return;
@@ -501,10 +507,10 @@ function renderDash(){
      note:'A股按10%档计；2027-06-30 A股免税后升至约 '+fmt(divAfterFree,0)+' 元/年。按当前成本股息率 '+(costYield*100).toFixed(2)+'% 外推，支撑100万税前股息需本金约 '+fmt(1000000/costYield/1e4,0)+' 万。此为税后可用收入口径；100万目标按税前普通股息计，参考覆盖率见股息页（普通股息与现金利息已分账）。'},
     pIrr!=null?{k:'组合预期回报',goalTxt:'17.46%年化',curTxt:(pIrr*100).toFixed(1)+'%',pct:pIrr/g*100,rowCls:'row-irr',big:true,
      detail:`<details style="margin-top:5px"><summary style="cursor:pointer;font-size:12px;color:var(--accent);user-select:none">怎么算的？逐只明细 ▾</summary>
-       <div style="font-size:11.5px;color:var(--muted);margin:5px 0 3px">算法：每只持仓用「现价 ÷ 自定四档(H10/H12/H15/H17.46)」对数插值得出该只的隐含年化，再按市值加权平均。当前覆盖 ${cov}/${CFG.holdings.length} 只（未定四档的持仓不参与）。</div>
+       <div style="font-size:11.5px;color:var(--muted);margin:5px 0 3px">算法：每只持仓用「现价 ÷ 自定建仓档位」对数插值得出该只的隐含年化，再按市值加权平均。锚映射：四档=H10/H12/H15/H17.46；三档条件单=T0/T1/T2↔P12/P15/P17.46。当前覆盖 ${cov}/${CFG.holdings.length} 只（未定档的持仓不参与）。</div>
        <table style="font-size:11.5px;border-collapse:collapse">${irrRows.map(r=>`<tr><td style="padding:2px 10px 2px 0">${r.name}</td><td style="padding:2px 10px 2px 0;color:var(--muted)">现价 ${fmt(r.px,2)}</td><td style="padding:2px 10px 2px 0">隐含 <b>${(r.irr*100).toFixed(1)}%</b></td><td style="padding:2px 10px 2px 0;color:var(--muted)">市值权重 ${(r.w/wSum*100).toFixed(0)}%</td></tr>`).join('')}
        <tr><td style="padding:3px 10px 0 0"><b>加权平均</b></td><td></td><td style="padding:3px 10px 0 0"><b style="font-size:13px">${(pIrr*100).toFixed(1)}%</b></td><td></td></tr></table></details>`,
-     note:'现价对四档（H10/H12/H15/H17.46）对数插值、市值加权，覆盖 '+cov+'/'+CFG.holdings.length+' 只；成本口径 '+((costIrr??0)*100).toFixed(1)+'%（差值=买入后已实现涨跌，成本口径 '+((costIrr??0)>(pIrr??0)?'虚高':'虚低')+'）。现实路径10年≈ '+fmt(realPath10/1e4,0)+' 万（现金按1%闲置，目标 4,968 万）。剩余资金达标要求：一次性投放需年化 '+(reqDeploy*100).toFixed(1)+'%；若只按12%合格线投放，10年合计≈'+fmt(dep12/1e4,0)+' 万。缺口只能靠「更高回报标的+投放」补，不靠调高预测。'}:null,
+     note:'现价对自定建仓档位对数插值、市值加权，覆盖 '+cov+'/'+CFG.holdings.length+' 只；成本口径 '+((costIrr??0)*100).toFixed(1)+'%（差值=买入后已实现涨跌，成本口径 '+((costIrr??0)>(pIrr??0)?'虚高':'虚低')+'）。现实路径10年≈ '+fmt(realPath10/1e4,0)+' 万（现金按1%闲置，目标 4,968 万）。剩余资金达标要求：一次性投放需年化 '+(reqDeploy*100).toFixed(1)+'%；若只按12%合格线投放，10年合计≈'+fmt(dep12/1e4,0)+' 万。缺口只能靠「更高回报标的+投放」补，不靠调高预测。'}:null,
   ].filter(r=>r).map(r=>`<tr class="${r.rowCls||''}">
     <td><b>${r.k}</b></td><td>${r.goalTxt}</td><td><b ${r.big?'style="font-size:17px"':''}>${r.curTxt}</b><br><span class="note">${r.pct.toFixed(1)}%</span></td>
     <td style="min-width:130px"><div class="bar"><i style="width:${Math.min(r.pct,100)}%;background:${r.pct<30?'var(--amber)':'var(--down)'}"></i></div></td>
