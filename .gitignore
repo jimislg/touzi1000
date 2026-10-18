@@ -8,3 +8,8 @@ investment-platform/server.log
 investment-platform/sync.log
 investment-platform/divcache.json
 investment-platform/config.json.backup
+
+# 系统文件与临时/待写文件（取自GPT交付建议20261018；config.json/snapshot.js按"git备份纪律"保留跟踪，不采纳其ignore）
+.DS_Store
+investment-platform/*.pending
+investment-platform/*.tmp-*

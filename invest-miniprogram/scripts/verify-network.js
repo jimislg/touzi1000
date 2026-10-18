@@ -34,10 +34,16 @@ function runtime (request) {
 function respond (o, statusCode, data) {
   o.success({ statusCode, data, header: { 'content-type': 'application/json' } })
 }
-function quoteBuffer () {
-  const f = ['1', 'test', '600519', '1300', '1290']
-  f[30] = '20261014090000'; f[32] = '0.78'
-  return Uint8Array.from(Buffer.from('v_sh600519="' + f.join('~') + '";')).buffer
+function quoteBuffer (symbols, mode) {
+  const list = symbols.split(',')
+  if (mode === 'partial') list.pop()
+  const text = list.map((symbol, i) => {
+    const price = symbol === 'whHKDCNY' ? '0.8542' : symbol === 'sh600519' ? '1300' : '50'
+    const f = ['1', 'test', symbol, mode === 'invalid' && i === 0 ? '0' : price, '5']
+    f[30] = '20261014090000'; f[32] = '0.78'
+    return 'v_' + symbol + '="' + f.join('~') + '";'
+  }).join('')
+  return Uint8Array.from(Buffer.from(text)).buffer
 }
 
 ;(async () => {
@@ -63,14 +69,15 @@ function quoteBuffer () {
     check('HTTP ' + status + '保留服务端状态', s.state.error.type === 'db' && s.state.error.status === status && s.indexModel().errorMsg.includes('HTTP ' + status))
   }
 
-  let phase = 'quotes-fail', dbCalls = 0, nextCFG
+  let phase = 'quotes-fail', dbCalls = 0, nextCFG, keyedRead = false
   const rt = runtime(o => {
     queueMicrotask(() => {
       if (o.url.includes('qt.gtimg.cn')) {
         if (phase === 'quotes-fail') o.fail({ errMsg: 'request:fail timeout' })
-        else respond(o, 200, quoteBuffer())
+        else respond(o, 200, quoteBuffer(decodeURIComponent(o.url.split('/q=')[1]), phase))
       } else {
         dbCalls++
+        keyedRead = o.url.includes('key=eq.config')
         if (phase === 'db-fail') o.fail({ errMsg: 'request:fail timeout' })
         else respond(o, 200, [{ data: nextCFG }])
       }
@@ -81,12 +88,19 @@ function quoteBuffer () {
   nextCFG = JSON.parse(JSON.stringify(oldCFG)); nextCFG.cash = 123
   await s.reload()
   check('行情失败不混用新配置与旧行情', s.state.CFG === oldCFG && s.state.Q === oldQ && s.state.source === 'snapshot')
+  for (const mode of ['partial', 'invalid']) {
+    phase = mode; await s.reload()
+    check(mode + '行情不能冒充实时且保留完整快照', s.state.source === 'snapshot' && s.state.CFG === oldCFG && s.state.Q === oldQ && s.state.error.type === 'quotes')
+  }
   phase = 'ok'; dbCalls = 0
   const a = s.reload(), b = s.reload()
   check('同时刷新共用一次请求', a === b)
   await a
   check('两条链路成功才进入实时状态', s.state.source === 'live' && s.state.error === null && dbCalls === 1 && s.state.Q.sh600519.price === 1300)
+  check('云配置按key=config读取，避免任意首行', keyedRead)
   const liveCFG = s.state.CFG, liveQ = s.state.Q, fetchedAt = s.state.lastFetch
+  phase = 'partial'; await s.reload()
+  check('曾成功后遇到部分行情保留上次完整配置与行情及成功时间', s.state.source === 'stale' && s.state.CFG === liveCFG && s.state.Q === liveQ && s.state.lastFetch === fetchedAt)
   phase = 'db-fail'; await s.reload()
   check('实时刷新失败标记为上次成功数据', s.state.source === 'stale' && s.state.lastFetch === fetchedAt && s.state.CFG === liveCFG && s.state.Q === liveQ && s.indexModel().statusText.includes('刷新失败'))
   phase = 'ok'; await s.reload()
