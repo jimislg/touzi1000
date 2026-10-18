@@ -115,5 +115,133 @@
     const text = (field, fallback) => typeof company[field] === 'string' && company[field].trim() ? company[field] : fallback
     return { thesis: text('thesisSummary', '持有逻辑摘要未录入，请核对研究报告'), breakers: text('thesisBreakers', '证伪条件未录入，不能仅凭价格触发行动'), reviewBy: text('reviewBy', '下次复核日期未录入'), evidenceGap: text('evidenceGap', '待核事项未单独录入，请核对研究报告') }
   }
-  return { parseQuotes, missingSymbols, ladderState, positionRoom, applyDivUpdate, quoteOf, fxOf, holdingValue, dividendForBudget, irrAt, dataQuality, displayQuoteTime, researchSummary }
+  // 静态情景计算：普通股息税后、现金不受价格冲击；不预测发生概率或回本时间。
+  function stressPortfolio (cfg, quotes, options) {
+    cfg = cfg || {}; quotes = quotes || {}; options = options || {}
+    const scope = options.scope == null ? 'current' : options.scope
+    if (scope !== 'current' && scope !== 'planned') throw new RangeError('scope must be current or planned')
+    const fraction = (key, max) => {
+      const v = options[key] == null ? 0 : options[key]
+      if (typeof v !== 'number' || !Number.isFinite(v) || v < 0 || v > max) throw new RangeError(key + ' out of range')
+      return v
+    }
+    const priceDrop = fraction('priceDrop', 0.95), dividendCut = fraction('dividendCut', 1), hkdDrop = fraction('hkdDrop', 0.95)
+    const target = options.incomeTargetCNY == null ? null : options.incomeTargetCNY
+    if (target != null && (typeof target !== 'number' || !Number.isFinite(target) || target <= 0)) throw new RangeError('incomeTargetCNY must be positive or null')
+    const holdings = Array.isArray(cfg.holdings) ? cfg.holdings : [], universe = Array.isArray(cfg.universe) ? cfg.universe : []
+    const warnings = [], missingQuotes = [], missingDividend = [], contributors = []
+    const warn = s => { if (!warnings.includes(s)) warnings.push(s) }
+    const missing = (list, code) => { if (!list.includes(code)) list.push(code) }
+    const nonnegative = v => typeof v === 'number' && Number.isFinite(v) && v >= 0
+    let cash = 0, equity = 0, dividend = 0, loss = 0, dividendLoss = 0, assetsComplete = true, dividendComplete = true, allocationComplete = true, plannedAllocationPct = null
+    let fx = fxOf(cfg, quotes)
+    if (!(Number.isFinite(fx) && fx > 0)) fx = 0.8548
+    const fxNote = () => {
+      if (!(quotes.whHKDCNY && Number.isFinite(quotes.whHKDCNY.price) && quotes.whHKDCNY.price > 0)) warn('港币换算采用备用汇率，非实时汇率。')
+    }
+    const add = (item, value, annualDividend) => {
+      const hk = item.market === 'HK' || !item.market && /\.HK$/.test(item.code || '')
+      if (hk) fxNote()
+      const assetFactor = (1 - priceDrop) * (hk ? 1 - hkdDrop : 1)
+      const incomeFactor = (1 - dividendCut) * (hk ? 1 - hkdDrop : 1)
+      const itemLoss = value == null ? null : value * (1 - assetFactor)
+      const itemDividendLoss = annualDividend == null ? null : annualDividend * (1 - incomeFactor)
+      if (value != null) { equity += value; loss += itemLoss }
+      if (annualDividend != null) { dividend += annualDividend; dividendLoss += itemDividendLoss }
+      contributors.push({ code: item.code || '', name: item.name || item.code || '', value, loss: itemLoss, dividendLoss: itemDividendLoss })
+    }
+    const dpsOf = (h, u) => h && h.dps != null ? h.dps : u && u.dps
+    const checkDps = (code, dps, h) => {
+      if (!nonnegative(dps)) {
+        missing(missingDividend, code); dividendComplete = false; warn('部分普通每股股息缺失，股息结果仅为已覆盖估算。'); return false
+      }
+      if (h && h.dpsStale) { dividendComplete = false; warn('部分每股股息已标记过期，股息结果需复核。') }
+      return true
+    }
+    if (scope === 'current') {
+      const cashInput = cfg.investable != null ? cfg.investable : cfg.cash != null ? cfg.cash : 0
+      if (nonnegative(cashInput)) cash = cashInput
+      else { assetsComplete = false; warn('可投资金无效，未计入已覆盖资产。') }
+      const seen = new Set()
+      holdings.forEach(h => {
+        if (!h || typeof h !== 'object') { assetsComplete = dividendComplete = false; warn('持仓记录无效。'); return }
+        const code = h.code || h.qt || '未知持仓'
+        if (seen.has(code)) { assetsComplete = dividendComplete = allocationComplete = false; warn('持仓成员重复：' + code); return }
+        seen.add(code)
+        if (!nonnegative(h.shares)) { assetsComplete = dividendComplete = false; warn('持股数量无效：' + code); return }
+        if (h.shares === 0) return
+        const q = quoteOf(h, quotes), v = q ? holdingValue(h, q, fx) : null
+        if (!v || !nonnegative(v.mvCNY)) { missing(missingQuotes, code); assetsComplete = false; warn('部分持仓行情缺失，资产结果仅为已覆盖估算。') }
+        else if (q.snapshot) warn('部分持仓采用备用价格，非实时行情。')
+        const hk = h.market === 'HK', validDps = checkDps(code, h.dps, h)
+        const income = validDps ? h.shares * h.dps * (hk ? fx * 0.8 : 0.9) : null
+        add(Object.assign({}, h, { market: h.market === 'HK' ? 'HK' : 'A' }), v && nonnegative(v.mvCNY) ? v.mvCNY : null, income)
+      })
+    } else {
+      const capital = cfg.targetCapital || 10000000
+      if (!nonnegative(capital) || capital <= 0) throw new RangeError('targetCapital must be positive')
+      const seats = cfg.seats && Array.isArray(cfg.seats.list) ? cfg.seats.list : []
+      const seen = new Set()
+      let pctSum = 0, allocated = 0
+      if (!seats.length) warn('未配置席位，目标本金全部按现金处理。')
+      seats.forEach(seat => {
+        if (!seat || !nonnegative(seat.pct)) { allocationComplete = false; warn('席位权重无效。'); return }
+        pctSum += seat.pct
+        const members = Array.isArray(seat.members) ? seat.members : []
+        if (!members.length) { warn('空席位预算按现金处理。'); return }
+        if (members.length > 1) warn('同席成员预算采用等分假设，非执行比例。')
+        const per = capital * seat.pct / 100 / members.length
+        if (per === 0) return
+        members.forEach(code => {
+          if (seen.has(code)) { allocationComplete = false; warn('规划成员重复：' + code); return }
+          seen.add(code)
+          const h = holdings.find(x => x && x.code === code), u = universe.find(x => x && x.code === code)
+          if (!h && !u) { allocationComplete = false; warn('规划成员未知：' + code); return }
+          allocated += per
+          const item = Object.assign({}, u, h), dps = dpsOf(h, u), validDps = checkDps(code, dps, h)
+          // 与网页版 dividendForBudget 保持同源：持仓 quoteOf；未持仓按股票池 px。
+          const q = h ? quoteOf(h, quotes) : null
+          const px = q && q.price ? q.price : u && u.px != null ? u.px : null
+          if (!(typeof px === 'number' && Number.isFinite(px) && px > 0)) {
+            missing(missingQuotes, code); dividendComplete = false; warn('部分规划成员价格缺失，无法折算目标持股数及股息。')
+          } else if (!q || q.snapshot) warn('部分规划成员采用股票池或持仓备用价格，非实时行情。')
+          let income = null
+          if (validDps && px > 0) income = dps === 0 ? 0 : dividendForBudget({ holdings, universe, hkdcnyFallback: fx }, quotes, code, per, false, false)
+          if (validDps && income == null) dividendComplete = false
+          add(item, per, income)
+        })
+      })
+      plannedAllocationPct = pctSum
+      if (pctSum > 100) { allocationComplete = false; warn('席位权重超过100%，不能形成有效满配结论。') }
+      if (pctSum < 100) warn('未分配预算按现金处理。')
+      cash = Math.max(0, capital - allocated)
+      if (!allocationComplete) { assetsComplete = dividendComplete = false; warn('规划配置不完整或冲突，以下仅为可识别部分，不能作为完整组合结论。') }
+    }
+    const known = {
+      baseAssets: cash + equity, baseEquity: equity, baseDividend: dividend, assetLoss: loss,
+      assetLossPct: cash + equity > 0 ? loss / (cash + equity) : 0,
+      stressedAssets: cash + equity - loss, stressedDividend: dividend - dividendLoss, dividendLoss,
+      incomeGap: target == null ? null : Math.max(0, target - (dividend - dividendLoss)),
+      incomeCoverage: target == null ? null : (dividend - dividendLoss) / target
+    }
+    const result = { scope, cash, contributors, warnings, missingQuotes, missingDividend, plannedAllocationPct,
+      complete: { assets: assetsComplete, dividend: dividendComplete, allocation: allocationComplete },
+      valid: assetsComplete && dividendComplete && allocationComplete, known }
+    ;['baseAssets', 'baseEquity', 'assetLoss', 'assetLossPct', 'stressedAssets'].forEach(key => { result[key] = assetsComplete ? known[key] : null })
+    ;['baseDividend', 'stressedDividend', 'dividendLoss', 'incomeGap', 'incomeCoverage'].forEach(key => { result[key] = dividendComplete ? known[key] : null })
+    // 极端但有限的输入也可能溢出；不将 Infinity / NaN 交给界面当成结果。
+    let overflow = false
+    const sanitize = obj => Object.keys(obj).forEach(key => {
+      if (typeof obj[key] === 'number' && !Number.isFinite(obj[key])) { obj[key] = null; overflow = true; warn('输入规模导致数值溢出，请检查配置。') }
+      else if (obj[key] && typeof obj[key] === 'object') sanitize(obj[key])
+    })
+    sanitize(result)
+    if (overflow) {
+      result.valid = false
+      result.complete.assets = result.complete.dividend = false
+      ;['baseAssets', 'baseEquity', 'assetLoss', 'assetLossPct', 'stressedAssets', 'baseDividend', 'stressedDividend', 'dividendLoss', 'incomeGap', 'incomeCoverage'].forEach(key => { result[key] = null })
+    }
+    return result
+  }
+  return { parseQuotes, missingSymbols, ladderState, positionRoom, applyDivUpdate, quoteOf, fxOf, holdingValue, dividendForBudget, irrAt, dataQuality, displayQuoteTime, researchSummary, stressPortfolio }
 })

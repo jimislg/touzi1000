@@ -369,60 +369,32 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('席位表：腾讯现值计入第二席('+run('Math.round('+tencentSeatMv+'/1e4*10)/10')+'万)',el('seatTable').innerHTML.includes(String(Math.round(tencentSeatMv/1e4*10)/10)));
   T('席位表：未持仓成员显示"未建仓/候选"',el('seatTable').innerHTML.includes('未建仓')||el('seatTable').innerHTML.includes('候选'));
   T('席位卡：五席预算合计=100%',el('seatCards').innerHTML.includes('五席预算合计')&&el('seatCards').innerHTML.includes('30% + 25% + 20% + 15% + 10%'));
-  T('席位卡：过渡仓卡存在',el('seatCards').innerHTML.includes('过渡仓'));
-  T('席位卡：距满配空间卡存在',el('seatCards').innerHTML.includes('距满配空间'));
-  // 郎刚10-10晚：新增预计年股息卡（满配·普通口径），数值须与压力表脚注的满配年股息勾稽一致
-  {
-    const sc=el('seatCards').innerHTML;
-    const cm=sc.match(/预计年股息（满配·普通）<\/div><div class="v">([\d.]+) 万\/年/);
-    const fnm=el('stressTable').innerHTML.match(/满配年股息（税后·普通）≈ <b>([\d,]+) 元\/年/);
-    if(!cm||!fnm)console.log('  [debug] cardMatch=',!!cm,'footnoteMatch=',!!fnm,'| seatCards片段:',sc.slice(sc.indexOf('预计年股息')-40,sc.indexOf('预计年股息')+300)||'(无)','| 脚注片段:',el('stressTable').innerHTML.slice(el('stressTable').innerHTML.indexOf('满配年股息')-10,el('stressTable').innerHTML.indexOf('满配年股息')+80)||'(无)');
-    T('席位卡：预计年股息卡存在且=压力表脚注满配年股息',!!cm&&!!fnm&&cm[1]===(parseInt(fnm[1].replace(/,/g,''),10)/1e4).toFixed(1));
-    T('席位卡：满配卡标注特别股息单列（宁德4.779不计入）',sc.includes('特别股息')&&sc.includes('单列'));
-  }
-
-  // ③ 压力测试 v2：情景表（郎刚10-10重做——历史参照+回本时间+当前实况+自定义输入）
-  T('压力表：三档整体情景齐全',['整体 -20%','整体 -35%','整体 -50%'].every(x=>el('stressTable').innerHTML.includes(x)));
-  T('压力表：三个单点情景齐全',['茅台腰斩','腾讯腰斩','双核同跌'].every(x=>el('stressTable').innerHTML.includes(x)));
-  T('压力表：每情景带历史参照',['塑化剂','775→198','2008','2018年A股'].every(x=>el('stressTable').innerHTML.includes(x)));
-  T('压力表：满配-20%剩余='+(tcap*0.8/1e4).toFixed(0)+'万',el('stressTable').innerHTML.includes((tcap*0.8/1e4).toFixed(0)+' 万'));
-  T('压力表：腾讯腰斩满配剩余='+(tcap*0.875/1e4).toFixed(0)+'万',el('stressTable').innerHTML.includes((tcap*0.875/1e4).toFixed(0)+' 万'));
-  T('压力表：成本股息率+股息金额列（回本需涨已移除）',el('stressTable').innerHTML.includes('成本股息率')&&el('stressTable').innerHTML.includes('股息金额')&&!el('stressTable').innerHTML.includes('回本需涨'));
-  T('压力表：茅台当前未持有→无直接影响标注（抵亏年数列小注）',el('stressTable').innerHTML.includes('未持有无直接影响'));
-  T('压力表：腾讯当前实况亏损为负值',/-\d/.test(el('stressTable').innerHTML));
-  // 纯股息数值断言（郎刚10-10）：从页面解析满配年股息，校验综合股息率=股息÷跌后市值（-35%情景勾稽）
-  const fdm=el('stressTable').innerHTML.match(/满配年股息（税后·普通）≈ <b>([\d,]+) 元\/年/);
-  const fullDiv=fdm?parseInt(fdm[1].replace(/,/g,''),10):0;
-  T('压力表：满配年股息='+fullDiv+'元（含茅台席按51.98计）',fullDiv>0);
-  const mtExp=Math.round(0.30*tcap/1258.62*51.98*0.9); // 茅台席30%×TC÷备用价×DPS×(1-10%红利税)
-  T('压力表：茅台单席股息='+mtExp+'元郎刚口径校验',el('stressTable').innerHTML.includes(String(mtExp))||fullDiv>=mtExp*0.99);
-  T('压力表：DPS口径=普通股息混合口径注明（复核报告要求，不再声称全体2025年度实际）',el('stressTable').innerHTML.includes('非审计后的可持续普通股息基线')&&el('stressTable').innerHTML.includes('普通DPS逐成员口径')&&!el('stressTable').innerHTML.includes('全体成员均按'));
-  T('压力表：宁德特别股息单列且不计入普通股息目标',el('stressTable').innerHTML.includes('特别股息')&&el('stressTable').innerHTML.includes('宁德普通2.178'));
-  // 郎刚10-10晚：股息率改持有成本口径——满配=fullDiv÷TC（常数，不随冲击变），实况=curDiv÷持仓成本合计
-  const yldCost=(fullDiv/tcap*100).toFixed(2);
-  T('压力表：成本股息率(满配)='+yldCost+'%（股息÷目标本金勾稽，所有情景同值）',el('stressTable').innerHTML.split('<b>'+yldCost+'%</b>').length>=6); // 表头1+6情景=7处出现
-  T('压力表：口径注明=年股息÷持有成本且跌后市值口径仅对新资金',el('stressTable').innerHTML.includes('年股息÷<b>持有成本</b>')&&el('stressTable').innerHTML.includes('分档建仓锁定高息窗口'));
-  // 复核报告P0-C：采用冲击显式列 + 静态股息抵亏年数改名 + 乘法说明 + 永久损失视角 + 覆盖率
-  {
-    const hd=el('stressTable').innerHTML.match(/<thead><tr>([\s\S]*?)<\/tr><\/thead>/);
-    const cols=hd?hd[1].match(/<th>([^<]*)<\/th>/g).map(s=>s.replace(/<\/?th>/g,'')):[];
-    T('压力表：列序=8列且历史参照在最后（郎刚10-10晚：实况剩余/实况亏损列均删）',cols.length===8&&cols[7].includes('历史参照')&&!cols.includes('当前实况剩余')&&!cols.includes('当前实况亏损'));
-    T('压力表：实况信息压缩为抵亏年数列小注（亏占总资产比）',el('stressTable').innerHTML.includes('亏占总资产'));
-    T('压力表：含「采用冲击」列且茅台腰斩采用−50%≠历史−56%',cols.includes('采用冲击*')&&el('stressTable').innerHTML.includes('−50%'));
-    T('压力表：静态股息抵亏年数列（原股息回本周期改名，口径注明非恢复预测）',cols.includes('静态股息抵亏年数')&&el('stressTable').innerHTML.includes('亏损÷年股息现金流')&&el('stressTable').innerHTML.includes('不是恢复预测'));
-    T('压力表：无频率预测措辞（十年一遇已移除）',!el('stressTable').innerHTML.includes('十年一遇'));
-    T('压力表：乘法联合冲击说明（价格−20%×汇率−10%=−28%）',el('stressDesc').innerHTML.includes('−28%')&&el('stressDesc').innerHTML.includes('(1+价格)×(1+汇率)−1'));
-    T('压力表：永久损失视角=无法估算（价格回撤不冒充永久损失）',el('stressTable').innerHTML.includes('永久损失压力＝<b>无法估算</b>'));
-    const grossm=el('stressTable').innerHTML.match(/满配税前普通股息约 <b>([\d,]+) 元\/年/);
-    T('压力表：普通股息覆盖率=税前口径÷100万',!!grossm&&el('stressTable').innerHTML.includes('覆盖率约 <b>'+(parseInt(grossm[1].replace(/,/g,''),10)/1000000*100).toFixed(1)+'%</b>'));
-    const y35=(tcap*0.35)/fullDiv; // -35%满配抵亏年数=亏损÷年股息
-    T('压力表：-35%满配静态抵亏≈'+y35.toFixed(1)+'年勾稽',el('stressTable').innerHTML.includes(y35.toFixed(1)+' 年'));
-  }
-  T('压力表：股息金额含满配与实况双口径',el('stressTable').innerHTML.includes('万/年')&&el('stressTable').innerHTML.includes('实况'));
-  T('压力说明：三个问题导语（股息现金流怎么样）',el('stressDesc').innerHTML.includes('钱还剩多少')&&el('stressDesc').innerHTML.includes('股息现金流怎么样'));
-  T('压力自定义：输入控件存在',el('stressCustom').innerHTML.includes('input'));
+  T('席位卡：只展示预算、市值、待配置三张摘要',(el('seatCards').innerHTML.match(/class="card"/g)||[]).length===3&&el('seatCards').innerHTML.includes('待配置预算'));
+  T('席位卡：规划缺口不等于买入额度',el('seatCards').innerHTML.includes('不等于获准买入额度'));
+  T('席位表：主行与明细分别呈现',el('seatTable').innerHTML.includes('seat-summary-row')&&el('seatTable').innerHTML.includes('seat-detail-row'));
+  T('席位表：主表五列优先展示进度与待配',(el('seatTable').innerHTML.match(/<th[ >]/g)||[]).length===5&&el('seatTable').innerHTML.includes('配置进度')&&el('seatTable').innerHTML.includes('待配置'));
+  T('席位表：全部档位保留在默认折叠明细',/id="seat-detail-0" hidden/.test(el('seatTable').innerHTML)&&el('seatTable').innerHTML.includes('建仓策略 · 全部档位'));
+  T('压力视图：默认当前组合',run('riskView.scope')==='current'&&el('stressPanel').innerHTML.includes('当前持仓 + 已输入可投资资金'));
+  T('压力视图：三种情景分别控制价格、减派和联合冲击',['股价回撤','股息减派','联合冲击'].every(x=>el('stressPanel').innerHTML.includes(x)));
+  T('压力视图：只突出损失、剩余资产、年股息三个结果',['资产减少','冲击后总资产','冲击后税后年普通股息'].every(x=>el('stressPanel').innerHTML.includes(x)));
+  T('压力视图：不再展示抵亏年数或历史概率暗示',!/(抵亏年|腰斩|历史上真实发生)/.test(el('stressPanel').innerHTML));
+  T('压力视图：税后目标未设时不默认100万',run('riskView.incomeTargetCNY')===null&&el('stressPanel').innerHTML.includes('未设目标，不计算缺口'));
+  T('压力视图：股息与价格影响独立说明',el('stressPanel').innerHTML.includes('价格变化本身不自动改变DPS')&&el('stressPanel').innerHTML.includes('不含特别股息与现金收益'));
+  const baselineCash=run('CFG.investable!=null?CFG.investable:CFG.cash||0');
+  const baselineMV=run('invMV()');
+  const stressCurrent=run('InvestmentCore.stressPortfolio(CFG,Q,{priceDrop:0.2})');
+  T('压力模型：当前价格跌20%只冲击股票，现金保持',Math.abs(stressCurrent.assetLoss-baselineMV*0.2)<0.01&&Math.abs(stressCurrent.stressedAssets-(baselineCash+baselineMV*0.8))<0.01);
+  const savedCfg=run('JSON.stringify(CFG)');
+  run("chooseRiskPreset('income')");
+  T('压力模型：减派情景不减少证券市值',run('riskView.priceDrop')===0&&run('riskView.dividendCut')===30&&el('stressPanel').innerHTML.includes('主要股息减少来源'));
+  run("chooseRiskScope('planned')");
+  T('压力视图：规划配置明确等分假设',el('stressPanel').innerHTML.includes('同席成员等分假设'));
+  T('压力视图：未知成员明确输入缺口而非完整股息',el('stressPanel').innerHTML.includes('数据不完整')&&el('stressPanel').innerHTML.includes('待核实'));
+  T('压力试算与切换不修改投资配置',run('JSON.stringify(CFG)')===savedCfg);
+  run("chooseRiskScope('current');chooseRiskPreset('price')");
+  T('压力自定义：保留独立假设输入',el('stressPanel').innerHTML.includes('调整冲击假设')&&el('stressPanel').innerHTML.includes('data-ui-only'));
   T('席位说明：含v3.5路线与预算公式',el('seatNote').innerHTML.includes('v3.5 路线')&&el('seatNote').innerHTML.includes('B×q−K'));
-  T('席位说明：四项已确认记录（郎刚2026-10-10）',el('seatNote').innerHTML.includes('四项确认记录')&&el('seatNote').innerHTML.includes('2026-10-10'));
+  T('席位说明：原确认记录保留但折叠呈现',el('seatNote').innerHTML.includes('四项确认记录')&&el('seatNote').innerHTML.includes('2026-10-10')&&el('seatNote').innerHTML.includes('<details'));
   // ④ 研究批次pill
   run('CFG.universe.push({code:"09992.HK",name:"泡泡玛特",grade:"A",qt:"hk09992",buyPrice:140,plan:"A类"})');
   run('CFG.universe.push({code:"000651.SZ",name:"格力电器",grade:"B",qt:"sz000651",buyPrice:36,plan:"B类"})');
@@ -492,7 +464,7 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   const tc0=run('CFG.targetCapital');
   run('CFG.targetCapital=12000000');await run('renderAll()');
   T('联动：目标本金1200万→茅台席预算=360万',el('seatTable').innerHTML.includes('360 万'));
-  T('联动：压力表满配-20%剩余=960万',el('stressTable').innerHTML.includes('960 万'));
+  T('联动：规划模型随目标本金更新',Math.abs(run('InvestmentCore.stressPortfolio(CFG,Q,{scope:"planned",priceDrop:0.2}).known.baseAssets')-12000000)<1);
   // ② 改持仓股数 → 席位市值/进度/当前实况同步变
   const tk=run('CFG.holdings.find(h=>h.code==="0700.HK")?1:0')? '0700.HK':null;
   if(tk){
@@ -519,11 +491,11 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('席位表：腾讯H10已到档→醒目✓（夹具现价415≤444.7）',/pill trig[^>]*>✓ H10 444\.7港元/.test(el('seatTable').innerHTML));
   T('席位表：腾讯H12未到档→弱化dim',/pill dim[^>]*>H12 374\.4港元/.test(el('seatTable').innerHTML));
   T('席位表：茅台现价1258未到任何档→四档全dim',el('seatTable').innerHTML.match(/600519|贵州茅台/)&&!/✓ L1·前哨/.test(el('seatTable').innerHTML)&&/pill dim[^>]*>L1·前哨 1,150元/.test(el('seatTable').innerHTML));
-  T('席位表：含目标成本列',el('seatTable').innerHTML.includes('目标成本'));
+  T('席位表：规划预算移入详情',el('seatTable').innerHTML.includes('规划预算'));
   T('席位表：含持仓成本列',el('seatTable').innerHTML.includes('持仓成本'));
-  T('席位表：含持仓股息率列',el('seatTable').innerHTML.includes('持仓股息率'));
+  T('席位表：现价税后股息率移入详情',el('seatTable').innerHTML.includes('现价税后股息率'));
   T('席位表：表头带data-sk排序键',/th data-sk="(tgt|mv|cost|yld|prog|room|name)"/.test(el('seatTable').innerHTML));
-  T('席位表：股息率双口径标注（成本+现价）',el('seatTable').innerHTML.includes('成本')&&el('seatTable').innerHTML.includes('现价（税后）'));
+  T('席位表：成本税前与现价税后口径明确分开',el('seatTable').innerHTML.includes('成本税前股息率')&&el('seatTable').innerHTML.includes('现价税后股息率'));
   // 股息率数值断言：第二席=腾讯独占，税后股息/现值
   const seatYld=run('(function(){const h=CFG.holdings.find(h=>h.code==="0700.HK");const x=hLive(h);const d=h.shares*x.dpsCNY*0.8;return (d/x.mvCNY*100).toFixed(2);})()');
   T('席位股息率：腾讯席位现价口径='+seatYld+'%',el('seatTable').innerHTML.includes('<b>'+seatYld+'%</b>'));
@@ -552,13 +524,14 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   seatChg(String(oldPct));
   T('席位权重：恢复原值'+oldPct,run('CFG.seats.list[0].pct')===oldPct);
 
+  const seatDetailOf=name=>{const idx=run('CFG.seats.list').findIndex(s=>s.name.includes(name));const m=el('seatTable').innerHTML.match(new RegExp('<tr class="seat-detail-row" id="seat-detail-'+idx+'"[\\s\\S]*?<\\/tr>'));return m?m[0]:'';};
   // 郎刚10-10晚纠错（"这里难道不是平安的A股"）：第三席平安执行口径=A股三梯队（T0 50/T1 45/T2 40 CNY），
   // H股2318.HK只留v3.4档位作回报参照、不进席位members。防回归：fin成员换601318.SH后须渲染A股三梯队pill、不得再出现H档pill
   run('CFG.universe.push({code:"601318.SH",name:"中国平安",grade:"B",qt:"sh601318",px:52.83,dps:2.7,plan:"三梯队：50以上耐心等待一股不买→T0≤50→T1≤45→T2≤40打满100万",tiers:[{cur:"CNY",label:"T0·中性公允",price:50},{cur:"CNY",label:"T1·安全折扣",price:45},{cur:"CNY",label:"T2·悲观极值",price:40}],tierPct:[3.5,7,10]})');
   run('CFG.seats.list.find(s=>s.key==="fin").members=["600036.SH","601318.SH"]');
   await run('renderAll()');
   {
-    const finRow=el('seatTable').innerHTML.split('<tr>').find(r=>r.includes('第三·金融股息'))||'';
+    const finRow=seatDetailOf('第三·金融股息');
     T('席位策略：第三席平安=A股三梯队pill（T0·中性公允50元）',finRow.includes('T0·中性公允')&&finRow.includes('50'));
     T('席位策略：第三席不再渲染H股档位pill（H10/H12）',!finRow.includes('H10')&&!finRow.includes('H12'));
     T('席位策略：第三席三档未到档→全dim弱化（现价52.83>50）',finRow.includes('pill dim')&&!finRow.includes('✓'));
@@ -569,7 +542,7 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   run('CFG.seats.list.find(s=>s.key==="mfg").members=["300750.SZ","600660.SH"]');
   await run('renderAll()');
   {
-    const mfgRow=el('seatTable').innerHTML.split('<tr>').find(r=>r.includes('第四·先进制造'))||'';
+    const mfgRow=seatDetailOf('第四·先进制造');
     T('席位策略：第四席福耀=三梯队pill（T1·防守加仓48元）',mfgRow.includes('T1·防守加仓')&&mfgRow.includes('T3·周期底重击'));
     T('席位策略：第四席福耀不再渲染旧H四档（H10/H17.46）',!mfgRow.includes('H10')&&!mfgRow.includes('H17.46'));
     T('席位策略：福耀三档未到档→全dim（现价53.58>48）',mfgRow.includes('pill dim')&&!(mfgRow.includes('福耀')&&mfgRow.includes('✓')));
@@ -579,7 +552,7 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   run('CFG.universe.push({code:"02020.HK",name:"安踏体育",grade:"B",qt:"hk02020",px:71.8,dps:2.45,plan:"条件单三档：≤67.60买4,000股23.9万→≤58.50买6,400股32万→≤49.20买6,600股28万",tiers:[{cur:"HKD",label:"条件单1",price:67.6},{cur:"HKD",label:"条件单2",price:58.5},{cur:"HKD",label:"条件单3",price:49.2}],tierPct:[4.5,7.7,10.5]})');
   await run('renderAll()');
   {
-    const openRow=el('seatTable').innerHTML.split('<tr>').find(r=>r.includes('第五·开放竞争'))||'';
+    const openRow=seatDetailOf('第五·开放竞争');
     T('席位策略：第五席安踏=条件单三档pill（条件单1 67.6港元）',openRow.includes('条件单1')&&openRow.includes('67.6')&&openRow.includes('港元'));
     T('席位策略：第五席安踏不再渲染旧H四档（H10/H17.46）',!(openRow.includes('安踏')&&openRow.includes('H17.46')));
     T('席位策略：安踏三档未到档→全dim（现价71.8>67.6）',openRow.includes('pill dim')&&!(openRow.includes('安踏')&&openRow.includes('✓')));
@@ -589,7 +562,7 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   run('CFG.universe.push({code:"09992.HK",name:"泡泡玛特",grade:"A",qt:"hk09992",px:149.7,dps:2.7248,plan:"条件单三档：≤140买2,000股23.88万→≤125买1,600股17.06万→≤110买1,400股13.13万",tiers:[{cur:"HKD",label:"条件单1",price:140},{cur:"HKD",label:"条件单2",price:125},{cur:"HKD",label:"条件单3",price:110}],tierPct:[7.1,8.8,10.1]})');
   await run('renderAll()');
   {
-    const openRow=el('seatTable').innerHTML.split('<tr>').find(r=>r.includes('第五·开放竞争'))||'';
+    const openRow=seatDetailOf('第五·开放竞争');
     T('席位策略：第五席泡泡=条件单三档pill（条件单1 140港元）',openRow.includes('泡泡玛特')&&openRow.includes('条件单1')&&openRow.includes('140')&&openRow.includes('港元'));
     T('席位策略：第五席泡泡不再渲染旧H四档（H10 172.7）',!(openRow.includes('泡泡')&&openRow.includes('172.7')));
     T('席位策略：泡泡三档未到档→全dim（现价149.7>140）',openRow.includes('pill dim')&&!(openRow.includes('泡泡')&&openRow.includes('✓')));
@@ -599,7 +572,7 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   run('Object.assign(CFG.universe.find(u=>u.code==="600519.SH"),{plan:"三买点：1150-1200建100万主力底仓→1050-1100加仓100万→950以下打满300万",tiers:[{cur:"CNY",label:"T1·主力底仓",price:1150},{cur:"CNY",label:"T2·估值出清加仓",price:1050},{cur:"CNY",label:"T3·黑天鹅贪婪档",price:950}],tierPct:[10,20,30]})');
   await run('renderAll()');
   {
-    const brandRow=el('seatTable').innerHTML.split('<tr>').find(r=>r.includes('第一·品牌现金流'))||'';
+    const brandRow=seatDetailOf('第一·品牌现金流');
     T('席位策略：第一席茅台=三买点pill（T1·主力底仓1150元）',brandRow.includes('T1·主力底仓')&&brandRow.includes('1,150')&&brandRow.includes('元'));
     T('席位策略：第一席茅台不再渲染旧四档（L1·前哨/L4·馈赠880）',!brandRow.includes('L1·前哨')&&!brandRow.includes('880'));
     T('席位策略：茅台三档未到档→全dim（现价1258>1150）',brandRow.includes('pill dim')&&!(brandRow.includes('茅台')&&brandRow.includes('✓')));

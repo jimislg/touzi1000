@@ -11,7 +11,7 @@ try {
   write('invest-miniprogram/project.config.json', fs.readFileSync(path.join(target, 'invest-miniprogram/project.config.example.json')))
   write('invest-miniprogram/utils/config.js', '/* 合成测试配置 */\nmodule.exports = ' + JSON.stringify(fixture.miniConfig))
   write('invest-miniprogram/utils/snapshot.js', '/* 合成测试快照 */\nmodule.exports = ' + JSON.stringify(fixture.snapshot))
-  const tests = ['invest-miniprogram/scripts/verify.js', 'invest-miniprogram/scripts/verify-network.js', 'investment-platform/lg_sync_test.js', 'investment-platform/verify-integrity.js', 'investment-platform/test-config-service.js', 'investment-platform/test-cloud-adapter.js', 'investment-platform/test-refresh.js', 'investment-platform/test-server-api.js', 'investment-platform/test-cloud-roundtrip.js']
+  const tests = ['invest-miniprogram/scripts/verify.js', 'invest-miniprogram/scripts/verify-network.js', 'investment-platform/lg_sync_test.js', 'investment-platform/verify-integrity.js', 'investment-platform/test-config-service.js', 'investment-platform/test-stress-model.js', 'investment-platform/test-seat-risk-ui.js', 'investment-platform/test-cloud-adapter.js', 'investment-platform/test-refresh.js', 'investment-platform/test-server-api.js', 'investment-platform/test-cloud-roundtrip.js']
   for (const test of tests) {
     const r = spawnSync(process.execPath, [test], { cwd: target, env: { ...process.env, LG_MOCK_CLOUD: '1' }, encoding: 'utf8', timeout: 30000 })
     const count = (r.stdout.match(/^(PASS|✓) /gm) || []).length

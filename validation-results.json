@@ -5,7 +5,7 @@
   "deployed": false,
   "uploadedMiniprogram": false,
   "passed": true,
-  "checks": 352,
+  "checks": 436,
   "results": [
     {
       "test": "invest-miniprogram/scripts/verify.js",
@@ -22,7 +22,7 @@
     {
       "test": "investment-platform/lg_sync_test.js",
       "passed": true,
-      "checks": 189,
+      "checks": 176,
       "exitCode": 0
     },
     {
@@ -35,6 +35,18 @@
       "test": "investment-platform/test-config-service.js",
       "passed": true,
       "checks": 23,
+      "exitCode": 0
+    },
+    {
+      "test": "investment-platform/test-stress-model.js",
+      "passed": true,
+      "checks": 78,
+      "exitCode": 0
+    },
+    {
+      "test": "investment-platform/test-seat-risk-ui.js",
+      "passed": true,
+      "checks": 19,
       "exitCode": 0
     },
     {

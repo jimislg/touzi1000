@@ -14,6 +14,10 @@ node scripts/test-offline.js --results validation-results.json
 
 测试在临时目录注入明确标注的合成数据，完成后删除临时目录，不覆盖本机个人文件。CI模板 `ci/offline-checks.yml.example` 仅执行此离线验收，不执行发布、上传或云数据库写入。当前OAuth凭证缺少workflow权限，因此模板未放入活动工作流目录，远端CI尚未启用；维护者可另行审核并启用。`delivery-manifest.json`记录交付文件哈希，`validation-results.json`记录本地测试结果。
 
+最新界面改版将席位表压缩为五列总览，成本与完整档位展开查看。压力情景默认使用当前组合，分别设置股价、减派与港币汇率冲击，显示资产损失、剩余资产与税后普通股息；规划配置与当前组合分开查看。详见 `codex-产出/席位与压力视图改版-20261018.md`。
+
+纯演示界面可运行 `node scripts/preview-dashboard.js`，访问 `http://127.0.0.1:18308/`。它只提供合成数据，拒绝保存，不读取个人配置、不连接云库或上游行情。
+
 ## 本地运行与个人配置
 
 1. 将`investment-platform/config.example.json`复制为同目录`config.json`，按实际资料填写；设置个人访问口令。空示例不含投资建议或研究结论。
