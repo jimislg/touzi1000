@@ -1,0 +1,69 @@
+<view class="wrap">
+  <view class="topbar">
+    <view class="dot {{model.source==='live'?'on':'off'}}"></view>
+    <text>{{model.statusText}}</text>
+    <text class="fx">{{model.fxText}}</text>
+  </view>
+
+  <view wx:if="{{model.qualityText}}" class="card notecard">{{model.qualityText}}</view>
+  <view wx:if="{{model.errorMsg}}" class="card errcard">{{model.errorMsg}}</view>
+
+  <view wx:if="{{model.loading}}" class="card"><text class="muted">加载中…</text></view>
+
+  <block wx:else>
+    <view class="card">
+      <view class="k">股票总资产（可投资金 + 持仓市值）</view>
+      <view class="v">{{model.tc}} <text class="unit">万</text></view>
+      <view class="rowline">
+        <text>可投资金 {{model.inv}} 万</text>
+        <text>持仓市值 {{model.mv}} 万</text>
+      </view>
+      <view class="rowline">
+        <text class="{{model.plCls}}">浮盈 {{model.pl}} 万（{{model.plPct}}%）</text>
+        <text>税后年股息 {{model.curDiv}} 万/年</text>
+      </view>
+    </view>
+
+    <view class="chips">
+      <view class="sigchip {{model.nOver?'red':''}}">
+        <view class="k">仓位预警（最优先）</view>
+        <view class="n">{{model.nOver}}</view>
+        <view class="s">{{model.overNames}}</view>
+      </view>
+      <view class="sigchip {{model.nTrig?'green':''}}">
+        <view class="k">已触发·可进流程</view>
+        <view class="n">{{model.nTrig}}</view>
+        <view class="s">{{model.trigNames}}</view>
+      </view>
+      <view class="sigchip {{model.nNear?'amber':''}}">
+        <view class="k">接近（≤+5%）</view>
+        <view class="n">{{model.nNear}}</view>
+        <view class="s">{{model.nearNames}}</view>
+      </view>
+      <view class="sigchip">
+        <view class="k">投放进度</view>
+        <view class="n">{{model.deployPct}}%</view>
+        <view class="s">未投 {{model.uninvested}} 万 · 等待也是纪律</view>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{model.sigs.length}}">
+      <view class="k" style="margin-bottom:14rpx">信号清单</view>
+      <view class="sigrow {{item.off?'dim':''}}" wx:for="{{model.sigs}}" wx:key="index">
+        <view class="line1">
+          <text class="b">{{item.name}}</text>
+          <text class="badge {{item.bcls}}">{{item.badge}}{{item.off?' · 已划掉':''}}</text>
+        </view>
+        <view class="line2">
+          <text class="b">{{item.val}}</text>
+          <text class="muted">门槛 {{item.gate}}</text>
+          <text class="muted">· {{item.dev}}</text>
+        </view>
+        <view class="note">{{item.note}}</view>
+      </view>
+    </view>
+    <view class="card" wx:else><text class="muted">当前无信号：全部标的处于等待区间、仓位未超限。</text></view>
+
+    <view class="card notecard">⚠️ 统一提醒：触发 ≠ 下单。任何行动前先按 v3.4 刷新前三步数据，再走第四步组合决策；H股另须满足 A/H 双门槛（折价≥25%）。价格触发后不倒计时、不催促，等待本身是纪律的一部分。</view>
+  </block>
+</view>

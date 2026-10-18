@@ -1,0 +1,15 @@
+{
+  "accessKey": "",
+  "investable": 0,
+  "cash": 0,
+  "cashYield": 1,
+  "targetCapital": 1000000,
+  "pathCAGR": 0.1746,
+  "annualContribution": 0,
+  "hkdcnyFallback": 0.8548,
+  "holdings": [],
+  "universe": [],
+  "seats": {
+    "list": []
+  }
+}

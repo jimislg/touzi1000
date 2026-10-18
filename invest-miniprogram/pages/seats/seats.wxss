@@ -1,0 +1,4 @@
+.member { padding: 12rpx 0; border-bottom: 1rpx solid #1d2632; }
+.member:last-child { border-bottom: none; }
+.mb { font-weight: 600; font-size: 27rpx; }
+.pills { margin-top: 8rpx; }

@@ -1,0 +1,55 @@
+<view class="wrap">
+  <view class="topbar">
+    <view class="dot {{model.source==='live'?'on':'off'}}"></view>
+    <text>{{model.statusText}}</text>
+    <text class="fx">{{model.fxText}}</text>
+  </view>
+
+  <view wx:if="{{model.qualityText}}" class="card notecard">{{model.qualityText}}</view>
+  <view wx:if="{{model.errorMsg}}" class="card errcard">{{model.errorMsg}}</view>
+  <view wx:if="{{model.loading}}" class="card"><text class="muted">加载中…</text></view>
+
+  <block wx:else>
+    <view class="filters">
+      <text wx:for="{{model.filters}}" wx:key="key" class="fbtn {{model.filter===item.key?'on':''}}"
+            data-f="{{item.key}}" bindtap="setFilter">{{item.label}} {{item.count}}</text>
+    </view>
+    <view class="filterhint">{{model.filterHint}}</view>
+
+    <view wx:if="{{!model.rows.length}}" class="card empty">
+      <view>当前没有“{{model.filterLabel}}”标的</view>
+      <view class="muted">可以切换其他标签查看。</view>
+    </view>
+
+    <view class="card" wx:for="{{model.rows}}" wx:key="code" data-code="{{item.code}}" bindtap="toggle">
+      <view class="line1">
+        <text class="b">{{item.name}}</text>
+        <text class="pill {{item.grade}}">{{item.grade}}</text>
+        <text wx:if="{{item.batch}}" class="pill wait">{{item.batch}}</text>
+        <text wx:if="{{item.exitWatch && item.batch!=='退出观察'}}" class="pill wait">退出观察</text>
+        <text wx:if="{{item.held}}" class="pill hold">持仓</text>
+        <text wx:if="{{item.research}}" class="pill wait">{{item.research}}</text>
+        <text wx:if="{{item.bcls}}" class="badge {{item.bcls}}" style="margin-left:auto">{{item.status}}</text>
+        <text wx:else class="pill wait" style="margin-left:auto">{{item.status}}</text>
+      </view>
+      <view class="line2">
+        <text class="px">{{item.px}}</text>
+        <text class="muted"> {{item.cur}}</text>
+        <text class="{{item.pctCls}}" style="margin-left:18rpx">{{item.pctTxt}}</text>
+        <text class="muted" style="margin-left:auto">距触发 {{item.dist}}</text>
+      </view>
+      <view class="pills">
+        <text wx:for="{{item.tiers}}" wx:for-item="p" wx:key="label"
+              class="pill {{p.cls}}">{{p.label}} {{p.price}}{{p.unit}}{{p.mark}}{{p.amt?'·'+p.amt:''}}</text>
+        <text wx:if="{{!item.tiers.length}}" class="muted" style="font-size:22rpx">无档位报告·待研究</text>
+      </view>
+      <view wx:if="{{item.expanded}}" class="planbox">
+        <view>{{item.plan}}</view>
+        <view>持有逻辑：{{item.summary.thesis}}</view>
+        <view>证伪条件：{{item.summary.breakers}}</view>
+        <view>下次复核：{{item.summary.reviewBy}}</view>
+        <view>待核事项：{{item.summary.evidenceGap}}</view>
+      </view>
+    </view>
+  </block>
+</view>

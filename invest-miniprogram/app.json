@@ -1,0 +1,31 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/positions/positions",
+    "pages/seats/seats",
+    "pages/watch/watch"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#0f141a",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "投资工作平台",
+    "backgroundColor": "#0f141a",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#93a0b4",
+    "selectedColor": "#7aa7ff",
+    "backgroundColor": "#161d26",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "总览" },
+      { "pagePath": "pages/positions/positions", "text": "持仓" },
+      { "pagePath": "pages/seats/seats", "text": "策略" },
+      { "pagePath": "pages/watch/watch", "text": "观察" }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

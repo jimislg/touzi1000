@@ -1,0 +1,43 @@
+<view class="wrap">
+  <view class="topbar">
+    <view class="dot {{model.source==='live'?'on':'off'}}"></view>
+    <text>{{model.statusText}}</text>
+    <text class="fx">{{model.fxText}}</text>
+  </view>
+
+  <view wx:if="{{model.qualityText}}" class="card notecard">{{model.qualityText}}</view>
+  <view wx:if="{{model.errorMsg}}" class="card errcard">{{model.errorMsg}}</view>
+  <view wx:if="{{model.loading}}" class="card"><text class="muted">加载中…</text></view>
+
+  <block wx:else>
+    <view class="card">
+      <view class="rowline">
+        <text>市值合计 <text class="b">{{model.mvTotal}}万</text></text>
+        <text>成本合计 {{model.costTotal}}万</text>
+      </view>
+      <view class="rowline">
+        <text class="{{model.plCls}}">浮盈 {{model.pl}}万（{{model.plPct}}）</text>
+        <text>税后年股息 {{model.div}}万/年</text>
+      </view>
+    </view>
+
+    <view class="card" wx:for="{{model.rows}}" wx:key="code">
+      <view class="line1">
+        <text class="b">{{item.name}}</text>
+        <text class="pill {{item.grade}}">{{item.grade}}</text>
+        <text class="{{item.pctCls}}" style="margin-left:auto">{{item.pctTxt}}</text>
+      </view>
+      <view class="line2">
+        <text class="px">{{item.px}}</text>
+        <text class="muted"> {{item.cur}}{{item.snapFlag}}</text>
+      </view>
+      <view class="grid4">
+        <view class="cell"><view class="k">市值</view><view>{{item.mv}}万</view></view>
+        <view class="cell"><view class="k">成本</view><view>{{item.cost}}万</view></view>
+        <view class="cell"><view class="k">浮盈</view><view class="{{item.plCls}}">{{item.pl}}万</view></view>
+        <view class="cell"><view class="k">权重</view><view>{{item.weight}}%</view></view>
+      </view>
+      <view class="s">浮盈 {{item.plPct}} · 税后股息 {{item.div}}万/年（市值口径 {{item.dpsYld}}%）</view>
+    </view>
+  </block>
+</view>

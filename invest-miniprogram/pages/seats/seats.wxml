@@ -1,0 +1,55 @@
+<view class="wrap">
+  <view class="topbar">
+    <view class="dot {{model.source==='live'?'on':'off'}}"></view>
+    <text>{{model.statusText}}</text>
+    <text class="fx">{{model.fxText}}</text>
+  </view>
+
+  <view wx:if="{{model.qualityText}}" class="card notecard">{{model.qualityText}}</view>
+  <view wx:if="{{model.errorMsg}}" class="card errcard">{{model.errorMsg}}</view>
+  <view wx:if="{{model.loading}}" class="card"><text class="muted">加载中…</text></view>
+  <view wx:elif="{{model.noSeats}}" class="card"><text class="muted">未配置席位结构。</text></view>
+
+  <block wx:else>
+    <view class="card">
+      <view class="rowline">
+        <text>五席预算 <text class="b">{{model.bAll}}万</text>（{{model.pctSum}}%）</text>
+        <text>已配 {{model.mvAll}}万（{{model.prog}}%）</text>
+      </view>
+      <view class="rowline">
+        <text>满配年股息(税后·普通) {{model.fullDiv}}万/年</text>
+        <text class="muted">宁德特别股息 {{model.spec}}万/年 单列</text>
+      </view>
+    </view>
+
+    <view class="card" wx:for="{{model.seats}}" wx:key="key">
+      <view class="line1">
+        <text class="b">{{item.name}}</text>
+        <text class="muted" style="margin-left:auto">{{item.pct}}% ≈ {{item.b}}万</text>
+      </view>
+      <view class="rowline">
+        <text>已配 {{item.mv}}万 · 进度 {{item.prog}}%</text>
+        <text>剩余 {{item.room}}万</text>
+      </view>
+      <view class="hr"></view>
+      <view class="member" wx:for="{{item.members}}" wx:for-item="m" wx:key="code"
+            data-code="{{m.code}}" bindtap="toggle">
+        <view class="line1">
+          <text class="mb">{{m.name}}</text>
+          <text class="muted" style="margin-left:auto">{{m.mvW}}</text>
+        </view>
+        <view class="pills">
+          <text wx:for="{{m.pills}}" wx:for-item="p" wx:key="label"
+                class="pill {{p.hit?'trig':'dim'}}">{{p.mark}}{{p.label}} {{p.price}}{{p.cur}}{{p.amt?' · '+p.amt:''}}</text>
+        </view>
+        <view wx:if="{{m.expanded}}" class="planbox">{{m.plan}}</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="k">过渡仓（不占席位预算）</view>
+      <view class="s">{{model.transText}}；去向待定，不因目标5席立即卖出</view>
+    </view>
+    <view class="s" style="padding:0 8rpx">✓ 绿色=现价已到档；灰色=未到档。档位金额=当前总资产×累计比例，随行情实时联动。点击成员名可展开完整建仓策略文案。</view>
+  </block>
+</view>

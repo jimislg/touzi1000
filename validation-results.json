@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "data": "synthetic fixtures only",
+  "cloudOperations": 0,
+  "deployed": false,
+  "uploadedMiniprogram": false,
+  "passed": true,
+  "checks": 352,
+  "results": [
+    {
+      "test": "invest-miniprogram/scripts/verify.js",
+      "passed": true,
+      "checks": 51,
+      "exitCode": 0
+    },
+    {
+      "test": "invest-miniprogram/scripts/verify-network.js",
+      "passed": true,
+      "checks": 21,
+      "exitCode": 0
+    },
+    {
+      "test": "investment-platform/lg_sync_test.js",
+      "passed": true,
+      "checks": 189,
+      "exitCode": 0
+    },
+    {
+      "test": "investment-platform/verify-integrity.js",
+      "passed": true,
+      "checks": 33,
+      "exitCode": 0
+    },
+    {
+      "test": "investment-platform/test-config-service.js",
+      "passed": true,
+      "checks": 23,
+      "exitCode": 0
+    },
+    {
+      "test": "investment-platform/test-cloud-adapter.js",
+      "passed": true,
+      "checks": 5,
+      "exitCode": 0
+    },
+    {
+      "test": "investment-platform/test-refresh.js",
+      "passed": true,
+      "checks": 16,
+      "exitCode": 0
+    },
+    {
+      "test": "investment-platform/test-server-api.js",
+      "passed": true,
+      "checks": 10,
+      "exitCode": 0
+    },
+    {
+      "test": "investment-platform/test-cloud-roundtrip.js",
+      "passed": true,
+      "checks": 3,
+      "exitCode": 0
+    },
+    {
+      "test": "live-cloud-write-guard",
+      "passed": true,
+      "checks": 1,
+      "exitCode": 1
+    }
+  ]
+}

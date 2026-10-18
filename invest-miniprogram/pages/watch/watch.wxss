@@ -1,0 +1,10 @@
+.filters { display: flex; flex-wrap: wrap; gap: 12rpx; margin-bottom: 20rpx; }
+.fbtn {
+  font-size: 24rpx; color: #93a0b4;
+  background: #161d26; border: 1rpx solid #27313e;
+  border-radius: 999rpx; padding: 8rpx 26rpx;
+}
+.fbtn.on { color: #7aa7ff; border-color: #7aa7ff; }
+.filterhint { color: #93a0b4; font-size: 23rpx; line-height: 1.6; margin: -4rpx 0 20rpx; }
+.empty { text-align: center; padding: 36rpx 20rpx; line-height: 1.8; }
+.pills { margin-top: 10rpx; }

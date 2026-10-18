@@ -1,0 +1,22 @@
+{
+  "miniprogramRoot": "./",
+  "compileType": "miniprogram",
+  "appid": "touristappid",
+  "projectname": "investment-source-demo",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true
+  },
+  "packOptions": {
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "scripts"
+      }
+    ]
+  },
+  "libVersion": "latest"
+}
