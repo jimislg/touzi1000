@@ -2,6 +2,7 @@
  * 实时链路 = 官方云SDK→共享网关→平台云数据库（config）+ 腾讯行情源直拉（行情）。
  * 平台网站域名被 WAF 拦 MicroMessenger UA（403），小程序全程不经过它。小程序为纯只读客户端。 */
 const CONF = require('./config')
+const CORE = require('./investment-core')
 
 let SNAP = null
 try { SNAP = require('./snapshot') } catch (e) { SNAP = null }
@@ -44,27 +45,10 @@ function hhmm (iso) {
 function dateOf (iso) { return iso ? iso.slice(0, 10) + ' ' + hhmm(iso) : '' }
 
 /* ── 行情与持仓（网页版同源口径） ── */
-function q (u) {
-  const x = state.Q[u.qt]
-  return (x && x.price) ? x : (u.px ? { price: u.px, snapshot: true } : null)
-}
-function hkd () {
-  const x = state.Q.whHKDCNY
-  return (x && x.price) ? x.price : ((state.CFG && state.CFG.hkdcnyFallback) || 0.8548)
-}
-function hLive (h) {
-  const qq = q(h); if (!qq) return null
-  const px = qq.price
-  const mvCNY = h.market === 'HK' ? h.shares * px * hkd() : h.shares * px
-  const costCNY = h.market === 'HK' ? h.shares * h.cost * hkd() : h.shares * h.cost
-  return {
-    px, mvCNY, costCNY,
-    pl: mvCNY - costCNY,
-    plPct: (mvCNY / costCNY - 1) * 100,
-    snap: !!qq.snapshot,
-    dpsCNY: h.market === 'HK' ? h.dps * hkd() : h.dps
-  }
-}
+function q (u) { return CORE.quoteOf(u, state.Q) }
+function hkd () { return CORE.fxOf(state.CFG || {}, state.Q) }
+function hLive (h) { return CORE.holdingValue(h, q(h), hkd()) }
+
 function divTaxOf (h) {
   const x = hLive(h); if (!x) return 0
   return h.shares * x.dpsCNY * (h.market === 'HK' ? 0.8 : 0.9)
@@ -90,8 +74,7 @@ function limitOf (h) {
 /* ── 分档建仓信号（网页版 renderSignals 同源） ── */
 function ladderTxt (u, px) {
   const ts = u.tiers || []; if (!ts.length) return ''
-  let deep = null, deepI = -1, next = null
-  ts.forEach((t, i) => { if (px <= t.price) { deep = t; deepI = i } else if (deep && !next) next = t })
+  const { deep, deepIndex: deepI, next } = CORE.ladderState(ts, px)
   if (!deep) {
     return next
       ? '未到档；最近档 ' + next.label + '（' + fmt(next.price, 1) + '）还差 ' + ((px / next.price - 1) * 100).toFixed(1) + '%'
@@ -112,7 +95,7 @@ function buildSignals () {
     if (w > lim) {
       rows.push({ pri: 0, badge: '仓位超限', bcls: 'b-over', name: h.name, val: '权重 ' + w.toFixed(1) + '%', gate: '上限 ' + lim + '%', dev: '超 ' + (w - lim).toFixed(1) + 'pct', note: '≈超 ' + fmt((w - lim) / 100 * totalCapital() / 1e4, 0) + ' 万。减持节奏按第四步决策，不因价格恐慌抛售', dk: 'over:' + h.code })
     } else if (w > lim * 0.8) {
-      rows.push({ pri: 1.5, badge: '仓位接近', bcls: 'b-near', name: h.name, val: '权重 ' + w.toFixed(1) + '%', gate: '上限 ' + lim + '%', dev: '余 ' + fmt((lim - w) / 100 * totalCapital() / 1e4, 0) + ' 万空间', note: '继续加仓空间有限，新资金优先给未达限的标的', dk: 'posnear:' + h.code })
+      rows.push({ pri: 1.5, badge: '仓位接近', bcls: 'b-near', name: h.name, val: '权重 ' + w.toFixed(1) + '%', gate: '上限 ' + lim + '%', dev: '余 ' + fmt(CORE.positionRoom(w, lim, totalCapital()) / 1e4, 0) + ' 万空间', note: '继续加仓空间有限，新资金优先给未达限的标的', dk: 'posnear:' + h.code })
     }
   })
   C.universe.forEach(u => {
@@ -133,18 +116,7 @@ function buildSignals () {
 
 /* ── 满配年股息（网页版 divCNYof 同源：席位预算等分、A股90%/港股通80%税后） ── */
 function divCNYof (code, amountCNY, withSpecial, gross) {
-  const C = state.CFG
-  const h = C.holdings.find(x => x.code === code), u = C.universe.find(x => x.code === code)
-  const dps = h && h.dps != null ? h.dps : (u && u.dps != null ? u.dps : null)
-  const dsp = (withSpecial && u && u.dpsSpecial != null) ? u.dpsSpecial : 0
-  const x = h ? hLive(h) : null
-  const px = (x && x.px) ? x.px : (u && u.px != null ? u.px : null)
-  const mkt = h && h.market ? h.market : (u && u.code.endsWith('.HK') ? 'HK' : 'A')
-  if (!((dps + dsp) > 0) || !(px > 0)) return null
-  const pxCNY = mkt === 'HK' ? px * hkd() : px
-  if (!(pxCNY > 0)) return null
-  const tax = gross ? 1 : (mkt === 'HK' ? 0.8 : 0.9)
-  return amountCNY / pxCNY * (dps + dsp) * tax * (mkt === 'HK' ? hkd() : 1)
+  return CORE.dividendForBudget(state.CFG, state.Q, code, amountCNY, withSpecial, gross)
 }
 function fullDivOf () {
   const C = state.CFG, S = C.seats, TC = C.targetCapital || 10000000
@@ -181,7 +153,7 @@ function reload () {
   let nextCFG
   pendingLoad = Promise.resolve().then(() => {
     if (!CLOUD) throw { type: 'sdk' }
-    return CLOUD.database.from('app_config').select('data').limit(1)
+    return CLOUD.database.from('app_config').select('data').eq('key', 'config').limit(1)
   }).then(r => {
     if (!r) throw { type: 'data', body: '云数据库返回为空' }
     if (r.error) throw ERRORS.databaseError(r)
@@ -217,7 +189,7 @@ function maybeReload () {
 function statusModel () {
   const fx = state.Q.whHKDCNY && state.Q.whHKDCNY.price ? 'HKD/CNY ' + state.Q.whHKDCNY.price.toFixed(4) : ''
   let text = '加载中…'
-  if (state.source === 'live' && state.lastFetch) text = '实时 · ' + hhmm(state.lastFetch)
+  if (state.source === 'live' && state.lastFetch) text = '已连接 · ' + hhmm(state.lastFetch)
   else if (state.source === 'stale') text = '上次成功数据 · ' + dateOf(state.lastFetch) + '（刷新失败）'
   else if (state.source === 'snapshot') text = '离线快照 · ' + dateOf(state.snapshotAt)
   let errText = null
@@ -234,7 +206,9 @@ function statusModel () {
     else errText = '实时数据暂不可达（类型:' + e.type + (e.status ? ' /HTTP' + e.status : '') + ' 详情:' + detail + '）。'
     errText += fallback
   }
-  return { source: state.source, statusText: text, fxText: fx, errorMsg: errText }
+  const quality = state.CFG ? CORE.dataQuality(state.CFG, state.Q) : null
+  const qualityText = quality ? '行情覆盖 ' + quality.covered + '/' + quality.total + ' · 最早报价 ' + CORE.displayQuoteTime(quality.oldestTime) + '（北京时间）' + (quality.priorDate ? ' · 含此前交易日报价' : '') + (quality.undated ? ' · ' + quality.undated + '只未提供完整时间' : '') + (quality.fxFallback ? ' · 汇率使用配置回退值' : '') + (quality.staleDps ? ' · ' + quality.staleDps + '只股息待复核' : '') : ''
+  return { source: state.source, statusText: text, fxText: fx, errorMsg: errText, qualityText }
 }
 
 /* ══ 页面模型 ══ */
@@ -250,7 +224,7 @@ function indexModel () {
   const curDiv = C.holdings.reduce((s, h) => s + divTaxOf(h), 0)
   const all = buildSignals()
   const act = all.filter(r => !r.off)
-  const names = p => act.filter(r => r.pri === p).map(r => r.name).join('、') || '—'
+  const names = (...pris) => act.filter(r => pris.includes(r.pri)).map(r => r.name).join('、') || '—'
   return Object.assign({
     loading: false,
     tc: fmt(TC / 1e4, 1),
@@ -285,7 +259,7 @@ function positionsModel () {
       snapFlag: (x && x.snap) ? ' 快照' : '',
       mv: x ? fmt(x.mvCNY / 1e4, 1) : '—',
       cost: x ? fmt(x.costCNY / 1e4, 1) : '—',
-      pl: x ? fmt(x.pl / 1e4, 2) : '—', plPct: x ? x.plPct.toFixed(2) + '%' : '—', plCls: x ? clsN(x.pl) : 'muted',
+      pl: x ? fmt(x.pl / 1e4, 2) : '—', plPct: x && x.plPct != null ? x.plPct.toFixed(2) + '%' : '—', plCls: x ? clsN(x.pl) : 'muted',
       weight: x ? (x.mvCNY / TC * 100).toFixed(1) : '—',
       div: fmt(divTaxOf(h) / 1e4, 2),
       dpsYld: x && x.mvCNY > 0 ? (divTaxOf(h) / x.mvCNY * 100).toFixed(2) : '—'
@@ -410,6 +384,7 @@ function watchModel (expanded, filter) {
     const batch = (b.batch1 || []).includes(u.code) ? '研1' : (b.batch2 || []).includes(u.code) ? '研2' : (b.watchExit || []).includes(u.code) ? '退出观察' : ''
     return {
       code: u.code, name: u.name, grade: u.grade || '—', batch, held, trig,
+      summary: CORE.researchSummary(u),
       near: status === '接近', waiting: status === '等待',
       distancePct: u.buyPrice > 0 && px != null ? (px / u.buyPrice - 1) * 100 : null,
       researchPending: !!u.researchStatus && u.researchStatus !== 'done',

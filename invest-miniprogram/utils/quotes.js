@@ -4,26 +4,12 @@
  * 数字字段全为 ASCII 不受影响，中文名字段弃用（名称以 config 为准）。 */
 const GTIMG = 'https://qt.gtimg.cn/q='
 
-/* 与 server.js parseQuotes 完全同源 */
+/* 与服务端共用解析器；中文名称以配置为准。 */
+const CORE = require('./investment-core')
 function parseQuotes (text) {
-  const out = {}
-  const re = /v_([A-Za-z0-9_]+)="([^"]*)"/g
-  let m
-  while ((m = re.exec(text))) {
-    const f = m[2].split('~')
-    let price = parseFloat(f[3])
-    if (!isFinite(price) || price <= 0) {
-      for (let i = 3; i < 12; i++) { const v = parseFloat(f[i]); if (isFinite(v) && v > 0 && v < 10) { price = v; break } }
-    }
-    out[m[1]] = {
-      name: '',
-      price: (isFinite(price) && price > 0) ? price : null,
-      prevClose: parseFloat(f[4]) || null,
-      pct: (f[32] !== undefined && f[32] !== '' && isFinite(parseFloat(f[32]))) ? parseFloat(f[32]) : null,
-      time: (f[30] || '').slice(0, 14)
-    }
-  }
-  return out
+  const quotes = CORE.parseQuotes(text)
+  Object.keys(quotes).forEach(s => { quotes[s].name = '' })
+  return quotes
 }
 
 function latin1 (buf) {
@@ -43,7 +29,8 @@ function fetchQuotes (symbols) {
       success (r) {
         if (r.statusCode !== 200) return reject({ type: 'qhttp', status: r.statusCode })
         const q = parseQuotes(latin1(r.data))
-        if (!Object.keys(q).length) return reject({ type: 'quotes', body: latin1(r.data).slice(0, 60) })
+        const missing = CORE.missingSymbols(q, symbols)
+        if (missing.length) return reject({ type: 'quotes', body: '行情不完整或现价无效：' + missing.join(', ') })
         resolve(q)
       },
       fail (e) { reject({ type: 'network', msg: (e && e.errMsg) || '' }) }

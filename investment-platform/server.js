@@ -15,25 +15,18 @@ const HOST = process.env.HOST || (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
 
 /* —— 云数据库配置存取（云端=唯一数据源，本地config.json为离线缓存） —— */
 const store = require('./cloud-store');
-const withTimeout = (p,ms=6000)=>Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error('云端超时')),ms))]);
-let cloudDirty = false; // 本地有未上云的修改（云端暂不可达期间产生）
-const CFG_PATH = () => path.join(ROOT,'config.json');
-function clog(msg){ try{fs.appendFileSync(path.join(ROOT,'server.log'),new Date().toISOString()+' [cloud] '+msg+'\n');}catch(_){} }
-function pushCloud(cfg){ // 后台推云，成功则解除dirty
-  withTimeout(store.write(cfg),8000).then(r=>{
-    if(r.ok){ if(cloudDirty){cloudDirty=false; clog('本地积压修改已补同步到云端');} }
-    else { cloudDirty=true; clog('推云失败: '+r.err); }
-  }).catch(e=>{ cloudDirty=true; clog('推云异常: '+e.message); });
-}
+const CORE = require('./public/investment-core');
+const { createConfigService } = require('./config-service');
+const configService = createConfigService({ store, file: path.join(ROOT,'config.json') });
 
 function fetchRemote(url){ return new Promise((resolve,reject)=>{
-  http.get(url, res=>{ const cs=[]; res.on('data',c=>cs.push(c)); res.on('end',()=>resolve(Buffer.concat(cs))); })
+  http.get(url, res=>{ if(res.statusCode!==200){res.resume();reject(new Error('上游HTTP '+res.statusCode));return;} const cs=[]; res.on('data',c=>cs.push(c)); res.on('end',()=>resolve(Buffer.concat(cs))); })
       .on('error', reject).setTimeout(8000, function(){ this.destroy(new Error('timeout')); });
 });}
 
 function fetchHTTPS(url){ return new Promise((resolve,reject)=>{
   https.get(url, {headers:{'User-Agent':'Mozilla/5.0','Referer':'https://data.eastmoney.com/'}},
-    res=>{ const cs=[]; res.on('data',c=>cs.push(c)); res.on('end',()=>resolve(Buffer.concat(cs))); })
+    res=>{ if(res.statusCode!==200){res.resume();reject(new Error('上游HTTP '+res.statusCode));return;} const cs=[]; res.on('data',c=>cs.push(c)); res.on('end',()=>resolve(Buffer.concat(cs))); })
     .on('error', reject).setTimeout(10000, function(){ this.destroy(new Error('timeout')); });
 });}
 
@@ -54,67 +47,62 @@ async function fetchDividends(){
     const p=parseQuotes(new TextDecoder('gbk').decode(b)).whHKDCNY;
     if(p&&p.price)fx=p.price;
   }catch(_){}
-  const cut=Date.now()-365*86400000, out={};
+  const now=Date.now(),cut=now-365*86400000, out={};
   for(const h of cfg.holdings){
     const sc=h.market==='HK'?h.code.split('.')[0].padStart(5,'0'):h.code.split('.')[0]; // 港股代码补齐5位(0700→00700)
     const url = h.market==='HK'
       ? `https://datacenter.eastmoney.com/securities/api/data/v1/get?reportName=RPT_HKF10_INFO_DIVIDEND&columns=ALL&filter=(SECURITY_CODE%3D%22${sc}%22)&pageNumber=1&pageSize=12&sortTypes=-1&sortColumns=NOTICE_DATE&source=F10&client=PC`
       : `https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_SHAREBONUS_DET&columns=ALL&filter=(SECURITY_CODE%3D%22${sc}%22)&pageNumber=1&pageSize=12&sortColumns=EX_DIVIDEND_DATE&sortTypes=-1&source=WEB&client=WEB`;
-    const out1={dps:0,source:'近12个月无已实施分红记录'};
+    const out1={dps:0,source:'近12个月无已实施分红记录',asOf:new Date().toISOString().slice(0,10)};
     try{
       const j=JSON.parse((await fetchHTTPS(url)).toString('utf8'));
-      const rows=(j.result&&j.result.data)||[]; const parts=[];
+      if(j.success===false || !j.result || !Array.isArray(j.result.data))throw new Error('分红数据结构异常');
+      const rows=j.result.data; const parts=[];
       for(const r of rows){
         const ex=r.EX_DIVIDEND_DATE||'';
-        if(!ex||new Date(ex.replace(' ','T')+'+08:00').getTime()<cut)continue;
         if(r.ASSIGN_PROGRESS&&r.ASSIGN_PROGRESS!=='实施分配')continue;
+        if(!ex)continue;
+        const exTime=new Date(ex.replace(' ','T')+(/(?:Z|[+-]\d{2}:\d{2})$/.test(ex)?'':'+08:00')).getTime();
+        if(!Number.isFinite(exTime))throw new Error('分红除息日格式异常');
+        if(exTime<cut||exTime>now)continue;
         if(h.market==='HK'){
-          const p=parseHKAmount(r.PLAN_EXPLAIN); if(!p)continue;
+          const p=parseHKAmount(r.PLAN_EXPLAIN); if(!p)throw new Error('港股分红金额无法解析');
           const hk=p.cur==='HKD'?p.amt:p.amt/fx;
           out1.dps+=hk; parts.push(`${r.ASSIGN_PERIOD||''}${hk.toFixed(4)}港元·除息${ex.slice(0,10)}`);
         }else{
-          const a=(r.PRETAX_BONUS_RMB||0)/10; if(!a)continue;
+          if(r.PRETAX_BONUS_RMB==null||String(r.PRETAX_BONUS_RMB).trim()===''||!Number.isFinite(Number(r.PRETAX_BONUS_RMB))||Number(r.PRETAX_BONUS_RMB)<0)throw new Error('A股分红金额缺失或异常');
+          const a=Number(r.PRETAX_BONUS_RMB)/10; if(!a)continue;
           out1.dps+=a; parts.push(`${r.REPORT_DATE?r.REPORT_DATE.slice(0,4)+(new Date(r.REPORT_DATE).getMonth()<6?'中期':'年度')+'':''}${a.toFixed(4)}元·除息${ex.slice(0,10)}`);
         }
       }
       if(parts.length)out1.source='近12个月已实施除息合计：'+parts.join(' + ');
       out1.dps=Math.round(out1.dps*10000)/10000;
       out1.auto=true;
-    }catch(e){ out1.err=String(e); }
+    }catch(e){ out1.dps=null; out1.source='接口失败，保留上次可信值'; out1.err=String(e); }
     out[h.code]=out1;
   }
   return {ok:true, fetchedAt:new Date().toISOString(), fx, dividends:out};
 }
 
-function parseQuotes(text){
-  const out={}; const re=/v_([A-Za-z0-9_]+)="([^"]*)"/g; let m;
-  while((m=re.exec(text))){
-    const f=m[2].split('~');
-    let price=parseFloat(f[3]);
-    if(!isFinite(price)||price<=0){ // 外汇等特殊格式：向后找第一个合理数
-      for(let i=3;i<12;i++){ const v=parseFloat(f[i]); if(isFinite(v)&&v>0&&v<10){price=v;break;} }
-    }
-    out[m[1]]={ name:f[1]||'',
-      price:(isFinite(price)&&price>0)?price:null,
-      prevClose:parseFloat(f[4])||null,
-      pct:(f[32]!==undefined&&f[32]!==''&&isFinite(parseFloat(f[32])))?parseFloat(f[32]):null,
-      time:(f[30]||'').slice(0,14) };
-  }
-  return out;
-}
+const parseQuotes = CORE.parseQuotes;
 
 /* —— 访问口令闸门：config.json 存在 accessKey 时启用。
  * 线上发布后 URL 可能被他人碰见，而站内是全部持仓成本，必须口令保护。
  * 本地把 accessKey 删除或置空即可关闭闸门。 —— */
 function gateCheck(req,res,u){
   let key=null;
-  try{key=JSON.parse(fs.readFileSync(path.join(ROOT,'config.json'),'utf8')).accessKey||null;}catch(_){}
-  if(!key)return true;
+  try{key=JSON.parse(fs.readFileSync(path.join(ROOT,'config.json'),'utf8')).accessKey||null;}catch(_){
+    res.writeHead(503,{'Content-Type':'application/json'});res.end(JSON.stringify({ok:false,err:'访问配置不可用'}));return false;
+  }
+  if(!key){
+    if(HOST==='127.0.0.1'||process.env.LG_MOCK_CLOUD==='1')return true;
+    res.writeHead(503,{'Content-Type':'application/json'});res.end(JSON.stringify({ok:false,err:'请先配置访问口令'}));return false;
+  }
   const cookies=(req.headers.cookie||'').split(/;\s*/).reduce((o,c)=>{const i=c.indexOf('=');
-    if(i>0)o[c.slice(0,i)]=decodeURIComponent(c.slice(i+1));return o;},{});
+    if(i>0){try{o[c.slice(0,i)]=decodeURIComponent(c.slice(i+1));}catch(_){}}return o;},{});
   if(cookies.ak===key)return true;
   if(u.searchParams.get('key')===key){
-    res.writeHead(302,{'Set-Cookie':`ak=${encodeURIComponent(key)}; Path=/; HttpOnly; Max-Age=31536000`,'Location':u.pathname||'/'});
+    res.writeHead(302,{'Set-Cookie':`ak=${encodeURIComponent(key)}; Path=/; HttpOnly; SameSite=Strict; Max-Age=31536000${req.socket&&req.socket.encrypted||req.headers['x-forwarded-proto']==='https'?'; Secure':''}`,'Location':u.pathname||'/'});
     res.end(); return false;
   }
   if(u.pathname.startsWith('/api/')){
@@ -135,15 +123,20 @@ function gateCheck(req,res,u){
 }
 
 const server = http.createServer(async (req,res)=>{
-  const u=new URL(req.url,'http://localhost');
+  if(res.setHeader){res.setHeader('Cache-Control','no-store');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Content-Type-Options','nosniff');}
+  let u;try{u=new URL(req.url,'http://localhost');}catch(_){res.writeHead(400);res.end('{}');return;}
   if(!gateCheck(req,res,u))return;
   try{
     if(u.pathname==='/api/quotes'){
       const symbols=u.searchParams.get('symbols')||'';
+      if(!/^(?:(?:sh|sz)\d{6}|hk\d{5}|whHKDCNY)(?:,(?:(?:sh|sz)\d{6}|hk\d{5}|whHKDCNY))*$/.test(symbols)){
+        res.writeHead(400,{'Content-Type':'application/json'});res.end(JSON.stringify({ok:false,error:'行情代码格式错误'}));return;
+      }
       const buf=await fetchRemote('http://qt.gtimg.cn/q='+symbols);
       const q=parseQuotes(new TextDecoder('gbk').decode(buf));
       res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
-      res.end(JSON.stringify({ok:Object.keys(q).length>0, fetchedAt:new Date().toISOString(), quotes:q}));
+      const missing=CORE.missingSymbols(q,symbols);
+      res.end(JSON.stringify({ok:missing.length===0, fetchedAt:new Date().toISOString(), quotes:q, missing}));
       return;
     }
     if(u.pathname==='/api/dividends'){
@@ -166,69 +159,37 @@ const server = http.createServer(async (req,res)=>{
       }
       return;
     }
-    /* 配置读取：云端为唯一数据源，GET 只读不写本地（郎刚10-10：消除只读请求的写入副作用——
-     * 旧版 GET 会用云端回写本地缓存，覆盖本地未推云的合法修改，10-08 tierPct 丢失即此机制）。
-     * 本地缓存的刷新只发生在 POST 保存时；云端不可达时降级读本地缓存。 */
     if(u.pathname==='/api/config'&&req.method==='GET'){
-      const serveLocal=()=>{ try{ res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}); res.end(fs.readFileSync(CFG_PATH())); }
-        catch(e){ res.writeHead(500,{'Content-Type':'application/json'}); res.end(JSON.stringify({ok:false,error:e.message})); } };
-      if(cloudDirty){ serveLocal(); pushCloud(JSON.parse(fs.readFileSync(CFG_PATH(),'utf8'))); return; }
-      withTimeout(store.read(),6000).then(r=>{
-        if(r.ok && r.cfg && Array.isArray(r.cfg.holdings)){
-          res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
-          res.end(JSON.stringify(r.cfg));
-        } else {
-          if(!r.ok)clog('读云失败，降级本地: '+r.err);
-          serveLocal();
-        }
-      }).catch(e=>{ clog('读云异常，降级本地: '+e.message); serveLocal(); });
-      return;
+      const cfg=await configService.read();
+      res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
+      res.end(JSON.stringify(cfg));return;
     }
     if(u.pathname==='/api/config'&&req.method==='POST'){
-      let body=''; req.on('data',c=>body+=c);
-      req.on('end',async()=>{
-        try{
-          const patch=JSON.parse(body);
-          // 合并式保存：基底=云端最新版（唯一数据源，防本地缓存滞后导致云端改动被回滚）；
-          // 云端不可达时降级磁盘基底并标记dirty（后续GET补同步）。郎刚10-10：随GET回写副作用一并修正。
-          let disk=null;
-          try{
-            const r=await withTimeout(store.read(),6000);
-            if(r.ok&&r.cfg&&Array.isArray(r.cfg.holdings))disk=r.cfg;
-            else clog('POST基底读云失败: '+r.err);
-          }catch(e){ clog('POST基底读云异常: '+e.message); }
-          if(!disk){ disk=JSON.parse(fs.readFileSync(CFG_PATH())); cloudDirty=true; clog('POST基底降级本地磁盘'); }
-          if(patch.targetCapital>0)disk.targetCapital=patch.targetCapital;
-          if(typeof patch.investable==='number')disk.investable=patch.investable;   // 郎刚10-08：可投资资金为用户输入主字段
-          if(typeof patch.cash==='number')disk.cash=patch.cash;
-          if(typeof patch.cashYield==='number')disk.cashYield=patch.cashYield;
-          if(typeof patch.annualContribution==='number')disk.annualContribution=patch.annualContribution; // 郎刚10-10：每年外部追加投入（工资结余等）
-          if(Array.isArray(patch.dismissedSignals))disk.dismissedSignals=patch.dismissedSignals; // 郎刚10-08：手工划掉的信号key
-          if(patch.dismissedReasons&&typeof patch.dismissedReasons==='object'&&!Array.isArray(patch.dismissedReasons))disk.dismissedReasons=patch.dismissedReasons; // 郎刚10-10：划掉/超限的例外决策记录{key:原因}
-          if(patch.seats&&typeof patch.seats==='object'&&!Array.isArray(patch.seats))disk.seats=patch.seats; // 郎刚10-10：五席位最终仓结构（已确认正式版）
-          const hp={}; (patch.holdings||[]).forEach(h=>{if(h.code)hp[h.code]=h;});
-          (disk.holdings||[]).forEach(h=>{const p=hp[h.code];if(!p)return;
-            ['shares','cost','dps','buyDate','dpsManual'].forEach(k=>{if(p[k]!=null)h[k]=p[k];});});
-          const up={}; (patch.universe||[]).forEach(x=>{if(x.code)up[x.code]=x;});
-          (disk.universe||[]).forEach(x=>{const p=up[x.code];if(!p)return;
-            ['buyPrice','plan'].forEach(k=>{if(p[k]!==undefined)x[k]=p[k];});});
-          try{fs.copyFileSync(CFG_PATH(),CFG_PATH()+'.backup');}catch(_){}   // 保险④：写前备份，坏写可回滚
-          fs.writeFileSync(CFG_PATH(), JSON.stringify(disk,null,2));         // 本地缓存先行落盘
-          // 双写云端（唯一数据源）；失败则标记dirty，后续GET自动补同步
-          const cr=await withTimeout(store.write(disk),8000);
-          if(cr.ok){ if(cloudDirty){cloudDirty=false; clog('积压修改已随本次保存补同步');} }
-          else { cloudDirty=true; clog('保存推云失败: '+cr.err); }
-          try{fs.appendFileSync(path.join(ROOT,'server.log'),new Date().toISOString()+' saved: holdings='+(patch.holdings||[]).length+' universe='+(patch.universe||[]).length+' cloudSync='+cr.ok+'\n');}catch(_){}
-          res.writeHead(200,{'Content-Type':'application/json; charset=utf-8'});
-          res.end(JSON.stringify({ok:true,savedAt:new Date().toISOString(),cloudSync:cr.ok}));
-        }catch(e){ res.writeHead(500,{'Content-Type':'application/json; charset=utf-8'}); res.end(JSON.stringify({ok:false,err:String(e)})); }
+      const send=(status,data)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(data));};
+      let foreign=req.headers['sec-fetch-site']==='cross-site';
+      if(req.headers.origin){try{foreign=foreign||new URL(req.headers.origin).host!==req.headers.host;}catch(_){foreign=true;}}
+      if(foreign){send(403,{ok:false,err:'拒绝跨站保存'});return;}
+      if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||'')){send(415,{ok:false,err:'请使用application/json'});return;}
+      let body='',size=0,rejected=false;
+      req.on('data',c=>{
+        if(rejected)return;
+        size+=Buffer.byteLength(c);
+        if(size>256*1024){rejected=true;send(413,{ok:false,err:'请求体过大'});return;}
+        body+=c;
       });
-      return;
+      req.on('end',async()=>{
+        if(rejected)return;
+        try{
+          let patch;try{patch=JSON.parse(body);}catch(_){send(400,{ok:false,err:'JSON格式错误'});return;}
+          const result=await configService.save(patch,patch&&patch.expectedRevision);
+          send(200,result);
+        }catch(e){send(e.status||500,{ok:false,err:e.status?e.message:'保存未完成，已保留本地记录，请重试'});}
+      });return;
     }
     /* 旧 /api/sync 已由云数据库双写取代并移除（2026-10-07） */
     let p=u.pathname==='/'?'/index.html':u.pathname;
     const file=path.join(ROOT,'public',path.normalize(p));
-    if(file.startsWith(path.join(ROOT,'public')) && fs.existsSync(file) && fs.statSync(file).isFile()){
+    if(file.startsWith(path.join(ROOT,'public')+path.sep) && fs.existsSync(file) && fs.statSync(file).isFile()){
       const ext=path.extname(file);
       const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.json':'application/json'}[ext]||'application/octet-stream';
       res.writeHead(200,{'Content-Type':mime,'Cache-Control':'no-store'});
@@ -238,6 +199,7 @@ const server = http.createServer(async (req,res)=>{
     res.writeHead(404); res.end('Not Found');
   }catch(e){ res.writeHead(500,{'Content-Type':'application/json'}); res.end(JSON.stringify({ok:false,error:e.message})); }
 });
+const retryTimer=setInterval(()=>configService.retry().catch(()=>{}),30000);retryTimer.unref();
 server.listen(PORT,HOST,()=>{
   console.log('投资工作平台已启动: http://'+(HOST==='0.0.0.0'?'0.0.0.0':'127.0.0.1')+':'+PORT);
 }).on('error',e=>{

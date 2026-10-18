@@ -7,6 +7,7 @@ const fs = require('fs')
 const path = require('path')
 const ROOT = path.join(__dirname, '..')
 const PLAT = path.join(ROOT, '..', 'investment-platform')
+require('./sync-core')
 const BASE = 'https://langang-invest.app.workbuddy.host'
 
 ;(async () => {
@@ -21,6 +22,9 @@ const BASE = 'https://langang-invest.app.workbuddy.host'
 
   const syms = [...new Set([...cfg.holdings.map(h => h.qt), ...cfg.universe.map(u => u.qt), 'whHKDCNY'])].join(',')
   const qj = await (await fetch(BASE + '/api/quotes?symbols=' + encodeURIComponent(syms), { headers: { Cookie: 'ak=' + key } })).json()
+
+  const missing = require('../utils/investment-core').missingSymbols(qj && qj.quotes, syms)
+  if (!qj || !qj.ok || missing.length) throw new Error('行情不完整，不覆盖离线快照：' + missing.join(', '))
 
   fs.writeFileSync(path.join(ROOT, 'utils', 'config.js'),
     '/* 由 scripts/build.js 生成（源自 investment-platform/publicConfig.json），勿手改 */\n' +

@@ -5,6 +5,7 @@
     <text class="fx">{{model.fxText}}</text>
   </view>
 
+  <view wx:if="{{model.qualityText}}" class="card notecard">{{model.qualityText}}</view>
   <view wx:if="{{model.errorMsg}}" class="card errcard">{{model.errorMsg}}</view>
   <view wx:if="{{model.loading}}" class="card"><text class="muted">加载中…</text></view>
 

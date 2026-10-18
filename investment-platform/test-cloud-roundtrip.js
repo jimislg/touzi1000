@@ -1,20 +1,21 @@
-/* 云数据库连通性实证：本地Node → 数据面 → PostgreSQL 读写闭环 */
-const { createWorkBuddyCloud } = require('@tencent-ai/workbuddy-cloud-sdk');
-const pc = require('./publicConfig.json');
-const cloud = createWorkBuddyCloud({ endpoint: pc.endpoint, publishableKey: pc.publishableKey });
-(async () => {
-  // 1) 读（应为空表）
-  let r = await cloud.database.from('app_config').select('*').eq('key', 'config').maybeSingle();
-  console.log('① 初始读:', r.error ? 'ERROR ' + JSON.stringify(r.error) : (r.data ? '已有行' : '空表（符合预期）'));
-  if (r.error) process.exit(1);
-  // 2) 写（upsert 测试标记）
-  const probe = { key: 'config', data: { _probe: 'cloud-roundtrip-' + Date.now() } };
-  r = await cloud.database.from('app_config').upsert(probe).select();
-  console.log('② 写入:', r.error ? 'ERROR ' + JSON.stringify(r.error) : (Array.isArray(r.data) && r.data.length ? 'OK 返回' + r.data.length + '行' : '空返回(RLS拦截?)'));
-  if (r.error || !r.data || !r.data.length) process.exit(1);
-  // 3) 回读验证
-  r = await cloud.database.from('app_config').select('data, updated_at').eq('key', 'config').maybeSingle();
-  console.log('③ 回读:', r.data && r.data.data && r.data.data._probe ? 'OK marker=' + r.data.data._probe : 'FAIL ' + JSON.stringify(r.data));
-  console.log('④ updated_at:', r.data && r.data.updated_at);
-  process.exit(r.data && r.data.data && r.data.data._probe ? 0 : 1);
-})().catch(e => { console.error('异常:', e.message || e); process.exit(1); });
+/* 仅验证内存mock读写；禁止向真实app_config写入探针或替换正式配置。 */
+if (process.env.LG_MOCK_CLOUD !== '1') {
+  console.error('已阻止：此脚本仅允许 LG_MOCK_CLOUD=1，不能对正式云配置执行往返写入测试。')
+  process.exit(1)
+}
+const assert = require('assert/strict')
+const store = require('./cloud-store')
+;(async () => {
+  const original = await store.read()
+  assert.ok(original.ok && original.cfg && Array.isArray(original.cfg.holdings))
+  console.log('PASS mock读取配置')
+  const probe = Object.assign({}, original.cfg, { _probe: 'offline-roundtrip' })
+  const written = await store.write(probe)
+  assert.ok(written.ok)
+  const readBack = await store.read()
+  assert.deepEqual(readBack.cfg, probe)
+  console.log('PASS mock写入并回读（不落云、不落盘）')
+  await store.write(original.cfg)
+  assert.deepEqual((await store.read()).cfg, original.cfg)
+  console.log('PASS mock恢复原始配置')
+})().catch(e => { console.error(e.message); process.exitCode = 1 })

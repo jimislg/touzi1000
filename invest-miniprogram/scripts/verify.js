@@ -6,6 +6,9 @@ const ROOT = path.join(__dirname, '..')
 let fail = 0
 const T = (name, ok) => { if (!ok) fail++; console.log((ok ? 'PASS' : 'FAIL') + ' ' + name) }
 
+/* 两端共用口径必须逐字节一致 */
+T('网页版与小程序共用口径一致', fs.readFileSync(path.join(ROOT, '../investment-platform/public/investment-core.js')).equals(fs.readFileSync(path.join(ROOT, 'utils/investment-core.js'))))
+
 /* ① JSON 严格解析 */
 ;['app.json', 'project.config.json', 'sitemap.json',
   'pages/index/index.json', 'pages/positions/positions.json', 'pages/seats/seats.json', 'pages/watch/watch.json'
