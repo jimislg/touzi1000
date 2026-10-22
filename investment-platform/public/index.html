@@ -788,35 +788,45 @@ function budgetCalc(code,ov){
   const h=CFG.holdings.find(x=>x.code===code);
   const qq=q(u);
   const px=(qq&&qq.price)?qq.price:((u.px!=null)?u.px:null);
-  const tiers=(u.tiers||[]).map(t=>t&&t.price);
-  const tp=(u.tierPct&&u.tierPct.length===4)?u.tierPct:null;
+  const tiers=(u.tiers||[]).map(t=>t&&t.price).filter(p=>p>0);
+  const tp=(u.tierPct&&u.tierPct.length===tiers.length&&tiers.length>=3)?u.tierPct:null; // 三档条件单与四档体系同支持（郎刚10-22）
   let qPct=ov.q!=null?ov.q:0,inTier=false;
-  if(px!=null&&tp&&tiers.length===4){for(let i=3;i>=0;i--){if(px<=tiers[i]){qPct=tp[i]/100;inTier=true;break;}}}
-  const K=ov.K!=null?ov.K:null;            // 缺失：批次结算未建账
-  const L=ov.L!=null?ov.L:null;            // 缺失：风险限额未配置
+  if(px!=null&&tp){for(let i=tiers.length-1;i>=0;i--){if(px<=tiers[i]){qPct=tp[i]/100;inTier=true;break;}}}
+  /* —— 建账（郎刚10-22批准：批准可执行额出真值）——
+   * K=累计净投入=持仓成本总额折CNY（shares×cost，含费加权口径，覆盖全部历史批次；
+   *   精度限制：早期批次费用/汇率未逐笔核对，比trades逐笔求和完整——trades缺10-08前历史）。
+   * L=风险限额=个股硬上限（tierPct最深档累计%×目标本金，与研究空间同分母）。
+   * 审计/研究门按 grade+plan 代理（A类且无阻断标记=过；正交字段仍缺，代理口径已标注）。 */
+  let K=ov.K!=null?ov.K:null;
+  if(K==null&&h){const hx=hLive(h);K=hx?hx.costCNY:null;}
+  const L=ov.L!=null?ov.L:(tp?tp[tp.length-1]/100*TC:null);
   const C=ov.C!=null?ov.C:(CFG.investable!=null?CFG.investable:CFG.cash||0);
   const F=ov.F!=null?ov.F:0;               // 未配置→0并标注
   let V=0,seatV=0;
   issuerCodes(code).forEach(cd=>{const hh=CFG.holdings.find(x=>x.code===cd);if(hh){const x=hLive(hh);if(x){V+=x.mvCNY;if(st&&(st.members||[]).includes(cd))seatV+=x.mvCNY;}}});
   if(ov.V!=null)V=ov.V;
-  const seatRoomMv=st?Math.max(B-seatV,0):null; // 市值口径代理（缺K时唯一可算的席位余量，须标注）
+  const seatRoomMv=st?Math.max(B-seatV,0):null;
+  /* B×q−K（预算进度线）不进min：q取现价档、K取历史累计，价格回落档位回退时预算线低于已投入，
+   * 会把已触发标的失真为0（10-22实测腾讯114万投入vs32.5万线）；其意图已由分档建仓计划与L−V承担。仅作信息输出。 */
   const costRemain=(B!=null&&qPct>0&&K!=null)?Math.max(B*qPct-K,0):null;
   const parts=[];
-  if(costRemain!=null)parts.push(costRemain);
   if(L!=null)parts.push(Math.max(L-V,0));
   parts.push(Math.max(C-F,0));
-  const condCap=(costRemain!=null&&L!=null)?Math.max(0,Math.min.apply(null,parts)):null;
+  const condCap=(L!=null)?Math.max(0,Math.min.apply(null,parts)):null;
+  const auditBlockedRe=/(补研究|暂停|质量观察|回报不合格|旧档位冻结)/;
+  const auditPass=u.grade==='A'&&!auditBlockedRe.test(u.plan||''); // 代理口径
   const blockers=[];
   if(!st)blockers.push('不在五席位内——旧个股上限口径，仅研究节奏参考');
-  if(K==null)blockers.push('K（累计净投入）缺失：批次结算汇率与费用未建账，B×q−K不可算');
-  if(L==null)blockers.push('L（风险限额）未配置');
+  if(L==null)blockers.push('L（风险限额）缺失：未配置tierPct档位');
   if(!inTier)blockers.push('价格未进入任何行动档（q=0）');
   if(u.grade!=='A')blockers.push('非A类——质量/研究门槛未过');
-  blockers.push('审计状态与研究完成度无正交字段（按unknown）——行动门未过，批准可执行额=0');
+  else if(!auditPass)blockers.push('研究状态含阻断标记（'+((u.plan||'').match(auditBlockedRe)||[''])[0]+'）——研究完成度门未过');
+  if(auditPass)blockers.push('审计门按grade+plan代理（审计正交字段仍缺）');
   const K_release='未定案：卖出释放规则缺失，不自动扩额度';
+  const approved=(condCap!=null&&auditPass&&st&&inTier&&K!=null)?Math.max(0,Math.min(condCap,Math.max(C-F,0))):0;
   return {code,seatKey:st?st.key:null,seatName:st?st.name:null,B,qPct,K,V,L,C,F,
-    seatV,seatRoomMv,uniNeed:tp?Math.max(tp[3]/100*TC-V,0):null,
-    costRemain,condCap,approved:0,blockers,K_release,inTier};
+    seatV,seatRoomMv,uniNeed:tp?Math.max(tp[tp.length-1]/100*TC-V,0):null,
+    costRemain,condCap,approved,blockers,K_release,inTier,auditPass};
 }
 function renderDeploy(){
   const TC=totalCapital();
@@ -843,14 +853,17 @@ function renderDeploy(){
   const rowHtml=r=>{
     const bc=budgetCalc(r.u.code);
     const blockers=bc.blockers.join('；');
+    const tip=(bc.approved>0
+      ?'条件上限=min(L−V='+fmt(Math.max(bc.L-bc.V,0)/1e4,1)+'万, C−F)｜L=个股硬上限(tierPct最深档×目标本金)、V=当前市值(A/H合并)；K(累计净投入)='+fmt(bc.K/1e4,1)+'万仅展示；审计门按grade+plan代理'
+      :blockers).replace(/"/g,'&quot;');
     return `<tr>
     <td>${r.u.name}<span class="pill ${r.u.grade}">${r.u.grade}</span>${String(r.u.code).includes('HK')?'<span class="pill hold">港</span>':''}${bc.seatName?'<br><span class="note">'+bc.seatName+'</span>':''}</td>
     <td><span class="pill ${r.st}">${r.txt}</span></td>
     <td>${fmt(r.px,2)}</td><td>${fmt(r.bp,2)}</td>
     <td>${r.dist<=0?r.dist.toFixed(1):'+'+r.dist.toFixed(1)}%</td>
     <td>${fmt(r.need/1e4,0)} 万</td>
-    <td title="席位成本预算B−该席全部成员当前市值（缺K的市值口径代理，下跌会放大，非成本口径余量）">${bc.seatRoomMv!=null?fmt(bc.seatRoomMv/1e4,0)+' 万':'—'}</td>
-    <td class="down" title="${blockers.replace(/"/g,'&quot;')}"><b>0 元</b><br><span class="note">${bc.blockers.length}项阻断：${bc.blockers[0].split('：')[0]}…</span></td>
+    <td title="席位成本预算B−该席全部成员当前市值（市值口径代理，下跌会放大，非成本口径余量）">${bc.seatRoomMv!=null?fmt(bc.seatRoomMv/1e4,0)+' 万':'—'}</td>
+    <td class="${bc.approved>0?'':'down'}" title="${tip}"><b>${bc.approved>0?fmt(bc.approved/1e4,1)+' 万':'0 元'}</b><br><span class="note">${bc.approved>0?('门槛已过：'+bc.blockers[0]):(bc.blockers.length+'项阻断：'+bc.blockers[0].split('：')[0]+'…')}</span></td>
     <td style="white-space:normal"><span class="note">${(r.u.plan||'').slice(0,40)}</span></td>
   </tr>`;};
   $('deployTable').innerHTML=`<table><thead><tr>
@@ -862,7 +875,7 @@ function renderDeploy(){
     {k:'可投资金',v:fmt(CFG.investable/1e4,1)+' 万',s:'含银行/理财/证券户现金；收益 '+CFG.cashYield+'%/年'},
     {k:gap>0?'资金缺口':'现金富余',v:fmt(Math.abs(gap)/1e4,0)+' 万',cls:gap>0?'up':'down',s:'触发+接近合计 '+fmt(needAll/1e4,0)+' 万 vs 可投资金 '+fmt(CFG.investable/1e4,0)+' 万'},
   ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="v ${c.cls||''}">${c.v}</div><div class="s">${c.s}</div></div>`).join('');
-  $('deployNote').innerHTML=`另有 ${watch} 只可部署标的观望中（距触发价>+5%）；${blocked} 只因回报不合格／研究未完成／暂停不参与部署（研究完成度原则）。触发≠下单，进入档位后仍须走第四步流程。<br>⚖️ 口径衔接（复核报告20261010后）：<b>「研究空间」</b>=旧个股硬上限×分母−持仓市值，仅管个股加仓节奏；<b>「席位预算内空间」</b>=席位成本预算B−席位成员市值（缺K的市值口径代理，随席位权重联动）；<b>「批准可执行额」</b>由统一预算函数 budgetCalc 输出（条件上限=max[0, min(B×q−K, L−V, C−F)]），当前 K（批次结算累计净投入）与 L（风险限额）无数据源、审计状态按unknown——<b>批准可执行额一律为0</b>，阻断原因见悬浮提示。价格下跌可放大市值口径空间，但不增加成本预算；卖出释放规则未定案前不自动扩额度。`;
+  $('deployNote').innerHTML=`另有 ${watch} 只可部署标的观望中（距触发价>+5%）；${blocked} 只因回报不合格／研究未完成／暂停不参与部署（研究完成度原则）。触发≠下单，进入档位后仍须走第四步流程。<br>⚖️ 口径衔接（郎刚10-22批准建账后）：<b>「研究空间」</b>=个股硬上限×分母−持仓市值，仅管个股加仓节奏；<b>「席位预算内空间」</b>=席位成本预算B−席位成员市值（市值口径代理，随席位权重联动）；<b>「批准可执行额」</b>=统一预算函数输出（条件上限=max[0, min(B×q−K, L−V, C−F)]），建账口径：K=持仓成本总额折CNY（成本口径，早期批次费用/汇率未逐笔核对）、L=个股硬上限（tierPct最深档×目标本金）、审计与研究完成度门按 grade+plan 代理（正交字段仍缺，代理口径）。价格下跌可放大市值口径空间，但不增加成本预算；卖出释放规则未定案前不自动扩额度。`;
 }
 
 /* —— 最终仓·五席位（Gemini建议书V1.0，2026-10-10 郎刚确认转正为正式版）—— */

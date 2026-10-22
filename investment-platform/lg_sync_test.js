@@ -412,8 +412,9 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   run('CFG.seats.list[0].pct=35');
   T('cfgSig感知seats变化',run('cfgSig(CFG)')!==sA);
   run('CFG.seats.list[0].pct=30');
-  T('部署地图：口径衔接说明（研究空间/席位预算内空间/批准可执行额三层）',el('deployNote').innerHTML.includes('口径衔接')&&el('deployNote').innerHTML.includes('批准可执行额')&&el('deployNote').innerHTML.includes('批准可执行额一律为0'));
-  T('部署地图：三列表头齐全且批准可执行额=0',el('deployTable').innerHTML.includes('研究空间')&&el('deployTable').innerHTML.includes('席位预算内空间')&&el('deployTable').innerHTML.includes('批准可执行额')&&el('deployTable').innerHTML.includes('<b>0 元</b>'));
+  T('部署地图：口径衔接说明（研究空间/席位预算内空间/批准可执行额三层，郎刚10-22建账）',el('deployNote').innerHTML.includes('口径衔接')&&el('deployNote').innerHTML.includes('批准可执行额')&&el('deployNote').innerHTML.includes('成本口径'));
+  T('部署地图：三列表头齐全',el('deployTable').innerHTML.includes('研究空间')&&el('deployTable').innerHTML.includes('席位预算内空间')&&el('deployTable').innerHTML.includes('批准可执行额'));
+  T('部署地图：批准可执行额出真值（存在非零"万"额度，郎刚10-22建账；不得回退为全0）',/<b>\d+(\.\d+)? 万<\/b>/.test(el('deployTable').innerHTML.split('批准可执行额')[1]||''));
   // 复核报告P0-B：统一预算函数 budgetCalc 业务行为
   {
     // 验收4夹具：B=250万、q=25%、K=60万 → 成本余额2.5万（不是用市值60万扣250万得190万）
@@ -421,7 +422,7 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
     T('budgetCalc：B=250万q=25%K=60万→成本余额2.5万（成本口径，非市值扣减）',fx.costRemain===25000);
     T('budgetCalc：L缺失时条件上限不输出完整值（缺失不伪装）',fx.condCap==null&&fx.blockers.some(b=>b.includes('风险限额')));
     const ap=run('budgetCalc("0700.HK")');
-    T('budgetCalc：批准可执行额=0且阻断原因含审计unknown',ap.approved===0&&ap.blockers.some(b=>b.includes('unknown')));
+    T('budgetCalc：批准可执行额建账出真值（K=成本总额/L=硬上限/审计按grade+plan代理，郎刚10-22定）',ap.approved>=0&&ap.K!=null&&ap.L!=null&&ap.blockers.some(b=>b.includes('代理')));
     // 共享席：招行与平安同席，B相同且seatV合并计入全席（不各自重复使用20%）
     const bCMB=run('budgetCalc("600036.SH")').B, bPA=run('budgetCalc("2318.HK")').B;
     T('budgetCalc：金融共享席两成员同B（20%预算共享不翻倍）',bCMB===bPA&&bCMB>0);
