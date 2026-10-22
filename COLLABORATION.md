@@ -34,10 +34,10 @@
 6. **DoD 四项**（发布前置条件，全齐才动手）：全测试绿 → 冒烟通过 → 数据勾稽一致 → git 已 push。
 7. **发布**：平台 sites 发布（域名不变）+ 小程序 build/verify/upload 体验版 + 汇报勾稽结果。
 
-## 四、DoD 全套测试清单（当前9套，363项）
+## 四、DoD 全套测试清单（当前10套，395项）
 
 ```
-node lg_sync_test.js            # 主回归 176
+node lg_sync_test.js            # 主回归 177
 node test-cloud-adapter.js      # 5
 LG_MOCK_CLOUD=1 node test-cloud-roundtrip.js  # 3（mock守卫，禁止裸跑旧版）
 node test-config-service.js     # 23
@@ -46,6 +46,7 @@ node test-seat-risk-ui.js       # 19
 node test-server-api.js         # 10
 node test-stress-model.js       # 78
 node verify-integrity.js        # 33
+node verify-config-data.js      # 32（数据完整性：档位/tierPct一致、汇率回退新鲜、trades勾稽）
 ```
 新增/删除测试套件时必须同步更新本清单。
 
@@ -59,6 +60,8 @@ node verify-integrity.js        # 33
 6. **行情源**：gtimg 批量（一次请求30+只）；东财 push2 批量会触发封禁不可用。港股 gtimg 字段：PE=f39 / PB=f58 / DPS=f72；A股：PE=f39 / PB=f46 / 股息率=f64。
 7. **小程序真机 403**：WAF 拦 MicroMessenger UA，数据链路必须走共享网关 mp-api.app.workbuddy.host + 行情直连 gtimg，勿直连平台域名。
 8. **Excel/静态产物 recalc**：本机无 LibreOffice/formulas 引擎，xlsx 交付用静态快照（数值写死）+ AIGC 标识。
+9. **tierPct 与 tiers 档数必须一致**：tiers 有 N 档则 tierPct 必须 N 个（标准四档 H10/H12/H15/H17.46 的锚 = [10,25,60,100]，方法论 ladderRule）。10-22 发现平安H残留第5档「股息打平」致 tierPct 错位、17只标的 tierPct 全空导致预算函数 L(硬上限)取不到。数据层无校验时静默出错——由 `verify-config-data.js` 兜底。
+10. **bash BSD grep 对中文 pattern 假阴性**：macOS 自带 grep 遇中文字符串（含 `pattern` 含中文）会返回空（locale 问题）。搜中文一律用 Grep 工具或 `grep -a`，不要用裸 grep 判断"不存在"。
 
 ## 六、双纪律（郎刚定，最高优先级）
 
