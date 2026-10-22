@@ -1,5 +1,5 @@
 {
-  "cash": 7422979,
+  "cash": 6774131.71,
   "trades": [
     {
       "code": "0700.HK",
@@ -1306,7 +1306,7 @@
   "accessKey": "lg2026",
   "cashYield": 1,
   "divTaxNote": "A股红利税按buyDate起算：>1年0%／1个月-1年10%／<1个月20%；港股通固定20%；现有持仓统一按2026-06-30买入计",
-  "investable": 7441541.56,
+  "investable": 6792694.27,
   "targetCapital": 9999385.64,
   "hkdcnyFallback": 0.8548,
   "dismissedReasons": {
