@@ -277,8 +277,8 @@ vm.runInContext(js,sandbox,{filename:'index.html<script>'});
   T('缺口表：组合预期回报行高亮(row-irr)',el('gapBox').innerHTML.includes('row-irr'));
   T('缺口表：9.8%加大显示(17px)',el('gapBox').innerHTML.includes('font-size:17px'));
   T('缺口表：含"怎么算的？逐只明细"展开',el('gapBox').innerHTML.includes('怎么算的？逐只明细'));
-  T('缺口表：明细含算法说明（对数插值+市值加权）',el('gapBox').innerHTML.includes('对数插值')&&el('gapBox').innerHTML.includes('市值加权平均'));
-  T('缺口表：明细含逐只隐含回报与权重',el('gapBox').innerHTML.includes('隐含 <b>')&&el('gapBox').innerHTML.includes('市值权重'));
+  T('缺口表：明细含算法说明（成本对档位对数插值+市值加权，郎刚10-22定成本口径）',el('gapBox').innerHTML.includes('对数插值')&&el('gapBox').innerHTML.includes('市值加权'));
+  T('缺口表：明细含逐只隐含回报（成本+现价双口径）与权重',el('gapBox').innerHTML.includes('隐含 <b>')&&el('gapBox').innerHTML.includes('市值权重')&&el('gapBox').innerHTML.includes('现价'));
   T('缺口表：明细含加权平均结果',el('gapBox').innerHTML.includes('加权平均'));
 
   /* —— 排序状态持久化（郎刚10-08：排序后保留上次的排序）—— */
