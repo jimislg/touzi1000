@@ -1,6 +1,6 @@
 /* 数据层：快照秒开 → 实时覆盖。计算口径与网页版 public/index.html 完全同源。
- * 实时链路 = 官方云SDK→共享网关→平台云数据库（config）+ 腾讯行情源直拉（行情）。
- * 平台网站域名被 WAF 拦 MicroMessenger UA（403），小程序全程不经过它。小程序为纯只读客户端。 */
+ * 实时链路 = 自建服务器 /api/config（口令 Cookie，2026-10-23 起替代 WorkBuddy 云网关）+ 腾讯行情源直拉（行情）。
+ * 平台网站域名被 WAF 拦 MicroMessenger UA（403）的问题已随自建部署消除；小程序为纯只读客户端。 */
 const CONF = require('./config')
 const CORE = require('./investment-core')
 
@@ -144,8 +144,8 @@ function allSymbols (cfg) {
   s.push('whHKDCNY')
   return s.join(',')
 }
-/* config 走官方 SDK → 共享网关 → 平台云数据库（app_config 单行 JSONB）；
- * 行情直连腾讯行情源。两条链路都不经过被 WAF 拦的网站域名。 */
+/* config 走自建服务器 /api/config（口令 Cookie 鉴权）；
+ * 行情直连腾讯行情源。配置与行情两条链路均成功才提交，避免新旧数据混用。 */
 let pendingLoad = null
 function reload () {
   if (pendingLoad) return pendingLoad

@@ -49,12 +49,13 @@ function quoteBuffer (symbols, mode) {
 ;(async () => {
   const original = runtime(o => { o.fail({ errMsg: 'request:fail url not in domain list' }); return { abort () {} } })
   check('测试环境不借用 Node 的 URL / Headers / fetch', vm.runInContext('typeof URL === "undefined" && typeof Headers === "undefined" && typeof fetch === "undefined"', original.context))
+  const CONF = original.load('utils/config')
   const envelope = await original.load('utils/cloud').database.from('app_config').select('data').limit(1).retry(false)
-  check('真实SDK把本机域名拒绝包装为error且status=0', envelope.error && envelope.status === 0 && /url not in domain list/.test(envelope.error.message))
+  check('客户端把本机域名拒绝包装为error且status=0', envelope.error && envelope.status === 0 && /url not in domain list/.test(envelope.error.message))
   const store = original.load('utils/store')
   await store.reload()
   check('完整保留域名错误并正确分类', store.state.error.type === 'domain' && /url not in domain list/.test(store.state.error.body))
-  check('域名提示包含两个正确的域名且不包含行情路径', store.indexModel().errorMsg.includes('https://qt.gtimg.cn 加入') && store.indexModel().errorMsg.includes('https://mp-api.app.workbuddy.host'))
+  check('域名提示包含数据源域名与行情域名', store.indexModel().errorMsg.includes(CONF.MP_ENDPOINT) && store.indexModel().errorMsg.includes('https://qt.gtimg.cn'))
   check('失败仍显示快照', store.state.source === 'snapshot' && !store.state.loading)
   check('总览与持仓浮盈百分比一致', store.indexModel().plPct + '%' === store.positionsModel().plPct)
 
@@ -77,9 +78,9 @@ function quoteBuffer (symbols, mode) {
         else respond(o, 200, quoteBuffer(decodeURIComponent(o.url.split('/q=')[1]), phase))
       } else {
         dbCalls++
-        keyedRead = o.url.includes('key=eq.config')
+        keyedRead = o.url.includes('/api/config')
         if (phase === 'db-fail') o.fail({ errMsg: 'request:fail timeout' })
-        else respond(o, 200, [{ data: nextCFG }])
+        else respond(o, 200, nextCFG)
       }
     })
     return { abort () {} }
@@ -97,7 +98,7 @@ function quoteBuffer (symbols, mode) {
   check('同时刷新共用一次请求', a === b)
   await a
   check('两条链路成功才进入实时状态', s.state.source === 'live' && s.state.error === null && dbCalls === 1 && s.state.Q.sh600519.price === 1300)
-  check('云配置按key=config读取，避免任意首行', keyedRead)
+  check('云配置改为从自建服务器 /api/config 读取', keyedRead)
   const liveCFG = s.state.CFG, liveQ = s.state.Q, fetchedAt = s.state.lastFetch
   phase = 'partial'; await s.reload()
   check('曾成功后遇到部分行情保留上次完整配置与行情及成功时间', s.state.source === 'stale' && s.state.CFG === liveCFG && s.state.Q === liveQ && s.state.lastFetch === fetchedAt)

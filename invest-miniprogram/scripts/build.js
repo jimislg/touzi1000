@@ -8,14 +8,16 @@ const path = require('path')
 const ROOT = path.join(__dirname, '..')
 const PLAT = path.join(ROOT, '..', 'investment-platform')
 require('./sync-core')
-const BASE = 'https://langang-invest.app.workbuddy.host'
+/* 2026-10-23 起：WorkBuddy 云下线，平台迁移到 Vultr 自建服务器（HTTP+口令）。
+ * 如换地址/端口，改这里或用环境变量 PLATFORM_BASE 覆盖后重跑本脚本。 */
+const BASE = process.env.PLATFORM_BASE || 'http://149.28.89.105:8307'
 
 ;(async () => {
   const pub = JSON.parse(fs.readFileSync(path.join(PLAT, 'publicConfig.json'), 'utf8'))
   if (!pub.publishableKey || !pub.publishableKey.startsWith('wbpk_')) throw new Error('publicConfig.json 无合法 publishableKey')
-  /* 小程序走共享固定网关（不拦微信UA），不是 publicConfig.endpoint（该域名被WAF拦MicroMessenger UA） */
-  const MP_ENDPOINT = 'https://mp-api.app.workbuddy.host'
-
+  /* 小程序数据源 = 自建服务器（原 mp-api.app.workbuddy.host 共享网关已随云服务下线废弃） */
+  const MP_ENDPOINT = BASE
+  /* 自建服务器口令（= 平台 accessKey），注入 config.js 供请求头 Cookie 使用 */
   const key = JSON.parse(fs.readFileSync(path.join(PLAT, 'config.json'), 'utf8')).accessKey
   const cfg = await (await fetch(BASE + '/api/config', { headers: { Cookie: 'ak=' + key } })).json()
   if (!cfg || !Array.isArray(cfg.holdings)) throw new Error('线上 config 拉取失败')
@@ -27,8 +29,8 @@ const BASE = 'https://langang-invest.app.workbuddy.host'
   if (!qj || !qj.ok || missing.length) throw new Error('行情不完整，不覆盖离线快照：' + missing.join(', '))
 
   fs.writeFileSync(path.join(ROOT, 'utils', 'config.js'),
-    '/* 由 scripts/build.js 生成（源自 investment-platform/publicConfig.json），勿手改 */\n' +
-    'module.exports = ' + JSON.stringify({ MP_ENDPOINT: MP_ENDPOINT, PUB_KEY: pub.publishableKey }, null, 2) + '\n')
+    '/* 由 scripts/build.js 生成（MP_ENDPOINT=自建服务器数据源，MP_KEY=访问口令；PUB_KEY 为云端遗留参数，当前链路未使用），勿手改 */\n' +
+    'module.exports = ' + JSON.stringify({ MP_ENDPOINT: MP_ENDPOINT, MP_KEY: key, PUB_KEY: pub.publishableKey }, null, 2) + '\n')
 
   const snap = { savedAt: new Date().toISOString(), cfg: cfg, quotes: (qj && qj.quotes) || {} }
   fs.writeFileSync(path.join(ROOT, 'utils', 'snapshot.js'),
