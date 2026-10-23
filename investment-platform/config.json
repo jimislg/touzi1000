@@ -1,5 +1,5 @@
 {
-  "cash": 6792694.27,
+  "cash": 6598247.11,
   "trades": [
     {
       "code": "0700.HK",
@@ -136,6 +136,18 @@
       "shares": 300,
       "amtCNY": 97223.58,
       "fx": 0.8506
+    },
+    {
+      "date": "2026-10-23",
+      "code": "0700.HK",
+      "name": "腾讯控股",
+      "time": "11:38:45",
+      "price": 381,
+      "shares": 600,
+      "amtCNY": 194447.16,
+      "amtHKD": 228600,
+      "fx": 0.8506,
+      "source": "券商委托详情截图，已成（委托编号838349，增强限价）"
     }
   ],
   "asOfNote": "快照价=2026-10-06上午截图；行情在线时自动覆盖",
@@ -238,12 +250,12 @@
       "qt": "hk00700",
       "dps": 5.3,
       "code": "0700.HK",
-      "cost": 406.025145,
+      "cost": 402.175123,
       "name": "腾讯控股",
       "grade": "A",
       "label": "目标达成型",
       "market": "HK",
-      "shares": 3300,
+      "shares": 3900,
       "buyDate": "2026-06-30",
       "dpsManual": false,
       "dpsSource": "2025年度末期股息5.30港元(2026-06-01已派发)，腾讯只派末期"
@@ -1411,7 +1423,7 @@
   "accessKey": "lg2026",
   "cashYield": 1,
   "divTaxNote": "A股红利税按buyDate起算：>1年0%／1个月-1年10%／<1个月20%；港股通固定20%；现有持仓统一按2026-06-30买入计",
-  "investable": 6792694.27,
+  "investable": 6598247.11,
   "targetCapital": 9999385.64,
   "hkdcnyFallback": 0.8505,
   "dismissedReasons": {
