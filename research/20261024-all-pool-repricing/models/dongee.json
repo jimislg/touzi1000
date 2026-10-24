@@ -1,0 +1,191 @@
+{
+  "id": "dongee",
+  "name": "东阿阿胶",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "暂停新增",
+  "epsBasis": "FY2026常态年研究基准；报告累计EPS与全年研究假设分开，不以9M×4/3冒充实际全年。第1笔年度现金在一年后。",
+  "cases": {
+    "bear": {
+      "eps0": 2.1,
+      "g1": -0.03,
+      "g2": 0,
+      "payout": 0.25,
+      "exitPE": 10
+    },
+    "base": {
+      "eps0": 2.45,
+      "g1": 0.01,
+      "g2": 0.015,
+      "payout": 0.4,
+      "exitPE": 12
+    },
+    "bull": {
+      "eps0": 2.75,
+      "g1": 0.05,
+      "g2": 0.03,
+      "payout": 0.6,
+      "exitPE": 16
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "扣非/股数与季节",
+      "reportedAnchor": "9M扣非12.587686亿元、归母13.297233亿元；基本EPS2.0685。6/30注销415万股后期末639,826,824股。",
+      "normalization": "用期末6.39826824亿股预算未来，不把加权EPS分母同注销后股数混用；同控重述的旧同比不直接外推。",
+      "newAssumption": "9M扣非/期末股数=1.9674元；基准+Q4扣非假设0.4826=2.45。悲观Q4贡献0.1326=2.10，乐观Q4贡献0.7826=2.75，未将9M乘4/3作事实。",
+      "sourceIds": [
+        "dongee-latest"
+      ]
+    },
+    {
+      "line": "量价与现金质量",
+      "reportedAnchor": "9M OCF3.99698亿元同比−69.48%，应收8.93063亿元同比期初+575.32%，Q3扣非增长仍不能证明回款。",
+      "normalization": "信用发货增加不应按现金增长资本化；一次性收益从基础排除。",
+      "newAssumption": "基准前段EPS只增1%=核心量1%+净价0%、利润率近稳；后段1.5%。乐观5%需终端销售和应收兑现。",
+      "sourceIds": [
+        "dongee-latest"
+      ]
+    },
+    {
+      "line": "派息与终值",
+      "reportedAnchor": "9M OCF3.99698−总CAPEX2.81495=1.18204亿元，仅为同期归母约8.9%。",
+      "normalization": "不能用存量现金长期填补经营缺口；回购注销的股数作用已在分母，不另加回报。",
+      "newAssumption": "基准普通派息40%低于旧70%，退出12倍低于14倍；若回款不恢复，40%同样不启用。",
+      "sourceIds": [
+        "dongee-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0",
+      "old": "bear:2.2；base:2.62；bull:2.8",
+      "new": "bear:2.1；base:2.45；bull:2.75",
+      "reason": "新Q3增加利润与现金背离证据，所以基准EPS2.62收至2.45、增长3%收至1%、派息70%收至40%。降低价格不能替代恢复现金的证据，所有价线暂作研究条件。",
+      "sourceIds": [
+        "dongee-latest"
+      ]
+    },
+    {
+      "variable": "g1",
+      "old": "bear:-0.02；base:0.03；bull:0.07",
+      "new": "bear:-0.03；base:0.01；bull:0.05",
+      "reason": "前五年按量价、利润率及资本回收能力重估；不是直接外推最新同比。",
+      "sourceIds": [
+        "dongee-latest"
+      ]
+    },
+    {
+      "variable": "g2",
+      "old": "bear:0；base:0.02；bull:0.04",
+      "new": "bear:0；base:0.015；bull:0.03",
+      "reason": "后五年降低成熟业务渗透和回报假设，避免终值依赖高成长。",
+      "sourceIds": [
+        "dongee-latest"
+      ]
+    },
+    {
+      "variable": "payout",
+      "old": "bear:0.55；base:0.7；bull:0.85",
+      "new": "bear:0.25；base:0.4；bull:0.6",
+      "reason": "仅普通股现金股息假设；接受现金桥约束，不计回购额外收益。",
+      "sourceIds": [
+        "dongee-latest"
+      ]
+    },
+    {
+      "variable": "exitPE",
+      "old": "bear:11；base:14；bull:18",
+      "new": "bear:10；base:12；bull:16",
+      "reason": "十年末研究退出假设，不等同同业可比事实；缺独立ROIC证据不做无条件估值修复。",
+      "sourceIds": [
+        "dongee-latest"
+      ]
+    }
+  ],
+  "rationale": "新Q3增加利润与现金背离证据，所以基准EPS2.62收至2.45、增长3%收至1%、派息70%收至40%。降低价格不能替代恢复现金的证据，所有价线暂作研究条件。",
+  "cashConstraint": "已核9M总CAPEX后仅1.18204亿元。未来年基准OCF12−总CAPEX5−租赁/NCI/融资等0.3=6.7亿元，约1.047元/股，要求应收回款改善；该恢复尚未证实，不能拿40%派息作现成买入收益。",
+  "pricedIn": "现价若仍按旧2.62元EPS与70%股息率显示低估，会高估可兑现回报；使用2.45元与40%仅为恢复条件下测算。",
+  "downside": "渠道压货和应收先增加，坏账及折扣随后损害毛利，普通分红率与12倍退出同时受压。",
+  "activationConditions": [
+    "新增信用销售与应收账龄、期后回款可以勾稽",
+    "至少连续两期扣全部CAPEX后现金转正并明显覆盖普通分红",
+    "主业终端动销/复购支持新增发货，之后再审议启用价格"
+  ],
+  "invalidations": [
+    "应收继续快于收入增长且信用减值上升",
+    "两期总CAPEX后现金不足但维持高分红/回购",
+    "产品量价或治理证据显示渠道库存问题重现"
+  ],
+  "sources": [
+    {
+      "id": "dongee-latest",
+      "title": "2026第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617708.PDF",
+      "publishedAt": "2026-10-24",
+      "period": "2026Q1–Q3",
+      "location": "PDF 4、6、9—14",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "checkedAt": "2026-10-24",
+      "currentRunReadBasis": "同日已下载发行人原文/选页文本复读；浏览直链另行核对，失败未冒充新抓取。"
+    },
+    {
+      "id": "dongee-prior-0",
+      "title": "2026半年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-21/1225484990.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "8、45、111页",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "dongee-prior-1",
+      "title": "2026半年报深交所版本",
+      "url": "https://disc.static.szse.cn/disc/disk03/finalpage/2026-08-21/be0632b3-cab4-4274-8cb9-3d5b60ce7df0.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "资产负债及收入分部",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "missingEvidence": [
+    "期后收款、应收账龄和信用发货边界",
+    "同控合并全期重述、少数及融资现金归属",
+    "未来高派息持续性未证实"
+  ],
+  "confidence": "低",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 0.1094046,
+      "g1": -0.02,
+      "g2": 0,
+      "terminalGrowth": 0,
+      "basis": "未来年OCF6、全部CAPEX5、其他0.3亿元；信用销售继续拖累收款。"
+    },
+    "base": {
+      "cashYear1": 1.04715835,
+      "g1": 0.03,
+      "g2": 0.015,
+      "terminalGrowth": 0.01,
+      "basis": "未来年OCF12、总CAPEX5、其他0.3亿元，必须由应收回收支持；属于未验证恢复条件。"
+    },
+    "bull": {
+      "cashYear1": 2.06305824,
+      "g1": 0.05,
+      "g2": 0.025,
+      "terminalGrowth": 0.015,
+      "basis": "未来年OCF18、全部CAPEX4.5、其他0.3亿元，要求营运资金正常且不重复释放同一应收。"
+    }
+  },
+  "asOf": "2026-10-24",
+  "assumptionStatus": "agent_estimate_not_company_guidance",
+  "accountDataTouched": false,
+  "approvalCreated": false
+}

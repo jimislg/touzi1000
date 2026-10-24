@@ -1,0 +1,191 @@
+{
+  "id": "weixing",
+  "name": "伟星新材",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "暂停新增",
+  "epsBasis": "FY2026常态年研究基准；报告累计EPS与全年研究假设分开，不以9M×4/3冒充实际全年。第1笔年度现金在一年后。",
+  "cases": {
+    "bear": {
+      "eps0": 0.25,
+      "g1": -0.05,
+      "g2": -0.01,
+      "payout": 0.4,
+      "exitPE": 8
+    },
+    "base": {
+      "eps0": 0.36,
+      "g1": -0.01,
+      "g2": 0,
+      "payout": 0.5,
+      "exitPE": 10
+    },
+    "bull": {
+      "eps0": 0.48,
+      "g1": 0.03,
+      "g2": 0.02,
+      "payout": 0.55,
+      "exitPE": 12
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "剔除一次性与股数",
+      "reportedAnchor": "H1归母3.90008亿元、扣非2.15416亿元，EPS0.25；总股本1,592,037,988股。",
+      "normalization": "对东鹏合立投资收益约1.24966亿元等不永久资本化；未来以主业扣非为锚。",
+      "newAssumption": "H1扣非/15.92037988亿股约0.1353；基准H2约0.2247=全年0.36，悲观0.25、乐观0.48。较旧0.45收紧，全年均为季节性研究假设。",
+      "sourceIds": [
+        "weixing-latest"
+      ]
+    },
+    {
+      "line": "存量装修/量价",
+      "reportedAnchor": "H1扣非同比−19.65%，OCF同比−29.88%；利润报表增长主要非主业一次性。",
+      "normalization": "不把房屋竣工/装修恢复当已经兑现，不用净利+43.9%来推主业增长。",
+      "newAssumption": "基准未来量约−1%、净价/利润率合计0，前段EPS−1%、后段0；乐观3%需零售渠道与服务溢价恢复，悲观−5%。",
+      "sourceIds": [
+        "weixing-latest"
+      ]
+    },
+    {
+      "line": "现金/质量门",
+      "reportedAnchor": "H1 OCF4.07326−总CAPEX1.12869=2.94456亿元，另有并购现金0.479亿元。",
+      "normalization": "并购不是维护CAPEX但同样占用普通股现金；半年暂不分红不直接推零全年。",
+      "newAssumption": "基准派息50%、退出10倍均低于旧60%/12倍。C类质量门持续未通过，低价不能解除暂停新增。",
+      "sourceIds": [
+        "weixing-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0",
+      "old": "bear:0.35；base:0.45；bull:0.55",
+      "new": "bear:0.25；base:0.36；bull:0.48",
+      "reason": "将一次性收益与主业下滑彻底分开，以0.36元而非旧0.45重建基准。所有数值供损失和恢复敏感性研究；公司仍是C类质量门未通过，任何计算价格都不是可买点。",
+      "sourceIds": [
+        "weixing-latest"
+      ]
+    },
+    {
+      "variable": "g1",
+      "old": "bear:-0.03；base:0；bull:0.03",
+      "new": "bear:-0.05；base:-0.01；bull:0.03",
+      "reason": "前五年按量价、利润率及资本回收能力重估；不是直接外推最新同比。",
+      "sourceIds": [
+        "weixing-latest"
+      ]
+    },
+    {
+      "variable": "g2",
+      "old": "bear:-0.01；base:0；bull:0.02",
+      "new": "bear:-0.01；base:0；bull:0.02",
+      "reason": "后五年降低成熟业务渗透和回报假设，避免终值依赖高成长。",
+      "sourceIds": [
+        "weixing-latest"
+      ]
+    },
+    {
+      "variable": "payout",
+      "old": "bear:0.55；base:0.6；bull:0.65",
+      "new": "bear:0.4；base:0.5；bull:0.55",
+      "reason": "仅普通股现金股息假设；接受现金桥约束，不计回购额外收益。",
+      "sourceIds": [
+        "weixing-latest"
+      ]
+    },
+    {
+      "variable": "exitPE",
+      "old": "bear:9；base:12；bull:14",
+      "new": "bear:8；base:10；bull:12",
+      "reason": "十年末研究退出假设，不等同同业可比事实；缺独立ROIC证据不做无条件估值修复。",
+      "sourceIds": [
+        "weixing-latest"
+      ]
+    }
+  ],
+  "rationale": "将一次性收益与主业下滑彻底分开，以0.36元而非旧0.45重建基准。所有数值供损失和恢复敏感性研究；公司仍是C类质量门未通过，任何计算价格都不是可买点。",
+  "cashConstraint": "H1全部CAPEX后2.94456亿元，再列并购0.479亿元。未来年基准OCF8−全部CAPEX2.5−租赁/少数/融资0.5−新并购预留0.5=4.5亿元约0.283元/股；资本并购回报未明，不能仅依靠该假设解除质量否决。",
+  "pricedIn": "现价对照0.36元主业常态EPS而非含一次性半年0.25的年化；即使较研究估值低，C类门仍禁止将价线变成新增建议。",
+  "downside": "存量装修量价继续弱，零售服务网络成本刚性；收购资产回报不足与退出8倍一起放大损失。",
+  "activationConditions": [
+    "先完成C类质量复审并由用户明确确认，价格本身不构成启用条件",
+    "主业扣非至少连续两期止跌且渠道量价可核",
+    "并购ROIC与总投资后现金覆盖普通股息后，再另行审议是否给可启用买点"
+  ],
+  "invalidations": [
+    "主业扣非继续双位数下滑",
+    "并购/非主业投资收益成为净利主要增长来源",
+    "原料涨价或渠道需求恶化破坏服务溢价"
+  ],
+  "sources": [
+    {
+      "id": "weixing-latest",
+      "title": "2026半年度报告，PDF 7、43—45",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-07/1225462208.PDF",
+      "publishedAt": "2026-08-07",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "7、43—45",
+      "checkedAt": "2026-10-24",
+      "currentRunReadBasis": "本轮浏览官方PDF并结合本地原文选页复核；未声称逐页通读。"
+    },
+    {
+      "id": "weixing-prior-1",
+      "title": "伟星官方定期报告目录",
+      "url": "https://www.vasen.com/invest/notice/32/1",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "weixing-report-index",
+      "title": "公司官方定期报告目录",
+      "url": "https://www.vasen.com/invest/notice/32/1",
+      "publishedAt": null,
+      "period": "截至2026-10-24目录",
+      "readStatus": "read",
+      "location": "目录当前2026H1/2026Q1/2025Q3",
+      "type": "official_directory"
+    }
+  ],
+  "missingEvidence": [
+    "C类质量门、长期主业恢复与并购ROIC仍未通过",
+    "现金资本开支与并购完整承诺及分红边界",
+    "官网当前目录未见2026Q3，不能将接口失败当未发布证明"
+  ],
+  "confidence": "低",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 0.09421886,
+      "g1": -0.04,
+      "g2": -0.01,
+      "terminalGrowth": 0,
+      "basis": "未来年OCF5、全部CAPEX3、其他0.5亿元；无新增并购，如发生须再扣。"
+    },
+    "base": {
+      "cashYear1": 0.28265657,
+      "g1": -0.01,
+      "g2": 0,
+      "terminalGrowth": 0.005,
+      "basis": "未来年OCF8、总CAPEX2.5、其他0.5、并购预留0.5亿元；质量门仍不通过。"
+    },
+    "bull": {
+      "cashYear1": 0.50250057,
+      "g1": 0.025,
+      "g2": 0.015,
+      "terminalGrowth": 0.01,
+      "basis": "未来年OCF11、总CAPEX2.5、其他0.5亿元；要求主业恢复而非重复一次性投资收益。"
+    }
+  },
+  "asOf": "2026-10-24",
+  "assumptionStatus": "agent_estimate_not_company_guidance",
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "qualityGate": "C类质量门未通过；禁止仅因价格低而启用任何新增买入点"
+}

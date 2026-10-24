@@ -1,0 +1,214 @@
+{
+  "id": "nongfu",
+  "name": "农夫山泉",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "条件观察",
+  "epsBasis": "2026-10-24以最新已读披露重建的常态年度第0年EPS，全部经营参数为研究假设；不是2026全年业绩预告。第1年EPS=eps0×(1+g1)，首笔现金在一年后；不将H1乘2当作事实。",
+  "cases": {
+    "bear": {
+      "eps0": 1.24839212,
+      "g1": 0.01,
+      "g2": 0.01,
+      "payout": 0.55,
+      "exitPE": 13
+    },
+    "base": {
+      "eps0": 1.46979499,
+      "g1": 0.065,
+      "g2": 0.04,
+      "payout": 0.6,
+      "exitPE": 18
+    },
+    "bull": {
+      "eps0": 1.6538528,
+      "g1": 0.1,
+      "g2": 0.06,
+      "payout": 0.65,
+      "exitPE": 23
+    }
+  },
+  "operatingCases": {
+    "bear": {
+      "annualRevenueBillion": 54,
+      "normalizedParentNetMargin": 0.26,
+      "assumedSharesBillion": 11.2464664,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    },
+    "base": {
+      "annualRevenueBillion": 58,
+      "normalizedParentNetMargin": 0.285,
+      "assumedSharesBillion": 11.2464664,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    },
+    "bull": {
+      "annualRevenueBillion": 62,
+      "normalizedParentNetMargin": 0.3,
+      "assumedSharesBillion": 11.2464664,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "水/茶增长与股本",
+      "reportedAnchor": "H1收入297.181亿元、归母88.87亿元；6月底已发行112.464664亿股，H1加权112.39398308亿股。",
+      "normalization": "茶旺季/品类结构不能简单翻倍；全年收入540/580/620亿元、归母率26%/28.5%/30%。用已发行股数更保守地覆盖奖励。",
+      "newAssumption": "EPS约1.248/1.470/1.654，低于旧基准1.55；不把关联交易上限当新增已发生占款。",
+      "sourceIds": [
+        "nongfu-latest"
+      ]
+    },
+    {
+      "line": "产能与正常化分配",
+      "reportedAnchor": "H1现金CAPEX38.20378亿元，OCF107.12333亿元；必要产能消耗不能排除。",
+      "normalization": "由水成熟需求与茶增速回归共同形成常态中个位数增长，不以茶单品高增速覆盖全公司。",
+      "newAssumption": "增长基准6.5%/4%，税前分配60%，退出18倍；悲观1%/1%、13倍反映水价竞争。",
+      "sourceIds": [
+        "nongfu-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0/growth/payout/exitPE",
+      "old": "旧基准1.55、8%/5%、65%、20倍",
+      "new": "新基准1.470、6.5%/4%、60%、18倍",
+      "reason": "给水价竞争、茶新品寿命与新增产能留预算，不能把净利和增长一起乐观外推。",
+      "sourceIds": [
+        "nongfu-latest"
+      ]
+    }
+  ],
+  "rationale": "渠道密度和供应链保持护城河，长回报来自茶复购与水业务稳定。新估值降低爆发期增速，只有产能周转和产品现金贡献证明后才上调终值。",
+  "cashConstraint": "H1 OCF107.12333−全部CAPEX38.20378=68.91955亿元，尚未扣租赁/利息/NCI。2025末期每股0.99元于2026年8月支付，不能当H1损益对应分配。新预算先扣全产能投入，派息60%受实际现金上限约束。",
+  "pricedIn": "现价比较及隐含盈利增长由统一价格引擎计算；本输入不按现价倒推假设，不引用未取得的券商共识。",
+  "downside": "水价战与茶渠道库存先压毛利/现金，扩建产能利用率下滑使留存盈利不能产生原有回报。",
+  "activationConditions": [
+    "最新完整现金桥可覆盖60%派息及全部资本投入",
+    "茶同店/渠道库存及水实现价稳定",
+    "关联交易真实发生额和应收结算可核"
+  ],
+  "invalidations": [
+    "茶增长主要来自压货而非复购",
+    "新增产能利用不足、资本回报连续下滑"
+  ],
+  "sources": [
+    {
+      "id": "nongfu-latest",
+      "title": "2026半年度报告，PDF 管理层现金、财务及现金流表（英中文混排）",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401877.pdf",
+      "period": "2026H1",
+      "publishedAt": null,
+      "location": "管理层现金、财务及现金流表（英中文混排）",
+      "readStatus": "read"
+    },
+    {
+      "id": "nongfu-prior-1",
+      "title": "农夫关联交易年度上限调整",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101529.pdf",
+      "period": "2026-09-11",
+      "publishedAt": null,
+      "location": "关联交易及董事意见",
+      "readStatus": "prior_read"
+    }
+  ],
+  "missingEvidence": [
+    "分品类经营现金、产能利用率/新增资本ROIC",
+    "租赁、NCI和融资桥仍未全部逐项核准"
+  ],
+  "confidence": "中",
+  "gradeRecommendation": "B类研究候选",
+  "formalGradeUnchanged": true,
+  "sourceAsOf": "2026-10-24",
+  "assumptionClassification": "reportedAnchor为已披露事实或明确标注的旧证据；normalization、newAssumption及cases均为本轮研究估计，非公司指引/市场共识。",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 0.85182311,
+      "g1": 0.01,
+      "g2": 0.01,
+      "terminalGrowth": 0,
+      "basis": "H1总CAPEX和OCF已核；现金预算维持全年80/80/90亿元全部投入，租赁/NCI为保守显式预算，不能误报为最新附注实绩；下一完整年度现金预算假设（并非已披露指引）：税后OCF含WC=+18十亿元；全部CAPEX=-8十亿元；租赁=-0.2十亿元；利息=-0.12十亿元；NCI=-0.1十亿元；合计9.58000十亿元÷假设股数11.2465十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "税后OCF含WC": 18,
+        "全部CAPEX": -8,
+        "租赁": -0.2,
+        "利息": -0.12,
+        "NCI": -0.1
+      },
+      "assumedSharesBillion": 11.2464664,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    },
+    "base": {
+      "cashYear1": 1.11412772,
+      "g1": 0.06,
+      "g2": 0.035,
+      "terminalGrowth": 0.015,
+      "basis": "H1总CAPEX和OCF已核；现金预算维持全年80/80/90亿元全部投入，租赁/NCI为保守显式预算，不能误报为最新附注实绩；下一完整年度现金预算假设（并非已披露指引）：税后OCF含WC=+21十亿元；全部CAPEX=-8十亿元；租赁=-0.25十亿元；利息=-0.12十亿元；NCI=-0.1十亿元；合计12.53000十亿元÷假设股数11.2465十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "税后OCF含WC": 21,
+        "全部CAPEX": -8,
+        "租赁": -0.25,
+        "利息": -0.12,
+        "NCI": -0.1
+      },
+      "assumedSharesBillion": 11.2464664,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    },
+    "bull": {
+      "cashYear1": 1.28662635,
+      "g1": 0.09,
+      "g2": 0.05,
+      "terminalGrowth": 0.02,
+      "basis": "H1总CAPEX和OCF已核；现金预算维持全年80/80/90亿元全部投入，租赁/NCI为保守显式预算，不能误报为最新附注实绩；下一完整年度现金预算假设（并非已披露指引）：税后OCF含WC=+24十亿元；全部CAPEX=-9十亿元；租赁=-0.3十亿元；利息=-0.13十亿元；NCI=-0.1十亿元；合计14.47000十亿元÷假设股数11.2465十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "税后OCF含WC": 24,
+        "全部CAPEX": -9,
+        "租赁": -0.3,
+        "利息": -0.13,
+        "NCI": -0.1
+      },
+      "assumedSharesBillion": 11.2464664,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    }
+  },
+  "priorModelReference": {
+    "asOf": "2026-10-19",
+    "type": "prior_scenario_under_review",
+    "inputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.35,
+          "g1": 0.02,
+          "g2": 0.02,
+          "payout": 0.65,
+          "exit_pe": 15
+        },
+        "base": {
+          "eps0": 1.55,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.65,
+          "exit_pe": 20
+        },
+        "bull": {
+          "eps0": 1.75,
+          "g1": 0.12,
+          "g2": 0.08,
+          "payout": 0.65,
+          "exit_pe": 25
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准水约2%增长、茶高增速逐年减缓至低双位数、其他品类中个位数，混合收入约8%，利润率稳定，后五年5%；悲观价格竞争，乐观茶复购延续。65%派息低于旧70%快筛，给必要产能和营运资本留资金。"
+    },
+    "notApproved": true
+  },
+  "reviewRequiredBeforeActivation": true,
+  "sourceVerification": "2026-10-24本轮浏览已取得一级源正文并核对关键页；安踏Q3重新请求受限，沿用同日已下载官方原文及现有证据，不声称新近通读。仅列已读/沿用材料，未取得部分见missingEvidence。",
+  "cashCrossCheckPosture": "条件所有者现金DCF；与EPS总回报法偏差若超过既有SOP阈值，正式买点继续暂停，不能按较高值取价。"
+}

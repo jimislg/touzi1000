@@ -8,7 +8,7 @@ DEPLOY_REMOTE=/opt/invest-platform
 DEPLOY_ROOT=$(cd "$(dirname "$0")/.." && pwd)
 DEPLOY_LOCAL="$DEPLOY_ROOT/investment-platform"
 DEPLOY_NODE=${NODE_BIN:-node}
-code_files=(server.js cloud-store.js config-service.js decision-preview.js research-supplement.js package.json public/index.html public/investment-core.js public/research-supplement.json public/research/)
+code_files=(server.js cloud-store.js config-service.js decision-preview.js research-supplement.js package.json public/index.html public/investment-core.js public/research-supplement.json public/research/ public/repricing/)
 case "${1:-}" in
   push)
     "$DEPLOY_NODE" "$DEPLOY_ROOT/scripts/test-offline.js"

@@ -1,0 +1,39 @@
+{
+  "asOf": "2026-10-24",
+  "horizonYears": 10,
+  "priceStatus": "research_proposal_awaiting_user_confirmation",
+  "formalAllowed": false,
+  "entryCostPct": 0.003,
+  "exitCostPct": 0.003,
+  "feesBasis": "单边0.3%为统一保守摩擦假设，含费用及点差压力，非券商实际费率；另列0%、0.1%、0.5%敏感性",
+  "dividendTax": {
+    "A": 0,
+    "HK": 0.2,
+    "basis": "个人港股通延用原设20%；A股长期持有超过一年0%。中国移动另列条件28%敏感性；实际税费/抵免以适用结算为准。",
+    "sources": [
+      {
+        "title": "财税2015年第101号：A股持有超过一年",
+        "url": "https://www.chinatax.gov.cn/n810341/n810755/c1797427/content.html"
+      },
+      {
+        "title": "财税2014年第81号：沪港通个人股息税",
+        "url": "https://m.mof.gov.cn/zcfb/201411/t20141114_1158461.htm"
+      },
+      {
+        "title": "深港通税收政策",
+        "url": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5203646/content.html"
+      }
+    ]
+  },
+  "capitalCostRule": "A且风险无升级10%；B、C、强周期、高杠杆或高范式风险12%；基准±1个百分点形成经济价值敏感区间。研究评级不修改原应用评级。",
+  "hurdles": [
+    0.1,
+    0.12,
+    0.15,
+    0.1746
+  ],
+  "ahDiscountMin": 0.25,
+  "economicSafetyRule": "条件建议价不高于对应H、基准经济价值敏感性下沿、悲观十年名义总回收不亏投入的上限，以及适用A/H门槛。名义回收约束为本轮新增研究建议，等待用户确认；不保证中途不跌或情景外不亏。质量/资本/现金/交叉估值缺项照常阻断启用。",
+  "sourcePosture": "公司原文与同日已核底稿；无可用市场一致预期，不编共识。全部预测均为研究假设。",
+  "issuedOn": "2026-10-25"
+}

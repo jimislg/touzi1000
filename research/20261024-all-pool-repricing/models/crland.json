@@ -1,0 +1,128 @@
+{
+  "id": "crland",
+  "name": "华润置地",
+  "asOf": "2026-10-24",
+  "method": "dividend_proxy",
+  "inputCurrency": "CNY",
+  "quality": "暂停新增",
+  "epsBasis": "股息代理研究：不是NAV，也不是全公司内在价值。dividend0是常态年度人民币毛股息；首年dividend0×(1+g1)，十年终值=第10年股息/exitYield，不再前滚一年。",
+  "cases": {
+    "bear": {
+      "dividend0": 0.75,
+      "g1": -0.03,
+      "g2": -0.01,
+      "exitYield": 0.09
+    },
+    "base": {
+      "dividend0": 1.1,
+      "g1": 0.015,
+      "g2": 0.01,
+      "exitYield": 0.065
+    },
+    "bull": {
+      "dividend0": 1.3,
+      "g1": 0.035,
+      "g2": 0.02,
+      "exitYield": 0.055
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "原始盈利与现金分配锚",
+      "reportedAnchor": "H1归母98.417亿、EPS1.38；核心利润101.6亿、核心EPS1.42；中期股息0.20元",
+      "normalization": "核心利润含已处置项目累计公允价值加回，不能代替经营现金；投资物业估值增值不能派息即视现金",
+      "newAssumption": "2025末期0.966元+2026中期0.20元=最近宣布年度现金组合1.166元（跨归属期，仅锚）；悲观0.75/基准1.10/乐观1.30为新的常态年度毛息假设",
+      "sourceIds": [
+        "crland-latest"
+      ]
+    },
+    {
+      "line": "销售与租金不同利润池",
+      "reportedAnchor": "9M合同销售1646亿+6.6%、面积−22%；收租267.2亿+10.6%",
+      "normalization": "高单价销售区域结构不能直接变利润；收租不是NOI，资产处置回款非可重复租金",
+      "newAssumption": "基准股息增长1.5%/1%，低于租金增幅；悲观开发毛利与交付压力使股息每年前5年−3%，后−1%；乐观商业收租兑现及低融资成本支撑3.5%/2%",
+      "sourceIds": [
+        "crland-latest",
+        "crland-operating"
+      ]
+    },
+    {
+      "line": "净债与风险",
+      "reportedAnchor": "H1借款2711.8亿、现金989.1亿、净负债率41%、平均债务成本2.63%",
+      "normalization": "合营/项目权益债及受限现金未全穿透；不能从已折价EPS估值再简单扣一次全部净债",
+      "newAssumption": "净债不在代理模型二次单扣；通过低起始分配、低增长和年10所需毛股息率9%/6.5%/5.5%反映，重建NAV时才另行逐项目扣债",
+      "sourceIds": [
+        "crland-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "架构",
+      "old": "分部SOTP缺NOI/权益净债而not_priced",
+      "new": "可计算三情景dividend_proxy，但暂停新增",
+      "reason": "给有数值的条件研究区间，避免编造NOI和NAV",
+      "sourceIds": [
+        "crland-latest",
+        "crland-operating"
+      ]
+    },
+    {
+      "variable": "常态股息与退出股息率",
+      "old": "没有完整三情景定价",
+      "new": "0.75/1.10/1.30元；年10毛息率9/6.5/5.5%",
+      "reason": "以已宣布1.166元跨期分配锚，基准打折，不用完整集团EPS与租金价值相加",
+      "sourceIds": [
+        "crland-latest"
+      ]
+    }
+  ],
+  "confidence": "低",
+  "formalAllowed": false,
+  "action": "wait for proof",
+  "sources": [
+    {
+      "id": "crland-latest",
+      "title": "2026半年度报告，PDF 中期业绩主要数据/现金与债务",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100127.pdf",
+      "period": "2026H1",
+      "publishedAt": "2026-08-31",
+      "location": "PDF1—2页收入/核心利润/净债；14页股息；本轮重新读取",
+      "readStatus": "read"
+    },
+    {
+      "id": "crland-operating",
+      "title": "9月/9M营运数据，非季报",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225603753.PDF",
+      "period": "2026Q3 / 9M",
+      "publishedAt": "2026-10-13",
+      "location": "财务表/营运指标；口径详见正文",
+      "readStatus": "read"
+    }
+  ],
+  "rationale": "商业物业和低融资成本对经营有帮助，但开发盈利、交付和债务层级决定普通股现金。资料不足以建立可认证NAV，本轮用股息代理填补旧模型无数字的问题：只估假定现金分配与市场股息率退出的价格，不称经济价值已通过。基准分配低于最近宣布的现金组合，并把租金增长明显折算。",
+  "cashConstraint": "未取得完整经营现金、土地支付、物业CAPEX、项目债及合营上划现金桥；集团现金989.1亿不能默认全可分配。未来股息可能受开发交付及资本承诺挤压，建议价格全部保持条件研究、暂停新增。",
+  "crossCheck": {
+    "method": "not_completed_sotp",
+    "requiresNOIAndEquityNetDebt": true,
+    "basis": "需要经常性NOI扣维护、开发项目权益NAV及上市物业管理持股价值，然后只扣对应权益净债一次；当前没有这些输入，不能用租金资本化加完整EPS制造双重价值。",
+    "limits": "股息代理不构成NAV/DCF独立双重验证；不生成可启用买点。"
+  },
+  "pricedIn": "现价人民币口径与1.10元常态毛息相除得到代理毛收益率，港股通实收仅其80%；需与6.5%年10毛息率及弱开发压力共同判断。高租金增长已公开，不能视作尚未定价的独有利好。",
+  "downside": "开发交付毛利和项目现金先弱，母公司被迫补充项目资金，股息低于1.10；同时市场要求息率上升到9%，可叠加压低代理价格。",
+  "activationConditions": [
+    "完整取得分部NOI、维护CAPEX及项目/合营权益净债，独立SOTP与现金分配桥完成",
+    "核对受限现金、未来交付负债与土地/开发支出，证明毛息至少1.10元不靠出售核心资产",
+    "清单数字仅供用户确认研究口径；正式新增继续暂停至上述证据齐全"
+  ],
+  "invalidations": [
+    "常态年度股息低于0.75元或开发现金持续外流",
+    "项目层净债/担保超出集团净债展示",
+    "商业出租率、有效租金、NOI和收现同时恶化"
+  ],
+  "missingEvidence": [
+    "完整NOI/维护/项目权益净债及交付现金桥缺失，无法称NAV",
+    "股息代理与真正内在价值可能偏差大，全部价格为条件参考而非正式买点",
+    "Q3为经营数据，尚无完整Q3财务报表"
+  ]
+}

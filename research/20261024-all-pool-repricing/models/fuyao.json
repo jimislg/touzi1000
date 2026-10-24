@@ -1,0 +1,201 @@
+{
+  "id": "fuyao",
+  "name": "福耀玻璃",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "条件观察",
+  "epsBasis": "FY2026常态年研究基准；报告累计EPS与全年研究假设分开，不以9M×4/3冒充实际全年。第1笔年度现金在一年后。",
+  "cases": {
+    "bear": {
+      "eps0": 2.75,
+      "g1": 0,
+      "g2": 0.01,
+      "payout": 0.4,
+      "exitPE": 11
+    },
+    "base": {
+      "eps0": 3.2,
+      "g1": 0.04,
+      "g2": 0.03,
+      "payout": 0.5,
+      "exitPE": 14
+    },
+    "bull": {
+      "eps0": 3.55,
+      "g1": 0.07,
+      "g2": 0.045,
+      "payout": 0.55,
+      "exitPE": 17
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "报表EPS至常态EPS",
+      "reportedAnchor": "9M归母60.0648亿元、EPS2.30，扣非58.7914亿元；股本26.09743532亿股。",
+      "normalization": "汇兑损失10.6698亿元属于税前项目，不能全额加回归母。以25%税率、全额归母作上限敏感性约0.307元/股，实际税率/归属未闭合。",
+      "newAssumption": "悲观2.30+Q4假设0.45=2.75；基准2.30+Q4假设0.72+部分汇兑中性调整0.18=3.20；乐观2.30+Q4假设0.95+税后调整0.30=3.55。均为研究估计。",
+      "sourceIds": [
+        "fuyao-latest"
+      ]
+    },
+    {
+      "line": "增长与单车利润",
+      "reportedAnchor": "9M剔汇兑税前利润仅+1.18%，H1同口径+4.78%。",
+      "normalization": "高附加值占比提高没有自动转化成同速每股利润。",
+      "newAssumption": "基准前五年EPS4%=整车/配套量约1%+玻璃功能净价值约3%+利润率净贡献0%；后五年3%。乐观7%要求量2%、价值4%、爬坡贡献1%；悲观停增。",
+      "sourceIds": [
+        "fuyao-latest"
+      ]
+    },
+    {
+      "line": "分配/退出",
+      "reportedAnchor": "9M OCF82.5978亿元、全部现金CAPEX38.9164亿元，余43.6814亿元；旧年度CAPEX计划77.3亿元。",
+      "normalization": "现金余量不是归母FCFE，还需租赁、少数及融资现金扣项；计划额不是现金实付。",
+      "newAssumption": "基准普通股派息50%，十年末14倍，较旧55%/15倍收紧；不另加净现金或回购。",
+      "sourceIds": [
+        "fuyao-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0",
+      "old": "bear:3.1；base:3.55；bull:3.8",
+      "new": "bear:2.75；base:3.2；bull:3.55",
+      "reason": "用三季现金与剔汇兑经营增速收紧旧EPS3.55和6%增长。上行由单车净价值、美国新厂良率和总投入回落实现，不能由税前汇兑加回或恢复19倍自动实现。",
+      "sourceIds": [
+        "fuyao-latest"
+      ]
+    },
+    {
+      "variable": "g1",
+      "old": "bear:0.01；base:0.06；bull:0.09",
+      "new": "bear:0；base:0.04；bull:0.07",
+      "reason": "前五年按量价、利润率及资本回收能力重估；不是直接外推最新同比。",
+      "sourceIds": [
+        "fuyao-latest"
+      ]
+    },
+    {
+      "variable": "g2",
+      "old": "bear:0.01；base:0.04；bull:0.06",
+      "new": "bear:0.01；base:0.03；bull:0.045",
+      "reason": "后五年降低成熟业务渗透和回报假设，避免终值依赖高成长。",
+      "sourceIds": [
+        "fuyao-latest"
+      ]
+    },
+    {
+      "variable": "payout",
+      "old": "bear:0.5；base:0.55；bull:0.6",
+      "new": "bear:0.4；base:0.5；bull:0.55",
+      "reason": "仅普通股现金股息假设；接受现金桥约束，不计回购额外收益。",
+      "sourceIds": [
+        "fuyao-latest"
+      ]
+    },
+    {
+      "variable": "exitPE",
+      "old": "bear:12；base:15；bull:19",
+      "new": "bear:11；base:14；bull:17",
+      "reason": "十年末研究退出假设，不等同同业可比事实；缺独立ROIC证据不做无条件估值修复。",
+      "sourceIds": [
+        "fuyao-latest"
+      ]
+    }
+  ],
+  "rationale": "用三季现金与剔汇兑经营增速收紧旧EPS3.55和6%增长。上行由单车净价值、美国新厂良率和总投入回落实现，不能由税前汇兑加回或恢复19倍自动实现。",
+  "cashConstraint": "已核9M OCF82.5978−总CAPEX38.9164=43.6814亿元，尚不是所有者现金。基准未来一年OCF112−全部CAPEX65−租赁/少数/融资等3=44亿元约1.686元/股；这些是未来研究假设，须由新厂支出和现金回收检验，全年现金不足时先降50%派息。",
+  "pricedIn": "现价除以新基准3.20元EPS衡量需要的资本回报；不能仍用3.55给出现价便宜的结论。根引擎统一列隐含增长与回报，未取得可比估值共识。",
+  "downside": "高端产品增长先被车企降价、美国新厂爬坡和库存占款吃掉，EPS增长先降至0，再叠加11倍退出压缩。",
+  "activationConditions": [
+    "官方下一期剔汇兑经营利润与单车现金利润至少稳定",
+    "未来12个月总现金CAPEX和分红同表覆盖，租赁/NCI及利息归属闭合",
+    "库存周转未继续恶化，按根清单价线及交叉DCF门槛另行确认"
+  ],
+  "invalidations": [
+    "连续两期剔汇兑利润不增长而高端占比仍升",
+    "库存超过百日且应收/经营现金恶化",
+    "总CAPEX上修而新增产能ROIC无改善"
+  ],
+  "sources": [
+    {
+      "id": "fuyao-latest",
+      "title": "2026第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612062.PDF",
+      "publishedAt": "2026-10-21",
+      "period": "2026Q1–Q3",
+      "location": "PDF 1—2、9—10",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "checkedAt": "2026-10-24",
+      "currentRunReadBasis": "同日已下载发行人原文/选页文本复读；浏览直链另行核对，失败未冒充新抓取。"
+    },
+    {
+      "id": "fuyao-prior-0",
+      "title": "2026半年报",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-19/1225479532.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "7—9、45—46页",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "fuyao-prior-1",
+      "title": "2025年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-03-18/1225014577.PDF",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "主要会计数据与现金流",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "fuyao-prior-2",
+      "title": "2026中期权益分派实施公告",
+      "url": "https://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-09-17/600660_20260917_OK2T.pdf",
+      "publishedAt": null,
+      "period": "2026-09-17",
+      "location": "每股1.00元",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "missingEvidence": [
+    "汇兑的实际有效税率及归母分配尚未完整闭合，0.18/0.30仅敏感性",
+    "新厂分批ROIC、全年资本承诺与分红覆盖"
+  ],
+  "confidence": "中",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 0.61308706,
+      "g1": 0,
+      "g2": 0.01,
+      "terminalGrowth": 0.01,
+      "basis": "未来年OCF90、全部CAPEX70、租赁/NCI/融资等4亿元；非9M线性年化。"
+    },
+    "base": {
+      "cashYear1": 1.68598943,
+      "g1": 0.05,
+      "g2": 0.03,
+      "terminalGrowth": 0.015,
+      "basis": "未来年OCF112、全部CAPEX65、租赁/NCI/融资等3亿元；以9M82.598/38.916为锚，假设投入高峰回落，非已披露指引。"
+    },
+    "bull": {
+      "cashYear1": 2.37571237,
+      "g1": 0.075,
+      "g2": 0.04,
+      "terminalGrowth": 0.02,
+      "basis": "未来年OCF125、全部CAPEX60、其他3亿元，要求新厂现金投产而非再融资派息。"
+    }
+  },
+  "asOf": "2026-10-24",
+  "assumptionStatus": "agent_estimate_not_company_guidance",
+  "accountDataTouched": false,
+  "approvalCreated": false
+}

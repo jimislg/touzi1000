@@ -1,0 +1,18 @@
+PASS standalone file shows 38 security rows and 34 issuer details without a server
+PASS opening date and evidence freeze are distinct
+PASS all company links resolve to a rendered issuer detail
+PASS readable amounts have no NaN, Infinity or missing-value artifacts
+PASS current scope has the exact security count
+PASS history scope has the exact security count
+PASS comparison scope has the exact security count
+PASS issuer search includes both A and H rows
+PASS review updates local counter without granting execution
+PASS review choice and note survive a local file reload
+PASS agreeing with research cannot remove a C-grade buy block
+PASS download contains all 37 pool decisions with the exact proposal version
+PASS export preserves new tiers and downside, never turns review into approval
+PASS finite road distribution is visibly distinguished from full company valuation
+PASS phone view keeps wide tables inside their own scroll containers
+PASS disabled local storage is reported honestly and export remains available
+PASS report has no runtime errors and makes no remote/account requests
+Repricing browser acceptance: 17 checks passed; local standalone file and disposable review data only.

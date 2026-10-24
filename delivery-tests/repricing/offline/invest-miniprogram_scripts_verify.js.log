@@ -1,0 +1,54 @@
+PASS 网页版与小程序共用口径一致
+PASS JSON严格解析 app.json
+PASS JSON严格解析 project.config.json
+PASS JSON严格解析 sitemap.json
+PASS JSON严格解析 pages/index/index.json
+PASS JSON严格解析 pages/positions/positions.json
+PASS JSON严格解析 pages/seats/seats.json
+PASS JSON严格解析 pages/watch/watch.json
+PASS 页面文件存在 pages/index/index.wxml
+PASS 页面文件存在 pages/index/index.js
+PASS 页面文件存在 pages/positions/positions.wxml
+PASS 页面文件存在 pages/positions/positions.js
+PASS 页面文件存在 pages/seats/seats.wxml
+PASS 页面文件存在 pages/seats/seats.js
+PASS 页面文件存在 pages/watch/watch.wxml
+PASS 页面文件存在 pages/watch/watch.js
+PASS lazyCodeLoading=requiredComponents
+PASS tabBar 每项 pagePath 都在 pages 中
+PASS 首屏为总览页
+PASS 禁用语法扫描 app.js
+PASS 禁用语法扫描 app.wxss
+PASS 禁用语法扫描 diag-mp-cloud.js
+PASS 禁用语法扫描 pages/index/index.js
+PASS 禁用语法扫描 pages/index/index.wxml
+PASS 禁用语法扫描 pages/index/index.wxss
+PASS 禁用语法扫描 pages/positions/positions.js
+PASS 禁用语法扫描 pages/positions/positions.wxml
+PASS 禁用语法扫描 pages/positions/positions.wxss
+PASS 禁用语法扫描 pages/seats/seats.js
+PASS 禁用语法扫描 pages/seats/seats.wxml
+PASS 禁用语法扫描 pages/seats/seats.wxss
+PASS 禁用语法扫描 pages/watch/watch.js
+PASS 禁用语法扫描 pages/watch/watch.wxml
+PASS 禁用语法扫描 pages/watch/watch.wxss
+PASS 禁用语法扫描 utils/cloud.js
+PASS 禁用语法扫描 utils/config.js
+PASS 禁用语法扫描 utils/errors.js
+PASS 禁用语法扫描 utils/investment-core.js
+PASS 禁用语法扫描 utils/quotes.js
+PASS 禁用语法扫描 utils/snapshot.js
+PASS 禁用语法扫描 utils/store.js
+PASS libs/workbuddy-cloud.js 官方SDK存在
+PASS utils/config.js 生成且含 MP_ENDPOINT/PUB_KEY
+PASS utils/snapshot.js 生成且含 cfg/quotes/savedAt
+PASS parseQuotes 同源(price/prevClose/pct/time)
+PASS 总览模型可渲染
+PASS 总资本为有限数值
+PASS 持仓行数与快照一致
+PASS 总览和持仓浮盈百分比一致
+PASS 席位结构与快照一致
+PASS 观察池行数与快照一致
+PASS 观察池代码无重复
+
+结果: 全部通过

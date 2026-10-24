@@ -1,0 +1,190 @@
+{
+  "id": "sanhua",
+  "name": "三花智控",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "条件观察",
+  "epsBasis": "FY2026常态年研究基准；报告累计EPS与全年研究假设分开，不以9M×4/3冒充实际全年。第1笔年度现金在一年后。",
+  "cases": {
+    "bear": {
+      "eps0": 0.78,
+      "g1": 0.01,
+      "g2": 0.01,
+      "payout": 0.25,
+      "exitPE": 14
+    },
+    "base": {
+      "eps0": 0.94,
+      "g1": 0.06,
+      "g2": 0.04,
+      "payout": 0.3,
+      "exitPE": 18
+    },
+    "bull": {
+      "eps0": 1.04,
+      "g1": 0.1,
+      "g2": 0.065,
+      "payout": 0.35,
+      "exitPE": 24
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "股份/扣非利润",
+      "reportedAnchor": "H1归母20.44065、扣非21.47319亿元，A/H总股4,208,013,935股，基本EPS0.49。 最新9月月报再核A股3,731,477,535、H股476,536,400，总数4,208,013,935不变；A股库存13,851,943单列。",
+      "normalization": "按42.08013935亿总股估算未来，不退回旧37亿股；扣非高于归母不等于持续增长。 未来以含库存的全部42.08013935亿股作保守潜在股份预算，库存拟激励/员工计划不视为永久注销。",
+      "newAssumption": "H1扣非/总股约0.5103；基准H2假设0.4297=0.94，悲观0.78、乐观1.04。基准低于旧0.98，机器人利润一律不预埋。",
+      "sourceIds": [
+        "sanhua-latest",
+        "sanhua-sep-shares"
+      ]
+    },
+    {
+      "line": "暖通/汽车而非机器人",
+      "reportedAnchor": "H1收入168.9997亿元，OCF改善但资本支出仍大。",
+      "normalization": "有机器人潜在市场不等于已确认订单、毛利和普通股现金；回购持股扣分红股数不重复抬EPS。",
+      "newAssumption": "基准暖通量约1%、汽车热管理约9%、净价−1%和结构混合形成EPS6%，后段4%；乐观10%来自现有两主业产品结构，机器人估值为0增量。",
+      "sourceIds": [
+        "sanhua-latest"
+      ]
+    },
+    {
+      "line": "总投资及分配",
+      "reportedAnchor": "H1 OCF24.99553−总CAPEX13.67254=11.32299亿元，少于归母20.44065。",
+      "normalization": "募集资金/定存变化与经营现金分开，不用IPO现金多分一次。",
+      "newAssumption": "基准普通派息30%低于旧35%、退出18倍低于20倍；若机器人投资增加，现金模型再减而非先加终值。",
+      "sourceIds": [
+        "sanhua-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0",
+      "old": "bear:0.85；base:0.98；bull:1.05",
+      "new": "bear:0.78；base:0.94；bull:1.04",
+      "reason": "已知热管理主业仍有成长，但扩产现金与车企议价约束每股回报。本轮基准EPS0.94、增长6%/4%与18倍退出，撤去旧机器人想象和较高资本回报预付。",
+      "sourceIds": [
+        "sanhua-latest"
+      ]
+    },
+    {
+      "variable": "g1",
+      "old": "bear:0.02；base:0.08；bull:0.13",
+      "new": "bear:0.01；base:0.06；bull:0.1",
+      "reason": "前五年按量价、利润率及资本回收能力重估；不是直接外推最新同比。",
+      "sourceIds": [
+        "sanhua-latest"
+      ]
+    },
+    {
+      "variable": "g2",
+      "old": "bear:0.02；base:0.05；bull:0.08",
+      "new": "bear:0.01；base:0.04；bull:0.065",
+      "reason": "后五年降低成熟业务渗透和回报假设，避免终值依赖高成长。",
+      "sourceIds": [
+        "sanhua-latest"
+      ]
+    },
+    {
+      "variable": "payout",
+      "old": "bear:0.3；base:0.35；bull:0.4",
+      "new": "bear:0.25；base:0.3；bull:0.35",
+      "reason": "仅普通股现金股息假设；接受现金桥约束，不计回购额外收益。",
+      "sourceIds": [
+        "sanhua-latest"
+      ]
+    },
+    {
+      "variable": "exitPE",
+      "old": "bear:15；base:20；bull:28",
+      "new": "bear:14；base:18；bull:24",
+      "reason": "十年末研究退出假设，不等同同业可比事实；缺独立ROIC证据不做无条件估值修复。",
+      "sourceIds": [
+        "sanhua-latest"
+      ]
+    }
+  ],
+  "rationale": "已知热管理主业仍有成长，但扩产现金与车企议价约束每股回报。本轮基准EPS0.94、增长6%/4%与18倍退出，撤去旧机器人想象和较高资本回报预付。",
+  "cashConstraint": "H1全部CAPEX后仅11.323亿元。未来年基准OCF48−总CAPEX30−租赁/NCI/融资及未计项目预留4=14亿元约0.333元/股，30%基准股息约0.282元/股需维持该现金；机器人新投入再减。",
+  "pricedIn": "现价以0.94元基础EPS观察；若需要机器人尚未披露利润及28倍退出才能成立，则现价支付了研究未承保的选择权。",
+  "downside": "车企降价先压缩汽车模块毛利，暖通低增无法抵消，资本投入在机器人量产收入前发生，现金先承压。",
+  "activationConditions": [
+    "汽车模块收入/毛利和新增资本现金回报有可核证据",
+    "机器人新资本承诺全额进现金表，未兑现利润保持零",
+    "总CAPEX后现金覆盖普通股息且交叉DCF门通过"
+  ],
+  "invalidations": [
+    "汽车模块量增而毛利/现金下降",
+    "机器人投入扩大但无现金收入",
+    "新增融资/股权激励摊薄未被每股利润增长抵消"
+  ],
+  "sources": [
+    {
+      "id": "sanhua-latest",
+      "title": "2026半年度报告，PDF 7、59—61",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225514004.PDF",
+      "publishedAt": "2026-08-27",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "7、59—61",
+      "checkedAt": "2026-10-24",
+      "currentRunReadBasis": "本轮浏览官方PDF并结合本地原文选页复核；未声称逐页通读。"
+    },
+    {
+      "id": "sanhua-prior-1",
+      "title": "2025年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-03-24/1225026522.PDF",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "2、7—8页及现金流",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "sanhua-sep-shares",
+      "title": "截至2026年9月30日之股份发行人的证券变动月报表",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-09/1225597828.PDF",
+      "period": "2026-09-30",
+      "publishedAt": "2026-10-09",
+      "location": "PDF1—2页：A/H股本及库存股份",
+      "readStatus": "read"
+    }
+  ],
+  "missingEvidence": [
+    "汽车模块与机器人分部订单、毛利、增量ROIC",
+    "未来资本承诺与少数/租赁现金归属",
+    "本轮未取得Q3财务原文"
+  ],
+  "confidence": "中",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 0.09505672,
+      "g1": 0.01,
+      "g2": 0.01,
+      "terminalGrowth": 0,
+      "basis": "未来年OCF38、总CAPEX30、其他4亿元；机器人新增投入若超此预留要下调。"
+    },
+    "base": {
+      "cashYear1": 0.33269852,
+      "g1": 0.06,
+      "g2": 0.04,
+      "terminalGrowth": 0.015,
+      "basis": "未来年OCF48、总CAPEX30、其他4亿元；以H1约25/13.67为锚但非简单倍增。"
+    },
+    "bull": {
+      "cashYear1": 0.78421794,
+      "g1": 0.09,
+      "g2": 0.055,
+      "terminalGrowth": 0.02,
+      "basis": "未来年OCF64、总CAPEX27、其他4亿元，要求现有热管理规模与投产现金转化；不计机器人利润。"
+    }
+  },
+  "asOf": "2026-10-24",
+  "assumptionStatus": "agent_estimate_not_company_guidance",
+  "accountDataTouched": false,
+  "approvalCreated": false
+}

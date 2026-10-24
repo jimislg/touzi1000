@@ -1,0 +1,217 @@
+{
+  "id": "yili",
+  "name": "伊利股份",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "条件观察",
+  "epsBasis": "2026-10-24以最新已读披露重建的常态年度第0年EPS，全部经营参数为研究假设；不是2026全年业绩预告。第1年EPS=eps0×(1+g1)，首笔现金在一年后；不将H1乘2当作事实。",
+  "cases": {
+    "bear": {
+      "eps0": 1.32798752,
+      "g1": -0.01,
+      "g2": 0,
+      "payout": 0.65,
+      "exitPE": 9
+    },
+    "base": {
+      "eps0": 1.53382558,
+      "g1": 0.02,
+      "g2": 0.02,
+      "payout": 0.7,
+      "exitPE": 12
+    },
+    "bull": {
+      "eps0": 1.73207515,
+      "g1": 0.04,
+      "g2": 0.03,
+      "payout": 0.75,
+      "exitPE": 15
+    }
+  },
+  "operatingCases": {
+    "bear": {
+      "annualRevenueBillion": 120,
+      "normalizedParentNetMargin": 0.07,
+      "assumedSharesBillion": 6.325360667,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    },
+    "base": {
+      "annualRevenueBillion": 126,
+      "normalizedParentNetMargin": 0.077,
+      "assumedSharesBillion": 6.325360667,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    },
+    "bull": {
+      "annualRevenueBillion": 132,
+      "normalizedParentNetMargin": 0.083,
+      "assumedSharesBillion": 6.325360667,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "非经常与需求",
+      "reportedAnchor": "H1收入643.309亿元、归母57.58628亿元-20.02%、扣非55.95763亿元-20.25%；股份63.25360667亿股、EPS0.91。",
+      "normalization": "不把原奶低价和一次性项目当永久利润率；全年收入1200/1260/1320亿元，归母率7%/7.7%/8.3%，基准低于H1扣非率约8.70%。",
+      "newAssumption": "EPS约1.328/1.534/1.732；不机械翻倍H1，不预设净注销增长。",
+      "sourceIds": [
+        "yili-latest"
+      ]
+    },
+    {
+      "line": "液奶/奶粉与派息",
+      "reportedAnchor": "H1收入+4.13%但利润显著下滑，需求和费用未支持旧盈利复苏斜率。",
+      "normalization": "基准液奶稳定、奶粉营养品增长相抵消费疲软；原奶成本改善不再重复贡献利润率。",
+      "newAssumption": "基准EPS2%/2%、分配70%、退出12倍；悲观负增长并缩至9倍，乐观4%/3%、15倍。",
+      "sourceIds": [
+        "yili-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0/growth/payout",
+      "old": "旧基准1.65、3%/3%、80%",
+      "new": "新基准1.534、2%/2%、70%",
+      "reason": "扣非利润-20.25%后下调正常化利润和未来分配，现金改善不能替代利润率复核。",
+      "sourceIds": [
+        "yili-latest"
+      ]
+    }
+  ],
+  "rationale": "规模和全国渠道支撑需求基盘，但消费、促销和品类结构决定增量资本回报。新回报以温和增长及可覆盖股息为主，不假定原奶价格持续下降。",
+  "cashConstraint": "H1精确OCF97.59147亿元减CAPEX13.04262=84.54885亿元；NCI现金股息0.39739亿元已找到。租赁总现金1.66855亿元含短租，不能全额再次从OCF扣；未来预算仅扣融资性租赁并保留分拆不确定性。70%派息须实际到期债务和现金覆盖。",
+  "pricedIn": "现价比较及隐含盈利增长由统一价格引擎计算；本输入不按现价倒推假设，不引用未取得的券商共识。",
+  "downside": "促销和原奶成本反弹挤压毛利，奶粉/营养增长不能覆盖液奶下行；现金阶段性回收可能反转为WC占用。",
+  "activationConditions": [
+    "更新原奶成本与产品价格/促销桥，盈利率稳定",
+    "租赁本金、融资利息和到期债务逐项确认",
+    "按完整年度正常WC重核现金覆盖与股息"
+  ],
+  "invalidations": [
+    "液奶价格/销量持续下降而费用刚性",
+    "营养品增长不能提高每股现金回报"
+  ],
+  "sources": [
+    {
+      "id": "yili-latest",
+      "title": "2026半年度报告，PDF 6、56、178",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225511409.PDF",
+      "period": "2026H1",
+      "publishedAt": "2026-08-27",
+      "location": "6、56、178",
+      "readStatus": "read"
+    },
+    {
+      "id": "yili-prior-1",
+      "title": "伊利官方投资者报告目录",
+      "url": "https://www.yili.com/en/investors",
+      "period": "截至2026-10-19",
+      "publishedAt": null,
+      "location": "最新中期及历史年度材料",
+      "readStatus": "prior_read"
+    }
+  ],
+  "missingEvidence": [
+    "短租经营付款与融资租赁本金精确拆分",
+    "乳业周期/营运资金中枢、资本回报与到期融资桥"
+  ],
+  "confidence": "中",
+  "gradeRecommendation": "B类研究候选",
+  "formalGradeUnchanged": true,
+  "sourceAsOf": "2026-10-24",
+  "assumptionClassification": "reportedAnchor为已披露事实或明确标注的旧证据；normalization、newAssumption及cases均为本轮研究估计，非公司指引/市场共识。",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 1.3991297,
+      "g1": 0,
+      "g2": 0,
+      "terminalGrowth": 0,
+      "basis": "H1强现金不能直接翻倍；基准全年OCF150亿元、全部投入35亿元为正常WC与资本预算假设，经营性短租已在OCF，不再全扣总租赁现金；下一完整年度现金预算假设（并非已披露指引）：税后OCF含WC=+12.5十亿元；全部CAPEX=-3十亿元；融资租赁=-0.25十亿元；NCI=-0.1十亿元；利息支付=-0.6十亿元；利息收到=+0.3十亿元；合计8.85000十亿元÷假设股数6.32536十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "税后OCF含WC": 12.5,
+        "全部CAPEX": -3,
+        "融资租赁": -0.25,
+        "NCI": -0.1,
+        "利息支付": -0.6,
+        "利息收到": 0.3
+      },
+      "assumedSharesBillion": 6.325360667,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    },
+    "base": {
+      "cashYear1": 1.69950783,
+      "g1": 0.02,
+      "g2": 0.02,
+      "terminalGrowth": 0.01,
+      "basis": "H1强现金不能直接翻倍；基准全年OCF150亿元、全部投入35亿元为正常WC与资本预算假设，经营性短租已在OCF，不再全扣总租赁现金；下一完整年度现金预算假设（并非已披露指引）：税后OCF含WC=+15十亿元；全部CAPEX=-3.5十亿元；融资租赁=-0.3十亿元；NCI=-0.1十亿元；利息支付=-0.7十亿元；利息收到=+0.35十亿元；合计10.75000十亿元÷假设股数6.32536十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "税后OCF含WC": 15,
+        "全部CAPEX": -3.5,
+        "融资租赁": -0.3,
+        "NCI": -0.1,
+        "利息支付": -0.7,
+        "利息收到": 0.35
+      },
+      "assumedSharesBillion": 6.325360667,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    },
+    "bull": {
+      "cashYear1": 2.07577096,
+      "g1": 0.04,
+      "g2": 0.03,
+      "terminalGrowth": 0.015,
+      "basis": "H1强现金不能直接翻倍；基准全年OCF150亿元、全部投入35亿元为正常WC与资本预算假设，经营性短租已在OCF，不再全扣总租赁现金；下一完整年度现金预算假设（并非已披露指引）：税后OCF含WC=+18十亿元；全部CAPEX=-4十亿元；融资租赁=-0.35十亿元；NCI=-0.12十亿元；利息支付=-0.8十亿元；利息收到=+0.4十亿元；合计13.13000十亿元÷假设股数6.32536十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "税后OCF含WC": 18,
+        "全部CAPEX": -4,
+        "融资租赁": -0.35,
+        "NCI": -0.12,
+        "利息支付": -0.8,
+        "利息收到": 0.4
+      },
+      "assumedSharesBillion": 6.325360667,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    }
+  },
+  "priorModelReference": {
+    "asOf": "2026-10-19",
+    "type": "prior_scenario_under_review",
+    "inputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.45,
+          "g1": -0.01,
+          "g2": 0.01,
+          "payout": 0.75,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 1.65,
+          "g1": 0.03,
+          "g2": 0.03,
+          "payout": 0.8,
+          "exit_pe": 13
+        },
+        "bull": {
+          "eps0": 1.9,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.8,
+          "exit_pe": 16
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入液奶稳定、奶粉和其他营养增长加权约3%，利润率不靠原奶继续下降而扩张，盈利3%/3%；悲观需求弱和促销，乐观品类升级。80%派息是常态研究假设，先受现金与到期融资约束。"
+    },
+    "notApproved": true
+  },
+  "reviewRequiredBeforeActivation": true,
+  "sourceVerification": "2026-10-24本轮浏览已取得一级源正文并核对关键页；安踏Q3重新请求受限，沿用同日已下载官方原文及现有证据，不声称新近通读。仅列已读/沿用材料，未取得部分见missingEvidence。",
+  "cashCrossCheckPosture": "条件所有者现金DCF；与EPS总回报法偏差若超过既有SOP阈值，正式买点继续暂停，不能按较高值取价。"
+}

@@ -1,0 +1,574 @@
+{
+  "id": "catl",
+  "name": "宁德时代",
+  "method": "operating_units",
+  "inputCurrency": "CNY",
+  "quality": "条件观察",
+  "confidence": "中低",
+  "epsBasis": "2027为首个完整预算年度；动力/储能GWh×每Wh收入×分部毛利，减研发/销管、加正常财务投资收益，再扣税/少数、除新股本；epsYear1直接作t1，不再提前增长一年。",
+  "cases": {
+    "bear": {
+      "epsYear1": 6.209882100578741,
+      "g1": 0,
+      "g2": 0.01,
+      "payout": 0,
+      "exitPE": 10,
+      "operatingForecast": {
+        "powerGWh": 600,
+        "storageGWh": 250,
+        "powerASP_CNYPerWh": 0.5,
+        "storageASP_CNYPerWh": 0.43,
+        "powerRevenue": 3000.0,
+        "storageRevenue": 1075.0,
+        "otherRevenue": 250,
+        "powerGrossMargin": 0.17,
+        "storageGrossMargin": 0.18,
+        "otherGrossMargin": 0.2,
+        "rd": 260,
+        "selling": 60,
+        "admin": 120,
+        "netFinanceIncome": 10,
+        "sustainableInvestmentIncome": 40,
+        "effectiveTax": 0.15,
+        "minorityShare": 0.07,
+        "shares100Million": 46.27249686,
+        "revenue": 4325.0,
+        "grossProfit": 753.5,
+        "profitBeforeTax": 363.5,
+        "parentNetIncome": 287.34675
+      }
+    },
+    "base": {
+      "epsYear1": 15.153137340339322,
+      "g1": 0.07,
+      "g2": 0.04,
+      "payout": 0.3,
+      "exitPE": 14,
+      "operatingForecast": {
+        "powerGWh": 700,
+        "storageGWh": 300,
+        "powerASP_CNYPerWh": 0.55,
+        "storageASP_CNYPerWh": 0.5,
+        "powerRevenue": 3850.0000000000005,
+        "storageRevenue": 1500.0,
+        "otherRevenue": 300,
+        "powerGrossMargin": 0.22,
+        "storageGrossMargin": 0.23,
+        "otherGrossMargin": 0.25,
+        "rd": 260,
+        "selling": 60,
+        "admin": 140,
+        "netFinanceIncome": 20,
+        "sustainableInvestmentIncome": 60,
+        "effectiveTax": 0.15,
+        "minorityShare": 0.07,
+        "shares100Million": 46.27249686,
+        "revenue": 5650.0,
+        "grossProfit": 1267.0,
+        "profitBeforeTax": 887.0,
+        "parentNetIncome": 701.1735
+      }
+    },
+    "bull": {
+      "epsYear1": 21.99340362114187,
+      "g1": 0.12,
+      "g2": 0.06,
+      "payout": 0.35,
+      "exitPE": 18,
+      "operatingForecast": {
+        "powerGWh": 800,
+        "storageGWh": 400,
+        "powerASP_CNYPerWh": 0.58,
+        "storageASP_CNYPerWh": 0.52,
+        "powerRevenue": 4639.999999999999,
+        "storageRevenue": 2080.0,
+        "otherRevenue": 350,
+        "powerGrossMargin": 0.24,
+        "storageGrossMargin": 0.26,
+        "otherGrossMargin": 0.28,
+        "rd": 320,
+        "selling": 75,
+        "admin": 170,
+        "netFinanceIncome": 30,
+        "sustainableInvestmentIncome": 70,
+        "effectiveTax": 0.15,
+        "minorityShare": 0.07,
+        "shares100Million": 46.27249686,
+        "revenue": 7069.999999999999,
+        "grossProfit": 1752.3999999999996,
+        "profitBeforeTax": 1287.3999999999996,
+        "parentNetIncome": 1017.6896999999998
+      }
+    }
+  },
+  "ownerCashCases": {
+    "bear": {
+      "annualCashPerShare": [
+        -5.679831818783767,
+        -5.897023470023313,
+        -6.118785870938194,
+        -6.345217244021444,
+        -6.57641798044092,
+        -6.759072348889452,
+        -6.9461693848027855,
+        -7.137810945264959,
+        -7.334101207777057,
+        -7.5351467240954415
+      ],
+      "terminalGrowth": 0,
+      "basis": "全为未来预算假设；2027 OCF=合并净利×0.8，总现金CAPEX450亿元后每年+2%，NCI股息与租赁本金每年+3%，融资利息25亿元固定；不拆维护/增长，不用H1与9M差额冒充未来预算。"
+    },
+    "base": {
+      "annualCashPerShare": [
+        5.388622117246174,
+        6.394708954117161,
+        7.483324090931716,
+        8.660499519778892,
+        9.932694961415798,
+        10.60202343865886,
+        11.30316841940865,
+        12.037507079617924,
+        12.806473882049488,
+        13.611562915027786
+      ],
+      "terminalGrowth": 0.02,
+      "basis": "全为未来预算假设；2027 OCF=合并净利×1.1，总现金CAPEX500亿元后每年+2%，NCI股息与租赁本金每年+3%，融资利息30亿元固定；不拆维护/增长，不用H1与9M差额冒充未来预算。"
+    },
+    "bull": {
+      "annualCashPerShare": [
+        11.089697656743214,
+        14.15367236355353,
+        17.619080588338925,
+        21.534804494317058,
+        25.955607357412877,
+        28.26358443195531,
+        30.72445343326859,
+        33.34768927769179,
+        36.14334179859965,
+        39.12207038168691
+      ],
+      "terminalGrowth": 0.02,
+      "basis": "全为未来预算假设；2027 OCF=合并净利×1.2，总现金CAPEX700亿元后每年+2%，NCI股息与租赁本金每年+3%，融资利息40亿元固定；不拆维护/增长，不用H1与9M差额冒充未来预算。"
+    }
+  },
+  "cashBudgetForecasts": {
+    "bear": [
+      {
+        "year": 2027,
+        "parentProfitYi": 287.34675,
+        "groupOCFYi": 247.18000000000004,
+        "allCashCapexYi": 450.0,
+        "nciDividendYi": 25.0,
+        "leasePrincipalYi": 10.0,
+        "interestCashYi": 25,
+        "ownerCashPerShare": -5.679831818783767
+      },
+      {
+        "year": 2028,
+        "parentProfitYi": 287.34675,
+        "groupOCFYi": 247.18000000000004,
+        "allCashCapexYi": 459.0,
+        "nciDividendYi": 25.75,
+        "leasePrincipalYi": 10.3,
+        "interestCashYi": 25,
+        "ownerCashPerShare": -5.897023470023313
+      },
+      {
+        "year": 2029,
+        "parentProfitYi": 287.34675,
+        "groupOCFYi": 247.18000000000004,
+        "allCashCapexYi": 468.18,
+        "nciDividendYi": 26.522499999999997,
+        "leasePrincipalYi": 10.609,
+        "interestCashYi": 25,
+        "ownerCashPerShare": -6.118785870938194
+      },
+      {
+        "year": 2030,
+        "parentProfitYi": 287.34675,
+        "groupOCFYi": 247.18000000000004,
+        "allCashCapexYi": 477.5436000000001,
+        "nciDividendYi": 27.318175,
+        "leasePrincipalYi": 10.92727,
+        "interestCashYi": 25,
+        "ownerCashPerShare": -6.345217244021444
+      },
+      {
+        "year": 2031,
+        "parentProfitYi": 287.34675,
+        "groupOCFYi": 247.18000000000004,
+        "allCashCapexYi": 487.094472,
+        "nciDividendYi": 28.137720250000005,
+        "leasePrincipalYi": 11.255088100000002,
+        "interestCashYi": 25,
+        "ownerCashPerShare": -6.57641798044092
+      },
+      {
+        "year": 2032,
+        "parentProfitYi": 290.2202175,
+        "groupOCFYi": 249.6518,
+        "allCashCapexYi": 496.83636144,
+        "nciDividendYi": 28.9818518575,
+        "leasePrincipalYi": 11.592740743,
+        "interestCashYi": 25,
+        "ownerCashPerShare": -6.759072348889452
+      },
+      {
+        "year": 2033,
+        "parentProfitYi": 293.122419675,
+        "groupOCFYi": 252.14831800000002,
+        "allCashCapexYi": 506.7730886688,
+        "nciDividendYi": 29.851307413225005,
+        "leasePrincipalYi": 11.94052296529,
+        "interestCashYi": 25,
+        "ownerCashPerShare": -6.9461693848027855
+      },
+      {
+        "year": 2034,
+        "parentProfitYi": 296.05364387175007,
+        "groupOCFYi": 254.66980118000006,
+        "allCashCapexYi": 516.908550442176,
+        "nciDividendYi": 30.746846635621754,
+        "leasePrincipalYi": 12.298738654248702,
+        "interestCashYi": 25,
+        "ownerCashPerShare": -7.137810945264959
+      },
+      {
+        "year": 2035,
+        "parentProfitYi": 299.0141803104675,
+        "groupOCFYi": 257.21649919180004,
+        "allCashCapexYi": 527.2467214510195,
+        "nciDividendYi": 31.66925203469041,
+        "leasePrincipalYi": 12.667700813876163,
+        "interestCashYi": 25,
+        "ownerCashPerShare": -7.334101207777057
+      },
+      {
+        "year": 2036,
+        "parentProfitYi": 302.0043221135722,
+        "groupOCFYi": 259.788664183718,
+        "allCashCapexYi": 537.79165588004,
+        "nciDividendYi": 32.619329595731124,
+        "leasePrincipalYi": 13.04773183829245,
+        "interestCashYi": 25,
+        "ownerCashPerShare": -7.5351467240954415
+      }
+    ],
+    "base": [
+      {
+        "year": 2027,
+        "parentProfitYi": 701.1735,
+        "groupOCFYi": 829.3450000000001,
+        "allCashCapexYi": 500.0,
+        "nciDividendYi": 35.0,
+        "leasePrincipalYi": 15.0,
+        "interestCashYi": 30,
+        "ownerCashPerShare": 5.388622117246174
+      },
+      {
+        "year": 2028,
+        "parentProfitYi": 750.2556450000001,
+        "groupOCFYi": 887.3991500000002,
+        "allCashCapexYi": 510.0,
+        "nciDividendYi": 36.050000000000004,
+        "leasePrincipalYi": 15.450000000000001,
+        "interestCashYi": 30,
+        "ownerCashPerShare": 6.394708954117161
+      },
+      {
+        "year": 2029,
+        "parentProfitYi": 802.77354015,
+        "groupOCFYi": 949.5170905000002,
+        "allCashCapexYi": 520.2,
+        "nciDividendYi": 37.131499999999996,
+        "leasePrincipalYi": 15.913499999999999,
+        "interestCashYi": 30,
+        "ownerCashPerShare": 7.483324090931716
+      },
+      {
+        "year": 2030,
+        "parentProfitYi": 858.9676879605001,
+        "groupOCFYi": 1015.9832868350003,
+        "allCashCapexYi": 530.604,
+        "nciDividendYi": 38.245445000000004,
+        "leasePrincipalYi": 16.390905,
+        "interestCashYi": 30,
+        "ownerCashPerShare": 8.660499519778892
+      },
+      {
+        "year": 2031,
+        "parentProfitYi": 919.0954261177351,
+        "groupOCFYi": 1087.1021169134503,
+        "allCashCapexYi": 541.21608,
+        "nciDividendYi": 39.39280835,
+        "leasePrincipalYi": 16.882632150000003,
+        "interestCashYi": 30,
+        "ownerCashPerShare": 9.932694961415798
+      },
+      {
+        "year": 2032,
+        "parentProfitYi": 955.8592431624445,
+        "groupOCFYi": 1130.5862015899884,
+        "allCashCapexYi": 552.0404016,
+        "nciDividendYi": 40.574592600500004,
+        "leasePrincipalYi": 17.3891111145,
+        "interestCashYi": 30,
+        "ownerCashPerShare": 10.60202343865886
+      },
+      {
+        "year": 2033,
+        "parentProfitYi": 994.0936128889424,
+        "groupOCFYi": 1175.809649653588,
+        "allCashCapexYi": 563.0812096320001,
+        "nciDividendYi": 41.791830378515,
+        "leasePrincipalYi": 17.910784447935,
+        "interestCashYi": 30,
+        "ownerCashPerShare": 11.30316841940865
+      },
+      {
+        "year": 2034,
+        "parentProfitYi": 1033.8573574045001,
+        "groupOCFYi": 1222.8420356397316,
+        "allCashCapexYi": 574.34283382464,
+        "nciDividendYi": 43.04558528987046,
+        "leasePrincipalYi": 18.448107981373052,
+        "interestCashYi": 30,
+        "ownerCashPerShare": 12.037507079617924
+      },
+      {
+        "year": 2035,
+        "parentProfitYi": 1075.21165170068,
+        "groupOCFYi": 1271.7557170653206,
+        "allCashCapexYi": 585.8296905011329,
+        "nciDividendYi": 44.336952848566575,
+        "leasePrincipalYi": 19.001551220814246,
+        "interestCashYi": 30,
+        "ownerCashPerShare": 12.806473882049488
+      },
+      {
+        "year": 2036,
+        "parentProfitYi": 1118.2201177687073,
+        "groupOCFYi": 1322.6259457479334,
+        "allCashCapexYi": 597.5462843111555,
+        "nciDividendYi": 45.66706143402357,
+        "leasePrincipalYi": 19.571597757438674,
+        "interestCashYi": 30,
+        "ownerCashPerShare": 13.611562915027786
+      }
+    ],
+    "bull": [
+      {
+        "year": 2027,
+        "parentProfitYi": 1017.6896999999997,
+        "groupOCFYi": 1313.1479999999997,
+        "allCashCapexYi": 700.0,
+        "nciDividendYi": 40.0,
+        "leasePrincipalYi": 20.0,
+        "interestCashYi": 40,
+        "ownerCashPerShare": 11.089697656743214
+      },
+      {
+        "year": 2028,
+        "parentProfitYi": 1139.8124639999996,
+        "groupOCFYi": 1470.7257599999996,
+        "allCashCapexYi": 714.0,
+        "nciDividendYi": 41.2,
+        "leasePrincipalYi": 20.6,
+        "interestCashYi": 40,
+        "ownerCashPerShare": 14.15367236355353
+      },
+      {
+        "year": 2029,
+        "parentProfitYi": 1276.5899596799998,
+        "groupOCFYi": 1647.2128511999997,
+        "allCashCapexYi": 728.28,
+        "nciDividendYi": 42.436,
+        "leasePrincipalYi": 21.218,
+        "interestCashYi": 40,
+        "ownerCashPerShare": 17.619080588338925
+      },
+      {
+        "year": 2030,
+        "parentProfitYi": 1429.7807548416001,
+        "groupOCFYi": 1844.8783933440002,
+        "allCashCapexYi": 742.8456000000001,
+        "nciDividendYi": 43.70908,
+        "leasePrincipalYi": 21.85454,
+        "interestCashYi": 40,
+        "ownerCashPerShare": 21.534804494317058
+      },
+      {
+        "year": 2031,
+        "parentProfitYi": 1601.3544454225919,
+        "groupOCFYi": 2066.26380054528,
+        "allCashCapexYi": 757.702512,
+        "nciDividendYi": 45.02035240000001,
+        "leasePrincipalYi": 22.510176200000004,
+        "interestCashYi": 40,
+        "ownerCashPerShare": 25.955607357412877
+      },
+      {
+        "year": 2032,
+        "parentProfitYi": 1697.4357121479477,
+        "groupOCFYi": 2190.239628577997,
+        "allCashCapexYi": 772.85656224,
+        "nciDividendYi": 46.370962972,
+        "leasePrincipalYi": 23.185481486,
+        "interestCashYi": 40,
+        "ownerCashPerShare": 28.26358443195531
+      },
+      {
+        "year": 2033,
+        "parentProfitYi": 1799.2818548768246,
+        "groupOCFYi": 2321.654006292677,
+        "allCashCapexYi": 788.3136934848001,
+        "nciDividendYi": 47.76209186116,
+        "leasePrincipalYi": 23.88104593058,
+        "interestCashYi": 40,
+        "ownerCashPerShare": 30.72445343326859
+      },
+      {
+        "year": 2034,
+        "parentProfitYi": 1907.238766169434,
+        "groupOCFYi": 2460.9532466702376,
+        "allCashCapexYi": 804.079967354496,
+        "nciDividendYi": 49.194954616994806,
+        "leasePrincipalYi": 24.597477308497403,
+        "interestCashYi": 40,
+        "ownerCashPerShare": 33.34768927769179
+      },
+      {
+        "year": 2035,
+        "parentProfitYi": 2021.6730921396004,
+        "groupOCFYi": 2608.610441470452,
+        "allCashCapexYi": 820.161566701586,
+        "nciDividendYi": 50.67080325550465,
+        "leasePrincipalYi": 25.335401627752326,
+        "interestCashYi": 40,
+        "ownerCashPerShare": 36.14334179859965
+      },
+      {
+        "year": 2036,
+        "parentProfitYi": 2142.973477667976,
+        "groupOCFYi": 2765.1270679586787,
+        "allCashCapexYi": 836.5647980356177,
+        "nciDividendYi": 52.1909273531698,
+        "leasePrincipalYi": 26.0954636765849,
+        "interestCashYi": 40,
+        "ownerCashPerShare": 39.12207038168691
+      }
+    ]
+  },
+  "estimateBridge": [
+    {
+      "line": "财务锚",
+      "reportedAnchor": "9M收入4421.37、归母645.30、扣非578.76亿元；稀释EPS14.13元",
+      "normalization": "不将9M乘4/3；投资收益和公允价值分列，2027重新用销量与单价建模",
+      "newAssumption": "2027三情景动力600/700/800GWh，储能250/300/400GWh，单价/利润率由各案明确假设给出",
+      "sourceIds": [
+        "catl-q3",
+        "catl-ir"
+      ]
+    },
+    {
+      "line": "归母与每股",
+      "reportedAnchor": "9M期末股本46.27249686亿；报表股本与回购库存股、加权EPS分母不同",
+      "normalization": "未来不主动预设回购提升EPS；用较保守最新总股本作预算分母",
+      "newAssumption": "税率15%、少数利润占7%，均为预算敏感性，不是法定税率/2027承诺",
+      "sourceIds": [
+        "catl-q3"
+      ]
+    },
+    {
+      "line": "现金",
+      "reportedAnchor": "9M OCF616.25487−全CAPEX421.67472=194.58015亿元，单Q3扣CAPEX后为负",
+      "normalization": "单季回款与存货不能靠长周期利润抹平；全额扣未来总现金投资",
+      "newAssumption": "预算OCF/合并净利0.8/1.1/1.25；CAPEX450/500/650亿元，额外扣NCI/租赁/融资利息",
+      "sourceIds": [
+        "catl-q3",
+        "catl-h1"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "增长/利润架构",
+      "old": "旧应用原档位，未具备本轮经营与现金约束",
+      "new": "销量—单价—毛利—税/少数—股本模型；保留同日重研的2027中间EPS15.1531元、后续7%/4%盈利增长",
+      "reason": "新Q3已经证明收入增长同时有利润率和现金压力，不因营收增长追认旧档位",
+      "sourceIds": [
+        "catl-q3",
+        "catl-ir"
+      ]
+    },
+    {
+      "variable": "现金交叉估值",
+      "old": "上轮重研有首年现金桥，尚未与十年现金DCF交叉",
+      "new": "逐年预测全CAPEX、NCI、租赁及利息，所有者现金DCF与EPS退出模型分别计算",
+      "reason": "增长要求的再投资导致EPS终值价值高于可抽取现金；分歧需在建议买点中保留",
+      "sourceIds": [
+        "catl-q3",
+        "catl-h1"
+      ]
+    },
+    {
+      "variable": "股息/终值",
+      "old": "原应用价格不自动继承；同日重研payout30%/退出14倍为研究中间案",
+      "new": "中间案维持30%现金派息和14倍退出，不额外加净现金/回购/特别股息",
+      "reason": "投资收益已经进入收益流，避免净现金与利息双重计价；倍数无需先回到旧高位",
+      "sourceIds": [
+        "catl-q3"
+      ]
+    }
+  ],
+  "rationale": "动力电池与储能需求仍有份额基础，三情景的差异来自GWh、ASP与毛利率，不能将价格战、原料传导和技术替代风险抹掉。EPS模型保持同日重研经营输入，并新增全期限现金交叉；本轮新价线统一计入费用与港股税/汇率。",
+  "cashConstraint": "中间案2027股息210.352亿元低于预算扣除全投资及其他现金的249.345亿元，但此现金转换率和投资预算尚非公司指引，Q3弱回款必须先改善；增长与分红不能都靠融资。",
+  "pricedIn": "以10/23证券报价统一计算；A237.60元、H356.80港元不是同步报价，H价折人民币按10/23中间价仅作比较。",
+  "downside": "若单位毛利与OCF转换同时下行，悲观预算现金持续为负；盈利可为正但再投资吞噬所有者现金，最终退出价值并不能保护短期融资风险。",
+  "activationConditions": [
+    "Q4/下个官方报表证明应收存货占用回落及OCF/全CAPEX覆盖恢复",
+    "现金预算、投建承诺与少数/租赁/融资桥经独立复核；若与退出模型差异>20%先解释并采用更保守约束",
+    "不依赖PE修复达到回报门槛；A/H各过绝对价门且H折A至少25%才进入A/H选择"
+  ],
+  "invalidations": [
+    "单位售价下行幅度持续超过单位成本改善，且股本扩张或投资加速使每股现金下降",
+    "两个季度累计OCF不能覆盖全部资本开支、股息与已承诺现金义务"
+  ],
+  "sources": [
+    {
+      "id": "catl-q3",
+      "title": "宁德时代2026第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613175.PDF",
+      "period": "2026Q1–Q3",
+      "publishedAt": "2026-10-21",
+      "location": "PDF1–3、7–12页，主要财务、非经常、现金与股本",
+      "readStatus": "read"
+    },
+    {
+      "id": "catl-ir",
+      "title": "2026年10月20日投资者关系活动记录表2026-004",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613436.PDF",
+      "period": "2026Q3",
+      "publishedAt": "2026-10-21",
+      "location": "PDF1–4页问答1–8；管理层解释不等于2027销量指引",
+      "readStatus": "read"
+    },
+    {
+      "id": "catl-h1",
+      "title": "2026半年报现金与营运资本",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-07-24/1225442062.PDF",
+      "period": "2026H1",
+      "publishedAt": null,
+      "location": "现金流与资本开支附注；单季现金由9M−H1计算",
+      "readStatus": "prior_read"
+    }
+  ],
+  "missingEvidence": [
+    "2027总投资、维护/扩张投入与营运资金预算未有正式指引，均为研究预测",
+    "产能协议/技术迭代及投资收益长期现金回收仍需核验",
+    "现金DCF与EPS退出模型存在方法及再投资分歧，价格须取更保守且不得视为正式批准"
+  ],
+  "capitalCost": 0.12,
+  "requiresUserConfirmation": true,
+  "formalAllowed": false
+}

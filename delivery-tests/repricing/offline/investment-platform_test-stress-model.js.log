@@ -1,0 +1,80 @@
+PASS 现金优先 investable
+PASS 股票市值
+PASS 1000×20%+1600×28%
+PASS 现金缓冲后资产
+PASS 总资产损失18%
+PASS HK乘法冲击
+PASS A普通税后36+港股普通税后64
+PASS 36×75%+64×75%×90%
+PASS 股息损失
+PASS 税后收入目标缺口
+PASS 税后收入覆盖率
+PASS 完整合成数据有效
+PASS 不改输入
+PASS 价格下跌不自动改变普通DPS
+PASS 没有默认百万元收入目标
+PASS 未设目标不出覆盖率
+PASS 全减派为零
+PASS 达标不产生负缺口
+PASS 未分配20%按现金
+PASS 规划目标本金
+PASS 规划股票预算
+PASS 4000×20%+4000×28%
+PASS 4000/100×4×90%+4000/(100×0.8)×5×80%×0.8
+PASS 144×75%+160×75%×90%
+PASS 规划权重
+PASS 未分配假设可见
+PASS 规划股息与网页共用函数一致
+PASS 已知零分红不是缺失
+PASS 规划零股息仍完整
+PASS 当前持仓缺DPS不能报完整零收入
+PASS 保留已覆盖收入
+PASS 缺DPS清单
+PASS 缺行情不呈现完整资产
+PASS 已覆盖资产
+PASS 已知股数DPS的收入独立于缺行情
+PASS 缺行情清单
+PASS 备用价格沿用holdingValue与quoteOf
+PASS 备用价格警示
+PASS 备用汇率警示
+PASS 空组合
+PASS 零资产损失比不为NaN
+PASS 空组合已知零股息
+PASS 现金不承受股价压力
+PASS 空席位按现金
+PASS 空席位无股票
+PASS 同席等分
+PASS 等分普通税后股息
+PASS 等分警示
+PASS 未知/重复/超配显式不完整
+PASS 错误规划不能完整结论
+PASS 错误规划警示
+PASS 未知/重复/超配显式不完整
+PASS 错误规划不能完整结论
+PASS 错误规划警示
+PASS 未知/重复/超配显式不完整
+PASS 错误规划不能完整结论
+PASS 错误规划警示
+PASS 规划预算已知不依赖价格
+PASS 缺规划价格不能算完整股息
+PASS 规划缺价清单
+PASS 过期分红需复核
+PASS 未持仓缺税率假设不生成完整税后股息
+PASS 未持仓优先新报价200，显式税率后A股72加港股160
+PASS 零持仓不要求行情及DPS
+PASS 资产求和溢出显式无效
+PASS 溢出不输出Infinity
+PASS 默认零压力
+PASS 默认当前实况
+PASS 拒绝非法情景参数 {"scope":"other"}
+PASS 拒绝非法情景参数 {"priceDrop":-0.01}
+PASS 拒绝非法情景参数 {"priceDrop":0.96}
+PASS 拒绝非法情景参数 {"priceDrop":null}
+PASS 拒绝非法情景参数 {"priceDrop":"0.2"}
+PASS 拒绝非法情景参数 {"hkdDrop":1}
+PASS 拒绝非法情景参数 {"dividendCut":1.1}
+PASS 拒绝非法情景参数 {"incomeTargetCNY":0}
+PASS 拒绝非法情景参数 {"incomeTargetCNY":-1}
+PASS 拒绝非法情景参数 {"incomeTargetCNY":null}
+PASS 所有输出数值有限
+压力情景纯计算：79 项通过（固定合成数据，无网络/真实配置）

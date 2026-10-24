@@ -1,0 +1,239 @@
+PASS exactly 34 issuer research records; 28 current, 6 historical
+PASS anta: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS anta: no ambiguous security mapping 02020.HK
+PASS anta: portable report exists
+PASS anta: financial metrics cite a known source
+PASS anta: OCF less total cash capex ties
+PASS anta: no approvals or personal records in public research
+PASS catl: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS catl: no ambiguous security mapping 300750.SZ
+PASS catl: no ambiguous security mapping 03750.HK
+PASS catl: portable report exists
+PASS catl: financial metrics cite a known source
+PASS catl: OCF less total cash capex ties
+PASS catl: no approvals or personal records in public research
+PASS china_mobile: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS china_mobile: no ambiguous security mapping 0941.HK
+PASS china_mobile: no ambiguous security mapping 600941.SH
+PASS china_mobile: portable report exists
+PASS china_mobile: financial metrics cite a known source
+PASS china_mobile: OCF less total cash capex ties
+PASS china_mobile: no approvals or personal records in public research
+PASS cmb: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS cmb: no ambiguous security mapping 600036.SH
+PASS cmb: portable report exists
+PASS cmb: financial metrics cite a known source
+PASS cmb: financial company does not claim OCF free cash
+PASS cmb: no approvals or personal records in public research
+PASS cnooc: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS cnooc: no ambiguous security mapping 0883.HK
+PASS cnooc: portable report exists
+PASS cnooc: financial metrics cite a known source
+PASS cnooc: no approvals or personal records in public research
+PASS consun: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS consun: no ambiguous security mapping 1681.HK
+PASS consun: portable report exists
+PASS consun: financial metrics cite a known source
+PASS consun: OCF less total cash capex ties
+PASS consun: no approvals or personal records in public research
+PASS crland: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS crland: no ambiguous security mapping 1109.HK
+PASS crland: portable report exists
+PASS crland: financial metrics cite a known source
+PASS crland: no approvals or personal records in public research
+PASS cypc: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS cypc: no ambiguous security mapping 600900.SH
+PASS cypc: portable report exists
+PASS cypc: financial metrics cite a known source
+PASS cypc: OCF less total cash capex ties
+PASS cypc: no approvals or personal records in public research
+PASS dongee: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS dongee: no ambiguous security mapping 000423.SZ
+PASS dongee: portable report exists
+PASS dongee: financial metrics cite a known source
+PASS dongee: OCF less total cash capex ties
+PASS dongee: no approvals or personal records in public research
+PASS dongpeng: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS dongpeng: no ambiguous security mapping 605499.SH
+PASS dongpeng: portable report exists
+PASS dongpeng: financial metrics cite a known source
+PASS dongpeng: OCF less total cash capex ties
+PASS dongpeng: no approvals or personal records in public research
+PASS focus: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS focus: no ambiguous security mapping 002027.SZ
+PASS focus: portable report exists
+PASS focus: financial metrics cite a known source
+PASS focus: OCF less total cash capex ties
+PASS focus: no approvals or personal records in public research
+PASS fuyao: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS fuyao: no ambiguous security mapping 600660.SH
+PASS fuyao: portable report exists
+PASS fuyao: financial metrics cite a known source
+PASS fuyao: OCF less total cash capex ties
+PASS fuyao: no approvals or personal records in public research
+PASS gree: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS gree: no ambiguous security mapping 000651.SZ
+PASS gree: portable report exists
+PASS gree: financial metrics cite a known source
+PASS gree: OCF less total cash capex ties
+PASS gree: no approvals or personal records in public research
+PASS haitian: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS haitian: no ambiguous security mapping 3288.HK
+PASS haitian: no ambiguous security mapping 603288.SH
+PASS haitian: portable report exists
+PASS haitian: financial metrics cite a known source
+PASS haitian: OCF less total cash capex ties
+PASS haitian: no approvals or personal records in public research
+PASS hengrui: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS hengrui: no ambiguous security mapping 600276.SH
+PASS hengrui: portable report exists
+PASS hengrui: financial metrics cite a known source
+PASS hengrui: OCF less total cash capex ties
+PASS hengrui: no approvals or personal records in public research
+PASS hkex: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS hkex: no ambiguous security mapping 0388.HK
+PASS hkex: portable report exists
+PASS hkex: financial metrics cite a known source
+PASS hkex: OCF less total cash capex ties
+PASS hkex: no approvals or personal records in public research
+PASS mindray: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS mindray: no ambiguous security mapping 300760.SZ
+PASS mindray: portable report exists
+PASS mindray: financial metrics cite a known source
+PASS mindray: OCF less total cash capex ties
+PASS mindray: no approvals or personal records in public research
+PASS miniso: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS miniso: no ambiguous security mapping 9896.HK
+PASS miniso: portable report exists
+PASS miniso: financial metrics cite a known source
+PASS miniso: OCF less total cash capex ties
+PASS miniso: no approvals or personal records in public research
+PASS moutai: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS moutai: no ambiguous security mapping 600519.SH
+PASS moutai: portable report exists
+PASS moutai: financial metrics cite a known source
+PASS moutai: OCF less total cash capex ties
+PASS moutai: no approvals or personal records in public research
+PASS ninghu: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS ninghu: no ambiguous security mapping 600377.SH
+PASS ninghu: portable report exists
+PASS ninghu: financial metrics cite a known source
+PASS ninghu: OCF less total cash capex ties
+PASS ninghu: no approvals or personal records in public research
+PASS nongfu: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS nongfu: no ambiguous security mapping 09633.HK
+PASS nongfu: portable report exists
+PASS nongfu: financial metrics cite a known source
+PASS nongfu: OCF less total cash capex ties
+PASS nongfu: no approvals or personal records in public research
+PASS pingan: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS pingan: no ambiguous security mapping 2318.HK
+PASS pingan: no ambiguous security mapping 601318.SH
+PASS pingan: portable report exists
+PASS pingan: financial metrics cite a known source
+PASS pingan: financial company does not claim OCF free cash
+PASS pingan: no approvals or personal records in public research
+PASS popmart: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS popmart: no ambiguous security mapping 09992.HK
+PASS popmart: portable report exists
+PASS popmart: financial metrics cite a known source
+PASS popmart: OCF less total cash capex ties
+PASS popmart: no approvals or personal records in public research
+PASS sanhua: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS sanhua: no ambiguous security mapping 002050.SZ
+PASS sanhua: portable report exists
+PASS sanhua: financial metrics cite a known source
+PASS sanhua: OCF less total cash capex ties
+PASS sanhua: no approvals or personal records in public research
+PASS shenhua: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS shenhua: no ambiguous security mapping 601088.SH
+PASS shenhua: portable report exists
+PASS shenhua: financial metrics cite a known source
+PASS shenhua: OCF less total cash capex ties
+PASS shenhua: no approvals or personal records in public research
+PASS tencent: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS tencent: no ambiguous security mapping 0700.HK
+PASS tencent: portable report exists
+PASS tencent: financial metrics cite a known source
+PASS tencent: OCF less total cash capex ties
+PASS tencent: no approvals or personal records in public research
+PASS trip: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS trip: no ambiguous security mapping 9961.HK
+PASS trip: portable report exists
+PASS trip: financial metrics cite a known source
+PASS trip: no approvals or personal records in public research
+PASS wanhua: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS wanhua: no ambiguous security mapping 600309.SH
+PASS wanhua: portable report exists
+PASS wanhua: financial metrics cite a known source
+PASS wanhua: OCF less total cash capex ties
+PASS wanhua: no approvals or personal records in public research
+PASS weixing: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS weixing: no ambiguous security mapping 002372.SZ
+PASS weixing: portable report exists
+PASS weixing: financial metrics cite a known source
+PASS weixing: OCF less total cash capex ties
+PASS weixing: no approvals or personal records in public research
+PASS yangnong: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS yangnong: no ambiguous security mapping 600486.SH
+PASS yangnong: portable report exists
+PASS yangnong: financial metrics cite a known source
+PASS yangnong: no approvals or personal records in public research
+PASS yili: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS yili: no ambiguous security mapping 600887.SH
+PASS yili: portable report exists
+PASS yili: financial metrics cite a known source
+PASS yili: OCF less total cash capex ties
+PASS yili: no approvals or personal records in public research
+PASS yiwu: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS yiwu: no ambiguous security mapping 600415.SH
+PASS yiwu: portable report exists
+PASS yiwu: financial metrics cite a known source
+PASS yiwu: OCF less total cash capex ties
+PASS yiwu: no approvals or personal records in public research
+PASS yutong: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS yutong: no ambiguous security mapping 600066.SH
+PASS yutong: portable report exists
+PASS yutong: financial metrics cite a known source
+PASS yutong: OCF less total cash capex ties
+PASS yutong: no approvals or personal records in public research
+PASS zijin: eight supported dimensions, sources, named gaps and unapproved valuation
+PASS zijin: no ambiguous security mapping 601899.SH
+PASS zijin: portable report exists
+PASS zijin: financial metrics cite a known source
+PASS zijin: OCF less total cash capex ties
+PASS zijin: no approvals or personal records in public research
+PASS catl bear: operating earnings reconcile to per-share income
+PASS catl bear: ten annual cash flows and single terminal reproduce reported IRR
+PASS catl base: operating earnings reconcile to per-share income
+PASS catl base: ten annual cash flows and single terminal reproduce reported IRR
+PASS catl bull: operating earnings reconcile to per-share income
+PASS catl bull: ten annual cash flows and single terminal reproduce reported IRR
+PASS popmart bear: ordinary shares rather than ADS are the EPS denominator
+PASS popmart bear: ten annual cash flows and single terminal reproduce reported IRR
+PASS popmart base: ordinary shares rather than ADS are the EPS denominator
+PASS popmart base: ten annual cash flows and single terminal reproduce reported IRR
+PASS popmart bull: ordinary shares rather than ADS are the EPS denominator
+PASS popmart bull: ten annual cash flows and single terminal reproduce reported IRR
+PASS china_mobile bear: ten annual cash flows and single terminal reproduce reported IRR
+PASS china_mobile base: ten annual cash flows and single terminal reproduce reported IRR
+PASS china_mobile bull: ten annual cash flows and single terminal reproduce reported IRR
+PASS all eight retrieved Q3 issuer financials are separately classified
+PASS Ping An Bank Q3 does not masquerade as Ping An group Q3
+PASS operating updates are not labelled financial quarterly reports
+PASS mirror source limitation remains visible
+PASS read-only public study fills thesis and report link
+PASS research package cannot change formal research or investment approval
+PASS presentation evidence is outside the real account revision
+PASS ordinary saves neither persist presentation metadata nor change data revision by reading
+PASS client cannot save research package as account data
+PASS malformed or missing research package preserves explicit unknowns
+PASS same-looking fills remain duplicate candidates and are never deleted
+PASS share arithmetic does not certify FX, cash, trade IDs or side
+PASS research version is bound to the full evidence content digest
+PASS unreadable package fails closed without breaking account reads
+PASS unsafe report path rejected
+PASS empty research records fails closed
+PASS empty research version fails closed
+PASS normalized duplicate HK code fails closed
+Research evidence acceptance: 238 checks passed; no production or personal-data writes.

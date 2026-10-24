@@ -1,0 +1,599 @@
+PASS flat EPS/dividend valuation matches independent annuity plus year-ten sale
+PASS dividend tax applies to ten dividends, not the terminal equity sale
+PASS entry fee raises cost and exit fee only reduces final sale
+PASS EPS0 grows once in year one
+PASS explicit first-year EPS is not grown before the first dividend
+PASS only year ten contains terminal value
+PASS IRR is independently zero for ten equal repayments of principal
+PASS no future proceeds yields unknown IRR, not a fake zero return
+PASS finite concessions have only an annuity and no invented perpetuity
+PASS unapproved finite concession residual is rejected
+PASS bank capital retains only earnings less dividends
+PASS bank residual-income value recomputes from capital, ROE and growth
+PASS constant owner cash with zero growth equals an independent perpetuity
+PASS negative owner cash PV remains visible and terminal share becomes inapplicable
+PASS negative initial owner cash is discounted rather than removed
+PASS full scope contains 34 issuers, 37 pool securities and one comparison
+PASS proposal package never grants execution or writes account data
+PASS issued date is separate from evidence freeze and market source dates
+PASS 02020.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 02020.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 02020.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 02020.HK bear: higher return thresholds strictly reduce price
+PASS 02020.HK bear: terminal sale appears at most once
+PASS 02020.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 02020.HK base: higher return thresholds strictly reduce price
+PASS 02020.HK base: terminal sale appears at most once
+PASS 02020.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 02020.HK bull: higher return thresholds strictly reduce price
+PASS 02020.HK bull: terminal sale appears at most once
+PASS 02020.HK: suggestion obeys all four price caps and rounding is downward
+PASS 02020.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 02020.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 02020.HK: fee sensitivity reduces price monotonically
+PASS 300750.SZ: new estimates have three cases and source-linked normalization/change bridges
+PASS 300750.SZ: all future assumptions remain proposals with named activation and missing evidence
+PASS 300750.SZ bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 300750.SZ bear: higher return thresholds strictly reduce price
+PASS 300750.SZ bear: terminal sale appears at most once
+PASS 300750.SZ base: discounted independent flow sum reproduces quoted-price IRR
+PASS 300750.SZ base: higher return thresholds strictly reduce price
+PASS 300750.SZ base: terminal sale appears at most once
+PASS 300750.SZ bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 300750.SZ bull: higher return thresholds strictly reduce price
+PASS 300750.SZ bull: terminal sale appears at most once
+PASS 300750.SZ: suggestion obeys all four price caps and rounding is downward
+PASS 300750.SZ: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 300750.SZ: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 300750.SZ: fee sensitivity reduces price monotonically
+PASS 03750.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 03750.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 03750.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 03750.HK bear: higher return thresholds strictly reduce price
+PASS 03750.HK bear: terminal sale appears at most once
+PASS 03750.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 03750.HK base: higher return thresholds strictly reduce price
+PASS 03750.HK base: terminal sale appears at most once
+PASS 03750.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 03750.HK bull: higher return thresholds strictly reduce price
+PASS 03750.HK bull: terminal sale appears at most once
+PASS 03750.HK: suggestion obeys all four price caps and rounding is downward
+PASS 03750.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 03750.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 03750.HK: fee sensitivity reduces price monotonically
+PASS 0941.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 0941.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 0941.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 0941.HK bear: higher return thresholds strictly reduce price
+PASS 0941.HK bear: terminal sale appears at most once
+PASS 0941.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 0941.HK base: higher return thresholds strictly reduce price
+PASS 0941.HK base: terminal sale appears at most once
+PASS 0941.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 0941.HK bull: higher return thresholds strictly reduce price
+PASS 0941.HK bull: terminal sale appears at most once
+PASS 0941.HK: suggestion obeys all four price caps and rounding is downward
+PASS 0941.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 0941.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 0941.HK: fee sensitivity reduces price monotonically
+PASS 600941.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600941.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600941.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600941.SH bear: higher return thresholds strictly reduce price
+PASS 600941.SH bear: terminal sale appears at most once
+PASS 600941.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600941.SH base: higher return thresholds strictly reduce price
+PASS 600941.SH base: terminal sale appears at most once
+PASS 600941.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600941.SH bull: higher return thresholds strictly reduce price
+PASS 600941.SH bull: terminal sale appears at most once
+PASS 600941.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600941.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600941.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600941.SH: fee sensitivity reduces price monotonically
+PASS 600036.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600036.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600036.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600036.SH bear: higher return thresholds strictly reduce price
+PASS 600036.SH bear: terminal sale appears at most once
+PASS 600036.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600036.SH base: higher return thresholds strictly reduce price
+PASS 600036.SH base: terminal sale appears at most once
+PASS 600036.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600036.SH bull: higher return thresholds strictly reduce price
+PASS 600036.SH bull: terminal sale appears at most once
+PASS 600036.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600036.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600036.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600036.SH: fee sensitivity reduces price monotonically
+PASS 0883.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 0883.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 0883.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 0883.HK bear: higher return thresholds strictly reduce price
+PASS 0883.HK bear: terminal sale appears at most once
+PASS 0883.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 0883.HK base: higher return thresholds strictly reduce price
+PASS 0883.HK base: terminal sale appears at most once
+PASS 0883.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 0883.HK bull: higher return thresholds strictly reduce price
+PASS 0883.HK bull: terminal sale appears at most once
+PASS 0883.HK: suggestion obeys all four price caps and rounding is downward
+PASS 0883.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 0883.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 0883.HK: fee sensitivity reduces price monotonically
+PASS 1681.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 1681.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 1681.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 1681.HK bear: higher return thresholds strictly reduce price
+PASS 1681.HK bear: terminal sale appears at most once
+PASS 1681.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 1681.HK base: higher return thresholds strictly reduce price
+PASS 1681.HK base: terminal sale appears at most once
+PASS 1681.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 1681.HK bull: higher return thresholds strictly reduce price
+PASS 1681.HK bull: terminal sale appears at most once
+PASS 1681.HK: suggestion obeys all four price caps and rounding is downward
+PASS 1681.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 1681.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 1681.HK: fee sensitivity reduces price monotonically
+PASS 1109.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 1109.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 1109.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 1109.HK bear: higher return thresholds strictly reduce price
+PASS 1109.HK bear: terminal sale appears at most once
+PASS 1109.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 1109.HK base: higher return thresholds strictly reduce price
+PASS 1109.HK base: terminal sale appears at most once
+PASS 1109.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 1109.HK bull: higher return thresholds strictly reduce price
+PASS 1109.HK bull: terminal sale appears at most once
+PASS 1109.HK: suggestion obeys all four price caps and rounding is downward
+PASS 1109.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 1109.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 1109.HK: fee sensitivity reduces price monotonically
+PASS 600900.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600900.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600900.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600900.SH bear: higher return thresholds strictly reduce price
+PASS 600900.SH bear: terminal sale appears at most once
+PASS 600900.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600900.SH base: higher return thresholds strictly reduce price
+PASS 600900.SH base: terminal sale appears at most once
+PASS 600900.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600900.SH bull: higher return thresholds strictly reduce price
+PASS 600900.SH bull: terminal sale appears at most once
+PASS 600900.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600900.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600900.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600900.SH: fee sensitivity reduces price monotonically
+PASS 000423.SZ: new estimates have three cases and source-linked normalization/change bridges
+PASS 000423.SZ: all future assumptions remain proposals with named activation and missing evidence
+PASS 000423.SZ bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 000423.SZ bear: higher return thresholds strictly reduce price
+PASS 000423.SZ bear: terminal sale appears at most once
+PASS 000423.SZ base: discounted independent flow sum reproduces quoted-price IRR
+PASS 000423.SZ base: higher return thresholds strictly reduce price
+PASS 000423.SZ base: terminal sale appears at most once
+PASS 000423.SZ bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 000423.SZ bull: higher return thresholds strictly reduce price
+PASS 000423.SZ bull: terminal sale appears at most once
+PASS 000423.SZ: suggestion obeys all four price caps and rounding is downward
+PASS 000423.SZ: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 000423.SZ: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 000423.SZ: fee sensitivity reduces price monotonically
+PASS 605499.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 605499.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 605499.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 605499.SH bear: higher return thresholds strictly reduce price
+PASS 605499.SH bear: terminal sale appears at most once
+PASS 605499.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 605499.SH base: higher return thresholds strictly reduce price
+PASS 605499.SH base: terminal sale appears at most once
+PASS 605499.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 605499.SH bull: higher return thresholds strictly reduce price
+PASS 605499.SH bull: terminal sale appears at most once
+PASS 605499.SH: suggestion obeys all four price caps and rounding is downward
+PASS 605499.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 605499.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 605499.SH: fee sensitivity reduces price monotonically
+PASS 002027.SZ: new estimates have three cases and source-linked normalization/change bridges
+PASS 002027.SZ: all future assumptions remain proposals with named activation and missing evidence
+PASS 002027.SZ bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 002027.SZ bear: higher return thresholds strictly reduce price
+PASS 002027.SZ bear: terminal sale appears at most once
+PASS 002027.SZ base: discounted independent flow sum reproduces quoted-price IRR
+PASS 002027.SZ base: higher return thresholds strictly reduce price
+PASS 002027.SZ base: terminal sale appears at most once
+PASS 002027.SZ bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 002027.SZ bull: higher return thresholds strictly reduce price
+PASS 002027.SZ bull: terminal sale appears at most once
+PASS 002027.SZ: suggestion obeys all four price caps and rounding is downward
+PASS 002027.SZ: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 002027.SZ: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 002027.SZ: fee sensitivity reduces price monotonically
+PASS 600660.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600660.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600660.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600660.SH bear: higher return thresholds strictly reduce price
+PASS 600660.SH bear: terminal sale appears at most once
+PASS 600660.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600660.SH base: higher return thresholds strictly reduce price
+PASS 600660.SH base: terminal sale appears at most once
+PASS 600660.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600660.SH bull: higher return thresholds strictly reduce price
+PASS 600660.SH bull: terminal sale appears at most once
+PASS 600660.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600660.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600660.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600660.SH: fee sensitivity reduces price monotonically
+PASS 000651.SZ: new estimates have three cases and source-linked normalization/change bridges
+PASS 000651.SZ: all future assumptions remain proposals with named activation and missing evidence
+PASS 000651.SZ bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 000651.SZ bear: higher return thresholds strictly reduce price
+PASS 000651.SZ bear: terminal sale appears at most once
+PASS 000651.SZ base: discounted independent flow sum reproduces quoted-price IRR
+PASS 000651.SZ base: higher return thresholds strictly reduce price
+PASS 000651.SZ base: terminal sale appears at most once
+PASS 000651.SZ bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 000651.SZ bull: higher return thresholds strictly reduce price
+PASS 000651.SZ bull: terminal sale appears at most once
+PASS 000651.SZ: suggestion obeys all four price caps and rounding is downward
+PASS 000651.SZ: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 000651.SZ: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 000651.SZ: fee sensitivity reduces price monotonically
+PASS 3288.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 3288.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 3288.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 3288.HK bear: higher return thresholds strictly reduce price
+PASS 3288.HK bear: terminal sale appears at most once
+PASS 3288.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 3288.HK base: higher return thresholds strictly reduce price
+PASS 3288.HK base: terminal sale appears at most once
+PASS 3288.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 3288.HK bull: higher return thresholds strictly reduce price
+PASS 3288.HK bull: terminal sale appears at most once
+PASS 3288.HK: suggestion obeys all four price caps and rounding is downward
+PASS 3288.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 3288.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 3288.HK: fee sensitivity reduces price monotonically
+PASS 603288.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 603288.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 603288.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 603288.SH bear: higher return thresholds strictly reduce price
+PASS 603288.SH bear: terminal sale appears at most once
+PASS 603288.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 603288.SH base: higher return thresholds strictly reduce price
+PASS 603288.SH base: terminal sale appears at most once
+PASS 603288.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 603288.SH bull: higher return thresholds strictly reduce price
+PASS 603288.SH bull: terminal sale appears at most once
+PASS 603288.SH: suggestion obeys all four price caps and rounding is downward
+PASS 603288.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 603288.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 603288.SH: fee sensitivity reduces price monotonically
+PASS 600276.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600276.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600276.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600276.SH bear: higher return thresholds strictly reduce price
+PASS 600276.SH bear: terminal sale appears at most once
+PASS 600276.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600276.SH base: higher return thresholds strictly reduce price
+PASS 600276.SH base: terminal sale appears at most once
+PASS 600276.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600276.SH bull: higher return thresholds strictly reduce price
+PASS 600276.SH bull: terminal sale appears at most once
+PASS 600276.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600276.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600276.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600276.SH: fee sensitivity reduces price monotonically
+PASS 0388.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 0388.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 0388.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 0388.HK bear: higher return thresholds strictly reduce price
+PASS 0388.HK bear: terminal sale appears at most once
+PASS 0388.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 0388.HK base: higher return thresholds strictly reduce price
+PASS 0388.HK base: terminal sale appears at most once
+PASS 0388.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 0388.HK bull: higher return thresholds strictly reduce price
+PASS 0388.HK bull: terminal sale appears at most once
+PASS 0388.HK: suggestion obeys all four price caps and rounding is downward
+PASS 0388.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 0388.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 0388.HK: fee sensitivity reduces price monotonically
+PASS 300760.SZ: new estimates have three cases and source-linked normalization/change bridges
+PASS 300760.SZ: all future assumptions remain proposals with named activation and missing evidence
+PASS 300760.SZ bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 300760.SZ bear: higher return thresholds strictly reduce price
+PASS 300760.SZ bear: terminal sale appears at most once
+PASS 300760.SZ base: discounted independent flow sum reproduces quoted-price IRR
+PASS 300760.SZ base: higher return thresholds strictly reduce price
+PASS 300760.SZ base: terminal sale appears at most once
+PASS 300760.SZ bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 300760.SZ bull: higher return thresholds strictly reduce price
+PASS 300760.SZ bull: terminal sale appears at most once
+PASS 300760.SZ: suggestion obeys all four price caps and rounding is downward
+PASS 300760.SZ: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 300760.SZ: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 300760.SZ: fee sensitivity reduces price monotonically
+PASS 9896.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 9896.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 9896.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 9896.HK bear: higher return thresholds strictly reduce price
+PASS 9896.HK bear: terminal sale appears at most once
+PASS 9896.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 9896.HK base: higher return thresholds strictly reduce price
+PASS 9896.HK base: terminal sale appears at most once
+PASS 9896.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 9896.HK bull: higher return thresholds strictly reduce price
+PASS 9896.HK bull: terminal sale appears at most once
+PASS 9896.HK: suggestion obeys all four price caps and rounding is downward
+PASS 9896.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 9896.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 9896.HK: fee sensitivity reduces price monotonically
+PASS 600519.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600519.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600519.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600519.SH bear: higher return thresholds strictly reduce price
+PASS 600519.SH bear: terminal sale appears at most once
+PASS 600519.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600519.SH base: higher return thresholds strictly reduce price
+PASS 600519.SH base: terminal sale appears at most once
+PASS 600519.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600519.SH bull: higher return thresholds strictly reduce price
+PASS 600519.SH bull: terminal sale appears at most once
+PASS 600519.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600519.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600519.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600519.SH: fee sensitivity reduces price monotonically
+PASS 600377.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600377.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600377.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600377.SH bear: higher return thresholds strictly reduce price
+PASS 600377.SH bear: terminal sale appears at most once
+PASS 600377.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600377.SH base: higher return thresholds strictly reduce price
+PASS 600377.SH base: terminal sale appears at most once
+PASS 600377.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600377.SH bull: higher return thresholds strictly reduce price
+PASS 600377.SH bull: terminal sale appears at most once
+PASS 600377.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600377.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600377.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600377.SH: fee sensitivity reduces price monotonically
+PASS 09633.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 09633.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 09633.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 09633.HK bear: higher return thresholds strictly reduce price
+PASS 09633.HK bear: terminal sale appears at most once
+PASS 09633.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 09633.HK base: higher return thresholds strictly reduce price
+PASS 09633.HK base: terminal sale appears at most once
+PASS 09633.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 09633.HK bull: higher return thresholds strictly reduce price
+PASS 09633.HK bull: terminal sale appears at most once
+PASS 09633.HK: suggestion obeys all four price caps and rounding is downward
+PASS 09633.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 09633.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 09633.HK: fee sensitivity reduces price monotonically
+PASS 2318.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 2318.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 2318.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 2318.HK bear: higher return thresholds strictly reduce price
+PASS 2318.HK bear: terminal sale appears at most once
+PASS 2318.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 2318.HK base: higher return thresholds strictly reduce price
+PASS 2318.HK base: terminal sale appears at most once
+PASS 2318.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 2318.HK bull: higher return thresholds strictly reduce price
+PASS 2318.HK bull: terminal sale appears at most once
+PASS 2318.HK: suggestion obeys all four price caps and rounding is downward
+PASS 2318.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 2318.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 2318.HK: fee sensitivity reduces price monotonically
+PASS 601318.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 601318.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 601318.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 601318.SH bear: higher return thresholds strictly reduce price
+PASS 601318.SH bear: terminal sale appears at most once
+PASS 601318.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 601318.SH base: higher return thresholds strictly reduce price
+PASS 601318.SH base: terminal sale appears at most once
+PASS 601318.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 601318.SH bull: higher return thresholds strictly reduce price
+PASS 601318.SH bull: terminal sale appears at most once
+PASS 601318.SH: suggestion obeys all four price caps and rounding is downward
+PASS 601318.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 601318.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 601318.SH: fee sensitivity reduces price monotonically
+PASS 09992.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 09992.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 09992.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 09992.HK bear: higher return thresholds strictly reduce price
+PASS 09992.HK bear: terminal sale appears at most once
+PASS 09992.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 09992.HK base: higher return thresholds strictly reduce price
+PASS 09992.HK base: terminal sale appears at most once
+PASS 09992.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 09992.HK bull: higher return thresholds strictly reduce price
+PASS 09992.HK bull: terminal sale appears at most once
+PASS 09992.HK: suggestion obeys all four price caps and rounding is downward
+PASS 09992.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 09992.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 09992.HK: fee sensitivity reduces price monotonically
+PASS 002050.SZ: new estimates have three cases and source-linked normalization/change bridges
+PASS 002050.SZ: all future assumptions remain proposals with named activation and missing evidence
+PASS 002050.SZ bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 002050.SZ bear: higher return thresholds strictly reduce price
+PASS 002050.SZ bear: terminal sale appears at most once
+PASS 002050.SZ base: discounted independent flow sum reproduces quoted-price IRR
+PASS 002050.SZ base: higher return thresholds strictly reduce price
+PASS 002050.SZ base: terminal sale appears at most once
+PASS 002050.SZ bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 002050.SZ bull: higher return thresholds strictly reduce price
+PASS 002050.SZ bull: terminal sale appears at most once
+PASS 002050.SZ: suggestion obeys all four price caps and rounding is downward
+PASS 002050.SZ: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 002050.SZ: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 002050.SZ: fee sensitivity reduces price monotonically
+PASS 601088.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 601088.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 601088.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 601088.SH bear: higher return thresholds strictly reduce price
+PASS 601088.SH bear: terminal sale appears at most once
+PASS 601088.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 601088.SH base: higher return thresholds strictly reduce price
+PASS 601088.SH base: terminal sale appears at most once
+PASS 601088.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 601088.SH bull: higher return thresholds strictly reduce price
+PASS 601088.SH bull: terminal sale appears at most once
+PASS 601088.SH: suggestion obeys all four price caps and rounding is downward
+PASS 601088.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 601088.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 601088.SH: fee sensitivity reduces price monotonically
+PASS 0700.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 0700.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 0700.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 0700.HK bear: higher return thresholds strictly reduce price
+PASS 0700.HK bear: terminal sale appears at most once
+PASS 0700.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 0700.HK base: higher return thresholds strictly reduce price
+PASS 0700.HK base: terminal sale appears at most once
+PASS 0700.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 0700.HK bull: higher return thresholds strictly reduce price
+PASS 0700.HK bull: terminal sale appears at most once
+PASS 0700.HK: suggestion obeys all four price caps and rounding is downward
+PASS 0700.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 0700.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 0700.HK: fee sensitivity reduces price monotonically
+PASS 9961.HK: new estimates have three cases and source-linked normalization/change bridges
+PASS 9961.HK: all future assumptions remain proposals with named activation and missing evidence
+PASS 9961.HK bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 9961.HK bear: higher return thresholds strictly reduce price
+PASS 9961.HK bear: terminal sale appears at most once
+PASS 9961.HK base: discounted independent flow sum reproduces quoted-price IRR
+PASS 9961.HK base: higher return thresholds strictly reduce price
+PASS 9961.HK base: terminal sale appears at most once
+PASS 9961.HK bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 9961.HK bull: higher return thresholds strictly reduce price
+PASS 9961.HK bull: terminal sale appears at most once
+PASS 9961.HK: suggestion obeys all four price caps and rounding is downward
+PASS 9961.HK: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 9961.HK: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 9961.HK: fee sensitivity reduces price monotonically
+PASS 600309.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600309.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600309.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600309.SH bear: higher return thresholds strictly reduce price
+PASS 600309.SH bear: terminal sale appears at most once
+PASS 600309.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600309.SH base: higher return thresholds strictly reduce price
+PASS 600309.SH base: terminal sale appears at most once
+PASS 600309.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600309.SH bull: higher return thresholds strictly reduce price
+PASS 600309.SH bull: terminal sale appears at most once
+PASS 600309.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600309.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600309.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600309.SH: fee sensitivity reduces price monotonically
+PASS 002372.SZ: new estimates have three cases and source-linked normalization/change bridges
+PASS 002372.SZ: all future assumptions remain proposals with named activation and missing evidence
+PASS 002372.SZ bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 002372.SZ bear: higher return thresholds strictly reduce price
+PASS 002372.SZ bear: terminal sale appears at most once
+PASS 002372.SZ base: discounted independent flow sum reproduces quoted-price IRR
+PASS 002372.SZ base: higher return thresholds strictly reduce price
+PASS 002372.SZ base: terminal sale appears at most once
+PASS 002372.SZ bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 002372.SZ bull: higher return thresholds strictly reduce price
+PASS 002372.SZ bull: terminal sale appears at most once
+PASS 002372.SZ: suggestion obeys all four price caps and rounding is downward
+PASS 002372.SZ: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 002372.SZ: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 002372.SZ: fee sensitivity reduces price monotonically
+PASS 600486.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600486.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600486.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600486.SH bear: higher return thresholds strictly reduce price
+PASS 600486.SH bear: terminal sale appears at most once
+PASS 600486.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600486.SH base: higher return thresholds strictly reduce price
+PASS 600486.SH base: terminal sale appears at most once
+PASS 600486.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600486.SH bull: higher return thresholds strictly reduce price
+PASS 600486.SH bull: terminal sale appears at most once
+PASS 600486.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600486.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600486.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600486.SH: fee sensitivity reduces price monotonically
+PASS 600887.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600887.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600887.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600887.SH bear: higher return thresholds strictly reduce price
+PASS 600887.SH bear: terminal sale appears at most once
+PASS 600887.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600887.SH base: higher return thresholds strictly reduce price
+PASS 600887.SH base: terminal sale appears at most once
+PASS 600887.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600887.SH bull: higher return thresholds strictly reduce price
+PASS 600887.SH bull: terminal sale appears at most once
+PASS 600887.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600887.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600887.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600887.SH: fee sensitivity reduces price monotonically
+PASS 600415.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600415.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600415.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600415.SH bear: higher return thresholds strictly reduce price
+PASS 600415.SH bear: terminal sale appears at most once
+PASS 600415.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600415.SH base: higher return thresholds strictly reduce price
+PASS 600415.SH base: terminal sale appears at most once
+PASS 600415.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600415.SH bull: higher return thresholds strictly reduce price
+PASS 600415.SH bull: terminal sale appears at most once
+PASS 600415.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600415.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600415.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600415.SH: fee sensitivity reduces price monotonically
+PASS 600066.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 600066.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 600066.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 600066.SH bear: higher return thresholds strictly reduce price
+PASS 600066.SH bear: terminal sale appears at most once
+PASS 600066.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 600066.SH base: higher return thresholds strictly reduce price
+PASS 600066.SH base: terminal sale appears at most once
+PASS 600066.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 600066.SH bull: higher return thresholds strictly reduce price
+PASS 600066.SH bull: terminal sale appears at most once
+PASS 600066.SH: suggestion obeys all four price caps and rounding is downward
+PASS 600066.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 600066.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 600066.SH: fee sensitivity reduces price monotonically
+PASS 601899.SH: new estimates have three cases and source-linked normalization/change bridges
+PASS 601899.SH: all future assumptions remain proposals with named activation and missing evidence
+PASS 601899.SH bear: discounted independent flow sum reproduces quoted-price IRR
+PASS 601899.SH bear: higher return thresholds strictly reduce price
+PASS 601899.SH bear: terminal sale appears at most once
+PASS 601899.SH base: discounted independent flow sum reproduces quoted-price IRR
+PASS 601899.SH base: higher return thresholds strictly reduce price
+PASS 601899.SH base: terminal sale appears at most once
+PASS 601899.SH bull: discounted independent flow sum reproduces quoted-price IRR
+PASS 601899.SH bull: higher return thresholds strictly reduce price
+PASS 601899.SH bull: terminal sale appears at most once
+PASS 601899.SH: suggestion obeys all four price caps and rounding is downward
+PASS 601899.SH: first-price downside IRR is calculated and nominal recovery guard holds
+PASS 601899.SH: missing cash, quality or valuation divergence cannot silently activate a buy
+PASS 601899.SH: fee sensitivity reduces price monotonically
+PASS CATL earnings call source is the actual IR document rather than a duplicate quarterly report
+PASS A/H shared cash value converts once; H return price reflects dividend tax
+PASS China Mobile 28% remains a conditional sensitivity below the 20% base
+PASS CNOOC H uses A quote only as comparison, not an extra pool member
+PASS concession and property proxy remain labelled and blocked
+PASS all security-to-issuer detail anchors resolve
+PASS property exit yield is displayed as percent
+PASS negative cash budgets do not display an absurd terminal percentage
+PASS confirmation export cannot become execution approval
+PASS public model inputs rebuild all price outputs byte-for-byte
+All-pool repricing acceptance: 598 checks passed; no production/account/approval writes.

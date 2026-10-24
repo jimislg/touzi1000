@@ -1,0 +1,208 @@
+{
+  "id": "hkex",
+  "name": "香港交易所",
+  "method": "eps",
+  "inputCurrency": "HKD",
+  "quality": "条件观察",
+  "epsBasis": "2026-10-24以最新已读披露重建的常态年度第0年EPS，全部经营参数为研究假设；不是2026全年业绩预告。第1年EPS=eps0×(1+g1)，首笔现金在一年后；不将H1乘2当作事实。",
+  "cases": {
+    "bear": {
+      "eps0": 12.59166631,
+      "g1": 0,
+      "g2": 0.01,
+      "payout": 0.75,
+      "exitPE": 16
+    },
+    "base": {
+      "eps0": 14.67449833,
+      "g1": 0.04,
+      "g2": 0.03,
+      "payout": 0.85,
+      "exitPE": 22
+    },
+    "bull": {
+      "eps0": 16.6310981,
+      "g1": 0.07,
+      "g2": 0.05,
+      "payout": 0.9,
+      "exitPE": 26
+    }
+  },
+  "operatingCases": {
+    "bear": {
+      "annualRevenueBillion": 28,
+      "normalizedParentNetMargin": 0.57,
+      "assumedSharesBillion": 1.267505,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    },
+    "base": {
+      "annualRevenueBillion": 31,
+      "normalizedParentNetMargin": 0.6,
+      "assumedSharesBillion": 1.267505,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    },
+    "bull": {
+      "annualRevenueBillion": 34,
+      "normalizedParentNetMargin": 0.62,
+      "assumedSharesBillion": 1.267505,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "成交/利息正常化与股本",
+      "reportedAnchor": "H1收入及其他收益167.02亿港元、归母105.68亿港元；稀释EPS8.34、加权摊薄12.67505亿股。",
+      "normalization": "高成交半年度不直接翻倍；全年收入及其他收益280/310/340亿港元、正常归母率57%/60%/62%，不把客户保证金作为股东收入或资产。",
+      "newAssumption": "EPS约12.592/14.675/16.632港元；本模型输入和股价同为HKD，不再二次换汇。",
+      "sourceIds": [
+        "HKEX26FS"
+      ]
+    },
+    {
+      "line": "正常化资本和分配",
+      "reportedAnchor": "H1主要业务现金106.26亿港元，扣总部22.75、其他CAPEX10.06、租赁本息1.50、其他融资0.23及NCI0.36后71.36；再加长期债券利息15.84为87.20。",
+      "normalization": "剔外部基金赎回和清算抵押品变动，不把OCF114.80亿元等同经常现金；总部一次购置不永久翻倍，但未来资本预算仍全部扣。",
+      "newAssumption": "基准EPS4%/3%、税前派息85%、退出22倍；旧6%/4%、90%、24倍收紧。",
+      "sourceIds": [
+        "HKEX26FS"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0/growth/payout/exitPE",
+      "old": "旧基准14.5、6%/4%、90%、24倍",
+      "new": "新基准14.675、4%/3%、85%、22倍",
+      "reason": "盈利起点接近旧值，低利率投资净收益与成交均值回归压低增长和终值；给公司资本承诺留覆盖。",
+      "sourceIds": [
+        "HKEX26FS"
+      ]
+    }
+  ],
+  "rationale": "牌照、流动性和清算网络具高质量，但获利随成交额、利率和IPO波动。新估值以正常成交中枢和较低净利息为主，不把高峰倍数和高峰EPS并用。",
+  "cashConstraint": "以主要业务现金和公司资产收益为锚，客户保证金、结算资金和专用资本不能分配。H1扣全部总部/其他投资及租赁融资/NCI后87.20亿港元（含债息）尚须正常WC复核；未来CAPEX40/45/50亿港元全部列预算，不作为维护投入披露。",
+  "pricedIn": "现价比较及隐含盈利增长由统一价格引擎计算；本输入不按现价倒推假设，不引用未取得的券商共识。",
+  "downside": "成交降温与HIBOR回落同步压手续费和净投资收益，系统资本支出固定，利润和可派现金双降。",
+  "activationConditions": [
+    "11/6业绩及最新市场统计核准后更新成交/利率假设",
+    "公司自有现金与清算/抵押资金完整隔离",
+    "总部后续承诺、系统投资与85%派息可同时覆盖"
+  ],
+  "invalidations": [
+    "成交中枢明显回落且成本增长高于收入",
+    "监管资本/系统投入永久挤占高派息"
+  ],
+  "sources": [
+    {
+      "id": "HKEX26FS",
+      "title": "2026H1简明合并财务报表",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900464.pdf",
+      "period": "2026H1",
+      "publishedAt": "2026-08-19",
+      "location": "PDF2损益，7现金，16EPS，28主要业务现金",
+      "readStatus": "read"
+    }
+  ],
+  "missingEvidence": [
+    "低景气成交/利率及专用资本正常化",
+    "总部剩余承诺和未来系统资本支出；Q3财务截至本轮未取得"
+  ],
+  "confidence": "中",
+  "gradeRecommendation": "B类研究候选",
+  "formalGradeUnchanged": true,
+  "sourceAsOf": "2026-10-24",
+  "assumptionClassification": "reportedAnchor为已披露事实或明确标注的旧证据；normalization、newAssumption及cases均为本轮研究估计，非公司指引/市场共识。",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 12.57588727,
+      "g1": 0,
+      "g2": 0.01,
+      "terminalGrowth": 0,
+      "basis": "H1主要业务现金及独立债息口径，客户结算资金不入预算；总部历史一次购置不永久翻倍，未来全部资本预算仍高于一般历史系统维护；下一完整年度现金预算假设（并非已披露指引）：主要业务税后现金含正常WC=+18十亿元；公司长债利息=+2.4十亿元；全部CAPEX=-4十亿元；租赁=-0.3十亿元；其他融资=-0.08十亿元；NCI=-0.08十亿元；合计15.94000十亿元÷假设股数1.26751十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "主要业务税后现金含正常WC": 18,
+        "公司长债利息": 2.4,
+        "全部CAPEX": -4,
+        "租赁": -0.3,
+        "其他融资": -0.08,
+        "NCI": -0.08
+      },
+      "assumedSharesBillion": 1.267505,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    },
+    "base": {
+      "cashYear1": 14.04333711,
+      "g1": 0.04,
+      "g2": 0.025,
+      "terminalGrowth": 0.015,
+      "basis": "H1主要业务现金及独立债息口径，客户结算资金不入预算；总部历史一次购置不永久翻倍，未来全部资本预算仍高于一般历史系统维护；下一完整年度现金预算假设（并非已披露指引）：主要业务税后现金含正常WC=+20十亿元；公司长债利息=+2.8十亿元；全部CAPEX=-4.5十亿元；租赁=-0.3十亿元；其他融资=-0.1十亿元；NCI=-0.1十亿元；合计17.80000十亿元÷假设股数1.26751十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "主要业务税后现金含正常WC": 20,
+        "公司长债利息": 2.8,
+        "全部CAPEX": -4.5,
+        "租赁": -0.3,
+        "其他融资": -0.1,
+        "NCI": -0.1
+      },
+      "assumedSharesBillion": 1.267505,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    },
+    "bull": {
+      "cashYear1": 15.31354906,
+      "g1": 0.07,
+      "g2": 0.04,
+      "terminalGrowth": 0.02,
+      "basis": "H1主要业务现金及独立债息口径，客户结算资金不入预算；总部历史一次购置不永久翻倍，未来全部资本预算仍高于一般历史系统维护；下一完整年度现金预算假设（并非已披露指引）：主要业务税后现金含正常WC=+22十亿元；公司长债利息=+3十亿元；全部CAPEX=-5十亿元；租赁=-0.35十亿元；其他融资=-0.12十亿元；NCI=-0.12十亿元；合计19.41000十亿元÷假设股数1.26751十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "主要业务税后现金含正常WC": 22,
+        "公司长债利息": 3,
+        "全部CAPEX": -5,
+        "租赁": -0.35,
+        "其他融资": -0.12,
+        "NCI": -0.12
+      },
+      "assumedSharesBillion": 1.267505,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    }
+  },
+  "priorModelReference": {
+    "asOf": "2026-10-19",
+    "type": "prior_scenario_under_review",
+    "inputs": {
+      "type": "eps",
+      "inputCurrency": "HKD",
+      "cases": {
+        "bear": {
+          "eps0": 14.5,
+          "g1": 0,
+          "g2": 0.02,
+          "payout": 0.9,
+          "exit_pe": 18
+        },
+        "base": {
+          "eps0": 14.5,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.9,
+          "exit_pe": 24
+        },
+        "bull": {
+          "eps0": 16,
+          "g1": 0.09,
+          "g2": 0.07,
+          "payout": 0.9,
+          "exit_pe": 28
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准经常交易清算收入随成交中枢中个位数增长、费用低个位数，EPS约6%/4%；悲观交易回落抵消结构增长，乐观产品扩容带来更高经营杠杆。90%是税前派息假设，税由主模型扣；退出倍数均为市场情景，并非保守价值下限。"
+    },
+    "notApproved": true
+  },
+  "reviewRequiredBeforeActivation": true,
+  "sourceVerification": "2026-10-24本轮浏览已取得一级源正文并核对关键页；安踏Q3重新请求受限，沿用同日已下载官方原文及现有证据，不声称新近通读。仅列已读/沿用材料，未取得部分见missingEvidence。",
+  "cashCrossCheckPosture": "条件所有者现金DCF；与EPS总回报法偏差若超过既有SOP阈值，正式买点继续暂停，不能按较高值取价。"
+}

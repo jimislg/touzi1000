@@ -1,0 +1,166 @@
+{
+  "id": "trip",
+  "name": "携程集团",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "暂停新增",
+  "epsBasis": "2026-10-24以最新已读披露重建的常态年度第0年EPS，全部经营参数为研究假设；不是2026全年业绩预告。第1年EPS=eps0×(1+g1)，首笔现金在一年后；不将H1乘2当作事实。",
+  "cases": {
+    "bear": {
+      "eps0": 14.32835821,
+      "g1": 0,
+      "g2": 0.01,
+      "payout": 0.05,
+      "exitPE": 9
+    },
+    "base": {
+      "eps0": 19.40298507,
+      "g1": 0.05,
+      "g2": 0.04,
+      "payout": 0.08,
+      "exitPE": 12
+    },
+    "bull": {
+      "eps0": 25.07462687,
+      "g1": 0.09,
+      "g2": 0.06,
+      "payout": 0.12,
+      "exitPE": 16
+    }
+  },
+  "operatingCases": {
+    "bear": {
+      "annualRevenueBillion": 60,
+      "normalizedParentNetMargin": 0.16,
+      "assumedSharesBillion": 0.67,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    },
+    "base": {
+      "annualRevenueBillion": 65,
+      "normalizedParentNetMargin": 0.2,
+      "assumedSharesBillion": 0.67,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    },
+    "bull": {
+      "annualRevenueBillion": 70,
+      "normalizedParentNetMargin": 0.24,
+      "assumedSharesBillion": 0.67,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "罚款与经营重置",
+      "reportedAnchor": "Q2收入157亿元+6%，归母亏损25亿元；剔52亿元反垄断罚款后约27亿元，non-GAAP归母48亿元、稀释EPS7.27。公司明确1 ADS=1普通股。",
+      "normalization": "只将罚款作一次性参考，不把non-GAAP与GAAP差额全部加回；保留SBC经济成本、整改后佣金让渡和国际营销。模型普通股数为6.7亿股条件假设，尚待完整稀释股本表核准。",
+      "newAssumption": "常态年收入600/650/700亿元，归母率16%/20%/24%，以假设6.7亿普通股生成EPS14.328/19.403/25.075。",
+      "sourceIds": [
+        "trip-latest"
+      ]
+    },
+    {
+      "line": "整改与增长路径",
+      "reportedAnchor": "国际平台收入Q2逾50%增长，但合并收入仅+6%，交通票务-1%。",
+      "normalization": "国际小基数不能覆盖全部业务；不把罚款支付视为所有监管成本结束。",
+      "newAssumption": "基准EPS增长5%/4%、分配8%、退出12倍，反映佣金约束及竞争；乐观9%/6%需国际利润兑现。",
+      "sourceIds": [
+        "trip-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0/growth/multiple",
+      "old": "旧基准22元、7%/5%、14倍",
+      "new": "新基准19.403元、5%/4%、12倍",
+      "reason": "剔罚后Q2仍非旧盈利水平，且股数/现金未核准，降低正常化利润与终值。",
+      "sourceIds": [
+        "trip-latest"
+      ]
+    }
+  ],
+  "rationale": "旅游需求可持续，全球平台扩张为增长来源；整改后的真实抽佣、费用与SBC决定常态利润。EPS法仅给普通股条件研究价，不是完整DCF或并购资产估值。",
+  "cashConstraint": "所取得5页Q2原文没有完整现金表；1005亿元现金/短期投资等含受限及金融产品，不能视为净现金或FCFE。52亿元罚款是实际资本损耗，不在现金桥加回；没有可承保现金输入，因此ownerCashCases=null、暂停启用任何正式买点。",
+  "pricedIn": "现价比较及隐含盈利增长由统一价格引擎计算；本输入不按现价倒推假设，不引用未取得的券商共识。",
+  "downside": "佣金/退款整改先压收入确认，海外推广及产品研发支出后刚性，SBC稀释和罚款现金进一步压普通股价值。",
+  "activationConditions": [
+    "取得完整现金流、CAPEX、租赁、罚款支付和可分配现金桥",
+    "核准最新稀释普通股分母，替换6.7亿股条件假设",
+    "整改后两个季度抽佣、营业率和国际利润验证"
+  ],
+  "invalidations": [
+    "整改导致可持续变现率低于常态收入/利润率悲观假设",
+    "海外增长只有订单和GMV而没有现金贡献"
+  ],
+  "sources": [
+    {
+      "id": "trip-latest",
+      "title": "2026Q2/H1官方发布，PDF 1—3页；无完整现金表",
+      "url": "https://investors.trip.com/static-files/2f337a9d-0a49-4c46-8764-bce15cc9e3f0",
+      "period": "2026H1",
+      "publishedAt": null,
+      "location": "2026Q2/H1官方发布，PDF 1—3页；无完整现金表",
+      "readStatus": "read"
+    },
+    {
+      "id": "trip-prior-0",
+      "title": "携程2026Q2及H1业绩",
+      "url": "https://investors.trip.com/news-releases/news-release-details/tripcom-group-limited-reports-unaudited-second-quarter-and-4",
+      "period": "2026H1",
+      "publishedAt": null,
+      "location": "损益、non-GAAP与业务更新",
+      "readStatus": "prior_read"
+    }
+  ],
+  "missingEvidence": [
+    "完整H1现金表附件未取得，无法可承保FCFE交叉",
+    "6.7亿稀释股为研究假设；Q2约48亿元/7.27仅近似指向6.60亿，不能作精确分母",
+    "整改永久收入让渡、受限资金、到期债务与回购后股份尚未完整核准"
+  ],
+  "confidence": "低",
+  "gradeRecommendation": "B类研究候选",
+  "formalGradeUnchanged": true,
+  "sourceAsOf": "2026-10-24",
+  "assumptionClassification": "reportedAnchor为已披露事实或明确标注的旧证据；normalization、newAssumption及cases均为本轮研究估计，非公司指引/市场共识。",
+  "ownerCashCases": null,
+  "priorModelReference": {
+    "asOf": "2026-10-19",
+    "type": "prior_scenario_under_review",
+    "inputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 18,
+          "g1": 0.01,
+          "g2": 0.02,
+          "payout": 0.08,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 22,
+          "g1": 0.07,
+          "g2": 0.05,
+          "payout": 0.1,
+          "exit_pe": 14
+        },
+        "bull": {
+          "eps0": 26,
+          "g1": 0.12,
+          "g2": 0.08,
+          "payout": 0.15,
+          "exit_pe": 18
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入由国内中个位数、国际双位数加权约8%增长，整改后净利率从高位约束，盈利按7%/5%；悲观佣金率下调抵消间夜增长，乐观国际利润规模形成。派息8%—15%仅分配政策研究假设，不把回购当现金股息。"
+    },
+    "notApproved": true
+  },
+  "reviewRequiredBeforeActivation": true,
+  "sourceVerification": "2026-10-24本轮浏览已取得一级源正文并核对关键页；安踏Q3重新请求受限，沿用同日已下载官方原文及现有证据，不声称新近通读。仅列已读/沿用材料，未取得部分见missingEvidence。",
+  "cashCrossCheckPosture": "缺少可承保所有者现金，无法完成独立DCF交叉；正式买点暂停。"
+}

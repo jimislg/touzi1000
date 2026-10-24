@@ -1,0 +1,15 @@
+PASS page loads all modules with no runtime errors
+PASS today workspace only initially
+PASS public research appears without conferring approval
+PASS research navigation exposes both grade pools
+PASS search narrows companies
+PASS review precedes write in browser
+PASS review contains only requested business-tag edit
+PASS explicit confirmation saves once then reads server revision
+PASS shared-seat view and server-only preview visible
+PASS HK historical CNY cost gap visible
+PASS company switch clears previous EPS
+PASS mobile page does not overflow horizontally
+PASS no runtime errors through editing and navigation
+PASS no requests made to production
+Browser safety: 14 checks passed; synthetic local server only

@@ -1,0 +1,221 @@
+{
+  "id": "tencent",
+  "name": "腾讯控股",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "条件观察",
+  "epsBasis": "2026-10-24以最新已读披露重建的常态年度第0年EPS，全部经营参数为研究假设；不是2026全年业绩预告。第1年EPS=eps0×(1+g1)，首笔现金在一年后；不将H1乘2当作事实。",
+  "cases": {
+    "bear": {
+      "eps0": 21.89673913,
+      "g1": 0.02,
+      "g2": 0.02,
+      "payout": 0.16,
+      "exitPE": 10
+    },
+    "base": {
+      "eps0": 24.66032609,
+      "g1": 0.07,
+      "g2": 0.05,
+      "payout": 0.16,
+      "exitPE": 14
+    },
+    "bull": {
+      "eps0": 27.73641304,
+      "g1": 0.11,
+      "g2": 0.07,
+      "payout": 0.18,
+      "exitPE": 17
+    }
+  },
+  "operatingCases": {
+    "bear": {
+      "annualRevenueBillion": 790,
+      "normalizedParentNetMargin": 0.255,
+      "assumedSharesBillion": 9.2,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    },
+    "base": {
+      "annualRevenueBillion": 825,
+      "normalizedParentNetMargin": 0.275,
+      "assumedSharesBillion": 9.2,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    },
+    "bull": {
+      "annualRevenueBillion": 865,
+      "normalizedParentNetMargin": 0.295,
+      "assumedSharesBillion": 9.2,
+      "epsFormula": "annualRevenueBillion × normalizedParentNetMargin / assumedSharesBillion",
+      "label": "analyst_assumption_not_reported_forecast"
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "GAAP/调整与SBC",
+      "reportedAnchor": "H1收入4012.43亿元、归母1141.15亿元、稀释EPS12.417；non-IFRS稀释14.799。",
+      "normalization": "不用non-IFRS加回SBC作股东收益；未来股数保守固定92亿，不假定现金回购可持续抵消稀释。H1实际隐含稀释分母约91.91亿。",
+      "newAssumption": "常态收入7900/8250/8650亿元，含SBC经济成本的归母率25.5%/27.5%/29.5%，形成EPS21.90/24.66/27.74左右。",
+      "sourceIds": [
+        "tencent-latest"
+      ]
+    },
+    {
+      "line": "增长与资本",
+      "reportedAnchor": "H1收入+10%，non-IFRS经营利润+9%；资本现金1071.63亿元已占OCF1540.61亿元大部。",
+      "normalization": "广告/游戏变现仍增长，但AI效率和基础设施投入不是免费；不把留存、回购、AI利润三次加值。",
+      "newAssumption": "基准EPS增长7%/5%，低于旧9%/7%；派息16%，固定14倍退出，无重估获利前提。",
+      "sourceIds": [
+        "tencent-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0/growth/payout",
+      "old": "旧基准25.9808元，9%/7%，17.4%",
+      "new": "新基准8250亿元×27.5%÷92亿=24.66033元；7%/5%，16%",
+      "reason": "利润率包含SBC经济成本；算力现金约束使旧增长和回购叙事保守化。",
+      "sourceIds": [
+        "tencent-latest"
+      ]
+    }
+  ],
+  "rationale": "社交分发、广告、游戏的现金创造仍是核心，AI是未来费用与投资检验项；保留现有业务增长，不给AI尚未兑现的独立期权价格。",
+  "cashConstraint": "H1 1540.61−1071.63−36.36−64.08+91.14+51.62−16.62=494.68亿元，未扣并购和母公司分配；股息415.95+回购222.57亿元高于此桥。预算先付全CAPEX和租赁，不将SBC非现金加回当免费收益。16%税前派息低于旧比率且不另计回购回报。",
+  "pricedIn": "现价比较及隐含盈利增长由统一价格引擎计算；本输入不按现价倒推假设，不引用未取得的券商共识。",
+  "downside": "广告/游戏收入率先放缓，AI现金承诺却难减，估值同时遭EPS、现金和倍数下修。",
+  "activationConditions": [
+    "下一次财报核对实际CAPEX、AI预付款和不可撤销承诺",
+    "扣总投资/租赁/NCI的归母现金持续覆盖普通股息",
+    "稀释分母/SBC税效核对并通过独立现金价值偏差检验"
+  ],
+  "invalidations": [
+    "AI必要现金投入持续高于OCF且以存量资产分配维持回购",
+    "核心广告/游戏毛利和用户变现两期同时恶化"
+  ],
+  "sources": [
+    {
+      "id": "tencent-latest",
+      "title": "2026半年度报告，PDF 18、22、34—35",
+      "url": "https://www.tencent.com/wp-content/uploads/2026/08/E700_IR.pdf",
+      "period": "2026H1",
+      "publishedAt": null,
+      "location": "18、22、34—35",
+      "readStatus": "read"
+    },
+    {
+      "id": "tencent-prior-1",
+      "title": "腾讯2026Q2业绩及算力预付款说明",
+      "url": "https://www.tencent.com/wp-content/uploads/2026/08/Tencent-Announces-2026-Second-Quarter-Results.pdf",
+      "period": "2026H1",
+      "publishedAt": null,
+      "location": "经营回顾、财务报表及附注",
+      "readStatus": "prior_read"
+    }
+  ],
+  "missingEvidence": [
+    "AI预付款可取消性及后续资本承诺未闭合",
+    "精确TTM稀释利润分子、SBC税效尚缺；92亿股为保守模型分母",
+    "11/18为下一业绩观察窗口，不把未来Q3当事实"
+  ],
+  "confidence": "中",
+  "gradeRecommendation": "A类研究候选",
+  "formalGradeUnchanged": true,
+  "sourceAsOf": "2026-10-24",
+  "assumptionClassification": "reportedAnchor为已披露事实或明确标注的旧证据；normalization、newAssumption及cases均为本轮研究估计，非公司指引/市场共识。",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 5.76086957,
+      "g1": 0.03,
+      "g2": 0.02,
+      "terminalGrowth": 0.01,
+      "basis": "已读H1现金桥494.68亿元是下半年资本周期判断的锚；下一年度CAPEX1900亿元为假设而非所谓维护资本，基准低于H1翻倍但仍显著高投入；下一完整年度现金预算假设（并非已披露指引）：税后OCF含正常WC=+270十亿元；全部CAPEX及预付款=-220十亿元；租赁=-8十亿元；支付利息=-13十亿元；收到利息=+18十亿元；收到投资股息=+10十亿元；NCI=-4十亿元；合计53.00000十亿元÷假设股数9.2十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "税后OCF含正常WC": 270,
+        "全部CAPEX及预付款": -220,
+        "租赁": -8,
+        "支付利息": -13,
+        "收到利息": 18,
+        "收到投资股息": 10,
+        "NCI": -4
+      },
+      "assumedSharesBillion": 9.2,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    },
+    "base": {
+      "cashYear1": 13.36956522,
+      "g1": 0.07,
+      "g2": 0.04,
+      "terminalGrowth": 0.015,
+      "basis": "已读H1现金桥494.68亿元是下半年资本周期判断的锚；下一年度CAPEX1900亿元为假设而非所谓维护资本，基准低于H1翻倍但仍显著高投入；下一完整年度现金预算假设（并非已披露指引）：税后OCF含正常WC=+310十亿元；全部CAPEX及预付款=-190十亿元；租赁=-8十亿元；支付利息=-13十亿元；收到利息=+18十亿元；收到投资股息=+10十亿元；NCI=-4十亿元；合计123.00000十亿元÷假设股数9.2十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "税后OCF含正常WC": 310,
+        "全部CAPEX及预付款": -190,
+        "租赁": -8,
+        "支付利息": -13,
+        "收到利息": 18,
+        "收到投资股息": 10,
+        "NCI": -4
+      },
+      "assumedSharesBillion": 9.2,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    },
+    "bull": {
+      "cashYear1": 19.67391304,
+      "g1": 0.1,
+      "g2": 0.06,
+      "terminalGrowth": 0.02,
+      "basis": "已读H1现金桥494.68亿元是下半年资本周期判断的锚；下一年度CAPEX1900亿元为假设而非所谓维护资本，基准低于H1翻倍但仍显著高投入；下一完整年度现金预算假设（并非已披露指引）：税后OCF含正常WC=+350十亿元；全部CAPEX及预付款=-170十亿元；租赁=-9十亿元；支付利息=-14十亿元；收到利息=+18十亿元；收到投资股息=+11十亿元；NCI=-5十亿元；合计181.00000十亿元÷假设股数9.2十亿股。全部现金CAPEX均扣，未假拆维护CAPEX；不另加存量现金、回购或同一经营投资收益。 预算未计新增借款或资产变现融资；债务本金净偿还、到期置换及特殊投资承诺仍须核准，超出预算则下调现金。",
+      "cashBudgetBillion": {
+        "税后OCF含正常WC": 350,
+        "全部CAPEX及预付款": -170,
+        "租赁": -9,
+        "支付利息": -14,
+        "收到利息": 18,
+        "收到投资股息": 11,
+        "NCI": -5
+      },
+      "assumedSharesBillion": 9.2,
+      "classification": "conditional_analyst_cash_budget_not_reported_fcfe"
+    }
+  },
+  "priorModelReference": {
+    "asOf": "2026-10-19",
+    "type": "prior_scenario_under_review",
+    "inputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 25.9808,
+          "g1": 0.03,
+          "g2": 0.03,
+          "payout": 0.174,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 25.9808,
+          "g1": 0.09,
+          "g2": 0.07,
+          "payout": 0.174,
+          "exit_pe": 14
+        },
+        "bull": {
+          "eps0": 29.299,
+          "g1": 0.13,
+          "g2": 0.1,
+          "payout": 0.154,
+          "exit_pe": 18
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入由广告双位数与其他业务中个位数形成约8%增长，稳定略升利润率带来约9%前段盈利增长，后段降至7%；悲观成熟业务仅低个位数，乐观AI商业化贡献增加。派息率以5.3港元滚动DPS折人民币/情景EPS近似，不把回购计入。"
+    },
+    "notApproved": true
+  },
+  "reviewRequiredBeforeActivation": true,
+  "sourceVerification": "2026-10-24本轮浏览已取得一级源正文并核对关键页；安踏Q3重新请求受限，沿用同日已下载官方原文及现有证据，不声称新近通读。仅列已读/沿用材料，未取得部分见missingEvidence。",
+  "cashCrossCheckPosture": "条件所有者现金DCF；与EPS总回报法偏差若超过既有SOP阈值，正式买点继续暂停，不能按较高值取价。"
+}

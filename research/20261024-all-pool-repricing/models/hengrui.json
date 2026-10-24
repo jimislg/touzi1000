@@ -1,0 +1,202 @@
+{
+  "id": "hengrui",
+  "name": "恒瑞医药",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "暂停新增",
+  "epsBasis": "FY2026常态年研究基准；报告累计EPS与全年研究假设分开，不以9M×4/3冒充实际全年。第1笔年度现金在一年后。",
+  "cases": {
+    "bear": {
+      "eps0": 0.75,
+      "g1": 0.02,
+      "g2": 0.02,
+      "payout": 0.08,
+      "exitPE": 16
+    },
+    "base": {
+      "eps0": 0.95,
+      "g1": 0.08,
+      "g2": 0.05,
+      "payout": 0.12,
+      "exitPE": 22
+    },
+    "bull": {
+      "eps0": 1.2,
+      "g1": 0.13,
+      "g2": 0.08,
+      "payout": 0.17,
+      "exitPE": 28
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "研发全费用经济EPS",
+      "reportedAnchor": "H1归母44.6544、扣非37.2959亿元，研发总投入46.05亿元、费用化34.93亿元；总股本66.37199874亿股。",
+      "normalization": "研发资本化增量约11.12亿元；以15%税率敏感性扣非再减9.452亿元约27.844亿元/66.372亿股=0.4195元H1经济EPS，非会计更正。",
+      "newAssumption": "基准年度0.95=H1经济约0.42+H2经济0.53研究假设；悲观全年0.75、乐观1.20。未把H1乘二当事实，不把授权总额全算收入。",
+      "sourceIds": [
+        "hengrui-latest"
+      ]
+    },
+    {
+      "line": "产品增长与许可",
+      "reportedAnchor": "H1扣非同比−12.71%，OCF同比−53.80%，许可收款时间影响显著。",
+      "normalization": "以成熟药下降、创新药增长及风险调整后当期许可共同判断，授权里程碑按实际条件确认。",
+      "newAssumption": "基准前五年8%约为产品组合增长6%+可重复风险调整许可2%，后段5%；乐观13%要求新品放量及现金许可同步，研发资本化比例上升不给额外增长。",
+      "sourceIds": [
+        "hengrui-latest"
+      ]
+    },
+    {
+      "line": "现金/终值纪律",
+      "reportedAnchor": "H1 OCF19.8700−包含无形资产的全部现金CAPEX15.7751=4.0950亿元。",
+      "normalization": "现金模型中全部CAPEX已含开发投入，不再第二次扣同一现金研发；EPS经济调整与现金流分别计算。",
+      "newAssumption": "基准普通派息12%、十年末22倍，低于旧17%/25倍；没有管线风险调整NPV之前属于条件研究估值。",
+      "sourceIds": [
+        "hengrui-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0",
+      "old": "bear:0.9；base:1.15；bull:1.4",
+      "new": "bear:0.75；base:0.95；bull:1.2",
+      "reason": "旧1.15正常EPS未充分覆盖研发资本化及非重复许可的经济影响。本轮用全费用敏感性重建0.95基准，增长和倍数均收紧；管线成功仍可能有价值，但不可用签约总额支持永久高收益。",
+      "sourceIds": [
+        "hengrui-latest"
+      ]
+    },
+    {
+      "variable": "g1",
+      "old": "bear:0.03；base:0.1；bull:0.16",
+      "new": "bear:0.02；base:0.08；bull:0.13",
+      "reason": "前五年按量价、利润率及资本回收能力重估；不是直接外推最新同比。",
+      "sourceIds": [
+        "hengrui-latest"
+      ]
+    },
+    {
+      "variable": "g2",
+      "old": "bear:0.03；base:0.07；bull:0.1",
+      "new": "bear:0.02；base:0.05；bull:0.08",
+      "reason": "后五年降低成熟业务渗透和回报假设，避免终值依赖高成长。",
+      "sourceIds": [
+        "hengrui-latest"
+      ]
+    },
+    {
+      "variable": "payout",
+      "old": "bear:0.15；base:0.17；bull:0.2",
+      "new": "bear:0.08；base:0.12；bull:0.17",
+      "reason": "仅普通股现金股息假设；接受现金桥约束，不计回购额外收益。",
+      "sourceIds": [
+        "hengrui-latest"
+      ]
+    },
+    {
+      "variable": "exitPE",
+      "old": "bear:18；base:25；bull:32",
+      "new": "bear:16；base:22；bull:28",
+      "reason": "十年末研究退出假设，不等同同业可比事实；缺独立ROIC证据不做无条件估值修复。",
+      "sourceIds": [
+        "hengrui-latest"
+      ]
+    }
+  ],
+  "rationale": "旧1.15正常EPS未充分覆盖研发资本化及非重复许可的经济影响。本轮用全费用敏感性重建0.95基准，增长和倍数均收紧；管线成功仍可能有价值，但不可用签约总额支持永久高收益。",
+  "cashConstraint": "H1资本开支后仅4.095亿元。未来年基准OCF55−全部CAPEX28−租赁/少数/融资等2=25亿元，约0.377元/股；OCF55相对H1要求H2收款改善，尚未证实，故暂停新增。研发投入现金已包含相应科目，不重复扣。",
+  "pricedIn": "现价应相对于0.95元经济EPS观察，原报表EPS和授权公告大数容易使PE偏低。达标若依赖成功里程碑、倍数修复与现金恢复三者同时发生，就不是已承保收益。",
+  "downside": "创新药终端销售或里程碑收款先未达预期，研发费用不能同步缩减，经济EPS和现金双降，22倍终值也需下修。",
+  "activationConditions": [
+    "逐笔授权首付/里程碑收入与到账可对上",
+    "全费用经济EPS、产品销售及OCF至少连续两期改善",
+    "逐品种竞争/专利/临床概率与资本投入有可审议桥，之后重新评估是否启用价线"
+  ],
+  "invalidations": [
+    "研发资本化率继续上升而全费用经济利润不改善",
+    "许可收入确认持续领先收款且应收扩大",
+    "核心品种医保价格或临床/专利证据破坏增长假设"
+  ],
+  "sources": [
+    {
+      "id": "hengrui-latest",
+      "title": "2026半年度报告，PDF 6、79—81",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-20/1225483600.PDF",
+      "publishedAt": "2026-08-20",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "6、79—81",
+      "checkedAt": "2026-10-24",
+      "currentRunReadBasis": "本轮浏览官方PDF并结合本地原文选页复核；未声称逐页通读。"
+    },
+    {
+      "id": "hengrui-prior-1",
+      "title": "BMS战略合作公司公告",
+      "url": "https://www.hengrui.com/media/detail-950.html",
+      "publishedAt": null,
+      "period": "2026",
+      "location": "授权合同条件",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "hengrui-prior-2",
+      "title": "2025年度报告",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0325/2026032502087_c.pdf",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "研发和许可收入",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "hengrui-prior-3",
+      "title": "HRS-1596诺和诺德授权公告",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12625310&stockid=600276",
+      "publishedAt": null,
+      "period": "2026-09-29",
+      "location": "公告正文",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "missingEvidence": [
+    "逐品种销售、竞争、失败概率及授权现金时点，尚不能构建独立管线NPV",
+    "资本化研发的实际税盾及少数归属，仅15%研究税率敏感性",
+    "本轮未取得Q3财务原文"
+  ],
+  "confidence": "低",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 0.05002109,
+      "g1": 0.02,
+      "g2": 0.02,
+      "terminalGrowth": 0,
+      "basis": "未来年OCF40、全部CAPEX35、其他1.68亿元；现金研发按现金表归属扣一次。"
+    },
+    "base": {
+      "cashYear1": 0.37666487,
+      "g1": 0.08,
+      "g2": 0.04,
+      "terminalGrowth": 0.015,
+      "basis": "未来年OCF55、全部CAPEX28、其他2亿元；要求授权收款正常化，非公司指引。"
+    },
+    "bull": {
+      "cashYear1": 0.79852952,
+      "g1": 0.12,
+      "g2": 0.06,
+      "terminalGrowth": 0.02,
+      "basis": "未来年OCF80、总CAPEX25、其他2亿元，需许可与产品两端现金兑现；不直接使用合同名义总额。"
+    }
+  },
+  "asOf": "2026-10-24",
+  "assumptionStatus": "agent_estimate_not_company_guidance",
+  "accountDataTouched": false,
+  "approvalCreated": false
+}

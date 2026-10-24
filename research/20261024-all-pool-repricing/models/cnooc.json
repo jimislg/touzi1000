@@ -1,0 +1,179 @@
+{
+  "id": "cnooc",
+  "name": "中国海洋石油",
+  "asOf": "2026-10-24",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "条件观察",
+  "epsBasis": "FY2026常态年度研究基准；不是公司指引或共识。第一笔年度现金在一年后；9M不机械乘4/3，三情景均为研究假设。",
+  "cases": {
+    "bear": {
+      "eps0": 1.75,
+      "g1": 0,
+      "g2": -0.01,
+      "payout": 0.4,
+      "exitPE": 4.5
+    },
+    "base": {
+      "eps0": 2.66,
+      "g1": 0.025,
+      "g2": 0.005,
+      "payout": 0.45,
+      "exitPE": 6.5
+    },
+    "bull": {
+      "eps0": 3.29,
+      "g1": 0.035,
+      "g2": 0.015,
+      "payout": 0.5,
+      "exitPE": 8
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "股本与原始利润",
+      "reportedAnchor": "H1归母858.18亿、产量398.7百万BOE、EPS1.81；股本475.29953984亿",
+      "normalization": "H1处在布油87.6美元/桶环境；不能将1.81翻倍当中周期EPS",
+      "newAssumption": "年度产量790百万BOE为研究锚；悲观/基准/乐观税后权益利润/BOE约105.29/160.04/197.93元，对应归母831.77/1264.30/1563.74亿、EPS1.75/2.66/3.29",
+      "sourceIds": [
+        "CNOOC-H126"
+      ]
+    },
+    {
+      "line": "量价及成本归一",
+      "reportedAnchor": "H1全成本29.7美元/BOE；油液占产量77.8%，气22.2%",
+      "normalization": "全成本是会计指标，不能再从税后利润双扣，也不能只用布油×总BOE；气价和海外税需单独体现",
+      "newAssumption": "研究中周期油价55/70/80美元、气价基本稳定；合并税后净利/BOE较H1约215.24元分别压缩约51%/26%/8%，将税制、分成和成本上升合并成显式保守假设",
+      "sourceIds": [
+        "CNOOC-H126"
+      ]
+    },
+    {
+      "line": "增长与替换",
+      "reportedAnchor": "年度产量目标780—800百万BOE；新项目投产、老田自然递减并存",
+      "normalization": "增产来自持续投资，不能既维持产量又把全部投资删成增长CAPEX",
+      "newAssumption": "g1/g2=0/−1、2.5/0.5、3.5/1.5%；每股增长已含资源替换和潜在资本开支约束，不凭长期油价上行加增速",
+      "sourceIds": [
+        "CNOOC-H1NEWS"
+      ]
+    },
+    {
+      "line": "现金与派息",
+      "reportedAnchor": "H1 OCF1416.31亿−现金CAPEX533.75亿−租赁13.47亿−实付利息13.82亿=855.27亿",
+      "normalization": "项目CAPEX619.93亿与现金CAPEX533.75亿不同；利息实收35.50亿和投资收入2.17亿另列，未把定存本金流入当收益",
+      "newAssumption": "派息40%/45%/50%；基准EPS2.66对应毛息1.197元，低于高油价H1每股港息外推值；退出4.5/6.5/8倍",
+      "sourceIds": [
+        "CNOOC-H126"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0",
+      "old": "1.80/2.60/3.20",
+      "new": "1.75/2.66/3.29",
+      "reason": "使用官方完整报告核股本、现金及高油价利润/BOE，建立中周期利润压缩桥",
+      "sourceIds": [
+        "CNOOC-H126"
+      ]
+    },
+    {
+      "variable": "payout/exitPE",
+      "old": "45/45/50%；5/7/8倍",
+      "new": "40/45/50%；4.5/6.5/8倍",
+      "reason": "压力油价下保储量替换，资源有限和税制提高退出折价",
+      "sourceIds": [
+        "CNOOC-H126"
+      ]
+    },
+    {
+      "variable": "现金核对",
+      "old": "现金CAPEX缺失、仅项目预算",
+      "new": "现金CAPEX533.75亿、租赁13.47亿、息13.82亿已取原文",
+      "reason": "关闭原报告现金CAPEX缺项；退役/全寿命资源NAV仍未闭合",
+      "sourceIds": [
+        "CNOOC-H126"
+      ]
+    }
+  ],
+  "confidence": "中",
+  "formalAllowed": false,
+  "action": "wait for proof",
+  "sources": [
+    {
+      "id": "CNOOC-H126",
+      "title": "中国海油2026完整中期报告（公司原文）",
+      "url": "https://www.cnoocltd.com/english/investorrelations/reports/interimreport/202609/P020260908577972290064.pdf",
+      "period": "2026H1",
+      "publishedAt": "2026-09-08",
+      "location": "PDF9页财务摘要，12—14页产量/油价，39页现金流，49/54页股本，64页承诺；本轮实际读取",
+      "readStatus": "read"
+    },
+    {
+      "id": "CNOOC-H1NEWS",
+      "title": "2026中期业绩发布（含年度目标）",
+      "url": "https://www.cnoocltd.com/english/presscenter/pressreleases/2026/202608/t20260826_122439.html",
+      "period": "2026H1/2026全年目标",
+      "publishedAt": "2026-08-26",
+      "location": "产量398.7百万BOE、全年780—800百万、CAPEX预算1120—1220亿",
+      "readStatus": "read"
+    },
+    {
+      "id": "CNOOC-QDIR",
+      "title": "公司业绩目录",
+      "url": "https://www.cnoocltd.com/english/",
+      "period": "2026-10-24检索",
+      "publishedAt": null,
+      "location": "结果栏最新2026中期；未取得Q3正文",
+      "readStatus": "read"
+    }
+  ],
+  "rationale": "低成本优势是公司优势，不意味着现油价就是长期价格。本轮把H1高油价利润压回55/70/80美元油价情景，用明确权益利润/BOE推年度EPS，再以全部资本和退役义务限制派息。基准EPS小幅上修但倍数下修，原有“油价稳定、持续高分红”的买点逻辑需同时经受低油价压力。",
+  "cashConstraint": "完整报告关闭此前现金CAPEX缺口：H1桥855.27亿；加实收利息/投资收益37.67亿可到892.94亿，但非全部都可长期派发。报告拆除负债1187.34亿、未拨备已签资本承诺394亿不是本期应一次扣尽的现金，也不能忽略；资源接续和实际退役支出应在年度现金模型保留。",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 1.4,
+      "g1": 0,
+      "g2": -0.01,
+      "terminalGrowth": 0,
+      "basis": "中周期年度OCF1950亿−全CAPEX1120亿−租赁/利息60亿−实际退役/储量替换额外缓冲104.58亿=665.42亿/475.2995亿股；假设，非公司现金指引。"
+    },
+    "base": {
+      "cashYear1": 2.2,
+      "g1": 0.02,
+      "g2": 0.005,
+      "terminalGrowth": 0,
+      "basis": "年度OCF2350亿−全CAPEX1170亿−租赁/利息60亿−实际退役/额外替换缓冲74.34亿=1045.66亿/475.2995亿股；不额外加净现金。"
+    },
+    "bull": {
+      "cashYear1": 2.9,
+      "g1": 0.03,
+      "g2": 0.01,
+      "terminalGrowth": 0.005,
+      "basis": "年度OCF2700亿−全CAPEX1200亿−租赁/利息55亿−实际退役/额外替换缓冲66.63亿=1378.37亿/475.2995亿股；增长取决储量替换。"
+    }
+  },
+  "crossCheck": {
+    "method": "owner_cash_dcf",
+    "requiresResourceNAV": true,
+    "basis": "ownerCashCases使用独立中周期OCF和全CAPEX/租赁/利息/实际退役现金预算；储量替换CAPEX已在全CAPEX中，仅额外留尾部缓冲，不把会计折旧再扣。该DCF不是独立资源NAV，也没有假装核完逐油田权益储量和衰减曲线。",
+    "limits": "有限资源未做独立NAV；长期终值仅条件敏感性。"
+  },
+  "pricedIn": "将现价折人民币除2.66元看中周期PE，再看55美元油价1.75元是否仍满足主清单压力门槛。股息和油价同向，不把高景气股息当安全票息。",
+  "downside": "油价先下跌、海外税负及全成本未同步下降，每桶净利收缩；储量替换和退役支出刚性使股息降幅可能大于产量降幅。",
+  "activationConditions": [
+    "按实际油价和最新季度销售量价更新利润/BOE，检验55美元压力情景",
+    "确认新项目全寿命投资、储量替换与退役现金不需要持续增发",
+    "独立资源NAV或逐项目现金交叉完成前，价格只作条件研究候选"
+  ],
+  "invalidations": [
+    "常态权益利润/BOE低于105元且增产不能补偿",
+    "全CAPEX及退役现金长期超过模型，45%派息依赖净举债",
+    "资源替换连续不足、重大HSSE或国别权益受损"
+  ],
+  "missingEvidence": [
+    "Q3财务正文未取得；不把说明会通知当季报",
+    "逐项目储量衰减、退役时点和税制未形成独立资源NAV；正式新增仍须该交叉",
+    "10/24股本后续月报未逐项重取，当前使用H1普通股47529953984股"
+  ]
+}

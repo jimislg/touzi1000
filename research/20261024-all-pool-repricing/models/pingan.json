@@ -1,0 +1,176 @@
+{
+  "id": "pingan",
+  "name": "中国平安",
+  "asOf": "2026-10-24",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "条件观察",
+  "epsBasis": "FY2026常态年度研究基准；不是公司指引或共识。第一笔年度现金在一年后；9M不机械乘4/3，三情景均为研究假设。",
+  "cases": {
+    "bear": {
+      "eps0": 6.2,
+      "g1": -0.02,
+      "g2": 0,
+      "payout": 0.32,
+      "exitPE": 4.5
+    },
+    "base": {
+      "eps0": 7.2,
+      "g1": 0.025,
+      "g2": 0.015,
+      "payout": 0.36,
+      "exitPE": 6.0
+    },
+    "bull": {
+      "eps0": 8.1,
+      "g1": 0.045,
+      "g2": 0.025,
+      "payout": 0.4,
+      "exitPE": 7.0
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "营运而非会计EPS",
+      "reportedAnchor": "FY25营运归母1344.15亿；H1 841.96亿、上年同期777.32亿",
+      "normalization": "TTM营运1408.79亿；H1会计归母925.85亿含投资及可转债估值影响，不直接年化",
+      "newAssumption": "TTM作当前锚，主动将基准常态归母压至约1368.43亿，除190.06亿摊薄加权股数得7.20元；悲观1178.37亿/6.20，乐观1539.49亿/8.10",
+      "sourceIds": [
+        "PA-H1",
+        "PA-FY25"
+      ]
+    },
+    {
+      "line": "潜在摊薄",
+      "reportedAnchor": "H1基本加权174.55亿股；员工授予6.30亿、可转债9.21亿；摊薄加权190.06亿",
+      "normalization": "使用报告已给摊薄分母作情景资本上限；不宣称营运摊薄EPS是公司披露值",
+      "newAssumption": "不额外再把已计入摊薄分母的可转债转股稀释一次；新转债/增发仍须重估",
+      "sourceIds": [
+        "PA-H1"
+      ]
+    },
+    {
+      "line": "增长结构",
+      "reportedAnchor": "寿险归母营运528.85亿；产险87.72亿；银行148.94亿；资管91.72亿",
+      "normalization": "寿险集团归母口径与寿险分部总营运558.72亿不同；资管高增长不外推",
+      "newAssumption": "基准增长2.5%/1.5%来自寿险CSM缓释、产险承保恢复和银行低个位数；不把NBV11.2%直接映射集团EPS",
+      "sourceIds": [
+        "PA-H1"
+      ]
+    },
+    {
+      "line": "分红资本与上划",
+      "reportedAnchor": "集团综合偿付198.1%；寿险核心133.8%、综合185.5%；寿险上划241.04亿",
+      "normalization": "偿付比率高于监管线不等于现金全可自由派发；寿险上划不能代替全集团母公司现金表",
+      "newAssumption": "派息32%/36%/40%；基准每年初始约2.59元，与FY25现金股息2.70元附近相互约束，但不是承诺",
+      "sourceIds": [
+        "PA-H1"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0",
+      "old": "6.5/7.4/8.0",
+      "new": "6.2/7.2/8.1",
+      "reason": "重核190.06亿摊薄加权分母；基准不外推资管反弹，压力更明确",
+      "sourceIds": [
+        "PA-H1"
+      ]
+    },
+    {
+      "variable": "growth",
+      "old": "−2%/0；3%/2%；5%/3%",
+      "new": "−2%/0；2.5%/1.5%；4.5%/2.5%",
+      "reason": "存量利差与CSM释放约束，NBV不能直接年化营运增长",
+      "sourceIds": [
+        "PA-H1"
+      ]
+    },
+    {
+      "variable": "payout/exitPE",
+      "old": "35/36/40%；4.5/6/7.5倍",
+      "new": "32/36/40%；4.5/6/7倍",
+      "reason": "压力优先保资本，乐观也不以高倍数解释主要回报",
+      "sourceIds": [
+        "PA-H1"
+      ]
+    }
+  ],
+  "confidence": "中",
+  "formalAllowed": false,
+  "action": "wait for proof",
+  "sources": [
+    {
+      "id": "PA-H1",
+      "title": "中国平安2026中期业绩报告（官方完整英文原文）",
+      "url": "https://group.pingan.com/resource/pingan/IR-Docs/2026/pingan-interim26-results.pdf",
+      "period": "2026H1",
+      "publishedAt": "2026-08-20",
+      "location": "PDF14、40—43页营运利润；51/92页偿付能力；81—82页上划；145页摊薄EPS",
+      "readStatus": "read"
+    },
+    {
+      "id": "PA-FY25",
+      "title": "2025年度业绩官方公告",
+      "url": "https://group.pingan.com/media/news/2026/ar-25.html",
+      "period": "2025FY",
+      "publishedAt": "2026-03-26",
+      "location": "营运归母134415百万元",
+      "readStatus": "read"
+    },
+    {
+      "id": "pingan-operating",
+      "title": "平安银行Q3；集团Q3未取得",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620609.PDF",
+      "period": "2026Q3 / 9M",
+      "publishedAt": "2026-10-24",
+      "location": "财务表/营运指标；口径详见正文",
+      "readStatus": "read"
+    }
+  ],
+  "rationale": "保险公司的利润要经过精算假设、偿付资本、上划与母公司分红四道约束。基准从TTM营运利润再做约2.9%常态化下修；增长显著低于NBV增幅。估值回报依赖营运EPS和稳定现金股息，EV仅交叉参考，不把集团EV或全部投资资产再加到EPS价值。",
+  "cashConstraint": "集团OCF3680.37亿包含保险和银行资金流，不能当普通股自由现金。已新增寿险上划241.04亿、寿险核心偿付133.8%的原文支持；但上划来自寿险一组子公司，仍缺全集团母公司可用现金、未来资本注入及回购/债息完整桥。派息率为条件假设。",
+  "crossCheck": {
+    "method": "dividend_discount",
+    "cases": {
+      "bear": {
+        "dividend0": 1.984,
+        "growth": 0,
+        "requiredReturn": 0.12,
+        "valueCNY": 16.533333333333335
+      },
+      "base": {
+        "dividend0": 2.592,
+        "growth": 0.02,
+        "requiredReturn": 0.12,
+        "valueCNY": 26.4384
+      },
+      "bull": {
+        "dividend0": 3.24,
+        "growth": 0.03,
+        "requiredReturn": 0.12,
+        "valueCNY": 37.080000000000005
+      }
+    },
+    "basis": "稳定股息Gordon仅检验现金支撑，不是替代自由盈余的独立精算模型。悲观1.984、基准2.592、乐观3.24均=eps0×payout；分红增长不得超过营运/资本可用增速。低于EPS退出价的差异来自留存可否释放，差额>20%须保留条件观察。",
+    "limits": "母公司完整上划与资本消耗缺失，DDM不能验证自由盈余已充足。"
+  },
+  "pricedIn": "需将主清单现价人民币口径除7.20元基准营运EPS，比较6倍终值；港股通股息按20%另税，不能只用税前市盈率比较A/H。",
+  "downside": "长期投资收益低于营运锁定4%假设、代理渠道增长不能形成可释放CSM；资本先受压，再削分红/新增稀释，低PE可能长期存在。",
+  "activationConditions": [
+    "新报表确认全摊薄股数及可转债条款；营运利润与基本/摊薄口径逐项相符",
+    "母公司可用现金足以覆盖未来12个月债息和建议股息，且寿险偿付缓冲未持续下降",
+    "集团Q3取得后重核集团营运利润；不得用平安银行三季利润直接代集团估计"
+  ],
+  "invalidations": [
+    "集团营运EPS常态低于6.2元",
+    "寿险核心偿付跌破100%或上划减少而集团增加分红",
+    "新普通股/转债使完全摊薄股数增加超过5%"
+  ],
+  "missingEvidence": [
+    "集团Q3正文未取得；银行Q3仅子公司信息",
+    "完整母公司上划、资本注入及自由盈余年度滚动未闭合；买点保持条件观察",
+    "使用190.06亿H1摊薄加权股数，并非假定未来十年实际股本不变"
+  ]
+}

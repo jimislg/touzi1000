@@ -37,8 +37,8 @@
 ## 四、DoD 全套测试清单（2026-10-24 更新）
 
 统一离线入口：`node scripts/test-offline.js`（强制 LG_MOCK_CLOUD=1）。
-包含原10套回归、独立决策安全测试、小程序口径同步检查、页面结构与网络故障测试，和研究证据检查，共15个入口；`--with-http` 增加临时合成配置的真实HTTP冒烟，共16个入口。
-浏览器验收：`node investment-platform/test-browser-safety.js`，仅使用本机合成HTTP数据；需提供 Playwright（可由 PLAYWRIGHT_MODULE 指定）与 Chromium。研究报告另跑 `node investment-platform/test-research-browser.js`。
+包含原10套回归、独立决策安全测试、小程序口径同步检查、页面结构与网络故障测试，和研究证据/全池重新定价检查，共16个入口；`--with-http` 增加临时合成配置的真实HTTP冒烟，共17个入口。
+浏览器验收：`node investment-platform/test-browser-safety.js`，仅使用本机合成HTTP数据；需提供 Playwright（可由 PLAYWRIGHT_MODULE 指定）与 Chromium。研究报告另跑 `node investment-platform/test-research-browser.js`，全池价格确认稿跑 `node investment-platform/test-repricing-browser.js`。
 CI 工作流：`.github/workflows/investor-safety.yml`。推送和PR自动触发验收；发布必须等待待发布的同一提交工作流成功。
 
 旧的“评级+plan即审批”“档位百分比默认收益率”“浏览器补回服务端null”等断言已改成安全行为检查。

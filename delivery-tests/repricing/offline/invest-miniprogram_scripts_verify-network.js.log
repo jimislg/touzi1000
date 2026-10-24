@@ -1,0 +1,22 @@
+PASS 测试环境不借用 Node 的 URL / Headers / fetch
+PASS 客户端把本机域名拒绝包装为error且status=0
+PASS 完整保留域名错误并正确分类
+PASS 域名提示包含数据源域名与行情域名
+PASS 失败仍显示快照
+PASS 总览与持仓浮盈百分比一致
+PASS request:fail timeout不再误报数据库错误
+PASS request:fail ssl hand shake error不再误报数据库错误
+PASS HTTP 401保留服务端状态
+PASS HTTP 403保留服务端状态
+PASS HTTP 503保留服务端状态
+PASS 行情失败不混用新配置与旧行情
+PASS partial行情不能冒充实时且保留完整快照
+PASS invalid行情不能冒充实时且保留完整快照
+PASS 同时刷新共用一次请求
+PASS 两条链路成功才进入实时状态
+PASS 云配置改为从自建服务器 /api/config 读取
+PASS 曾成功后遇到部分行情保留上次完整配置与行情及成功时间
+PASS 实时刷新失败标记为上次成功数据
+PASS 网络恢复后清除错误并恢复实时状态
+PASS 错误诊断遮蔽密钥与token
+网络回归全部通过: 21

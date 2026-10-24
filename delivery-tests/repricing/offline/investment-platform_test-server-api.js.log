@@ -1,0 +1,11 @@
+PASS 跨站保存被拒绝且不写配置
+PASS 浏览器跨站来源标识被拒绝
+PASS 非JSON保存被拒绝
+PASS 畸形JSON返回400而不是500
+PASS 超大请求在解析前被拒绝
+PASS 畸形其他Cookie不导致处理器崩溃
+PASS 畸形鉴权Cookie不能绕过口令
+PASS 对外监听时缺少口令默认拒绝访问
+PASS 访问配置损坏时默认拒绝访问
+PASS 敏感响应禁缓存并禁止Referer传播
+HTTP安全回归全部通过: 10

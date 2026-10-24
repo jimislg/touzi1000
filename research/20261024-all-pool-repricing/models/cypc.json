@@ -1,0 +1,179 @@
+{
+  "id": "cypc",
+  "name": "长江电力",
+  "asOf": "2026-10-24",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "条件观察",
+  "epsBasis": "FY2026常态年度研究基准；不是公司指引或共识。第一笔年度现金在一年后；9M不机械乘4/3，三情景均为研究假设。",
+  "cases": {
+    "bear": {
+      "eps0": 1.12,
+      "g1": -0.005,
+      "g2": 0,
+      "payout": 0.65,
+      "exitPE": 11
+    },
+    "base": {
+      "eps0": 1.34,
+      "g1": 0.015,
+      "g2": 0.01,
+      "payout": 0.7,
+      "exitPE": 14
+    },
+    "bull": {
+      "eps0": 1.48,
+      "g1": 0.03,
+      "g2": 0.015,
+      "payout": 0.73,
+      "exitPE": 16
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "常态净利与股数",
+      "reportedAnchor": "FY25归母345.03亿，现股本244.68217716亿；H1归母147.55695亿、扣非142.9403亿",
+      "normalization": "FY25每股约1.410元；H1丰水增益不可直接翻倍，H1扣非较归母少4.62亿",
+      "newAssumption": "悲观/基准/乐观常态归母分别274.04/327.87/362.13亿，EPS1.12/1.34/1.48；基准较FY25低约5%，不是H1×2",
+      "sourceIds": [
+        "cypc-latest",
+        "CYPC-DIV25"
+      ]
+    },
+    {
+      "line": "水量向盈利桥",
+      "reportedAnchor": "Q3发电923.14亿千瓦时同比−14.89%；9M2250.58同比−4.28%",
+      "normalization": "固定折旧/人工使利润对水量变化更敏感；不把发电同比直接等同净利同比",
+      "newAssumption": "基准常态水量偏低约3%、电价不涨，固定成本压力−约2%利润；悲观水量/电价共同弱且利息不降；乐观来水正常并有低成本债替换，利润较FY25约+5%",
+      "sourceIds": [
+        "cypc-latest",
+        "cypc-operating"
+      ]
+    },
+    {
+      "line": "增长与终值",
+      "reportedAnchor": "核心梯级资产已成熟，新增投资有资金成本",
+      "normalization": "水量恢复不作十年复合成长；抽蓄预算不能零成本加盈利",
+      "newAssumption": "g1/g2=−0.5%/0、1.5%/1%、3%/1.5%；基准长期增长主要来自电力消纳和减债利息节省；退出11/14/16倍",
+      "sourceIds": [
+        "cypc-latest",
+        "cypc-operating"
+      ]
+    },
+    {
+      "line": "派息与现金",
+      "reportedAnchor": "H1 OCF241.2831亿−CAPEX44.3462亿=196.9369亿；实收投资收益9.28235亿、NCI现金0.84184亿",
+      "normalization": "需再扣现金利息、租赁及债务再投资；集团全部净利润不能当可派现金",
+      "newAssumption": "派息65%/70%/73%；悲观65%是压力减派情景，不冒充2026—2030政策保证；基准仍用70%",
+      "sourceIds": [
+        "cypc-latest",
+        "CYPC-DIV25"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0",
+      "old": "1.25/1.40/1.50",
+      "new": "1.12/1.34/1.48",
+      "reason": "Q3发电显著转弱，更新全年常态锚，悲观留足固定成本杠杆压力",
+      "sourceIds": [
+        "cypc-latest",
+        "cypc-operating"
+      ]
+    },
+    {
+      "variable": "growth",
+      "old": "−1/0；2.5/1.5；4/2%",
+      "new": "−0.5/0；1.5/1；3/1.5%",
+      "reason": "水量反弹不是结构增速，减少对未核抽蓄回报的提前计入",
+      "sourceIds": [
+        "cypc-latest",
+        "cypc-operating"
+      ]
+    },
+    {
+      "variable": "payout/exitPE",
+      "old": "70/70/75%；12/15/17倍",
+      "new": "65/70/73%；11/14/16倍",
+      "reason": "财务杠杆和新资本投入约束现金，分红资产也需收益率纪律",
+      "sourceIds": [
+        "cypc-latest",
+        "cypc-operating"
+      ]
+    }
+  ],
+  "confidence": "中",
+  "formalAllowed": false,
+  "action": "wait for proof",
+  "sources": [
+    {
+      "id": "cypc-latest",
+      "title": "2026半年度报告，PDF 主要数据、55—56",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-31/1225534923.PDF",
+      "period": "2026H1",
+      "publishedAt": "2026-08-31",
+      "location": "主要数据、55—56",
+      "readStatus": "read"
+    },
+    {
+      "id": "cypc-operating",
+      "title": "Q3发电数据，非财务季报",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225600572.PDF",
+      "period": "2026Q3 / 9M",
+      "publishedAt": "2026-10-13",
+      "location": "财务表/营运指标；口径详见正文",
+      "readStatus": "read"
+    },
+    {
+      "id": "CYPC-DIV25",
+      "title": "2025年度利润分配方案",
+      "url": "https://www.cypc.com.cn/cypc/attachDir/2026/05/2026051815072554604.pdf",
+      "period": "2025FY",
+      "publishedAt": "2026-05-18",
+      "location": "PDF1—2：2025归母345.03亿、股本24468217716股、全年股息1元",
+      "readStatus": "read"
+    }
+  ],
+  "rationale": "水电护城河和成熟现金资产属性仍成立，但本次先把弱来水对当年盈利的影响写入EPS，不将H1两位数增长延伸全年。基准盈利327.87亿低于FY25；未来成长幅度收窄，主要靠利息节省与电力利用效率，不依赖持续丰水或终值倍数上行。",
+  "cashConstraint": "H1全现金CAPEX后196.94亿尚非归母现金。实收投资收益可另加；现金利息含在股利利润利息混合行94.2271亿中，不能整行扣完又额外扣母股息。以已知母公司中期现金股利51.3833亿及NCI0.8418亿推余项约42.00亿只是核查桥，未认证等同现金利息；租赁另列。",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 0.95,
+      "g1": 0,
+      "g2": 0,
+      "terminalGrowth": 0,
+      "basis": "研究年度OCF500亿−全CAPEX160亿−现金利息/租赁/少数107.55亿=232.45亿，除244.6822亿股；不只扣维护CAPEX。"
+    },
+    "base": {
+      "cashYear1": 1.25,
+      "g1": 0.01,
+      "g2": 0.005,
+      "terminalGrowth": 0.005,
+      "basis": "研究年度OCF540亿−全CAPEX130亿−现金利息/租赁/少数104.15亿=305.85亿，约1.25元/股；与H1季节性现金桥及FY25盈利交叉。"
+    },
+    "bull": {
+      "cashYear1": 1.5,
+      "g1": 0.02,
+      "g2": 0.01,
+      "terminalGrowth": 0.01,
+      "basis": "研究年度OCF580亿−全CAPEX115亿−现金利息/租赁/少数97.98亿=367.02亿，约1.50元/股；须来水和融资成本同向改善。"
+    }
+  },
+  "pricedIn": "现价除新基准1.34元可见盈利倍数；若价格已要求16倍以上常态利润和每年3%成长，实际上已支付来水与减债顺利实现的乐观预期。",
+  "downside": "来水偏枯先压利用小时，固定成本使每股盈利下降；若抽蓄或新项目资本支出同时扩大，派息与偿债竞争现金，所谓高确定股息也会失去支撑。",
+  "activationConditions": [
+    "Q3财务原文取得后，将水量、电价、利息变化桥到利润及现金，确认弱来水已充分计入",
+    "逐项核对未来三年全CAPEX、债务付息和到期额，现金覆盖分红",
+    "DCF与EPS退出法差异超过20%时先解释资本/终值，不能自动启用价格档位"
+  ],
+  "invalidations": [
+    "常态年归母低于274亿且不是单季水量错配",
+    "电价机制或消纳改变使长期回报下修",
+    "资本承诺明显超过现金能力，70%分红需长期新增债支持"
+  ],
+  "missingEvidence": [
+    "Q3财务报表未取得，10/13只是发电公告",
+    "全周期抽蓄/新项目资本预算及实际现金付息尚未独立闭合；ownerCashCases为明确假设，不是已认证FCFE"
+  ]
+}

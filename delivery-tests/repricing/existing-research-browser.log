@@ -1,0 +1,13 @@
+PASS 34 issuers visible in searchable checklist
+PASS all 8 retrieved Q3 financials filter correctly
+PASS 4 operating updates remain distinct from financials
+PASS Ping An group/bank identity visible
+PASS issuer search works
+PASS all local report links resolve
+PASS catl has sources and named evidence gaps
+PASS popmart has sources and named evidence gaps
+PASS china_mobile has sources and named evidence gaps
+PASS miniso has sources and named evidence gaps
+PASS mobile checklist contains overflow inside table only
+PASS no page runtime errors and no remote requests
+Research browser QA: 12 checks passed; local public files only.

@@ -1,0 +1,230 @@
+{
+  "id": "china_mobile",
+  "name": "中国移动",
+  "asOf": "2026-10-24",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "条件观察",
+  "epsBasis": "FY2026常态年度研究基准；不是公司指引或共识。第一笔年度现金在一年后；9M不机械乘4/3，三情景均为研究假设。",
+  "cases": {
+    "bear": {
+      "eps0": 5.35,
+      "g1": -0.02,
+      "g2": -0.01,
+      "payout": 0.6,
+      "exitPE": 8
+    },
+    "base": {
+      "eps0": 5.8,
+      "g1": 0.005,
+      "g2": 0.005,
+      "payout": 0.72,
+      "exitPE": 9.5
+    },
+    "bull": {
+      "eps0": 6.3,
+      "g1": 0.025,
+      "g2": 0.015,
+      "payout": 0.8,
+      "exitPE": 11
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "TTM归母与股本",
+      "reportedAnchor": "FY25归母1370.95亿−2025 9M1153.53亿+2026 9M1061.98亿=1279.40亿；当前股本216.95890446亿",
+      "normalization": "TTM诊断EPS5.897；CAS扣非9M984.25亿低于归母1061.98亿；不9M乘4/3",
+      "newAssumption": "基准EPS0由5.9再降至5.8；悲观5.35反映资费/算力折旧压力；乐观6.3要求现金与利润恢复",
+      "sourceIds": [
+        "CMQ3",
+        "CMFY25",
+        "CMSHARES",
+        "CMQ3CAS"
+      ]
+    },
+    {
+      "line": "增长",
+      "reportedAnchor": "9M归母同比−7.9%，主营成熟且算力投入增加",
+      "normalization": "仅营收/算力订单增长不自动形成每股现金",
+      "newAssumption": "基准五年/后五年各0.5%，悲观−2%/−1%，乐观2.5%/1.5%；不假设云和算力持续高增直接推EPS",
+      "sourceIds": [
+        "CMQ3"
+      ]
+    },
+    {
+      "line": "分配现金",
+      "reportedAnchor": "9M OCF1852.90−CAPEX1032.93−租赁219.50+利息80.99+联营股息46.50−息4.01−少数1.44=722.51亿",
+      "normalization": "相较归母1061.98亿现金桥68.03%；现金支付股息1019.77亿含期间错配，不据此断言立即减息",
+      "newAssumption": "基准派息72%较原75%收紧；悲观60%，乐观80%须现金转换恢复；现金净额不额外加估值",
+      "sourceIds": [
+        "CMQ3",
+        "CMH1"
+      ]
+    },
+    {
+      "line": "股息税及退出",
+      "reportedAnchor": "用户本次统一港股通个人20%",
+      "normalization": "28%仅在公司10%预提且境内20%无抵免的特定条件下敏感性，不能当用户已定税率",
+      "newAssumption": "主引擎20%只扣股息，A股长期0%；PE8/9.5/11，不给通信辅助股增长溢价",
+      "sourceIds": [
+        "CMTAX127",
+        "CMDIV"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0",
+      "old": "5.5/5.9/6.3",
+      "new": "5.35/5.8/6.3",
+      "reason": "将扣非差额及现金转换压力纳入常态区间",
+      "sourceIds": [
+        "CMQ3CAS",
+        "CMQ3"
+      ]
+    },
+    {
+      "variable": "growth/payout",
+      "old": "−2/1/3%十年；65/75/80%",
+      "new": "−2/−1、0.5/0.5、2.5/1.5%；60/72/80%",
+      "reason": "基准增长和派息同时收紧，避免用财务公司存款补充高分红长期可持续性",
+      "sourceIds": [
+        "CMQ3"
+      ]
+    },
+    {
+      "variable": "exitPE",
+      "old": "8/10/11",
+      "new": "8/9.5/11",
+      "reason": "基准成熟业务低增长，终值倍数收紧",
+      "sourceIds": [
+        "CMQ3"
+      ]
+    },
+    {
+      "variable": "股息税展示",
+      "old": "旧深研三情景以28%展示，另有20%敏感性",
+      "new": "本次20%为主口径；28%独立条件压力",
+      "reason": "遵循用户既有20%口径，税不扣终值",
+      "sourceIds": [
+        "CMTAX127",
+        "CMDIV"
+      ]
+    }
+  ],
+  "confidence": "中",
+  "formalAllowed": false,
+  "action": "wait for proof",
+  "sources": [
+    {
+      "id": "CMQ3",
+      "title": "Results for the First Three Quarters of 2026",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000963.pdf",
+      "period": "2026-01-01—2026-09-30",
+      "publishedAt": "2026-10-20",
+      "location": "PDF第1–10页，IFRS未经审计；现金流第8–10页；本轮在线重取失败，沿用同日已下载原文及逐页文本",
+      "readStatus": "prior_read"
+    },
+    {
+      "id": "CMQ3CAS",
+      "title": "中国移动2026年第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613028.PDF",
+      "period": "2026-01-01—2026-09-30",
+      "publishedAt": "2026-10-21",
+      "location": "PDF第2–3页业绩/非经常损益，第7–12页CAS财务报表",
+      "readStatus": "read"
+    },
+    {
+      "id": "CMH1",
+      "title": "Interim Report 2026",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700252.pdf",
+      "period": "2026-01-01—2026-06-30",
+      "publishedAt": "2026-08-27",
+      "location": "PDF第18–20页现金流，第36页集团存款，第43页CAPEX/FCF；印刷页码分别17–19、35、42",
+      "readStatus": "read"
+    },
+    {
+      "id": "CMFY25",
+      "title": "2025 Annual Results",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0326/2026032600468.pdf",
+      "period": "2025-01-01—2025-12-31",
+      "publishedAt": "2026-03-26",
+      "location": "第1–3页分红/CAPEX，第11–15页财务报表，第24页EPS",
+      "readStatus": "read"
+    },
+    {
+      "id": "CMDIV",
+      "title": "Interim Dividend for the Six Months Ended 30 June 2026 (Updated)",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0814/2026081400069.pdf",
+      "period": "2026H1股息，2026-09-30支付",
+      "publishedAt": "2026-08-14",
+      "location": "PDF第1页2.51元、2.9003港元/派付日；第2页非居民企业及港股通HKSCC先扣10%",
+      "readStatus": "read"
+    },
+    {
+      "id": "CMSHARES",
+      "title": "Monthly Return for September 2026",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1007/2026100700796.pdf",
+      "period": "2026-09-30",
+      "publishedAt": "2026-10-07",
+      "location": "PDF第2–3页，香港股20793122579股、A股902767867股、期权行权",
+      "readStatus": "read"
+    },
+    {
+      "id": "CMTAX127",
+      "title": "财税〔2016〕127号：深港股票市场互联互通税收政策",
+      "url": "https://www.chinatax.gov.cn/chinatax/n810341/n810765/n1990035/201611/c2505167/content.html",
+      "period": "现行条文中股息条款；2026研究日复核，非使用已过期价差免税期限",
+      "publishedAt": "2016-11-05",
+      "location": "第一条（三）、（四），个人非H股股息20%、预提税凭证抵免申请",
+      "readStatus": "read"
+    }
+  ],
+  "rationale": "中国移动仍是通信现金收入辅助候选，但TTM盈利下行及租赁/算力现金投入不支持把分红增长当无风险。新的基准EPS和派息均较上一轮深研收紧；高股息收益不能替代总回报门槛。乐观上行必须来自资产回报和现金转换恢复，而非PE无限扩张。",
+  "cashConstraint": "722.51亿为已定义现金桥，未扣全部财务公司存款及受限约束，不是可自由分配净现金。将278.11亿母集团存款流入视作负债/资金流，不当作经营盈利。2025H1与9M租赁比较期存在口径冲突，仍列缺口。",
+  "ownerCashCases": {
+    "bear": {
+      "cashYear1": 3.0,
+      "g1": -0.02,
+      "g2": -0.01,
+      "terminalGrowth": 0,
+      "basis": "约650.88亿年度归母现金；全部CAPEX与租赁后再留算力/存款风险缓冲，低于当前盈利。"
+    },
+    "base": {
+      "cashYear1": 4.0,
+      "g1": 0.005,
+      "g2": 0.005,
+      "terminalGrowth": 0,
+      "basis": "约867.84亿年度归母现金；9M桥722.51亿，Q4仅补145.33亿为假设，非9M同比年化；没有额外加净现金。"
+    },
+    "bull": {
+      "cashYear1": 4.8,
+      "g1": 0.02,
+      "g2": 0.01,
+      "terminalGrowth": 0.01,
+      "basis": "约1041.40亿年度归母现金；要求Q4贡献318.89亿及后续CAPEX回报改善。"
+    }
+  },
+  "pricedIn": "主清单现价折成人民币后除5.80可看基准PE；若现价只提供低个位数总回报，不能因名义高股息达到用户的成长目标。A/H分别计算税后现金与汇率，不能同价。",
+  "downside": "ARPU/主业利润先下降，算力折旧及租赁投入继续增加，继而派息从72%降向60%；利率型估值下跌与减派可以叠加。",
+  "activationConditions": [
+    "下一期归母现金桥足以支持分配，不能靠母集团存款流入维持",
+    "算力收入增长同时有回报指标、折旧和回款支持",
+    "20%税基准及28%条件压力均在清单可见；执行前按真实券商税单核定，不把参考FX当结算成本"
+  ],
+  "invalidations": [
+    "常态EPS低于5.35元或OCF扣全CAPEX/租赁后连续两期不支持股息",
+    "算力投资扩大但归母利润、现金同步下降",
+    "新增大额关联资金存放限制普通股资金使用"
+  ],
+  "missingEvidence": [
+    "2025H1与9M租赁比较口径冲突未消除",
+    "财务公司受限存款/母集团资金穿透及项目ROIC仍缺",
+    "owner现金十年及终值是研究假设，非公司FCFE指引"
+  ],
+  "taxSensitivity": {
+    "baseDividendTax": 0.2,
+    "conditionalTax": 0.28,
+    "conditionalBasis": "仅10%企业预提后再20%且未取得抵免时；不是用户实际已证实税率"
+  }
+}

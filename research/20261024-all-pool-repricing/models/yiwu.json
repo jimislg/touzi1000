@@ -1,0 +1,218 @@
+{
+  "id": "yiwu",
+  "name": "小商品城",
+  "method": "eps",
+  "inputCurrency": "CNY",
+  "quality": "暂停新增",
+  "epsBasis": "FY2026常态年研究基准；报告累计EPS与全年研究假设分开，不以9M×4/3冒充实际全年。第1笔年度现金在一年后。",
+  "cases": {
+    "bear": {
+      "eps0": 0.5,
+      "g1": -0.01,
+      "g2": 0,
+      "payout": 0.15,
+      "exitPE": 8
+    },
+    "base": {
+      "eps0": 0.7,
+      "g1": 0.02,
+      "g2": 0.02,
+      "payout": 0.25,
+      "exitPE": 10
+    },
+    "bull": {
+      "eps0": 0.85,
+      "g1": 0.05,
+      "g2": 0.035,
+      "payout": 0.4,
+      "exitPE": 13
+    }
+  },
+  "estimateBridge": [
+    {
+      "line": "累计扣非与年度常态",
+      "reportedAnchor": "9M归母34.60522、扣非34.28309亿元、EPS0.63；已知H1总股本5,483,559,226股。",
+      "normalization": "发行人Q3原文镜像已读，官方同版一致性尚未闭合；潜在新增股需后续另摊薄，不默认永久无稀释。",
+      "newAssumption": "9M扣非/54.83559226亿股≈0.6252；基准Q4扣非假设0.2048→年度0.83，再扣贸易周期/利润现金质量正常化0.13→0.70。悲观0.50、乐观0.85，均为假设。",
+      "sourceIds": [
+        "yiwu-latest"
+      ]
+    },
+    {
+      "line": "租金/贸易与增速",
+      "reportedAnchor": "9M收入+17.29%、归母仅+0.09%；OCF同比−88.27%。",
+      "normalization": "贸易扩张不能按租金质量给倍数，历史招商预收款不重复作每年租金。",
+      "newAssumption": "基准前五年租金低增及贸易正常利润合成EPS2%，后五年2%；乐观5%需数贸现金利润和扩建回收，不采用旧7%。",
+      "sourceIds": [
+        "yiwu-latest"
+      ]
+    },
+    {
+      "line": "全部现金投资与分配",
+      "reportedAnchor": "9M OCF11.26304−全部CAPEX39.85763=−28.59459亿元。",
+      "normalization": "新市场资本开支与支付贸易占款必须先融资/回收；不按报表盈利把现金当已可分配。",
+      "newAssumption": "基准普通派息25%从旧55%下调，退出10倍低于12倍；本估值是全公司利润/现金敏感性，不声称核心资产NAV或独立市场DCF。",
+      "sourceIds": [
+        "yiwu-latest"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "variable": "eps0",
+      "old": "bear:0.5；base:0.65；bull:0.8",
+      "new": "bear:0.5；base:0.7；bull:0.85",
+      "reason": "新三季利润支撑常态EPS从旧0.65至0.70的小幅提高，但负现金和资本承诺使派息55%降25%、增速4%降2%、退出12倍降10倍。不能只上调EPS忽略分红和再投资资金约束，新增仍暂停。",
+      "sourceIds": [
+        "yiwu-latest"
+      ]
+    },
+    {
+      "variable": "g1",
+      "old": "bear:0；base:0.04；bull:0.07",
+      "new": "bear:-0.01；base:0.02；bull:0.05",
+      "reason": "前五年按量价、利润率及资本回收能力重估；不是直接外推最新同比。",
+      "sourceIds": [
+        "yiwu-latest"
+      ]
+    },
+    {
+      "variable": "g2",
+      "old": "bear:0；base:0.025；bull:0.04",
+      "new": "bear:0；base:0.02；bull:0.035",
+      "reason": "后五年降低成熟业务渗透和回报假设，避免终值依赖高成长。",
+      "sourceIds": [
+        "yiwu-latest"
+      ]
+    },
+    {
+      "variable": "payout",
+      "old": "bear:0.45；base:0.55；bull:0.6",
+      "new": "bear:0.15；base:0.25；bull:0.4",
+      "reason": "仅普通股现金股息假设；接受现金桥约束，不计回购额外收益。",
+      "sourceIds": [
+        "yiwu-latest"
+      ]
+    },
+    {
+      "variable": "exitPE",
+      "old": "bear:10；base:12；bull:14",
+      "new": "bear:8；base:10；bull:13",
+      "reason": "十年末研究退出假设，不等同同业可比事实；缺独立ROIC证据不做无条件估值修复。",
+      "sourceIds": [
+        "yiwu-latest"
+      ]
+    }
+  ],
+  "rationale": "新三季利润支撑常态EPS从旧0.65至0.70的小幅提高，但负现金和资本承诺使派息55%降25%、增速4%降2%、退出12倍降10倍。不能只上调EPS忽略分红和再投资资金约束，新增仍暂停。",
+  "cashConstraint": "9M全部CAPEX后缺口28.5946亿元。交叉DCF基准第一年OCF35−全部CAPEX43−租赁/少数/融资3=−11亿元（−0.2006元/股），第二年−5亿元，第三年3亿元，之后资本支出逐步回落才改善。25%×0.70的普通股息不受前两年经营现金保障；明确保留负现金及资本融资风险，不能因为基准EPS上调而启用新增买点。",
+  "pricedIn": "现价比较0.70元正常EPS仍须区分贸易、数贸与租赁质量；如需把预收一次性现金和支付规模都资本化，现价要求超出本轮承保。",
+  "downside": "贸易营运资金和数贸扩建先消耗现金，收益不达资本成本时增发/借款摊薄普通股，利润存在也未必得到现金。",
+  "activationConditions": [
+    "官方同版Q3与镜像一致性核准",
+    "数贸扩建和贸易/支付现金桥、资本承诺及潜在股本完整",
+    "至少连续两期全部投资后现金改善并覆盖普通股息，再审议价线启用"
+  ],
+  "invalidations": [
+    "收入继续增长而应收/营运资金占款更快",
+    "扩建CAPEX上修或融资摊薄但ROIC不改善",
+    "以重复招商预收或支付流水冒充归母经营利润/现金"
+  ],
+  "sources": [
+    {
+      "id": "yiwu-latest",
+      "title": "2026第三季度报告（发行人原文镜像）",
+      "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-10/2026-10-22/12651918.PDF",
+      "publishedAt": "2026-10-22",
+      "period": "2026Q1–Q3",
+      "location": "PDF 1—2、6—9（镜像）",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "issuer_filing_mirror",
+      "checkedAt": "2026-10-24",
+      "currentRunReadBasis": "同日已下载发行人原文/选页文本复读；浏览直链另行核对，失败未冒充新抓取。"
+    },
+    {
+      "id": "yiwu-prior-0",
+      "title": "小商品城2026半年报原文镜像",
+      "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12534366&stockid=600415",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "6—8、现金流量表、99",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "yiwu-prior-1",
+      "title": "法定披露PDF",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-26/1225502903.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "6—8、99",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "missingEvidence": [
+    "官方同版Q3一致性与期末最新股本/潜在稀释",
+    "数贸、贸易、支付和租赁的分部现金资本回报",
+    "独立资产DCF及资本承诺尚未完整"
+  ],
+  "confidence": "低",
+  "ownerCashCases": {
+    "bear": {
+      "annualCashPerShare": [
+        -0.38296295,
+        -0.34649029,
+        -0.29178129,
+        -0.2370723,
+        -0.16412698,
+        -0.10941798,
+        -0.07294532,
+        -0.03647266,
+        0.0,
+        0.01823633
+      ],
+      "terminalGrowth": 0,
+      "basis": "悲观新市场回收慢，负现金维持多年；第九年才现金盈亏平衡，第十年极低正现金，无永久增长。 各年OCF亿元=[25, 26, 27, 28, 29, 30, 31, 32, 33, 34]；各年全部现金CAPEX亿元=[43, 42, 40, 38, 35, 33, 32, 31, 30, 30]；各年租赁/NCI/融资等亿元=[3, 3, 3, 3, 3, 3, 3, 3, 3, 3]；逐年(OCF−全部CAPEX−其他)/54.83559226亿股。均为独立研究假设，非指引。第一年即数组首项；负现金真实保留，未编维护资本拆分。"
+    },
+    "base": {
+      "annualCashPerShare": [
+        -0.20059964,
+        -0.09118165,
+        0.05470899,
+        0.12765432,
+        0.20059964,
+        0.2370723,
+        0.27354496,
+        0.31001762,
+        0.34649029,
+        0.38296295
+      ],
+      "terminalGrowth": 0.015,
+      "basis": "基准前两年负现金，第三年才小幅回正；投资逐步回落，现金增长来自收款和资本高峰回落，不等于EPS高增。 各年OCF亿元=[35, 38, 40, 42, 44, 46, 48, 50, 52, 54]；各年全部现金CAPEX亿元=[43, 40, 34, 32, 30, 30, 30, 30, 30, 30]；各年租赁/NCI/融资等亿元=[3, 3, 3, 3, 3, 3, 3, 3, 3, 3]；逐年(OCF−全部CAPEX−其他)/54.83559226亿股。均为独立研究假设，非指引。第一年即数组首项；负现金真实保留，未编维护资本拆分。"
+    },
+    "bull": {
+      "annualCashPerShare": [
+        0.09118165,
+        0.2370723,
+        0.34649029,
+        0.43767194,
+        0.49238093,
+        0.54708992,
+        0.60179892,
+        0.65650791,
+        0.7112169,
+        0.76592589
+      ],
+      "terminalGrowth": 0.02,
+      "basis": "乐观市场/数贸回收支撑总投资后现金，仍不重复计入旧招商预收款。 各年OCF亿元=[48, 51, 54, 57, 60, 63, 66, 69, 72, 75]；各年全部现金CAPEX亿元=[40, 35, 32, 30, 30, 30, 30, 30, 30, 30]；各年租赁/NCI/融资等亿元=[3, 3, 3, 3, 3, 3, 3, 3, 3, 3]；逐年(OCF−全部CAPEX−其他)/54.83559226亿股。均为独立研究假设，非指引。第一年即数组首项；负现金真实保留，未编维护资本拆分。"
+    }
+  },
+  "asOf": "2026-10-24",
+  "assumptionStatus": "agent_estimate_not_company_guidance",
+  "accountDataTouched": false,
+  "approvalCreated": false
+}
