@@ -27,7 +27,7 @@ case "${1:-}" in
     [[ "$deploy_commit" == "$remote_commit" ]] || { printf 'Reviewed commit is not pushed.\n' >&2; exit 1; }
     deploy_gh=${GH_BIN:-gh}
     if ! successful_checks=$("$deploy_gh" run list --repo jimislg/touzi1000 --commit "$deploy_commit" --workflow investor-safety.yml --json status,conclusion --jq 'map(select(.status == "completed" and .conclusion == "success")) | length'); then
-      printf 'STOP: CI must be activated with workflow permission (ops/ci/investor-safety.yml) and pass before release.\n' >&2; exit 1
+      printf 'STOP: Cannot verify CI (.github/workflows/investor-safety.yml); it must pass for this exact commit before release.\n' >&2; exit 1
     fi
     [[ "$successful_checks" -gt 0 ]] || { printf 'CI safety workflow has not passed for this exact commit.\n' >&2; exit 1; }
     # Do not print service environment (it can contain credentials).

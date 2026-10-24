@@ -6,7 +6,7 @@
   "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。",
   "releasePerformed": false,
-  "ciActivation": "prepared, pending workflow-write permission; not active",
+  "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
   "tests": {
     "offlineSuites": 14,
     "browserChecks": 13,
@@ -22,12 +22,20 @@
   },
   "files": [
     {
+      "path": ".github/workflows/investor-safety.yml",
+      "action": "add",
+      "intent": "启用推送/PR自动验收：交付对账、离线回归、HTTP与浏览器检查；保留原文证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "e672ab73413f2fa4478b2265f3d9774abe60b689d48ce45e0eb65addee7277e0"
+    },
+    {
       "path": "COLLABORATION.md",
       "action": "modify",
       "intent": "同步验收入口与VPS现行发布/数据源协议",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
-      "sha256": "95ba876c996dc39e2644c6a85c6aba677b8133169d6417f7371ed464f3cec19b"
+      "sha256": "dfcb6ad47d409e57756d6be63f4780692dc4054c3297e483b3cac2992e60c9c3"
     },
     {
       "path": "DELIVERY.md",
@@ -35,7 +43,7 @@
       "intent": "中文交付说明、修复对照、证据、已知边界、发布和回滚步骤",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
-      "sha256": "eeb8ccd50d882242816199271ab50f4419bc4ee609ecfa0d04d7cae6fc05b954"
+      "sha256": "8122fced811069ae8917707f8a0f1f253cbc936267fc2e87a766cc73a299dde6"
     },
     {
       "path": "delivery-manifest.json",
@@ -462,14 +470,6 @@
       "sha256": "20bf8148684e29c8234241ec7e6a31dc26cc57e48e8d4393a40b4f0d296961b3"
     },
     {
-      "path": "ops/ci/investor-safety.yml",
-      "action": "add",
-      "intent": "待激活CI配置，安装后每次推送/PR跑验收；现有凭据缺workflow权限，未启用",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "sha256": "e672ab73413f2fa4478b2265f3d9774abe60b689d48ce45e0eb65addee7277e0"
-    },
-    {
       "path": "package.json",
       "action": "modify",
       "intent": "补齐统一npm test入口",
@@ -483,7 +483,7 @@
       "intent": "代码专用默认干跑发布；不上传账户配置；同提交CI、pending、来源及备份检查",
       "dataOrSchemaTouch": true,
       "productionDataWritten": false,
-      "sha256": "39144b2229cb0bf893ffb0c080de55e1594f44850ad31c8be205641f6393bc59"
+      "sha256": "4562b328bbc3ade2d74aa40e4ca063e87d7529ba9de5cd60f21362c71012998f"
     },
     {
       "path": "scripts/test-offline.js",

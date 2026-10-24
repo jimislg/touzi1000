@@ -39,7 +39,7 @@
 统一离线入口：`node scripts/test-offline.js`（强制 LG_MOCK_CLOUD=1）。
 包含原10套回归、独立决策安全测试、小程序口径同步检查、页面结构与网络故障测试，共14个入口；`--with-http` 增加临时合成配置的真实HTTP冒烟。
 浏览器验收：`node investment-platform/test-browser-safety.js`，仅使用本机合成HTTP数据；需提供 Playwright（可由 PLAYWRIGHT_MODULE 指定）与 Chromium。
-CI 配置：`ops/ci/investor-safety.yml`（待拥有workflow权限的账号安装到 `.github/workflows/`）。当前凭据缺workflow权限，尚未启用；发布仍必须等待同提交的工作流成功。
+CI 工作流：`.github/workflows/investor-safety.yml`。推送和PR自动触发验收；发布必须等待待发布的同一提交工作流成功。
 
 旧的“评级+plan即审批”“档位百分比默认收益率”“浏览器补回服务端null”等断言已改成安全行为检查。
 数学模型继续使用独立手算预期；有效的并发保存、CAS、刷新保护、压力模型检查保留。

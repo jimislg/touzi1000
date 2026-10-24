@@ -34,7 +34,7 @@
 - `GET /api/decision-preview` 从服务器读取配置和行情，核对前后配置版本；拒绝客户端金额、资格覆盖和重复参数；回执30秒过期。
 - 普通保存白名单保护研究、审计、总账、审批、目标本金和席位。实质数据编辑会增加 `decisionInputsChanged`，旧批准随即失效；另保留最近100次编辑的字段前后值及基础版本。此记录是编辑追踪，不是券商流水或不可篡改的合规审计日志。
 - VPS用显式 `CONFIG_SOURCE_MODE=local`；保留旧cloud兼容方式。发现旧pending时保存与放行均停止，文件保留，禁止自动清空。
-- CI配置包含离线验收、临时HTTP服务及合成浏览器交互。配置保存在 `ops/ci/investor-safety.yml`，尚未启用：当前GitHub OAuth凭据没有workflow权限，连接器也只有读权限。正式发布脚本仍要求该提交的CI已成功，因此不会在CI缺位时放行；本轮不修改主分支保护设置。
+- CI工作流位于 `.github/workflows/investor-safety.yml`，推送和PR都会触发交付清单、离线回归、临时HTTP服务及合成浏览器交互检查。正式发布脚本要求同一提交的CI已成功，因此不能拿旧提交的通过结果放行；本轮不修改主分支保护设置。工作流安装不代表测试已通过，具体结果以该提交的Actions记录为准。
 
 数据协议及正向样本结构见 `investment-platform/CORE_DECISION_API.md`。普通网页不提供批准编辑器；证据必须经过受控研究与对账流程录入，并匹配新数据版本后才能解除失效状态。程序只验证结构、勾稽和版本，不替代证据真实性审核。
 
@@ -49,7 +49,7 @@ node scripts/test-offline.js --with-http
 PLAYWRIGHT_MODULE=/absolute/path/to/playwright node investment-platform/test-browser-safety.js
 ```
 
-`test-browser-safety.js` 可通过 `CHROME_EXECUTABLE` 指定本机Chrome；启用后的CI安装固定Playwright及Chromium。测试HTTP只写临时目录，离线测试强制mock云库。
+`test-browser-safety.js` 可通过 `CHROME_EXECUTABLE` 指定本机Chrome；CI安装固定Playwright及Chromium。测试HTTP只写临时目录，离线测试强制mock云库。
 
 修复前原10套396项也曾全绿。旧测试中要求“评级+备注代理审批”“档位等于年化”“从镜像补回服务端null”的断言已改为新行为。并发/CAS、整组刷新、压力模型与解析检查继续保留，数学新增独立手算期望，不能以旧断言数量判断覆盖优劣。基线原文附在 `delivery-tests/baseline/`。
 
@@ -59,7 +59,7 @@ PLAYWRIGHT_MODULE=/absolute/path/to/playwright node investment-platform/test-bro
 
 仓库协作协议要求郎刚明确说“发布”后，由落地环节执行正式发布；本轮未执行。当前保留的VPS配置、微信工具和真实数据不随交付替换。
 
-1. 先由拥有workflow写权限的登录，将 `ops/ci/investor-safety.yml` 安装为 `.github/workflows/investor-safety.yml`，更新manifest并运行交付对账，然后提交并等待该提交CI成功。当前配置未激活，不能声称CI已运行。不要将整个本地 `investment-platform/` 覆盖到服务器。
+1. 先验收修复分支，等待待发布的同一提交CI成功。不要将整个本地 `investment-platform/` 覆盖到服务器。
 2. 在服务器人工核对现有config与任何pending，保留原件及备份；明确服务器为主数据后配置 `CONFIG_SOURCE_MODE=local`。有未核pending时发布脚本会停止。
 3. `bash scripts/deploy-vultr.sh push` 为无网络的代码发布计划；明确授权后才执行 `push --execute`。脚本不上传config、密钥、分红缓存、快照或依赖目录，会保存远端旧代码。
 4. 发布后对照原服务器版本核对持仓、证券和交易数量、股数与现金；验证保存回读、失效提示、只读复核及两端口径。小程序需在微信开发者工具构建、上传体验版和真机验证；本轮只完成离线及网络桩验收。
