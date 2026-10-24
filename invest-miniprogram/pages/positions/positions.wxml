@@ -16,7 +16,7 @@
         <text>成本合计 {{model.costTotal}}万</text>
       </view>
       <view class="rowline">
-        <text class="{{model.plCls}}">浮盈 {{model.pl}}万（{{model.plPct}}）</text>
+        <text class="{{model.plCls}}">人民币成本口径浮盈 {{model.pl}}万（{{model.plPct}}）</text>
         <text>税后年股息 {{model.div}}万/年</text>
       </view>
     </view>
@@ -35,8 +35,9 @@
         <view class="cell"><view class="k">市值</view><view>{{item.mv}}万</view></view>
         <view class="cell"><view class="k">成本</view><view>{{item.cost}}万</view></view>
         <view class="cell"><view class="k">浮盈</view><view class="{{item.plCls}}">{{item.pl}}万</view></view>
-        <view class="cell"><view class="k">权重</view><view>{{item.weight}}%</view></view>
+        <view class="cell"><view class="k">占规划本金</view><view>{{item.weight}}%</view></view>
       </view>
+      <view class="s">{{item.quoteText}} · {{item.basisNote}}<view>{{item.nativePl}}</view></view>
       <view class="s">浮盈 {{item.plPct}} · 税后股息 {{item.div}}万/年（市值口径 {{item.dpsYld}}%）</view>
     </view>
   </block>

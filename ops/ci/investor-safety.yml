@@ -1,0 +1,33 @@
+name: Investor system safety
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  offline-acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/verify-delivery.js
+      - run: node scripts/test-offline.js --with-http
+        env:
+          LG_MOCK_CLOUD: '1'
+          TEST_LOG_DIR: /tmp/investor-safety-logs
+      - run: npm install --prefix /tmp/investor-browser --no-save playwright@1.62.1
+      - run: /tmp/investor-browser/node_modules/.bin/playwright install --with-deps chromium
+      - run: mkdir -p delivery-tests && node investment-platform/test-browser-safety.js
+        env:
+          PLAYWRIGHT_MODULE: /tmp/investor-browser/node_modules/playwright
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: safety-evidence
+          path: |
+            /tmp/investor-safety-logs
+            delivery-tests/browser-*.png

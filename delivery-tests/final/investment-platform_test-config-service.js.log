@@ -1,0 +1,24 @@
+PASS 读取不暴露访问口令并携带版本
+PASS 两个相同版本并发保存只接受一次
+PASS 成功后清理待同步记录且保留口令
+PASS 离线保存先写本地与journal且不冒充上云
+PASS 进程重启仍能读到待同步数据
+PASS 网络恢复后条件补同步并清理记录
+PASS 外部修改与待同步冲突时保留双方数据
+PASS 冲突对读取端可见
+PASS 读取后写入前发生外部变化时CAS拒绝覆盖
+PASS 云写入超时保留持久记录
+PASS 超时后晚到成功可通过回读确认而非重复覆盖
+PASS 对象键顺序不改变配置版本
+PASS 拒绝非法补丁 {"investable":-1}
+PASS 拒绝非法补丁 {"holdings":[{"code":"600000.SH","shares":1.5}]}
+PASS 拒绝非法补丁 {"universe":[{"code":"600000.SH","buyPrice":0}]}
+PASS 拒绝非法补丁 {"holdings":[{"code":"bad","shares":1}]}
+PASS 拒绝非法补丁 {"seats":{"list":[{"key":"a","pct":101,"members":[]}]}}
+PASS 拒绝非法补丁 {"dismissedReasons":{"x":1}}
+PASS 合法零值与待定触发价仍能保存
+PASS 未带版本的写入被拒绝
+PASS 损坏journal阻止启动而不是丢弃待同步数据
+PASS 真实文件保存写入持久journal且文件权限不公开
+PASS 新服务实例从真实journal恢复离线修改
+配置安全回归全部通过: 23

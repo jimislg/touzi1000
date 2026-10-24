@@ -1,0 +1,4 @@
+[cloud-store] LG_MOCK_CLOUD=1 → 内存mock模式，不触碰真实云库
+PASS mock读取配置
+PASS mock写入并回读（不落云、不落盘）
+PASS mock恢复原始配置

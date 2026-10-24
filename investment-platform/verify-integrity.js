@@ -39,6 +39,7 @@ function runtime () {
       if (name === 'fs') return { readFileSync: () => JSON.stringify(config), appendFileSync: () => { state.writes++ } }
       if (name === 'path') return path
       if (name === './config-service') return require('./config-service')
+      if (name === './decision-preview') return require('./decision-preview')
       if (name === './public/investment-core') return CORE
       if (name === './cloud-store') return { read: () => { throw new Error('本测试不允许访问云库') }, write: () => { throw new Error('本测试不允许写云库') } }
       throw new Error('未允许依赖 ' + name)

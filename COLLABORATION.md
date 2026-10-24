@@ -16,7 +16,7 @@
 交付分支必须包含三样，缺一即退回：
 
 1. **delivery-manifest.json**：逐文件声明——新增/修改/删除、改动意图、**是否触碰数据或数据结构**（config.json / app_config / 迁移 SQL）。
-2. **自测证据**：本仓库全套测试的**运行输出原文**（不是"已通过"三个字）。当前全套=9套，见下文 DoD。
+2. **自测证据**：本仓库全套测试的**运行输出原文**（不是"已通过"三个字）。当前验收入口见下文 DoD。
 3. **回滚点**：分支名 + 起点提交哈希。禁止在 main / 他人在用的工作分支上直接推。
 
 硬规则：
@@ -32,23 +32,18 @@
 4. **数据安全检查**：manifest 中标记触碰数据的文件，逐一确认守卫生效；涉及 app_config 的同步必须走 `cloud-store.compareAndSwap`（先 read 取 expected，再 CAS），禁止无条件覆盖。
 5. **本地全套测试 + 冒烟**：server 启动 + 首页/接口探活 + config 数据勾稽（trades 数、持仓 shares、universe 数与本地/云端一致）。
 6. **DoD 四项**（发布前置条件，全齐才动手）：全测试绿 → 冒烟通过 → 数据勾稽一致 → git 已 push。
-7. **发布**：平台 sites 发布（域名不变）+ 小程序 build/verify/upload 体验版 + 汇报勾稽结果。
+7. **发布**：现行平台为 VPS（2026-10-23迁移），使用 `scripts/deploy-vultr.sh` 代码专用发布；默认干跑，正式发布需明确授权并通过同提交 CI。小程序仍需 build/verify/upload 体验版及真机勾稽。禁止用代码发布覆盖服务器账户配置。
 
-## 四、DoD 全套测试清单（当前10套，395项）
+## 四、DoD 全套测试清单（2026-10-24 更新）
 
-```
-node lg_sync_test.js            # 主回归 177
-node test-cloud-adapter.js      # 5
-LG_MOCK_CLOUD=1 node test-cloud-roundtrip.js  # 3（mock守卫，禁止裸跑旧版）
-node test-config-service.js     # 23
-node test-refresh.js            # 16
-node test-seat-risk-ui.js       # 19
-node test-server-api.js         # 10
-node test-stress-model.js       # 78
-node verify-integrity.js        # 33
-node verify-config-data.js      # 32（数据完整性：档位/tierPct一致、汇率回退新鲜、trades勾稽）
-```
-新增/删除测试套件时必须同步更新本清单。
+统一离线入口：`node scripts/test-offline.js`（强制 LG_MOCK_CLOUD=1）。
+包含原10套回归、独立决策安全测试、小程序口径同步检查、页面结构与网络故障测试，共14个入口；`--with-http` 增加临时合成配置的真实HTTP冒烟。
+浏览器验收：`node investment-platform/test-browser-safety.js`，仅使用本机合成HTTP数据；需提供 Playwright（可由 PLAYWRIGHT_MODULE 指定）与 Chromium。
+CI 配置：`ops/ci/investor-safety.yml`（待拥有workflow权限的账号安装到 `.github/workflows/`）。当前凭据缺workflow权限，尚未启用；发布仍必须等待同提交的工作流成功。
+
+旧的“评级+plan即审批”“档位百分比默认收益率”“浏览器补回服务端null”等断言已改成安全行为检查。
+数学模型继续使用独立手算预期；有效的并发保存、CAS、刷新保护、压力模型检查保留。
+原9/10套与395/396项描述已过期，不再作为固定计数承诺。
 
 ## 五、KNOWN-PITFALLS 已知坑（新 agent 必读，踩过的不再踩）
 
@@ -65,5 +60,5 @@ node verify-config-data.js      # 32（数据完整性：档位/tierPct一致、
 
 ## 六、双纪律（郎刚定，最高优先级）
 
-- 云端数据必须保持最新：本地改完 config，同一轮 CAS 同步云端并回读核对。
+- 权威数据源必须明确：`cloud` 模式通过 CAS 同步并回读；已迁移的 VPS 使用显式 `CONFIG_SOURCE_MODE=local`，以服务器文件为主，不向停用云库自动回灌。旧 pending 必须保留并人工勾稽。
 - 代码修改必须上传 git：每轮验证通过后 commit + push，不许只留本地。

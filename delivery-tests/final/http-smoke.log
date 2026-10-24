@@ -1,0 +1,9 @@
+PASS real local server serves homepage
+PASS local source with revision and no credential leak
+PASS actual HTTP local save returns confirmed receipt
+PASS readback matches receipt and invalidates evidence
+PASS old version cannot overwrite saved data
+PASS HTTP preview rejects client amount injection before quote fetch
+PASS HTTP rejects protected planning-policy edit
+PASS temporary config credential preserved
+Local HTTP smoke: 8 checks passed; temporary fixture only

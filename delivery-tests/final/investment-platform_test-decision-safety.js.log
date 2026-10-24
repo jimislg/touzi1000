@@ -1,0 +1,86 @@
+PASS all independently verified gates can pass
+PASS shared seat consumes both companies: ceiling 10,000 not 30,000
+PASS new money is integer cents
+PASS calculation leaves inputs unchanged
+PASS percentage points converted once: 17 to20 on10m is300k
+PASS stage exhausted produces zero even if price falls
+PASS fail closed: research absent
+PASS fail closed: partial research
+PASS fail closed: grade alone
+PASS fail closed: audit absent
+PASS fail closed: audit version mismatch
+PASS fail closed: approval absent
+PASS fail closed: approval expired
+PASS fail closed: policy expired
+PASS fail closed: approval stale data
+PASS fail closed: wrong denominator
+PASS fail closed: wrong planning capital
+PASS fail closed: missing planning capital
+PASS fail closed: no ledger
+PASS fail closed: cash not reconciled
+PASS fail closed: opening absent
+PASS fail closed: cash mismatch
+PASS fail closed: shares mismatch
+PASS fail closed: other issuer missing
+PASS fail closed: seat totals mismatch
+PASS fail closed: reservation mismatch
+PASS fail closed: stale target quote
+PASS fail closed: stale other quote
+PASS fail closed: quote future
+PASS fail closed: quote time missing
+PASS fail closed: invalid quote date
+PASS fail closed: quote zero
+PASS fail closed: overflowing valuation
+PASS fail closed: fractional shares in both records
+PASS fail closed: fallback snapshot
+PASS fail closed: fractional cents
+PASS fail closed: duplicate tranche ID
+PASS fail closed: increasing prices
+PASS fail closed: descending cumulative cost
+PASS fail closed: policy above seat
+PASS fail closed: duplicate seat
+PASS fail closed: edit invalidates approval
+PASS fail closed: future audit
+PASS fail closed: future ledger
+PASS fail closed: invalid extra issuer
+PASS missing valuation does not invent full issuer or seat room
+PASS shared reservation deducted once from seat room
+PASS fee reserve deducted from verified cash
+PASS verified HK fixture may pass with dated FX
+PASS HK FX without exchange time blocks
+PASS HK code cannot bypass cost proof by omitting market
+PASS A shares consume H listing issuer risk
+PASS A shares also consume full shared seat
+PASS HK P/L missing without historical CNY cost
+PASS HK P/L includes actual historical FX:8000-9000
+PASS missing A holding date has no assumed tax rate
+PASS known zero dividend is distinct from missing
+PASS two-argument execution tiers never become returns
+PASS unaudited cashflow model absent
+PASS terminal EPS grows ten years once
+PASS priceAt and independent closed-form zero-growth IRR
+PASS corrected original model IRR about7.917%
+PASS invalid finite model ranges return null
+PASS duplicate candidates not deleted or marked completed
+PASS normal save marks evidence stale without rewriting approval
+PASS bounded provenance stores before and after
+PASS ordinary patch rejects protected keys targetCapital
+PASS ordinary patch rejects protected keys decisionDataRevision
+PASS ordinary patch rejects protected keys budgetLedger
+PASS ordinary patch rejects protected keys universe
+PASS blank DPS remains unknown and unlocked
+PASS explicit zero DPS remains manual zero
+PASS business tag persists without altering planning capital
+PASS server recomputes and ignores client ceiling
+PASS receipt binds revision and expires in30seconds
+PASS server rejects missing version
+PASS server rejects stale version
+PASS server rejects bad code
+PASS offline config cannot approve
+PASS quote outage returns visible blockers
+PASS config mutation while quotes loading cannot approve
+PASS explicit VPS local source is truthful
+PASS local receipt has time revision and changed fields
+PASS old cloud journal survives local read
+PASS pending journal blocks silent source switch
+Decision safety: 85 checks passed

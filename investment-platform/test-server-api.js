@@ -13,6 +13,7 @@ function runtime () {
       if (name === 'https') return {}
       if (name === 'path') return path
       if (name === 'fs') return { readFileSync: () => { if (state.missing) throw new Error('missing'); return JSON.stringify(state.cfg) } }
+      if (name === './decision-preview') return require('./decision-preview')
       if (name === './public/investment-core') return require('./public/investment-core')
       if (name === './cloud-store') return {}
       if (name === './config-service') return { createConfigService: () => ({ read: async () => ({ holdings: [], universe: [] }), save: async () => { state.saves++; return { ok: true } }, retry: async () => {} }) }

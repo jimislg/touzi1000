@@ -9,7 +9,7 @@ function throws (options) { assert.throws(() => core.stressPortfolio({}, {}, opt
 const cfg = {
   investable: 1000, cash: 9999, targetCapital: 10000, hkdcnyFallback: 0.8,
   holdings: [
-    { code: 'A', name: '合成A', market: 'A', qt: 'qa', shares: 10, cost: 80, dps: 4 },
+    { code: 'A', name: '合成A', market: 'A', dividendTaxRate:0.1, dividendTaxSource:'synthetic account assumption', qt: 'qa', shares: 10, cost: 80, dps: 4 },
     { code: 'B.HK', name: '合成港股', market: 'HK', qt: 'qb', shares: 20, cost: 80, dps: 5 }
   ],
   universe: [{ code: 'A', px: 100, dps: 4, dpsSpecial: 100 }, { code: 'B.HK', px: 100, dps: 5, dpsSpecial: 100 }],
@@ -101,7 +101,9 @@ ok(r.missingQuotes.includes('A'), '规划缺价清单')
 const stale = copy(); stale.holdings[0].dpsStale = true
 eq(core.stressPortfolio(stale, quotes).baseDividend, null, '过期分红需复核')
 const notHeld = copy(); notHeld.holdings = []; notHeld.universe[0].qt = 'qa'
-close(core.stressPortfolio(notHeld, { qa: { price: 200 } }, { scope: 'planned' }).baseDividend, 304, '未持仓规划沿用股票池px口径')
+eq(core.stressPortfolio(notHeld, { qa: { price: 200 } }, { scope: 'planned' }).baseDividend, null, '未持仓缺税率假设不生成完整税后股息')
+notHeld.universe[0].dividendTaxRate=0.1;notHeld.universe[0].dividendTaxSource='synthetic';
+close(core.stressPortfolio(notHeld, { qa: { price: 200 } }, { scope: 'planned' }).baseDividend, 232, '未持仓优先新报价200，显式税率后A股72加港股160')
 const zeroShares = copy(); zeroShares.holdings = [{ code: 'empty', shares: 0 }]
 ok(core.stressPortfolio(zeroShares, {}).valid, '零持仓不要求行情及DPS')
 const huge = { cash: Number.MAX_VALUE, holdings: [{ code: 'huge', market: 'A', shares: Number.MAX_VALUE, px: 1, dps: 1 }] }

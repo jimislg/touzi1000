@@ -1,55 +1,65 @@
-#!/bin/zsh
-# 投资平台 Vultr 自建服务器部署脚本（2026-10-23 起，WorkBuddy 云下线后的替代通道）
-# 服务器：Vultr 洛杉矶 xray-los-angeles-1（149.28.89.105，Ubuntu 24.04，systemd 服务 invest-platform，端口 8307）
-#
-# 用法：
-#   zsh scripts/deploy-vultr.sh          # 交互提示
-#   zsh scripts/deploy-vultr.sh push     # 本地 → 服务器（代码+配置，改完代码/数据后发布）
-#   zsh scripts/deploy-vultr.sh pull     # 服务器 → 本地（网站端保存过数据后，拉回并 git 提交）
-#   zsh scripts/deploy-vultr.sh status   # 查看服务状态与两端 revision 对比
-#
-# 数据权威说明：网站端编辑（POST /api/config）直接写服务器 /opt/invest-platform/config.json
-# 并留 .pending journal；push 前先 pull 可避免覆盖。本地 git 仓库是长期归档，pull 后请提交。
-
-set -e
-HOST=${VULTR_HOST:-root@149.28.89.105}
-REMOTE=/opt/invest-platform
-LOCAL="$(cd "$(dirname "$0")/.." && pwd)/investment-platform"
-RSYNC="rsync -az --stats -e 'ssh -o BatchMode=yes'"
-SSH="ssh -o BatchMode=yes $HOST"
-
-node_bin=/Users/jimislg/.workbuddy/binaries/node/versions/22.22.2-6/bin/node
-
-rev_of() { $node_bin -e "
-  const crypto=require('crypto'),fs=require('fs');
-  const cfg=JSON.parse(fs.readFileSync('$1','utf8'));
-  const core=require('/Users/jimislg/Documents/郎刚的芒格/investment-platform/public/investment-core.js');
-  try{console.log(core.revisionOf?core.revisionOf(cfg):'n/a')}catch(e){console.log('n/a')}
-" 2>/dev/null || echo "读取失败"; }
-
+#!/bin/bash
+# Code-only delivery. Default push/pull are dry-run. Production data never rides with code.
+# Usage: bash scripts/deploy-vultr.sh push [--execute]
+# VPS must explicitly select CONFIG_SOURCE_MODE=local; old .pending must be reconciled manually.
+set -euo pipefail
+DEPLOY_TARGET=${VULTR_HOST:-root@149.28.89.105}
+DEPLOY_REMOTE=/opt/invest-platform
+DEPLOY_ROOT=$(cd "$(dirname "$0")/.." && pwd)
+DEPLOY_LOCAL="$DEPLOY_ROOT/investment-platform"
+DEPLOY_NODE=${NODE_BIN:-node}
+code_files=(server.js cloud-store.js config-service.js decision-preview.js package.json public/index.html public/investment-core.js)
 case "${1:-}" in
   push)
-    echo "== push：本地 → 服务器 =="
-    eval $RSYNC $LOCAL/server.js $LOCAL/cloud-store.js $LOCAL/config-service.js $LOCAL/config.json $LOCAL/package.json $LOCAL/publicConfig.json $LOCAL/divcache.json $LOCAL/public $LOCAL/node_modules $HOST:$REMOTE/
-    $SSH 'systemctl restart invest-platform && systemctl is-active invest-platform'
-    echo "== push 完成，公网自检 =="
-    curl -s --noproxy '*' -o /dev/null -w 'HTTP %{http_code}\n' "http://149.28.89.105:8307/"
+    "$DEPLOY_NODE" "$DEPLOY_ROOT/scripts/test-offline.js"
+    if [[ "${2:-}" != --execute ]]; then
+      printf 'DRY RUN: code-only release to %s:%s\n' "$DEPLOY_TARGET" "$DEPLOY_REMOTE"
+      printf '  %s\n' "${code_files[@]}"
+      printf 'No network, restart or production write. After release authorization, repeat with --execute.\n'
+      exit 0
+    fi
+    if [[ -n "$(git -C "$DEPLOY_ROOT" status --porcelain)" ]]; then
+      printf 'Refusing release from a dirty checkout. Commit and push the reviewed delivery first.\n' >&2; exit 1
+    fi
+    deploy_commit=$(git -C "$DEPLOY_ROOT" rev-parse HEAD)
+    deploy_branch=$(git -C "$DEPLOY_ROOT" branch --show-current)
+    remote_commit=$(git -C "$DEPLOY_ROOT" ls-remote origin "refs/heads/$deploy_branch" | cut -f1)
+    [[ "$deploy_commit" == "$remote_commit" ]] || { printf 'Reviewed commit is not pushed.\n' >&2; exit 1; }
+    deploy_gh=${GH_BIN:-gh}
+    if ! successful_checks=$("$deploy_gh" run list --repo jimislg/touzi1000 --commit "$deploy_commit" --workflow investor-safety.yml --json status,conclusion --jq 'map(select(.status == "completed" and .conclusion == "success")) | length'); then
+      printf 'STOP: CI must be activated with workflow permission (ops/ci/investor-safety.yml) and pass before release.\n' >&2; exit 1
+    fi
+    [[ "$successful_checks" -gt 0 ]] || { printf 'CI safety workflow has not passed for this exact commit.\n' >&2; exit 1; }
+    # Do not print service environment (it can contain credentials).
+    ssh -o BatchMode=yes "$DEPLOY_TARGET" bash -s -- "$DEPLOY_REMOTE" <<'REMOTE'
+set -euo pipefail
+release_dir=$1
+[[ ! -e "$release_dir/config.json.pending" ]] || { echo 'STOP: pending journal preserved; reconcile manually before release.' >&2; exit 1; }
+service_env=$(systemctl show invest-platform --property=Environment --value)
+case " $service_env " in *' CONFIG_SOURCE_MODE=local '*) ;; *) echo 'STOP: explicitly configure CONFIG_SOURCE_MODE=local before code release.' >&2; exit 1;; esac
+backup_dir="$release_dir/code-backup-$(date +%Y%m%d-%H%M%S)"
+mkdir -m 700 "$backup_dir"
+for file in server.js cloud-store.js config-service.js decision-preview.js package.json; do
+  [[ ! -f "$release_dir/$file" ]] || cp -p "$release_dir/$file" "$backup_dir/"
+done
+cp -Rp "$release_dir/public" "$backup_dir/public"
+echo "Code rollback backup: $backup_dir (account data unchanged)"
+REMOTE
+    (cd "$DEPLOY_LOCAL" && rsync -azR -e 'ssh -o BatchMode=yes' "${code_files[@]}" "$DEPLOY_TARGET:$DEPLOY_REMOTE/")
+    ssh -o BatchMode=yes "$DEPLOY_TARGET" 'systemctl restart invest-platform && systemctl is-active invest-platform'
+    printf 'Released code commit %s. Verify authenticated data revision and both clients before completion.\n' "$deploy_commit"
     ;;
   pull)
-    echo "== pull：服务器 → 本地 =="
-    if $SSH "test -f $REMOTE/config.json.pending"; then
-      echo "⚠️ 服务器存在未清空的 .pending journal（云端已死属正常），以服务器 config.json 为准拉取"
+    if [[ "${2:-}" != --execute ]]; then
+      printf 'DRY RUN: read remote config into local archive only when explicitly repeated with --execute.\n'; exit 0
     fi
-    rsync -az -e "ssh -o BatchMode=yes" $HOST:$REMOTE/config.json "$LOCAL/config.json"
-    echo "已拉取。请核对后 git 提交：git diff investment-platform/config.json"
+    git -C "$DEPLOY_ROOT" diff --quiet -- investment-platform/config.json || { printf 'Local config contains unarchived changes; reconcile first.\n' >&2; exit 1; }
+    cp -p "$DEPLOY_LOCAL/config.json" "$DEPLOY_LOCAL/config.json.backup"
+    rsync -az -e 'ssh -o BatchMode=yes' "$DEPLOY_TARGET:$DEPLOY_REMOTE/config.json" "$DEPLOY_LOCAL/config.json"
+    printf 'Pulled server data. Review privately and archive deliberately; no automatic commit or cloud write.\n'
     ;;
   status)
-    $SSH 'systemctl is-active invest-platform; free -m | head -2; ss -tlnp | grep 8307'
-    echo "-- 本地 revision --"; rev_of "$LOCAL/config.json"
-    echo "-- 服务器 revision --"
-    $SSH "md5sum $REMOTE/config.json | cut -c1-12"
-    echo "-- 本地 md5 --"; md5 -q "$LOCAL/config.json" | cut -c1-12
+    ssh -o BatchMode=yes "$DEPLOY_TARGET" 'systemctl is-active invest-platform; test ! -e /opt/invest-platform/config.json.pending || echo "pending journal present; manual reconciliation required"'
     ;;
-  *)
-    sed -n '2,16p' "$0"; exit 1 ;;
+  *) printf 'Usage: bash scripts/deploy-vultr.sh push|pull [--execute] | status\n'; exit 1;;
 esac

@@ -7,7 +7,8 @@
     "start": "node server.js",
     "update": "node server.js --update-only",
     "backtest": "node backtest.js",
-    "review:cmb": "node scripts/cmb-valuation.js"
+    "review:cmb": "node scripts/cmb-valuation.js",
+    "test": "node scripts/test-offline.js"
   },
   "engines": {
     "node": ">=18"

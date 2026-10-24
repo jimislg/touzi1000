@@ -12,15 +12,16 @@ function runtime () {
   const el = id => elements[id] || (elements[id] = { value: '', checked: false, style: {}, textContent: '', innerHTML: '', classList: { contains: () => false, toggle () {}, add () {} }, addEventListener () {} })
   const state = { cfg: b, quotes: { ...initialQuotes, sh600001: { price: 20, time: '20261016150000' } }, configCalls: 0, quoteCalls: 0, beforeQuote: null, beforeSave: null, saveStatus: 200 }
   const context = vm.createContext({
-    InvestmentCore: CORE, console, Date, setTimeout: () => 0, clearTimeout () {}, setInterval: () => 0, clearInterval () {}, alert () {},
-    document: { getElementById: el, addEventListener () {}, activeElement: null, documentElement: el('html') },
+    InvestmentCore: CORE, console, Date, location: {hash:''}, setTimeout: () => 0, clearTimeout () {}, setInterval: () => 0, clearInterval () {}, alert () {},
+    document: { querySelectorAll: () => [], getElementById: el, addEventListener () {}, activeElement: null, documentElement: el('html') },
     window: { addEventListener () {} }, localStorage: { getItem: k => storage.get(k) || null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     fetch: async (url, options) => {
       if (options && options.method === 'POST') {
         if (state.beforeSave) await state.beforeSave()
-        return { status: state.saveStatus, json: async () => state.saveStatus === 409 ? { ok: false, err: 'conflict' } : { ok: true, revision: 'c'.repeat(64), cloudSync: true, syncStatus: 'synced' } }
+        if(state.saveStatus===200){state.cfg={...clone(state.cfg),investable:JSON.parse(options.body).investable,_revision:'c'.repeat(64)};}
+        return { ok:state.saveStatus===200, status: state.saveStatus, json: async () => state.saveStatus === 409 ? { ok: false, err: 'conflict' } : { ok: true, revision: 'c'.repeat(64), cloudSync: true, syncStatus: 'synced' } }
       }
-      if (url.includes('/api/config')) { state.configCalls++; return { json: async () => clone(state.cfg) } }
+      if (url.includes('/api/config')) { state.configCalls++; return { ok:true,json: async () => clone(state.cfg) } }
       if (url.includes('/api/quotes')) { state.quoteCalls++; if (state.beforeQuote) await state.beforeQuote(); return { json: async () => ({ ok: true, quotes: clone(state.quotes) }) } }
       return { json: async () => ({ ok: false }) }
     }
@@ -54,14 +55,14 @@ function runtime () {
   rt.state.beforeQuote = null
   rt.run('dirty=false')
   rt.state.saveStatus = 409
-  await rt.run('saveConfig(false)')
-  check('保存冲突保留本地编辑与版本且不自动重试覆盖', rt.run('dirty') && rt.run('CFG.investable') === 123 && rt.el('saveText').textContent.includes('冲突'))
+  await rt.run('saveConfig()'); await rt.run('confirmSave()')
+  check('保存冲突保留本地编辑与版本且不自动重试覆盖', rt.run('dirty') && rt.run('CFG.investable') === 123 && rt.el('saveText').textContent.includes('待核实'))
   check('保存冲突持久保留包含现金字段的草稿', JSON.parse(rt.storage.get('ip_pending_edit_v2')).investable === 123)
   rt.state.saveStatus = 200
   let saveReady
   const saving = new Promise(resolve => { saveReady = resolve })
   rt.state.beforeSave = () => new Promise(resolve => { release = resolve; saveReady() })
-  const save = rt.run('saveConfig(true)'); await saving
+  await rt.run('saveConfig()');const save = rt.run('confirmSave()'); await saving
   const beforeSaveResponse = rt.run('CFG'); await rt.run('refresh(false)')
   check('保存等待期间刷新不替换编辑对象或版本', rt.run('CFG') === beforeSaveResponse)
   rt.run('CFG.investable=456;markDirty()'); release(); await save
@@ -70,8 +71,8 @@ function runtime () {
   check('周末请求成功仍标注报价来自此前日期', d.priorDate === 1 && CORE.displayQuoteTime(d.oldestTime) === '2026-10-16 15:00')
   check('缺失汇率可见且不冒充实时报价', CORE.dataQuality(a, { sh600000: { price: 10 } }).fxFallback)
   check('零成本收益率不产生Infinity', CORE.holdingValue({ market: 'A', shares: 0, cost: 0, dps: 0 }, { price: 10 }, 0.85).plPct === null)
-  check('三档IRR锚保持12/15/17.46%', [100, 80, 60].every((p, i) => Math.abs(CORE.irrAt(p, [100, 80, 60]) - [0.12, 0.15, 0.1746][i]) < 1e-10))
-  check('四档IRR锚保持10/12/15/17.46%', [120, 100, 80, 60].every((p, i) => Math.abs(CORE.irrAt(p, [120, 100, 80, 60]) - [0.10, 0.12, 0.15, 0.1746][i]) < 1e-10))
+  check('三档IRR锚保持12/15/17.46%', [100, 80, 60].every((p, i) => Math.abs(CORE.irrAt(p, [100, 80, 60], [0.12,0.15,0.1746]) - [0.12, 0.15, 0.1746][i]) < 1e-10))
+  check('四档IRR锚保持10/12/15/17.46%', [120, 100, 80, 60].every((p, i) => Math.abs(CORE.irrAt(p, [120, 100, 80, 60], [0.1,0.12,0.15,0.1746]) - [0.10, 0.12, 0.15, 0.1746][i]) < 1e-10))
   check('港股时间完整归一化', CORE.parseQuotes('v_hk00700="1~sample~00700~100' + '~'.repeat(27) + '2026/10/16 16:08:52"').hk00700.time === '20261016160852')
   const cfg = { holdings: [{ code: '0700.HK', qt: 'hk00700', market: 'HK', shares: 100, cost: 90, dps: 5 }], universe: [{ code: '0700.HK', dpsSpecial: 2 }] }
   check('满配股息普通与特别分列并保持港股80%税后', CORE.dividendForBudget(cfg, { hk00700: { price: 100 }, whHKDCNY: { price: 0.85 } }, '0700.HK', 10000, false, false) === 400 && CORE.dividendForBudget(cfg, { hk00700: { price: 100 }, whHKDCNY: { price: 0.85 } }, '0700.HK', 10000, true, false) === 560)

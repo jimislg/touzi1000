@@ -38,6 +38,7 @@
         <text class="{{item.pctCls}}" style="margin-left:18rpx">{{item.pctTxt}}</text>
         <text class="muted" style="margin-left:auto">距触发 {{item.dist}}</text>
       </view>
+      <view class="note">{{item.quoteText}}<view>{{item.decisionNote}}</view></view>
       <view class="pills">
         <text wx:for="{{item.tiers}}" wx:for-item="p" wx:key="label"
               class="pill {{p.cls}}">{{p.label}} {{p.price}}{{p.unit}}{{p.mark}}{{p.amt?'·'+p.amt:''}}</text>

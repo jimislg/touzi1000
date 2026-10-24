@@ -2,7 +2,7 @@
 /* 个人投资工作平台 · 本地服务（零npm依赖）
  * 启动: node server.js  →  http://localhost:8307
  * 行情代理腾讯接口(qt.gtimg.cn)，服务端GBK转码，绕开浏览器CORS限制。
- * POST /api/config 保存前端修改（持仓/档位/目标本金）到 config.json
+ * POST /api/config 以版本检查保存明确编辑；目标本金与审批证据只读
  */
 const http = require('http');
 const https = require('https');
@@ -13,11 +13,13 @@ const ROOT = __dirname;
 /* 本地默认只绑127.0.0.1；云端沙箱注入PORT环境变量时绑0.0.0.0（发布要求） */
 const HOST = process.env.HOST || (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
 
-/* —— 云数据库配置存取（云端=唯一数据源，本地config.json为离线缓存） —— */
-const store = require('./cloud-store');
+/* —— 显式配置来源：VPS使用CONFIG_SOURCE_MODE=local；cloud为保留的兼容通道 —— */
+const sourceMode = process.env.CONFIG_SOURCE_MODE || 'cloud';
+const store = sourceMode === 'local' ? null : require('./cloud-store');
 const CORE = require('./public/investment-core');
 const { createConfigService } = require('./config-service');
-const configService = createConfigService({ store, file: path.join(ROOT,'config.json') });
+const configService = createConfigService({ store, sourceMode, file: path.join(ROOT,'config.json') });
+const { createDecisionPreview } = require('./decision-preview');
 
 function fetchRemote(url){ return new Promise((resolve,reject)=>{
   http.get(url, res=>{ if(res.statusCode!==200){res.resume();reject(new Error('上游HTTP '+res.statusCode));return;} const cs=[]; res.on('data',c=>cs.push(c)); res.on('end',()=>resolve(Buffer.concat(cs))); })
@@ -85,6 +87,12 @@ async function fetchDividends(){
 }
 
 const parseQuotes = CORE.parseQuotes;
+async function trustedQuotes(symbols){
+  const buf=await fetchRemote('http://qt.gtimg.cn/q='+symbols.join(','));
+  const quotes=parseQuotes(new TextDecoder('gbk').decode(buf));
+  return {ok:CORE.missingSymbols(quotes,symbols).length===0,quotes};
+}
+const decisionPreview=createDecisionPreview({configService,fetchQuotes:trustedQuotes,core:CORE});
 
 /* —— 访问口令闸门：config.json 存在 accessKey 时启用。
  * 线上发布后 URL 可能被他人碰见，而站内是全部持仓成本，必须口令保护。
@@ -127,6 +135,16 @@ const server = http.createServer(async (req,res)=>{
   let u;try{u=new URL(req.url,'http://localhost');}catch(_){res.writeHead(400);res.end('{}');return;}
   if(!gateCheck(req,res,u))return;
   try{
+    if(u.pathname==='/api/decision-preview'){
+      if(req.method!=='GET'){res.writeHead(405,{'Content-Type':'application/json','Allow':'GET'});res.end(JSON.stringify({ok:false,err:'只读预览仅接受GET'}));return;}
+      const keys=[...u.searchParams.keys()];
+      if(keys.some(k=>!['code','revision'].includes(k))||new Set(keys).size!==keys.length){res.writeHead(400,{'Content-Type':'application/json'});res.end(JSON.stringify({ok:false,err:'预览只接受单一code和revision，不接受客户端金额或资格覆盖'}));return;}
+      try{
+        const result=await decisionPreview({code:u.searchParams.get('code'),revision:u.searchParams.get('revision')});
+        res.writeHead(200,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(result));
+      }catch(e){res.writeHead(e.status||503,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify({ok:false,err:e.status?e.message:'服务端预览不可用，请稍后重试'}));}
+      return;
+    }
     if(u.pathname==='/api/quotes'){
       const symbols=u.searchParams.get('symbols')||'';
       if(!/^(?:(?:sh|sz)\d{6}|hk\d{5}|whHKDCNY)(?:,(?:(?:sh|sz)\d{6}|hk\d{5}|whHKDCNY))*$/.test(symbols)){

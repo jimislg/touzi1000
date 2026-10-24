@@ -1,0 +1,27 @@
+{
+  "kind": "read-only replay of previously captured sanitized data; no production connection",
+  "sourceConfigSha256": "d14d97ec17fe44db22478fba54d83b1e396a6ff73e6fd0d4b0c82c6198e4819d",
+  "sourceQuotesSha256": "fa13be09cb00d6f1302c331dd3c20f7e8708d78352e6422638fb33a83a88f4c4",
+  "holdings": 7,
+  "securities": 31,
+  "trades": 14,
+  "researchComplete": 0,
+  "auditsPassed": 0,
+  "approved": 0,
+  "blocked": 31,
+  "legacyDataMutated": false,
+  "protectedResults": [
+    {
+      "file": "investment-platform/config.json",
+      "unchanged": true
+    },
+    {
+      "file": "invest-miniprogram/utils/config.js",
+      "unchanged": true
+    },
+    {
+      "file": "invest-miniprogram/utils/snapshot.js",
+      "unchanged": true
+    }
+  ]
+}

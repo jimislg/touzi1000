@@ -1,0 +1,505 @@
+{
+  "version": 1,
+  "branch": "codex/investor-system-safety-20261024",
+  "baseCommit": "a13a04997d8fc5e83fa1f3e3d53c1f62a6cd25eb",
+  "rollbackCodeCommit": "a13a04997d8fc5e83fa1f3e3d53c1f62a6cd25eb",
+  "productionDataWritten": false,
+  "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。",
+  "releasePerformed": false,
+  "ciActivation": "prepared, pending workflow-write permission; not active",
+  "tests": {
+    "offlineSuites": 14,
+    "browserChecks": 13,
+    "httpSmokeChecks": 8,
+    "commands": [
+      "node scripts/test-offline.js",
+      "node scripts/verify-delivery.js",
+      "node investment-platform/test-local-server.js",
+      "node investment-platform/test-browser-safety.js"
+    ],
+    "rawOutput": "delivery-tests/final",
+    "baselineRawOutput": "delivery-tests/baseline"
+  },
+  "files": [
+    {
+      "path": "COLLABORATION.md",
+      "action": "modify",
+      "intent": "同步验收入口与VPS现行发布/数据源协议",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "95ba876c996dc39e2644c6a85c6aba677b8133169d6417f7371ed464f3cec19b"
+    },
+    {
+      "path": "DELIVERY.md",
+      "action": "add",
+      "intent": "中文交付说明、修复对照、证据、已知边界、发布和回滚步骤",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "eeb8ccd50d882242816199271ab50f4419bc4ee609ecfa0d04d7cae6fc05b954"
+    },
+    {
+      "path": "delivery-manifest.json",
+      "action": "add",
+      "intent": "逐文件交付声明（自文件不计算自引用哈希）",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": null
+    },
+    {
+      "path": "delivery-tests/baseline/lg_sync_test.log",
+      "action": "add",
+      "intent": "修复前原10组回归运行输出原文副本，只读证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "ae9dbcfed56b18df5bc3c1b1902b9510323b02c95b740389498171b3bc58eb6e"
+    },
+    {
+      "path": "delivery-tests/baseline/test-cloud-adapter.log",
+      "action": "add",
+      "intent": "修复前原10组回归运行输出原文副本，只读证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "f130022832162e72914214faaf7a41dc15dcea6ab6ad7aab7cfbc28281145953"
+    },
+    {
+      "path": "delivery-tests/baseline/test-cloud-roundtrip.log",
+      "action": "add",
+      "intent": "修复前原10组回归运行输出原文副本，只读证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "763a99db493aa65806827cda06cc1f047e93d2ee0fbf4bc834a8c0b5e93bfa5f"
+    },
+    {
+      "path": "delivery-tests/baseline/test-config-service.log",
+      "action": "add",
+      "intent": "修复前原10组回归运行输出原文副本，只读证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "0788e6251ceb015c6696ef9e40649a4c4a5b3042408902037ace1d3dd56f211a"
+    },
+    {
+      "path": "delivery-tests/baseline/test-refresh.log",
+      "action": "add",
+      "intent": "修复前原10组回归运行输出原文副本，只读证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "e0d89533f0a610aeaf19136cd03258ab558ba959ac050dc51f1a69896e4661a7"
+    },
+    {
+      "path": "delivery-tests/baseline/test-seat-risk-ui.log",
+      "action": "add",
+      "intent": "修复前原10组回归运行输出原文副本，只读证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "0e5b16784e4f9ee213071172fd74b3039efda76b76dc8baaf4ee046b545578ff"
+    },
+    {
+      "path": "delivery-tests/baseline/test-server-api.log",
+      "action": "add",
+      "intent": "修复前原10组回归运行输出原文副本，只读证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "41cbce995c12088b34d224a057b6feb7c6db24424b862fea8727632d4715f28f"
+    },
+    {
+      "path": "delivery-tests/baseline/test-stress-model.log",
+      "action": "add",
+      "intent": "修复前原10组回归运行输出原文副本，只读证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "f33b2873b3917e12f70f1c18b166244b9747f7737da5096cfe55366d146557b8"
+    },
+    {
+      "path": "delivery-tests/baseline/verify-config-data.log",
+      "action": "add",
+      "intent": "修复前原10组回归运行输出原文副本，只读证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "0d62662462301a6e0d594f825359a1898a00438e69fe81abacfb032f6c614b5f"
+    },
+    {
+      "path": "delivery-tests/baseline/verify-integrity.log",
+      "action": "add",
+      "intent": "修复前原10组回归运行输出原文副本，只读证据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "d5563f6850584625a62de3316b219f66917539ca0b7ed62be1afec47abb243d7"
+    },
+    {
+      "path": "delivery-tests/browser-desktop.png",
+      "action": "add",
+      "intent": "浏览器真实渲染截图，仅含本机合成测试数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "ad9da274296fa764c532658a8bda8afb29beedeb1edf1bce0f0af8dc55ad2e15"
+    },
+    {
+      "path": "delivery-tests/browser-mobile.png",
+      "action": "add",
+      "intent": "浏览器真实渲染截图，仅含本机合成测试数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "470ddd4c4326c777c26e799909ee953de71debcbbd75b57a0a22661ddd4a4b12"
+    },
+    {
+      "path": "delivery-tests/final/browser.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "b6eb0d33b6f299262c2e3829102e6bb5cb21911f98ff9b20a64bbe293063d38a"
+    },
+    {
+      "path": "delivery-tests/final/http-smoke.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "19aae67bc8380f9be009ff19b4e9731378f5e8436cf601887e22bdb36b852673"
+    },
+    {
+      "path": "delivery-tests/final/invest-miniprogram_scripts_sync-core.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "delivery-tests/final/invest-miniprogram_scripts_verify-network.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "2f574304f898565276a55d706efa4bb5ba6a373ea98cd42c7e81f964136fa1b1"
+    },
+    {
+      "path": "delivery-tests/final/invest-miniprogram_scripts_verify.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "eb63d23c4b705e504317fbe3f461e96221ef3787ac5d02ff85e362d164cc5f6c"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_lg_sync_test.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "c28cfd2a397dcd92c27baad90507bde160c19c8027e4f166c669ae9d5d93f73a"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_test-cloud-adapter.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "f130022832162e72914214faaf7a41dc15dcea6ab6ad7aab7cfbc28281145953"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_test-cloud-roundtrip.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "763a99db493aa65806827cda06cc1f047e93d2ee0fbf4bc834a8c0b5e93bfa5f"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_test-config-service.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "0788e6251ceb015c6696ef9e40649a4c4a5b3042408902037ace1d3dd56f211a"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_test-decision-safety.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "66c19e67b63e7347f8758539b2b993956a32e3284adf6afd6b4808365913bed5"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_test-refresh.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "e0d89533f0a610aeaf19136cd03258ab558ba959ac050dc51f1a69896e4661a7"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_test-seat-risk-ui.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "030e44f9f64b4cd758cab910c6bb17c94c599b75dd68e5cf76d4c4320baab3ec"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_test-server-api.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "41cbce995c12088b34d224a057b6feb7c6db24424b862fea8727632d4715f28f"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_test-stress-model.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "1b6450702a0bb1b57bf84108d749e6f9c6be891c22253ff6cc8aa6a32cf82a3d"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_verify-config-data.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "0d62662462301a6e0d594f825359a1898a00438e69fe81abacfb032f6c614b5f"
+    },
+    {
+      "path": "delivery-tests/final/investment-platform_verify-integrity.js.log",
+      "action": "add",
+      "intent": "本轮最终验收运行输出原文，合成/隔离数据",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "d5563f6850584625a62de3316b219f66917539ca0b7ed62be1afec47abb243d7"
+    },
+    {
+      "path": "delivery-tests/read-only-replay.json",
+      "action": "add",
+      "intent": "此前脱敏数据的只读回放摘要、源哈希与保护文件检查",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "7e26fe9dafc4a8c9221378a9243d82604ebdd9f653ec6ee999ab9bc0d18629f4"
+    },
+    {
+      "path": "invest-miniprogram/pages/index/index.wxml",
+      "action": "modify",
+      "intent": "小程序投资者页面措辞、缺项、历史策略与数据来源显示",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "287974d4993868e660218144f4e7aafef2af6d7918bff390dbcffe8a1136de89"
+    },
+    {
+      "path": "invest-miniprogram/pages/positions/positions.wxml",
+      "action": "modify",
+      "intent": "小程序投资者页面措辞、缺项、历史策略与数据来源显示",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "b914895218d202a1e6b8e86105c0105277d3481e464e87ddab78059a4d8ed131"
+    },
+    {
+      "path": "invest-miniprogram/pages/seats/seats.wxml",
+      "action": "modify",
+      "intent": "小程序投资者页面措辞、缺项、历史策略与数据来源显示",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "2218d8bfc53828b6e48f6463e0cea22d55f7cb413b26dcf9054aef20860893e5"
+    },
+    {
+      "path": "invest-miniprogram/pages/watch/watch.wxml",
+      "action": "modify",
+      "intent": "小程序投资者页面措辞、缺项、历史策略与数据来源显示",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "cca1d71eb4ce6fc956187f75895a2e408fb6ef3fb7bd642d4302d1272ef7d196"
+    },
+    {
+      "path": "invest-miniprogram/scripts/verify-network.js",
+      "action": "modify",
+      "intent": "本轮行为及数据边界回归；保持隔离，无生产写入",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "e018f566ac81bf1d378b87ce2133509eb257c5b33df800ac7658948b81b3f41b"
+    },
+    {
+      "path": "invest-miniprogram/utils/investment-core.js",
+      "action": "modify",
+      "intent": "由唯一核心生成的小程序副本，验收逐字节比较",
+      "dataOrSchemaTouch": true,
+      "productionDataWritten": false,
+      "sha256": "d86d11f6a5ec001e653b59af1d64cbb0105d144419c4f1e6d6a5e42ac1272b5b"
+    },
+    {
+      "path": "invest-miniprogram/utils/store.js",
+      "action": "modify",
+      "intent": "小程序各页面统一决策、研究、成本、股息与报价覆盖口径",
+      "dataOrSchemaTouch": true,
+      "productionDataWritten": false,
+      "sha256": "0ec5da88096c42905dfebb9f13332879105f4db4900bed60008d8a63bc422064"
+    },
+    {
+      "path": "investment-platform/CORE_DECISION_API.md",
+      "action": "add",
+      "intent": "新增结构与独立证据、总账、版本及失效协议",
+      "dataOrSchemaTouch": true,
+      "productionDataWritten": false,
+      "sha256": "211953f06f1223d072de46d62f3599577ad0ce72752c06bb30e42e830982891a"
+    },
+    {
+      "path": "investment-platform/config-service.js",
+      "action": "modify",
+      "intent": "普通编辑白名单、VPS显式主源、CAS、手工股息、失效标记及最近100次编辑追踪",
+      "dataOrSchemaTouch": true,
+      "productionDataWritten": false,
+      "sha256": "c022a80b96be92d725b40760db6d8a65ec6b11eee745787f68d275e0c409177f"
+    },
+    {
+      "path": "investment-platform/decision-preview.js",
+      "action": "add",
+      "intent": "可信配置/行情与前后版本检查；客户端不能覆盖额度；30秒只读回执",
+      "dataOrSchemaTouch": true,
+      "productionDataWritten": false,
+      "sha256": "ede69abaec4c86028a028e98642ba999e827c453c73a9fcdb7a81f1876cf2961"
+    },
+    {
+      "path": "investment-platform/lg_sync_test.js",
+      "action": "modify",
+      "intent": "更新投资者口径和安全回归",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "4899d04a4351caa99baa2b474cc5d2ad5593980fe33b336a93542ec33fdeee6d"
+    },
+    {
+      "path": "investment-platform/public/index.html",
+      "action": "modify",
+      "intent": "五工作区、同源口径、缺失状态、草稿差异确认、保存回读、只读服务器复核",
+      "dataOrSchemaTouch": true,
+      "productionDataWritten": false,
+      "sha256": "95824b87627fbf6c55b7c20f5a41699e1d7b4fc457cf7634e34425c87eaa5fba"
+    },
+    {
+      "path": "investment-platform/public/investment-core.js",
+      "action": "modify",
+      "intent": "唯一决策核心：整数金额、独立证据、共享席位与A/H、历史成本、股息与现金流模型",
+      "dataOrSchemaTouch": true,
+      "productionDataWritten": false,
+      "sha256": "d86d11f6a5ec001e653b59af1d64cbb0105d144419c4f1e6d6a5e42ac1272b5b"
+    },
+    {
+      "path": "investment-platform/server.js",
+      "action": "modify",
+      "intent": "接入只读复核API与显式配置来源",
+      "dataOrSchemaTouch": true,
+      "productionDataWritten": false,
+      "sha256": "09aa02afef2266aa87e87cb7f4fe7fa6b564b3165181af8e349d074fb2604298"
+    },
+    {
+      "path": "investment-platform/test-browser-safety.js",
+      "action": "add",
+      "intent": "本轮行为及数据边界回归；保持隔离，无生产写入",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "5329211cbbdbb8331df6c6e3429cbacc5f6094000296a21495f44435e9bc0c3d"
+    },
+    {
+      "path": "investment-platform/test-decision-safety.js",
+      "action": "add",
+      "intent": "本轮行为及数据边界回归；保持隔离，无生产写入",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "6a4d20dfbe4bb3321deb923f7f4e276fcd11ae3940845d6300a1fa781b64be68"
+    },
+    {
+      "path": "investment-platform/test-local-server.js",
+      "action": "add",
+      "intent": "本轮行为及数据边界回归；保持隔离，无生产写入",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "0c4c55d96b12b99b71cc37f9f8c98de20ccd8f33d329f738e4c57bda5eda6b4f"
+    },
+    {
+      "path": "investment-platform/test-refresh.js",
+      "action": "modify",
+      "intent": "本轮行为及数据边界回归；保持隔离，无生产写入",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "1170431b267437df1cbf87afe143fecc5b7f7f0f8688938cc2e5657aaa5b58df"
+    },
+    {
+      "path": "investment-platform/test-seat-risk-ui.js",
+      "action": "modify",
+      "intent": "本轮行为及数据边界回归；保持隔离，无生产写入",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "f6a96a968fbcc6c1130424056bc0fc89de497f6bfb8e6fc64c6923387747720a"
+    },
+    {
+      "path": "investment-platform/test-server-api.js",
+      "action": "modify",
+      "intent": "本轮行为及数据边界回归；保持隔离，无生产写入",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "513cf9fae2eb7faaef21e67ab1af1e3642dd7c01244244b0993804a31e8c41a6"
+    },
+    {
+      "path": "investment-platform/test-stress-model.js",
+      "action": "modify",
+      "intent": "本轮行为及数据边界回归；保持隔离，无生产写入",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "3305f73385ade3b8eae2f417edb16d915c44677a4a82567686d74a881c005920"
+    },
+    {
+      "path": "investment-platform/test-web-runtime.js",
+      "action": "add",
+      "intent": "本轮行为及数据边界回归；保持隔离，无生产写入",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "e37a3e499115fe50066fb58bc8f39c830cfc95380e559a17c0813202c0d47b5f"
+    },
+    {
+      "path": "investment-platform/verify-integrity.js",
+      "action": "modify",
+      "intent": "本轮行为及数据边界回归；保持隔离，无生产写入",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "20bf8148684e29c8234241ec7e6a31dc26cc57e48e8d4393a40b4f0d296961b3"
+    },
+    {
+      "path": "ops/ci/investor-safety.yml",
+      "action": "add",
+      "intent": "待激活CI配置，安装后每次推送/PR跑验收；现有凭据缺workflow权限，未启用",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "e672ab73413f2fa4478b2265f3d9774abe60b689d48ce45e0eb65addee7277e0"
+    },
+    {
+      "path": "package.json",
+      "action": "modify",
+      "intent": "补齐统一npm test入口",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "049e34848f1f85b4365d11ace67b9d1d3d46dd6506a3cc07bd441636fd55876e"
+    },
+    {
+      "path": "scripts/deploy-vultr.sh",
+      "action": "modify",
+      "intent": "代码专用默认干跑发布；不上传账户配置；同提交CI、pending、来源及备份检查",
+      "dataOrSchemaTouch": true,
+      "productionDataWritten": false,
+      "sha256": "39144b2229cb0bf893ffb0c080de55e1594f44850ad31c8be205641f6393bc59"
+    },
+    {
+      "path": "scripts/test-offline.js",
+      "action": "add",
+      "intent": "统一离线验收入口；每个子进程强制mock云库；可选临时HTTP冒烟",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "2870b987efbf08fcbe611c3289cf67bfaaa129cf1478c4dd5749d95510e4276f"
+    },
+    {
+      "path": "scripts/verify-delivery.js",
+      "action": "add",
+      "intent": "只读逐文件manifest/哈希/数据保护及暂存区对账",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "sha256": "ba5ade6a64c1c0bd5ee0908a4020c6f0456dbcc46ccc646ddea81af505bf4c55"
+    }
+  ]
+}
