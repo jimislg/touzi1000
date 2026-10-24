@@ -1,0 +1,265 @@
+{
+  "id": "trip",
+  "name": "携程集团",
+  "codes": [
+    "9961.HK"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "住宿与交通分销网络有规模，但监管整改会改变抽佣和利润质量。",
+  "breakers": "整改后住宿变现率、商家留存或正常化利润率持续下降；不得仅把罚款加回就恢复旧目标价。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "旅行服务品类共享客户供给",
+      "counter": "新体验扩张需看回报",
+      "monitor": "非核心投入",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化与治理",
+      "verdict": "存疑",
+      "support": "披露监管处罚与整改",
+      "counter": "反垄断行为损害伙伴权益",
+      "monitor": "整改完成及重复处罚",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "供应密度、售后和品牌",
+      "counter": "AI及商家直连可分流",
+      "monitor": "用户留存和商家覆盖",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "国际平台已有实收增长",
+      "counter": "国际营销成本较高",
+      "monitor": "国际分部利润及复购",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "住宿与交通网络规模",
+      "counter": "对手补贴及直连竞争",
+      "monitor": "获客成本和预订增长",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户与需求",
+      "verdict": "通过",
+      "support": "旅游多场景及国际需求",
+      "counter": "可选预算与宏观波动",
+      "monitor": "间夜量和客单价",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "大量流动资产提供偿付缓冲",
+      "counter": "现金含受限与金融产品",
+      "monitor": "罚款支付后流动性",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "核心平台轻资本",
+      "counter": "投资损益、SBC和历史派息低",
+      "monitor": "投资回报及现金分配",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 318.71,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "trip-latest",
+      "label": "prior_record_not_reverified"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 0.41,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "trip-latest",
+      "label": "prior_record_not_reverified"
+    },
+    {
+      "id": "ocfYi",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "trip-latest",
+      "label": "prior_record_not_reverified"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "trip-latest",
+      "label": "prior_record_not_reverified"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": null,
+    "totalCapex": null,
+    "conservativeResidual": null,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 18,
+          "g1": 0.01,
+          "g2": 0.02,
+          "payout": 0.08,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 22,
+          "g1": 0.07,
+          "g2": 0.05,
+          "payout": 0.1,
+          "exit_pe": 14
+        },
+        "bull": {
+          "eps0": 26,
+          "g1": 0.12,
+          "g2": 0.08,
+          "payout": 0.15,
+          "exit_pe": 18
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入由国内中个位数、国际双位数加权约8%增长，整改后净利率从高位约束，盈利按7%/5%；悲观佣金率下调抵消间夜增长，乐观国际利润规模形成。派息8%—15%仅分配政策研究假设，不把回购当现金股息。"
+    },
+    "newEvidenceImpact": "实读官方Q2/H1发布：Q2归母约亏25亿元，剔52亿元反垄断罚款约赚27亿元；non-GAAP约48亿元仍加回SBC等。罚款可单列一次性，整改后抽佣不能自动恢复旧水平。官方简报未提供完整现金流表，1005亿元广义现金并非全部自由现金。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+    "valuationImpact": "实读官方Q2/H1发布：Q2归母约亏25亿元，剔52亿元反垄断罚款约赚27亿元；non-GAAP约48亿元仍加回SBC等。罚款可单列一次性，整改后抽佣不能自动恢复旧水平。官方简报未提供完整现金流表，1005亿元广义现金并非全部自由现金。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "整改后住宿变现率、商家留存或正常化利润率持续下降；不得仅把罚款加回就恢复旧目标价。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "实读官方Q2/H1发布：Q2归母约亏25亿元，剔52亿元反垄断罚款约赚27亿元；non-GAAP约48亿元仍加回SBC等。罚款可单列一次性，整改后抽佣不能自动恢复旧水平。官方简报未提供完整现金流表，1005亿元广义现金并非全部自由现金。",
+      "reason": "已核罚款计入与核心经营不等价、GAAP/non-GAAP差别及报告边界；罚款实际付款、完整H1 OCF/CAPEX仍需现金流原表。",
+      "sourceIds": [
+        "trip-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "trip-latest",
+      "title": "2026Q2/H1官方发布，PDF 1—3页；无完整现金表",
+      "url": "https://investors.trip.com/static-files/2f337a9d-0a49-4c46-8764-bce15cc9e3f0",
+      "publishedAt": null,
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "2026Q2/H1官方发布，PDF 1—3页；无完整现金表"
+    },
+    {
+      "id": "trip-prior-0",
+      "title": "携程2026Q2及H1业绩",
+      "url": "https://investors.trip.com/news-releases/news-release-details/tripcom-group-limited-reports-unaudited-second-quarter-and-4",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "损益、non-GAAP与业务更新",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "trip-prior-1",
+      "title": "市场监管总局处罚及整改",
+      "url": "https://www.samr.gov.cn/xw/zj/art/2026/art_46d2c74cbd7249f189622dd030e3c3a7.html",
+      "publishedAt": null,
+      "period": "2026-07",
+      "location": "罚没及整改要求；沿用已核旧研究",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "trip-prior-2",
+      "title": "携程官方季度业绩目录",
+      "url": "https://investors.trip.com/financial-information/quarterly-results",
+      "publishedAt": null,
+      "period": "截至2026-10-19",
+      "location": "最新为2026Q2",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "H1现金流量与资本支出、罚款实际付款、整改后住宿变现率、SBC经济成本及联营收益现金桥尚未完整。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已核罚款计入与核心经营不等价、GAAP/non-GAAP差别及报告边界；罚款实际付款、完整H1 OCF/CAPEX仍需现金流原表。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/trip.html"
+}

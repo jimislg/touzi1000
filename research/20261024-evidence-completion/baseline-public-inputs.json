@@ -1,0 +1,4829 @@
+[
+  {
+    "id": "moutai",
+    "name": "贵州茅台",
+    "codes": [
+      "600519.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 907.0326,
+      "parentProfitYi": 445.1688,
+      "ocfYi": 706.9075,
+      "cashCapexYi": 8.3214,
+      "currency": "CNY"
+    },
+    "eps": {
+      "annual": 65.66,
+      "ttm": 65.14293559740184,
+      "normalized": 65,
+      "forecast": 67.925,
+      "currency": "CNY",
+      "basis": "2025年报/TTM归母除最新股数/正常化假设/模型第1年"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 65,
+          "g1": -0.01,
+          "g2": 0.02,
+          "payout": 0.75,
+          "exit_pe": 15
+        },
+        "base": {
+          "eps0": 65,
+          "g1": 0.045,
+          "g2": 0.035,
+          "payout": 0.8,
+          "exit_pe": 19
+        },
+        "bull": {
+          "eps0": 65,
+          "g1": 0.06,
+          "g2": 0.05,
+          "payout": 0.82,
+          "exit_pe": 22
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "见正文，退出PE均为市场退出研究假设；未完成终值三重上限。",
+      "dcf": {
+        "fcfe0": 62,
+        "terminal_g": 0.02,
+        "discount_rate": 0.12
+      }
+    },
+    "evidenceGap": "财务公司资金归属、正常化归母FCFE、需求下降终值上限及独立价值交叉验证。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "核心白酒聚焦",
+        "counter": "观察非主业资金用途。",
+        "basis": "10/19底稿与本轮现金专题复查"
+      },
+      {
+        "id": 2,
+        "name": "治理",
+        "verdict": "通过",
+        "support": "定期披露与现金回报有执行证据",
+        "counter": "国有身份本身不构成降级，持续跟踪关联金融往来与承诺。",
+        "basis": "10/19底稿与本轮现金专题复查"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "品牌、稀缺定位和渠道优势",
+        "counter": "若批价长期低于终端可持续价格，应复核品牌租金。",
+        "basis": "10/19底稿与本轮现金专题复查"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "海外占比小，既无增长加分也不据此扣分。",
+        "counter": "缺少跨周期独立证据",
+        "basis": "10/19底稿与本轮现金专题复查"
+      },
+      {
+        "id": 5,
+        "name": "竞争",
+        "verdict": "通过",
+        "support": "高端心智尚稳",
+        "counter": "替代消费和其他高端酒抢夺场景需监控。",
+        "basis": "10/19底稿与本轮现金专题复查"
+      },
+      {
+        "id": 6,
+        "name": "需求",
+        "verdict": "存疑",
+        "support": "高利润基盘仍在，但2025回落、行业场景变化",
+        "counter": "看终端动销而非渠道压货。",
+        "basis": "10/19底稿与本轮现金专题复查"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "利润率和资本回报强",
+        "counter": "集团金融现金流需专项拆解，暂不把未审桥单独变成经济性扣分。",
+        "basis": "10/19底稿与本轮现金专题复查"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "分红回购改善回报，但大额金融资金可分配性与低回报留存仍需证据。",
+        "counter": "缺少跨周期独立证据",
+        "basis": "10/19底稿与本轮现金专题复查"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "2026半年报",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
+        "period": "2026H1",
+        "pages": "主要指标、合并现金流量表与附注"
+      },
+      {
+        "title": "2025年报",
+        "url": "https://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-17/600519_20260417_9QS4.pdf",
+        "period": "2025FY",
+        "pages": "财务报表"
+      }
+    ]
+  },
+  {
+    "id": "tencent",
+    "name": "腾讯控股",
+    "codes": [
+      "0700.HK"
+    ],
+    "grade": "A",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 4012.43,
+      "parentProfitYi": 1141.15,
+      "ocfYi": 1540.61,
+      "cashCapexYi": 1071.63,
+      "currency": "CNY",
+      "cashYi": 2069.3,
+      "sharesYi": 91.63,
+      "debtYi": null
+    },
+    "eps": {
+      "annual": 24.153,
+      "ttm": 25.444,
+      "normalized": null,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "annual/ttm为报表稀释；情景起点25.9808为经济成本诊断，非正常化认证"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 25.9808,
+          "g1": 0.03,
+          "g2": 0.03,
+          "payout": 0.174,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 25.9808,
+          "g1": 0.09,
+          "g2": 0.07,
+          "payout": 0.174,
+          "exit_pe": 14
+        },
+        "bull": {
+          "eps0": 29.299,
+          "g1": 0.13,
+          "g2": 0.1,
+          "payout": 0.154,
+          "exit_pe": 18
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入由广告双位数与其他业务中个位数形成约8%增长，稳定略升利润率带来约9%前段盈利增长，后段降至7%；悲观成熟业务仅低个位数，乐观AI商业化贡献增加。派息率以5.3港元滚动DPS折人民币/情景EPS近似，不把回购计入。"
+    },
+    "evidenceGap": "精确TTM稀释分子、SBC税效、算力预付履约和不可取消承诺；维护投入分拆及NCI/联营现金归属尚未验证。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "社交、游戏、广告与支付共享分发",
+        "counter": "AI多线开发可能扩大费用",
+        "monitor": "新增项目投入回收",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化与治理",
+        "verdict": "通过",
+        "support": "披露GAAP与调整桥，持续回报股东",
+        "counter": "复杂激励与公益成本不能忽略",
+        "monitor": "SBC占营收及净股数",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "关系链、生态和多边分发互相强化",
+        "counter": "AI入口可能改变用户触达",
+        "monitor": "微信活跃、时长与商户留存",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "海外游戏有实际收入",
+        "counter": "地缘与全球内容竞争",
+        "monitor": "恒定汇率海外游戏收入",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "广告转化和自研游戏支持毛利",
+        "counter": "短视频和AI争夺时长",
+        "monitor": "广告毛利与游戏流水留存",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户与需求",
+        "verdict": "通过",
+        "support": "关系通信与支付高频",
+        "counter": "用户稳定不等于付费无限增长",
+        "monitor": "MAU、商业支付与广告ROI",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF及资产负债表提供缓冲",
+        "counter": "集团现金不等于归母可派",
+        "monitor": "资本现金、NCI和受限资金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "回购派息和成熟生态回报有证据",
+        "counter": "AI预付及联营投资新资本回报未证",
+        "monitor": "经常FCFE/投入资本回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "腾讯2026中期报告",
+        "url": "https://www.tencent.com/wp-content/uploads/2026/08/E700_IR.pdf",
+        "period": "2026H1",
+        "pages": "4、24—34、EPS及非IFRS附注"
+      },
+      {
+        "title": "腾讯2026Q2业绩及算力预付款说明",
+        "url": "https://www.tencent.com/wp-content/uploads/2026/08/Tencent-Announces-2026-Second-Quarter-Results.pdf",
+        "period": "2026H1",
+        "pages": "经营回顾、财务报表及附注"
+      }
+    ]
+  },
+  {
+    "id": "anta",
+    "name": "安踏体育",
+    "codes": [
+      "02020.HK"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 435.07,
+      "parentProfitYi": 94.87,
+      "ocfYi": 130.81,
+      "cashCapexYi": 14.53,
+      "currency": "CNY",
+      "sharesYi": 28.92424,
+      "cashYi": null,
+      "debtYi": null
+    },
+    "eps": {
+      "annual": 4.802,
+      "ttm": 5.661713,
+      "normalized": null,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "报表稀释；剔一次性TTM5.127348为模型起点，PUMA交割后尚无完整季度"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 5.127348,
+          "g1": 0.03,
+          "g2": 0.03,
+          "payout": 0.43,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 5.127348,
+          "g1": 0.08,
+          "g2": 0.06,
+          "payout": 0.43,
+          "exit_pe": 12
+        },
+        "bull": {
+          "eps0": 5.127348,
+          "g1": 0.12,
+          "g2": 0.09,
+          "payout": 0.43,
+          "exit_pe": 17
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准主品牌低个位数、FILA中个位数、其他品牌双位数，利润率不大幅恢复，形成前五年约8%盈利增长，后五年6%；乐观假定户外持续和海外投资回报改善，悲观仅成熟需求。税前派息43%是滚动DPS2.59港元折人民币/剔一次性TTM的近似。"
+    },
+    "evidenceGap": "PUMA交割后现金/债务、可转债与少数权益资本桥；NCI现金归属、联营实际分红及维持投入仍需核验。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "各品牌围绕运动与户外",
+        "counter": "品牌矩阵增加组织难度",
+        "monitor": "品牌级ROIC",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化与治理",
+        "verdict": "存疑",
+        "support": "创始人长期投入及零售执行",
+        "counter": "集中控制约束和激励稀释",
+        "monitor": "关联交易及激励回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "品牌渠道与供应链协同",
+        "counter": "消费者易换品牌",
+        "monitor": "售罄折扣与坪效",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "存疑",
+        "support": "Amer及海外品牌为实际资产",
+        "counter": "PUMA仅少数股权",
+        "monitor": "被投企业分红和资本需求",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "FILA及户外盈利增长",
+        "counter": "主品牌利润只低增长",
+        "monitor": "分品牌营业利润",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户与需求",
+        "verdict": "通过",
+        "support": "运动消费及户外需求",
+        "counter": "国内消费与潮流变化",
+        "monitor": "同店和核心用户复购",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF强且库存同比改善",
+        "counter": "FCF未完全归母，租赁重",
+        "monitor": "租赁后现金及库存减值",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "FILA运营形成过往成绩",
+        "counter": "PUMA现金支出与回收周期",
+        "monitor": "收购ROIC及新增资本承诺",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "安踏2026中期业绩及财务表",
+        "url": "https://links.sgx.com/FileOpen/EANTA2026IRSGX.ashx?App=Announcement&FileID=902451",
+        "period": "2026H1",
+        "pages": "41、45、48、52、56"
+      },
+      {
+        "title": "PUMA收购已交割",
+        "url": "https://ir.anta.com/en/news_detail.php?id=170762",
+        "period": "2026-10-07",
+        "pages": "交易条款及独立治理说明"
+      },
+      {
+        "title": "安踏官方2026公告目录",
+        "url": "https://ir.anta.com/en/news.php?year=2026",
+        "period": "截至2026-10-19",
+        "pages": "最新公告至10月7日"
+      }
+    ]
+  },
+  {
+    "id": "trip",
+    "name": "携程集团",
+    "codes": [
+      "9961.HK"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 318.71,
+      "parentProfitYi": 0.41,
+      "ocfYi": null,
+      "cashCapexYi": null,
+      "currency": "CNY",
+      "cashYi": 1005,
+      "cashBasis": "现金、受限现金及短期/到期持有金融资产合计，非自由现金",
+      "debtYi": null,
+      "sharesYi": null
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": null,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "年度/TTM报表受投资与罚款扭曲，本轮不拼成虚假正常化；研究EPS18/22/26人民币"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 18,
+          "g1": 0.01,
+          "g2": 0.02,
+          "payout": 0.08,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 22,
+          "g1": 0.07,
+          "g2": 0.05,
+          "payout": 0.1,
+          "exit_pe": 14
+        },
+        "bull": {
+          "eps0": 26,
+          "g1": 0.12,
+          "g2": 0.08,
+          "payout": 0.15,
+          "exit_pe": 18
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入由国内中个位数、国际双位数加权约8%增长，整改后净利率从高位约束，盈利按7%/5%；悲观佣金率下调抵消间夜增长，乐观国际利润规模形成。派息8%—15%仅分配政策研究假设，不把回购当现金股息。"
+    },
+    "evidenceGap": "H1现金流量与资本支出、罚款实际付款、整改后住宿变现率、SBC经济成本及联营收益现金桥尚未完整。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "旅行服务品类共享客户供给",
+        "counter": "新体验扩张需看回报",
+        "monitor": "非核心投入",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化与治理",
+        "verdict": "存疑",
+        "support": "披露监管处罚与整改",
+        "counter": "反垄断行为损害伙伴权益",
+        "monitor": "整改完成及重复处罚",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "供应密度、售后和品牌",
+        "counter": "AI及商家直连可分流",
+        "monitor": "用户留存和商家覆盖",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "国际平台已有实收增长",
+        "counter": "国际营销成本较高",
+        "monitor": "国际分部利润及复购",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "住宿与交通网络规模",
+        "counter": "对手补贴及直连竞争",
+        "monitor": "获客成本和预订增长",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户与需求",
+        "verdict": "通过",
+        "support": "旅游多场景及国际需求",
+        "counter": "可选预算与宏观波动",
+        "monitor": "间夜量和客单价",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "大量流动资产提供偿付缓冲",
+        "counter": "现金含受限与金融产品",
+        "monitor": "罚款支付后流动性",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "核心平台轻资本",
+        "counter": "投资损益、SBC和历史派息低",
+        "monitor": "投资回报及现金分配",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "携程2026Q2及H1业绩",
+        "url": "https://investors.trip.com/news-releases/news-release-details/tripcom-group-limited-reports-unaudited-second-quarter-and-4",
+        "period": "2026H1",
+        "pages": "损益、non-GAAP与业务更新"
+      },
+      {
+        "title": "市场监管总局处罚及整改",
+        "url": "https://www.samr.gov.cn/xw/zj/art/2026/art_46d2c74cbd7249f189622dd030e3c3a7.html",
+        "period": "2026-07",
+        "pages": "罚没及整改要求；沿用已核旧研究"
+      },
+      {
+        "title": "携程官方季度业绩目录",
+        "url": "https://investors.trip.com/financial-information/quarterly-results",
+        "period": "截至2026-10-19",
+        "pages": "最新为2026Q2"
+      }
+    ]
+  },
+  {
+    "id": "miniso",
+    "name": "名创优品",
+    "codes": [
+      "9896.HK"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 114.989,
+      "parentProfitYi": 9.61551,
+      "ocfYi": 14.754,
+      "cashCapexYi": 7.246,
+      "currency": "CNY",
+      "sharesYi": null,
+      "cashYi": 73.94,
+      "debtYi": 86.409,
+      "leaseLiabilitiesYi": 45.778
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": null,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "不使用ADS调整EPS；研究核心普通股EPS1.15/1.40/1.65人民币，扣SBC融资而不计投资升值"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.15,
+          "g1": 0,
+          "g2": 0.02,
+          "payout": 0.5,
+          "exit_pe": 8
+        },
+        "base": {
+          "eps0": 1.4,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.5,
+          "exit_pe": 11
+        },
+        "bull": {
+          "eps0": 1.65,
+          "g1": 0.1,
+          "g2": 0.07,
+          "payout": 0.5,
+          "exit_pe": 15
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准门店扩张/国内同店带来收入约10%增速，但海外营销与租赁约束利润率，盈利只6%/4%；悲观新增收入被低效直营抵消，乐观成熟门店利润率改善。派息50%为常态假设而非按当期分红回购/FCF174%外推。"
+    },
+    "evidenceGap": "完整租赁本金、普通股稀释分母、海外成熟店单位经济、永辉融资与最终现金回报。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "存疑",
+        "support": "低价选品、TOP TOY共享渠道",
+        "counter": "永辉及AI投资超主业",
+        "monitor": "非核心投资新增额",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化与治理",
+        "verdict": "通过",
+        "support": "创始人及业务披露较完整",
+        "counter": "集中治理与关联投资需约束",
+        "monitor": "关联交易及激励",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "采购选品和零售伙伴网络",
+        "counter": "授权IP不是独家产权",
+        "monitor": "复购和商品周转",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "存疑",
+        "support": "海外网络有真实收入",
+        "counter": "直营固定费用和同店下降",
+        "monitor": "成熟直营店回收期",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "存疑",
+        "support": "国内同店与规模支撑",
+        "counter": "海外利润率弱于销售增速",
+        "monitor": "区域同店/费用率",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户与需求",
+        "verdict": "通过",
+        "support": "性价比与上新吸引客流",
+        "counter": "时尚商品切换成本低",
+        "monitor": "国内同店与客单",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF增长且期末库存下降",
+        "counter": "借款和租赁须计价",
+        "monitor": "到期债务及租赁覆盖",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "持续派息及核心扩店",
+        "counter": "永辉和基金占用资本",
+        "monitor": "核心FCFE及跨界投资回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "名创2026Q2/H1官方业绩",
+        "url": "https://ir.miniso.com/2026-08-28-MINISO-Group-Announces-2026-June-Quarter-and-Interim-Unaudited-Financial-Results",
+        "period": "2026H1",
+        "pages": "现金、存货、借款租赁与调整净利"
+      },
+      {
+        "title": "名创SEC H1业绩附件",
+        "url": "https://www.sec.gov/Archives/edgar/data/1815846/000110465926103582/tm2624284d1_ex99-2.htm",
+        "period": "2026H1",
+        "pages": "旧底稿原文来源；同一发行人"
+      },
+      {
+        "title": "名创10月9日Q3经营更新",
+        "url": "https://ir.miniso.com/2026-10-09-MINISO-Groups-Latest-Business-Update",
+        "period": "2026Q3",
+        "pages": "未审计/未审阅经营数据，非财务报告"
+      }
+    ]
+  },
+  {
+    "id": "nongfu",
+    "name": "农夫山泉",
+    "codes": [
+      "09633.HK"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 297.181,
+      "parentProfitYi": 88.87,
+      "ocfYi": 107.12333,
+      "cashCapexYi": 38.20378,
+      "currency": "CNY",
+      "sharesYi": 112.39398308,
+      "cashYi": 210.80386,
+      "debtYi": 51.86
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": null,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "研究EPS为水稳定和茶正常化推导1.35/1.55/1.75人民币，非以H1翻倍"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.35,
+          "g1": 0.02,
+          "g2": 0.02,
+          "payout": 0.65,
+          "exit_pe": 15
+        },
+        "base": {
+          "eps0": 1.55,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.65,
+          "exit_pe": 20
+        },
+        "bull": {
+          "eps0": 1.75,
+          "g1": 0.12,
+          "g2": 0.08,
+          "payout": 0.65,
+          "exit_pe": 25
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准水约2%增长、茶高增速逐年减缓至低双位数、其他品类中个位数，混合收入约8%，利润率稳定，后五年5%；悲观价格竞争，乐观茶复购延续。65%派息低于旧70%快筛，给必要产能和营运资本留资金。"
+    },
+    "evidenceGap": "新产能维护/扩张分拆、终端量价和茶复购；9月关联交易上限调整的实际交易与价格需跟踪。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "水茶饮料共享生产和渠道",
+        "counter": "新品过多会摊薄资源",
+        "monitor": "单品投入回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化与治理",
+        "verdict": "通过",
+        "support": "长期品牌及主业聚焦",
+        "counter": "控股集中关联采购",
+        "monitor": "关联上限和实际交易",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "水源布局、渠道、品牌共同作用",
+        "counter": "水源本身不是排他壁垒",
+        "monitor": "渠道密度和价差",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "国内市场足以形成规模",
+        "counter": "海外未形成重要利润",
+        "monitor": "不提前计海外增长",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "存疑",
+        "support": "水茶强品牌渠道",
+        "counter": "纯净水及无糖茶竞争",
+        "monitor": "产品净价与促销",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户与需求",
+        "verdict": "存疑",
+        "support": "水高频、茶增长快",
+        "counter": "茶复购和高增速耐久待证",
+        "monitor": "动销留存和营销ROI",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "盈利现金与资产负债缓冲",
+        "counter": "产能开支高于折旧",
+        "monitor": "五年现金转换",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "通过",
+        "support": "主业扩产并持续分红",
+        "counter": "募集资金及低收益存款",
+        "monitor": "增量产能ROIC",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "农夫山泉2026完整中报",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401877.pdf",
+        "period": "2026H1",
+        "pages": "7、46、52—53、66"
+      },
+      {
+        "title": "农夫关联交易年度上限调整",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101529.pdf",
+        "period": "2026-09-11",
+        "pages": "关联交易及董事意见"
+      },
+      {
+        "title": "公司官方财务目录",
+        "url": "https://www.nongfuspring.com/financialinfo.html",
+        "period": "2026H1",
+        "pages": "经营回顾、财务报表及附注"
+      }
+    ]
+  },
+  {
+    "id": "haitian",
+    "name": "海天味业",
+    "codes": [
+      "3288.HK",
+      "603288.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 161.463,
+      "parentProfitYi": 41.90157,
+      "ocfYi": 12.24227,
+      "cashCapexYi": 5.35931,
+      "currency": "CNY",
+      "sharesYi": 58.51825,
+      "cashYi": null,
+      "debtYi": 3.574
+    },
+    "eps": {
+      "annual": 1.23,
+      "ttm": null,
+      "normalized": null,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "2025稀释EPS为旧一级来源底稿；研究起点1.10/1.25/1.40人民币，不把半年0.72简单年化"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.1,
+          "g1": 0,
+          "g2": 0.02,
+          "payout": 0.8,
+          "exit_pe": 13
+        },
+        "base": {
+          "eps0": 1.25,
+          "g1": 0.05,
+          "g2": 0.04,
+          "payout": 0.8,
+          "exit_pe": 18
+        },
+        "bull": {
+          "eps0": 1.4,
+          "g1": 0.08,
+          "g2": 0.06,
+          "payout": 0.8,
+          "exit_pe": 22
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入由成熟酱油中低个位数与相邻品类增长形成约5%，成本利润率稳定，盈利5%/4%；悲观餐饮压价、乐观品类扩展和渠道效率改善。80%仅研究长期派息假设，2027年后的政策并非已承诺。"
+    },
+    "evidenceGap": "H1至全年营运资本季节性、内部票据贴现对集团现金转换的影响、常态分红覆盖尚待核，当前不能正式H定价。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "调味研发生产渠道一致",
+        "counter": "多品类可能分散",
+        "monitor": "主业资本回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化与治理",
+        "verdict": "通过",
+        "support": "稳定经营及分红承诺",
+        "counter": "集中控制与关联供应链",
+        "monitor": "关联交易公允性",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "口味、规模、渠道有积累",
+        "counter": "低消费者转换成本",
+        "monitor": "同品净价与复购",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "国内规模足够",
+        "counter": "海外尚非重要盈利",
+        "monitor": "不提前计国际利润",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "近年利润恢复",
+        "counter": "餐饮集采压价",
+        "monitor": "渠道份额及终端库存",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户与需求",
+        "verdict": "存疑",
+        "support": "调味需求高频",
+        "counter": "成熟品类量价上限",
+        "monitor": "家庭/餐饮同口径量价",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "存疑",
+        "support": "历史多年正现金",
+        "counter": "H1现金低且预收交付变化",
+        "monitor": "全年OCF/应付/合同负债",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "通过",
+        "support": "高派息及主业投资",
+        "counter": "募资低收益与特别分红",
+        "monitor": "常态DPS及增量ROIC",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "海天官方定期报告目录",
+        "url": "https://www.haday.com/periodical-reports/",
+        "period": "截至2026-10-19",
+        "pages": "2026半年报与历史分红表"
+      },
+      {
+        "title": "海天H股2026中报监管原文",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-09-04/1225547399.PDF",
+        "period": "2026H1",
+        "pages": "63—103；监管原PDF抓取间歇失败，检索及发行人原文镜像核读"
+      },
+      {
+        "title": "海天中报发行人原文镜像",
+        "url": "https://financialfilings.com/filings/foshan-haitian-flavouring-and-food-company-ltd-1/interim-quarterly-report/2026/59459072/",
+        "period": "2026H1",
+        "pages": "原文镜像，不计独立第二财务来源"
+      },
+      {
+        "title": "海天2025年报",
+        "url": "https://static.haday.com/upload/2026/03/27/e862e415c60546c899815c5a61da233f.pdf",
+        "period": "2025",
+        "pages": "已核历史三年表沿用底稿"
+      }
+    ]
+  },
+  {
+    "id": "yili",
+    "name": "伊利股份",
+    "codes": [
+      "600887.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 643.309,
+      "parentProfitYi": 57.586,
+      "ocfYi": 97.591,
+      "cashCapexYi": 13.04262,
+      "currency": "CNY",
+      "sharesYi": 63.25360667,
+      "cashYi": 139.14278,
+      "debtYi": 646.77,
+      "debtBasis": "仅短借，不等于集团总债"
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": null,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "FY/TTM未重建；研究EPS1.45/1.65/1.90人民币，不将全部减值无条件永久加回"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.45,
+          "g1": -0.01,
+          "g2": 0.01,
+          "payout": 0.75,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 1.65,
+          "g1": 0.03,
+          "g2": 0.03,
+          "payout": 0.8,
+          "exit_pe": 13
+        },
+        "bull": {
+          "eps0": 1.9,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.8,
+          "exit_pe": 16
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入液奶稳定、奶粉和其他营养增长加权约3%，利润率不靠原奶继续下降而扩张，盈利3%/3%；悲观需求弱和促销，乐观品类升级。80%派息是常态研究假设，先受现金与到期融资约束。"
+    },
+    "evidenceGap": "租赁本金和NCI经济归属未完全锁定，1.6亿仅代理；短借与非受限长短存款币种/期限匹配、澳优调整后ROIC为决定项。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "乳业营养主业明确",
+        "counter": "多品类资本占用",
+        "monitor": "非主业投资",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化与治理",
+        "verdict": "通过",
+        "support": "经营和派息记录",
+        "counter": "激励及集中管理需监督",
+        "monitor": "关联采购与激励",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "品牌、奶源与渠道规模",
+        "counter": "终端促销削弱溢价",
+        "monitor": "净价、份额及渠道效率",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "存疑",
+        "support": "海外奶源及营养资产真实",
+        "counter": "不等于海外消费者利润",
+        "monitor": "海外ROIC及现金回流",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "乳业头部规模",
+        "counter": "低切换成本及竞争促销",
+        "monitor": "分品类份额和净价",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户与需求",
+        "verdict": "存疑",
+        "support": "营养消费高频",
+        "counter": "液奶成熟与婴配人口约束",
+        "monitor": "真实销量/高端留存",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF覆盖必要资本现金",
+        "counter": "大额短借/存款错配待穿透",
+        "monitor": "非受限资金到期梯度",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "持续现金分红",
+        "counter": "澳优减值及存贷效率",
+        "monitor": "并购ROIC和净借款分红",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "伊利2026半年报",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225511409.PDF",
+        "period": "2026H1",
+        "pages": "53及借款、商誉附注"
+      },
+      {
+        "title": "伊利官方投资者报告目录",
+        "url": "https://www.yili.com/en/investors",
+        "period": "截至2026-10-19",
+        "pages": "最新中期及历史年度材料"
+      }
+    ]
+  },
+  {
+    "id": "dongpeng",
+    "name": "东鹏饮料",
+    "codes": [
+      "605499.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 124.43036555,
+      "parentProfitYi": 28.66801858,
+      "ocfYi": 24.92600974,
+      "cashCapexYi": 11.35160763,
+      "currency": "CNY",
+      "sharesYi": 7.3419931,
+      "cashYi": 144.74703,
+      "debtYi": 56.48703,
+      "debtBasis": "短借",
+      "deductedProfitYi": 25.97599385
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": null,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "H1稀释3.9949含10转3追溯；研究EPS5.8/6.8/8.0人民币按当前期末股本，不当预测共识"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 5.8,
+          "g1": 0.04,
+          "g2": 0.03,
+          "payout": 0.5,
+          "exit_pe": 14
+        },
+        "base": {
+          "eps0": 6.8,
+          "g1": 0.12,
+          "g2": 0.07,
+          "payout": 0.5,
+          "exit_pe": 20
+        },
+        "bull": {
+          "eps0": 8,
+          "g1": 0.18,
+          "g2": 0.1,
+          "payout": 0.5,
+          "exit_pe": 26
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准核心全国化中高个位数、新品从较低基数双位数，收入约12%增长，稳定利润率带来约12%/7%盈利增长；悲观费用抵消销量，乐观新品复购和效率兑现。50%派息留出扩产现金，回购不另算。"
+    },
+    "evidenceGap": "租赁本金及关联资本占用完整拆分、H上市募集款使用、当前股本与回购注销；现金管理产品和借款利差不能重复进利润估值。",
+    "scope": "总部历史候选/监控池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "饮料供应链与渠道复用",
+        "counter": "投资与贷款子公司需边界",
+        "monitor": "非饮料资本占用",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化与治理",
+        "verdict": "通过",
+        "support": "创始团队终端执行强",
+        "counter": "集中控制和关联物业",
+        "monitor": "关联交易及管理激励",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "核心心智和终端密度",
+        "counter": "消费者切换容易",
+        "monitor": "成熟区域单点产出",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "国内全国化仍有空间",
+        "counter": "海外未有重要贡献",
+        "monitor": "不提前计海外利润",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "存疑",
+        "support": "能量饮料与新品规模",
+        "counter": "费用快增和新品激烈竞争",
+        "monitor": "费用/收入及新品毛利",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户与需求",
+        "verdict": "通过",
+        "support": "提神补水高频",
+        "counter": "可替代饮品及偏好变化",
+        "monitor": "复购与终端净动销",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF增长和上市现金缓冲",
+        "counter": "募集现金不是经营FCF",
+        "monitor": "扣capex后的现金转换",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "产能全国化有逻辑",
+        "counter": "募资配置及扩产回收未证",
+        "monitor": "产能队列回报与资金使用",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "东鹏2026半年报发行人原文镜像",
+        "url": "https://pdf.dfcfw.com/pdf/H2_AN202607301827497229_1.pdf",
+        "period": "2026H1",
+        "pages": "6、30、73、144、149、164；原文镜像"
+      },
+      {
+        "title": "发行人2026半年报业绩说明会",
+        "url": "https://roadshow.cnstock.com/fbh/dpyl202606",
+        "period": "2026H1",
+        "pages": "由公司主办、上证平台；管理层与披露报告指引"
+      },
+      {
+        "title": "东鹏H股招股监管资料",
+        "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0126/12000523/2026012600019.pdf",
+        "period": "2026-01-26",
+        "pages": "发行前结构，不能代替H1当前股本"
+      },
+      {
+        "title": "东鹏董事会会议日期公告原文镜像",
+        "url": "https://cfi.cn/p20261016000889.html",
+        "period": "2026-10-16",
+        "pages": "拟10月29日审议第三季度业绩"
+      }
+    ]
+  },
+  {
+    "id": "hkex",
+    "name": "香港交易所",
+    "codes": [
+      "0388.HK"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 167.02,
+      "parentProfitYi": 105.68,
+      "ocfYi": 114.8,
+      "cashCapexYi": 32.81,
+      "currency": "HKD",
+      "sharesYi": 12.67505,
+      "cashYi": null,
+      "debtYi": 1.5,
+      "principalOcfYi": 106.26
+    },
+    "eps": {
+      "annual": 14.04,
+      "ttm": null,
+      "normalized": null,
+      "forecast": null,
+      "currency": "HKD",
+      "basis": "FY2025旧年报约值；H1稀释8.34；研究正常化14.5港元，非简单年化"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "HKD",
+      "cases": {
+        "bear": {
+          "eps0": 14.5,
+          "g1": 0,
+          "g2": 0.02,
+          "payout": 0.9,
+          "exit_pe": 18
+        },
+        "base": {
+          "eps0": 14.5,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.9,
+          "exit_pe": 24
+        },
+        "bull": {
+          "eps0": 16,
+          "g1": 0.09,
+          "g2": 0.07,
+          "payout": 0.9,
+          "exit_pe": 28
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准经常交易清算收入随成交中枢中个位数增长、费用低个位数，EPS约6%/4%；悲观交易回落抵消结构增长，乐观产品扩容带来更高经营杠杆。90%是税前派息假设，税由主模型扣；退出倍数均为市场情景，并非保守价值下限。"
+    },
+    "evidenceGap": "清算抵押品及公司专用资本WC正常化、总部后续承诺与低景气资本覆盖；Q3业绩截至本轮未见官方发布。",
+    "scope": "总部历史候选/监控池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "交易清算及数据围绕基础设施",
+        "counter": "新市场系统增加复杂度",
+        "monitor": "新业务现金回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化与治理",
+        "verdict": "存疑",
+        "support": "监管和治理披露较强",
+        "counter": "LME风险治理历史教训",
+        "monitor": "监管要求与系统事故",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "牌照流动性与清算网络",
+        "counter": "上市和交易可跨市场分流",
+        "monitor": "互联互通及流动性份额",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "LME及全球融资渠道",
+        "counter": "跨境监管和汇率敞口",
+        "monitor": "境外业务及合规成本",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "中国跨境资本通道独特",
+        "counter": "其他上市地与替代资产",
+        "monitor": "产品份额及收费",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户与需求",
+        "verdict": "存疑",
+        "support": "长期融资与风险管理需求",
+        "counter": "成交/IPO高景气不可永续",
+        "monitor": "正常化ADT与IPO收入",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "利润现金强及低公司借款",
+        "counter": "客户保证金不是股东资产",
+        "monitor": "公司资金和专用资本",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "通过",
+        "support": "高派息和系统再投资",
+        "counter": "总部资金占用与升级回报",
+        "monitor": "经常FCFE/资本承诺",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "港交所2026中期业绩",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900213.pdf",
+        "period": "2026H1",
+        "pages": "业绩概要、资本承诺"
+      },
+      {
+        "title": "港交所2026中期财务表",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900464.pdf",
+        "period": "2026H1",
+        "pages": "7、16、28；OCF与客户专用资金"
+      },
+      {
+        "title": "港交所官方2026业绩目录",
+        "url": "https://www.hkexgroup.com/Investor-Relations/Financial-Results-and-Presentations/2026?sc_lang=en",
+        "period": "截至2026-10-19",
+        "pages": "最新中期，未将未来Q3公告当事实"
+      },
+      {
+        "title": "港交所9月及9M市场经营统计",
+        "url": "https://www.hkex.com.hk/Market-Data/Statistics/Consolidated-Reports/HKEX-Monthly-Market-Highlights?sc_lang=en",
+        "period": "2026-09/9M",
+        "pages": "市场统计，非集团财报"
+      }
+    ]
+  },
+  {
+    "id": "fuyao",
+    "name": "福耀玻璃",
+    "codes": [
+      "600660.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 219.711046,
+      "parentProfitYi": 39.702997,
+      "adjustedProfitYi": 38.791671,
+      "ocfYi": 45.5094604,
+      "cashCapexYi": 22.97585127,
+      "cashAndEquivalentsYi": 221.27160326,
+      "currency": "CNY",
+      "sharesYi": 26.09743532
+    },
+    "eps": {
+      "annual": 3.57,
+      "ttm": 3.25,
+      "normalized": 3.55,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "报表TTM约3.25元；正常化3.55元用于削平汇兑噪声，不能把半年1.52直接乘二，也不把2025汇兑收益永久化。"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 3.1,
+          "g1": 0.01,
+          "g2": 0.01,
+          "payout": 0.5,
+          "exit_pe": 12
+        },
+        "base": {
+          "eps0": 3.55,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.55,
+          "exit_pe": 15
+        },
+        "bull": {
+          "eps0": 3.8,
+          "g1": 0.09,
+          "g2": 0.06,
+          "payout": 0.6,
+          "exit_pe": 19
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入量约2%、单车净值约4%，利润率近稳，对应EPS6%，后五年放缓4%；悲观汽车量-1%与价值2%仅增1%；乐观量3%、价值5%、毛利与爬坡贡献1%对应9%。基准派息由旧60%降为55%检验扩产资金，全年77.3亿CAPEX计划明显高于H1支出，须做H2压力表。"
+    },
+    "evidenceGap": "缺新产能分批ROIC和年度77.3亿资本支出下的分红覆盖；若高端占比升而单车利润下降、库存持续超过百日，先降增长再讨论价格。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "主业围绕汽车玻璃和窗系统",
+        "counter": "铝饰件亏损可能稀释主业收益",
+        "monitor": "铝饰件分部ROIC",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "存疑",
+        "support": "持续分红和多年专注制造",
+        "counter": "创始人接班后的资本与治理纪律仍需兑现",
+        "monitor": "董事会独立性、关联及管理变动",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "全球同步开发、规模与材料工艺",
+        "counter": "车企有议价权，同行同样开发HUD调光",
+        "monitor": "高附加值占比与价差",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "美国工厂已有盈利而非纯出口",
+        "counter": "汇兑、劳工与关税冲击真实",
+        "monitor": "美国工厂利润率及合规",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "寡头格局且汽车玻璃毛利率提升",
+        "counter": "AGC、NSG具技术和客户基础",
+        "monitor": "份额与利润率差",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "需求持续性",
+        "verdict": "通过",
+        "support": "单车价值提高对冲汽车总量低增",
+        "counter": "天幕渗透饱和及车企降本",
+        "monitor": "单车价值、定点转量产",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "长期OCF为正、H1经营利润剔汇兑仍增",
+        "counter": "库存天数93对82，H1 OCF同比-15%",
+        "monitor": "库存、现金转化与新厂营运资金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "全球产能跟客户走有工业逻辑",
+        "counter": "计划高CAPEX与新厂/饰件增量ROIC未证",
+        "monitor": "77.3亿年度CAPEX去向及回收",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "- 需求轴：整车总量成熟且2026国内承压；单车玻璃面积、功能升级仍有增长。",
+      "- 利润池轴：全球寡头、份额和成本优势支持利润；车企降本、同行高端化和新厂爬坡侵蚀利润池。",
+      "- 范式风险：中低：动力路线改变不取消玻璃需求，但调光、传感集成等技术要求持续投入。"
+    ],
+    "sources": [
+      {
+        "title": "2026半年报",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-19/1225479532.PDF",
+        "period": "2026H1",
+        "pages": "7—9、45—46页"
+      },
+      {
+        "title": "2025年度报告",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-03-18/1225014577.PDF",
+        "period": "2025FY",
+        "pages": "主要会计数据与现金流"
+      },
+      {
+        "title": "2026中期权益分派实施公告",
+        "url": "https://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-09-17/600660_20260917_OK2T.pdf",
+        "period": "2026-09-17",
+        "pages": "每股1.00元"
+      }
+    ]
+  },
+  {
+    "id": "yutong",
+    "name": "宇通客车",
+    "codes": [
+      "600066.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026Q3（1—9月累计）",
+    "metrics": {
+      "revenueYi": 258.15871585,
+      "parentProfitYi": 31.8353557,
+      "adjustedProfitYi": 30.98580729,
+      "ocfYi": 80.04418053,
+      "cashCapexYi": 4.821243174,
+      "cashAndEquivalentsYi": 76.53017811,
+      "currency": "CNY",
+      "sharesYi": 22.13939
+    },
+    "eps": {
+      "annual": 2.51,
+      "ttm": 2.46,
+      "normalized": 2.3,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "Q3累计报表EPS1.44，TTM报表约(55.54-32.9235+31.8354)/22.1394=2.46；TTM扣非约2.29，正常化更新2.30，较旧H1锚2.20小幅上调，反映Q3扣非增长22.25%与现金改善；不将累计1.44直接年化。"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.8,
+          "g1": -0.02,
+          "g2": 0,
+          "payout": 0.4,
+          "exit_pe": 8
+        },
+        "base": {
+          "eps0": 2.3,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.55,
+          "exit_pe": 10
+        },
+        "bull": {
+          "eps0": 2.5,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.65,
+          "exit_pe": 13
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准销量0%—2%加结构/售价1%，净利率近稳，EPS仅3%/2%；悲观销量-4%、结构+1%、毛利压缩，EPS-2%后持平；乐观出口与电动化带动量5%、价值2%及利润率1%，EPS8%后5%。终值10倍是成熟周期制造研究情景，旧12.15倍零修复锚不再直接沿用。"
+    },
+    "evidenceGap": "需海外/国内分拆销量、同口径份额、长期基金实缴与剩余资本承诺、全年质保兑现；订单恢复且资本边界清楚可重新计数。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "客车研发制造销售服务一体",
+        "counter": "理财收益不是主营复利引擎",
+        "monitor": "非主业资本占用",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "定期披露与研发售后投入",
+        "counter": "集团财务公司存款与担保需监控",
+        "monitor": "存款回收及关联担保",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "海外服务和整车可靠性、规模优势",
+        "counter": "采购方可多供应商比价",
+        "monitor": "海外订单毛利与质保",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "海外已有真实收入与盈利",
+        "counter": "本地化、贸易与劳工成本",
+        "monitor": "区域盈利和现金回款",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "国内龙头且Q3累计扣非+18.45%表明高价值结构有效",
+        "counter": "旧份额口径与新统计不同，无法据累计销量下降断言竞争力持续丢失",
+        "monitor": "同口径份额、利润率及出口地位",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "需求持续性",
+        "verdict": "存疑",
+        "support": "全球电动客车更新需求持久",
+        "counter": "9月销量-12.57%，前9月-7.83%，大型累计-10.79%",
+        "monitor": "月销量与订单转化，不只看售价",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "Q3累计OCF80.04亿、应收降，流动性强",
+        "counter": "预计质保负债55.43亿，新增短借1.28亿，现金有季节性",
+        "monitor": "实际质保支付与正常化现金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "过往高分红、Q3现金改善有返现能力",
+        "counter": "9月认缴6.77亿元十年期私募基金，2%管理费及20%分成，LP无经营决策权",
+        "monitor": "基金实缴、剩余承诺、投后回报和全年派息",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "- 需求轴：国内公交与大中型客车调整延续，全球电动化有空间；最新累计销量仍在下降，不能用海外总空间抵消当下事实。",
+      "- 利润池轴：国内龙头不等于份额不降；海外高毛利吸引竞品，服务网络和本地制造加大成本。",
+      "- 范式风险：中：电动化利于强研发龙头，技术及安全合规、海外产地规则改变竞争边界。"
+    ],
+    "sources": [
+      {
+        "title": "2026第三季度报告原文PDF",
+        "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-10/2026-10-15/12641310.PDF",
+        "period": "2026Q3",
+        "pages": "1—2、5—10页"
+      },
+      {
+        "title": "2026半年度报告",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-11/1225466147.PDF",
+        "period": "2026H1",
+        "pages": "5、11、28—32页"
+      },
+      {
+        "title": "2026年9月产销数据快报（公司公告正文）",
+        "url": "https://data.eastmoney.com/notices/detail/600066/AN202610081830207843.html",
+        "period": "2026-09",
+        "pages": "临2026-047"
+      },
+      {
+        "title": "2026年9月私募基金投资公告",
+        "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12601621&stockid=600066",
+        "period": "2026-09-15",
+        "pages": "公告正文"
+      }
+    ]
+  },
+  {
+    "id": "mindray",
+    "name": "迈瑞医疗",
+    "codes": [
+      "300760.SZ"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 177.469696,
+      "parentProfitYi": 47.967918,
+      "adjustedProfitYi": 47.847977,
+      "ocfYi": 48.76986709,
+      "cashCapexYi": 10.63901948,
+      "cashAndEquivalentsYi": 186.45296725,
+      "currency": "CNY",
+      "sharesYi": 12.118
+    },
+    "eps": {
+      "annual": null,
+      "ttm": 6.49,
+      "normalized": 6.5,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "TTM按2025归母81.36-2025H1归母50.6877+2026H1归母47.9679=78.6402亿元，除12.118亿股约6.49元；正常化6.50不提前计入2027管理层复苏展望。"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 5.8,
+          "g1": 0.01,
+          "g2": 0.02,
+          "payout": 0.5,
+          "exit_pe": 16
+        },
+        "base": {
+          "eps0": 6.5,
+          "g1": 0.07,
+          "g2": 0.05,
+          "payout": 0.6,
+          "exit_pe": 20
+        },
+        "bull": {
+          "eps0": 7,
+          "g1": 0.11,
+          "g2": 0.07,
+          "payout": 0.65,
+          "exit_pe": 25
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准国内0%—3%、海外10%—12%形成收入6%—7%，利润率小幅正常化使EPS7%，后段5%；悲观国内停滞/海外低增且毛利受压，EPS1%；乐观国内恢复5%—7%、海外15%且高端耗材改善结构，EPS11%/7%。60%派息要由扣除少数、并购和增长CAPEX后的现金支持。"
+    },
+    "evidenceGap": "补惠泰等少数权益现金归属、分部增量ROIC和三年资本计划；若国内两期不恢复而海外增速降至个位数，正常化增长降档。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "设备、耗材与IT共享医院渠道",
+        "counter": "微创并购增加复杂度",
+        "monitor": "分部经营利润及整合",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "研发与未达标激励注销纪律",
+        "counter": "创始人传承和表决权安排复杂",
+        "monitor": "接班及少数权益交易",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "研发、装机、临床认证和服务",
+        "counter": "单条产线仍对抗全球专业巨头",
+        "monitor": "试剂复购和高端医院渗透",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "国际收入94.71亿、增13.67%",
+        "counter": "汇率、贸易及本地保护",
+        "monitor": "地区收入、利润与回款",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "多产品组合形成整体方案优势",
+        "counter": "罗氏、雅培、GE等仍强",
+        "monitor": "份额与系统订单毛利",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "需求持续性",
+        "verdict": "存疑",
+        "support": "国内下降已明显收窄",
+        "counter": "国内H1仍-1.61%，生命支持/影像需求恢复不齐",
+        "monitor": "国内收入利润连续修复",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF+24.35%，净现金和费用化研发",
+        "counter": "并购商誉及少数经济权益降低可分现金",
+        "monitor": "归母现金与商誉ROIC",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "主业研发与耗材有再投资逻辑",
+        "counter": "惠泰高价并购与少数控制结构增量ROIC未证",
+        "monitor": "收购后归母收益/投入",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "- 需求轴：老龄化和医疗可及性长期向上，国内医院预算和采购周期压制短期订单。",
+      "- 利润池轴：国产高端替代与海外份额提升有利，集采、控费和国际巨头竞争限制利润率。",
+      "- 范式风险：中：设备+IT+AI增强系统粘性，也需要持续研发；软件叙事不能提前提高终值倍数。"
+    ],
+    "sources": [
+      {
+        "title": "2026半年度报告",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225529856.PDF",
+        "period": "2026H1",
+        "pages": "16、20—23、132—133页"
+      },
+      {
+        "title": "公司一图读懂2026半年报（公司材料镜像）",
+        "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12573676&stockid=300760",
+        "period": "2026H1",
+        "pages": "国内-1.61%及股息"
+      },
+      {
+        "title": "控股股东部分股份质押公告",
+        "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12637057&stockid=300760",
+        "period": "2026-10-12",
+        "pages": "公告正文"
+      }
+    ]
+  },
+  {
+    "id": "hengrui",
+    "name": "恒瑞医药",
+    "codes": [
+      "600276.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 154.555837,
+      "parentProfitYi": 44.654394,
+      "adjustedProfitYi": 37.29589,
+      "ocfYi": 19.87003872,
+      "cashCapexYi": 15.77505323,
+      "cashAndEquivalentsYi": 380.31524934,
+      "currency": "CNY",
+      "sharesYi": 66.33
+    },
+    "eps": {
+      "annual": 1.19,
+      "ttm": null,
+      "normalized": 1.15,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "2025年报EPS1.19含许可收入；2026H1报表0.68、扣非0.57，若再全费用化资本化研发半年经济EPS约0.42（敏感性，非会计更正）。正常化从旧1.25收至1.15，避免许可和资本化双重乐观。"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.9,
+          "g1": 0.03,
+          "g2": 0.03,
+          "payout": 0.15,
+          "exit_pe": 18
+        },
+        "base": {
+          "eps0": 1.15,
+          "g1": 0.1,
+          "g2": 0.07,
+          "payout": 0.17,
+          "exit_pe": 25
+        },
+        "bull": {
+          "eps0": 1.4,
+          "g1": 0.16,
+          "g2": 0.1,
+          "payout": 0.2,
+          "exit_pe": 32
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准国内产品销售约8%增长、风险调整后持续授权贡献约2%，保留研发强度后EPS10%/7%；悲观成熟药下滑抵消创新药，EPS仅3%；乐观新品终端销售与持续许可共同兑现16%/10%。高EPS不能仅来自研发资本化率提高；低17%现金payout不把员工激励回购视为返现。"
+    },
+    "evidenceGap": "缺逐品种峰值销售、专利/竞争、研发失败概率、首付及里程碑收入现金桥；若研发资本化提升但全费用化收益和OCF不改善，应收紧而非提高增长。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "研发和商业化围绕医药核心",
+        "counter": "多治疗领域管线分散精力",
+        "monitor": "单项目研发投入和回收",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "持续高研发和净现金",
+        "counter": "控制集中与推广合规需持续约束",
+        "monitor": "合规、临床数据披露",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "研发平台、临床执行和已上市产品",
+        "counter": "同类新药及专利到期会侵蚀单品",
+        "monitor": "新药渗透和临床相对优势",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "存疑",
+        "support": "国际授权伙伴认可研发价值",
+        "counter": "国外收入含授权并非终端商业化",
+        "monitor": "海外终端销售及真实里程碑",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "国内创新药平台及多管线",
+        "counter": "全球对手与同靶点竞品众多",
+        "monitor": "关键适应症份额/价格",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "需求持续性",
+        "verdict": "通过",
+        "support": "肿瘤慢病真实长期需求",
+        "counter": "支付预算与疗法替代",
+        "monitor": "患者获益、医保净价格",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "存疑",
+        "support": "货币资金387亿、无短借",
+        "counter": "扣非-12.71%、OCF-53.80%，研发资本化干扰利润",
+        "monitor": "全费用化收益与授权现金归属",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "研发投入具有主业协同性",
+        "counter": "大额现金、低分红与多项目风险尚需回报闭合",
+        "monitor": "项目概率现金、增量研发ROIC",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "- 需求轴：患者与治疗升级长期增长，医保支付和仿制药集采限制单药收入。",
+      "- 利润池轴：创新药全球合作扩大利润池；同靶点拥挤、成功率及专利悬崖使收益不稳定。",
+      "- 范式风险：高：疗法与临床数据迭代直接改变产品价值，平台分散项目失败但无法消除风险。"
+    ],
+    "sources": [
+      {
+        "title": "2026半年度报告",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-20/1225483600.PDF",
+        "period": "2026H1",
+        "pages": "6—8、80—81页"
+      },
+      {
+        "title": "BMS战略合作公司公告",
+        "url": "https://www.hengrui.com/media/detail-950.html",
+        "period": "2026",
+        "pages": "授权合同条件"
+      },
+      {
+        "title": "2025年度报告",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0325/2026032502087_c.pdf",
+        "period": "2025FY",
+        "pages": "研发和许可收入"
+      },
+      {
+        "title": "HRS-1596诺和诺德授权公告",
+        "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12625310&stockid=600276",
+        "period": "2026-09-29",
+        "pages": "公告正文"
+      }
+    ]
+  },
+  {
+    "id": "consun",
+    "name": "康臣药业",
+    "codes": [
+      "1681.HK"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 17.84688,
+      "parentProfitYi": 5.95309,
+      "adjustedProfitYi": null,
+      "ocfYi": 7.81438,
+      "cashCapexYi": null,
+      "cashAndEquivalentsYi": 12.68932,
+      "currency": "CNY",
+      "sharesYi": 8.38
+    },
+    "eps": {
+      "annual": 1.27,
+      "ttm": 1.4,
+      "normalized": 1.3,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "TTM按约10.78-4.98299+5.95309=11.7501亿元/8.38亿股约1.40元；正常化1.30低于TTM，涵盖优惠税率退出及现金增长中部分账期因素。EPS均人民币，报价港币由合并表统一转换。"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.1,
+          "g1": 0,
+          "g2": 0.01,
+          "payout": 0.4,
+          "exit_pe": 7
+        },
+        "base": {
+          "eps0": 1.3,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.5,
+          "exit_pe": 9
+        },
+        "bull": {
+          "eps0": 1.4,
+          "g1": 0.1,
+          "g2": 0.06,
+          "payout": 0.5,
+          "exit_pe": 12
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准产品销量7%与净价-1%合成收入6%，税率按14%—18%正常化、利润率不再依赖原料降价，对应EPS6%/4%；悲观医保净价下调和替代使EPS0%/1%；乐观肾科组合渗透支撑10%/6%。50%纯现金派息，不加回购收益；特别现金余额不再另加，避免与持续利息收益重复。"
+    },
+    "evidenceGap": "缺单品销量净价、医保续约、核心临床结局以及上海华茂投后回报；若两期核心系列量价同时下降或税率继续上行，重做正常化。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "肾科及药品渠道可复用",
+        "counter": "玉林等小品类增长并不均衡",
+        "monitor": "分部现金贡献",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "存疑",
+        "support": "持续派息回购及披露",
+        "counter": "主席兼CEO、控制集中且有外部股权投资",
+        "monitor": "关联、接班与投资用途",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "存疑",
+        "support": "细分品牌和医院渠道有优势",
+        "counter": "临床结局、医保与跨疗法替代对壁垒强度构成真实疑点",
+        "monitor": "核心品量价及高质量临床证据",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "内地占99%以上，业务边界明确",
+        "counter": "海外注册不构成实质收入支柱",
+        "monitor": "不计海外未兑现故事",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "肾科系列增长18.1%，渠道地位稳",
+        "counter": "替代治疗争夺预算但暂未出现份额崩坏",
+        "monitor": "医院覆盖与核心品销量",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "需求持续性",
+        "verdict": "通过",
+        "support": "慢病持续用药与老龄化",
+        "counter": "高患者基数不等于自费/医保无限扩张",
+        "monitor": "疗效与支付准入",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF7.81亿高于归母5.95亿、负债低",
+        "counter": "供应商账期延长与低税率退出",
+        "monitor": "营运资金、税率和现金兑现",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "通过",
+        "support": "分红及回购有执行，金融现金厚",
+        "counter": "上海华茂股权投入尚需验证",
+        "monitor": "非主业比例与分红覆盖",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "- 需求轴：慢性肾病患者管理需求持续；患者增长不自动转为公司产品用量。",
+      "- 利润池轴：品牌渠道支持高毛利，医保净价、循证证据与现代疗法限制长期提价。",
+      "- 范式风险：中：治疗指南变化和新疗法可能分流，但现有辅助用药未被证明全面淘汰。"
+    ],
+    "sources": [
+      {
+        "title": "2026中期业绩公告",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600201.pdf",
+        "period": "2026H1",
+        "pages": "1—4、11—12、19—20页"
+      },
+      {
+        "title": "2025年度报告",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042801743.pdf",
+        "period": "2025FY",
+        "pages": "年度财务及客户集中"
+      },
+      {
+        "title": "收购上海华茂30%股权公告",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0608/2026060800324.pdf",
+        "period": "2026-06",
+        "pages": "投资用途"
+      }
+    ]
+  },
+  {
+    "id": "dongee",
+    "name": "东阿阿胶",
+    "codes": [
+      "000423.SZ"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 31.551435,
+      "parentProfitYi": 8.603776,
+      "adjustedProfitYi": 8.198724,
+      "ocfYi": 0.815672586,
+      "cashCapexYi": 2.139107905,
+      "cashAndEquivalentsYi": 31.82179671,
+      "currency": "CNY",
+      "sharesYi": 6.42
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": 2.62,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "2025报表因同控合并有追溯，原加权EPS本轮不混算；正常化2.62沿用9月25日扣非底稿，未把2026H1报表1.34直接乘二。TTM报表EPS留空，避免重述与回购分母错配。"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 2.2,
+          "g1": -0.02,
+          "g2": 0,
+          "payout": 0.55,
+          "exit_pe": 11
+        },
+        "base": {
+          "eps0": 2.62,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.7,
+          "exit_pe": 14
+        },
+        "bull": {
+          "eps0": 2.8,
+          "g1": 0.07,
+          "g2": 0.04,
+          "payout": 0.85,
+          "exit_pe": 18
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准核心阿胶销量0%—2%、净价0%、衍生品小幅贡献使收入约3%，利润率近稳，EPS3%/2%；悲观核心量价退缩EPS-2%后持平；乐观年轻消费与复购改善使量价合成7%后4%。派息从旧85%降70%研究，仍必须有全年现金回款支撑，不能仅靠现金存量。"
+    },
+    "evidenceGap": "缺经销商真实库存、终端复购及应收回款桥；若全年现金转换仍低于70%且核心品不增，继续暂停，不因高股息改变结论。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "阿胶系列仍是核心",
+        "counter": "新健康品增长未证明利润和复购",
+        "monitor": "非阿胶分部现金利润",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "华润渠道去库存与高分红已有执行",
+        "counter": "2019渠道危机是历史反证，当前再次授信需盯",
+        "monitor": "动销、发货差和激励",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "老字号与高端阿胶心智",
+        "counter": "品牌不能阻止消费者改买其他滋补品",
+        "monitor": "终端真实售价/复购",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "国内市场为主且业务清楚",
+        "counter": "海外收入很小无全球成长证据",
+        "monitor": "不计海外增速",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "阿胶细分领先，未见本轮直接竞争份额持续下滑的证据",
+        "counter": "健康预算替代广、单品类领导不等于跨品类垄断",
+        "monitor": "替代品增长、价差和终端份额",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "需求持续性",
+        "verdict": "存疑",
+        "support": "女性健康及老龄客群存在",
+        "counter": "核心系列-0.45%，其他品类低基数撑收入",
+        "monitor": "核心系列动销及年轻客复购",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "存疑",
+        "support": "现金厚、银行借款小",
+        "counter": "OCF-91.56%、应收升、合同负债降",
+        "monitor": "全年OCF/利润及授信回收",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "通过",
+        "support": "高分红体现现金回报意愿",
+        "counter": "高分红暂依赖存量现金，产业园回报待证",
+        "monitor": "高分红连续性与园区投入",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "- 需求轴：老龄化与女性健康提供长期客群，滋补礼赠却可延后，核心系列H1收入未增长。",
+      "- 利润池轴：品牌在阿胶内有优势，广义健康消费预算竞争激烈；信用扩张可能提前确认需求。",
+      "- 范式风险：中低技术、较高消费认知风险：有效性认知和消费偏好改变会影响需求，不把医疗结论作投资事实。"
+    ],
+    "sources": [
+      {
+        "title": "2026半年度报告",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-21/1225484990.PDF",
+        "period": "2026H1",
+        "pages": "8、45、111页"
+      },
+      {
+        "title": "2026半年报深交所版本",
+        "url": "https://disc.static.szse.cn/disc/disk03/finalpage/2026-08-21/be0632b3-cab4-4274-8cb9-3d5b60ce7df0.PDF",
+        "period": "2026H1",
+        "pages": "资产负债及收入分部"
+      }
+    ]
+  },
+  {
+    "id": "gree",
+    "name": "格力电器",
+    "codes": [
+      "000651.SZ"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 893.975225,
+      "parentProfitYi": 132.775909,
+      "adjustedProfitYi": 127.066727,
+      "ocfYi": 188.08832392,
+      "cashCapexYi": 7.29888138,
+      "cashAndEquivalentsYi": 356.99553592,
+      "currency": "CNY",
+      "sharesYi": 55.99
+    },
+    "eps": {
+      "annual": null,
+      "ttm": 4.98,
+      "normalized": 4.7,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "报表TTM约4.98元沿用9月13日财务桥，正常化降至4.70，反映2025与2026H1连续利润下行；回购不再假设额外2%每股增益。"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 4.1,
+          "g1": -0.03,
+          "g2": -0.01,
+          "payout": 0.5,
+          "exit_pe": 6
+        },
+        "base": {
+          "eps0": 4.7,
+          "g1": 0,
+          "g2": 0.01,
+          "payout": 0.6,
+          "exit_pe": 8
+        },
+        "bull": {
+          "eps0": 5,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.65,
+          "exit_pe": 10
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准空调收入低个位数波动、出口恢复仅抵消国内压力，利润率近稳，EPS前五年0%、后五年1%；悲观销量与价格分别-2%/-1%使EPS-3%，后段-1%；乐观出口恢复加高端结构带来3%/2%。基准60%纯现金payout，不把回购和员工持股现金再次累加。"
+    },
+    "evidenceGap": "缺财务公司与受限资金穿透后的滚动现金桥及接班约束；若内销收入和份额双降、分红率跌破40%且新增投资低回报，重新审查是否降C。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "空调与核心零部件技术协同",
+        "counter": "无关多元化未形成有效利润柱",
+        "monitor": "非空调资本回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "存疑",
+        "support": "长期研发分红、回购有记录",
+        "counter": "董事长兼总裁及接班、员工激励定价约束",
+        "monitor": "接班、回购注销比例",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "品牌技术规模和售后仍形成优势",
+        "counter": "缺少高转换成本，提价受竞品约束",
+        "monitor": "零售溢价与产品质量",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "存疑",
+        "support": "出口已有基础且自主品牌提升",
+        "counter": "外销-21.98%，海外经营明显落后",
+        "monitor": "海外份额和净利润",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "存疑",
+        "support": "国内家用商用空调地位强",
+        "counter": "竞品更均衡，低端价格战与线上份额压力",
+        "monitor": "份额是否连续下滑",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "需求持续性",
+        "verdict": "通过",
+        "support": "巨大存量更新与能效需求持久",
+        "counter": "地产弱、补贴提前消费，增长天花板低",
+        "monitor": "更新量与补贴后零售",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "现金转换长期尚可且净金融资产有缓冲",
+        "counter": "金融现金须扣受限与债，OCF含释放",
+        "monitor": "剔受限资金OCF和净债",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "通过",
+        "support": "纯现金派息与已注销回购有执行",
+        "counter": "未注销员工持股回购不能当分红",
+        "monitor": "现金payout及无关投资",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "- 需求轴：更新需求长期存在，H1行业内销和出口下降，补贴退坡与地产弱压制新增。",
+      "- 利润池轴：寡头格局仍在，美的、海尔及小米的价格/渠道竞争削弱溢价，原料涨价制约。",
+      "- 范式风险：中低：空调功能不会消失，渠道数字化与全屋方案可能改变市场份额。"
+    ],
+    "sources": [
+      {
+        "title": "2026半年度报告",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225515004.PDF",
+        "period": "2026H1",
+        "pages": "6、9—10、60—61页"
+      },
+      {
+        "title": "2025年度报告",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-04-29/1225250396.PDF",
+        "period": "2025FY",
+        "pages": "受限现金与现金流"
+      }
+    ]
+  },
+  {
+    "id": "wanhua",
+    "name": "万华化学",
+    "codes": [
+      "600309.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 1193.158638,
+      "parentProfitYi": 100.629635,
+      "adjustedProfitYi": 96.762936,
+      "ocfYi": 117.8414104,
+      "cashCapexYi": 107.4,
+      "cashAndEquivalentsYi": 408.0625993,
+      "currency": "CNY",
+      "sharesYi": 31.34
+    },
+    "eps": {
+      "annual": null,
+      "ttm": 5.26,
+      "normalized": 4.3,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "报表TTM约5.26含2026供给扰动和价差红利；正常化4.30低于旧4.50，不能把H1 EPS3.21直接乘二作为起点。"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 3.0,
+          "g1": -0.01,
+          "g2": 0.01,
+          "payout": 0.25,
+          "exit_pe": 9
+        },
+        "base": {
+          "eps0": 4.3,
+          "g1": 0.04,
+          "g2": 0.03,
+          "payout": 0.3,
+          "exit_pe": 12
+        },
+        "bull": {
+          "eps0": 5.2,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.35,
+          "exit_pe": 16
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准有效产销量约5%、正常价差小幅回落与融资稀释约-1%，EPS4%/3%；悲观量增抵不了价差压缩，EPS-1%后1%；乐观新项目利用率提升且价差稳定EPS8%/5%。30%派息仍需CAPEX回落或现金释放，不能用未来借款支持股息。"
+    },
+    "evidenceGap": "缺全集团净债/到期、少数现金、分部ROIC及项目资本承诺桥；两期正自由现金流、短债收缩且新增项目高于资本成本后可重新进入主动研究。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "园区原料、公用工程及研发共享",
+        "counter": "协同不保证每个石化项目有回报",
+        "monitor": "分部投入资本利润",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "工程师文化及研发费用化",
+        "counter": "国资和历史优秀不等于扩张免审",
+        "monitor": "关联交易和安全披露",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "MDI技术、全球规模成本优势",
+        "counter": "成本护城河不能控制全球售价",
+        "monitor": "单吨价差与成本优势",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "海外经营和宝思德有实际资产收益",
+        "counter": "能源、贸易和汇率影响利润",
+        "monitor": "海外负荷与现金回款",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "MDI成本和全球份额优势未见实质失守",
+        "counter": "石化充分竞争，海外供给恢复会压价，不能只估MDI",
+        "monitor": "集团分部毛利、份额及竞争扩产",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "需求持续性",
+        "verdict": "通过",
+        "support": "多下游需求和材料升级",
+        "counter": "地产与全球工业周期压制增速",
+        "monitor": "真实销量而非现货价格",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "存疑",
+        "support": "H1 OCF高于归母且现金增加",
+        "counter": "短借604.87亿、流动比率约0.72，FCF很薄",
+        "monitor": "短债到期与压力流动性",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "MDI历史扩张有成功记录",
+        "counter": "CAPEX吞现金、融资费用大增，新项目ROIC未证",
+        "monitor": "新增产能批次ROIC/净债",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "- 需求轴：冷链、节能和汽车有结构需求，地产家居弱；本期海外供给扰动抬价不代表十年需求加速。",
+      "- 利润池轴：MDI较普通化工集中，石化板块充分竞争且毛利低，集团利润池质量被资本权重稀释。",
+      "- 范式风险：中：材料替代和工艺降本需持续研发；最大的永久损失路径是重资产低回报叠加融资。"
+    ],
+    "sources": [
+      {
+        "title": "2026半年度报告",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-25/1225497561.PDF",
+        "period": "2026H1",
+        "pages": "6、8—11、44—46页"
+      },
+      {
+        "title": "烟台乙烯二期检修公告",
+        "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12632321&stockid=600309",
+        "period": "2026-10-09",
+        "pages": "公告正文"
+      }
+    ]
+  },
+  {
+    "id": "yangnong",
+    "name": "扬农化工",
+    "codes": [
+      "600486.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 66.058774,
+      "parentProfitYi": 7.898379,
+      "adjustedProfitYi": 7.875453,
+      "ocfYi": 14.38765505,
+      "cashCapexYi": 3.10340205,
+      "cashAndEquivalentsYi": 10.95154569,
+      "currency": "CNY",
+      "sharesYi": 4.04111938
+    },
+    "eps": {
+      "annual": null,
+      "ttm": 3.14,
+      "normalized": 3.25,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "TTM报表约3.14元；正常化3.25介于五年中位约3.18和均值约3.50，不拿2022周期高点；较旧3.35小幅收紧。"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 2.8,
+          "g1": 0,
+          "g2": 0.01,
+          "payout": 0.25,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 3.25,
+          "g1": 0.05,
+          "g2": 0.03,
+          "payout": 0.3,
+          "exit_pe": 13
+        },
+        "bull": {
+          "eps0": 3.5,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.35,
+          "exit_pe": 17
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准销量5%—6%、净价-1%至0%、利润率近稳对应EPS5%后3%；悲观量增被产品价差/原料上升抵消EPS0%/1%；乐观优创利用率与良率改善，量增6%加利润率2%支撑8%/5%。30%派息与剩余现金再投资一致，但新增资本ROIC仍需实证。"
+    },
+    "evidenceGap": "补优创分批投产、占用资本和净现金回收，以及集团财务公司压力提取证据；量增而ROIC继续走低时下调资本配置评级。",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "农药研发中间体原药制剂协同",
+        "counter": "品种扩张增加装置复杂度",
+        "monitor": "各产线盈利与周转",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "存疑",
+        "support": "规范披露与国资体系约束",
+        "counter": "关联销售与集团财务公司敞口集中",
+        "monitor": "关联公允及存款提取",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "菊酯工艺链、HSE与认证",
+        "counter": "通用产品无自由提价能力",
+        "monitor": "客户续约与单位成本",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "跨国客户认证与出口有基础",
+        "counter": "汇率、贸易壁垒和登记风险",
+        "monitor": "出口毛利/回款",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "通过",
+        "support": "细分工艺和全链条较强",
+        "counter": "行业扩产使销量增长不必然增加利润",
+        "monitor": "原药价差与开工率",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "需求持续性",
+        "verdict": "通过",
+        "support": "农业与公共卫生使用场景稳定",
+        "counter": "农药去库存和环保替代",
+        "monitor": "真实终端用量与渠道",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "多年累计现金转换优秀，H1OCF14.39亿",
+        "counter": "本期OCF-16.69%，未来装置维护提高",
+        "monitor": "全年FCF和应收存货",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "优创可扩展高标准产能",
+        "counter": "一期预算34.78亿，H1净利率约6.7%偏低",
+        "monitor": "优创ROIC及成熟产线回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "- 需求轴：作物保护和卫生用药需求较稳，但客户去库存及种植经济性影响采购。",
+      "- 利润池轴：工艺和环保壁垒支持头部，行业新增产能压价，产品涨价还要扣原料成本与汇兑。",
+      "- 范式风险：中低：耐药性、新成分和登记要求决定产品迭代，需持续研发与合规资本。"
+    ],
+    "sources": [
+      {
+        "title": "2026半年度报告摘要",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-25/1225497232.PDF",
+        "period": "2026H1",
+        "pages": "2—4页"
+      },
+      {
+        "title": "2026半年报公司原文镜像",
+        "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12524087&stockid=600486",
+        "period": "2026H1",
+        "pages": "合并现金流、财务公司和子公司"
+      },
+      {
+        "title": "2025年度报告公司官网",
+        "url": "https://www.yangnongchem.com/yangnongchem/content_file/tzzgx/dqgg/2026/4/1e4328c5bbab4f059234b030134322ad.pdf",
+        "period": "2025FY",
+        "pages": "历史财务和资本开支"
+      }
+    ]
+  },
+  {
+    "id": "sanhua",
+    "name": "三花智控",
+    "codes": [
+      "002050.SZ"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 168.999726,
+      "parentProfitYi": 20.440646,
+      "adjustedProfitYi": 21.473186,
+      "ocfYi": 24.99553386,
+      "cashCapexYi": 13.67254161,
+      "cashAndEquivalentsYi": 119.10188975,
+      "currency": "CNY",
+      "sharesYi": 42.08013935
+    },
+    "eps": {
+      "annual": 1.03,
+      "ttm": 0.95,
+      "normalized": 0.98,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "2025归母40.6289亿元/报告加权股数对应EPS1.03；H1当前A/H总股本42.080亿，TTM归母约0.95、扣非约0.97；正常化0.98，不用旧37亿股分母抬高EPS。"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.85,
+          "g1": 0.02,
+          "g2": 0.02,
+          "payout": 0.3,
+          "exit_pe": 15
+        },
+        "base": {
+          "eps0": 0.98,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.35,
+          "exit_pe": 20
+        },
+        "bull": {
+          "eps0": 1.05,
+          "g1": 0.13,
+          "g2": 0.08,
+          "payout": 0.4,
+          "exit_pe": 28
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准暖通量2%、汽车部件量12%左右、净价-1%及结构提升，合成EPS8%后5%；悲观暖通与车企价格压力使EPS2%；乐观汽车集成和高效热泵放量、利润率稳对应13%后8%。未给机器人单独收入利润，若量产有证据应增设分部现金模型，不直接提高终值。"
+    },
+    "evidenceGap": "缺汽车模块与机器人分部真实订单、毛利和增量ROIC；若机器人量产投入显著扩大却无现金收入，先冻结再投资假设而非用远期大市场背书。",
+    "scope": "总部历史候选/监控池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "热管理共享流体控制与精密制造",
+        "counter": "机器人扩大资本和技术边界",
+        "monitor": "新业务独立投入回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "长期专注及研发披露",
+        "counter": "家族控制和激励稀释需约束",
+        "monitor": "关联、股权与激励条件",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "认证、工艺、可靠性和成本规模",
+        "counter": "客户可双供与集成方案替代",
+        "monitor": "定点份额及单位利润",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "全球客户和生产交付基础",
+        "counter": "贸易和本地工厂成本风险",
+        "monitor": "区域现金利润",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争地位",
+        "verdict": "存疑",
+        "support": "传统阀件细分地位强",
+        "counter": "车企年降和集成模块竞争削弱议价",
+        "monitor": "热管理毛利/单车价值",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "需求持续性",
+        "verdict": "通过",
+        "support": "电动化、节能及热泵有长期用途",
+        "counter": "暖通成熟、机器人需求未经量产验证",
+        "monitor": "现有业务增速与机器人收入现金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF+95.98%，大于归母且负债缓冲",
+        "counter": "股本扩大稀释EPS、汇兑与投资浮亏",
+        "monitor": "扣非每股与归母现金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "扩产围绕热管理有能力协同",
+        "counter": "机器人和海外项目ROIC未实证",
+        "monitor": "CAPEX、净现金和订单回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "- 需求轴：暖通存量更新稳、汽车热管理有增量，整车和家电周期也会拖累订单。",
+      "- 利润池轴：阀件规模优势稳，集成模块可能增收入但压毛利；车企年降要求很强。",
+      "- 范式风险：中：冷媒与热泵升级提供机会，集成架构变化与客户自制也可能压缩单件价值。机器人属于额外商业化待证。"
+    ],
+    "sources": [
+      {
+        "title": "2026半年度报告",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225514004.PDF",
+        "period": "2026H1",
+        "pages": "2、7—8、59—60页"
+      },
+      {
+        "title": "2025年度报告",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-03-24/1225026522.PDF",
+        "period": "2025FY",
+        "pages": "2、7—8页及现金流"
+      }
+    ]
+  },
+  {
+    "id": "cmb",
+    "name": "招商银行",
+    "codes": [
+      "600036.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 1781.81,
+      "parentProfitYi": 764.45,
+      "ocfYi": 3046.11,
+      "cashCapexYi": null,
+      "currency": "CNY",
+      "deductedProfitYi": 763.39,
+      "bps": 45.4,
+      "ordinaryRoe": 0.1342,
+      "commonEquityTier1": 0.1407
+    },
+    "eps": {
+      "annual": 5.7,
+      "ttm": 5.79,
+      "normalized": 5.448,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "年报5.70；TTM按FY25+H1 EPS差额为5.79，仅诊断，正式模型使用BPS×ROE"
+    },
+    "model": {
+      "type": "bank",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "bps0": 45.4,
+          "roe": 0.1,
+          "payout": 0.35,
+          "exit_pb": 0.75
+        },
+        "base": {
+          "bps0": 45.4,
+          "roe": 0.12,
+          "payout": 0.35,
+          "exit_pb": 1.0
+        },
+        "bull": {
+          "bps0": 45.4,
+          "roe": 0.135,
+          "payout": 0.4,
+          "exit_pb": 1.15
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "普通股期初账面资本滚动，非EPS×PE",
+      "auditGap": "普通股资本/RWA增长、OCI及信用压力桥未完成独立双源复核",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "evidenceGap": "普通股资本/RWA增长、OCI及信用压力桥未完成独立双源复核",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "金融业务围绕同一客户资产",
+        "counter": "综合经营增加穿透难度",
+        "monitor": "子公司资本回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "存疑",
+        "support": "现期报告经审阅、服务文化长期稳定",
+        "counter": "历史司法治理污点及行长交接",
+        "monitor": "监管处罚与风险偏好",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "低成本存款与财富客户体系",
+        "counter": "费率与利率受外部约束",
+        "monitor": "活期存款和存款成本",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "永隆与跨境服务有业务基础",
+        "counter": "国际利润不构成基准溢价",
+        "monitor": "境外风险回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "通过",
+        "support": "零售负债与风控相对优势",
+        "counter": "宁波等区域行效率竞争",
+        "monitor": "风险调整后同业ROE",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "存疑",
+        "support": "支付财富需求持续",
+        "counter": "居民加杠杆空间收窄、财富变现承压",
+        "monitor": "零售贷款与手续费",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "不良0.94%、资本和拨备缓冲",
+        "counter": "信用成本滞后且ROE下降",
+        "monitor": "生成率与普通股资本",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "通过",
+        "support": "持续分红并保留资本",
+        "counter": "低ROE环境留存效率降低",
+        "monitor": "新增RWA对应收益",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "[判断] 需求稳定；利润池恶化；范式风险中。低成本存款、财富客户关系是竞争基础，低利率与居民信用风险是结构约束。贷款量按低个位数扩张，息差不假设回到历史高位，ROE由13.42%下调至12%作为正常化基准。"
+    ],
+    "sources": [
+      {
+        "title": "招商银行2026半年报",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-28/1225531453.PDF",
+        "period": "2026H1",
+        "pages": "6—8、22—31"
+      },
+      {
+        "title": "招商银行官方定期报告目录",
+        "url": "https://www.cmbchina.com/cmbir/intro?type=report",
+        "period": "2026H1",
+        "pages": ""
+      }
+    ]
+  },
+  {
+    "id": "pingan",
+    "name": "中国平安",
+    "codes": [
+      "2318.HK",
+      "601318.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 5751.38,
+      "parentProfitYi": 925.85,
+      "ocfYi": 3680.37,
+      "cashCapexYi": null,
+      "currency": "CNY",
+      "deductedProfitYi": 877.12,
+      "operatingProfitYi": 841.96,
+      "sharesYi": 181.07641995
+    },
+    "eps": {
+      "annual": null,
+      "ttm": 8.8,
+      "normalized": 7.4,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "FY25归母1347.78亿；H1基本5.30、稀释4.60，年报基本EPS和TTM精确分母待核；旧TTM8.80仅诊断，normalized7.4专指全摊薄归母营运EPS"
+    },
+    "model": {
+      "type": "operating_eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 6.5,
+          "g1": -0.02,
+          "g2": 0,
+          "payout": 0.35,
+          "exit_pe": 4.5
+        },
+        "base": {
+          "eps0": 7.4,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.36,
+          "exit_pe": 6
+        },
+        "bull": {
+          "eps0": 8,
+          "g1": 0.05,
+          "g2": 0.03,
+          "payout": 0.4,
+          "exit_pe": 7.5
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "TTM归母营运1408.79亿÷190.4664亿潜在摊薄股本≈7.397；增长由寿险CSM释放与产险银行组合支持",
+      "auditGap": "寿险自由盈余、监管资本耗用与母公司上划现金桥未闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "evidenceGap": "寿险自由盈余、监管资本耗用与母公司上划现金桥未闭合",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "寿险财险银行围绕金融客户",
+        "counter": "医养扩张资本跨度扩大",
+        "monitor": "医养分部回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "分红制度化与公开资本披露",
+        "counter": "创始人关键人及复杂集团治理",
+        "monitor": "关联交易和管理传承",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "客户与渠道、综合服务基础",
+        "counter": "客户可购买不同险企产品",
+        "monitor": "有效代理人与续期",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "全球服务网络辅助客户",
+        "counter": "境外投资不等同海外经营护城河",
+        "monitor": "国别资产风险",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "通过",
+        "support": "品牌渠道与多产品触达",
+        "counter": "国寿太保友邦及银保竞争",
+        "monitor": "同口径NBV与获客成本",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "存疑",
+        "support": "养老医疗保障需求长存",
+        "counter": "保障需求疲弱与储蓄险渠道迁移",
+        "monitor": "新单价值和产品结构",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "存疑",
+        "support": "营运利润增长且偿付能力在监管线以上",
+        "counter": "长期利差与精算利润现金转化约束",
+        "monitor": "净投资收益与自由盈余",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "通过",
+        "support": "持续现金分红有长期记录",
+        "counter": "历史地产及非主业投资损失",
+        "monitor": "母公司可支配现金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "[判断] 需求结构增长；利润池稳定但承保与利差分化；范式风险中。保障养老的长期需求增加，分红险把部分投资波动转给客户，不能解除存量保证利率。以新单价值转化和资本约束决定利润，基准营运增长仅3%/2%。"
+    ],
+    "sources": [
+      {
+        "title": "中国平安2026中期报告",
+        "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12512669&stockid=601318",
+        "period": "2026H1",
+        "pages": "36—84"
+      },
+      {
+        "title": "平安官方中期业绩新闻稿",
+        "url": "https://group.pingan.com/media/news/2026/pingan-1h-26-results.html",
+        "period": "2026H1",
+        "pages": ""
+      },
+      {
+        "title": "中国平安2025年度摘要",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-03-27/1225038326.PDF",
+        "period": "2025FY",
+        "pages": "5"
+      }
+    ]
+  },
+  {
+    "id": "cypc",
+    "name": "长江电力",
+    "codes": [
+      "600900.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 379.2927,
+      "parentProfitYi": 147.5569,
+      "ocfYi": 241.2831,
+      "cashCapexYi": 44.3462,
+      "currency": "CNY",
+      "deductedProfitYi": 142.9403,
+      "cashYi": 93.7287,
+      "sharesYi": 244.682
+    },
+    "eps": {
+      "annual": 1.4101,
+      "ttm": 1.4796,
+      "normalized": 1.4,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "TTM约=1.4101+0.6031−0.5336，尚未纳入未公布Q3财务；Q3仅生产数据已纳入判断"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.25,
+          "g1": -0.01,
+          "g2": 0,
+          "payout": 0.7,
+          "exit_pe": 12
+        },
+        "base": {
+          "eps0": 1.4,
+          "g1": 0.025,
+          "g2": 0.015,
+          "payout": 0.7,
+          "exit_pe": 15
+        },
+        "bull": {
+          "eps0": 1.5,
+          "g1": 0.04,
+          "g2": 0.02,
+          "payout": 0.75,
+          "exit_pe": 17
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "常年来水与价格、降息减债支持低增长，Q3发电下滑阻止高增长外推",
+      "auditGap": "现金利息、维护/增长及抽蓄资本预算独立交叉桥未全闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "evidenceGap": "现金利息、维护/增长及抽蓄资本预算独立交叉桥未全闭合",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "大型水电与配售电聚焦",
+        "counter": "抽蓄扩张增加投入",
+        "monitor": "非水电资本预算",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "长期安全运营与明确分红规则",
+        "counter": "集团资产注入价需逐项验证",
+        "monitor": "注入估值和关联交易",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "流域与梯级稀缺资产",
+        "counter": "电价非自主、气候风险不能消除",
+        "monitor": "发电单价与调节收益",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "秘鲁等资产带来区域分散",
+        "counter": "当地监管汇率及融资风险",
+        "monitor": "境外股东现金回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "通过",
+        "support": "稀缺大水电进入壁垒",
+        "counter": "其他电源影响电价曲线",
+        "monitor": "区域售电价格",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "通过",
+        "support": "电力与调峰需求长存",
+        "counter": "需求不等于实际来水可发电量",
+        "monitor": "发电量及消纳",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "存疑",
+        "support": "长期OCF强",
+        "counter": "高杠杆、现金利息及新项目约束",
+        "monitor": "现金利息后分红覆盖",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "70%分红政策与降融资成本",
+        "counter": "抽蓄扩张资本回报未验证",
+        "monitor": "各项目权益回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "[判断] 需求稳定；利润池稳定；范式风险低至中。水电长期有需求，短期供给由来水决定，电价受合同/市场交易和政策约束。基准每股增速2.5%/1.5%，不把H1利润增速永久化。"
+    ],
+    "sources": [
+      {
+        "title": "长江电力2026半报",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-31/1225534923.PDF",
+        "period": "2026H1",
+        "pages": "6—11、55"
+      },
+      {
+        "title": "长江电力Q3发电公告",
+        "url": "https://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-13/600900_20261013_6A5G.pdf",
+        "period": "2026Q3生产",
+        "pages": "1"
+      }
+    ]
+  },
+  {
+    "id": "cnooc",
+    "name": "中国海洋石油",
+    "codes": [
+      "0883.HK"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 2426.6,
+      "parentProfitYi": 858.18,
+      "ocfYi": 1416.31,
+      "cashCapexYi": null,
+      "currency": "CNY",
+      "deductedProfitYi": 857.33,
+      "projectCapexYi": 619.93,
+      "sharesYi": 475.27
+    },
+    "eps": {
+      "annual": 2.57,
+      "ttm": 2.91,
+      "normalized": 2.6,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "TTM2.91含油价高周期；正常2.6参考2025约68美元油价及中周期量成本"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.8,
+          "g1": 0,
+          "g2": -0.01,
+          "payout": 0.45,
+          "exit_pe": 5
+        },
+        "base": {
+          "eps0": 2.6,
+          "g1": 0.03,
+          "g2": 0.01,
+          "payout": 0.45,
+          "exit_pe": 7
+        },
+        "bull": {
+          "eps0": 3.2,
+          "g1": 0.04,
+          "g2": 0.02,
+          "payout": 0.5,
+          "exit_pe": 8
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "油价55/68—70/80美元，储量替换和产量增长决定EPS路径",
+      "auditGap": "项目Capex与现金Capex差额、退役义务及独立资源NAV未全部闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "evidenceGap": "项目Capex与现金Capex差额、退役义务及独立资源NAV未全部闭合",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "上游油气聚焦",
+        "counter": "新能源资本开支须限制边界",
+        "monitor": "非油气预算",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "公开产量成本与股息规则",
+        "counter": "控股集团交易及国策任务",
+        "monitor": "关联采购及资源注入",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "低成本与海上开发能力",
+        "counter": "优势不提供售价定价权",
+        "monitor": "单位成本和储量替换",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "全球优质油气项目真实贡献",
+        "counter": "国别税制和合作权益风险",
+        "monitor": "权益产量与国别现金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "通过",
+        "support": "成本在全球上游有竞争力",
+        "counter": "OPEC等供给改变价格",
+        "monitor": "中周期桶油现金利润",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "存疑",
+        "support": "能源十年仍有大量需求",
+        "counter": "石油需求增量与能源转型不确定",
+        "monitor": "产品需求和价格中枢",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF强、资产负债保守",
+        "counter": "油价回落令现金骤降",
+        "monitor": "中周期资本覆盖",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "分红与低成本扩产有记录",
+        "counter": "储量接续资本与新能源回报",
+        "monitor": "新项目全周期ROIC",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "海油官方中期业绩",
+        "url": "https://www.cnoocltd.com/english/presscenter/pressreleases/2026/202608/t20260826_122439.html",
+        "period": "2026H1",
+        "pages": ""
+      },
+      {
+        "title": "海油中报原文镜像",
+        "url": "https://wap.stockstar.com/detail/SN2026082600049731",
+        "period": "2026H1",
+        "pages": "9、13、26—28"
+      }
+    ]
+  },
+  {
+    "id": "crland",
+    "name": "华润置地",
+    "codes": [
+      "1109.HK"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 678.693,
+      "parentProfitYi": 98.417,
+      "ocfYi": null,
+      "cashCapexYi": null,
+      "currency": "CNY",
+      "coreProfitYi": 101.6,
+      "recurringCoreProfitYi": 66.5,
+      "cashYi": 989.1,
+      "debtYi": 2711.8,
+      "netDebtYi": 1722.7,
+      "sharesYi": 71.30939579
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": null,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "H1报表EPS1.38、核心1.42；开发交付和重估使机械年化/TTM不能替代分部NAV"
+    },
+    "model": {
+      "type": "not_priced",
+      "inputCurrency": "CNY",
+      "formalAllowed": false,
+      "cases": {
+        "bear": {
+          "developmentNavHaircut": 0.3,
+          "mallNoiGrowth": -0.05,
+          "capRate": 0.06,
+          "managementGrowth": 0
+        },
+        "base": {
+          "developmentNavHaircut": 0.15,
+          "mallNoiGrowth": 0.03,
+          "capRate": 0.05,
+          "managementGrowth": 0.05
+        },
+        "bull": {
+          "developmentNavHaircut": 0.05,
+          "mallNoiGrowth": 0.06,
+          "capRate": 0.045,
+          "managementGrowth": 0.08
+        }
+      },
+      "assumptionBasis": "开发/商业/轻资产分别估计，项目债只扣一次",
+      "auditGap": "分部NOI、维护、项目权益净债及交付现金桥未齐，无法定价"
+    },
+    "evidenceGap": "分部NOI、维护、项目权益净债及交付现金桥未齐，无法定价",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "三条业务围绕不动产运营",
+        "counter": "开发与商业现金机制不同",
+        "monitor": "业务现金互相占用",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "公开债务、融资与分部披露",
+        "counter": "集团关联、合营穿透复杂",
+        "monitor": "关联交易与少数权益",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "优质商场区位运营及融资能力",
+        "counter": "开发品牌不能提供永久提价权",
+        "monitor": "商业同店租金和招商",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "境内城市运营是主业",
+        "counter": "未验证独立国际利润池",
+        "monitor": "境外资本投向",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "通过",
+        "support": "商业平台与低融资成本相对强",
+        "counter": "房地产下行淘汰与龙头拿地竞争",
+        "monitor": "商业及开发相对回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "存疑",
+        "support": "商业消费者和商户需求长存",
+        "counter": "开发需求结构下降且高端消费受压",
+        "monitor": "销售去化与同店NOI",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "存疑",
+        "support": "融资渠道与经常性利润改善",
+        "counter": "库存、受限现金与合营债穿透约束",
+        "monitor": "开发现金缺口/债务到期",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "通过",
+        "support": "提高经常性利润比重",
+        "counter": "拿地可能吞噬转型成果",
+        "monitor": "商业现金与新增拿地",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "华润置地2026中期业绩",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100127.pdf",
+        "period": "2026H1",
+        "pages": "1—2、11—15、28—32"
+      },
+      {
+        "title": "华润置地2025年报",
+        "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042800938_c.pdf",
+        "period": "2025FY",
+        "pages": ""
+      },
+      {
+        "title": "观点网转述华润9月营运数据（辅助、未取得官方PDF）",
+        "url": "https://www.guandian.cn/m/show/612660",
+        "period": "2026-09/9M经营",
+        "pages": ""
+      }
+    ]
+  },
+  {
+    "id": "weixing",
+    "name": "伟星新材",
+    "codes": [
+      "002372.SZ"
+    ],
+    "grade": "C",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 18.966962343,
+      "parentProfitYi": 3.9000838782,
+      "ocfYi": 4.0732577331,
+      "cashCapexYi": 1.1286927971,
+      "currency": "CNY",
+      "deductedProfitYi": 2.1541602614,
+      "cashYi": 10.7248648623,
+      "acquisitionCashYi": 0.4793904874,
+      "sharesYi": 15.9
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": 0.45,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "年报/TTM尚未完成同股本回算；H1基本EPS0.25含非经常，正常EPS0.45为主业研究假设"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.35,
+          "g1": -0.03,
+          "g2": -0.01,
+          "payout": 0.55,
+          "exit_pe": 9
+        },
+        "base": {
+          "eps0": 0.45,
+          "g1": 0,
+          "g2": 0,
+          "payout": 0.6,
+          "exit_pe": 12
+        },
+        "bull": {
+          "eps0": 0.55,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.65,
+          "exit_pe": 14
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "主业扣非与房屋装修总量为锚；C类情景不得作正式买点",
+      "auditGap": "C类质量门未通过；维持/增长、并购回报和股本桥未完全核定",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "evidenceGap": "C类质量门未通过；维持/增长、并购回报和股本桥未完全核定",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "管道与家装同心圆",
+        "counter": "防水净水并购跨度扩大",
+        "monitor": "同心圆现金回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "管理稳定、风险控制文化",
+        "counter": "基金投资带来主业外利润",
+        "monitor": "非主营投资上限",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "存疑",
+        "support": "高端零售品牌和售后",
+        "counter": "核心利润下降证明溢价受需求约束",
+        "monitor": "零售单价和客诉",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "境外收入增长",
+        "counter": "占比较小、并购协同未证",
+        "monitor": "境外净现金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "存疑",
+        "support": "零售毛利和渠道优于普通工程厂",
+        "counter": "行业缩量竞争侵蚀现金利润",
+        "monitor": "价格/份额/渠道库存",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "存疑",
+        "support": "旧改需求持续",
+        "counter": "新房装修需求结构下降",
+        "monitor": "零售订单与终端动销",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "现金与低负债支持压力期",
+        "counter": "OCF同比下降且非经常占比高",
+        "monitor": "扣非现金与受限资金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "通过",
+        "support": "经营聚焦与历史分红",
+        "counter": "基金及并购回报仍需后验核验",
+        "monitor": "每股经营现金增长",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "[判断] 需求结构下降（新房装修）、旧改部分托底；利润池恶化；范式风险中。PPR高端零售不是全部塑料管道，行业总量下降不能机械等同公司份额下降；但收入和核心利润下降是真实反证。基准不预设房屋周期自动恢复。"
+    ],
+    "sources": [
+      {
+        "title": "伟星2026半报",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-07/1225462208.PDF",
+        "period": "2026H1",
+        "pages": "6—14、43、91"
+      },
+      {
+        "title": "伟星官方定期报告目录",
+        "url": "https://www.vasen.com/invest/notice/32/1",
+        "period": "2026H1",
+        "pages": ""
+      }
+    ]
+  },
+  {
+    "id": "yiwu",
+    "name": "小商品城",
+    "codes": [
+      "600415.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 102.8154298,
+      "parentProfitYi": 19.7920021,
+      "ocfYi": -1.28795078,
+      "cashCapexYi": 35.41926484,
+      "currency": "CNY",
+      "deductedProfitYi": 18.23153383,
+      "cashYi": 33.59496577,
+      "restrictedClientFundsYi": 6.56792051,
+      "sharesYi": 54.8356
+    },
+    "eps": {
+      "annual": 0.7666,
+      "ttm": 0.8191,
+      "normalized": 0.65,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "annual/ttm继承20260924同股本勾稽；normalized为全公司谨慎预算，非核心生态单独估值"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.5,
+          "g1": 0,
+          "g2": 0,
+          "payout": 0.45,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 0.65,
+          "g1": 0.04,
+          "g2": 0.025,
+          "payout": 0.55,
+          "exit_pe": 12
+        },
+        "bull": {
+          "eps0": 0.8,
+          "g1": 0.07,
+          "g2": 0.04,
+          "payout": 0.6,
+          "exit_pe": 14
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "市场租金低增、自营贸易与支付增长有资本占用；统一全公司边界",
+      "auditGap": "数贸和自营贸易现金桥、潜在新股摊薄与独立资产DCF尚未全部通过",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "evidenceGap": "数贸和自营贸易现金桥、潜在新股摊薄与独立资产DCF尚未全部通过",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "市场贸易支付围绕商户",
+        "counter": "自营贸易与地产扩张分散现金",
+        "monitor": "非核心占用",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "国有市场平台持续披露",
+        "counter": "关联与受限股权资金复杂",
+        "monitor": "关联金融与冻结资产",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "义乌产业集群与交易网络",
+        "counter": "电商直接链接可能分流",
+        "monitor": "商位使用与收费率",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "服务全球采购",
+        "counter": "交易额非海外利润",
+        "monitor": "境外归母现金贡献",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "通过",
+        "support": "独特市场集聚与本地配套",
+        "counter": "线上平台竞争不弱",
+        "monitor": "商户留存与资本回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "通过",
+        "support": "跨境商品交易长期存在",
+        "counter": "贸易壁垒与小商品利润薄",
+        "monitor": "成交及实际服务费",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "存疑",
+        "support": "主业盈利、现金资产存在",
+        "counter": "预付增长及OCF转负、备付金限制",
+        "monitor": "采购预付账龄和回款",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "数贸与支付具协同",
+        "counter": "大额建设和自营采购回报待兑现",
+        "monitor": "项目现金回收",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "小商品城2026半年报原文镜像",
+        "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12534366&stockid=600415",
+        "period": "2026H1",
+        "pages": "6—8、现金流量表、99"
+      },
+      {
+        "title": "法定披露PDF",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-26/1225502903.PDF",
+        "period": "2026H1",
+        "pages": "6—8、99"
+      }
+    ]
+  },
+  {
+    "id": "focus",
+    "name": "分众传媒",
+    "codes": [
+      "002027.SZ"
+    ],
+    "grade": "C",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 59.91375629,
+      "parentProfitYi": 31.28055743,
+      "ocfYi": 44.53428032,
+      "cashCapexYi": 4.92259248,
+      "currency": "CNY",
+      "deductedProfitYi": 22.90530695,
+      "cashEquivalentYi": 40.18957793,
+      "proFormaSharesYi": 159.07
+    },
+    "eps": {
+      "annual": null,
+      "ttm": 0.236,
+      "normalized": 0.292,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "TTM旧股本0.236为诊断；正常0.292=备考归母46.5亿/159.07亿股，不能混分母"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.24,
+          "g1": -0.02,
+          "g2": 0,
+          "payout": 0.65,
+          "exit_pe": 9
+        },
+        "base": {
+          "eps0": 0.292,
+          "g1": 0,
+          "g2": 0,
+          "payout": 0.75,
+          "exit_pe": 12
+        },
+        "bull": {
+          "eps0": 0.34,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.8,
+          "exit_pe": 14
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "备考口径；最新反垄断条件取消并购提价假设，现金租赁必须扣除",
+      "auditGap": "C类质量门；最终交易股本与现金、租赁后长期FCFE及独立DCF未闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "evidenceGap": "C类质量门；最终交易股本与现金、租赁后长期FCFE及独立DCF未闭合",
+    "scope": "主平台当前池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "楼宇媒体聚焦",
+        "counter": "历史财务投资偏离主业",
+        "monitor": "非主业资本投入",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "公开并购与分配披露",
+        "counter": "关联交易和控股治理仍需监督",
+        "monitor": "交易完成条件",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "存疑",
+        "support": "SAMR确认规模网络壁垒",
+        "counter": "放弃独家/自动续约改变壁垒保护",
+        "monitor": "去独家续约与点位回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "境外已有媒体",
+        "counter": "规模小且单点回报未证明",
+        "monitor": "境外现金回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "通过",
+        "support": "合计55—60%市场地位明确",
+        "counter": "监管约束与线上媒介竞争",
+        "monitor": "份额与成交价",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "存疑",
+        "support": "品牌触达场景仍有需求",
+        "counter": "扣非-7.06%且预算向线上分流",
+        "monitor": "客户续投和实际成交价",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "经营收现强且现金资产充足",
+        "counter": "租赁现金显著低于表观OCF",
+        "monitor": "扣租赁现金与应收",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "历史高现金分配",
+        "counter": "并购稀释商誉及资本效率风险",
+        "monitor": "备考每股现金与股息",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [
+      "[判断] 需求稳定偏结构分流；利润池恶化；范式风险中偏高。电梯广告是独立媒介但受线上广告预算分流，集中度提升不等于价格自由。未来收入来自有效点位、上刊率与成交价，基准不给并购提价红利。"
+    ],
+    "sources": [
+      {
+        "title": "分众2026中报",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-19/1225480000.PDF",
+        "period": "2026H1",
+        "pages": "7、54、137"
+      },
+      {
+        "title": "SAMR分众新潮附条件批准",
+        "url": "https://www.samr.gov.cn/fldes/tzgg/ftj/art/2026/art_cffe3e9d01cd496e9a4223f2bc88310e.html",
+        "period": "2026-10-10",
+        "pages": ""
+      },
+      {
+        "title": "分众备考财报",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-28/1225522834.PDF",
+        "period": "2025FY/2026Q1备考",
+        "pages": ""
+      }
+    ]
+  },
+  {
+    "id": "shenhua",
+    "name": "中国神华",
+    "codes": [
+      "601088.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 1893.38,
+      "parentProfitYi": 287.15,
+      "ocfYi": 546.64,
+      "cashCapexYi": null,
+      "currency": "CNY",
+      "deductedProfitYi": 268.95,
+      "projectCapexYi": 232.9,
+      "cashEquivalentYi": 516.73,
+      "debtYi": 1576.28,
+      "leaseDebtYi": 12.13,
+      "sharesYi": 216.89434304
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": 2.6,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "新股本与同控重述打断旧EPS可比，年报/TTM待新范围统一，H1披露1.339不直接年化"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 2.1,
+          "g1": -0.02,
+          "g2": -0.01,
+          "payout": 0.65,
+          "exit_pe": 8
+        },
+        "base": {
+          "eps0": 2.6,
+          "g1": 0.01,
+          "g2": 0,
+          "payout": 0.65,
+          "exit_pe": 10
+        },
+        "bull": {
+          "eps0": 3.1,
+          "g1": 0.02,
+          "g2": 0.01,
+          "payout": 0.7,
+          "exit_pe": 11
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "中周期煤价和煤电运一体化；股本已采用注入后口径",
+      "auditGap": "关联注入的现金对价、项目Capex与现金支付及中周期资源NAV桥未全核",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "evidenceGap": "关联注入的现金对价、项目Capex与现金支付及中周期资源NAV桥未全核",
+    "scope": "总部历史候选/监控池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "煤电运化一体化",
+        "counter": "煤化工扩大资本跨度",
+        "monitor": "分部投入回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "公开关联重组与股息",
+        "counter": "控股股东关联交易复杂",
+        "monitor": "注入承诺履约",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "优质煤矿和自有运输",
+        "counter": "煤价仍受外部市场决定",
+        "monitor": "自产成本与物流利用",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "有境外业务",
+        "counter": "国内为主不做国际溢价",
+        "monitor": "海外资本回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "通过",
+        "support": "低成本一体化相对优势",
+        "counter": "煤电新能源竞争与政策价",
+        "monitor": "同业中周期利润",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "存疑",
+        "support": "煤电十年仍有需求",
+        "counter": "新能源替代与煤需求峰值",
+        "monitor": "长协量及电厂利用",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF和现金储备较强",
+        "counter": "重组后负债上升显著",
+        "monitor": "中周期净债与利息",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "长期分红记录",
+        "counter": "大额关联注入与资本开支回报",
+        "monitor": "新合并每股FCFE",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "神华2026半年报摘要",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225531754.PDF",
+        "period": "2026H1",
+        "pages": "2—3"
+      },
+      {
+        "title": "神华半年报原文镜像",
+        "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12572344&stockid=601088",
+        "period": "2026H1",
+        "pages": "资本开支计划、现金流附注47、合并范围"
+      },
+      {
+        "title": "神华官方半年度业绩说明会记录",
+        "url": "https://www.cnfin.com/announ/detail/index.html?announ=lc&code=601088&dannoun=lcdetail&id=843320205380",
+        "period": "2026-09-04",
+        "pages": ""
+      },
+      {
+        "title": "神华2026年9月运营公告原文",
+        "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12641838&stockid=601088",
+        "period": "2026-09/9M经营",
+        "pages": "1"
+      }
+    ]
+  },
+  {
+    "id": "zijin",
+    "name": "紫金矿业",
+    "codes": [
+      "601899.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 1941.7845863,
+      "parentProfitYi": 391.69807243,
+      "ocfYi": 554.71692934,
+      "cashCapexYi": 129.42927636,
+      "currency": "CNY",
+      "deductedProfitYi": 380.34770076,
+      "minorityProfitYi": 106.42885773,
+      "fullyDilutedSharesResearchYi": 276
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": 2.1,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "H1基本1.473、稀释1.434；FY25归母517.77亿已在旧稿，TTM因股本/稀释未重构不给精确值"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.45,
+          "g1": 0.02,
+          "g2": 0,
+          "payout": 0.25,
+          "exit_pe": 8
+        },
+        "base": {
+          "eps0": 2.1,
+          "g1": 0.06,
+          "g2": 0.03,
+          "payout": 0.3,
+          "exit_pe": 10
+        },
+        "bull": {
+          "eps0": 2.7,
+          "g1": 0.08,
+          "g2": 0.04,
+          "payout": 0.35,
+          "exit_pe": 12
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "按中周期金铜价格和权益产量扩张推导，每股盈利不是H1×2",
+      "auditGap": "分矿母少数现金、储量替换/并购及全摊薄资本结构、资源NAV交叉未闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "evidenceGap": "分矿母少数现金、储量替换/并购及全摊薄资本结构、资源NAV交叉未闭合",
+    "scope": "总部历史候选/监控池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "金铜锂资源主线清楚",
+        "counter": "多矿种增加管理跨度",
+        "monitor": "非核心投资",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "工程管理长期有成绩",
+        "counter": "国别治理与ESG事件尾部",
+        "monitor": "安全环保及少数权益",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "低品位开发与资源工程能力",
+        "counter": "商品受价、优势依赖人才体系",
+        "monitor": "单位成本和品位",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "通过",
+        "support": "全球项目真实产量利润",
+        "counter": "税制制裁及汇率不可均摊",
+        "monitor": "国别权益现金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "通过",
+        "support": "全球资源组合与项目交付",
+        "counter": "同业争抢优质资源抬价",
+        "monitor": "并购资源成本",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "存疑",
+        "support": "电网及电动化支持铜需求",
+        "counter": "金价金融周期与经济敏感",
+        "monitor": "中周期金铜价与真实用量",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "OCF强、资产负债率改善",
+        "counter": "少数和资本接续消耗现金",
+        "monitor": "归母FCFE与融资",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "逆周期并购有历史能力",
+        "counter": "高景气再并购及稀释风险",
+        "monitor": "单位投资与每股现金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "紫金2026中报",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-22/1225550244.PDF",
+        "period": "2026H1",
+        "pages": "6—7、45、49"
+      },
+      {
+        "title": "紫金官方季度报告目录",
+        "url": "https://www.zjky.cn/investor/quarter-report.jsp",
+        "period": "2026-10-19查核",
+        "pages": ""
+      },
+      {
+        "title": "紫金官方半年报告目录",
+        "url": "https://www.zjky.cn/investor/half-report.jsp",
+        "period": "2026H1",
+        "pages": ""
+      }
+    ]
+  },
+  {
+    "id": "ninghu",
+    "name": "宁沪高速",
+    "codes": [
+      "600377.SH"
+    ],
+    "grade": "B",
+    "latestPeriod": "2026H1",
+    "metrics": {
+      "revenueYi": 92.93099244,
+      "parentProfitYi": 25.03328666,
+      "ocfYi": 36.02918234,
+      "cashCapexYi": 41.46551886,
+      "currency": "CNY",
+      "deductedProfitYi": 24.87807127,
+      "cashEquivalentYi": 16.34742775,
+      "sharesYi": 50.377475
+    },
+    "eps": {
+      "annual": null,
+      "ttm": null,
+      "normalized": 0.95,
+      "forecast": null,
+      "currency": "CNY",
+      "basis": "H1基本0.4969；全年/TTM未逐路和投资收益正常化，0.95为研究基准"
+    },
+    "model": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.8,
+          "g1": -0.01,
+          "g2": -0.02,
+          "payout": 0.6,
+          "exit_pe": 6
+        },
+        "base": {
+          "eps0": 0.95,
+          "g1": 0.01,
+          "g2": -0.01,
+          "payout": 0.65,
+          "exit_pe": 9
+        },
+        "bull": {
+          "eps0": 1.05,
+          "g1": 0.03,
+          "g2": 0.01,
+          "payout": 0.7,
+          "exit_pe": 11
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "有限路权低增长研究；PE仅市场退出敏感性，不能替代路权DCF",
+      "auditGap": "收费期限/续期批复、扩建资本/现金利息、参股股息及剩余期限DCF未闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "evidenceGap": "收费期限/续期批复、扩建资本/现金利息、参股股息及剩余期限DCF未闭合",
+    "scope": "总部历史候选/监控池",
+    "dimensions": [
+      {
+        "id": 1,
+        "name": "聚焦",
+        "verdict": "通过",
+        "support": "收费路桥主业清楚",
+        "counter": "地产新能源金融投资增加跨度",
+        "monitor": "非公路资本占用",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 2,
+        "name": "文化治理",
+        "verdict": "通过",
+        "support": "分红与路产披露较透明",
+        "counter": "集团关联注入需公允评估",
+        "monitor": "注入定价与关联债",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 3,
+        "name": "护城河",
+        "verdict": "通过",
+        "support": "核心区位和特许准入",
+        "counter": "路权有期限且平行路分流",
+        "monitor": "单路流量与剩余年限",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 4,
+        "name": "国际化",
+        "verdict": "中性",
+        "support": "本土路产无需全球经营",
+        "counter": "无独立海外增长锚",
+        "monitor": "境外投入若发生另评",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 5,
+        "name": "竞争格局",
+        "verdict": "通过",
+        "support": "苏南经济路网位置稀缺",
+        "counter": "替代路线与免费政策约束",
+        "monitor": "单位道路现金回报",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 6,
+        "name": "客户需求",
+        "verdict": "存疑",
+        "support": "出行物流长期存在",
+        "counter": "车流迁移和期限决定十年后现金",
+        "monitor": "分路车流及到期政策",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 7,
+        "name": "财务质量",
+        "verdict": "通过",
+        "support": "成熟路产OCF稳定",
+        "counter": "扩建资本支出超过当期OCF",
+        "monitor": "借款利息与成熟路现金",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      },
+      {
+        "id": 8,
+        "name": "资本配置",
+        "verdict": "存疑",
+        "support": "有持续派息与新路建设",
+        "counter": "扩建及多元投资回报不确定",
+        "monitor": "分项目IRR与有限期DCF",
+        "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+      }
+    ],
+    "businessAxes": [],
+    "sources": [
+      {
+        "title": "宁沪2026中报",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-08-28/1225519779.PDF",
+        "period": "2026H1",
+        "pages": "8、80—82、175、213"
+      },
+      {
+        "title": "宁沪2026中报摘要原文镜像",
+        "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12559477&stockid=600377",
+        "period": "2026H1",
+        "pages": ""
+      }
+    ]
+  }
+]

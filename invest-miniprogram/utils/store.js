@@ -384,7 +384,7 @@ function watchModel (expanded, filter) {
     const batch = (b.batch1 || []).includes(u.code) ? '研1' : (b.batch2 || []).includes(u.code) ? '研2' : (b.watchExit || []).includes(u.code) ? '退出观察' : ''
     return {
       code: u.code, name: u.name, grade: u.grade || '—', batch, held, trig,
-      summary: CORE.researchSummary(u),
+      summary: CORE.researchSummary(u, state.CFG),
       near: status === '接近', waiting: status === '等待',
       distancePct: u.buyPrice > 0 && px != null ? (px / u.buyPrice - 1) * 100 : null,
       researchPending: !rs.complete,

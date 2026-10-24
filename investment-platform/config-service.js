@@ -8,6 +8,7 @@ function clean (cfg) {
   delete out._syncStatus
   delete out._sourceMode
   delete out._journalStatus
+  delete out._researchSupplement // read-only release material; not part of the account revision
   return out
 }
 function canonical (value) {

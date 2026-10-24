@@ -42,6 +42,7 @@ function runtime () {
       if (name === './decision-preview') return require('./decision-preview')
       if (name === './public/investment-core') return CORE
       if (name === './cloud-store') return { read: () => { throw new Error('本测试不允许访问云库') }, write: () => { throw new Error('本测试不允许写云库') } }
+      if (name === './research-supplement') return { readSupplement: () => ({ schemaVersion: 1, presentationOnly: true, status: 'unavailable', records: [] }) }
       throw new Error('未允许依赖 ' + name)
     }
   })

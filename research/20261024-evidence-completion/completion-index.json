@@ -1,0 +1,1189 @@
+{
+  "asOf": "2026-10-24",
+  "issuers": 34,
+  "currentIssuers": 28,
+  "q3FinancialReports": 8,
+  "formalApprovalsCreated": 0,
+  "productionDataWritten": false,
+  "records": [
+    {
+      "id": "anta",
+      "name": "安踏体育",
+      "codes": [
+        "02020.HK"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "operating",
+        "status": "品牌零售更新，非集团季报",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "10/21官方Q3：安踏品牌零售额中单位数负增长、FILA低单位数负增长，其他品牌+25%至30%。旧基准前五年EPS增长8%包含主品牌/FILA正增长，现已失去直接支持。不能以零售额冒充收入；PUMA交割后融资成本、投资损益和少数权益另建桥。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "PUMA交割后现金/债务、可转债与少数权益资本桥；NCI现金归属、联营实际分红及维持投入仍需核验。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已补Q3品牌口径并区分Amer/PUMA范围；H1净现金不再充当PUMA交割后余额。 H1租赁现金23.50亿元、NCI股息1.30亿元已找到；OCF扣总CAPEX和租赁后92.78亿元，不把经营利息再加一次。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "catl",
+      "name": "宁德时代",
+      "codes": [
+        "300750.SZ",
+        "03750.HK"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "financial",
+        "status": "Q3财务已核原文",
+        "asOf": "2026-10-24",
+        "valuationImpact": "核心7财务质量、8资本配置存疑两项；3护城河通过，无已证实一票否决。不更改系统grade。",
+        "coverage": "公司/交易所原文、公告目录及本轮披露查询"
+      },
+      "completedItems": [
+        "实际读取最新2026Q3官方季报及10/20业绩说明会",
+        "官方2025年报、2026半年报财务/分部/现金桥重核",
+        "刷新A/H实际行情源时间",
+        "重建八维、现金转换与资本配置反证",
+        "撤回未披露维护CAPEX拆分",
+        "独立动力/储能量价利润、每股与三情景敏感性",
+        "列出量化证伪、复核日期与未补证据"
+      ],
+      "remainingGaps": [
+        {
+          "item": "维护/增长CAPEX和2026Q3受限资金、租赁现金利息穿透",
+          "reason": "季度简表未提供全部附注；不公开的内部资本预算不能从外部编造",
+          "requiredEvidence": "下期年报、资本项目与受限资金附注；必要时公司IR书面说明",
+          "canPublicResearchResolve": true
+        },
+        {
+          "item": "海外新工厂分批增量ROIC、换电单站成熟现金回报",
+          "reason": "未公开足够项目级投入/税后回报，不可由总毛利率替代",
+          "requiredEvidence": "项目资本投入、净经营利润与现金回收披露或可核管理层回复",
+          "canPublicResearchResolve": false
+        },
+        {
+          "item": "2026Q3分部GWh、同口径ASP与单位净利润",
+          "reason": "仅披露总销量超260GWh及储能约1/4，不能从总收入直接倒算电芯单价",
+          "requiredEvidence": "分部销量及收入、系统/电芯结构、税费转嫁与年度分部毛利",
+          "canPublicResearchResolve": true
+        },
+        {
+          "item": "9月股本月报官方托管副本及最终注销股数",
+          "reason": "月报实际读到公司文件镜像，精确股数与Q3千元/行情勾稽；尚未在线取得交易所同文PDF",
+          "requiredEvidence": "港交所/巨潮月报与后续注销公告",
+          "canPublicResearchResolve": true
+        },
+        {
+          "item": "10年三表闭合与独立估值审计",
+          "reason": "本轮显式经营/现金约束为敏感性，后续再投资、项目ROIC和终值PE未独立审计",
+          "requiredEvidence": "可审计逐年三表、资本回报桥及独立复核；不能自动标审计通过",
+          "canPublicResearchResolve": false
+        },
+        {
+          "item": "券商历史结算成本、交易及现金流对账、持仓适配和执行批准",
+          "reason": "公开公司研究无法取得本人账户凭证，也不能代替决策批准",
+          "requiredEvidence": "本人券商对账单及授权的独立复核/政策审批",
+          "canPublicResearchResolve": false
+        }
+      ]
+    },
+    {
+      "id": "china_mobile",
+      "name": "中国移动",
+      "codes": [
+        "0941.HK",
+        "600941.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "financial",
+        "status": "Q3财务已核原文",
+        "asOf": "2026-10-24",
+        "valuationImpact": "护城河和需求通过，治理、财务质量、资本配置存疑；不承担高复利主任务，不替换平台评级。",
+        "coverage": "公司/交易所原文、公告目录及本轮披露查询"
+      },
+      "completedItems": [
+        "独立检索并阅读10月20日最新Q3官方业绩和巨潮CAS三季报",
+        "官方中报完整现金流替代旧镜像；现金CAPEX/租赁/实收投资收益/存款及现金余额勾稽",
+        "核实2026中期人民币宣派及港元换算、除息支付日",
+        "核实红筹注册地、本次HKSCC预扣及个人港股通条款；四种税敏感性",
+        "取得10月23日A/H行情及研究汇率、估算价差和税后股息平价",
+        "重建三情景、正确10年终值、税和汇率敏感性",
+        "补齐八维支持/最强反证、量化证伪、复核期限、旧结论更正"
+      ],
+      "remainingGaps": [
+        {
+          "item": "2025H1与2025前三季租赁现金累计数冲突",
+          "reason": "官方中报2025H1 180.34亿大于官方Q3同期153.58亿，缺重分类/重述解释",
+          "requiredEvidence": "公司IR解释或更正公告、历史报告附注重分类桥",
+          "canPublicResearchResolve": true
+        },
+        {
+          "item": "维护/增长CAPEX与算力分部增量ROIC",
+          "reason": "公开材料未给可复核拆分，利用率和收入不能替代税后现金回报",
+          "requiredEvidence": "公司分项目资本投入、折旧/租赁、贡献利润及回款披露",
+          "canPublicResearchResolve": true
+        },
+        {
+          "item": "用户真实股息税率/已抵免税额/结算汇率",
+          "reason": "网站交易记录不等于银行券商实际扣税和到账证明；本研究没有读取账户原始资料",
+          "requiredEvidence": "账户股息与税费流水、税收抵免结果、结算凭证；不可用研究情景替填",
+          "canPublicResearchResolve": false
+        },
+        {
+          "item": "用户港股历史人民币成本和现金对账",
+          "reason": "公开公告不能重建个人已成交批次费用和结算汇率",
+          "requiredEvidence": "平台可验证完整流水或券商交割/结算凭证",
+          "canPublicResearchResolve": false
+        },
+        {
+          "item": "独立审计、执行政策和投资批准",
+          "reason": "研究作者不能自批；本包仅建议",
+          "requiredEvidence": "独立复核人与用户明确批准版本、完整对账",
+          "canPublicResearchResolve": false
+        },
+        {
+          "item": "共识/被动持仓及市场隐含预期的直接证据",
+          "reason": "无经授权一致预期、持有人/拥挤度数据库，不把价格跌幅解释为市场一致观点",
+          "requiredEvidence": "标明日期和口径的估值一致预期/持仓数据",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "cmb",
+      "name": "招商银行",
+      "codes": [
+        "600036.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1普通股BPS45.40、ROE13.42%、高级法CET1 14.07%已核；不能把OCF3046.11亿元当FCF。用BPS×正常化ROE形成EPS，再扣分红及RWA资本消耗；OCI不是当期可派息利润。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "普通股资本/RWA增长、OCI及信用压力桥未完成独立双源复核",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已复核资本、息差与风险指标，RWA/普通股资本压力桥仍待独立双源核。Q3业绩说明会公告不等于三季报。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "cnooc",
+      "name": "中国海洋石油",
+      "codes": [
+        "0883.HK"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1项目CAPEX不是现金流表现金CAPEX。应从油价×权益产量−全成本−退役/替换投资构造现金，再核A/H税费；不可用高油价股息外推十年。检索到的是Q3说明会通知，未取得Q3财务正文。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "项目Capex与现金Capex差额、退役义务及独立资源NAV未全部闭合",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "保留官方中期经营资料；现金CAPEX差额、退役义务与资源NAV仍需闭合。 本轮实际打开公司8/26官方发布，核H1权益产量3.987亿桶油当量、全成本29.7美元/桶油当量及全年1120—1220亿元资本预算（指引，非现金实付）。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "consun",
+      "name": "康臣药业",
+      "codes": [
+        "1681.HK"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+        "valuationImpact": "本轮找到9/24完整中报：H1收入17.847、归母5.953、OCF7.81438亿元；扣现金CAPEX0.28174后余7.53264，再分列租赁本金0.00571、租赁利息0.00119、其他融资成本0.02569、实收利息0.44508、NCI股息0.04903，股息/回购前现金桥7.89610亿元。不是将投资净流出4.12435亿元全部当CAPEX。 税率已由上年H1的6.1%升至14.3%，免税期结束不应在未来盈利中加回；加权普通股8.41130亿与期末股数分开。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "核心单品销量净价、医保续约与临床结局、上海华茂投后回报；完整现金流、CAPEX、租赁与NCI现金已补。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "完整现金流、现金CAPEX、租赁/NCI与融资桥已关闭；医保续约、单品量价和上海华茂投后回报仍需核验。原高IRR所含终值修复仍未获支持。 已核免税期结束与新优惠口径，未来情景不得恢复零税。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "crland",
+      "name": "华润置地",
+      "codes": [
+        "1109.HK"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "operating",
+        "status": "9月/9M营运数据，非季报",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "9M合同销售1646亿元(+6.6%)但面积-22.0%；经常性收入399.4亿元(+7.5%)、收租267.2亿元(+10.6%)。这不等于确认收入、NOI或FCFE；不能把租金资本化再完整加集团EPS价值，重复估值。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "分部NOI、维护、项目权益净债及交付现金桥未齐，无法定价",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已补9月官方营运公告与销售/租金口径；项目权益净债、维护CAPEX、交付现金与NOI仍缺。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "cypc",
+      "name": "长江电力",
+      "codes": [
+        "600900.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "operating",
+        "status": "Q3发电数据，非财务季报",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "Q3发电公告已核：单季923.14亿千瓦时(-14.89%)、9M2250.58(-4.28%)；不是归母利润降幅。旧H1盈利增长不可顺延全年；优先调整当年水量/利用小时，保留常年来水与长期需求分开。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "现金利息、维护/增长及抽蓄资本预算独立交叉桥未全闭合",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已核六座电站与不同流域来水，纠正用盈利增长当来水增长；未取得Q3财报，不填Q3 EPS。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "dongee",
+      "name": "东阿阿胶",
+      "codes": [
+        "000423.SZ"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "financial",
+        "status": "Q3财务已核原文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "最新Q3：9M收入49.402、归母13.297、扣非12.588亿元；OCF3.997减CAPEX2.815仅1.182亿元。应收8.931亿元、较年初+575.32%，公司解释含授信发货。Q3扣非+19.39%不能解除现金存疑；旧70%派息假设缺本期现金支撑。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "缺经销商真实库存、终端复购及应收回款桥；若全年现金转换仍低于70%且核心品不增，继续暂停，不因高股息改变结论。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已补应收、销售收现、采购/人工/税费/营销现金变动及回购注销股本桥；不能把利润增长当现金质量改善。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "dongpeng",
+      "name": "东鹏饮料",
+      "codes": [
+        "605499.SH"
+      ],
+      "scope": "总部历史候选/监控池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "已重新找到巨潮官方H1完整报告：收入124.43、归母28.67、OCF24.926减现金CAPEX11.352=13.574亿元。原镜像404的来源缺口已关闭；H股上市后股本、融资成本及回购注销仍需用最新月报重算EPS，不能把现金管理收益重复加进主营估值。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "租赁本金及关联资本占用完整拆分、H上市募集款使用、当前股本与回购注销；现金管理产品和借款利差不能重复进利润估值。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已替换失效镜像为巨潮原件，核完整现金表；租赁、少数与上市后股本桥仍待核。",
+          "canPublicResearchResolve": true
+        },
+        {
+          "item": "上市后每股资本桥",
+          "reason": "官方H1完整报告已补，仍需9月股本与回购注销交叉",
+          "requiredEvidence": "9月股本及回购注销公告",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "focus",
+      "name": "分众传媒",
+      "codes": [
+        "002027.SZ"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1 OCF44.534减CAPEX4.923=39.612亿元，租赁本金与利息仍需从融资流出再核。新潮交易最终股本、对价及附条件批准不能用旧垄断提价逻辑外推。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "C类质量门；最终交易股本与现金、租赁后长期FCFE及独立DCF未闭合",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "现金表已核；独家权利、交易完成资本结构与租赁后FCFE仍未全齐，保留C观察。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "fuyao",
+      "name": "福耀玻璃",
+      "codes": [
+        "600660.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "financial",
+        "status": "Q3财务已核原文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "已发Q3。9M收入341.228、归母60.065、扣非58.791、OCF82.598亿元；现金CAPEX38.916后余43.681。汇兑损失10.670亿元，剔汇兑税前仅增1.18%，较H1剔汇兑+4.78%放缓。旧正常化EPS3.55及6%前段增长不能因剔汇兑自动成立；非经常扣除表也未消除正常汇兑。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "缺新产能分批ROIC和年度77.3亿资本支出下的分红覆盖；若高端占比升而单车利润下降、库存持续超过百日，先降增长再讨论价格。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已替换H1为Q3、核现金表与汇兑前后利润。期末与加权股本、税前/归母均分开；不将汇兑损失全额税前加回归母。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "gree",
+      "name": "格力电器",
+      "codes": [
+        "000651.SZ"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1收入893.975亿元、归母132.776、OCF188.088减CAPEX7.299=180.789亿元。财务公司客户资金、受限存款及金融投资需穿透，不能将集团余额全部加到股权估值。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "缺财务公司与受限资金穿透后的滚动现金桥及接班约束；若内销收入和份额双降、分红率跌破40%且新增投资低回报，重新审查是否降C。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "现金CAPEX已核；财务公司资金归属未全部闭合。未取到Q3正文，外部行业销量与券商预测仅为风险线索。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "haitian",
+      "name": "海天味业",
+      "codes": [
+        "3288.HK",
+        "603288.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1经营现金12.242减CAPEX5.359=6.883亿元，明显小于归母41.902亿元；不能用净利率或ROE直接推导可派息。已核H股报表中内部票据相关经营与资金项目，内部结算不得在集团再造一次现金。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "H1至全年营运资本季节性、内部票据贴现对集团现金转换的影响、常态分红覆盖尚待核，当前不能正式H定价。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已核英文/中文现金表、全部CAPEX与资本承诺；全年现金季节性及内部票据贴现归属未完全闭合。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "hengrui",
+      "name": "恒瑞医药",
+      "codes": [
+        "600276.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文；已公告2026-10-27董事会/业绩日",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1归母44.654、扣非37.296、OCF19.870减CAPEX15.775仅4.095亿元。大额授权合同的签约总额、当期确认收入和到账不可混用；研发资本化要还原全费用化后收益。",
+        "futureEvent": [
+          "2026-10-27",
+          "港交所董事会日历"
+        ]
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "缺逐品种峰值销售、专利/竞争、研发失败概率、首付及里程碑收入现金桥；若研发资本化提升但全费用化收益和OCF不改善，应收紧而非提高增长。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已核扣非与现金差距，保留逐品种销售/失败概率缺项；尚未取得公司Q3财务，不能拿子公司或预约替代。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "hkex",
+      "name": "香港交易所",
+      "codes": [
+        "0388.HK"
+      ],
+      "scope": "总部历史候选/监控池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文；已公告2026-11-06董事会/业绩日",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1主要营运现金106.26减总部22.75、其他CAPEX10.06、租赁本金1.33和利息0.17、其他融资0.23、NCI0.36=71.36亿港元；另列长期债券利息15.84后为87.20。普通OCF114.80包含赎回外部基金8.54，不应当作经常经营增长。",
+        "futureEvent": [
+          "2026-11-06",
+          "港交所董事会日历"
+        ]
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "清算抵押品及公司专用资本WC正常化、总部后续承诺与低景气资本覆盖；Q3业绩截至本轮未见官方发布。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已补清算抵押品与营运资金原表、主要业务现金及公司资金区别；清算押金不归普通股东自由支取。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "mindray",
+      "name": "迈瑞医疗",
+      "codes": [
+        "300760.SZ"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1 OCF48.770减CAPEX10.639=38.131亿元，低于归母47.968亿元；不以经调利润直接等同所有者现金。国际收入增长不能抵消国内采购疲软而不检查渠道收款。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "补惠泰等少数权益现金归属、分部增量ROIC和三年资本计划；若国内两期不恢复而海外增速降至个位数，正常化增长降档。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已复核H1现金流与股本、区分惠泰少数权益和并购支出；未获得Q3正文，不把预约或预告当实绩。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "miniso",
+      "name": "名创优品",
+      "codes": [
+        "9896.HK"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "operating",
+        "status": "Q3自愿营运更新，非集团季报",
+        "asOf": "2026-10-24",
+        "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+        "valuationImpact": "已取得完整中报：H1 OCF14.75401−现金CAPEX7.24622=7.50779亿元；再扣租赁资本及利息5.51492、其他实付利息0.74956，余1.24331亿元（未加投资利息等，不是归母FCFE）。原以7.508亿直接看分配能力的逻辑须修正。H1普通股基本0.79、加权股12.14665亿，摊薄分母12.19244亿；1ADS=4普通股。10/9营运公告称Q3内地GMV+25%—30%、同店高个位数，美国GMV约+20%；支持需求改善，仍未证明直营利润率修复。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "海外成熟直营店单位经济、永辉资本占用及最终现金回报、股权挂钩证券经济成本；完整现金表、租赁现金与普通股稀释分母已补。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已关闭完整现金表、租赁现金与普通股摊薄分母缺项；海外成熟店单位经济、永辉最终现金回报及股权挂钩证券仍为决定项。国庆短期GMV不当Q4预测。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "moutai",
+      "name": "贵州茅台",
+      "codes": [
+        "600519.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+        "valuationImpact": "集团H1 OCF706.91亿元含金融资金迁移。母公司OCF152.25减现金CAPEX8.29仅143.96亿元，不能直接拿来代表全集团纯酒收益。旧每股正常化FCFE62元保留为待证假设，撤回其已由集团现金覆盖的含义。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "财务公司资金归属、正常化归母FCFE、需求下降终值上限及独立价值交叉验证。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "金融专属科目已逐行识别；母公司现金桥已补。集团纯酒税费、内部结算和少数权益尚不能仅由公开合并表精确分开。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "ninghu",
+      "name": "宁沪高速",
+      "codes": [
+        "600377.SH"
+      ],
+      "scope": "总部历史候选/监控池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文；已公告2026-10-27董事会/业绩日",
+        "asOf": "2026-10-24",
+        "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+        "valuationImpact": "H1 OCF36.029减CAPEX41.466=-5.436亿元，未扣融资利息；参股收益不等于实收股息。官方董事会日历列10/27审Q3，早于此不能填9M实绩，续期未批也不能永续套PE。",
+        "futureEvent": [
+          "2026-10-27",
+          "港交所董事会日历"
+        ]
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "收费期限/续期批复、扩建资本/现金利息、参股股息及剩余期限DCF未闭合",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已核现金投入；逐路收费期限/续期、扩建资本义务及参股实际现金仍需逐路DCF。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "nongfu",
+      "name": "农夫山泉",
+      "codes": [
+        "09633.HK"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+        "valuationImpact": "H1 OCF107.123减全部CAPEX38.204=68.920亿元，尚需租赁/NCI/融资桥。新增产能全部先列现金投入；撤回把未披露维护投入精确拆分的做法。9月关联交易上限不是已发生现金占用。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "新产能维护/扩张分拆、终端量价和茶复购；9月关联交易上限调整的实际交易与价格需跟踪。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已补全现金CAPEX扣减并核资金余额不能等同净现金；终端复购、促销后净价和新产能回报仍缺。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "pingan",
+      "name": "中国平安",
+      "codes": [
+        "2318.HK",
+        "601318.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "subsidiary",
+        "status": "平安银行Q3；集团Q3未取得",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "集团最新可核仍H1：归母925.85亿元、营运841.96亿元。10/24新文是平安银行：9M利润391.86亿元、CET1 9.61%、拨备214.75%。不可直接代替集团EPS或把银行OCF当寿险自由盈余；银行利润须经持股、NCI和合并抵销进入集团。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "寿险自由盈余、监管资本耗用与母公司上划现金桥未闭合",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已纠正集团/银行身份混淆；银行资本与资产质量原表已读；集团自由盈余、寿险监管资本耗用及母公司上划仍缺。 集团CAS摘要收入5751.38亿元，英文新闻稿revenue6153.51亿元口径不同；尚未完成口径桥，不互换、不按差额推增长。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "popmart",
+      "name": "泡泡玛特",
+      "codes": [
+        "09992.HK"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "H1为最新可核财务；未取得官方Q3营运正文",
+        "asOf": "2026-10-24",
+        "valuationImpact": "价值来自多IP组织，核心耐久和客户留存未证；真实利润与现金不支持直接外推2025爆发，不因价格下跌升级。",
+        "coverage": "公司/交易所原文、公告目录及本轮披露查询"
+      },
+      "completedItems": [
+        "重新打开核对2026完整中报、2025完整年报",
+        "核对最新季度公告及未发布Q3边界",
+        "重建IP/地区/渠道/库存证据",
+        "撤回无依据维护CAPEX拆分",
+        "核对现金税、全部CAPEX、租赁和少数股东现金桥",
+        "核对回购注销、7月新发、9月月报和10月授奖",
+        "独立从收入与正常化净利率重建三情景并计算10年税汇敏感性",
+        "追加旧结论更正与可核证伪监测"
+      ],
+      "remainingGaps": [
+        {
+          "item": "2026Q3及以后公司实际经营数据",
+          "reason": "截至10月24日HKEX检索未见集团Q3公告，券商预测非事实",
+          "requiredEvidence": "集团业务更新或正式2026年报；披露后重算收入/利润",
+          "canPublicResearchResolve": true
+        },
+        {
+          "item": "维护与增长CAPEX",
+          "reason": "公司没有拆分，分析师不能编造",
+          "requiredEvidence": "管理层明确分类及店铺/乐园资本项目回报说明",
+          "canPublicResearchResolve": false
+        },
+        {
+          "item": "跨IP/跨年复购与海外同店/门店单位经济",
+          "reason": "公司会员比率不能替代去黄牛队列留存；总收入除期末门店数不是同店",
+          "requiredEvidence": "公司一致定义的消费者队列、同店、客单、折扣及新店回本",
+          "canPublicResearchResolve": false
+        },
+        {
+          "item": "艺术家/核心IP长期权利与合同续约",
+          "reason": "公开汇总不足核到每一核心合同",
+          "requiredEvidence": "公开合同要点、授权期限、续约权和收入分成变更",
+          "canPublicResearchResolve": false
+        },
+        {
+          "item": "证券决策独立复核",
+          "reason": "情景模型已重建，但正常化与退出PE属假设，终值三重约束/独立现金估值未完成",
+          "requiredEvidence": "独立模型审计、保守现金估值和正式策略审批",
+          "canPublicResearchResolve": false
+        },
+        {
+          "item": "个人账户数据与税率",
+          "reason": "公开公司研究不能验证实际券商成本、现金、交易、通道股息税",
+          "requiredEvidence": "券商结算单、现金与交易对账、账户通道和税务凭据",
+          "canPublicResearchResolve": false
+        }
+      ]
+    },
+    {
+      "id": "sanhua",
+      "name": "三花智控",
+      "codes": [
+        "002050.SZ"
+      ],
+      "scope": "总部历史候选/监控池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1 OCF24.996减CAPEX13.673=11.323亿元，少于归母20.441亿元；募集资金/定存变化与经营现金分开。机器人潜在市场不直接进入高确定性利润或高终值倍数。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "缺汽车模块与机器人分部真实订单、毛利和增量ROIC；若机器人量产投入显著扩大却无现金收入，先冻结再投资假设而非用远期大市场背书。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已核现金表和投资资金流；汽车模块与机器人分部订单、毛利和ROIC未独立披露到可承保程度。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "shenhua",
+      "name": "中国神华",
+      "codes": [
+        "601088.SH"
+      ],
+      "scope": "总部历史候选/监控池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "financial",
+        "status": "Q3财务已核原文",
+        "asOf": "2026-10-24",
+        "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+        "valuationImpact": "已核Q3 CAS：9M收入2960.31、归母444.03(+3.8%)、EPS2.062(+2.1%)、OCF927亿元。比较期因同控收购重述；旧范围增长率和H股IFRS利润不可混用。现金CAPEX471.81后余455.19，尚未扣少数、融资和收购对价。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "关联注入的现金对价、项目Capex与现金支付及中周期资源NAV桥未全核",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已核同控注入范围、追溯比较期、现金CAPEX与股本；筹资其他支付976.24亿元须结合重组对价穿透，不直接忽略。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "tencent",
+      "name": "腾讯控股",
+      "codes": [
+        "0700.HK"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文；已公告2026-11-18董事会/业绩日",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1现金桥1540.61−1071.63−36.36−64.08+91.14+51.62−16.62=494.68亿元，尚未扣并购及股东分配。相对股息415.95与回购222.57亿元，不能把全部回购假定永续。撤回无依据的维护CAPEX300亿元拆分；SBC149.49亿元是归母调整表经济成本，非现金支出。",
+        "futureEvent": [
+          "2026-11-18",
+          "公司IR日历"
+        ]
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "精确TTM稀释分子、SBC税效、算力预付履约和不可取消承诺；维护投入分拆及NCI/联营现金归属尚未验证。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "资本现金支出、租赁本金、融资利息、收到利息/股息、NCI股息已逐项分列；AI预付可取消性及未来必要投入未披露清楚。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "trip",
+      "name": "携程集团",
+      "codes": [
+        "9961.HK"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+        "valuationImpact": "实读官方Q2/H1发布：Q2归母约亏25亿元，剔52亿元反垄断罚款约赚27亿元；non-GAAP约48亿元仍加回SBC等。罚款可单列一次性，整改后抽佣不能自动恢复旧水平。官方简报未提供完整现金流表，1005亿元广义现金并非全部自由现金。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "H1现金流量与资本支出、罚款实际付款、整改后住宿变现率、SBC经济成本及联营收益现金桥尚未完整。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已核罚款计入与核心经营不等价、GAAP/non-GAAP差别及报告边界；罚款实际付款、完整H1 OCF/CAPEX仍需现金流原表。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "wanhua",
+      "name": "万华化学",
+      "codes": [
+        "600309.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1 OCF117.841减实际现金CAPEX107.3989=10.4425亿元；旧107.4仅四舍五入。最新股本31.30471626亿修正旧31.34亿。净利增长不能消除高投入、融资利息和少数股东占用；项目计划CAPEX与现金支付不等价。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "缺全集团净债/到期、少数现金、分部ROIC及项目资本承诺桥；两期正自由现金流、短债收缩且新增项目高于资本成本后可重新进入主动研究。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已补精确现金CAPEX与股本；全集团净债/到期、资本承诺与财务公司资金仍未全穿透。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "weixing",
+      "name": "伟星新材",
+      "codes": [
+        "002372.SZ"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+        "valuationImpact": "H1归母3.900亿元而扣非2.154亿元，OCF4.073减CAPEX1.129=2.945亿元，再列并购0.479亿元。不能把一次性收益按永久EPS资本化；低价不能替代主业恢复。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "C类质量门未通过；维持/增长、并购回报和股本桥未完全核定",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已复核扣非/报表差及并购现金。巨潮查询受限后实际核官网定期报告目录，当前列2026H1、未列2026Q3；不把接口错误直接当未披露证据。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "yangnong",
+      "name": "扬农化工",
+      "codes": [
+        "600486.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1主要指标OCF14.388亿元已核；本轮官方取得的是半年报摘要，不含CAPEX完整表，旧3.103亿元现金投入仅历史镜像证据，不能升级为新核准。中化财务公司存款不能默认无风险自由现金。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "补优创分批投产、占用资本和净现金回收，以及集团财务公司压力提取证据；量增而ROIC继续走低时下调资本配置评级。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "区分摘要已核与完整附注未取到；优创投入、增量利润及集团财务资金安全仍为决定项。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "yili",
+      "name": "伊利股份",
+      "codes": [
+        "600887.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "not_retrieved",
+        "status": "截至本轮未取得Q3正文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "H1 OCF97.591减现金CAPEX13.043=84.549亿元；已找到NCI现金股息0.39739亿元，替换原笼统估计。租赁总现金1.66855亿元包含经营性短租，不能全部再扣；短租费用0.47001亿元也不等于当期短租付款。旧1.6亿元调整撤回为未知拆分。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "租赁本金/利息与经营租赁现金拆分仍待核；NCI现金股息已核0.39739亿元。存款/借款期限币种及澳优ROIC仍为决定项。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已关闭NCI现金股息缺项并定位租赁现金总额；需区分本金、利息与已进入OCF部分，继续核存款/借款期限币种匹配。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "yiwu",
+      "name": "小商品城",
+      "codes": [
+        "600415.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "financial_mirror",
+        "status": "Q3财务已核原文镜像；官方一致性待补",
+        "asOf": "2026-10-24",
+        "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+        "valuationImpact": "最新Q3原文镜像：9M收入153.192亿元(+17.29%)、归母34.605(+0.09%)、OCF11.263(-88.27%)，现金CAPEX39.858，余-28.595亿元。旧H1负现金已改善但仍未覆盖投资；不能把历史招商预收款重复当每年租金。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "数贸和自营贸易现金桥、潜在新股摊薄与独立资产DCF尚未全部通过",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已读发行人14页原文镜像；交易所直链返回拦截页、巨潮查询403，独立官方文件一致性仍保留缺项。",
+          "canPublicResearchResolve": true
+        },
+        {
+          "item": "官方与镜像文件一致性",
+          "reason": "交易所直链返回拦截页；巨潮查询403",
+          "requiredEvidence": "交易所/巨潮同版原件交叉核对，含披露身份与表格",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "yutong",
+      "name": "宇通客车",
+      "codes": [
+        "600066.SH"
+      ],
+      "scope": "主平台当前池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "financial",
+        "status": "Q3财务已核原文",
+        "asOf": "2026-10-24",
+        "coverage": "官方10月公告查询已返回",
+        "valuationImpact": "已核10/15 Q3：9M收入258.159亿元、归母31.835亿元(-3.31%)、扣非30.986亿元(+18.45%)，OCF80.044减CAPEX4.821=75.223亿元。旧10/19稿已纳入同份Q3，因此不重复当新增利好或再次上调EPS。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "需海外/国内分拆销量、同口径份额、长期基金实缴与剩余资本承诺、全年质保兑现；订单恢复且资本边界清楚可重新计数。",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "官方Q3取代旧镜像，扣非/报表利润与现金归因核对一致；现金改善部分来自采购付款下降，不当永久利润。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    },
+    {
+      "id": "zijin",
+      "name": "紫金矿业",
+      "codes": [
+        "601899.SH"
+      ],
+      "scope": "总部历史候选/监控池",
+      "researchCompletion": "partial",
+      "q3Review": {
+        "kind": "financial",
+        "status": "Q3财务已核原文",
+        "asOf": "2026-10-24",
+        "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+        "valuationImpact": "已核Q3：9M收入2834.527、归母575.257、扣非558.424、OCF842.763亿元；现金CAPEX189.696后余653.067。基本EPS2.163、稀释2.106均为9M，不直接乘4/3；Q3金锭售价916.39元/克低于Q2 982.36，单位成本却升至376.99。",
+        "futureEvent": null
+      },
+      "completedItems": [
+        "逐公司核对披露范围与报告身份",
+        "补持有逻辑、证伪与复核安排",
+        "重列总现金CAPEX及估值影响",
+        "撤回无披露支持的维护CAPEX精确拆分"
+      ],
+      "remainingGaps": [
+        {
+          "item": "分矿母少数现金、储量替换/并购及全摊薄资本结构、资源NAV交叉未闭合",
+          "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+          "requiredEvidence": "已补产量、价格、付现/销售成本与股本差；10/22赤峰交割属期后事项，新资产收益和收购资金需匹配。",
+          "canPublicResearchResolve": true
+        }
+      ]
+    }
+  ]
+}

@@ -22,6 +22,16 @@ check('all independently verified gates can pass',good.status==='approved'&&good
 // Stage room30k, whole shared seat cost room10k, issuer risk55k, cash899900 => minimum10k.
 near('shared seat consumes both companies: ceiling 10,000 not 30,000',good.approvedCNY,10000)
 check('new money is integer cents',good.approvedCNYFen===1000000)
+const supplemented=fixture();supplemented.cfg._researchSupplement={schemaVersion:1,presentationOnly:true,version:'new-public-evidence',records:[{codes:['600000.SH']}]}
+check('new public evidence invalidates old formal approval',run(supplemented).approvedCNY===0&&run(supplemented).blockers.some(b=>b.includes('最新研究补充')))
+supplemented.cfg.universe[0].audit.researchSupplementVersion='new-public-evidence'
+check('audit acknowledgement alone cannot approve new evidence',run(supplemented).approvedCNY===0)
+supplemented.cfg.universe[0].executionApproval.researchSupplementVersion='new-public-evidence'
+near('independent audit and approval must both bind latest study; original gates still apply',run(supplemented).approvedCNY,10000)
+delete supplemented.cfg.budgetLedger
+check('latest-study acknowledgement cannot replace a reconciled account',run(supplemented).approvedCNY===0)
+const unavailableStudy=fixture();unavailableStudy.cfg._researchSupplement={status:'unavailable',records:[]}
+check('server cannot authorize when latest study package is unavailable',run(unavailableStudy).approvedCNY===0)
 check('calculation leaves inputs unchanged',JSON.stringify(original)===before)
 near('percentage points converted once: 17 to20 on10m is300k',core.positionRoom(17,20,10000000),300000)
 near('stage exhausted produces zero even if price falls',(()=>{const f=fixture();f.cfg.budgetLedger.issuers['600000.SH'].netInvestedCNYFen=8000000;f.cfg.budgetLedger.seats.s.netInvestedCNYFen=12000000;return run(f).approvedCNY})(),0)

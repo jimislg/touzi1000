@@ -1,0 +1,280 @@
+{
+  "id": "hengrui",
+  "name": "恒瑞医药",
+  "codes": [
+    "600276.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "创新药组合与研发组织提供机会，单笔授权收入和研发失败概率仍决定估值。",
+  "breakers": "授权首付款减少、临床失败或核心品种竞争加剧；先改产品概率和税后现金，不能直接给所有产品同一PE。（研究建议，未批准）",
+  "reviewBy": "2026-10-27",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "研发和商业化围绕医药核心",
+      "counter": "多治疗领域管线分散精力",
+      "monitor": "单项目研发投入和回收",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "持续高研发和净现金",
+      "counter": "控制集中与推广合规需持续约束",
+      "monitor": "合规、临床数据披露",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "研发平台、临床执行和已上市产品",
+      "counter": "同类新药及专利到期会侵蚀单品",
+      "monitor": "新药渗透和临床相对优势",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "存疑",
+      "support": "国际授权伙伴认可研发价值",
+      "counter": "国外收入含授权并非终端商业化",
+      "monitor": "海外终端销售及真实里程碑",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "国内创新药平台及多管线",
+      "counter": "全球对手与同靶点竞品众多",
+      "monitor": "关键适应症份额/价格",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "通过",
+      "support": "肿瘤慢病真实长期需求",
+      "counter": "支付预算与疗法替代",
+      "monitor": "患者获益、医保净价格",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "存疑",
+      "support": "货币资金387亿、无短借",
+      "counter": "扣非-12.71%、OCF-53.80%，研发资本化干扰利润",
+      "monitor": "全费用化收益与授权现金归属",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "研发投入具有主业协同性",
+      "counter": "大额现金、低分红与多项目风险尚需回报闭合",
+      "monitor": "项目概率现金、增量研发ROIC",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "- 需求轴：患者与治疗升级长期增长，医保支付和仿制药集采限制单药收入。",
+    "- 利润池轴：创新药全球合作扩大利润池；同靶点拥挤、成功率及专利悬崖使收益不稳定。",
+    "- 范式风险：高：疗法与临床数据迭代直接改变产品价值，平台分散项目失败但无法消除风险。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 154.555837,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "hengrui-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 44.654394,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "hengrui-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 37.29589,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "hengrui-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 19.87003872,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "hengrui-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 15.77505323,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "hengrui-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 19.87003872,
+    "totalCapex": 15.77505323,
+    "conservativeResidual": 4.094985490000001,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.9,
+          "g1": 0.03,
+          "g2": 0.03,
+          "payout": 0.15,
+          "exit_pe": 18
+        },
+        "base": {
+          "eps0": 1.15,
+          "g1": 0.1,
+          "g2": 0.07,
+          "payout": 0.17,
+          "exit_pe": 25
+        },
+        "bull": {
+          "eps0": 1.4,
+          "g1": 0.16,
+          "g2": 0.1,
+          "payout": 0.2,
+          "exit_pe": 32
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准国内产品销售约8%增长、风险调整后持续授权贡献约2%，保留研发强度后EPS10%/7%；悲观成熟药下滑抵消创新药，EPS仅3%；乐观新品终端销售与持续许可共同兑现16%/10%。高EPS不能仅来自研发资本化率提高；低17%现金payout不把员工激励回购视为返现。"
+    },
+    "newEvidenceImpact": "H1归母44.654、扣非37.296、OCF19.870减CAPEX15.775仅4.095亿元。大额授权合同的签约总额、当期确认收入和到账不可混用；研发资本化要还原全费用化后收益。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文；已公告2026-10-27董事会/业绩日",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1归母44.654、扣非37.296、OCF19.870减CAPEX15.775仅4.095亿元。大额授权合同的签约总额、当期确认收入和到账不可混用；研发资本化要还原全费用化后收益。",
+    "futureEvent": [
+      "2026-10-27",
+      "港交所董事会日历"
+    ]
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "授权首付款减少、临床失败或核心品种竞争加剧；先改产品概率和税后现金，不能直接给所有产品同一PE。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1归母44.654、扣非37.296、OCF19.870减CAPEX15.775仅4.095亿元。大额授权合同的签约总额、当期确认收入和到账不可混用；研发资本化要还原全费用化后收益。",
+      "reason": "已核扣非与现金差距，保留逐品种销售/失败概率缺项；尚未取得公司Q3财务，不能拿子公司或预约替代。",
+      "sourceIds": [
+        "hengrui-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "hengrui-latest",
+      "title": "2026半年度报告，PDF 6、79—81",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-20/1225483600.PDF",
+      "publishedAt": "2026-08-20",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "6、79—81"
+    },
+    {
+      "id": "hengrui-prior-1",
+      "title": "BMS战略合作公司公告",
+      "url": "https://www.hengrui.com/media/detail-950.html",
+      "publishedAt": null,
+      "period": "2026",
+      "location": "授权合同条件",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "hengrui-prior-2",
+      "title": "2025年度报告",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0325/2026032502087_c.pdf",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "研发和许可收入",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "hengrui-prior-3",
+      "title": "HRS-1596诺和诺德授权公告",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12625310&stockid=600276",
+      "publishedAt": null,
+      "period": "2026-09-29",
+      "location": "公告正文",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "缺逐品种峰值销售、专利/竞争、研发失败概率、首付及里程碑收入现金桥；若研发资本化提升但全费用化收益和OCF不改善，应收紧而非提高增长。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已核扣非与现金差距，保留逐品种销售/失败概率缺项；尚未取得公司Q3财务，不能拿子公司或预约替代。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/hengrui.html"
+}

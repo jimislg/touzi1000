@@ -29,7 +29,7 @@ function createDecisionPreview ({ configService, fetchQuotes, core, now = Date.n
       decision.status = 'blocked'
       decision.blockers = [...(decision.blockers || []), ...externalBlockers]
     }
-    return { ok: true, readOnly: true, revision, dataRevision: cfg.decisionDataRevision || null, sourceMode: cfg._sourceMode || 'cloud', syncStatus: cfg._syncStatus, serverAsOf: new Date(clock).toISOString(), expiresAt: new Date(clock + ttlMs).toISOString(), decision }
+    return { ok: true, readOnly: true, revision, researchSupplementVersion: cfg._researchSupplement && cfg._researchSupplement.version || null, dataRevision: cfg.decisionDataRevision || null, sourceMode: cfg._sourceMode || 'cloud', syncStatus: cfg._syncStatus, serverAsOf: new Date(clock).toISOString(), expiresAt: new Date(clock + ttlMs).toISOString(), decision }
   }
 }
 module.exports = { createDecisionPreview }

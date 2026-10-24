@@ -8,7 +8,7 @@ DEPLOY_REMOTE=/opt/invest-platform
 DEPLOY_ROOT=$(cd "$(dirname "$0")/.." && pwd)
 DEPLOY_LOCAL="$DEPLOY_ROOT/investment-platform"
 DEPLOY_NODE=${NODE_BIN:-node}
-code_files=(server.js cloud-store.js config-service.js decision-preview.js package.json public/index.html public/investment-core.js)
+code_files=(server.js cloud-store.js config-service.js decision-preview.js research-supplement.js package.json public/index.html public/investment-core.js public/research-supplement.json public/research/)
 case "${1:-}" in
   push)
     "$DEPLOY_NODE" "$DEPLOY_ROOT/scripts/test-offline.js"
@@ -39,7 +39,7 @@ service_env=$(systemctl show invest-platform --property=Environment --value)
 case " $service_env " in *' CONFIG_SOURCE_MODE=local '*) ;; *) echo 'STOP: explicitly configure CONFIG_SOURCE_MODE=local before code release.' >&2; exit 1;; esac
 backup_dir="$release_dir/code-backup-$(date +%Y%m%d-%H%M%S)"
 mkdir -m 700 "$backup_dir"
-for file in server.js cloud-store.js config-service.js decision-preview.js package.json; do
+for file in server.js cloud-store.js config-service.js decision-preview.js research-supplement.js package.json; do
   [[ ! -f "$release_dir/$file" ]] || cp -p "$release_dir/$file" "$backup_dir/"
 done
 cp -Rp "$release_dir/public" "$backup_dir/public"

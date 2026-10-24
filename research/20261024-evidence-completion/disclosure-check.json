@@ -1,0 +1,1411 @@
+{
+  "asOf": "2026-10-24",
+  "window": "2026-10-01~2026-10-24",
+  "description": "巨潮官方公告只读查询；0条不单独证明未披露，附属公司报告和业绩说明会不当作集团财报；受限项另查IR/董事会日历。",
+  "records": [
+    {
+      "id": "moutai",
+      "code": "600519",
+      "name": "贵州茅台",
+      "orgId": "gssh0600519",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 0,
+      "hasMore": false,
+      "announcements": []
+    },
+    {
+      "id": "tencent",
+      "code": "00700",
+      "name": "腾讯控股",
+      "orgId": "gshk0000700",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 15,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "根据腾讯控股有限公司最高限额为300亿美元之全球中期票据计划发行将于二零三六年到期的1,300,000,000美元6.10%优先票据及将于二零四六年到期的500,000,000美元6.75%优先票据及将于二零三六年到期的人民币20,000,000,000元2.40%优先票据及将于二零五六年到期的人...",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-22/1225615077.PDF",
+          "publishedAt": "2026-10-22T12:18:28+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "于香港联合交易所有限公司上市之通告 - 根据腾讯控股有限公司最高限额为300亿美元之全球中期票据计划发行将于二零三六年到期的1,300,000,000美元6.10%优先票据及将于二零四六年到期的500,000,000美元6.75%优先票据及将于二零三六年到期的人民币20,000,000,000元...",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-22/1225615058.PDF",
+          "publishedAt": "2026-10-22T07:52:27+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "根据全球中期票据计划完成发行18亿美元及人民币260亿元票据",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-22/1225615057.PDF",
+          "publishedAt": "2026-10-22T07:48:28+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225606895.PDF",
+          "publishedAt": "2026-10-15T17:48:26+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "翌日披露报表 - 已发行股份变动及股份购回",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-14/1225605260.PDF",
+          "publishedAt": "2026-10-14T17:58:27+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "根据全球中期票据计划对18亿美元及人民币260亿元票据进行定价",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-14/1225604227.PDF",
+          "publishedAt": "2026-10-14T07:24:29+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "翌日披露报表 - 已发行股份变动及股份购回",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225603206.PDF",
+          "publishedAt": "2026-10-13T17:28:28+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "翌日披露报表 - 已发行股份变动及股份购回",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-12/1225601750.PDF",
+          "publishedAt": "2026-10-12T18:06:28+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "根据全球中期票据计划建议发行票据及财务资料摘要",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-12/1225600544.PDF",
+          "publishedAt": "2026-10-12T08:14:11+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-09/1225599445.PDF",
+          "publishedAt": "2026-10-09T18:00:10+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225597328.PDF",
+          "publishedAt": "2026-10-08T17:36:29+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-07/1225595735.PDF",
+          "publishedAt": "2026-10-07T17:42:29+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "截至二零二六年九月三十日止之股份发行人的证券变动月报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-07/1225595711.PDF",
+          "publishedAt": "2026-10-07T17:28:29+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-06/1225594991.PDF",
+          "publishedAt": "2026-10-06T17:44:28+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        },
+        {
+          "title": "翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-05/1225594429.PDF",
+          "publishedAt": "2026-10-05T18:00:10+08:00",
+          "secCode": "00700",
+          "secName": "腾讯控股"
+        }
+      ]
+    },
+    {
+      "id": "anta",
+      "code": "02020",
+      "name": "安踏体育",
+      "orgId": "gshk0002020",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 3,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "二零二六年第三季度之最新营运表现",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613886.PDF",
+          "publishedAt": "2026-10-21T16:46:28+08:00",
+          "secCode": "02020",
+          "secName": "安踏体育"
+        },
+        {
+          "title": "主要交易 - 完成收购PUMA SE的29.06%股权",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-07/1225595832.PDF",
+          "publishedAt": "2026-10-07T18:58:29+08:00",
+          "secCode": "02020",
+          "secName": "安踏体育"
+        },
+        {
+          "title": "截至2026年9月30日之股份发行人的证券变动月报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-02/1225593168.PDF",
+          "publishedAt": "2026-10-02T17:02:06+08:00",
+          "secCode": "02020",
+          "secName": "安踏体育"
+        }
+      ]
+    },
+    {
+      "id": "popmart",
+      "code": "09992",
+      "name": "泡泡玛特",
+      "orgId": "gshk0009992",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 0,
+      "hasMore": false,
+      "announcements": []
+    },
+    {
+      "id": "trip",
+      "code": "09961",
+      "name": "携程集团",
+      "orgId": "gshk0009961",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 0,
+      "hasMore": false,
+      "announcements": []
+    },
+    {
+      "id": "miniso",
+      "code": "09896",
+      "name": "名创优品",
+      "orgId": "gshk0009896",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 0,
+      "hasMore": false,
+      "announcements": []
+    },
+    {
+      "id": "nongfu",
+      "code": "09633",
+      "name": "农夫山泉",
+      "orgId": "gshk0009633",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 0,
+      "hasMore": false,
+      "announcements": []
+    },
+    {
+      "id": "haitian",
+      "code": "603288",
+      "name": "海天味业",
+      "orgId": "9900023228",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 4,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "H股公告-董事会会议召开日期",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-17/1225608634.PDF",
+          "publishedAt": "2026-10-17T00:00:00+08:00",
+          "secCode": "603288",
+          "secName": "海天味业"
+        },
+        {
+          "title": "海天味业关于回购公司A股股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-09/1225596538.PDF",
+          "publishedAt": "2026-10-09T00:00:00+08:00",
+          "secCode": "603288",
+          "secName": "海天味业"
+        },
+        {
+          "title": "H股公告-截至二零二六年九月三十日止之股份发行人的证券变动月报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225595528.PDF",
+          "publishedAt": "2026-10-08T00:00:00+08:00",
+          "secCode": "603288",
+          "secName": "海天味业"
+        },
+        {
+          "title": "H股公告-翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-01/1225590890.PDF",
+          "publishedAt": "2026-10-01T00:00:00+08:00",
+          "secCode": "603288",
+          "secName": "海天味业"
+        }
+      ]
+    },
+    {
+      "id": "yili",
+      "code": "600887",
+      "name": "伊利股份",
+      "orgId": "gssh0600887",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 9,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "内蒙古伊利实业集团股份有限公司关于以集中竞价交易方式首次回购公司股份的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225618134.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "600887",
+          "secName": "伊利股份"
+        },
+        {
+          "title": "内蒙古伊利实业集团股份有限公司关于召开2026年第三季度业绩说明会的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225615375.PDF",
+          "publishedAt": "2026-10-23T00:00:00+08:00",
+          "secCode": "600887",
+          "secName": "伊利股份"
+        },
+        {
+          "title": "内蒙古伊利实业集团股份有限公司关于为控股子公司提供担保的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-17/1225608261.PDF",
+          "publishedAt": "2026-10-17T00:00:00+08:00",
+          "secCode": "600887",
+          "secName": "伊利股份"
+        },
+        {
+          "title": "内蒙古伊利实业集团股份有限公司关于2026年度第十五、十六、十七、十八、十九期超短期融资券发行结果的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-14/1225603138.PDF",
+          "publishedAt": "2026-10-14T00:00:00+08:00",
+          "secCode": "600887",
+          "secName": "伊利股份"
+        },
+        {
+          "title": "内蒙古伊利实业集团股份有限公司关于全资子公司内蒙古惠商融资担保有限公司2026年第三季度对外担保情况公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225600810.PDF",
+          "publishedAt": "2026-10-13T00:00:00+08:00",
+          "secCode": "600887",
+          "secName": "伊利股份"
+        },
+        {
+          "title": "内蒙古伊利实业集团股份有限公司关于股份回购进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-10/1225598746.PDF",
+          "publishedAt": "2026-10-10T00:00:00+08:00",
+          "secCode": "600887",
+          "secName": "伊利股份"
+        },
+        {
+          "title": "内蒙古伊利实业集团股份有限公司关于出资设立风险投资基金相关事项变更的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-10/1225598739.PDF",
+          "publishedAt": "2026-10-10T00:00:00+08:00",
+          "secCode": "600887",
+          "secName": "伊利股份"
+        },
+        {
+          "title": "内蒙古伊利实业集团股份有限公司关于2026年度第十、十一期超短期融资券兑付完成的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-01/1225591152.PDF",
+          "publishedAt": "2026-10-01T00:00:00+08:00",
+          "secCode": "600887",
+          "secName": "伊利股份"
+        },
+        {
+          "title": "内蒙古伊利实业集团股份有限公司关于为全资子公司提供担保的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-01/1225591147.PDF",
+          "publishedAt": "2026-10-01T00:00:00+08:00",
+          "secCode": "600887",
+          "secName": "伊利股份"
+        }
+      ]
+    },
+    {
+      "id": "dongpeng",
+      "code": "605499",
+      "name": "东鹏饮料",
+      "orgId": "9900041766",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 8,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "H股公告-董事会会议通告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-17/1225608729.PDF",
+          "publishedAt": "2026-10-17T00:00:00+08:00",
+          "secCode": "605499",
+          "secName": "东鹏饮料"
+        },
+        {
+          "title": "东鹏饮料（集团）股份有限公司关于使用部分闲置自有资金进行现金管理的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-14/1225603608.PDF",
+          "publishedAt": "2026-10-14T00:00:00+08:00",
+          "secCode": "605499",
+          "secName": "东鹏饮料"
+        },
+        {
+          "title": "北京德恒（深圳）律师事务所关于东鹏饮料（集团）股份有限公司2026年第三次临时股东会之法律意见",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-10/1225600170.PDF",
+          "publishedAt": "2026-10-10T00:00:00+08:00",
+          "secCode": "605499",
+          "secName": "东鹏饮料"
+        },
+        {
+          "title": "东鹏饮料（集团）股份有限公司2026年第三次临时股东会决议公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-10/1225600169.PDF",
+          "publishedAt": "2026-10-10T00:00:00+08:00",
+          "secCode": "605499",
+          "secName": "东鹏饮料"
+        },
+        {
+          "title": "东鹏饮料（集团）股份有限公司关于董事会完成换届选举及聘任高级管理人员、证券事务代表的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-10/1225600168.PDF",
+          "publishedAt": "2026-10-10T00:00:00+08:00",
+          "secCode": "605499",
+          "secName": "东鹏饮料"
+        },
+        {
+          "title": "东鹏饮料（集团）股份有限公司关于以集中竞价交易方式回购A股股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-10/1225600167.PDF",
+          "publishedAt": "2026-10-10T00:00:00+08:00",
+          "secCode": "605499",
+          "secName": "东鹏饮料"
+        },
+        {
+          "title": "东鹏饮料（集团）股份有限公司第四届董事会第一次会议决议公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-10/1225600166.PDF",
+          "publishedAt": "2026-10-10T00:00:00+08:00",
+          "secCode": "605499",
+          "secName": "东鹏饮料"
+        },
+        {
+          "title": "H股公告-截至二零二六年九月三十日止之股份发行人的证券变动月报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225595435.PDF",
+          "publishedAt": "2026-10-08T00:00:00+08:00",
+          "secCode": "605499",
+          "secName": "东鹏饮料"
+        }
+      ]
+    },
+    {
+      "id": "hkex",
+      "code": "00388",
+      "name": "香港交易所",
+      "orgId": "gshk0000388",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 8,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "致新登记股东之函件 – (1) 日期为2026年10月16日的通函连同股东大会通告及代表委任表格的刊发; (2)香港交易所股东大会; 及(3)发布香港交易所的公司通讯及收集电邮地址",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225607087.PDF",
+          "publishedAt": "2026-10-15T18:14:26+08:00",
+          "secCode": "00388",
+          "secName": "香港交易所"
+        },
+        {
+          "title": "股东大会代表委任表格",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225607030.PDF",
+          "publishedAt": "2026-10-15T18:06:26+08:00",
+          "secCode": "00388",
+          "secName": "香港交易所"
+        },
+        {
+          "title": "致现有登记股东之函件 – (1)日期为2026年10月16日的通函连同股东大会通告及代表委任表格的刊发; (2)香港交易所股东大会; 及(3)有关收取公司通讯的印刷本或电子版本的要求",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225607034.PDF",
+          "publishedAt": "2026-10-15T18:06:11+08:00",
+          "secCode": "00388",
+          "secName": "香港交易所"
+        },
+        {
+          "title": "股东大会通告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225607029.PDF",
+          "publishedAt": "2026-10-15T18:06:11+08:00",
+          "secCode": "00388",
+          "secName": "香港交易所"
+        },
+        {
+          "title": "股东大会通告及采纳新《组织章程细则》的建议",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225607028.PDF",
+          "publishedAt": "2026-10-15T18:04:29+08:00",
+          "secCode": "00388",
+          "secName": "香港交易所"
+        },
+        {
+          "title": "致非登记股东之函件 – (1)日期为2026 年10月16日的通函连同股东大会通告及代表委任表格的刊发; (2)香港交易所股东大会; 及(3)发布香港交易所的公司通讯",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225607035.PDF",
+          "publishedAt": "2026-10-15T18:04:26+08:00",
+          "secCode": "00388",
+          "secName": "香港交易所"
+        },
+        {
+          "title": "采纳香港交易所新《组织章程细则》的建议",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225597275.PDF",
+          "publishedAt": "2026-10-08T17:28:27+08:00",
+          "secCode": "00388",
+          "secName": "香港交易所"
+        },
+        {
+          "title": "截至2026年9月30日止月份之股份发行人的证券变动月报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-05/1225594313.PDF",
+          "publishedAt": "2026-10-05T17:16:29+08:00",
+          "secCode": "00388",
+          "secName": "香港交易所"
+        }
+      ]
+    },
+    {
+      "id": "catl",
+      "code": "300750",
+      "name": "宁德时代",
+      "orgId": "GD165627",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 19,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "H股公告（翌日披露报表）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-22/1225616988.PDF",
+          "publishedAt": "2026-10-22T18:30:08+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "H股公告（翌日披露报表）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225614696.PDF",
+          "publishedAt": "2026-10-21T19:16:28+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "第四届董事会第二十一次会议决议公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613177.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613175.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "H股公告（翌日披露报表）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-19/1225611272.PDF",
+          "publishedAt": "2026-10-19T19:28:28+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "H股公告（翌日披露报表）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-16/1225608843.PDF",
+          "publishedAt": "2026-10-16T19:04:11+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "H股公告（翌日披露报表）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225607499.PDF",
+          "publishedAt": "2026-10-15T19:56:11+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "关于参与投资的基金完成私募投资基金备案的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-14/1225605239.PDF",
+          "publishedAt": "2026-10-14T18:08:30+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "关于参与投资上海时代宸远创业投资合伙企业（有限合伙）的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225603557.PDF",
+          "publishedAt": "2026-10-13T18:26:29+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "关于参与投资的基金完成私募投资基金备案的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-12/1225600435.PDF",
+          "publishedAt": "2026-10-12T00:00:00+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "关于回购公司A股股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225597751.PDF",
+          "publishedAt": "2026-10-08T18:50:10+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "H股公告（翌日披露报表）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225597755.PDF",
+          "publishedAt": "2026-10-08T18:48:27+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "H股公告（董事会会议召开日期）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225595386.PDF",
+          "publishedAt": "2026-10-08T00:00:00+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "H股公告（截至2026年9月30日止股份发行人的证券变动月报表)",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225595385.PDF",
+          "publishedAt": "2026-10-08T00:00:00+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "关于接受关联方担保的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-01/1225592063.PDF",
+          "publishedAt": "2026-10-01T00:00:00+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "关于日常关联采购的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-01/1225592062.PDF",
+          "publishedAt": "2026-10-01T00:00:00+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "关于向控股子公司提供财务资助的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-01/1225592061.PDF",
+          "publishedAt": "2026-10-01T00:00:00+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "关于召开2026年第二次临时股东会的通知",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-01/1225592060.PDF",
+          "publishedAt": "2026-10-01T00:00:00+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        },
+        {
+          "title": "第四届董事会第二十次会议决议公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-01/1225592059.PDF",
+          "publishedAt": "2026-10-01T00:00:00+08:00",
+          "secCode": "300750",
+          "secName": "宁德时代"
+        }
+      ]
+    },
+    {
+      "id": "fuyao",
+      "code": "600660",
+      "name": "福耀玻璃",
+      "orgId": "gssh0600660",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 17,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "福耀玻璃H股公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225616074.PDF",
+          "publishedAt": "2026-10-23T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃独立董事候选人声明与承诺（程雁）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612064.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃独立董事提名人声明与承诺（达正浩）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612063.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃2026年第三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612062.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃独立董事提名人声明与承诺（程雁）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612061.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃独立董事候选人声明与承诺（薛祖云）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612055.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃独立董事提名人声明与承诺（薛祖云）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612054.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃第十一届董事局第十四次会议决议公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612052.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃关于开展外汇衍生品交易业务的可行性分析报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612051.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃日常关联交易公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612046.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃独立董事候选人声明与承诺（达正浩）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612042.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃独立董事候选人声明与承诺（刘小稚）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612039.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃关于召开2026年第三季度业绩说明会的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612037.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃独立董事提名人声明与承诺（刘小稚）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612036.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "福耀玻璃关于开展外汇衍生品交易业务公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612033.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "H股市场公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225595360.PDF",
+          "publishedAt": "2026-10-08T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        },
+        {
+          "title": "H股市场公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225595306.PDF",
+          "publishedAt": "2026-10-08T00:00:00+08:00",
+          "secCode": "600660",
+          "secName": "福耀玻璃"
+        }
+      ]
+    },
+    {
+      "id": "yutong",
+      "code": "600066",
+      "name": "宇通客车",
+      "orgId": "gssh0600066",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 4,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "关于召开2026年第三季度业绩说明会的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225604490.PDF",
+          "publishedAt": "2026-10-15T00:00:00+08:00",
+          "secCode": "600066",
+          "secName": "宇通客车"
+        },
+        {
+          "title": "2026年第三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225604484.PDF",
+          "publishedAt": "2026-10-15T00:00:00+08:00",
+          "secCode": "600066",
+          "secName": "宇通客车"
+        },
+        {
+          "title": "关于担保计划范围内担保进展的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225601091.PDF",
+          "publishedAt": "2026-10-13T00:00:00+08:00",
+          "secCode": "600066",
+          "secName": "宇通客车"
+        },
+        {
+          "title": "2026年9月份产销数据快报",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-09/1225596202.PDF",
+          "publishedAt": "2026-10-09T00:00:00+08:00",
+          "secCode": "600066",
+          "secName": "宇通客车"
+        }
+      ]
+    },
+    {
+      "id": "mindray",
+      "code": "300760",
+      "name": "迈瑞医疗",
+      "orgId": "9900035304",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 1,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "关于控股股东部分股份质押的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-12/1225600769.PDF",
+          "publishedAt": "2026-10-12T16:14:28+08:00",
+          "secCode": "300760",
+          "secName": "迈瑞医疗"
+        }
+      ]
+    },
+    {
+      "id": "hengrui",
+      "code": "600276",
+      "name": "恒瑞医药",
+      "orgId": "gssh0600276",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 12,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "H股公告-翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225617096.PDF",
+          "publishedAt": "2026-10-23T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "恒瑞医药关于回购公司A股股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225616065.PDF",
+          "publishedAt": "2026-10-23T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "恒瑞医药关于获得药物临床试验批准通知书的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225616060.PDF",
+          "publishedAt": "2026-10-23T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "H股公告-翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-20/1225611030.PDF",
+          "publishedAt": "2026-10-20T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "H股公告-翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-17/1225608630.PDF",
+          "publishedAt": "2026-10-17T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "H股公告-翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225604673.PDF",
+          "publishedAt": "2026-10-15T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "H股公告-董事会会议通告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225604669.PDF",
+          "publishedAt": "2026-10-15T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "H股公告-翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-14/1225603025.PDF",
+          "publishedAt": "2026-10-14T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "恒瑞医药关于获得药物临床试验批准通知书的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-14/1225602914.PDF",
+          "publishedAt": "2026-10-14T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "恒瑞医药关于回购公司A股股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-09/1225597121.PDF",
+          "publishedAt": "2026-10-09T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "恒瑞医药关于药品上市许可申请获EMA受理的提示性公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-09/1225596986.PDF",
+          "publishedAt": "2026-10-09T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        },
+        {
+          "title": "H股公告-证券变动月报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225595595.PDF",
+          "publishedAt": "2026-10-08T00:00:00+08:00",
+          "secCode": "600276",
+          "secName": "恒瑞医药"
+        }
+      ]
+    },
+    {
+      "id": "consun",
+      "code": "01681",
+      "name": "康臣药业",
+      "orgId": "gshk0001681",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 0,
+      "hasMore": false,
+      "announcements": []
+    },
+    {
+      "id": "dongee",
+      "code": "000423",
+      "name": "东阿阿胶",
+      "orgId": "gssz0000423",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 12,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "关于注销回购股份并减少注册资本的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225618373.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "北京金诚同达律师事务所关于东阿阿胶股份有限公司第一期限制性股票激励计划调整回购价格和回购注销部分限制性股票相关事项的法律意见书",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617719.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "董事会薪酬与考核委员会关于调整第一期限制性股票激励计划回购价格及回购注销部分限制性股票相关事项的核查意见",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617718.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "关于回购注销部分限制性股票并减少注册资本暨通知债权人的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617717.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "关于调整第一期限制性股票激励计划回购价格及回购注销部分限制性股票的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617716.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "独立董事候选人声明与承诺（郭雪萌）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617715.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "独立董事提名人声明与承诺（郭雪萌）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617714.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "关于增补独立董事的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617713.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "关于独立董事辞职的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617712.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "关于召开2026年第二次临时股东会的通知",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617711.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "第十一届董事会第二十三次会议决议公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617710.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        },
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617708.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "000423",
+          "secName": "东阿阿胶"
+        }
+      ]
+    },
+    {
+      "id": "gree",
+      "code": "000651",
+      "name": "格力电器",
+      "orgId": "gssz0000651",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 1,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "关于股份回购进展情况的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-09/1225596903.PDF",
+          "publishedAt": "2026-10-09T00:00:00+08:00",
+          "secCode": "000651",
+          "secName": "格力电器"
+        }
+      ]
+    },
+    {
+      "id": "wanhua",
+      "code": "600309",
+      "name": "万华化学",
+      "orgId": "gssh0600309",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 1,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "万华化学烟台产业园乙烯二期装置停产检修公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-09/1225597087.PDF",
+          "publishedAt": "2026-10-09T00:00:00+08:00",
+          "secCode": "600309",
+          "secName": "万华化学"
+        }
+      ]
+    },
+    {
+      "id": "yangnong",
+      "code": "600486",
+      "name": "扬农化工",
+      "orgId": "gssh0600486",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 1,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "关于公司董事离任的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225600782.PDF",
+          "publishedAt": "2026-10-13T00:00:00+08:00",
+          "secCode": "600486",
+          "secName": "扬农化工"
+        }
+      ]
+    },
+    {
+      "id": "sanhua",
+      "code": "002050",
+      "name": "三花智控",
+      "orgId": "gssz0002050",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 7,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "关于变更公司财务总监的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225615987.PDF",
+          "publishedAt": "2026-10-23T00:00:00+08:00",
+          "secCode": "002050",
+          "secName": "三花智控"
+        },
+        {
+          "title": "第八届董事会第二十三次临时会议决议公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225615986.PDF",
+          "publishedAt": "2026-10-23T00:00:00+08:00",
+          "secCode": "002050",
+          "secName": "三花智控"
+        },
+        {
+          "title": "H股公告-董事会会议召开日期",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-16/1225607250.PDF",
+          "publishedAt": "2026-10-16T00:00:00+08:00",
+          "secCode": "002050",
+          "secName": "三花智控"
+        },
+        {
+          "title": "关于回购公司A股股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-16/1225607208.PDF",
+          "publishedAt": "2026-10-16T00:00:00+08:00",
+          "secCode": "002050",
+          "secName": "三花智控"
+        },
+        {
+          "title": "H股公告-翌日披露报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-14/1225603806.PDF",
+          "publishedAt": "2026-10-14T00:00:00+08:00",
+          "secCode": "002050",
+          "secName": "三花智控"
+        },
+        {
+          "title": "H股公告-截至2026年9月30日止之股份发行人的证券变动月报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-09/1225597828.PDF",
+          "publishedAt": "2026-10-09T00:00:00+08:00",
+          "secCode": "002050",
+          "secName": "三花智控"
+        },
+        {
+          "title": "关于回购公司A股股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-09/1225597549.PDF",
+          "publishedAt": "2026-10-09T00:00:00+08:00",
+          "secCode": "002050",
+          "secName": "三花智控"
+        }
+      ]
+    },
+    {
+      "id": "cmb",
+      "code": "600036",
+      "name": "招商银行",
+      "orgId": "gssh0600036",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 3,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "招商银行股份有限公司关于召开2026年第三季度业绩说明会的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225619771.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "600036",
+          "secName": "招商银行"
+        },
+        {
+          "title": "[H股公告]招商银行股份有限公司董事会会议召开日期",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612596.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600036",
+          "secName": "招商银行"
+        },
+        {
+          "title": "招商银行股份有限公司关于非执行董事离任的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-01/1225591091.PDF",
+          "publishedAt": "2026-10-01T00:00:00+08:00",
+          "secCode": "600036",
+          "secName": "招商银行"
+        }
+      ]
+    },
+    {
+      "id": "pingan",
+      "code": "601318",
+      "name": "中国平安",
+      "orgId": "9900002221",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 6,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "中国平安：平安银行股份有限公司2026年第三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225621667.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "601318",
+          "secName": "中国平安"
+        },
+        {
+          "title": "中国平安关于披露平安银行2026年第三季度报告的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225621666.PDF",
+          "publishedAt": "2026-10-24T00:00:00+08:00",
+          "secCode": "601318",
+          "secName": "中国平安"
+        },
+        {
+          "title": "中国平安关于召开2026年第三季度业绩说明会的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612223.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "601318",
+          "secName": "中国平安"
+        },
+        {
+          "title": "中国平安H股公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-16/1225607661.PDF",
+          "publishedAt": "2026-10-16T00:00:00+08:00",
+          "secCode": "601318",
+          "secName": "中国平安"
+        },
+        {
+          "title": "中国平安非执行董事辞任公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-16/1225606984.PDF",
+          "publishedAt": "2026-10-16T00:00:00+08:00",
+          "secCode": "601318",
+          "secName": "中国平安"
+        },
+        {
+          "title": "中国平安H股公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-01/1225590976.PDF",
+          "publishedAt": "2026-10-01T00:00:00+08:00",
+          "secCode": "601318",
+          "secName": "中国平安"
+        }
+      ]
+    },
+    {
+      "id": "china_mobile",
+      "code": "600941",
+      "name": "中国移动",
+      "orgId": "gshk0000941",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 3,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "中国移动：2026年第三季度客户数据公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613029.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600941",
+          "secName": "中国移动"
+        },
+        {
+          "title": "中国移动：2026年第三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613028.PDF",
+          "publishedAt": "2026-10-21T00:00:00+08:00",
+          "secCode": "600941",
+          "secName": "中国移动"
+        },
+        {
+          "title": "中国移动：月报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225595593.PDF",
+          "publishedAt": "2026-10-08T00:00:00+08:00",
+          "secCode": "600941",
+          "secName": "中国移动"
+        }
+      ]
+    },
+    {
+      "id": "cypc",
+      "code": "600900",
+      "name": "长江电力",
+      "orgId": "gssh0600900",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 1,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "长江电力2026年三季度发电量完成情况公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225600572.PDF",
+          "publishedAt": "2026-10-13T00:00:00+08:00",
+          "secCode": "600900",
+          "secName": "长江电力"
+        }
+      ]
+    },
+    {
+      "id": "cnooc",
+      "code": "00883",
+      "name": "中国海洋石油",
+      "orgId": "gshk0000883",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 5,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "海外监管公告 关于召开2026年第三季度业绩说明会的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225618943.PDF",
+          "publishedAt": "2026-10-23T16:54:26+08:00",
+          "secCode": "00883",
+          "secName": "中国海洋石油"
+        },
+        {
+          "title": "海外监管公告 2026年第六次董事会决议公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-22/1225616200.PDF",
+          "publishedAt": "2026-10-22T17:10:10+08:00",
+          "secCode": "00883",
+          "secName": "中国海洋石油"
+        },
+        {
+          "title": "董事会会议召开日期",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-16/1225608361.PDF",
+          "publishedAt": "2026-10-16T17:04:11+08:00",
+          "secCode": "00883",
+          "secName": "中国海洋石油"
+        },
+        {
+          "title": "自愿公告 实际控制人增持本公司股份的进一步进展",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225597166.PDF",
+          "publishedAt": "2026-10-08T17:18:10+08:00",
+          "secCode": "00883",
+          "secName": "中国海洋石油"
+        },
+        {
+          "title": "海外监管公告 2026年A股中期股息分派实施公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-08/1225597168.PDF",
+          "publishedAt": "2026-10-08T17:16:30+08:00",
+          "secCode": "00883",
+          "secName": "中国海洋石油"
+        }
+      ]
+    },
+    {
+      "id": "crland",
+      "code": "01109",
+      "name": "华润置地",
+      "orgId": "gshk0001109",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 2,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "截至2026年9月30日止一个月未经审核营运数据",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225603753.PDF",
+          "publishedAt": "2026-10-13T18:48:27+08:00",
+          "secCode": "01109",
+          "secName": "华润置地"
+        },
+        {
+          "title": "截至2026年9月30日股份发行人的证券变动月报表",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-02/1225593153.PDF",
+          "publishedAt": "2026-10-02T17:02:06+08:00",
+          "secCode": "01109",
+          "secName": "华润置地"
+        }
+      ]
+    },
+    {
+      "id": "weixing",
+      "status": "unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "yiwu",
+      "status": "unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "focus",
+      "code": "002027",
+      "name": "分众传媒",
+      "orgId": "gssz0002027",
+      "status": "queried",
+      "queryUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "dateRange": "2026-10-01~2026-10-24",
+      "totalAnnouncement": 2,
+      "hasMore": false,
+      "announcements": [
+        {
+          "title": "公司关于收到国家市场监督管理总局附加限制性条件批准公司收购成都新潮传媒集团股份有限公司股权案反垄断审查决定的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-12/1225600446.PDF",
+          "publishedAt": "2026-10-12T00:00:00+08:00",
+          "secCode": "002027",
+          "secName": "分众传媒"
+        },
+        {
+          "title": "公司关于为境外子公司提供担保的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-10/1225599292.PDF",
+          "publishedAt": "2026-10-10T00:00:00+08:00",
+          "secCode": "002027",
+          "secName": "分众传媒"
+        }
+      ]
+    },
+    {
+      "id": "shenhua",
+      "status": "unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "zijin",
+      "status": "unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "ninghu",
+      "status": "unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    }
+  ]
+}

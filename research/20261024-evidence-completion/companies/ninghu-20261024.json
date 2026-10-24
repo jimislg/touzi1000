@@ -1,0 +1,261 @@
+{
+  "id": "ninghu",
+  "name": "宁沪高速",
+  "codes": [
+    "600377.SH"
+  ],
+  "scope": "总部历史候选/监控池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "收费公路是有限期限现金资产，扩建后资本回收与收费期限决定股东价值。",
+  "breakers": "扩建现金投入提高而收费期限与车流回收无法证明，先降低分红/残值，不靠历史高股息。（研究建议，未批准）",
+  "reviewBy": "2026-10-27",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "收费路桥主业清楚",
+      "counter": "地产新能源金融投资增加跨度",
+      "monitor": "非公路资本占用",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "分红与路产披露较透明",
+      "counter": "集团关联注入需公允评估",
+      "monitor": "注入定价与关联债",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "核心区位和特许准入",
+      "counter": "路权有期限且平行路分流",
+      "monitor": "单路流量与剩余年限",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "本土路产无需全球经营",
+      "counter": "无独立海外增长锚",
+      "monitor": "境外投入若发生另评",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "通过",
+      "support": "苏南经济路网位置稀缺",
+      "counter": "替代路线与免费政策约束",
+      "monitor": "单位道路现金回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "存疑",
+      "support": "出行物流长期存在",
+      "counter": "车流迁移和期限决定十年后现金",
+      "monitor": "分路车流及到期政策",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "成熟路产OCF稳定",
+      "counter": "扩建资本支出超过当期OCF",
+      "monitor": "借款利息与成熟路现金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "有持续派息与新路建设",
+      "counter": "扩建及多元投资回报不确定",
+      "monitor": "分项目IRR与有限期DCF",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 92.93099244,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "ninghu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 25.03328666,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "ninghu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 24.87807127,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "ninghu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 36.02918234,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "ninghu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 41.46551886,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "ninghu-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 36.02918234,
+    "totalCapex": 41.46551886,
+    "conservativeResidual": -5.436336520000005,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.8,
+          "g1": -0.01,
+          "g2": -0.02,
+          "payout": 0.6,
+          "exit_pe": 6
+        },
+        "base": {
+          "eps0": 0.95,
+          "g1": 0.01,
+          "g2": -0.01,
+          "payout": 0.65,
+          "exit_pe": 9
+        },
+        "bull": {
+          "eps0": 1.05,
+          "g1": 0.03,
+          "g2": 0.01,
+          "payout": 0.7,
+          "exit_pe": 11
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "有限路权低增长研究；PE仅市场退出敏感性，不能替代路权DCF",
+      "auditGap": "收费期限/续期批复、扩建资本/现金利息、参股股息及剩余期限DCF未闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "newEvidenceImpact": "H1 OCF36.029减CAPEX41.466=-5.436亿元，未扣融资利息；参股收益不等于实收股息。官方董事会日历列10/27审Q3，早于此不能填9M实绩，续期未批也不能永续套PE。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文；已公告2026-10-27董事会/业绩日",
+    "asOf": "2026-10-24",
+    "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+    "valuationImpact": "H1 OCF36.029减CAPEX41.466=-5.436亿元，未扣融资利息；参股收益不等于实收股息。官方董事会日历列10/27审Q3，早于此不能填9M实绩，续期未批也不能永续套PE。",
+    "futureEvent": [
+      "2026-10-27",
+      "港交所董事会日历"
+    ]
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "扩建现金投入提高而收费期限与车流回收无法证明，先降低分红/残值，不靠历史高股息。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1 OCF36.029减CAPEX41.466=-5.436亿元，未扣融资利息；参股收益不等于实收股息。官方董事会日历列10/27审Q3，早于此不能填9M实绩，续期未批也不能永续套PE。",
+      "reason": "已核现金投入；逐路收费期限/续期、扩建资本义务及参股实际现金仍需逐路DCF。",
+      "sourceIds": [
+        "ninghu-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "ninghu-latest",
+      "title": "2026半年度报告，PDF 8、79—81",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-28/1225519779.PDF",
+      "publishedAt": "2026-08-28",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "8、79—81"
+    },
+    {
+      "id": "ninghu-prior-1",
+      "title": "宁沪2026中报摘要原文镜像",
+      "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12559477&stockid=600377",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "收费期限/续期批复、扩建资本/现金利息、参股股息及剩余期限DCF未闭合",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已核现金投入；逐路收费期限/续期、扩建资本义务及参股实际现金仍需逐路DCF。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/ninghu.html"
+}

@@ -24,6 +24,9 @@ jobs:
       - run: mkdir -p delivery-tests && node investment-platform/test-browser-safety.js
         env:
           PLAYWRIGHT_MODULE: /tmp/investor-browser/node_modules/playwright
+      - run: node investment-platform/test-research-browser.js
+        env:
+          PLAYWRIGHT_MODULE: /tmp/investor-browser/node_modules/playwright
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -31,3 +34,4 @@ jobs:
           path: |
             /tmp/investor-safety-logs
             delivery-tests/browser-*.png
+            delivery-tests/research/*.png

@@ -76,3 +76,11 @@ Material accepted changes add `decisionInputsChanged:{at,fields,reason}`. All su
 `sourceMode:'local'` never touches the cloud and reports `_sourceMode:'local',_syncStatus:'local'`; existing cloud pending files survive reads, block local saves, and are reported `local-pending-review`. Cloud mode retains CAS. Save receipts include serverSavedAt, sourceMode, revision, dataRevision and changedFields. The web requires a matching server readback before clearing its draft. A missing response remains an unverified outcome and is never retried automatically.
 
 Unknown issuer/seat valuation returns null space, not a full unused budget. Unsafe integer amounts, overflow, fractional share counts, future evidence dates, unknown quote time and dated-FX gaps fail closed. Explicit riskMaxPct also bounds a policy issuer maximum. A/H issuer mapping applies to both issuer and full-seat valuation; cross-listing holdings cannot evade either cap.
+
+## 2026-10-24 只读研究补充
+
+`researchSummary(company,cfg)`可读取`cfg._researchSupplement`展示最新公开研究。`researchState`的正式研究/审计逻辑不由此自动通过。该字段不属于账户版本，不由保存接口接收或持久化。
+
+服务端为`/api/config`与decision-preview注入同一代码版本的可信研究包。已覆盖证券要求`audit.researchSupplementVersion`和`executionApproval.researchSupplementVersion`同时等于当前包version，否则阻断。新研究不会偷偷放行旧审批；确认版本不能替代政策、对账及行情门槛。不可用的研究包也阻断预览确认。预览回执携带`researchSupplementVersion`。
+
+研究版本包含全部公司证据JSON与正文的SHA-256摘要；正文、来源或估值假设改变即产生新版本，原审计/批准对旧版本的确认失效。生成过程使用公共输入，可离线重复。

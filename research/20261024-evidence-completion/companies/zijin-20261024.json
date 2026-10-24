@@ -1,0 +1,296 @@
+{
+  "id": "zijin",
+  "name": "紫金矿业",
+  "codes": [
+    "601899.SH"
+  ],
+  "scope": "总部历史候选/监控池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "全球矿产开发能力与资源组合有价值，高金铜价格不能成为永久利润底线。",
+  "breakers": "金铜价格回落、单位成本/少数占比上升或并购摊薄抵消增产；旧中周期EPS2.1不能因9M赚2.163直接废除。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "金铜锂资源主线清楚",
+      "counter": "多矿种增加管理跨度",
+      "monitor": "非核心投资",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "工程管理长期有成绩",
+      "counter": "国别治理与ESG事件尾部",
+      "monitor": "安全环保及少数权益",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "低品位开发与资源工程能力",
+      "counter": "商品受价、优势依赖人才体系",
+      "monitor": "单位成本和品位",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "全球项目真实产量利润",
+      "counter": "税制制裁及汇率不可均摊",
+      "monitor": "国别权益现金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "通过",
+      "support": "全球资源组合与项目交付",
+      "counter": "同业争抢优质资源抬价",
+      "monitor": "并购资源成本",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "存疑",
+      "support": "电网及电动化支持铜需求",
+      "counter": "金价金融周期与经济敏感",
+      "monitor": "中周期金铜价与真实用量",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF强、资产负债率改善",
+      "counter": "少数和资本接续消耗现金",
+      "monitor": "归母FCFE与融资",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "逆周期并购有历史能力",
+      "counter": "高景气再并购及稀释风险",
+      "monitor": "单位投资与每股现金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 2834.52745522,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "zijin-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 575.25672087,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "zijin-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 558.42395338,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "zijin-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 380.34770076,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "zijin-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 842.76321162,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "zijin-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 189.6961785,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "zijin-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedEPS",
+      "value": 2.163,
+      "unit": "CNY元/普通股",
+      "period": "2026Q1–Q3",
+      "sourceId": "zijin-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026Q1–Q3",
+    "unit": "CNY亿元",
+    "ocf": 842.76321162,
+    "totalCapex": 189.6961785,
+    "conservativeResidual": 653.06703312,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.45,
+          "g1": 0.02,
+          "g2": 0,
+          "payout": 0.25,
+          "exit_pe": 8
+        },
+        "base": {
+          "eps0": 2.1,
+          "g1": 0.06,
+          "g2": 0.03,
+          "payout": 0.3,
+          "exit_pe": 10
+        },
+        "bull": {
+          "eps0": 2.7,
+          "g1": 0.08,
+          "g2": 0.04,
+          "payout": 0.35,
+          "exit_pe": 12
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "按中周期金铜价格和权益产量扩张推导，每股盈利不是H1×2",
+      "auditGap": "分矿母少数现金、储量替换/并购及全摊薄资本结构、资源NAV交叉未闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "newEvidenceImpact": "已核Q3：9M收入2834.527、归母575.257、扣非558.424、OCF842.763亿元；现金CAPEX189.696后余653.067。基本EPS2.163、稀释2.106均为9M，不直接乘4/3；Q3金锭售价916.39元/克低于Q2 982.36，单位成本却升至376.99。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "financial",
+    "status": "Q3财务已核原文",
+    "asOf": "2026-10-24",
+    "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+    "valuationImpact": "已核Q3：9M收入2834.527、归母575.257、扣非558.424、OCF842.763亿元；现金CAPEX189.696后余653.067。基本EPS2.163、稀释2.106均为9M，不直接乘4/3；Q3金锭售价916.39元/克低于Q2 982.36，单位成本却升至376.99。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026Q1–Q3",
+      "trigger": "金铜价格回落、单位成本/少数占比上升或并购摊薄抵消增产；旧中周期EPS2.1不能因9M赚2.163直接废除。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "已核Q3：9M收入2834.527、归母575.257、扣非558.424、OCF842.763亿元；现金CAPEX189.696后余653.067。基本EPS2.163、稀释2.106均为9M，不直接乘4/3；Q3金锭售价916.39元/克低于Q2 982.36，单位成本却升至376.99。",
+      "reason": "已补产量、价格、付现/销售成本与股本差；10/22赤峰交割属期后事项，新资产收益和收购资金需匹配。",
+      "sourceIds": [
+        "zijin-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "zijin-latest",
+      "title": "2026第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620996.PDF",
+      "publishedAt": "2026-10-24",
+      "period": "2026Q1–Q3",
+      "location": "PDF 1—3、5—8、14—15",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing"
+    },
+    {
+      "id": "zijin-prior-0",
+      "title": "紫金2026中报",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-22/1225550244.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "6—7、45、49",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "zijin-prior-1",
+      "title": "紫金官方季度报告目录",
+      "url": "https://www.zjky.cn/investor/quarter-report.jsp",
+      "publishedAt": null,
+      "period": "2026-10-19查核",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "zijin-prior-2",
+      "title": "紫金官方半年报告目录",
+      "url": "https://www.zjky.cn/investor/half-report.jsp",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "分矿母少数现金、储量替换/并购及全摊薄资本结构、资源NAV交叉未闭合",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已补产量、价格、付现/销售成本与股本差；10/22赤峰交割属期后事项，新资产收益和收购资金需匹配。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/zijin.html"
+}

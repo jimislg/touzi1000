@@ -18,3 +18,9 @@ investment-platform/*.tmp-*
 .DS_Store
 investment-platform/*.pending
 investment-platform/*.tmp-*
+
+# Private user account working papers; never publish to GitHub
+research/20261024-evidence-completion/private/
+
+# Downloaded primary documents are local evidence, not re-published reports
+research/20261024-evidence-completion/sources/

@@ -46,6 +46,7 @@
       </view>
       <view wx:if="{{item.expanded}}" class="planbox">
         <view>{{item.plan}}</view>
+        <view wx:if="{{item.summary.supplementLabel}}">{{item.summary.supplementLabel}}</view>
         <view>持有逻辑：{{item.summary.thesis}}</view>
         <view>证伪条件：{{item.summary.breakers}}</view>
         <view>下次复核：{{item.summary.reviewBy}}</view>

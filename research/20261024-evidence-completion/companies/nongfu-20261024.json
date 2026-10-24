@@ -1,0 +1,254 @@
+{
+  "id": "nongfu",
+  "name": "农夫山泉",
+  "codes": [
+    "09633.HK"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "包装水与茶饮品牌和渠道具经济性，但茶品类增长不能永久外推。",
+  "breakers": "茶收入增长主要来自压货或折扣、包装水量价同时下滑，且新产能现金回收不足。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "水茶饮料共享生产和渠道",
+      "counter": "新品过多会摊薄资源",
+      "monitor": "单品投入回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化与治理",
+      "verdict": "通过",
+      "support": "长期品牌及主业聚焦",
+      "counter": "控股集中关联采购",
+      "monitor": "关联上限和实际交易",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "水源布局、渠道、品牌共同作用",
+      "counter": "水源本身不是排他壁垒",
+      "monitor": "渠道密度和价差",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "国内市场足以形成规模",
+      "counter": "海外未形成重要利润",
+      "monitor": "不提前计海外增长",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "存疑",
+      "support": "水茶强品牌渠道",
+      "counter": "纯净水及无糖茶竞争",
+      "monitor": "产品净价与促销",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户与需求",
+      "verdict": "存疑",
+      "support": "水高频、茶增长快",
+      "counter": "茶复购和高增速耐久待证",
+      "monitor": "动销留存和营销ROI",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "盈利现金与资产负债缓冲",
+      "counter": "产能开支高于折旧",
+      "monitor": "五年现金转换",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "通过",
+      "support": "主业扩产并持续分红",
+      "counter": "募集资金及低收益存款",
+      "monitor": "增量产能ROIC",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 297.181,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "nongfu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 88.87,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "nongfu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 107.12333,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "nongfu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 38.20378,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "nongfu-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 107.12333,
+    "totalCapex": 38.20378,
+    "conservativeResidual": 68.91954999999999,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.35,
+          "g1": 0.02,
+          "g2": 0.02,
+          "payout": 0.65,
+          "exit_pe": 15
+        },
+        "base": {
+          "eps0": 1.55,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.65,
+          "exit_pe": 20
+        },
+        "bull": {
+          "eps0": 1.75,
+          "g1": 0.12,
+          "g2": 0.08,
+          "payout": 0.65,
+          "exit_pe": 25
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准水约2%增长、茶高增速逐年减缓至低双位数、其他品类中个位数，混合收入约8%，利润率稳定，后五年5%；悲观价格竞争，乐观茶复购延续。65%派息低于旧70%快筛，给必要产能和营运资本留资金。"
+    },
+    "newEvidenceImpact": "H1 OCF107.123减全部CAPEX38.204=68.920亿元，尚需租赁/NCI/融资桥。新增产能全部先列现金投入；撤回把未披露维护投入精确拆分的做法。9月关联交易上限不是已发生现金占用。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+    "valuationImpact": "H1 OCF107.123减全部CAPEX38.204=68.920亿元，尚需租赁/NCI/融资桥。新增产能全部先列现金投入；撤回把未披露维护投入精确拆分的做法。9月关联交易上限不是已发生现金占用。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "茶收入增长主要来自压货或折扣、包装水量价同时下滑，且新产能现金回收不足。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1 OCF107.123减全部CAPEX38.204=68.920亿元，尚需租赁/NCI/融资桥。新增产能全部先列现金投入；撤回把未披露维护投入精确拆分的做法。9月关联交易上限不是已发生现金占用。",
+      "reason": "已补全现金CAPEX扣减并核资金余额不能等同净现金；终端复购、促销后净价和新产能回报仍缺。",
+      "sourceIds": [
+        "nongfu-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "nongfu-latest",
+      "title": "2026半年度报告，PDF 管理层现金、财务及现金流表（英中文混排）",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401877.pdf",
+      "publishedAt": null,
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "管理层现金、财务及现金流表（英中文混排）"
+    },
+    {
+      "id": "nongfu-prior-1",
+      "title": "农夫关联交易年度上限调整",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101529.pdf",
+      "publishedAt": null,
+      "period": "2026-09-11",
+      "location": "关联交易及董事意见",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "nongfu-prior-2",
+      "title": "公司官方财务目录",
+      "url": "https://www.nongfuspring.com/financialinfo.html",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "经营回顾、财务报表及附注",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "新产能维护/扩张分拆、终端量价和茶复购；9月关联交易上限调整的实际交易与价格需跟踪。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已补全现金CAPEX扣减并核资金余额不能等同净现金；终端复购、促销后净价和新产能回报仍缺。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/nongfu.html"
+}

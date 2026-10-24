@@ -1,0 +1,252 @@
+{
+  "id": "tencent",
+  "name": "腾讯控股",
+  "codes": [
+    "0700.HK"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "微信网络、游戏与广告带来持续现金，但AI基础设施和算力预付款已显著挤占可分配现金。",
+  "breakers": "广告或游戏变现放缓同时AI现金投入持续超出经营现金；须先压低派息/净回购，而非维持旧增长再加回现金。（研究建议，未批准）",
+  "reviewBy": "2026-11-18",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "A类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "社交、游戏、广告与支付共享分发",
+      "counter": "AI多线开发可能扩大费用",
+      "monitor": "新增项目投入回收",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化与治理",
+      "verdict": "通过",
+      "support": "披露GAAP与调整桥，持续回报股东",
+      "counter": "复杂激励与公益成本不能忽略",
+      "monitor": "SBC占营收及净股数",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "关系链、生态和多边分发互相强化",
+      "counter": "AI入口可能改变用户触达",
+      "monitor": "微信活跃、时长与商户留存",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "海外游戏有实际收入",
+      "counter": "地缘与全球内容竞争",
+      "monitor": "恒定汇率海外游戏收入",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "广告转化和自研游戏支持毛利",
+      "counter": "短视频和AI争夺时长",
+      "monitor": "广告毛利与游戏流水留存",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户与需求",
+      "verdict": "通过",
+      "support": "关系通信与支付高频",
+      "counter": "用户稳定不等于付费无限增长",
+      "monitor": "MAU、商业支付与广告ROI",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF及资产负债表提供缓冲",
+      "counter": "集团现金不等于归母可派",
+      "monitor": "资本现金、NCI和受限资金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "回购派息和成熟生态回报有证据",
+      "counter": "AI预付及联营投资新资本回报未证",
+      "monitor": "经常FCFE/投入资本回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 4012.43,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "tencent-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 1141.15,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "tencent-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 1540.61,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "tencent-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 1071.63,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "tencent-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 1540.61,
+    "totalCapex": 1071.63,
+    "conservativeResidual": 468.9799999999998,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。",
+    "leasePrincipal": 36.36,
+    "interestPaid": 64.08,
+    "interestReceived": 91.14,
+    "dividendsReceived": 51.62,
+    "nciCashDividend": 16.62,
+    "cashBeforeAcquisitionAndParentDistributions": 494.68
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 25.9808,
+          "g1": 0.03,
+          "g2": 0.03,
+          "payout": 0.174,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 25.9808,
+          "g1": 0.09,
+          "g2": 0.07,
+          "payout": 0.174,
+          "exit_pe": 14
+        },
+        "bull": {
+          "eps0": 29.299,
+          "g1": 0.13,
+          "g2": 0.1,
+          "payout": 0.154,
+          "exit_pe": 18
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入由广告双位数与其他业务中个位数形成约8%增长，稳定略升利润率带来约9%前段盈利增长，后段降至7%；悲观成熟业务仅低个位数，乐观AI商业化贡献增加。派息率以5.3港元滚动DPS折人民币/情景EPS近似，不把回购计入。"
+    },
+    "newEvidenceImpact": "H1现金桥1540.61−1071.63−36.36−64.08+91.14+51.62−16.62=494.68亿元，尚未扣并购及股东分配。相对股息415.95与回购222.57亿元，不能把全部回购假定永续。撤回无依据的维护CAPEX300亿元拆分；SBC149.49亿元是归母调整表经济成本，非现金支出。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文；已公告2026-11-18董事会/业绩日",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1现金桥1540.61−1071.63−36.36−64.08+91.14+51.62−16.62=494.68亿元，尚未扣并购及股东分配。相对股息415.95与回购222.57亿元，不能把全部回购假定永续。撤回无依据的维护CAPEX300亿元拆分；SBC149.49亿元是归母调整表经济成本，非现金支出。",
+    "futureEvent": [
+      "2026-11-18",
+      "公司IR日历"
+    ]
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "广告或游戏变现放缓同时AI现金投入持续超出经营现金；须先压低派息/净回购，而非维持旧增长再加回现金。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1现金桥1540.61−1071.63−36.36−64.08+91.14+51.62−16.62=494.68亿元，尚未扣并购及股东分配。相对股息415.95与回购222.57亿元，不能把全部回购假定永续。撤回无依据的维护CAPEX300亿元拆分；SBC149.49亿元是归母调整表经济成本，非现金支出。",
+      "reason": "资本现金支出、租赁本金、融资利息、收到利息/股息、NCI股息已逐项分列；AI预付可取消性及未来必要投入未披露清楚。",
+      "sourceIds": [
+        "tencent-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "tencent-latest",
+      "title": "2026半年度报告，PDF 18、22、34—35",
+      "url": "https://www.tencent.com/wp-content/uploads/2026/08/E700_IR.pdf",
+      "publishedAt": null,
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "18、22、34—35"
+    },
+    {
+      "id": "tencent-prior-1",
+      "title": "腾讯2026Q2业绩及算力预付款说明",
+      "url": "https://www.tencent.com/wp-content/uploads/2026/08/Tencent-Announces-2026-Second-Quarter-Results.pdf",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "经营回顾、财务报表及附注",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "精确TTM稀释分子、SBC税效、算力预付履约和不可取消承诺；维护投入分拆及NCI/联营现金归属尚未验证。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "资本现金支出、租赁本金、融资利息、收到利息/股息、NCI股息已逐项分列；AI预付可取消性及未来必要投入未披露清楚。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/tencent.html"
+}

@@ -1,0 +1,243 @@
+{
+  "id": "yili",
+  "name": "伊利股份",
+  "codes": [
+    "600887.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "乳业渠道和品牌有基础，但需求、融资效率和海外投入回报约束长期复利。",
+  "breakers": "利润率下降、渠道库存上升与海外ROIC不改善并存；不能靠加回减值抬高常态EPS。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "乳业营养主业明确",
+      "counter": "多品类资本占用",
+      "monitor": "非主业投资",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化与治理",
+      "verdict": "通过",
+      "support": "经营和派息记录",
+      "counter": "激励及集中管理需监督",
+      "monitor": "关联采购与激励",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "品牌、奶源与渠道规模",
+      "counter": "终端促销削弱溢价",
+      "monitor": "净价、份额及渠道效率",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "存疑",
+      "support": "海外奶源及营养资产真实",
+      "counter": "不等于海外消费者利润",
+      "monitor": "海外ROIC及现金回流",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "乳业头部规模",
+      "counter": "低切换成本及竞争促销",
+      "monitor": "分品类份额和净价",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户与需求",
+      "verdict": "存疑",
+      "support": "营养消费高频",
+      "counter": "液奶成熟与婴配人口约束",
+      "monitor": "真实销量/高端留存",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF覆盖必要资本现金",
+      "counter": "大额短借/存款错配待穿透",
+      "monitor": "非受限资金到期梯度",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "持续现金分红",
+      "counter": "澳优减值及存贷效率",
+      "monitor": "并购ROIC和净借款分红",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 643.309,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "yili-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 57.586,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "yili-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 97.591,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "yili-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 13.04262,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "yili-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 97.591,
+    "totalCapex": 13.04262,
+    "conservativeResidual": 84.54838,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.45,
+          "g1": -0.01,
+          "g2": 0.01,
+          "payout": 0.75,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 1.65,
+          "g1": 0.03,
+          "g2": 0.03,
+          "payout": 0.8,
+          "exit_pe": 13
+        },
+        "bull": {
+          "eps0": 1.9,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.8,
+          "exit_pe": 16
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入液奶稳定、奶粉和其他营养增长加权约3%，利润率不靠原奶继续下降而扩张，盈利3%/3%；悲观需求弱和促销，乐观品类升级。80%派息是常态研究假设，先受现金与到期融资约束。"
+    },
+    "newEvidenceImpact": "H1 OCF97.591减现金CAPEX13.043=84.549亿元；已找到NCI现金股息0.39739亿元，替换原笼统估计。租赁总现金1.66855亿元包含经营性短租，不能全部再扣；短租费用0.47001亿元也不等于当期短租付款。旧1.6亿元调整撤回为未知拆分。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1 OCF97.591减现金CAPEX13.043=84.549亿元；已找到NCI现金股息0.39739亿元，替换原笼统估计。租赁总现金1.66855亿元包含经营性短租，不能全部再扣；短租费用0.47001亿元也不等于当期短租付款。旧1.6亿元调整撤回为未知拆分。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "利润率下降、渠道库存上升与海外ROIC不改善并存；不能靠加回减值抬高常态EPS。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1 OCF97.591减现金CAPEX13.043=84.549亿元；已找到NCI现金股息0.39739亿元，替换原笼统估计。租赁总现金1.66855亿元包含经营性短租，不能全部再扣；短租费用0.47001亿元也不等于当期短租付款。旧1.6亿元调整撤回为未知拆分。",
+      "reason": "已关闭NCI现金股息缺项并定位租赁现金总额；需区分本金、利息与已进入OCF部分，继续核存款/借款期限币种匹配。",
+      "sourceIds": [
+        "yili-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "yili-latest",
+      "title": "2026半年度报告，PDF 6、56、178",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225511409.PDF",
+      "publishedAt": "2026-08-27",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "6、56、178"
+    },
+    {
+      "id": "yili-prior-1",
+      "title": "伊利官方投资者报告目录",
+      "url": "https://www.yili.com/en/investors",
+      "publishedAt": null,
+      "period": "截至2026-10-19",
+      "location": "最新中期及历史年度材料",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "租赁本金/利息与经营租赁现金拆分仍待核；NCI现金股息已核0.39739亿元。存款/借款期限币种及澳优ROIC仍为决定项。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已关闭NCI现金股息缺项并定位租赁现金总额；需区分本金、利息与已进入OCF部分，继续核存款/借款期限币种匹配。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/yili.html"
+}

@@ -1,0 +1,240 @@
+{
+  "id": "moutai",
+  "name": "贵州茅台",
+  "codes": [
+    "600519.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "品牌、渠道和低制造投入仍有经济价值，需求与预收款变化须用纯酒收现验证。",
+  "breakers": "合同负债、销售收现和吨价同时走弱；不以一次存款回流抵消主业压力。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "核心白酒聚焦",
+      "counter": "观察非主业资金用途。",
+      "basis": "10/19底稿与本轮现金专题复查"
+    },
+    {
+      "id": 2,
+      "name": "治理",
+      "verdict": "通过",
+      "support": "定期披露与现金回报有执行证据",
+      "counter": "国有身份本身不构成降级，持续跟踪关联金融往来与承诺。",
+      "basis": "10/19底稿与本轮现金专题复查"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "品牌、稀缺定位和渠道优势",
+      "counter": "若批价长期低于终端可持续价格，应复核品牌租金。",
+      "basis": "10/19底稿与本轮现金专题复查"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "海外占比小，既无增长加分也不据此扣分。",
+      "counter": "缺少跨周期独立证据",
+      "basis": "10/19底稿与本轮现金专题复查"
+    },
+    {
+      "id": 5,
+      "name": "竞争",
+      "verdict": "通过",
+      "support": "高端心智尚稳",
+      "counter": "替代消费和其他高端酒抢夺场景需监控。",
+      "basis": "10/19底稿与本轮现金专题复查"
+    },
+    {
+      "id": 6,
+      "name": "需求",
+      "verdict": "存疑",
+      "support": "高利润基盘仍在，但2025回落、行业场景变化",
+      "counter": "看终端动销而非渠道压货。",
+      "basis": "10/19底稿与本轮现金专题复查"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "利润率和资本回报强",
+      "counter": "集团金融现金流需专项拆解，暂不把未审桥单独变成经济性扣分。",
+      "basis": "10/19底稿与本轮现金专题复查"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "分红回购改善回报，但大额金融资金可分配性与低回报留存仍需证据。",
+      "counter": "缺少跨周期独立证据",
+      "basis": "10/19底稿与本轮现金专题复查"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 907.0326,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "moutai-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 445.1688,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "moutai-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 706.9075,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "moutai-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 8.3214,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "moutai-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 706.9075,
+    "totalCapex": 8.3214,
+    "conservativeResidual": 698.5861,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 65,
+          "g1": -0.01,
+          "g2": 0.02,
+          "payout": 0.75,
+          "exit_pe": 15
+        },
+        "base": {
+          "eps0": 65,
+          "g1": 0.045,
+          "g2": 0.035,
+          "payout": 0.8,
+          "exit_pe": 19
+        },
+        "bull": {
+          "eps0": 65,
+          "g1": 0.06,
+          "g2": 0.05,
+          "payout": 0.82,
+          "exit_pe": 22
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "见正文，退出PE均为市场退出研究假设；未完成终值三重上限。",
+      "dcf": {
+        "fcfe0": 62,
+        "terminal_g": 0.02,
+        "discount_rate": 0.12
+      }
+    },
+    "newEvidenceImpact": "集团H1 OCF706.91亿元含金融资金迁移。母公司OCF152.25减现金CAPEX8.29仅143.96亿元，不能直接拿来代表全集团纯酒收益。旧每股正常化FCFE62元保留为待证假设，撤回其已由集团现金覆盖的含义。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+    "valuationImpact": "集团H1 OCF706.91亿元含金融资金迁移。母公司OCF152.25减现金CAPEX8.29仅143.96亿元，不能直接拿来代表全集团纯酒收益。旧每股正常化FCFE62元保留为待证假设，撤回其已由集团现金覆盖的含义。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "合同负债、销售收现和吨价同时走弱；不以一次存款回流抵消主业压力。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "集团H1 OCF706.91亿元含金融资金迁移。母公司OCF152.25减现金CAPEX8.29仅143.96亿元，不能直接拿来代表全集团纯酒收益。旧每股正常化FCFE62元保留为待证假设，撤回其已由集团现金覆盖的含义。",
+      "reason": "金融专属科目已逐行识别；母公司现金桥已补。集团纯酒税费、内部结算和少数权益尚不能仅由公开合并表精确分开。",
+      "sourceIds": [
+        "moutai-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "moutai-latest",
+      "title": "2026半年度报告，PDF 5—9、33—36",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
+      "publishedAt": "2026-08-15",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "5—9、33—36"
+    },
+    {
+      "id": "moutai-prior-1",
+      "title": "2025年报",
+      "url": "https://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-17/600519_20260417_9QS4.pdf",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "财务报表",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "财务公司资金归属、正常化归母FCFE、需求下降终值上限及独立价值交叉验证。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "金融专属科目已逐行识别；母公司现金桥已补。集团纯酒税费、内部结算和少数权益尚不能仅由公开合并表精确分开。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/moutai.html"
+}

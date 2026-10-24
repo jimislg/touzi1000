@@ -1,0 +1,266 @@
+{
+  "id": "yangnong",
+  "name": "扬农化工",
+  "codes": [
+    "600486.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "农药制造、工艺和客户资格有优势，优创投产回报决定恢复增长的质量。",
+  "breakers": "量增但吨利/ROIC下降、财务公司资金压力或投产占款加大；不以行业见底自动上调增长。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "农药研发中间体原药制剂协同",
+      "counter": "品种扩张增加装置复杂度",
+      "monitor": "各产线盈利与周转",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "存疑",
+      "support": "规范披露与国资体系约束",
+      "counter": "关联销售与集团财务公司敞口集中",
+      "monitor": "关联公允及存款提取",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "菊酯工艺链、HSE与认证",
+      "counter": "通用产品无自由提价能力",
+      "monitor": "客户续约与单位成本",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "跨国客户认证与出口有基础",
+      "counter": "汇率、贸易壁垒和登记风险",
+      "monitor": "出口毛利/回款",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "细分工艺和全链条较强",
+      "counter": "行业扩产使销量增长不必然增加利润",
+      "monitor": "原药价差与开工率",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "通过",
+      "support": "农业与公共卫生使用场景稳定",
+      "counter": "农药去库存和环保替代",
+      "monitor": "真实终端用量与渠道",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "多年累计现金转换优秀，H1OCF14.39亿",
+      "counter": "本期OCF-16.69%，未来装置维护提高",
+      "monitor": "全年FCF和应收存货",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "优创可扩展高标准产能",
+      "counter": "一期预算34.78亿，H1净利率约6.7%偏低",
+      "monitor": "优创ROIC及成熟产线回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "- 需求轴：作物保护和卫生用药需求较稳，但客户去库存及种植经济性影响采购。",
+    "- 利润池轴：工艺和环保壁垒支持头部，行业新增产能压价，产品涨价还要扣原料成本与汇兑。",
+    "- 范式风险：中低：耐药性、新成分和登记要求决定产品迭代，需持续研发与合规资本。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 66.058774,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "yangnong-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 7.898379,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "yangnong-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 7.875453,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "yangnong-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 14.38765505,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "yangnong-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "yangnong-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 14.38765505,
+    "totalCapex": null,
+    "conservativeResidual": null,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 2.8,
+          "g1": 0,
+          "g2": 0.01,
+          "payout": 0.25,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 3.25,
+          "g1": 0.05,
+          "g2": 0.03,
+          "payout": 0.3,
+          "exit_pe": 13
+        },
+        "bull": {
+          "eps0": 3.5,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.35,
+          "exit_pe": 17
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准销量5%—6%、净价-1%至0%、利润率近稳对应EPS5%后3%；悲观量增被产品价差/原料上升抵消EPS0%/1%；乐观优创利用率与良率改善，量增6%加利润率2%支撑8%/5%。30%派息与剩余现金再投资一致，但新增资本ROIC仍需实证。"
+    },
+    "newEvidenceImpact": "H1主要指标OCF14.388亿元已核；本轮官方取得的是半年报摘要，不含CAPEX完整表，旧3.103亿元现金投入仅历史镜像证据，不能升级为新核准。中化财务公司存款不能默认无风险自由现金。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1主要指标OCF14.388亿元已核；本轮官方取得的是半年报摘要，不含CAPEX完整表，旧3.103亿元现金投入仅历史镜像证据，不能升级为新核准。中化财务公司存款不能默认无风险自由现金。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "量增但吨利/ROIC下降、财务公司资金压力或投产占款加大；不以行业见底自动上调增长。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1主要指标OCF14.388亿元已核；本轮官方取得的是半年报摘要，不含CAPEX完整表，旧3.103亿元现金投入仅历史镜像证据，不能升级为新核准。中化财务公司存款不能默认无风险自由现金。",
+      "reason": "区分摘要已核与完整附注未取到；优创投入、增量利润及集团财务资金安全仍为决定项。",
+      "sourceIds": [
+        "yangnong-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "yangnong-latest",
+      "title": "2026半年度报告，PDF 1—4（仅摘要）",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-25/1225497232.PDF",
+      "publishedAt": "2026-08-25",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "1—4（仅摘要）"
+    },
+    {
+      "id": "yangnong-prior-1",
+      "title": "2026半年报公司原文镜像",
+      "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12524087&stockid=600486",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "合并现金流、财务公司和子公司",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "yangnong-prior-2",
+      "title": "2025年度报告公司官网",
+      "url": "https://www.yangnongchem.com/yangnongchem/content_file/tzzgx/dqgg/2026/4/1e4328c5bbab4f059234b030134322ad.pdf",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "历史财务和资本开支",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "补优创分批投产、占用资本和净现金回收，以及集团财务公司压力提取证据；量增而ROIC继续走低时下调资本配置评级。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "区分摘要已核与完整附注未取到；优创投入、增量利润及集团财务资金安全仍为决定项。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/yangnong.html"
+}

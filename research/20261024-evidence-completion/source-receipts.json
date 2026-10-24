@@ -1,0 +1,280 @@
+[
+  {
+    "id": "moutai",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
+    "retrievedAt": "2026-10-24T12:02:21.115201+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "0e10aa26be46b1cf3cd03f06e834c7fb98d5dd0d661b96f8fddd4af7e846a4f6",
+    "pages": 110,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "tencent",
+    "url": "https://www.tencent.com/wp-content/uploads/2026/08/E700_IR.pdf",
+    "retrievedAt": "2026-10-24T12:02:21.115386+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "4170f80ec8548ea2fb92ec04691a4b252a52de20941e48fb516baf3f98082639",
+    "pages": 122,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "nongfu",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401877.pdf",
+    "retrievedAt": "2026-10-24T12:02:21.115442+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "cb61f9950d414b087bf20f98bc90c2e6f2bfb23066df8e533a7423701c3a8fbe",
+    "pages": 86,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "haitian",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-09-04/1225547399.PDF",
+    "retrievedAt": "2026-10-24T12:02:21.115510+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "b47d1f7ca94200016d345cf418e0f8b2f11bc4abdf81d18cc19d91d94ab0b878",
+    "pages": 110,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "yili",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225511409.PDF",
+    "retrievedAt": "2026-10-24T12:02:21.115589+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "423af4d63f2b620a03ed9d0080adbb063f3ef14d874abeca8097d0e0d1441ac2",
+    "pages": 219,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "dongpeng",
+    "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0126/12000523/2026012600019.pdf",
+    "retrievedAt": "2026-10-24T12:02:24.208708+00:00",
+    "downloadStatus": "failed",
+    "error": "HTTP Error 404: Not Found",
+    "initialExtractionStatus": "unavailable",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "hkex",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900213.pdf",
+    "retrievedAt": "2026-10-24T12:02:25.931698+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "a0f816ab07966059c9c234a1cca6519f5facde932eaf2bfca299624ea580451a",
+    "pages": 34,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "fuyao",
+    "url": "https://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-21/600660_20261021_NTMW.pdf",
+    "retrievedAt": "2026-10-24T12:02:26.001282+00:00",
+    "downloadStatus": "failed",
+    "error": "Not PDF",
+    "initialExtractionStatus": "unavailable",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "yutong",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-11/1225466147.PDF",
+    "retrievedAt": "2026-10-24T12:02:26.300235+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "edecbcd3f30cddfad524e9432ca56df30d5490aaab23a2c447954c6f27e7e7af",
+    "pages": 105,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "mindray",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225529856.PDF",
+    "retrievedAt": "2026-10-24T12:02:26.715619+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "d81d42e877ceaef651b020ed75bbf46ac49124c8bc5b57f85292bfb7eef41ad4",
+    "pages": 297,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "hengrui",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-20/1225483600.PDF",
+    "retrievedAt": "2026-10-24T12:02:30.069008+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "ff6910663a9726acb889aa061a8bab1433f58890d81ebea013b8c637a097a7aa",
+    "pages": 182,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "consun",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600201.pdf",
+    "retrievedAt": "2026-10-24T12:02:31.743631+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "f01f4d28f19b7123fa0375934a4dad7514e72889089dd18f0cdb19e3e2e018f4",
+    "pages": 30,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "dongee",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-21/1225484990.PDF",
+    "retrievedAt": "2026-10-24T12:02:35.174146+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "59a579d82d54c7bdb2085574cecf3f61d91a9bb0985be3e63fe871a741f30057",
+    "pages": 146,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "gree",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225515004.PDF",
+    "retrievedAt": "2026-10-24T12:02:40.842020+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "50da2e03fddbe9dd424d8fe7881f47fb34efa5d38c96aa9449c12e445c3b2dec",
+    "pages": 190,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "wanhua",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-25/1225497561.PDF",
+    "retrievedAt": "2026-10-24T12:02:43.269271+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "9842bc427ea4e99a0b4ae32bf537cff60c9c5c8f73d68352ecbd11ca0ba1a984",
+    "pages": 194,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "yangnong",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-25/1225497232.PDF",
+    "retrievedAt": "2026-10-24T12:02:53.652246+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "0c9e28e63eb40a0cdba29f3aa85dd6c5de81b7aa4a152f46a172705bce4498f6",
+    "pages": 4,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "sanhua",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225514004.PDF",
+    "retrievedAt": "2026-10-24T12:02:55.162927+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "2ee90783405f45a177f6f3bf6e4d9955e49b5c87ab6cf604c8b1eaaed3561fc3",
+    "pages": 140,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "cmb",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-28/1225531453.PDF",
+    "retrievedAt": "2026-10-24T12:02:57.056326+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "0194f5122575ee8576dbce941fcc10fb171e0cd17c627dd63330da952c52b57c",
+    "pages": 247,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "pingan",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-03-27/1225038326.PDF",
+    "retrievedAt": "2026-10-24T12:02:59.272846+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "7eab1fa849271775920a77f2bdbfde5a1cfd35f903ed106731a9c761965f50d3",
+    "pages": 19,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "cypc",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-31/1225534923.PDF",
+    "retrievedAt": "2026-10-24T12:03:04.202161+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "738de3b36a31646f344cefaf90b4f149d653c3f68e89f4f8d14bdf02fc9c65a2",
+    "pages": 214,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "crland",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100127.pdf",
+    "retrievedAt": "2026-10-24T12:03:06.546217+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "342463c17e36b2afa81ce81d8005e59749368414a458261aecffe2246d14fe39",
+    "pages": 37,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "weixing",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-07/1225462208.PDF",
+    "retrievedAt": "2026-10-24T12:03:09.722015+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "cf1b3b1256ceb7b90c944a7dd0df38607a5742570f4a8bc15cd7654357231926",
+    "pages": 131,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "yiwu",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-26/1225502903.PDF",
+    "retrievedAt": "2026-10-24T12:03:10.027806+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "51aac8dc5b1fa5d2ba590a8e1c2ee05e7767862ccd30aaeae00956776c305201",
+    "pages": 157,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "focus",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-19/1225480000.PDF",
+    "retrievedAt": "2026-10-24T12:03:13.476724+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "c4bcfa113ecf6b171cfb18f4a205a044cfaaa643869ff13a66dac724f1e93eb9",
+    "pages": 180,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "shenhua",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225531754.PDF",
+    "retrievedAt": "2026-10-24T12:03:14.414727+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "48755b5e67f05a5d22aa94368c5502b010820f0403d3b5565d712144db55f56d",
+    "pages": 8,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "zijin",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620996.PDF",
+    "retrievedAt": "2026-10-24T12:03:16.115520+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "ba1ba80534ed7f59b3d75b355009cfb3927129e227077544160fe4facae84733",
+    "pages": 21,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "ninghu",
+    "url": "https://static.cninfo.com.cn/finalpage/2026-08-28/1225519779.PDF",
+    "retrievedAt": "2026-10-24T12:03:20.254046+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "c834d8c05c8e6eaeaf3828758603bc2dcb0951028413acd6921d1d5979c76510",
+    "pages": 214,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  },
+  {
+    "id": "anta-q3",
+    "url": "https://manager.wisdomir.com/files/394/2026/1021/20261021164501_35546388_en.pdf",
+    "retrievedAt": "2026-10-24T12:03:30.142692+00:00",
+    "downloadStatus": "downloaded",
+    "sha256": "19036edf33f16d10ca737538168986690c3a7cd98ca70213f3766c46d9c232a7",
+    "pages": 2,
+    "initialExtractionStatus": "extracted_not_yet_reviewed",
+    "purpose": "原下载校验回执；读取与复核边界以公司记录sources为准"
+  }
+]

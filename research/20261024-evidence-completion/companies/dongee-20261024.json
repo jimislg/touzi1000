@@ -1,0 +1,274 @@
+{
+  "id": "dongee",
+  "name": "东阿阿胶",
+  "codes": [
+    "000423.SZ"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "阿胶品牌仍有竞争基础，但授信发货、终端复购和现金回收必须证明。",
+  "breakers": "授信发货未及时回款或全年现金转化仍低于70%（研究建议阈值，未批准）；暂停新增研究价认证。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "阿胶系列仍是核心",
+      "counter": "新健康品增长未证明利润和复购",
+      "monitor": "非阿胶分部现金利润",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "华润渠道去库存与高分红已有执行",
+      "counter": "2019渠道危机是历史反证，当前再次授信需盯",
+      "monitor": "动销、发货差和激励",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "老字号与高端阿胶心智",
+      "counter": "品牌不能阻止消费者改买其他滋补品",
+      "monitor": "终端真实售价/复购",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "国内市场为主且业务清楚",
+      "counter": "海外收入很小无全球成长证据",
+      "monitor": "不计海外增速",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "阿胶细分领先，未见本轮直接竞争份额持续下滑的证据",
+      "counter": "健康预算替代广、单品类领导不等于跨品类垄断",
+      "monitor": "替代品增长、价差和终端份额",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "存疑",
+      "support": "女性健康及老龄客群存在",
+      "counter": "核心系列-0.45%，其他品类低基数撑收入",
+      "monitor": "核心系列动销及年轻客复购",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "存疑",
+      "support": "现金厚、银行借款小",
+      "counter": "OCF-91.56%、应收升、合同负债降",
+      "monitor": "全年OCF/利润及授信回收",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "通过",
+      "support": "高分红体现现金回报意愿",
+      "counter": "高分红暂依赖存量现金，产业园回报待证",
+      "monitor": "高分红连续性与园区投入",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "- 需求轴：老龄化与女性健康提供长期客群，滋补礼赠却可延后，核心系列H1收入未增长。",
+    "- 利润池轴：品牌在阿胶内有优势，广义健康消费预算竞争激烈；信用扩张可能提前确认需求。",
+    "- 范式风险：中低技术、较高消费认知风险：有效性认知和消费偏好改变会影响需求，不把医疗结论作投资事实。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 49.4024739134,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "dongee-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 13.2972325633,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "dongee-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 12.5876860881,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "dongee-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 3.9969839192,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "dongee-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 2.8149451057,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "dongee-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedEPS",
+      "value": 2.0685,
+      "unit": "CNY元/普通股",
+      "period": "2026Q1–Q3",
+      "sourceId": "dongee-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026Q1–Q3",
+    "unit": "CNY亿元",
+    "ocf": 3.9969839192,
+    "totalCapex": 2.8149451057,
+    "conservativeResidual": 1.1820388134999997,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 2.2,
+          "g1": -0.02,
+          "g2": 0,
+          "payout": 0.55,
+          "exit_pe": 11
+        },
+        "base": {
+          "eps0": 2.62,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.7,
+          "exit_pe": 14
+        },
+        "bull": {
+          "eps0": 2.8,
+          "g1": 0.07,
+          "g2": 0.04,
+          "payout": 0.85,
+          "exit_pe": 18
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准核心阿胶销量0%—2%、净价0%、衍生品小幅贡献使收入约3%，利润率近稳，EPS3%/2%；悲观核心量价退缩EPS-2%后持平；乐观年轻消费与复购改善使量价合成7%后4%。派息从旧85%降70%研究，仍必须有全年现金回款支撑，不能仅靠现金存量。"
+    },
+    "newEvidenceImpact": "最新Q3：9M收入49.402、归母13.297、扣非12.588亿元；OCF3.997减CAPEX2.815仅1.182亿元。应收8.931亿元、较年初+575.32%，公司解释含授信发货。Q3扣非+19.39%不能解除现金存疑；旧70%派息假设缺本期现金支撑。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "financial",
+    "status": "Q3财务已核原文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "最新Q3：9M收入49.402、归母13.297、扣非12.588亿元；OCF3.997减CAPEX2.815仅1.182亿元。应收8.931亿元、较年初+575.32%，公司解释含授信发货。Q3扣非+19.39%不能解除现金存疑；旧70%派息假设缺本期现金支撑。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026Q1–Q3",
+      "trigger": "授信发货未及时回款或全年现金转化仍低于70%（研究建议阈值，未批准）；暂停新增研究价认证。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "最新Q3：9M收入49.402、归母13.297、扣非12.588亿元；OCF3.997减CAPEX2.815仅1.182亿元。应收8.931亿元、较年初+575.32%，公司解释含授信发货。Q3扣非+19.39%不能解除现金存疑；旧70%派息假设缺本期现金支撑。",
+      "reason": "已补应收、销售收现、采购/人工/税费/营销现金变动及回购注销股本桥；不能把利润增长当现金质量改善。",
+      "sourceIds": [
+        "dongee-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "dongee-latest",
+      "title": "2026第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225617708.PDF",
+      "publishedAt": "2026-10-24",
+      "period": "2026Q1–Q3",
+      "location": "PDF 4、6、9—14",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing"
+    },
+    {
+      "id": "dongee-prior-0",
+      "title": "2026半年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-21/1225484990.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "8、45、111页",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "dongee-prior-1",
+      "title": "2026半年报深交所版本",
+      "url": "https://disc.static.szse.cn/disc/disk03/finalpage/2026-08-21/be0632b3-cab4-4274-8cb9-3d5b60ce7df0.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "资产负债及收入分部",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "缺经销商真实库存、终端复购及应收回款桥；若全年现金转换仍低于70%且核心品不增，继续暂停，不因高股息改变结论。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已补应收、销售收现、采购/人工/税费/营销现金变动及回购注销股本桥；不能把利润增长当现金质量改善。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/dongee.html"
+}

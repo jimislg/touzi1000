@@ -1,0 +1,963 @@
+{
+  "id": "catl",
+  "name": "宁德时代",
+  "codes": [
+    "300750.SZ",
+    "03750.HK"
+  ],
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "action": "re-underwrite / wait for proof",
+  "thesis": "动态技术、认证和规模护城河仍成立，但Q3现金转化与资本配置需重审，股价下跌不等于旧买点恢复有效。",
+  "breakers": "动力/储能分部毛利率持续<18%、份额持续<35%、低利用率叠加扩产、两完整年度弱现金转换或可验证技术淘汰，按对应维度重评，不把单季波动自动当卖点。",
+  "reviewBy": "2026-11-06",
+  "reviewTrigger": "11月初月报/员工计划结果；任何税费转嫁、供应商账期、重大安全/准入公告立即复核；2026年报是现金修复关键验证点，披露日期未确认。",
+  "gradeRecommendation": "B观察（研究建议，未批准）",
+  "gradeRationale": "核心7财务质量、8资本配置存疑两项；3护城河通过，无已证实一票否决。不更改系统grade。",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "电池动力、储能与材料回收共享技术和制造体系",
+      "counter": "矿产、换电、零碳园区扩张拉长资金链"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "持续研发和标准披露；2025报表审计，重大股份计划公开",
+      "counter": "创始人主导、关联投资和员工股份授予需持续核对，未作无风险认证"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "量产规模、良率、安全认证、客户共同开发；2025全球动力使用量份额39.2%为年报引用SNE",
+      "counter": "2026H1动力/储能毛利率同时下行，技术领先不能保证提价"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "2026H1境外收入871.29亿元、毛利率29.97%；匈牙利试生产为管理层陈述",
+      "counter": "本地化CAPEX、关税准入和政治限制可能吞掉海外溢价"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "2025销量661GWh，2026Q3管理层披露销量超260GWh",
+      "counter": "客户双供、比亚迪内供及二线低价；2026全年同口径全球份额尚未核"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "通过",
+      "support": "动力电动化、重卡带电量与储能交付扩展，H1储能收入增87.54%",
+      "counter": "需求不是无限；储能交流系统收入确认更长，客户投资回收决定订单"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "存疑",
+      "support": "OCF仍正且现金等价物覆盖窄口径有息负债",
+      "counter": "9月累计现金CAPEX后仅194.58亿元，Q3为−156.86亿元；应收预付库存占款上升"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "全球工厂与回购有每股价值潜力",
+      "counter": "扩产、联营、换电需竞争资金；现金回报下降时仍融资，增量ROIC未得到验证"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "revenue",
+      "value": 4421.37424,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentNetIncome",
+      "value": 645.30063,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedParentNetIncome",
+      "value": 578.75782,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocf",
+      "value": 616.25487,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "totalCapex",
+      "value": 421.67472,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashEquivalents",
+      "value": 3333.97571,
+      "unit": "CNY亿元",
+      "period": "2026-09-30",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashAndBank",
+      "value": 3698.13786,
+      "unit": "CNY亿元",
+      "period": "2026-09-30",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "tradingFinancialAssets",
+      "value": 627.79978,
+      "unit": "CNY亿元",
+      "period": "2026-09-30",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "receivables",
+      "value": 1129.1165,
+      "unit": "CNY亿元",
+      "period": "2026-09-30",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "inventory",
+      "value": 1447.69537,
+      "unit": "CNY亿元",
+      "period": "2026-09-30",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "prepayments",
+      "value": 264.60002,
+      "unit": "CNY亿元",
+      "period": "2026-09-30",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "contractLiabilities",
+      "value": 406.68908,
+      "unit": "CNY亿元",
+      "period": "2026-09-30",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "investmentIncome",
+      "value": 90.65705,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "equityMethodIncome",
+      "value": 84.35673,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "investmentIncomeCashReceived",
+      "value": 36.03654,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashMinorityDividend",
+      "value": 27.8592,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedBasicEPS",
+      "value": 14.13,
+      "unit": "CNY元/股",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedDilutedEPS",
+      "value": 14.13,
+      "unit": "CNY元/股",
+      "period": "2026Q1–Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "issuedShares",
+      "value": 4627249686,
+      "unit": "股",
+      "period": "2026-09-30",
+      "sourceId": "catl-monthly-202609",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedBasicEPS",
+      "value": 16.14,
+      "unit": "CNY元/股",
+      "period": "2025FY",
+      "sourceId": "catl-fy-2025",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedAdjustedBasicEPS",
+      "value": 14.42,
+      "unit": "CNY元/股",
+      "period": "2025FY",
+      "sourceId": "catl-fy-2025",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "revenue",
+      "value": 4237.01834,
+      "unit": "CNY亿元",
+      "period": "2025FY",
+      "sourceId": "catl-fy-2025",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentNetIncome",
+      "value": 722.01282,
+      "unit": "CNY亿元",
+      "period": "2025FY",
+      "sourceId": "catl-fy-2025",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedParentNetIncome",
+      "value": 645.07864,
+      "unit": "CNY亿元",
+      "period": "2025FY",
+      "sourceId": "catl-fy-2025",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocf",
+      "value": 1332.19982,
+      "unit": "CNY亿元",
+      "period": "2025FY",
+      "sourceId": "catl-fy-2025",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "totalCapex",
+      "value": 423.44558,
+      "unit": "CNY亿元",
+      "period": "2025FY",
+      "sourceId": "catl-fy-2025",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ttmParentEPSCurrentGrossShares",
+      "value": 18.952345767148213,
+      "unit": "CNY元/股",
+      "period": "2025Q4–2026Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "calculated_from_filings"
+    },
+    {
+      "id": "ttmAdjustedEPSCurrentGrossShares",
+      "value": 17.021865329270238,
+      "unit": "CNY元/股",
+      "period": "2025Q4–2026Q3",
+      "sourceId": "catl-q3-2026",
+      "label": "calculated_from_filings"
+    },
+    {
+      "id": "narrowNetCashApprox",
+      "value": 1434.71436,
+      "unit": "CNY亿元",
+      "period": "2026-09-30",
+      "sourceId": "catl-q3-2026",
+      "label": "calculated_not_distributable_cash"
+    },
+    {
+      "id": "fullyVerifiedNetCash",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026-09-30",
+      "sourceId": "catl-q3-2026",
+      "label": "not_disclosed_in_full_q3_notes"
+    }
+  ],
+  "marketData": {
+    "sourceId": "catl-quote-20261023",
+    "A": {
+      "price": 237.6,
+      "currency": "CNY",
+      "sourceTimestamp": "2026-10-23T16:14:30+08:00"
+    },
+    "H": {
+      "price": 356.8,
+      "currency": "HKD",
+      "sourceTimestamp": "2026-10-23T16:08:14+08:00"
+    },
+    "FX": null,
+    "note": "源时间不是抓取时间；不是两个市场同秒成交；精确A/H溢价需同日FX。"
+  },
+  "cashBridge": {
+    "period": "2026Q1–Q3",
+    "unit": "CNY亿元",
+    "ocf": 616.25487,
+    "totalCapex": 421.67472,
+    "conservativeResidual": 194.58015,
+    "minorityCashDividend": 27.8592,
+    "afterMinorityBeforeLeaseInterest": 166.72095,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "Q3": {
+      "ocf": 14.08636,
+      "totalCapex": 170.947,
+      "conservativeResidual": -156.86064
+    },
+    "basis": "合并OCF减购建固定/无形/其他长期资产全部现金；包含营运资金变化，未重复扣WC；不是归母FCFE。投资支付/收回另看，不能混作维护CAPEX。"
+  },
+  "valuation": {
+    "type": "research_scenario",
+    "currency": "CNY",
+    "cases": {
+      "bear": {
+        "name": "悲观压力",
+        "basis": "全部为研究假设；2027为第1年，2036为第10年，非公司指引、共识或批准政策",
+        "operatingYear": 2027,
+        "powerGWh": 600,
+        "storageGWh": 250,
+        "powerASP_CNYPerWh": 0.5,
+        "storageASP_CNYPerWh": 0.43,
+        "powerRevenue": 3000.0,
+        "storageRevenue": 1075.0,
+        "otherRevenue": 250,
+        "powerGrossMargin": 0.17,
+        "storageGrossMargin": 0.18,
+        "otherGrossMargin": 0.2,
+        "rd": 260,
+        "selling": 60,
+        "admin": 120,
+        "netFinanceIncome": 10,
+        "sustainableInvestmentIncome": 40,
+        "effectiveTax": 0.15,
+        "minorityShare": 0.07,
+        "shares100Million": 46.27249686,
+        "revenue": 4325.0,
+        "grossProfit": 753.5,
+        "profitBeforeTax": 363.5,
+        "consolidatedNetIncome": 308.97499999999997,
+        "parentNetIncome": 287.34675,
+        "epsYear1": 6.209882100578741,
+        "ocfConversion": 0.8,
+        "ocf": 247.17999999999998,
+        "totalCapex": 450,
+        "ocfLessCapex": -202.82000000000002,
+        "minorityCashDividend": 25,
+        "leasePrincipal": 10,
+        "financingInterestCash": 25,
+        "cashAfterAdjustments": -262.82000000000005,
+        "cashPerShare": -5.67983181878377,
+        "payout": 0,
+        "dividendPerShareYear1": 0.0,
+        "dividendCashYear1": 0.0,
+        "growthYears2To5": 0,
+        "growthYears6To10": 0.01,
+        "exitPE": 10,
+        "epsYear5": 6.209882100578741,
+        "epsYear10": 6.526648497644357,
+        "irr5At237_6": -0.23537695392730779,
+        "irr10At237_6": -0.1212114722338376,
+        "illustrativePriceAtReturn": {
+          "10pct": 25.163055307321144,
+          "12pct": 21.014061408763563,
+          "15pct": 16.132876908509378,
+          "fivefold10Years": 13.05329699528872
+        },
+        "years": [
+          {
+            "year": 2027,
+            "eps": 6.209882100578741,
+            "dividend": 0.0,
+            "terminalValue": 0
+          },
+          {
+            "year": 2028,
+            "eps": 6.209882100578741,
+            "dividend": 0.0,
+            "terminalValue": 0
+          },
+          {
+            "year": 2029,
+            "eps": 6.209882100578741,
+            "dividend": 0.0,
+            "terminalValue": 0
+          },
+          {
+            "year": 2030,
+            "eps": 6.209882100578741,
+            "dividend": 0.0,
+            "terminalValue": 0
+          },
+          {
+            "year": 2031,
+            "eps": 6.209882100578741,
+            "dividend": 0.0,
+            "terminalValue": 0
+          },
+          {
+            "year": 2032,
+            "eps": 6.271980921584529,
+            "dividend": 0.0,
+            "terminalValue": 0
+          },
+          {
+            "year": 2033,
+            "eps": 6.334700730800374,
+            "dividend": 0.0,
+            "terminalValue": 0
+          },
+          {
+            "year": 2034,
+            "eps": 6.398047738108379,
+            "dividend": 0.0,
+            "terminalValue": 0
+          },
+          {
+            "year": 2035,
+            "eps": 6.462028215489462,
+            "dividend": 0.0,
+            "terminalValue": 0
+          },
+          {
+            "year": 2036,
+            "eps": 6.526648497644357,
+            "dividend": 0.0,
+            "terminalValue": 65.26648497644356
+          }
+        ]
+      },
+      "base": {
+        "name": "审慎中间情景",
+        "basis": "全部为研究假设；2027为第1年，2036为第10年，非公司指引、共识或批准政策",
+        "operatingYear": 2027,
+        "powerGWh": 700,
+        "storageGWh": 300,
+        "powerASP_CNYPerWh": 0.55,
+        "storageASP_CNYPerWh": 0.5,
+        "powerRevenue": 3850.0000000000005,
+        "storageRevenue": 1500.0,
+        "otherRevenue": 300,
+        "powerGrossMargin": 0.22,
+        "storageGrossMargin": 0.23,
+        "otherGrossMargin": 0.25,
+        "rd": 260,
+        "selling": 60,
+        "admin": 140,
+        "netFinanceIncome": 20,
+        "sustainableInvestmentIncome": 60,
+        "effectiveTax": 0.15,
+        "minorityShare": 0.07,
+        "shares100Million": 46.27249686,
+        "revenue": 5650.0,
+        "grossProfit": 1267.0,
+        "profitBeforeTax": 887.0,
+        "consolidatedNetIncome": 753.9499999999999,
+        "parentNetIncome": 701.1735,
+        "epsYear1": 15.153137340339322,
+        "ocfConversion": 1.1,
+        "ocf": 829.345,
+        "totalCapex": 500,
+        "ocfLessCapex": 329.345,
+        "minorityCashDividend": 35,
+        "leasePrincipal": 15,
+        "financingInterestCash": 30,
+        "cashAfterAdjustments": 249.34500000000003,
+        "cashPerShare": 5.388622117246172,
+        "payout": 0.3,
+        "dividendPerShareYear1": 4.545941202101797,
+        "dividendCashYear1": 210.35205,
+        "growthYears2To5": 0.07,
+        "growthYears6To10": 0.04,
+        "exitPE": 14,
+        "epsYear5": 19.862671964698798,
+        "epsYear10": 24.165977495269907,
+        "irr5At237_6": 0.05252910936170474,
+        "irr10At237_6": 0.057147240658713794,
+        "illustrativePriceAtReturn": {
+          "10pct": 165.6888803575302,
+          "12pct": 141.10293771855908,
+          "15pct": 111.89515029833373,
+          "fivefold10Years": 93.24774435080141
+        },
+        "years": [
+          {
+            "year": 2027,
+            "eps": 15.153137340339322,
+            "dividend": 4.545941202101797,
+            "terminalValue": 0
+          },
+          {
+            "year": 2028,
+            "eps": 16.213856954163077,
+            "dividend": 4.864157086248923,
+            "terminalValue": 0
+          },
+          {
+            "year": 2029,
+            "eps": 17.348826940954492,
+            "dividend": 5.204648082286347,
+            "terminalValue": 0
+          },
+          {
+            "year": 2030,
+            "eps": 18.563244826821307,
+            "dividend": 5.568973448046392,
+            "terminalValue": 0
+          },
+          {
+            "year": 2031,
+            "eps": 19.862671964698798,
+            "dividend": 5.9588015894096396,
+            "terminalValue": 0
+          },
+          {
+            "year": 2032,
+            "eps": 20.65717884328675,
+            "dividend": 6.197153652986025,
+            "terminalValue": 0
+          },
+          {
+            "year": 2033,
+            "eps": 21.48346599701822,
+            "dividend": 6.445039799105467,
+            "terminalValue": 0
+          },
+          {
+            "year": 2034,
+            "eps": 22.34280463689895,
+            "dividend": 6.702841391069685,
+            "terminalValue": 0
+          },
+          {
+            "year": 2035,
+            "eps": 23.23651682237491,
+            "dividend": 6.970955046712473,
+            "terminalValue": 0
+          },
+          {
+            "year": 2036,
+            "eps": 24.165977495269907,
+            "dividend": 7.249793248580971,
+            "terminalValue": 338.3236849337787
+          }
+        ]
+      },
+      "bull": {
+        "name": "乐观",
+        "basis": "全部为研究假设；2027为第1年，2036为第10年，非公司指引、共识或批准政策",
+        "operatingYear": 2027,
+        "powerGWh": 800,
+        "storageGWh": 400,
+        "powerASP_CNYPerWh": 0.58,
+        "storageASP_CNYPerWh": 0.52,
+        "powerRevenue": 4639.999999999999,
+        "storageRevenue": 2080.0,
+        "otherRevenue": 350,
+        "powerGrossMargin": 0.24,
+        "storageGrossMargin": 0.26,
+        "otherGrossMargin": 0.28,
+        "rd": 320,
+        "selling": 75,
+        "admin": 170,
+        "netFinanceIncome": 30,
+        "sustainableInvestmentIncome": 70,
+        "effectiveTax": 0.15,
+        "minorityShare": 0.07,
+        "shares100Million": 46.27249686,
+        "revenue": 7069.999999999999,
+        "grossProfit": 1752.3999999999996,
+        "profitBeforeTax": 1287.3999999999996,
+        "consolidatedNetIncome": 1094.2899999999997,
+        "parentNetIncome": 1017.6896999999998,
+        "epsYear1": 21.99340362114187,
+        "ocfConversion": 1.2,
+        "ocf": 1313.1479999999997,
+        "totalCapex": 700,
+        "ocfLessCapex": 613.1479999999997,
+        "minorityCashDividend": 40,
+        "leasePrincipal": 20,
+        "financingInterestCash": 40,
+        "cashAfterAdjustments": 513.1479999999997,
+        "cashPerShare": 11.089697656743214,
+        "payout": 0.35,
+        "dividendPerShareYear1": 7.697691267399653,
+        "dividendCashYear1": 356.1913949999999,
+        "growthYears2To5": 0.12,
+        "growthYears6To10": 0.06,
+        "exitPE": 18,
+        "epsYear5": 34.607046390160846,
+        "epsYear10": 46.312034644503,
+        "irr5At237_6": 0.24051507920629056,
+        "irr10At237_6": 0.1624601429047482,
+        "illustrativePriceAtReturn": {
+          "10pct": 391.37618461621275,
+          "12pct": 331.98771069145596,
+          "15pct": 261.5608416848357,
+          "fivefold10Years": 216.69588882784944
+        },
+        "years": [
+          {
+            "year": 2027,
+            "eps": 21.99340362114187,
+            "dividend": 7.697691267399653,
+            "terminalValue": 0
+          },
+          {
+            "year": 2028,
+            "eps": 24.632612055678894,
+            "dividend": 8.621414219487612,
+            "terminalValue": 0
+          },
+          {
+            "year": 2029,
+            "eps": 27.588525502360365,
+            "dividend": 9.655983925826128,
+            "terminalValue": 0
+          },
+          {
+            "year": 2030,
+            "eps": 30.899148562643614,
+            "dividend": 10.814701996925264,
+            "terminalValue": 0
+          },
+          {
+            "year": 2031,
+            "eps": 34.607046390160846,
+            "dividend": 12.112466236556296,
+            "terminalValue": 0
+          },
+          {
+            "year": 2032,
+            "eps": 36.6834691735705,
+            "dividend": 12.839214210749674,
+            "terminalValue": 0
+          },
+          {
+            "year": 2033,
+            "eps": 38.88447732398473,
+            "dividend": 13.609567063394655,
+            "terminalValue": 0
+          },
+          {
+            "year": 2034,
+            "eps": 41.21754596342382,
+            "dividend": 14.426141087198335,
+            "terminalValue": 0
+          },
+          {
+            "year": 2035,
+            "eps": 43.69059872122925,
+            "dividend": 15.291709552430236,
+            "terminalValue": 0
+          },
+          {
+            "year": 2036,
+            "eps": 46.312034644503,
+            "dividend": 16.209212125576048,
+            "terminalValue": 833.616623601054
+          }
+        ]
+      }
+    },
+    "formalAllowed": false,
+    "basis": "2027经营量价/毛利/费用/投资收益→税及少数→每股；假定净股本不变、不外加回购收益；股息须受假设OCF扣全部CAPEX及现金调整后约束。终值只EPS×PE一次，净现金不额外加回含利息EPS。前五年为2027–31共5个现金流，2027第一年没有重复增长。"
+  },
+  "monitoring": [
+    {
+      "metric": "累计OCF/归母净利润及全部CAPEX后现金",
+      "baseline": "2026Q1–Q3 95.5%、194.58亿元；Q3单季−156.86亿元",
+      "trigger": "FY2026累计转换仍<100%或OCF−全部CAPEX≤0，维持7存疑并重做派息；连续两完整年度转换<80%且CAPEX后为负，重评财务是否不通过",
+      "origin": "研究建议，未批准",
+      "nextSource": "2026年报及现金流附注，最迟2027-04-30后复核"
+    },
+    {
+      "metric": "动力/储能毛利率",
+      "baseline": "2026H1 20.63%/23.96%；Q3综合20.69%",
+      "trigger": "任一分部连续两个披露期<18%，重审护城河3；综合毛利率<20%触发即时模型更新，不直接等同分部失守",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一年报分部收入成本"
+    },
+    {
+      "metric": "库存与回款",
+      "baseline": "9月存货1447.70亿元、应收1129.12亿元、预付264.60亿元",
+      "trigger": "同口径库存周转天数同比+20天且发出商品确认/收款不能解释，或应收收入比持续抬升，暂停新增研究结论",
+      "origin": "研究建议，未批准",
+      "nextSource": "FY2026存货/账龄/现金流调节表"
+    },
+    {
+      "metric": "动力份额/产能回报",
+      "baseline": "2025年报引用全球39.2%；2026H1利用率94.86%、在建764GWh",
+      "trigger": "全球份额连续两个半年<35%或可比利用率<75%且CAPEX不收缩，重做竞争5与配置8；海外项目连续两年无法验证资本回报，不升级",
+      "origin": "研究建议，未批准",
+      "nextSource": "公司年报引用同口径SNE及产能表"
+    },
+    {
+      "metric": "技术与客户证伪",
+      "baseline": "认证与量产领先尚成立，2025前五客户38.96%",
+      "trigger": "主流OEM公开验证竞争路线的量产成本/寿命/安全全面超越且宁德12–24个月无商业化追赶，或第一客户采购显著下降并持续一年，重审3/5，必要时退出研究资格",
+      "origin": "研究建议，未批准",
+      "nextSource": "客户官方定点/量产文件、公司年度出货及客户集中度"
+    },
+    {
+      "metric": "股本与员工计划",
+      "baseline": "总股本46.2725亿；Q3回购拟注销1094.5162万股，员工计划拟808.1586万股",
+      "trigger": "新增授予/配售或注销落地后立即刷新摊薄股本；净稀释>2%/年需单列每股增长扣减",
+      "origin": "研究建议，未批准",
+      "nextSource": "月报、翌日披露及股东会结果"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "10/19 A研究候选，核心仅资本配置8存疑",
+      "new": "B观察建议，7与8两项核心存疑；不覆盖系统grade",
+      "reason": "新增Q3现金转换反证为实质经营变化，不是因为缺资料降级",
+      "sourceIds": [
+        "catl-q3-2026",
+        "catl-ir-20261020"
+      ]
+    },
+    {
+      "old": "8/27按A373元、H610—612港元判断，295/232/192元执行档",
+      "new": "旧报价与执行档撤回为当前建议；A237.60/H356.80仅新快照，不自动新增",
+      "reason": "证券价格、现金转换与税费环境均发生变化，旧阈值不能跨季度自动继承",
+      "sourceIds": [
+        "catl-quote-20261023",
+        "catl-q3-2026"
+      ]
+    },
+    {
+      "old": "H1 OCF高于净利，因此财务质量通过",
+      "new": "偿债能力暂稳，现金盈利质量单独存疑",
+      "reason": "累计OCF/归母由H1约139%降至95.5%；资本开支后仅30.2%归母",
+      "sourceIds": [
+        "catl-q3-2026",
+        "catl-h1-2026"
+      ]
+    },
+    {
+      "old": "维持CAPEX100亿元、增长150.728亿元的H1拆分",
+      "new": "撤回为事实输入；维护CAPEX=null，直接扣全部购建现金CAPEX",
+      "reason": "公司未披露可核拆分，不能把估计转成归母可分现金",
+      "sourceIds": [
+        "catl-h1-2026",
+        "catl-q3-2026"
+      ]
+    },
+    {
+      "old": "正常化EPS16.5或17.5、既有长期增长直接延用",
+      "new": "重建2027动力/储能量价利润表和现金约束；三情景EPS6.21/15.15/21.99",
+      "reason": "模型为显式假设敏感性，非财报事实；投资收益与少数权益分别列出",
+      "sourceIds": [
+        "catl-q3-2026",
+        "catl-ir-20261020"
+      ]
+    },
+    {
+      "old": "技术和全球交付动态护城河成立；作为成长候选",
+      "new": "保留，仓位和换仓不自动决定",
+      "reason": "未见足以确认技术淘汰的原始证据；也不把管理层需求乐观当现金证明",
+      "sourceIds": [
+        "catl-fy-2025",
+        "catl-h1-2026"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "catl-q3-2026",
+      "title": "宁德时代2026年第三季度报告（公告2026-097）",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613175.PDF",
+      "publishedAt": "2026-10-21",
+      "documentSignedAt": "2026-10-20",
+      "period": "2026-01-01—2026-09-30",
+      "location": "PDF/印刷页1–3、5–12",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/catl/2026Q3.pdf",
+      "auditStatus": "unaudited",
+      "sha256": "476611fe240b90088319c852de4e89d8ab1537b858d2ffbca573af5f8c5419b3"
+    },
+    {
+      "id": "catl-h1-2026",
+      "title": "2026年半年度报告（港股海外监管公告内附A股全文）",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-07-24/1225442062.PDF",
+      "publishedAt": "2026-07-24",
+      "period": "2026H1",
+      "location": "PDF17–18、73–84、124、143页；正文16–17、72–83、123、142页",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/catl/2026H1.pdf",
+      "auditStatus": "unaudited",
+      "sha256": "aa40daf911df40f56900dc506d7debe05a4fea43cd533474039a408e3b5aabcc"
+    },
+    {
+      "id": "catl-fy-2025",
+      "title": "宁德时代2025年年度报告",
+      "url": "https://www.catl.com/uploads/1/file/public/202603/20260310105829_c5p2l3q9ll.pdf",
+      "publishedAt": "2026-03-10",
+      "documentSignedAt": "2026-03-09",
+      "period": "2025FY",
+      "location": "PDF/正文11–12、17、20–21、28、120–121、232页",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/catl/2025FY.pdf",
+      "auditStatus": "audited",
+      "sha256": "6850b3d22ec2427ceb8cccd8321ecf59658db21746dd99d330fcbe324efddd3f"
+    },
+    {
+      "id": "catl-ir-20261020",
+      "title": "2026年10月20日投资者关系活动记录表2026-004",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613436.PDF",
+      "publishedAt": "2026-10-21",
+      "period": "2026Q3业绩说明会",
+      "location": "PDF1–4页问答1–8",
+      "readStatus": "read",
+      "type": "official_management_statement",
+      "localFile": "sources/catl/20261020-IR.pdf",
+      "sha256": "42d041299a85b939e9b5dff4c687be929629e2b572f702f462a4b1c29de85cd2"
+    },
+    {
+      "id": "catl-monthly-202609",
+      "title": "截至2026年9月30日证券变动月报表（公司公告镜像，未重新取得交易所托管同一文件）",
+      "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESZ_STOCK/2026/2026-10/2026-10-08/12631405.PDF",
+      "publishedAt": "2026-10-08",
+      "documentSignedAt": "2026-10-02",
+      "period": "2026-09-30",
+      "location": "PDF1–3、6–7页",
+      "readStatus": "read",
+      "type": "issuer_filing_mirror",
+      "hostingLimitation": "官方托管9月月报本轮未取得；公司文件镜像与Q3股本千元、腾讯总股本相互勾稽"
+    },
+    {
+      "id": "catl-quote-20261023",
+      "title": "腾讯行情A/H股公开快照（商业行情源，非交易所原始成交档）",
+      "url": "https://qt.gtimg.cn/q=sz300750,hk03750",
+      "publishedAt": "2026-10-23",
+      "period": "A源时间16:14:30；H源时间16:08:14，均北京时间",
+      "location": "字段3价格、字段30源时间；总股本字段交叉核对",
+      "readStatus": "read",
+      "type": "market_data",
+      "localFile": "sources/catl/quotes-20261024.txt",
+      "sha256": "77c433ec91f8ac3e5db941abd21fd50be2db1302b4a83770c69a69697cbda0ff"
+    },
+    {
+      "id": "catl-old-20261019",
+      "title": "2026-10-19全池研究宁德时代底稿",
+      "url": null,
+      "publishedAt": "2026-10-19",
+      "period": "2026H1",
+      "location": "原工作区research/20261019-all-pools/companies/catl.md",
+      "readStatus": "read",
+      "type": "prior_internal_research"
+    },
+    {
+      "id": "catl-old-20260827",
+      "title": "宁德时代两步投资分析20260827",
+      "url": null,
+      "publishedAt": "2026-08-27",
+      "period": "2026H1",
+      "location": "investment-hq/data/docs/宁德时代两步投资分析-20260827.md",
+      "readStatus": "read",
+      "type": "prior_internal_research"
+    }
+  ],
+  "completedItems": [
+    "实际读取最新2026Q3官方季报及10/20业绩说明会",
+    "官方2025年报、2026半年报财务/分部/现金桥重核",
+    "刷新A/H实际行情源时间",
+    "重建八维、现金转换与资本配置反证",
+    "撤回未披露维护CAPEX拆分",
+    "独立动力/储能量价利润、每股与三情景敏感性",
+    "列出量化证伪、复核日期与未补证据"
+  ],
+  "remainingGaps": [
+    {
+      "item": "维护/增长CAPEX和2026Q3受限资金、租赁现金利息穿透",
+      "reason": "季度简表未提供全部附注；不公开的内部资本预算不能从外部编造",
+      "requiredEvidence": "下期年报、资本项目与受限资金附注；必要时公司IR书面说明",
+      "canPublicResearchResolve": true
+    },
+    {
+      "item": "海外新工厂分批增量ROIC、换电单站成熟现金回报",
+      "reason": "未公开足够项目级投入/税后回报，不可由总毛利率替代",
+      "requiredEvidence": "项目资本投入、净经营利润与现金回收披露或可核管理层回复",
+      "canPublicResearchResolve": false
+    },
+    {
+      "item": "2026Q3分部GWh、同口径ASP与单位净利润",
+      "reason": "仅披露总销量超260GWh及储能约1/4，不能从总收入直接倒算电芯单价",
+      "requiredEvidence": "分部销量及收入、系统/电芯结构、税费转嫁与年度分部毛利",
+      "canPublicResearchResolve": true
+    },
+    {
+      "item": "9月股本月报官方托管副本及最终注销股数",
+      "reason": "月报实际读到公司文件镜像，精确股数与Q3千元/行情勾稽；尚未在线取得交易所同文PDF",
+      "requiredEvidence": "港交所/巨潮月报与后续注销公告",
+      "canPublicResearchResolve": true
+    },
+    {
+      "item": "10年三表闭合与独立估值审计",
+      "reason": "本轮显式经营/现金约束为敏感性，后续再投资、项目ROIC和终值PE未独立审计",
+      "requiredEvidence": "可审计逐年三表、资本回报桥及独立复核；不能自动标审计通过",
+      "canPublicResearchResolve": false
+    },
+    {
+      "item": "券商历史结算成本、交易及现金流对账、持仓适配和执行批准",
+      "reason": "公开公司研究无法取得本人账户凭证，也不能代替决策批准",
+      "requiredEvidence": "本人券商对账单及授权的独立复核/政策审批",
+      "canPublicResearchResolve": false
+    }
+  ],
+  "scope": "主平台当前池",
+  "q3Review": {
+    "kind": "financial",
+    "status": "Q3财务已核原文",
+    "asOf": "2026-10-24",
+    "valuationImpact": "核心7财务质量、8资本配置存疑两项；3护城河通过，无已证实一票否决。不更改系统grade。",
+    "coverage": "公司/交易所原文、公告目录及本轮披露查询"
+  },
+  "reportPath": "/research/catl.html"
+}

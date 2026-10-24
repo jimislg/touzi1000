@@ -1,0 +1,296 @@
+{
+  "id": "yutong",
+  "name": "宇通客车",
+  "codes": [
+    "600066.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "客车出口、电动化和制造效率有基础，销量周期与外部长期投资限制估值溢价。",
+  "breakers": "需求和销量持续下降、外部十年基金追加实缴或质保赔付上升；模型留存必须覆盖资本承诺。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "客车研发制造销售服务一体",
+      "counter": "理财收益不是主营复利引擎",
+      "monitor": "非主业资本占用",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "定期披露与研发售后投入",
+      "counter": "集团财务公司存款与担保需监控",
+      "monitor": "存款回收及关联担保",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "海外服务和整车可靠性、规模优势",
+      "counter": "采购方可多供应商比价",
+      "monitor": "海外订单毛利与质保",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "海外已有真实收入与盈利",
+      "counter": "本地化、贸易与劳工成本",
+      "monitor": "区域盈利和现金回款",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "国内龙头且Q3累计扣非+18.45%表明高价值结构有效",
+      "counter": "旧份额口径与新统计不同，无法据累计销量下降断言竞争力持续丢失",
+      "monitor": "同口径份额、利润率及出口地位",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "存疑",
+      "support": "全球电动客车更新需求持久",
+      "counter": "9月销量-12.57%，前9月-7.83%，大型累计-10.79%",
+      "monitor": "月销量与订单转化，不只看售价",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "Q3累计OCF80.04亿、应收降，流动性强",
+      "counter": "预计质保负债55.43亿，新增短借1.28亿，现金有季节性",
+      "monitor": "实际质保支付与正常化现金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "过往高分红、Q3现金改善有返现能力",
+      "counter": "9月认缴6.77亿元十年期私募基金，2%管理费及20%分成，LP无经营决策权",
+      "monitor": "基金实缴、剩余承诺、投后回报和全年派息",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "- 需求轴：国内公交与大中型客车调整延续，全球电动化有空间；最新累计销量仍在下降，不能用海外总空间抵消当下事实。",
+    "- 利润池轴：国内龙头不等于份额不降；海外高毛利吸引竞品，服务网络和本地制造加大成本。",
+    "- 范式风险：中：电动化利于强研发龙头，技术及安全合规、海外产地规则改变竞争边界。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 258.1587158491,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yutong-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 31.8353556979,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yutong-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 30.9858072905,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yutong-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 80.0441805331,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yutong-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 4.8212431743,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yutong-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedEPS",
+      "value": 1.44,
+      "unit": "CNY元/普通股",
+      "period": "2026Q1–Q3",
+      "sourceId": "yutong-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026Q1–Q3",
+    "unit": "CNY亿元",
+    "ocf": 80.0441805331,
+    "totalCapex": 4.8212431743,
+    "conservativeResidual": 75.22293735880001,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.8,
+          "g1": -0.02,
+          "g2": 0,
+          "payout": 0.4,
+          "exit_pe": 8
+        },
+        "base": {
+          "eps0": 2.3,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.55,
+          "exit_pe": 10
+        },
+        "bull": {
+          "eps0": 2.5,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.65,
+          "exit_pe": 13
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准销量0%—2%加结构/售价1%，净利率近稳，EPS仅3%/2%；悲观销量-4%、结构+1%、毛利压缩，EPS-2%后持平；乐观出口与电动化带动量5%、价值2%及利润率1%，EPS8%后5%。终值10倍是成熟周期制造研究情景，旧12.15倍零修复锚不再直接沿用。"
+    },
+    "newEvidenceImpact": "已核10/15 Q3：9M收入258.159亿元、归母31.835亿元(-3.31%)、扣非30.986亿元(+18.45%)，OCF80.044减CAPEX4.821=75.223亿元。旧10/19稿已纳入同份Q3，因此不重复当新增利好或再次上调EPS。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "financial",
+    "status": "Q3财务已核原文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "已核10/15 Q3：9M收入258.159亿元、归母31.835亿元(-3.31%)、扣非30.986亿元(+18.45%)，OCF80.044减CAPEX4.821=75.223亿元。旧10/19稿已纳入同份Q3，因此不重复当新增利好或再次上调EPS。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026Q1–Q3",
+      "trigger": "需求和销量持续下降、外部十年基金追加实缴或质保赔付上升；模型留存必须覆盖资本承诺。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "已核10/15 Q3：9M收入258.159亿元、归母31.835亿元(-3.31%)、扣非30.986亿元(+18.45%)，OCF80.044减CAPEX4.821=75.223亿元。旧10/19稿已纳入同份Q3，因此不重复当新增利好或再次上调EPS。",
+      "reason": "官方Q3取代旧镜像，扣非/报表利润与现金归因核对一致；现金改善部分来自采购付款下降，不当永久利润。",
+      "sourceIds": [
+        "yutong-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "yutong-latest",
+      "title": "2026第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-15/1225604484.PDF",
+      "publishedAt": "2026-10-15",
+      "period": "2026Q1–Q3",
+      "location": "PDF 1—2、8—9",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing"
+    },
+    {
+      "id": "yutong-prior-0",
+      "title": "2026第三季度报告原文PDF",
+      "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-10/2026-10-15/12641310.PDF",
+      "publishedAt": null,
+      "period": "2026Q3",
+      "location": "1—2、5—10页",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "yutong-prior-1",
+      "title": "2026半年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-11/1225466147.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "5、11、28—32页",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "yutong-prior-2",
+      "title": "2026年9月产销数据快报（公司公告正文）",
+      "url": "https://data.eastmoney.com/notices/detail/600066/AN202610081830207843.html",
+      "publishedAt": null,
+      "period": "2026-09",
+      "location": "临2026-047",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "yutong-prior-3",
+      "title": "2026年9月私募基金投资公告",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12601621&stockid=600066",
+      "publishedAt": null,
+      "period": "2026-09-15",
+      "location": "公告正文",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "需海外/国内分拆销量、同口径份额、长期基金实缴与剩余资本承诺、全年质保兑现；订单恢复且资本边界清楚可重新计数。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "官方Q3取代旧镜像，扣非/报表利润与现金归因核对一致；现金改善部分来自采购付款下降，不当永久利润。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/yutong.html"
+}

@@ -1,0 +1,294 @@
+{
+  "id": "pingan",
+  "name": "中国平安",
+  "codes": [
+    "2318.HK",
+    "601318.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "寿险长期客户、代理渠道及综合金融有价值，资本上划与股本摊薄决定股东收益。",
+  "breakers": "寿险CSM释放放缓、银行信用成本上升或母公司可用现金减少，或摊薄股数增长；先重算营运EPS。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "寿险财险银行围绕金融客户",
+      "counter": "医养扩张资本跨度扩大",
+      "monitor": "医养分部回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "分红制度化与公开资本披露",
+      "counter": "创始人关键人及复杂集团治理",
+      "monitor": "关联交易和管理传承",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "客户与渠道、综合服务基础",
+      "counter": "客户可购买不同险企产品",
+      "monitor": "有效代理人与续期",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "全球服务网络辅助客户",
+      "counter": "境外投资不等同海外经营护城河",
+      "monitor": "国别资产风险",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "通过",
+      "support": "品牌渠道与多产品触达",
+      "counter": "国寿太保友邦及银保竞争",
+      "monitor": "同口径NBV与获客成本",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "存疑",
+      "support": "养老医疗保障需求长存",
+      "counter": "保障需求疲弱与储蓄险渠道迁移",
+      "monitor": "新单价值和产品结构",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "存疑",
+      "support": "营运利润增长且偿付能力在监管线以上",
+      "counter": "长期利差与精算利润现金转化约束",
+      "monitor": "净投资收益与自由盈余",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "通过",
+      "support": "持续现金分红有长期记录",
+      "counter": "历史地产及非主业投资损失",
+      "monitor": "母公司可支配现金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "[判断] 需求结构增长；利润池稳定但承保与利差分化；范式风险中。保障养老的长期需求增加，分红险把部分投资波动转给客户，不能解除存量保证利率。以新单价值转化和资本约束决定利润，基准营运增长仅3%/2%。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 5751.38,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "pingan-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 925.85,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "pingan-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 877.12,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "pingan-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 3680.37,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "pingan-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "pingan-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 3680.37,
+    "totalCapex": null,
+    "conservativeResidual": null,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "金融/保险不使用OCF−CAPEX估普通股收益；另核普通股资本/RWA、寿险自由盈余与母公司上划。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "operating_eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 6.5,
+          "g1": -0.02,
+          "g2": 0,
+          "payout": 0.35,
+          "exit_pe": 4.5
+        },
+        "base": {
+          "eps0": 7.4,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.36,
+          "exit_pe": 6
+        },
+        "bull": {
+          "eps0": 8,
+          "g1": 0.05,
+          "g2": 0.03,
+          "payout": 0.4,
+          "exit_pe": 7.5
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "TTM归母营运1408.79亿÷190.4664亿潜在摊薄股本≈7.397；增长由寿险CSM释放与产险银行组合支持",
+      "auditGap": "寿险自由盈余、监管资本耗用与母公司上划现金桥未闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "newEvidenceImpact": "集团最新可核仍H1：归母925.85亿元、营运841.96亿元。10/24新文是平安银行：9M利润391.86亿元、CET1 9.61%、拨备214.75%。不可直接代替集团EPS或把银行OCF当寿险自由盈余；银行利润须经持股、NCI和合并抵销进入集团。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "subsidiary",
+    "status": "平安银行Q3；集团Q3未取得",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "集团最新可核仍H1：归母925.85亿元、营运841.96亿元。10/24新文是平安银行：9M利润391.86亿元、CET1 9.61%、拨备214.75%。不可直接代替集团EPS或把银行OCF当寿险自由盈余；银行利润须经持股、NCI和合并抵销进入集团。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "寿险CSM释放放缓、银行信用成本上升或母公司可用现金减少，或摊薄股数增长；先重算营运EPS。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "集团最新可核仍H1：归母925.85亿元、营运841.96亿元。10/24新文是平安银行：9M利润391.86亿元、CET1 9.61%、拨备214.75%。不可直接代替集团EPS或把银行OCF当寿险自由盈余；银行利润须经持股、NCI和合并抵销进入集团。",
+      "reason": "已纠正集团/银行身份混淆；银行资本与资产质量原表已读；集团自由盈余、寿险监管资本耗用及母公司上划仍缺。 集团CAS摘要收入5751.38亿元，英文新闻稿revenue6153.51亿元口径不同；尚未完成口径桥，不互换、不按差额推增长。",
+      "sourceIds": [
+        "pingan-latest",
+        "pingan-operating"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "pingan-latest",
+      "title": "2026集团中期报告摘要；PDF4页CAS财务指标、9/18页银行指标",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-21/1225487477.PDF",
+      "publishedAt": "2026-08-21",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "2026集团中期报告摘要；PDF4页CAS财务指标、9/18页银行指标"
+    },
+    {
+      "id": "pingan-prior-0",
+      "title": "中国平安2026中期报告",
+      "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12512669&stockid=601318",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "36—84",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "pingan-prior-1",
+      "title": "平安官方中期业绩新闻稿",
+      "url": "https://group.pingan.com/media/news/2026/pingan-1h-26-results.html",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "pingan-prior-2",
+      "title": "中国平安2025年度摘要",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-03-27/1225038326.PDF",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "5",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "pingan-operating",
+      "title": "平安银行Q3；集团Q3未取得",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620609.PDF",
+      "publishedAt": "2026-10-24",
+      "period": "2026Q3 / 9M",
+      "readStatus": "read",
+      "location": "财务表/营运指标；口径详见正文",
+      "type": "official_filing"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "寿险自由盈余、监管资本耗用与母公司上划现金桥未闭合",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已纠正集团/银行身份混淆；银行资本与资产质量原表已读；集团自由盈余、寿险监管资本耗用及母公司上划仍缺。 集团CAS摘要收入5751.38亿元，英文新闻稿revenue6153.51亿元口径不同；尚未完成口径桥，不互换、不按差额推增长。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/pingan.html"
+}

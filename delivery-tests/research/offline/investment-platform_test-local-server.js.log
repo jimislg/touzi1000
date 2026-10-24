@@ -1,0 +1,12 @@
+PASS real local server serves homepage
+PASS local source with revision and no credential leak
+PASS authenticated HTTP config includes 34 public studies without granting approval
+PASS research checklist is available on local website
+PASS actual HTTP local save returns confirmed receipt
+PASS readback matches receipt and invalidates evidence
+PASS old version cannot overwrite saved data
+PASS HTTP preview rejects client amount injection before quote fetch
+PASS HTTP rejects protected planning-policy edit
+PASS temporary config credential preserved
+PASS research presentation metadata never persisted to account config
+Local HTTP smoke: 11 checks passed; temporary fixture only

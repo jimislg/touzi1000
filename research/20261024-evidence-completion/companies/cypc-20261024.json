@@ -1,0 +1,271 @@
+{
+  "id": "cypc",
+  "name": "长江电力",
+  "codes": [
+    "600900.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "梯级水电的稀缺资源与运营能力支持低增长现金，但来水、电价和债务不能忽略。",
+  "breakers": "偏枯持续、电价走低且抽蓄/债务资本预算扩大；先降低当年EPS与分红覆盖，再评终值。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "大型水电与配售电聚焦",
+      "counter": "抽蓄扩张增加投入",
+      "monitor": "非水电资本预算",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "长期安全运营与明确分红规则",
+      "counter": "集团资产注入价需逐项验证",
+      "monitor": "注入估值和关联交易",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "流域与梯级稀缺资产",
+      "counter": "电价非自主、气候风险不能消除",
+      "monitor": "发电单价与调节收益",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "秘鲁等资产带来区域分散",
+      "counter": "当地监管汇率及融资风险",
+      "monitor": "境外股东现金回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "通过",
+      "support": "稀缺大水电进入壁垒",
+      "counter": "其他电源影响电价曲线",
+      "monitor": "区域售电价格",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "通过",
+      "support": "电力与调峰需求长存",
+      "counter": "需求不等于实际来水可发电量",
+      "monitor": "发电量及消纳",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "存疑",
+      "support": "长期OCF强",
+      "counter": "高杠杆、现金利息及新项目约束",
+      "monitor": "现金利息后分红覆盖",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "70%分红政策与降融资成本",
+      "counter": "抽蓄扩张资本回报未验证",
+      "monitor": "各项目权益回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "[判断] 需求稳定；利润池稳定；范式风险低至中。水电长期有需求，短期供给由来水决定，电价受合同/市场交易和政策约束。基准每股增速2.5%/1.5%，不把H1利润增速永久化。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 379.2927,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cypc-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 147.5569,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cypc-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 142.9403,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cypc-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 241.2831,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cypc-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 44.3462,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cypc-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 241.2831,
+    "totalCapex": 44.3462,
+    "conservativeResidual": 196.93689999999998,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.25,
+          "g1": -0.01,
+          "g2": 0,
+          "payout": 0.7,
+          "exit_pe": 12
+        },
+        "base": {
+          "eps0": 1.4,
+          "g1": 0.025,
+          "g2": 0.015,
+          "payout": 0.7,
+          "exit_pe": 15
+        },
+        "bull": {
+          "eps0": 1.5,
+          "g1": 0.04,
+          "g2": 0.02,
+          "payout": 0.75,
+          "exit_pe": 17
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "常年来水与价格、降息减债支持低增长，Q3发电下滑阻止高增长外推",
+      "auditGap": "现金利息、维护/增长及抽蓄资本预算独立交叉桥未全闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "newEvidenceImpact": "Q3发电公告已核：单季923.14亿千瓦时(-14.89%)、9M2250.58(-4.28%)；不是归母利润降幅。旧H1盈利增长不可顺延全年；优先调整当年水量/利用小时，保留常年来水与长期需求分开。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "operating",
+    "status": "Q3发电数据，非财务季报",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "Q3发电公告已核：单季923.14亿千瓦时(-14.89%)、9M2250.58(-4.28%)；不是归母利润降幅。旧H1盈利增长不可顺延全年；优先调整当年水量/利用小时，保留常年来水与长期需求分开。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "偏枯持续、电价走低且抽蓄/债务资本预算扩大；先降低当年EPS与分红覆盖，再评终值。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "Q3发电公告已核：单季923.14亿千瓦时(-14.89%)、9M2250.58(-4.28%)；不是归母利润降幅。旧H1盈利增长不可顺延全年；优先调整当年水量/利用小时，保留常年来水与长期需求分开。",
+      "reason": "已核六座电站与不同流域来水，纠正用盈利增长当来水增长；未取得Q3财报，不填Q3 EPS。",
+      "sourceIds": [
+        "cypc-latest",
+        "cypc-operating"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "cypc-latest",
+      "title": "2026半年度报告，PDF 主要数据、55—56",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-31/1225534923.PDF",
+      "publishedAt": "2026-08-31",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "主要数据、55—56"
+    },
+    {
+      "id": "cypc-prior-1",
+      "title": "长江电力Q3发电公告",
+      "url": "https://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-13/600900_20261013_6A5G.pdf",
+      "publishedAt": null,
+      "period": "2026Q3生产",
+      "location": "1",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "cypc-operating",
+      "title": "Q3发电数据，非财务季报",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225600572.PDF",
+      "publishedAt": "2026-10-13",
+      "period": "2026Q3 / 9M",
+      "readStatus": "read",
+      "location": "财务表/营运指标；口径详见正文",
+      "type": "official_filing"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "现金利息、维护/增长及抽蓄资本预算独立交叉桥未全闭合",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已核六座电站与不同流域来水，纠正用盈利增长当来水增长；未取得Q3财报，不填Q3 EPS。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/cypc.html"
+}

@@ -1,0 +1,271 @@
+{
+  "id": "focus",
+  "name": "分众传媒",
+  "codes": [
+    "002027.SZ"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "电梯广告网络仍有覆盖价值，但独家排他和并购现金边界必须按监管条件重写。",
+  "breakers": "非独家后客户留存或单屏现金回报下降，收购整合只增屏数不增每股现金；终值须降而非只调EPS。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "C类经济性观察",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "楼宇媒体聚焦",
+      "counter": "历史财务投资偏离主业",
+      "monitor": "非主业资本投入",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "公开并购与分配披露",
+      "counter": "关联交易和控股治理仍需监督",
+      "monitor": "交易完成条件",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "存疑",
+      "support": "SAMR确认规模网络壁垒",
+      "counter": "放弃独家/自动续约改变壁垒保护",
+      "monitor": "去独家续约与点位回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "境外已有媒体",
+      "counter": "规模小且单点回报未证明",
+      "monitor": "境外现金回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "通过",
+      "support": "合计55—60%市场地位明确",
+      "counter": "监管约束与线上媒介竞争",
+      "monitor": "份额与成交价",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "存疑",
+      "support": "品牌触达场景仍有需求",
+      "counter": "扣非-7.06%且预算向线上分流",
+      "monitor": "客户续投和实际成交价",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "经营收现强且现金资产充足",
+      "counter": "租赁现金显著低于表观OCF",
+      "monitor": "扣租赁现金与应收",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "历史高现金分配",
+      "counter": "并购稀释商誉及资本效率风险",
+      "monitor": "备考每股现金与股息",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "[判断] 需求稳定偏结构分流；利润池恶化；范式风险中偏高。电梯广告是独立媒介但受线上广告预算分流，集中度提升不等于价格自由。未来收入来自有效点位、上刊率与成交价，基准不给并购提价红利。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 59.91375629,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "focus-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 31.28055743,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "focus-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 22.90530695,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "focus-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 44.53428032,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "focus-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 4.92259248,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "focus-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 44.53428032,
+    "totalCapex": 4.92259248,
+    "conservativeResidual": 39.61168784,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.24,
+          "g1": -0.02,
+          "g2": 0,
+          "payout": 0.65,
+          "exit_pe": 9
+        },
+        "base": {
+          "eps0": 0.292,
+          "g1": 0,
+          "g2": 0,
+          "payout": 0.75,
+          "exit_pe": 12
+        },
+        "bull": {
+          "eps0": 0.34,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.8,
+          "exit_pe": 14
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "备考口径；最新反垄断条件取消并购提价假设，现金租赁必须扣除",
+      "auditGap": "C类质量门；最终交易股本与现金、租赁后长期FCFE及独立DCF未闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "newEvidenceImpact": "H1 OCF44.534减CAPEX4.923=39.612亿元，租赁本金与利息仍需从融资流出再核。新潮交易最终股本、对价及附条件批准不能用旧垄断提价逻辑外推。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1 OCF44.534减CAPEX4.923=39.612亿元，租赁本金与利息仍需从融资流出再核。新潮交易最终股本、对价及附条件批准不能用旧垄断提价逻辑外推。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "非独家后客户留存或单屏现金回报下降，收购整合只增屏数不增每股现金；终值须降而非只调EPS。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1 OCF44.534减CAPEX4.923=39.612亿元，租赁本金与利息仍需从融资流出再核。新潮交易最终股本、对价及附条件批准不能用旧垄断提价逻辑外推。",
+      "reason": "现金表已核；独家权利、交易完成资本结构与租赁后FCFE仍未全齐，保留C观察。",
+      "sourceIds": [
+        "focus-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "focus-latest",
+      "title": "2026半年度报告，PDF 7、14、现金表",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-19/1225480000.PDF",
+      "publishedAt": "2026-08-19",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "7、14、现金表"
+    },
+    {
+      "id": "focus-prior-1",
+      "title": "SAMR分众新潮附条件批准",
+      "url": "https://www.samr.gov.cn/fldes/tzgg/ftj/art/2026/art_cffe3e9d01cd496e9a4223f2bc88310e.html",
+      "publishedAt": null,
+      "period": "2026-10-10",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "focus-prior-2",
+      "title": "分众备考财报",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-28/1225522834.PDF",
+      "publishedAt": null,
+      "period": "2025FY/2026Q1备考",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "C类质量门；最终交易股本与现金、租赁后长期FCFE及独立DCF未闭合",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "现金表已核；独家权利、交易完成资本结构与租赁后FCFE仍未全齐，保留C观察。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/focus.html"
+}

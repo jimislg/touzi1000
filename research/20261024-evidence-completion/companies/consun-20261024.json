@@ -1,0 +1,283 @@
+{
+  "id": "consun",
+  "name": "康臣药业",
+  "codes": [
+    "1681.HK"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "肾病等核心中药产品有复购和医生渠道，但单品依赖与医保支付风险需控制。",
+  "breakers": "核心产品量价连续下降、医保续约不利或税率上行；应下调增长与终值而非依赖股息率。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "肾科及药品渠道可复用",
+      "counter": "玉林等小品类增长并不均衡",
+      "monitor": "分部现金贡献",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "存疑",
+      "support": "持续派息回购及披露",
+      "counter": "主席兼CEO、控制集中且有外部股权投资",
+      "monitor": "关联、接班与投资用途",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "存疑",
+      "support": "细分品牌和医院渠道有优势",
+      "counter": "临床结局、医保与跨疗法替代对壁垒强度构成真实疑点",
+      "monitor": "核心品量价及高质量临床证据",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "内地占99%以上，业务边界明确",
+      "counter": "海外注册不构成实质收入支柱",
+      "monitor": "不计海外未兑现故事",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "肾科系列增长18.1%，渠道地位稳",
+      "counter": "替代治疗争夺预算但暂未出现份额崩坏",
+      "monitor": "医院覆盖与核心品销量",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "通过",
+      "support": "慢病持续用药与老龄化",
+      "counter": "高患者基数不等于自费/医保无限扩张",
+      "monitor": "疗效与支付准入",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF7.81亿高于归母5.95亿、负债低",
+      "counter": "供应商账期延长与低税率退出",
+      "monitor": "营运资金、税率和现金兑现",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "通过",
+      "support": "分红及回购有执行，金融现金厚",
+      "counter": "上海华茂股权投入尚需验证",
+      "monitor": "非主业比例与分红覆盖",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "- 需求轴：慢性肾病患者管理需求持续；患者增长不自动转为公司产品用量。",
+    "- 利润池轴：品牌渠道支持高毛利，医保净价、循证证据与现代疗法限制长期提价。",
+    "- 范式风险：中：治疗指南变化和新疗法可能分流，但现有辅助用药未被证明全面淘汰。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 17.84688,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "consun-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 5.95309,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "consun-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "consun-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 7.81438,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "consun-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 0.28174,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "consun-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 7.81438,
+    "totalCapex": 0.28174,
+    "conservativeResidual": 7.53264,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。",
+    "leasePrincipal": 0.00571,
+    "leaseInterest": 0.00119,
+    "otherFinancePaid": 0.02569,
+    "interestReceived": 0.44508,
+    "nciCashDividend": 0.04903,
+    "cashBeforeParentDividendAndBuyback": 7.8961
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.1,
+          "g1": 0,
+          "g2": 0.01,
+          "payout": 0.4,
+          "exit_pe": 7
+        },
+        "base": {
+          "eps0": 1.3,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.5,
+          "exit_pe": 9
+        },
+        "bull": {
+          "eps0": 1.4,
+          "g1": 0.1,
+          "g2": 0.06,
+          "payout": 0.5,
+          "exit_pe": 12
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准产品销量7%与净价-1%合成收入6%，税率按14%—18%正常化、利润率不再依赖原料降价，对应EPS6%/4%；悲观医保净价下调和替代使EPS0%/1%；乐观肾科组合渗透支撑10%/6%。50%纯现金派息，不加回购收益；特别现金余额不再另加，避免与持续利息收益重复。"
+    },
+    "newEvidenceImpact": "本轮找到9/24完整中报：H1收入17.847、归母5.953、OCF7.81438亿元；扣现金CAPEX0.28174后余7.53264，再分列租赁本金0.00571、租赁利息0.00119、其他融资成本0.02569、实收利息0.44508、NCI股息0.04903，股息/回购前现金桥7.89610亿元。不是将投资净流出4.12435亿元全部当CAPEX。 税率已由上年H1的6.1%升至14.3%，免税期结束不应在未来盈利中加回；加权普通股8.41130亿与期末股数分开。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+    "valuationImpact": "本轮找到9/24完整中报：H1收入17.847、归母5.953、OCF7.81438亿元；扣现金CAPEX0.28174后余7.53264，再分列租赁本金0.00571、租赁利息0.00119、其他融资成本0.02569、实收利息0.44508、NCI股息0.04903，股息/回购前现金桥7.89610亿元。不是将投资净流出4.12435亿元全部当CAPEX。 税率已由上年H1的6.1%升至14.3%，免税期结束不应在未来盈利中加回；加权普通股8.41130亿与期末股数分开。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "核心产品量价连续下降、医保续约不利或税率上行；应下调增长与终值而非依赖股息率。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "本轮找到9/24完整中报：H1收入17.847、归母5.953、OCF7.81438亿元；扣现金CAPEX0.28174后余7.53264，再分列租赁本金0.00571、租赁利息0.00119、其他融资成本0.02569、实收利息0.44508、NCI股息0.04903，股息/回购前现金桥7.89610亿元。不是将投资净流出4.12435亿元全部当CAPEX。 税率已由上年H1的6.1%升至14.3%，免税期结束不应在未来盈利中加回；加权普通股8.41130亿与期末股数分开。",
+      "reason": "完整现金流、现金CAPEX、租赁/NCI与融资桥已关闭；医保续约、单品量价和上海华茂投后回报仍需核验。原高IRR所含终值修复仍未获支持。 已核免税期结束与新优惠口径，未来情景不得恢复零税。",
+      "sourceIds": [
+        "consun-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "consun-latest",
+      "title": "2026完整中期报告；PDF33—34页现金表（印页32—33）",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092400020_c.pdf",
+      "publishedAt": null,
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "1、32—33（完整中报现金表）"
+    },
+    {
+      "id": "consun-prior-0",
+      "title": "2026中期业绩公告",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600201.pdf",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "1—4、11—12、19—20页",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "consun-prior-1",
+      "title": "2025年度报告",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042801743.pdf",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "年度财务及客户集中",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "consun-prior-2",
+      "title": "收购上海华茂30%股权公告",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0608/2026060800324.pdf",
+      "publishedAt": null,
+      "period": "2026-06",
+      "location": "投资用途",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "核心单品销量净价、医保续约与临床结局、上海华茂投后回报；完整现金流、CAPEX、租赁与NCI现金已补。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "完整现金流、现金CAPEX、租赁/NCI与融资桥已关闭；医保续约、单品量价和上海华茂投后回报仍需核验。原高IRR所含终值修复仍未获支持。 已核免税期结束与新优惠口径，未来情景不得恢复零税。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/consun.html"
+}

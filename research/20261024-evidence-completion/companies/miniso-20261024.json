@@ -1,0 +1,287 @@
+{
+  "id": "miniso",
+  "name": "名创优品",
+  "codes": [
+    "9896.HK"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "平价零售、IP商品和供应链具价值，海外直营租赁与永辉投资占用降低确定性。",
+  "breakers": "直营门店销售增长低于租金与销售费用增长，或永辉持续追加资金；下调正常化利润率并降低可分红比例。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "存疑",
+      "support": "低价选品、TOP TOY共享渠道",
+      "counter": "永辉及AI投资超主业",
+      "monitor": "非核心投资新增额",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化与治理",
+      "verdict": "通过",
+      "support": "创始人及业务披露较完整",
+      "counter": "集中治理与关联投资需约束",
+      "monitor": "关联交易及激励",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "采购选品和零售伙伴网络",
+      "counter": "授权IP不是独家产权",
+      "monitor": "复购和商品周转",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "存疑",
+      "support": "海外网络有真实收入",
+      "counter": "直营固定费用和同店下降",
+      "monitor": "成熟直营店回收期",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "存疑",
+      "support": "国内同店与规模支撑",
+      "counter": "海外利润率弱于销售增速",
+      "monitor": "区域同店/费用率",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户与需求",
+      "verdict": "通过",
+      "support": "性价比与上新吸引客流",
+      "counter": "时尚商品切换成本低",
+      "monitor": "国内同店与客单",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF增长且期末库存下降",
+      "counter": "借款和租赁须计价",
+      "monitor": "到期债务及租赁覆盖",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "持续派息及核心扩店",
+      "counter": "永辉和基金占用资本",
+      "monitor": "核心FCFE及跨界投资回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 114.989,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "miniso-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 9.61551,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "miniso-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 14.75401,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "miniso-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 7.24622,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "miniso-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedEPS",
+      "value": 0.79,
+      "unit": "CNY元/普通股",
+      "period": "2026H1",
+      "sourceId": "miniso-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 14.75401,
+    "totalCapex": 7.24622,
+    "conservativeResidual": 7.507789999999999,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。",
+    "leasePrincipalAndInterest": 5.51492,
+    "otherInterestPaid": 0.74956,
+    "afterLeaseAndOtherInterest": 1.24331
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.15,
+          "g1": 0,
+          "g2": 0.02,
+          "payout": 0.5,
+          "exit_pe": 8
+        },
+        "base": {
+          "eps0": 1.4,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.5,
+          "exit_pe": 11
+        },
+        "bull": {
+          "eps0": 1.65,
+          "g1": 0.1,
+          "g2": 0.07,
+          "payout": 0.5,
+          "exit_pe": 15
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准门店扩张/国内同店带来收入约10%增速，但海外营销与租赁约束利润率，盈利只6%/4%；悲观新增收入被低效直营抵消，乐观成熟门店利润率改善。派息50%为常态假设而非按当期分红回购/FCF174%外推。"
+    },
+    "newEvidenceImpact": "已取得完整中报：H1 OCF14.75401−现金CAPEX7.24622=7.50779亿元；再扣租赁资本及利息5.51492、其他实付利息0.74956，余1.24331亿元（未加投资利息等，不是归母FCFE）。原以7.508亿直接看分配能力的逻辑须修正。H1普通股基本0.79、加权股12.14665亿，摊薄分母12.19244亿；1ADS=4普通股。10/9营运公告称Q3内地GMV+25%—30%、同店高个位数，美国GMV约+20%；支持需求改善，仍未证明直营利润率修复。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "operating",
+    "status": "Q3自愿营运更新，非集团季报",
+    "asOf": "2026-10-24",
+    "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+    "valuationImpact": "已取得完整中报：H1 OCF14.75401−现金CAPEX7.24622=7.50779亿元；再扣租赁资本及利息5.51492、其他实付利息0.74956，余1.24331亿元（未加投资利息等，不是归母FCFE）。原以7.508亿直接看分配能力的逻辑须修正。H1普通股基本0.79、加权股12.14665亿，摊薄分母12.19244亿；1ADS=4普通股。10/9营运公告称Q3内地GMV+25%—30%、同店高个位数，美国GMV约+20%；支持需求改善，仍未证明直营利润率修复。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "直营门店销售增长低于租金与销售费用增长，或永辉持续追加资金；下调正常化利润率并降低可分红比例。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "已取得完整中报：H1 OCF14.75401−现金CAPEX7.24622=7.50779亿元；再扣租赁资本及利息5.51492、其他实付利息0.74956，余1.24331亿元（未加投资利息等，不是归母FCFE）。原以7.508亿直接看分配能力的逻辑须修正。H1普通股基本0.79、加权股12.14665亿，摊薄分母12.19244亿；1ADS=4普通股。10/9营运公告称Q3内地GMV+25%—30%、同店高个位数，美国GMV约+20%；支持需求改善，仍未证明直营利润率修复。",
+      "reason": "已关闭完整现金表、租赁现金与普通股摊薄分母缺项；海外成熟店单位经济、永辉最终现金回报及股权挂钩证券仍为决定项。国庆短期GMV不当Q4预测。",
+      "sourceIds": [
+        "miniso-latest",
+        "miniso-operating"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "miniso-latest",
+      "title": "2026完整中期报告；PDF63页现金、80—81页普通股分母",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092400867_c.pdf",
+      "publishedAt": null,
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "2026完整中期报告；PDF63页现金、80—81页普通股分母"
+    },
+    {
+      "id": "miniso-prior-0",
+      "title": "名创2026Q2/H1官方业绩",
+      "url": "https://ir.miniso.com/2026-08-28-MINISO-Group-Announces-2026-June-Quarter-and-Interim-Unaudited-Financial-Results",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "现金、存货、借款租赁与调整净利",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "miniso-prior-1",
+      "title": "名创SEC H1业绩附件",
+      "url": "https://www.sec.gov/Archives/edgar/data/1815846/000110465926103582/tm2624284d1_ex99-2.htm",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "旧底稿原文来源；同一发行人",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "miniso-prior-2",
+      "title": "名创10月9日Q3经营更新",
+      "url": "https://ir.miniso.com/2026-10-09-MINISO-Groups-Latest-Business-Update",
+      "publishedAt": null,
+      "period": "2026Q3",
+      "location": "未审计/未审阅经营数据，非财务报告",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "miniso-operating",
+      "title": "Q3自愿营运更新，非集团季报",
+      "url": "https://www.sec.gov/Archives/edgar/data/1815846/000110465926115744/tm2627490d1_ex99-4.htm",
+      "publishedAt": "2026-10-09",
+      "period": "2026Q3 / 9M",
+      "readStatus": "read",
+      "location": "财务表/营运指标；口径详见正文",
+      "type": "official_filing"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "海外成熟直营店单位经济、永辉资本占用及最终现金回报、股权挂钩证券经济成本；完整现金表、租赁现金与普通股稀释分母已补。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已关闭完整现金表、租赁现金与普通股摊薄分母缺项；海外成熟店单位经济、永辉最终现金回报及股权挂钩证券仍为决定项。国庆短期GMV不当Q4预测。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/miniso.html"
+}

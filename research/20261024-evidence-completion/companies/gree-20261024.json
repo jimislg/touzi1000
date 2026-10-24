@@ -1,0 +1,255 @@
+{
+  "id": "gree",
+  "name": "格力电器",
+  "codes": [
+    "000651.SZ"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "空调规模、制造和渠道有经济性，份额与需求和资本配置约束长期增长。",
+  "breakers": "内销收入与份额同降，或派息与资本配置违背现金约束；降低长期增长预期。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "空调与核心零部件技术协同",
+      "counter": "无关多元化未形成有效利润柱",
+      "monitor": "非空调资本回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "存疑",
+      "support": "长期研发分红、回购有记录",
+      "counter": "董事长兼总裁及接班、员工激励定价约束",
+      "monitor": "接班、回购注销比例",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "品牌技术规模和售后仍形成优势",
+      "counter": "缺少高转换成本，提价受竞品约束",
+      "monitor": "零售溢价与产品质量",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "存疑",
+      "support": "出口已有基础且自主品牌提升",
+      "counter": "外销-21.98%，海外经营明显落后",
+      "monitor": "海外份额和净利润",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "存疑",
+      "support": "国内家用商用空调地位强",
+      "counter": "竞品更均衡，低端价格战与线上份额压力",
+      "monitor": "份额是否连续下滑",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "通过",
+      "support": "巨大存量更新与能效需求持久",
+      "counter": "地产弱、补贴提前消费，增长天花板低",
+      "monitor": "更新量与补贴后零售",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "现金转换长期尚可且净金融资产有缓冲",
+      "counter": "金融现金须扣受限与债，OCF含释放",
+      "monitor": "剔受限资金OCF和净债",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "通过",
+      "support": "纯现金派息与已注销回购有执行",
+      "counter": "未注销员工持股回购不能当分红",
+      "monitor": "现金payout及无关投资",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "- 需求轴：更新需求长期存在，H1行业内销和出口下降，补贴退坡与地产弱压制新增。",
+    "- 利润池轴：寡头格局仍在，美的、海尔及小米的价格/渠道竞争削弱溢价，原料涨价制约。",
+    "- 范式风险：中低：空调功能不会消失，渠道数字化与全屋方案可能改变市场份额。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 893.975225,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "gree-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 132.775909,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "gree-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 127.066727,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "gree-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 188.08832392,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "gree-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 7.29888138,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "gree-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 188.08832392,
+    "totalCapex": 7.29888138,
+    "conservativeResidual": 180.78944253999998,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 4.1,
+          "g1": -0.03,
+          "g2": -0.01,
+          "payout": 0.5,
+          "exit_pe": 6
+        },
+        "base": {
+          "eps0": 4.7,
+          "g1": 0,
+          "g2": 0.01,
+          "payout": 0.6,
+          "exit_pe": 8
+        },
+        "bull": {
+          "eps0": 5,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.65,
+          "exit_pe": 10
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准空调收入低个位数波动、出口恢复仅抵消国内压力，利润率近稳，EPS前五年0%、后五年1%；悲观销量与价格分别-2%/-1%使EPS-3%，后段-1%；乐观出口恢复加高端结构带来3%/2%。基准60%纯现金payout，不把回购和员工持股现金再次累加。"
+    },
+    "newEvidenceImpact": "H1收入893.975亿元、归母132.776、OCF188.088减CAPEX7.299=180.789亿元。财务公司客户资金、受限存款及金融投资需穿透，不能将集团余额全部加到股权估值。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1收入893.975亿元、归母132.776、OCF188.088减CAPEX7.299=180.789亿元。财务公司客户资金、受限存款及金融投资需穿透，不能将集团余额全部加到股权估值。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "内销收入与份额同降，或派息与资本配置违背现金约束；降低长期增长预期。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1收入893.975亿元、归母132.776、OCF188.088减CAPEX7.299=180.789亿元。财务公司客户资金、受限存款及金融投资需穿透，不能将集团余额全部加到股权估值。",
+      "reason": "现金CAPEX已核；财务公司资金归属未全部闭合。未取到Q3正文，外部行业销量与券商预测仅为风险线索。",
+      "sourceIds": [
+        "gree-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "gree-latest",
+      "title": "2026半年度报告，PDF 7、60—62",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225515004.PDF",
+      "publishedAt": "2026-08-27",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "7、60—62"
+    },
+    {
+      "id": "gree-prior-1",
+      "title": "2025年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-04-29/1225250396.PDF",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "受限现金与现金流",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "缺财务公司与受限资金穿透后的滚动现金桥及接班约束；若内销收入和份额双降、分红率跌破40%且新增投资低回报，重新审查是否降C。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "现金CAPEX已核；财务公司资金归属未全部闭合。未取到Q3正文，外部行业销量与券商预测仅为风险线索。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/gree.html"
+}

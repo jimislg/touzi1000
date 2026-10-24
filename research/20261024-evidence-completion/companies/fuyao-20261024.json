@@ -1,0 +1,285 @@
+{
+  "id": "fuyao",
+  "name": "福耀玻璃",
+  "codes": [
+    "600660.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "汽车玻璃全球配套与高附加值产品仍有竞争力，扩产回报与现金覆盖决定承保强度。",
+  "breakers": "单车附加值上升却不能带动剔汇兑利润增长、库存及新厂投入继续占款；先降增长与现金分配。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "主业围绕汽车玻璃和窗系统",
+      "counter": "铝饰件亏损可能稀释主业收益",
+      "monitor": "铝饰件分部ROIC",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "存疑",
+      "support": "持续分红和多年专注制造",
+      "counter": "创始人接班后的资本与治理纪律仍需兑现",
+      "monitor": "董事会独立性、关联及管理变动",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "全球同步开发、规模与材料工艺",
+      "counter": "车企有议价权，同行同样开发HUD调光",
+      "monitor": "高附加值占比与价差",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "美国工厂已有盈利而非纯出口",
+      "counter": "汇兑、劳工与关税冲击真实",
+      "monitor": "美国工厂利润率及合规",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "寡头格局且汽车玻璃毛利率提升",
+      "counter": "AGC、NSG具技术和客户基础",
+      "monitor": "份额与利润率差",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "通过",
+      "support": "单车价值提高对冲汽车总量低增",
+      "counter": "天幕渗透饱和及车企降本",
+      "monitor": "单车价值、定点转量产",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "长期OCF为正、H1经营利润剔汇兑仍增",
+      "counter": "库存天数93对82，H1 OCF同比-15%",
+      "monitor": "库存、现金转化与新厂营运资金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "全球产能跟客户走有工业逻辑",
+      "counter": "计划高CAPEX与新厂/饰件增量ROIC未证",
+      "monitor": "77.3亿年度CAPEX去向及回收",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "- 需求轴：整车总量成熟且2026国内承压；单车玻璃面积、功能升级仍有增长。",
+    "- 利润池轴：全球寡头、份额和成本优势支持利润；车企降本、同行高端化和新厂爬坡侵蚀利润池。",
+    "- 范式风险：中低：动力路线改变不取消玻璃需求，但调光、传感集成等技术要求持续投入。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 341.22791889,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "fuyao-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 60.0648044,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "fuyao-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 58.79139817,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "fuyao-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 82.59778584,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "fuyao-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 38.91635657,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "fuyao-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedEPS",
+      "value": 2.3,
+      "unit": "CNY元/普通股",
+      "period": "2026Q1–Q3",
+      "sourceId": "fuyao-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026Q1–Q3",
+    "unit": "CNY亿元",
+    "ocf": 82.59778584,
+    "totalCapex": 38.91635657,
+    "conservativeResidual": 43.68142927,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 3.1,
+          "g1": 0.01,
+          "g2": 0.01,
+          "payout": 0.5,
+          "exit_pe": 12
+        },
+        "base": {
+          "eps0": 3.55,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.55,
+          "exit_pe": 15
+        },
+        "bull": {
+          "eps0": 3.8,
+          "g1": 0.09,
+          "g2": 0.06,
+          "payout": 0.6,
+          "exit_pe": 19
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入量约2%、单车净值约4%，利润率近稳，对应EPS6%，后五年放缓4%；悲观汽车量-1%与价值2%仅增1%；乐观量3%、价值5%、毛利与爬坡贡献1%对应9%。基准派息由旧60%降为55%检验扩产资金，全年77.3亿CAPEX计划明显高于H1支出，须做H2压力表。"
+    },
+    "newEvidenceImpact": "已发Q3。9M收入341.228、归母60.065、扣非58.791、OCF82.598亿元；现金CAPEX38.916后余43.681。汇兑损失10.670亿元，剔汇兑税前仅增1.18%，较H1剔汇兑+4.78%放缓。旧正常化EPS3.55及6%前段增长不能因剔汇兑自动成立；非经常扣除表也未消除正常汇兑。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "financial",
+    "status": "Q3财务已核原文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "已发Q3。9M收入341.228、归母60.065、扣非58.791、OCF82.598亿元；现金CAPEX38.916后余43.681。汇兑损失10.670亿元，剔汇兑税前仅增1.18%，较H1剔汇兑+4.78%放缓。旧正常化EPS3.55及6%前段增长不能因剔汇兑自动成立；非经常扣除表也未消除正常汇兑。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026Q1–Q3",
+      "trigger": "单车附加值上升却不能带动剔汇兑利润增长、库存及新厂投入继续占款；先降增长与现金分配。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "已发Q3。9M收入341.228、归母60.065、扣非58.791、OCF82.598亿元；现金CAPEX38.916后余43.681。汇兑损失10.670亿元，剔汇兑税前仅增1.18%，较H1剔汇兑+4.78%放缓。旧正常化EPS3.55及6%前段增长不能因剔汇兑自动成立；非经常扣除表也未消除正常汇兑。",
+      "reason": "已替换H1为Q3、核现金表与汇兑前后利润。期末与加权股本、税前/归母均分开；不将汇兑损失全额税前加回归母。",
+      "sourceIds": [
+        "fuyao-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "fuyao-latest",
+      "title": "2026第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225612062.PDF",
+      "publishedAt": "2026-10-21",
+      "period": "2026Q1–Q3",
+      "location": "PDF 1—2、9—10",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing"
+    },
+    {
+      "id": "fuyao-prior-0",
+      "title": "2026半年报",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-19/1225479532.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "7—9、45—46页",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "fuyao-prior-1",
+      "title": "2025年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-03-18/1225014577.PDF",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "主要会计数据与现金流",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "fuyao-prior-2",
+      "title": "2026中期权益分派实施公告",
+      "url": "https://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-09-17/600660_20260917_OK2T.pdf",
+      "publishedAt": null,
+      "period": "2026-09-17",
+      "location": "每股1.00元",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "缺新产能分批ROIC和年度77.3亿资本支出下的分红覆盖；若高端占比升而单车利润下降、库存持续超过百日，先降增长再讨论价格。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已替换H1为Q3、核现金表与汇兑前后利润。期末与加权股本、税前/归母均分开；不将汇兑损失全额税前加回归母。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/fuyao.html"
+}

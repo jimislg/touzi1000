@@ -1,0 +1,268 @@
+{
+  "id": "anta",
+  "name": "安踏体育",
+  "codes": [
+    "02020.HK"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "多品牌经营及户外品牌仍有优势，主品牌与FILA的增长必须重新审视。",
+  "breakers": "主品牌与FILA连续两期负增长，或PUMA追加资本而无可验证盈利改善；先下修增长/分红覆盖。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "各品牌围绕运动与户外",
+      "counter": "品牌矩阵增加组织难度",
+      "monitor": "品牌级ROIC",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化与治理",
+      "verdict": "存疑",
+      "support": "创始人长期投入及零售执行",
+      "counter": "集中控制约束和激励稀释",
+      "monitor": "关联交易及激励回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "品牌渠道与供应链协同",
+      "counter": "消费者易换品牌",
+      "monitor": "售罄折扣与坪效",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "存疑",
+      "support": "Amer及海外品牌为实际资产",
+      "counter": "PUMA仅少数股权",
+      "monitor": "被投企业分红和资本需求",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "FILA及户外盈利增长",
+      "counter": "主品牌利润只低增长",
+      "monitor": "分品牌营业利润",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户与需求",
+      "verdict": "通过",
+      "support": "运动消费及户外需求",
+      "counter": "国内消费与潮流变化",
+      "monitor": "同店和核心用户复购",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF强且库存同比改善",
+      "counter": "FCF未完全归母，租赁重",
+      "monitor": "租赁后现金及库存减值",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "FILA运营形成过往成绩",
+      "counter": "PUMA现金支出与回收周期",
+      "monitor": "收购ROIC及新增资本承诺",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 435.07,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "anta-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 94.87,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "anta-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 130.81,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "anta-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 14.53,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "anta-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 130.81,
+    "totalCapex": 14.53,
+    "conservativeResidual": 116.28,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。",
+    "leaseFinancingCash": 23.5,
+    "afterLeaseResidual": 92.78,
+    "nciCashDividend": 1.3
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 5.127348,
+          "g1": 0.03,
+          "g2": 0.03,
+          "payout": 0.43,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 5.127348,
+          "g1": 0.08,
+          "g2": 0.06,
+          "payout": 0.43,
+          "exit_pe": 12
+        },
+        "bull": {
+          "eps0": 5.127348,
+          "g1": 0.12,
+          "g2": 0.09,
+          "payout": 0.43,
+          "exit_pe": 17
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准主品牌低个位数、FILA中个位数、其他品牌双位数，利润率不大幅恢复，形成前五年约8%盈利增长，后五年6%；乐观假定户外持续和海外投资回报改善，悲观仅成熟需求。税前派息43%是滚动DPS2.59港元折人民币/剔一次性TTM的近似。"
+    },
+    "newEvidenceImpact": "10/21官方Q3：安踏品牌零售额中单位数负增长、FILA低单位数负增长，其他品牌+25%至30%。旧基准前五年EPS增长8%包含主品牌/FILA正增长，现已失去直接支持。不能以零售额冒充收入；PUMA交割后融资成本、投资损益和少数权益另建桥。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "operating",
+    "status": "品牌零售更新，非集团季报",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "10/21官方Q3：安踏品牌零售额中单位数负增长、FILA低单位数负增长，其他品牌+25%至30%。旧基准前五年EPS增长8%包含主品牌/FILA正增长，现已失去直接支持。不能以零售额冒充收入；PUMA交割后融资成本、投资损益和少数权益另建桥。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "主品牌与FILA连续两期负增长，或PUMA追加资本而无可验证盈利改善；先下修增长/分红覆盖。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "10/21官方Q3：安踏品牌零售额中单位数负增长、FILA低单位数负增长，其他品牌+25%至30%。旧基准前五年EPS增长8%包含主品牌/FILA正增长，现已失去直接支持。不能以零售额冒充收入；PUMA交割后融资成本、投资损益和少数权益另建桥。",
+      "reason": "已补Q3品牌口径并区分Amer/PUMA范围；H1净现金不再充当PUMA交割后余额。 H1租赁现金23.50亿元、NCI股息1.30亿元已找到；OCF扣总CAPEX和租赁后92.78亿元，不把经营利息再加一次。",
+      "sourceIds": [
+        "anta-latest",
+        "anta-operating"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "anta-latest",
+      "title": "2026中期报告，印页45现金流",
+      "url": "https://links.sgx.com/FileOpen/EANTA2026IRSGX.ashx?App=Announcement&FileID=902451",
+      "publishedAt": null,
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "2026中期报告，印页45现金流"
+    },
+    {
+      "id": "anta-prior-1",
+      "title": "PUMA收购已交割",
+      "url": "https://ir.anta.com/en/news_detail.php?id=170762",
+      "publishedAt": null,
+      "period": "2026-10-07",
+      "location": "交易条款及独立治理说明",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "anta-prior-2",
+      "title": "安踏官方2026公告目录",
+      "url": "https://ir.anta.com/en/news.php?year=2026",
+      "publishedAt": null,
+      "period": "截至2026-10-19",
+      "location": "最新公告至10月7日",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "anta-operating",
+      "title": "品牌零售更新，非集团季报",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613886.PDF",
+      "publishedAt": "2026-10-21",
+      "period": "2026Q3 / 9M",
+      "readStatus": "read",
+      "location": "财务表/营运指标；口径详见正文",
+      "type": "official_filing"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "PUMA交割后现金/债务、可转债与少数权益资本桥；NCI现金归属、联营实际分红及维持投入仍需核验。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已补Q3品牌口径并区分Amer/PUMA范围；H1净现金不再充当PUMA交割后余额。 H1租赁现金23.50亿元、NCI股息1.30亿元已找到；OCF扣总CAPEX和租赁后92.78亿元，不把经营利息再加一次。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/anta.html"
+}

@@ -1,0 +1,263 @@
+{
+  "id": "crland",
+  "name": "华润置地",
+  "codes": [
+    "1109.HK"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "商业地产运营租金较销售开发更有持续性，但只能在全公司资本边界内估值。",
+  "breakers": "租金增速不能转为可分配NOI或销售回款恶化、项目净债上升；冻结全公司EPS×PE价线。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "三条业务围绕不动产运营",
+      "counter": "开发与商业现金机制不同",
+      "monitor": "业务现金互相占用",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "公开债务、融资与分部披露",
+      "counter": "集团关联、合营穿透复杂",
+      "monitor": "关联交易与少数权益",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "优质商场区位运营及融资能力",
+      "counter": "开发品牌不能提供永久提价权",
+      "monitor": "商业同店租金和招商",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "境内城市运营是主业",
+      "counter": "未验证独立国际利润池",
+      "monitor": "境外资本投向",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "通过",
+      "support": "商业平台与低融资成本相对强",
+      "counter": "房地产下行淘汰与龙头拿地竞争",
+      "monitor": "商业及开发相对回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "存疑",
+      "support": "商业消费者和商户需求长存",
+      "counter": "开发需求结构下降且高端消费受压",
+      "monitor": "销售去化与同店NOI",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "存疑",
+      "support": "融资渠道与经常性利润改善",
+      "counter": "库存、受限现金与合营债穿透约束",
+      "monitor": "开发现金缺口/债务到期",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "通过",
+      "support": "提高经常性利润比重",
+      "counter": "拿地可能吞噬转型成果",
+      "monitor": "商业现金与新增拿地",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 678.693,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "crland-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 98.417,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "crland-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "crland-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "crland-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": null,
+    "totalCapex": null,
+    "conservativeResidual": null,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "not_priced",
+      "inputCurrency": "CNY",
+      "formalAllowed": false,
+      "cases": {
+        "bear": {
+          "developmentNavHaircut": 0.3,
+          "mallNoiGrowth": -0.05,
+          "capRate": 0.06,
+          "managementGrowth": 0
+        },
+        "base": {
+          "developmentNavHaircut": 0.15,
+          "mallNoiGrowth": 0.03,
+          "capRate": 0.05,
+          "managementGrowth": 0.05
+        },
+        "bull": {
+          "developmentNavHaircut": 0.05,
+          "mallNoiGrowth": 0.06,
+          "capRate": 0.045,
+          "managementGrowth": 0.08
+        }
+      },
+      "assumptionBasis": "开发/商业/轻资产分别估计，项目债只扣一次",
+      "auditGap": "分部NOI、维护、项目权益净债及交付现金桥未齐，无法定价"
+    },
+    "newEvidenceImpact": "9M合同销售1646亿元(+6.6%)但面积-22.0%；经常性收入399.4亿元(+7.5%)、收租267.2亿元(+10.6%)。这不等于确认收入、NOI或FCFE；不能把租金资本化再完整加集团EPS价值，重复估值。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "operating",
+    "status": "9月/9M营运数据，非季报",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "9M合同销售1646亿元(+6.6%)但面积-22.0%；经常性收入399.4亿元(+7.5%)、收租267.2亿元(+10.6%)。这不等于确认收入、NOI或FCFE；不能把租金资本化再完整加集团EPS价值，重复估值。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "租金增速不能转为可分配NOI或销售回款恶化、项目净债上升；冻结全公司EPS×PE价线。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "9M合同销售1646亿元(+6.6%)但面积-22.0%；经常性收入399.4亿元(+7.5%)、收租267.2亿元(+10.6%)。这不等于确认收入、NOI或FCFE；不能把租金资本化再完整加集团EPS价值，重复估值。",
+      "reason": "已补9月官方营运公告与销售/租金口径；项目权益净债、维护CAPEX、交付现金与NOI仍缺。",
+      "sourceIds": [
+        "crland-latest",
+        "crland-operating"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "crland-latest",
+      "title": "2026半年度报告，PDF 中期业绩主要数据/现金与债务",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100127.pdf",
+      "publishedAt": null,
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "中期业绩主要数据/现金与债务"
+    },
+    {
+      "id": "crland-prior-1",
+      "title": "华润置地2025年报",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042800938_c.pdf",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "crland-prior-2",
+      "title": "观点网转述华润9月营运数据（辅助、未取得官方PDF）",
+      "url": "https://www.guandian.cn/m/show/612660",
+      "publishedAt": null,
+      "period": "2026-09/9M经营",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "crland-operating",
+      "title": "9月/9M营运数据，非季报",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-13/1225603753.PDF",
+      "publishedAt": "2026-10-13",
+      "period": "2026Q3 / 9M",
+      "readStatus": "read",
+      "location": "财务表/营运指标；口径详见正文",
+      "type": "official_filing"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "分部NOI、维护、项目权益净债及交付现金桥未齐，无法定价",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已补9月官方营运公告与销售/租金口径；项目权益净债、维护CAPEX、交付现金与NOI仍缺。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/crland.html"
+}

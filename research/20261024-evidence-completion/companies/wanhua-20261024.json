@@ -1,0 +1,255 @@
+{
+  "id": "wanhua",
+  "name": "万华化学",
+  "codes": [
+    "600309.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "MDI技术与规模优势仍在，化工一体化扩产需要以全周期资本回报承保。",
+  "breakers": "价差好转但现金回收和净债未改善，或新项目ROIC低于资本成本；先缩现金分红和增长假设。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "园区原料、公用工程及研发共享",
+      "counter": "协同不保证每个石化项目有回报",
+      "monitor": "分部投入资本利润",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "工程师文化及研发费用化",
+      "counter": "国资和历史优秀不等于扩张免审",
+      "monitor": "关联交易和安全披露",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "MDI技术、全球规模成本优势",
+      "counter": "成本护城河不能控制全球售价",
+      "monitor": "单吨价差与成本优势",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "海外经营和宝思德有实际资产收益",
+      "counter": "能源、贸易和汇率影响利润",
+      "monitor": "海外负荷与现金回款",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "MDI成本和全球份额优势未见实质失守",
+      "counter": "石化充分竞争，海外供给恢复会压价，不能只估MDI",
+      "monitor": "集团分部毛利、份额及竞争扩产",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "通过",
+      "support": "多下游需求和材料升级",
+      "counter": "地产与全球工业周期压制增速",
+      "monitor": "真实销量而非现货价格",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "存疑",
+      "support": "H1 OCF高于归母且现金增加",
+      "counter": "短借604.87亿、流动比率约0.72，FCF很薄",
+      "monitor": "短债到期与压力流动性",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "MDI历史扩张有成功记录",
+      "counter": "CAPEX吞现金、融资费用大增，新项目ROIC未证",
+      "monitor": "新增产能批次ROIC/净债",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "- 需求轴：冷链、节能和汽车有结构需求，地产家居弱；本期海外供给扰动抬价不代表十年需求加速。",
+    "- 利润池轴：MDI较普通化工集中，石化板块充分竞争且毛利低，集团利润池质量被资本权重稀释。",
+    "- 范式风险：中：材料替代和工艺降本需持续研发；最大的永久损失路径是重资产低回报叠加融资。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 1193.158638,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "wanhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 100.629635,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "wanhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 96.762936,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "wanhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 117.8414104,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "wanhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 107.3989113586,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "wanhua-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 117.8414104,
+    "totalCapex": 107.3989113586,
+    "conservativeResidual": 10.442499041399998,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 3.0,
+          "g1": -0.01,
+          "g2": 0.01,
+          "payout": 0.25,
+          "exit_pe": 9
+        },
+        "base": {
+          "eps0": 4.3,
+          "g1": 0.04,
+          "g2": 0.03,
+          "payout": 0.3,
+          "exit_pe": 12
+        },
+        "bull": {
+          "eps0": 5.2,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.35,
+          "exit_pe": 16
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准有效产销量约5%、正常价差小幅回落与融资稀释约-1%，EPS4%/3%；悲观量增抵不了价差压缩，EPS-1%后1%；乐观新项目利用率提升且价差稳定EPS8%/5%。30%派息仍需CAPEX回落或现金释放，不能用未来借款支持股息。"
+    },
+    "newEvidenceImpact": "H1 OCF117.841减实际现金CAPEX107.3989=10.4425亿元；旧107.4仅四舍五入。最新股本31.30471626亿修正旧31.34亿。净利增长不能消除高投入、融资利息和少数股东占用；项目计划CAPEX与现金支付不等价。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1 OCF117.841减实际现金CAPEX107.3989=10.4425亿元；旧107.4仅四舍五入。最新股本31.30471626亿修正旧31.34亿。净利增长不能消除高投入、融资利息和少数股东占用；项目计划CAPEX与现金支付不等价。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "价差好转但现金回收和净债未改善，或新项目ROIC低于资本成本；先缩现金分红和增长假设。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1 OCF117.841减实际现金CAPEX107.3989=10.4425亿元；旧107.4仅四舍五入。最新股本31.30471626亿修正旧31.34亿。净利增长不能消除高投入、融资利息和少数股东占用；项目计划CAPEX与现金支付不等价。",
+      "reason": "已补精确现金CAPEX与股本；全集团净债/到期、资本承诺与财务公司资金仍未全穿透。",
+      "sourceIds": [
+        "wanhua-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "wanhua-latest",
+      "title": "2026半年度报告，PDF 6、45—47",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-25/1225497561.PDF",
+      "publishedAt": "2026-08-25",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "6、45—47"
+    },
+    {
+      "id": "wanhua-prior-1",
+      "title": "烟台乙烯二期检修公告",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12632321&stockid=600309",
+      "publishedAt": null,
+      "period": "2026-10-09",
+      "location": "公告正文",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "缺全集团净债/到期、少数现金、分部ROIC及项目资本承诺桥；两期正自由现金流、短债收缩且新增项目高于资本成本后可重新进入主动研究。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已补精确现金CAPEX与股本；全集团净债/到期、资本承诺与财务公司资金仍未全穿透。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/wanhua.html"
+}

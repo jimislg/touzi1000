@@ -1,0 +1,257 @@
+{
+  "id": "cmb",
+  "name": "招商银行",
+  "codes": [
+    "600036.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "零售存款、客户关系与风控具优势，信用成本和资本约束决定合理PB。",
+  "breakers": "信用成本升至0.9%以上且息差继续下降（研究建议）；先下调ROE与PB锚。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "金融业务围绕同一客户资产",
+      "counter": "综合经营增加穿透难度",
+      "monitor": "子公司资本回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "存疑",
+      "support": "现期报告经审阅、服务文化长期稳定",
+      "counter": "历史司法治理污点及行长交接",
+      "monitor": "监管处罚与风险偏好",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "低成本存款与财富客户体系",
+      "counter": "费率与利率受外部约束",
+      "monitor": "活期存款和存款成本",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "永隆与跨境服务有业务基础",
+      "counter": "国际利润不构成基准溢价",
+      "monitor": "境外风险回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "通过",
+      "support": "零售负债与风控相对优势",
+      "counter": "宁波等区域行效率竞争",
+      "monitor": "风险调整后同业ROE",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "存疑",
+      "support": "支付财富需求持续",
+      "counter": "居民加杠杆空间收窄、财富变现承压",
+      "monitor": "零售贷款与手续费",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "不良0.94%、资本和拨备缓冲",
+      "counter": "信用成本滞后且ROE下降",
+      "monitor": "生成率与普通股资本",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "通过",
+      "support": "持续分红并保留资本",
+      "counter": "低ROE环境留存效率降低",
+      "monitor": "新增RWA对应收益",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "[判断] 需求稳定；利润池恶化；范式风险中。低成本存款、财富客户关系是竞争基础，低利率与居民信用风险是结构约束。贷款量按低个位数扩张，息差不假设回到历史高位，ROE由13.42%下调至12%作为正常化基准。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 1781.81,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cmb-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 764.45,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cmb-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 763.39,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cmb-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 3046.11,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cmb-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cmb-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 3046.11,
+    "totalCapex": null,
+    "conservativeResidual": null,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "金融/保险不使用OCF−CAPEX估普通股收益；另核普通股资本/RWA、寿险自由盈余与母公司上划。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "bank",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "bps0": 45.4,
+          "roe": 0.1,
+          "payout": 0.35,
+          "exit_pb": 0.75
+        },
+        "base": {
+          "bps0": 45.4,
+          "roe": 0.12,
+          "payout": 0.35,
+          "exit_pb": 1.0
+        },
+        "bull": {
+          "bps0": 45.4,
+          "roe": 0.135,
+          "payout": 0.4,
+          "exit_pb": 1.15
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "普通股期初账面资本滚动，非EPS×PE",
+      "auditGap": "普通股资本/RWA增长、OCI及信用压力桥未完成独立双源复核",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "newEvidenceImpact": "H1普通股BPS45.40、ROE13.42%、高级法CET1 14.07%已核；不能把OCF3046.11亿元当FCF。用BPS×正常化ROE形成EPS，再扣分红及RWA资本消耗；OCI不是当期可派息利润。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1普通股BPS45.40、ROE13.42%、高级法CET1 14.07%已核；不能把OCF3046.11亿元当FCF。用BPS×正常化ROE形成EPS，再扣分红及RWA资本消耗；OCI不是当期可派息利润。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "信用成本升至0.9%以上且息差继续下降（研究建议）；先下调ROE与PB锚。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1普通股BPS45.40、ROE13.42%、高级法CET1 14.07%已核；不能把OCF3046.11亿元当FCF。用BPS×正常化ROE形成EPS，再扣分红及RWA资本消耗；OCI不是当期可派息利润。",
+      "reason": "已复核资本、息差与风险指标，RWA/普通股资本压力桥仍待独立双源核。Q3业绩说明会公告不等于三季报。",
+      "sourceIds": [
+        "cmb-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "cmb-latest",
+      "title": "2026半年度报告，PDF 主要数据、资本及风险表",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-28/1225531453.PDF",
+      "publishedAt": "2026-08-28",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "主要数据、资本及风险表"
+    },
+    {
+      "id": "cmb-prior-1",
+      "title": "招商银行官方定期报告目录",
+      "url": "https://www.cmbchina.com/cmbir/intro?type=report",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "普通股资本/RWA增长、OCI及信用压力桥未完成独立双源复核",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已复核资本、息差与风险指标，RWA/普通股资本压力桥仍待独立双源核。Q3业绩说明会公告不等于三季报。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/cmb.html"
+}

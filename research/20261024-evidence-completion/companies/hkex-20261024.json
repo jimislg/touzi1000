@@ -1,0 +1,272 @@
+{
+  "id": "hkex",
+  "name": "香港交易所",
+  "codes": [
+    "0388.HK"
+  ],
+  "scope": "总部历史候选/监控池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "交易清算制度和网络优势明确，但利润随成交量和利率波动。",
+  "breakers": "成交量下降与HIBOR回落同时压低手续费/投资净收入；新增固定投入不能靠乐观成交量覆盖。（研究建议，未批准）",
+  "reviewBy": "2026-11-06",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "交易清算及数据围绕基础设施",
+      "counter": "新市场系统增加复杂度",
+      "monitor": "新业务现金回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化与治理",
+      "verdict": "存疑",
+      "support": "监管和治理披露较强",
+      "counter": "LME风险治理历史教训",
+      "monitor": "监管要求与系统事故",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "牌照流动性与清算网络",
+      "counter": "上市和交易可跨市场分流",
+      "monitor": "互联互通及流动性份额",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "LME及全球融资渠道",
+      "counter": "跨境监管和汇率敞口",
+      "monitor": "境外业务及合规成本",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "中国跨境资本通道独特",
+      "counter": "其他上市地与替代资产",
+      "monitor": "产品份额及收费",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户与需求",
+      "verdict": "存疑",
+      "support": "长期融资与风险管理需求",
+      "counter": "成交/IPO高景气不可永续",
+      "monitor": "正常化ADT与IPO收入",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "利润现金强及低公司借款",
+      "counter": "客户保证金不是股东资产",
+      "monitor": "公司资金和专用资本",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "通过",
+      "support": "高派息和系统再投资",
+      "counter": "总部资金占用与升级回报",
+      "monitor": "经常FCFE/资本承诺",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 167.02,
+      "unit": "HKD亿元",
+      "period": "2026H1",
+      "sourceId": "hkex-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 105.68,
+      "unit": "HKD亿元",
+      "period": "2026H1",
+      "sourceId": "hkex-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 114.8,
+      "unit": "HKD亿元",
+      "period": "2026H1",
+      "sourceId": "hkex-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 32.81,
+      "unit": "HKD亿元",
+      "period": "2026H1",
+      "sourceId": "hkex-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "HKD亿元",
+    "ocf": 114.8,
+    "totalCapex": 32.81,
+    "conservativeResidual": 81.99,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。",
+    "principalOperatingCashNonHKFRS": 106.26,
+    "principalAfterCapexLeaseFinancingNCI": 71.36,
+    "plusLongBondInterestReceived": 15.84,
+    "cashAfterAddingBondInterest": 87.2
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "HKD",
+      "cases": {
+        "bear": {
+          "eps0": 14.5,
+          "g1": 0,
+          "g2": 0.02,
+          "payout": 0.9,
+          "exit_pe": 18
+        },
+        "base": {
+          "eps0": 14.5,
+          "g1": 0.06,
+          "g2": 0.04,
+          "payout": 0.9,
+          "exit_pe": 24
+        },
+        "bull": {
+          "eps0": 16,
+          "g1": 0.09,
+          "g2": 0.07,
+          "payout": 0.9,
+          "exit_pe": 28
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准经常交易清算收入随成交中枢中个位数增长、费用低个位数，EPS约6%/4%；悲观交易回落抵消结构增长，乐观产品扩容带来更高经营杠杆。90%是税前派息假设，税由主模型扣；退出倍数均为市场情景，并非保守价值下限。"
+    },
+    "newEvidenceImpact": "H1主要营运现金106.26减总部22.75、其他CAPEX10.06、租赁本金1.33和利息0.17、其他融资0.23、NCI0.36=71.36亿港元；另列长期债券利息15.84后为87.20。普通OCF114.80包含赎回外部基金8.54，不应当作经常经营增长。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文；已公告2026-11-06董事会/业绩日",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1主要营运现金106.26减总部22.75、其他CAPEX10.06、租赁本金1.33和利息0.17、其他融资0.23、NCI0.36=71.36亿港元；另列长期债券利息15.84后为87.20。普通OCF114.80包含赎回外部基金8.54，不应当作经常经营增长。",
+    "futureEvent": [
+      "2026-11-06",
+      "港交所董事会日历"
+    ]
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "成交量下降与HIBOR回落同时压低手续费/投资净收入；新增固定投入不能靠乐观成交量覆盖。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1主要营运现金106.26减总部22.75、其他CAPEX10.06、租赁本金1.33和利息0.17、其他融资0.23、NCI0.36=71.36亿港元；另列长期债券利息15.84后为87.20。普通OCF114.80包含赎回外部基金8.54，不应当作经常经营增长。",
+      "reason": "已补清算抵押品与营运资金原表、主要业务现金及公司资金区别；清算押金不归普通股东自由支取。",
+      "sourceIds": [
+        "hkex-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "hkex-latest",
+      "title": "2026半年度报告，PDF 7、28",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900213.pdf",
+      "publishedAt": null,
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "7、28"
+    },
+    {
+      "id": "hkex-prior-1",
+      "title": "港交所2026中期财务表",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900464.pdf",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "7、16、28；OCF与客户专用资金",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "hkex-prior-2",
+      "title": "港交所官方2026业绩目录",
+      "url": "https://www.hkexgroup.com/Investor-Relations/Financial-Results-and-Presentations/2026?sc_lang=en",
+      "publishedAt": null,
+      "period": "截至2026-10-19",
+      "location": "最新中期，未将未来Q3公告当事实",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "hkex-prior-3",
+      "title": "港交所9月及9M市场经营统计",
+      "url": "https://www.hkex.com.hk/Market-Data/Statistics/Consolidated-Reports/HKEX-Monthly-Market-Highlights?sc_lang=en",
+      "publishedAt": null,
+      "period": "2026-09/9M",
+      "location": "市场统计，非集团财报",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "清算抵押品及公司专用资本WC正常化、总部后续承诺与低景气资本覆盖；Q3业绩截至本轮未见官方发布。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已补清算抵押品与营运资金原表、主要业务现金及公司资金区别；清算押金不归普通股东自由支取。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/hkex.html"
+}

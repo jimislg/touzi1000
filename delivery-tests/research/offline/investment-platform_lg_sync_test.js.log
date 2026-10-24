@@ -1,0 +1,38 @@
+PASS VPS data source and actual quote date visible
+PASS all modules render
+PASS five workspaces expose today only on load
+PASS workspace changes visibility and accessibility
+PASS missing research is visible
+PASS current shares displayed apart from folded historical plan
+PASS no stage percentages converted to money
+PASS legacy default ladder is not a 100percent issuer limit
+PASS price hit does not mean completed trade
+PASS recent trade shown as unverified action
+PASS evidence gaps block rather than proxy approve
+PASS read-only previews warn against aggregating shared cash
+PASS no forecast from self assigned tiers
+PASS unknown HK historical cost not rendered as zero profit
+PASS risk room unit:17percent to20percent gives30万
+PASS sorting retains original edit index
+PASS cash edit leaves planning denominator unchanged
+PASS draft excludes protected policy and target capital
+PASS draft persisted with expected revision
+PASS save opens review and issues no POST
+PASS changed draft invalidates prior review
+PASS lost receipt keeps draft and marks result unverified
+PASS old mirror cannot resurrect explicit null buyPrice
+PASS stale revision draft cannot overwrite current state
+PASS company switch clears operating assumptions
+PASS empty assumptions are not zero model inputs
+PASS readonly calculator computes valid independent scenario
+PASS zero return still includes annual contributions
+PASS negative return still renders finite contribution scenario
+PASS mini unknown research included in pending filter
+PASS mini uses real missing P/L instead of zero
+PASS mini missing quote is not waiting
+PASS mini historical tiers do not synthesize amounts
+PASS external config follows with matching complete quotes
+PASS unsaved draft protected from automatic follow
+PASS incomplete quote group preserves prior group and date
+PASS cashflow return and execution price remain separate
+Investor workflow: 37 checks passed

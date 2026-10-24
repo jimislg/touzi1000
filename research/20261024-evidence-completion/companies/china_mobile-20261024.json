@@ -1,0 +1,798 @@
+{
+  "id": "china_mobile",
+  "name": "中国移动",
+  "codes": [
+    "0941.HK",
+    "600941.SH"
+  ],
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "conditional",
+  "researchCompletion": "partial",
+  "thesis": "传统通信刚需与规模护城河仍在，适合研究为现金收入辅助；成熟需求并不自动保证利润与自由现金增长，当前H相对A折价仍须经过税负与现金分红质量检验。",
+  "breakers": "通信收入持续下滑与经营利润双位数下降；连续完整年度租赁后现金不能覆盖股息且缺高回报投资解释；资本支出/应收侵蚀现金；分红政策和每股稀释恶化。",
+  "reviewBy": "2026-11-07",
+  "reviewTrigger": "先核下次月报/历史租赁口径；2026年报及分红公告后两交易日内更新，日期未公告；重大税制、分红、CAPEX公告即时复核。",
+  "gradeRecommendation": "B（研究建议，未批准；现金收入辅助候选）",
+  "gradeRationale": "护城河和需求通过，治理、财务质量、资本配置存疑；不承担高复利主任务，不替换平台评级。",
+  "dimensions": [
+    {
+      "id": 1,
+      "verdict": "通过",
+      "name": "利润池聚焦",
+      "support": "客户、网络、算力仍围绕同一通信信息服务链",
+      "counter": "AI服务边界扩张可能增加低回报项目"
+    },
+    {
+      "id": 2,
+      "verdict": "存疑",
+      "name": "文化与治理",
+      "support": "披露、分红制度及财务报表可追溯",
+      "counter": "国家任务、集团存款与关联交易，不能证明少数股东回报总是优先"
+    },
+    {
+      "id": 3,
+      "verdict": "通过",
+      "name": "护城河",
+      "support": "全国网络、牌照、客户规模及渠道形成进入壁垒",
+      "counter": "壁垒须持续付CAPEX、租赁和能耗，不能直接涨价"
+    },
+    {
+      "id": 4,
+      "verdict": "中性",
+      "name": "国际化",
+      "support": "跨境连接及国际业务可服务客户",
+      "counter": "海外占比不足以改变国内成熟业务；不因国际化不足单独否决"
+    },
+    {
+      "id": 5,
+      "verdict": "通过",
+      "name": "竞争格局",
+      "support": "传统运营商寡头规模效应",
+      "counter": "云和智能算力面对互联网云厂商，竞争和技术迭代更强"
+    },
+    {
+      "id": 6,
+      "verdict": "通过",
+      "name": "客户需求",
+      "support": "通信与宽带仍为高频刚需、客户继续增加",
+      "counter": "流量和连接数量增长不等于ARPU、收费和利润增长"
+    },
+    {
+      "id": 7,
+      "verdict": "存疑",
+      "name": "财务质量",
+      "support": "当前经营现金流增加，现金与低银行借款提供缓冲",
+      "counter": "前三季经营前营运资金现金下降、应收上升，租赁后现金不能覆盖同期实付股息"
+    },
+    {
+      "id": 8,
+      "verdict": "存疑",
+      "name": "资本配置",
+      "support": "派息75%及上升意愿约束现金留存",
+      "counter": "算力新增资本回报、维护CAPEX、可分配净现金尚不足以独立验证"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "revenue",
+      "value": 7802.95,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "principal_revenue",
+      "value": 6577.09,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "net_profit_parent",
+      "value": 1061.98,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocf",
+      "value": 1852.9,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cash_capex",
+      "value": 1032.93,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "lease_cash_principal_interest",
+      "value": 219.5,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cash_equivalents",
+      "value": 976.59,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "bank_deposits_current",
+      "value": 986.34,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "bank_deposits_noncurrent",
+      "value": 344.26,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "borrowings",
+      "value": 92.4,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "lease_liabilities",
+      "value": 893.3,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "equity_parent_ifrs",
+      "value": 14312.9,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "operating_profit",
+      "value": 1056.9,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "investment_income_equity_method",
+      "value": 113.64,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "dividend_cash_paid",
+      "value": 1019.77,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3/2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "net_profit_parent_ex_nonrecurring",
+      "value": 984.25,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "CMQ3CAS",
+      "label": "derived_calculation",
+      "note": "1061.98－77.73非经常性损益；CAS口径"
+    },
+    {
+      "id": "eps_basic",
+      "value": 4.9,
+      "unit": "CNY/股",
+      "period": "2026Q1–Q3",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "eps_diluted",
+      "value": 4.86,
+      "unit": "CNY/股",
+      "period": "2026Q1–Q3",
+      "sourceId": "CMQ3",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "shares_total",
+      "value": 21695890446,
+      "unit": "股",
+      "period": "2026-09-30",
+      "sourceId": "CMSHARES",
+      "label": "derived_calculation",
+      "note": "20793122579香港股＋902767867 A股"
+    },
+    {
+      "id": "net_cash_distributable",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026-09-30",
+      "sourceId": "CMQ3",
+      "label": "unknown",
+      "note": "不能把现金/存款简单减银行借款当可分配净现金，尚未扣全部财务公司存款和受限项目"
+    },
+    {
+      "id": "maintenance_capex",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "CMQ3",
+      "label": "unknown",
+      "note": "维护/增长未单独披露"
+    },
+    {
+      "id": "revenue_fy25",
+      "value": 10501.87,
+      "unit": "CNY亿元",
+      "period": "2025FY",
+      "sourceId": "CMFY25",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "eps_basic_fy25",
+      "value": 6.35,
+      "unit": "CNY/股",
+      "period": "2025FY",
+      "sourceId": "CMFY25",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ttm_parent_profit",
+      "value": 1279.4,
+      "unit": "CNY亿元",
+      "period": "2025Q4＋2026Q1–Q3",
+      "sourceId": "CMFY25",
+      "label": "derived_calculation",
+      "note": "1370.95－1153.53＋1061.98；同为归母IFRS",
+      "sourceIds": [
+        "CMFY25",
+        "CMQ3"
+      ]
+    },
+    {
+      "id": "ttm_profit_over_current_shares",
+      "value": 5.896969304783149,
+      "unit": "CNY/股",
+      "period": "截至2026-09-30",
+      "sourceId": "CMFY25",
+      "label": "derived_calculation",
+      "note": "用当前股本作诊断，非公司披露的精确TTM基本EPS",
+      "sourceIds": [
+        "CMFY25",
+        "CMQ3",
+        "CMSHARES"
+      ]
+    },
+    {
+      "id": "dividend_interim",
+      "value": 2.51,
+      "unit": "CNY/股",
+      "period": "2026H1",
+      "sourceId": "CMDIV",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "dividend_interim_hkd",
+      "value": 2.9003,
+      "unit": "HKD/股",
+      "period": "2026H1",
+      "sourceId": "CMDIV",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "h_close",
+      "value": 77.1,
+      "unit": "HKD/股",
+      "period": "2026-10-23",
+      "sourceId": "CMQUOTE",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "a_close",
+      "value": 99.14,
+      "unit": "CNY/股",
+      "period": "2026-10-23",
+      "sourceId": "CMQUOTE",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "fx",
+      "value": 0.8505,
+      "unit": "CNY/HKD",
+      "period": "2026-10-23日终",
+      "sourceId": "CMFX",
+      "label": "fact_provider_standardized"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026Q1–Q3",
+    "unit": "CNY亿元",
+    "ocf": 1852.9,
+    "totalCapex": 1032.93,
+    "conservativeResidual": 819.97,
+    "maintenanceCapex": null,
+    "leasePrincipalAndInterest": 219.5,
+    "afterCapexLease": 600.47,
+    "cashInterestOtherFinanceReceived": 80.99,
+    "associateDividendReceived": 46.5,
+    "otherInterestPaid": 4.01,
+    "minorityDividendsPaid": 1.44,
+    "cashBeforeParentDividend": 722.51,
+    "parentDividendCashPaid": 1019.77,
+    "cashDividendCoverage": 0.7085028977122292,
+    "parentDepositNetInflows": 278.11,
+    "cashReconciliation": {
+      "operating": 1852.9,
+      "investing": -895.05,
+      "financing": -943.94,
+      "netCashIncreaseBeforeFX": 13.91,
+      "fx": -9.99,
+      "openingCash": 972.67,
+      "closingCash": 976.59
+    },
+    "basis": "全部已披露现金购建，不假设维护CAPEX比例。租赁现金在融资流中另扣，避免把短期/低值租赁费用再扣一次。投资现金仅加本期实收利息及联营分红；不加公允价值涨幅和理财本金。期间股息支付与利润归属期错配，覆盖不足是核查信号，非预测立即减派。",
+    "sourceIds": [
+      "CMQ3",
+      "CMH1"
+    ]
+  },
+  "valuation": {
+    "type": "research_scenario",
+    "currency": "HKD quoted; CNY cash flows",
+    "cases": {
+      "bear": {
+        "eps0CNY": 5.5,
+        "epsGrowthAnnual": -0.02,
+        "payout": 0.65,
+        "dividendEffectiveTax": 0.28,
+        "terminalPE": 8,
+        "horizonYears": 10,
+        "terminalEPSCNY": 4.493900437881507,
+        "terminalPriceHKD": 42.27066843392364,
+        "irr": -0.012708370876280906,
+        "valueAt8PctHKD": 38.01383120758533,
+        "assumptionBasis": "主营收缩持续、算力折旧不能由收入覆盖，分红退让",
+        "cashFlowsCNY": [
+          -65.57355,
+          2.5225199999999997,
+          2.4720695999999998,
+          2.422628208,
+          2.3741756438399997,
+          2.3266921309632,
+          2.280158288343936,
+          2.2345551225770572,
+          2.189864020125516,
+          2.1460667397230053,
+          38.054348907980604
+        ]
+      },
+      "base": {
+        "eps0CNY": 5.9,
+        "epsGrowthAnnual": 0.01,
+        "payout": 0.75,
+        "dividendEffectiveTax": 0.28,
+        "terminalPE": 10,
+        "horizonYears": 10,
+        "terminalEPSCNY": 6.517270539926107,
+        "terminalPriceHKD": 76.62869535480432,
+        "irr": 0.05064900479154144,
+        "valueAt8PctHKD": 61.8889707665779,
+        "assumptionBasis": "从当前TTM附近缓慢增长；通信成熟、算力贡献须抵消资费压力",
+        "cashFlowsCNY": [
+          -65.57355,
+          3.2178600000000004,
+          3.2500386000000003,
+          3.2825389860000005,
+          3.31536437586,
+          3.3485180196186004,
+          3.3820031998147866,
+          3.4158232318129342,
+          3.4499814641310635,
+          3.484481278772374,
+          68.69203149082118
+        ]
+      },
+      "bull": {
+        "eps0CNY": 6.3,
+        "epsGrowthAnnual": 0.03,
+        "payout": 0.8,
+        "dividendEffectiveTax": 0.28,
+        "terminalPE": 11,
+        "horizonYears": 10,
+        "terminalEPSCNY": 8.46667318986797,
+        "terminalPriceHKD": 109.50429757618774,
+        "irr": 0.09144751986603727,
+        "valueAt8PctHKD": 83.90199841594763,
+        "assumptionBasis": "算力带来有回报的增长、现金转换恢复，允许较高派息和估值",
+        "cashFlowsCNY": [
+          -65.57355,
+          3.737664,
+          3.8497939199999993,
+          3.9652877376,
+          4.0842463697280005,
+          4.20677376081984,
+          4.332976973644436,
+          4.462966282853769,
+          4.596855271339382,
+          4.734760929479564,
+          98.01020884591162
+        ]
+      }
+    },
+    "formalAllowed": false,
+    "basis": "EPS0由截至9月30日TTM利润/当前股本约5.897锚定，情景假设独立设置；每年末分红，10年末EPS10×PE，仅一次终值增长；不重复加回购、不额外加净现金。税28%仅有明确双层扣税前提的敏感性；不代表用户税率。8%贴现仅展示研究价格敏感性，非用户收益门槛或买点。",
+    "market": {
+      "hPriceHKD": 77.1,
+      "aPriceCNY": 99.14,
+      "fxCNYPerHKD": 0.8505,
+      "hCostCNY": 65.57355,
+      "hDiscountVsA": 0.33857625579987904,
+      "aPremiumVsH": 0.5118900837304066,
+      "quoteDate": "2026-10-23",
+      "fxTimingCaveat": "日终FX与股市收盘非同步、含转换点差前，仅研究估值比较"
+    },
+    "taxSensitivity": [
+      {
+        "effectiveTax": 0,
+        "eps0PayoutRunrateYield": 0.06748147690646611,
+        "irrBase": 0.07047006076568063,
+        "notVerifiedForUser": true
+      },
+      {
+        "effectiveTax": 0.1,
+        "eps0PayoutRunrateYield": 0.060733329215819504,
+        "irrBase": 0.06339805537688725,
+        "notVerifiedForUser": true
+      },
+      {
+        "effectiveTax": 0.2,
+        "eps0PayoutRunrateYield": 0.05398518152517289,
+        "irrBase": 0.05631837608028267,
+        "notVerifiedForUser": true
+      },
+      {
+        "effectiveTax": 0.28,
+        "eps0PayoutRunrateYield": 0.048586663372655596,
+        "irrBase": 0.05064900479154144,
+        "notVerifiedForUser": true
+      }
+    ],
+    "fxSensitivity": {
+      "rmbDepreciation1PctAnnual_baseHKDIRR": 0.04024653939756573,
+      "rmbAppreciation1PctAnnual_baseHKDIRR": 0.061261621001556854,
+      "basis": "固定RMB盈利与PE，每年HKD/CNY分别乘1.01或0.99；HKD计价回报，不再叠加到同一套RMB模型。"
+    },
+    "ahAfterTaxYieldParity": {
+      "hTaxAssumed": 0.28,
+      "aTaxAssumed": 0,
+      "hCnyPriceOverAParity": 0.72,
+      "hPriceHKDParity": 83.92804232804232,
+      "basis": "仅同一人民币每股毛息下税后股息收益率相等；并非估值目标或可套利价格"
+    }
+  },
+  "monitoring": [
+    {
+      "metric": "主营业务收入/营运利润",
+      "baseline": "9M同比-3.7%/-14.33%，Q3主营同比-5.1%",
+      "trigger": "连续两次财报主营收入仍下滑，且营运利润同比降幅>10%，暂停研究性加仓建议并重建EPS",
+      "origin": "研究建议，未批准",
+      "nextSource": "2026年报及2027Q1；2026年报实际发布日期待公告"
+    },
+    {
+      "metric": "现金分红覆盖",
+      "baseline": "9M核心余款加已收投资现金/实付股息=70.85%",
+      "trigger": "连续两个完整年度扣全部现金CAPEX、租赁及融资成本后覆盖<1倍，重审可持续派息；不因半年度错配立即判定减派",
+      "origin": "研究建议，未批准",
+      "nextSource": "2026年报完整现金流"
+    },
+    {
+      "metric": "回款及现金增长质量",
+      "baseline": "9M营运资金前现金同比-6.63%，OCF同比+15.05%；应收1220.43亿",
+      "trigger": "应收增速连续高于主营收入10个百分点且长账龄占比上升，降低正常化OCF",
+      "origin": "研究建议，未批准",
+      "nextSource": "2026年报应收账龄及现金流"
+    },
+    {
+      "metric": "算力资本回报",
+      "baseline": "H1算力收入529亿、增14%；利润/ROIC未知",
+      "trigger": "新增投入连续两年增加而可比贡献利润和现金回收未改善，不给予AI估值溢价",
+      "origin": "研究建议，未批准",
+      "nextSource": "年报、IR资本开支和分部回报说明"
+    },
+    {
+      "metric": "股息/股本/税负",
+      "baseline": "H1 RMB2.51；9月总股本216.9589亿股；实际税负未知",
+      "trigger": "派息率承诺下降、现金股息下降或股数年增>1%且未被盈利抵消，重算每股价值；实际税负证据更新则重算收益",
+      "origin": "研究建议，未批准",
+      "nextSource": "月报表、年度分红公告、账户可验证股息流水"
+    },
+    {
+      "metric": "历史租赁现金口径冲突",
+      "baseline": "2025H1 180.34亿；2025Q1–Q3 153.58亿",
+      "trigger": "收到解释前不作租赁同比趋势结论，也不以其回归估计正常现金",
+      "origin": "研究建议，未批准",
+      "nextSource": "IR解释/更正公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "10月19日尚未有2026Q3，可暂用H1/TTM6.09",
+      "new": "Q3已在10月20日发布；TTM归母1279.40亿÷当前股本约5.897元",
+      "reason": "最新利润下滑幅度扩大，研究EPS0下修为5.9的假设锚",
+      "sourceIds": [
+        "CMQ3",
+        "CMFY25",
+        "CMSHARES"
+      ]
+    },
+    {
+      "old": "H1现金CAPEX及租赁桥未闭合，依赖原文镜像",
+      "new": "已从官方18MB中报及Q3完整IFRS现金流闭合当前现金桥",
+      "reason": "新增官方原文替代镜像；但历史比较期租赁矛盾需保留",
+      "sourceIds": [
+        "CMH1",
+        "CMQ3"
+      ]
+    },
+    {
+      "old": "文化治理通过、核心仅7/8存疑",
+      "new": "治理降为存疑；研究建议B类现金收入辅助、公司状态watch",
+      "reason": "集团存款与资本配置责任说明少数股东回报不是唯一约束；非确认违规",
+      "sourceIds": [
+        "CMH1",
+        "CMQ3"
+      ]
+    },
+    {
+      "old": "港股股息可套一般20%税率",
+      "new": "撤回通用实际税率；区分0/10/20/28%情景、双层预扣及抵免",
+      "reason": "香港注册红筹、本次公告对HKSCC先扣10%，个人非H股港股通另有20%机制",
+      "sourceIds": [
+        "CMDIV",
+        "CMTAX127"
+      ]
+    },
+    {
+      "old": "基准EPS6.1、增长1.5%、派息75%、退出10倍",
+      "new": "本次另建EPS0=5.9、增长1%、75%、10倍研究基准；当前税后IRR约5.06–7.05%随税情景",
+      "reason": "最新利润和现金证据降低增长假设；不靠既有价格线反推收益",
+      "sourceIds": [
+        "CMQ3",
+        "CMH1",
+        "CMQUOTE",
+        "CMFX"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "CMQ3",
+      "title": "Results for the First Three Quarters of 2026",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000963.pdf",
+      "publishedAt": "2026-10-20",
+      "period": "2026-01-01—2026-09-30",
+      "location": "PDF第1–10页，IFRS未经审计；现金流第8–10页",
+      "readStatus": "read",
+      "type": "official_filing"
+    },
+    {
+      "id": "CMQ3CAS",
+      "title": "中国移动2026年第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-21/1225613028.PDF",
+      "publishedAt": "2026-10-21",
+      "period": "2026-01-01—2026-09-30",
+      "location": "PDF第2–3页业绩/非经常损益，第7–12页CAS财务报表",
+      "readStatus": "read",
+      "type": "official_filing"
+    },
+    {
+      "id": "CMH1",
+      "title": "Interim Report 2026",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700252.pdf",
+      "publishedAt": "2026-08-27",
+      "period": "2026-01-01—2026-06-30",
+      "location": "PDF第18–20页现金流，第36页集团存款，第43页CAPEX/FCF；印刷页码分别17–19、35、42",
+      "readStatus": "read",
+      "type": "official_filing"
+    },
+    {
+      "id": "CMH1RESULT",
+      "title": "2026 Interim Results",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0813/2026081300218.pdf",
+      "publishedAt": "2026-08-13",
+      "period": "2026-01-01—2026-06-30",
+      "location": "第2–5页业务、分红；第23页股息；第24页应收账龄",
+      "readStatus": "read",
+      "type": "official_filing"
+    },
+    {
+      "id": "CMFY25",
+      "title": "2025 Annual Results",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0326/2026032600468.pdf",
+      "publishedAt": "2026-03-26",
+      "period": "2025-01-01—2025-12-31",
+      "location": "第1–3页分红/CAPEX，第11–15页财务报表，第24页EPS",
+      "readStatus": "read",
+      "type": "official_filing"
+    },
+    {
+      "id": "CMDIV",
+      "title": "Interim Dividend for the Six Months Ended 30 June 2026 (Updated)",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0814/2026081400069.pdf",
+      "publishedAt": "2026-08-14",
+      "period": "2026H1股息，2026-09-30支付",
+      "location": "PDF第1页2.51元、2.9003港元/派付日；第2页非居民企业及港股通HKSCC先扣10%",
+      "readStatus": "read",
+      "type": "official_filing"
+    },
+    {
+      "id": "CMSHARES",
+      "title": "Monthly Return for September 2026",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1007/2026100700796.pdf",
+      "publishedAt": "2026-10-07",
+      "period": "2026-09-30",
+      "location": "PDF第2–3页，香港股20793122579股、A股902767867股、期权行权",
+      "readStatus": "read",
+      "type": "official_filing"
+    },
+    {
+      "id": "CMTAX127",
+      "title": "财税〔2016〕127号：深港股票市场互联互通税收政策",
+      "url": "https://www.chinatax.gov.cn/chinatax/n810341/n810765/n1990035/201611/c2505167/content.html",
+      "publishedAt": "2016-11-05",
+      "period": "现行条文中股息条款；2026研究日复核，非使用已过期价差免税期限",
+      "location": "第一条（三）、（四），个人非H股股息20%、预提税凭证抵免申请",
+      "readStatus": "read",
+      "type": "official_regulation"
+    },
+    {
+      "id": "CMTAX101",
+      "title": "财税〔2015〕101号：股息红利差别化个人所得税",
+      "url": "https://www.chinatax.gov.cn/n810341/n810755/c1797427/content.html",
+      "publishedAt": "2015-09-07",
+      "period": "A股普通境内个人持有期税负",
+      "location": "第一、二条，超过1年暂免；1月内20%、1月以上至1年10%",
+      "readStatus": "read",
+      "type": "official_regulation"
+    },
+    {
+      "id": "CMQUOTE",
+      "title": "腾讯证券中国移动A/H公开行情接口",
+      "url": "https://qt.gtimg.cn/q=hk00941,sh600941",
+      "publishedAt": null,
+      "period": "2026-10-23收盘后行情",
+      "asOf": "H:2026-10-23 16:08:14+08:00; A:2026-10-23 16:14:57+08:00（接口更新时间）",
+      "location": "hk00941价格77.100HKD；sh600941价格99.14CNY；原始GBK响应已保存",
+      "readStatus": "read",
+      "type": "market_data_provider"
+    },
+    {
+      "id": "CMHISTORY",
+      "title": "Investing中国移动0941历史行情",
+      "url": "https://cn.investing.com/equities/china-mobile-historical-data",
+      "publishedAt": null,
+      "period": "2026-10-23日线收盘",
+      "asOf": "2026-10-23 close",
+      "location": "2026-10-23行77.10HKD，与腾讯交叉",
+      "readStatus": "read",
+      "type": "market_data_provider"
+    },
+    {
+      "id": "CMFX",
+      "title": "Investing HKD/CNY Historical Data",
+      "url": "https://www.investing.com/currencies/hkd-cny-historical-data",
+      "publishedAt": null,
+      "period": "2026-10-23日终价格；不与A/H收盘严格同步",
+      "asOf": "2026-10-23 daily close",
+      "location": "Oct 23, 2026行0.8505CNY/HKD；非券商结算汇率",
+      "readStatus": "read",
+      "type": "market_data_provider"
+    },
+    {
+      "id": "CMAPRICE",
+      "title": "中财网600941行情",
+      "url": "https://quote.cfi.cn/quote.aspx?stockcode=600941",
+      "publishedAt": null,
+      "period": "2026-10-23收盘",
+      "asOf": "2026-10-23 15:00:00+08:00",
+      "location": "收盘99.14CNY，仅核报价；不采用网页误标期别的每股收益",
+      "readStatus": "read",
+      "type": "market_data_provider"
+    }
+  ],
+  "completedItems": [
+    "独立检索并阅读10月20日最新Q3官方业绩和巨潮CAS三季报",
+    "官方中报完整现金流替代旧镜像；现金CAPEX/租赁/实收投资收益/存款及现金余额勾稽",
+    "核实2026中期人民币宣派及港元换算、除息支付日",
+    "核实红筹注册地、本次HKSCC预扣及个人港股通条款；四种税敏感性",
+    "取得10月23日A/H行情及研究汇率、估算价差和税后股息平价",
+    "重建三情景、正确10年终值、税和汇率敏感性",
+    "补齐八维支持/最强反证、量化证伪、复核期限、旧结论更正"
+  ],
+  "remainingGaps": [
+    {
+      "item": "2025H1与2025前三季租赁现金累计数冲突",
+      "reason": "官方中报2025H1 180.34亿大于官方Q3同期153.58亿，缺重分类/重述解释",
+      "requiredEvidence": "公司IR解释或更正公告、历史报告附注重分类桥",
+      "canPublicResearchResolve": true
+    },
+    {
+      "item": "维护/增长CAPEX与算力分部增量ROIC",
+      "reason": "公开材料未给可复核拆分，利用率和收入不能替代税后现金回报",
+      "requiredEvidence": "公司分项目资本投入、折旧/租赁、贡献利润及回款披露",
+      "canPublicResearchResolve": true
+    },
+    {
+      "item": "用户真实股息税率/已抵免税额/结算汇率",
+      "reason": "网站交易记录不等于银行券商实际扣税和到账证明；本研究没有读取账户原始资料",
+      "requiredEvidence": "账户股息与税费流水、税收抵免结果、结算凭证；不可用研究情景替填",
+      "canPublicResearchResolve": false
+    },
+    {
+      "item": "用户港股历史人民币成本和现金对账",
+      "reason": "公开公告不能重建个人已成交批次费用和结算汇率",
+      "requiredEvidence": "平台可验证完整流水或券商交割/结算凭证",
+      "canPublicResearchResolve": false
+    },
+    {
+      "item": "独立审计、执行政策和投资批准",
+      "reason": "研究作者不能自批；本包仅建议",
+      "requiredEvidence": "独立复核人与用户明确批准版本、完整对账",
+      "canPublicResearchResolve": false
+    },
+    {
+      "item": "共识/被动持仓及市场隐含预期的直接证据",
+      "reason": "无经授权一致预期、持有人/拥挤度数据库，不把价格跌幅解释为市场一致观点",
+      "requiredEvidence": "标明日期和口径的估值一致预期/持仓数据",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "sourceConflicts": [
+    {
+      "id": "lease-comparative-cumulative",
+      "sourceIds": [
+        "CMH1",
+        "CMQ3"
+      ],
+      "description": "2025H1累计租赁本金利息180.34亿超过2025前三季累计153.58亿；原文已分别核读，未找到重述桥，不推断更正数值。",
+      "impact": "不影响本期2026现金算术勾稽；历史租赁增长和正常化现金回归不就绪。"
+    }
+  ],
+  "scope": "主平台当前池",
+  "q3Review": {
+    "kind": "financial",
+    "status": "Q3财务已核原文",
+    "asOf": "2026-10-24",
+    "valuationImpact": "护城河和需求通过，治理、财务质量、资本配置存疑；不承担高复利主任务，不替换平台评级。",
+    "coverage": "公司/交易所原文、公告目录及本轮披露查询"
+  },
+  "reportPath": "/research/china_mobile.html"
+}

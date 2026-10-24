@@ -2,6 +2,7 @@
 const fs=require('fs'),path=require('path'),http=require('http'),assert=require('node:assert/strict')
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright')
 const cfg={_revision:'a'.repeat(64),_sourceMode:'local',_syncStatus:'local',targetCapital:10000000,investable:8300000,cash:8300000,cashYield:1,annualContribution:500000,holdings:[{code:'600000.SH',qt:'qa',name:'示例现金流公司',market:'A',grade:'A',shares:170000,cost:10,dps:0,buyDate:'2020-01-01'},{code:'0700.HK',qt:'qh',name:'示例港股公司',market:'HK',grade:'A',shares:100,cost:90,dps:5}],universe:[{code:'600000.SH',qt:'qa',name:'示例现金流公司',grade:'A',buyPrice:11,bizTag:'合成测试',plan:'历史确认买入1700股',tiers:[{label:'H10',price:11},{label:'H12',price:9},{label:'H15',price:8}],tierPct:[10,25,100]},{code:'0700.HK',qt:'qh',name:'示例港股公司',grade:'B',buyPrice:null}],seats:{list:[{key:'s',name:'示例共享席位',pct:20,members:['600000.SH','0700.HK']}]}}
+cfg._researchSupplement=JSON.parse(fs.readFileSync(path.join(__dirname,'public/research-supplement.json')))
 let posts=0,requests=0,count=0
 const check=(n,v)=>{assert.ok(v,n);count++;console.log('PASS '+n)}
 const server=http.createServer((req,res)=>{requests++;const url=new URL(req.url,'http://localhost');res.setHeader('Cache-Control','no-store');
@@ -17,6 +18,7 @@ const server=http.createServer((req,res)=>{requests++;const url=new URL(req.url,
  check('page loads all modules with no runtime errors',errors.length===0)
  check('today workspace only initially',await page.locator('#dash').isVisible()&&!(await page.locator('#pos').isVisible()))
  await page.getByRole('link',{name:'公司研究'}).click();await page.waitForTimeout(50)
+ check('public research appears without conferring approval',(await page.locator('#bTable').innerText()).includes('公开材料已补')&&await page.evaluate(()=>InvestmentCore.decisionBudget(CFG,Q,'0700.HK').approvedCNY===0))
  check('research navigation exposes both grade pools',await page.locator('#poolA').isVisible()&&await page.locator('#poolB').isVisible())
  await page.locator('#researchSearch').fill('港股');await page.locator('#researchSearch').dispatchEvent('input');check('search narrows companies',!(await page.locator('#aTable').innerText()).includes('示例现金流公司')&&(await page.locator('#bTable').innerText()).includes('示例港股公司'))
  await page.locator('#researchSearch').fill('');await page.locator('#researchSearch').dispatchEvent('input')

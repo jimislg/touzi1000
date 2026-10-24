@@ -1,0 +1,1059 @@
+{
+  "id": "popmart",
+  "name": "泡泡玛特",
+  "codes": [
+    "09992.HK"
+  ],
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "completed_public_source_refresh",
+  "thesis": "多IP孵化、产品化与自有渠道可形成有经济价值的组织；现阶段海外热度正常化、租赁扩张与库存使跨周期现金能力待证，不能承诺高确定性A类复利。",
+  "breakers": "多IP除最大IP后连续两期收入负增长；海外收入及分部利润率持续恶化；库存>240天同时毛利率<65%；年度租赁后现金/归母净利连续两年<50%且无法由时差解释（均研究建议，未批准）。",
+  "reviewBy": "2026-11-30",
+  "reviewTrigger": "公司任何2026Q3业务更新或盈利预警当天；最迟11月30日复查披露；2026年报公布后重算、2027年2月核拟回购窗口。",
+  "gradeRecommendation": "B观察候选，不满足高确定性A；不覆盖原等级",
+  "gradeRationale": "价值来自多IP组织，核心耐久和客户留存未证；真实利润与现金不支持直接外推2025爆发，不因价格下跌升级。",
+  "positionAction": "wait for proof / re-underwrite；不下单、不变更既有持仓或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "IP孵化、商品开发、自有渠道的闭环明确",
+      "counter": "乐园、烘焙等延展增加执行及资本复杂性"
+    },
+    {
+      "id": 2,
+      "name": "文化与治理",
+      "verdict": "存疑",
+      "support": "创始团队连续经营，激励有归属及追索条款",
+      "counter": "关键人、艺术家授权期限与集团合同权利未逐项取得；不能仅由业绩推定治理通过"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "存疑",
+      "support": "多IP组合、渠道和会员体系已有规模",
+      "counter": "低转换成本；爆款更替与跨十年定价能力尚无可验证充分证据"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "存疑",
+      "support": "海外收入已有49.724亿元，线下扩大",
+      "counter": "海外线上-44.0%、分部利润-38.8%，门店租赁刚性增加"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "中国收入+47.3%，新IP承接有实际收入",
+      "counter": "缺少独立同口径市场份额，国内竞争和折扣可能改变判断"
+    },
+    {
+      "id": 6,
+      "name": "客户与需求",
+      "verdict": "存疑",
+      "support": "公司披露内地会员复购51.6%、销售贡献92.9%",
+      "counter": "口径来自公司，不足证明剔除黄牛后跨IP及跨年留存；海外热度回落"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "存疑",
+      "support": "无银行借款、正OCF和较大现金储备",
+      "counter": "存货201天、现金税时差、租赁后现金与回购股息错期；不能沿用笼统通过"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "H1已注销1122万股，现有股东获得实际分配",
+      "counter": "最新激励仍可能新发；新店/乐园回报与维护投入未拆分；回购计划非完成"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "revenue",
+      "value": 171.72921,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "profitAttributable",
+      "value": 50.38384,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "operatingProfit",
+      "value": 67.24746,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedNetProfit",
+      "value": 51.55777,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocf",
+      "value": 36.37324,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "capexPPE",
+      "value": 6.7356,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "capexIntangibles",
+      "value": 0.50579,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashTaxPaid",
+      "value": 32.19674,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "taxExpense",
+      "value": 16.66548,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "leaseFinancingCash",
+      "value": 5.02889,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "dividendsToNCI",
+      "value": 1.84823,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "dividendsPaid",
+      "value": 31.49378,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "buybacksPaid",
+      "value": 15.45689,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "shareBasedPayment",
+      "value": 0.55467,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "fxLoss",
+      "value": 7.2027,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "governmentGrants",
+      "value": 2.39476,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "basicEPS",
+      "value": 3.8,
+      "unit": "CNY/股",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "dilutedEPS",
+      "value": 3.79,
+      "unit": "CNY/股",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedNonRecurringProfit",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "not_disclosed_not_equivalent_to_adjusted_profit"
+    },
+    {
+      "id": "cashAndEquivalents",
+      "value": 124.42065,
+      "unit": "CNY亿元",
+      "period": "2026-06-30",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "termDeposits",
+      "value": 17.2196,
+      "unit": "CNY亿元",
+      "period": "2026-06-30",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "leaseLiabilities",
+      "value": 37.27572,
+      "unit": "CNY亿元",
+      "period": "2026-06-30",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "bankDebt",
+      "value": 0,
+      "unit": "CNY亿元",
+      "period": "2026-06-30",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "inventoryNet",
+      "value": 61.0153,
+      "unit": "CNY亿元",
+      "period": "2026-06-30",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "inventoryAllowance",
+      "value": 0.75509,
+      "unit": "CNY亿元",
+      "period": "2026-06-30",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "inventoryDays",
+      "value": 201,
+      "unit": "天",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "inventoryDaysPrior",
+      "value": 123,
+      "unit": "天",
+      "period": "2025FY",
+      "sourceId": "PM25AR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "weightedAverageShares",
+      "value": 1325990000,
+      "unit": "股",
+      "period": "2026H1",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "issuedSharesJune",
+      "value": 1331723150,
+      "unit": "股",
+      "period": "2026-06-30",
+      "sourceId": "PM26IR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "issuedSharesLatest",
+      "value": 1331779203,
+      "unit": "股",
+      "period": "2026-09-30",
+      "sourceId": "PM26SEP",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "netCashIncludingTermLessLease",
+      "value": 104.36453,
+      "unit": "CNY亿元",
+      "period": "2026-06-30",
+      "sourceId": "PM26IR",
+      "label": "calculated_cash_plus_term_minus_lease_excluding_restricted_cash"
+    },
+    {
+      "id": "revenueFY2025",
+      "value": 371.20052,
+      "unit": "CNY亿元",
+      "period": "2025FY",
+      "sourceId": "PM25AR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "profitFY2025",
+      "value": 127.75689,
+      "unit": "CNY亿元",
+      "period": "2025FY",
+      "sourceId": "PM25AR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "epsFY2025",
+      "value": 9.61,
+      "unit": "CNY/股",
+      "period": "2025FY",
+      "sourceId": "PM25AR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfFY2025",
+      "value": 108.65152,
+      "unit": "CNY亿元",
+      "period": "2025FY",
+      "sourceId": "PM25AR",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "capexFY2025",
+      "value": 11.71537,
+      "unit": "CNY亿元",
+      "period": "2025FY",
+      "sourceId": "PM25AR",
+      "label": "calculated_PPE_plus_intangible_cash_purchases"
+    },
+    {
+      "id": "revenueTTM",
+      "value": 404.16697,
+      "unit": "CNY亿元",
+      "period": "2025H2+2026H1",
+      "sourceId": "PM26IR",
+      "label": "calculated_PM25AR_minus_2025H1_plus_2026H1"
+    },
+    {
+      "id": "profitTTM",
+      "value": 132.39705,
+      "unit": "CNY亿元",
+      "period": "2025H2+2026H1",
+      "sourceId": "PM26IR",
+      "label": "calculated_PM25AR_minus_2025H1_plus_2026H1"
+    },
+    {
+      "id": "price",
+      "value": 131.7,
+      "unit": "HKD/股",
+      "period": "2026-10-23 16:15 HKT",
+      "sourceId": "PMQUOTE",
+      "label": "delayed_close_reference"
+    },
+    {
+      "id": "fxReference",
+      "value": 0.85696,
+      "unit": "CNY/HKD",
+      "period": "2026-10-23 09:15",
+      "sourceId": "PMFX",
+      "label": "official_midpoint_search_text_not_settlement_rate"
+    }
+  ],
+  "cashBridge": {
+    "unit": "CNY亿元",
+    "period": "2026H1",
+    "ocf": 36.37324,
+    "totalCapex": 7.24139,
+    "conservativeResidual": 29.13185,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "leaseFinancingCash": 5.02889,
+    "afterLeaseResidual": 24.10296,
+    "nciCashDividend": 1.84823,
+    "afterLeaseAndNCIDividend": 22.25473,
+    "reportedCompanyDividend": 31.49378,
+    "reportedBuyback": 15.45689,
+    "basis": "OCF减全部PPE及无形现金CAPEX；经营性租赁现金已在OCF不再扣；融资性租赁现金再扣。维护/增长未知；少数股东分配不是当期经济应占净利，余额非可持续FCFE；不加回税款、不混加分红回购。",
+    "sourceIds": [
+      "PM26IR",
+      "PM25AR"
+    ]
+  },
+  "valuation": {
+    "type": "research_scenario",
+    "currency": "CNY operations / HKD share price",
+    "priceHKD": 131.7,
+    "priceAt": "2026-10-23T16:15:00+08:00",
+    "fxCNYPerHKD": 0.85696,
+    "fxAt": "2026-10-23T09:15:00+08:00",
+    "fxLabel": "中间价参考，非券商可成交汇率；动态页只取得搜索正文",
+    "cases": {
+      "bear": {
+        "startRevenueCNYBillion": 28,
+        "startAttributableNetMargin": 0.22,
+        "startEPSCNY": 4.625391345745471,
+        "revenueGrowthFirst5": 0,
+        "revenueGrowthLast5": 0.01,
+        "netMarginAtYear5": 0.18,
+        "dividendPayout": 0.25,
+        "shareCountAssumption": 1331779203,
+        "netShareGrowth": 0,
+        "terminalPE": 10,
+        "dividendTax": 0.2,
+        "terminalYear": 2036,
+        "terminalEPSCNY": 3.977454100928771,
+        "terminalPriceHKD": 46.41353273115163,
+        "irrAfter20PctTax": -0.08738400813501762,
+        "irrTax0": -0.084505698473688,
+        "irrFXCNYPerHKDPlus10Pct": -0.09644641835706408,
+        "irrFXCNYPerHKDMinus10Pct": -0.07723143299803109,
+        "annualRows": [
+          {
+            "year": 2027,
+            "revenueCNYBillion": 28.0,
+            "attributableNetMargin": 0.212,
+            "epsCNY": 4.457195296809272,
+            "dividendGrossCNY": 1.114298824202318,
+            "dividendNetCNY": 0.8914390593618544
+          },
+          {
+            "year": 2028,
+            "revenueCNYBillion": 28.0,
+            "attributableNetMargin": 0.204,
+            "epsCNY": 4.288999247873073,
+            "dividendGrossCNY": 1.0722498119682682,
+            "dividendNetCNY": 0.8577998495746146
+          },
+          {
+            "year": 2029,
+            "revenueCNYBillion": 28.0,
+            "attributableNetMargin": 0.196,
+            "epsCNY": 4.120803198936874,
+            "dividendGrossCNY": 1.0302007997342184,
+            "dividendNetCNY": 0.8241606397873747
+          },
+          {
+            "year": 2030,
+            "revenueCNYBillion": 28.0,
+            "attributableNetMargin": 0.188,
+            "epsCNY": 3.952607150000675,
+            "dividendGrossCNY": 0.9881517875001687,
+            "dividendNetCNY": 0.7905214300001351
+          },
+          {
+            "year": 2031,
+            "revenueCNYBillion": 28.0,
+            "attributableNetMargin": 0.18,
+            "epsCNY": 3.784411101064476,
+            "dividendGrossCNY": 0.946102775266119,
+            "dividendNetCNY": 0.7568822202128952
+          },
+          {
+            "year": 2032,
+            "revenueCNYBillion": 28.28,
+            "attributableNetMargin": 0.18,
+            "epsCNY": 3.8222552120751203,
+            "dividendGrossCNY": 0.9555638030187801,
+            "dividendNetCNY": 0.7644510424150242
+          },
+          {
+            "year": 2033,
+            "revenueCNYBillion": 28.5628,
+            "attributableNetMargin": 0.18,
+            "epsCNY": 3.860477764195872,
+            "dividendGrossCNY": 0.965119441048968,
+            "dividendNetCNY": 0.7720955528391744
+          },
+          {
+            "year": 2034,
+            "revenueCNYBillion": 28.848428000000006,
+            "attributableNetMargin": 0.18,
+            "epsCNY": 3.899082541837831,
+            "dividendGrossCNY": 0.9747706354594577,
+            "dividendNetCNY": 0.7798165083675662
+          },
+          {
+            "year": 2035,
+            "revenueCNYBillion": 29.13691228,
+            "attributableNetMargin": 0.18,
+            "epsCNY": 3.9380733672562087,
+            "dividendGrossCNY": 0.9845183418140522,
+            "dividendNetCNY": 0.7876146734512418
+          },
+          {
+            "year": 2036,
+            "revenueCNYBillion": 29.428281402800003,
+            "attributableNetMargin": 0.18,
+            "epsCNY": 3.977454100928771,
+            "dividendGrossCNY": 0.9943635252321927,
+            "dividendNetCNY": 0.7954908201857542
+          }
+        ],
+        "label": "analyst_assumptions_not_guidance_not_consensus"
+      },
+      "base": {
+        "startRevenueCNYBillion": 32,
+        "startAttributableNetMargin": 0.27,
+        "startEPSCNY": 6.487561887539102,
+        "revenueGrowthFirst5": 0.06,
+        "revenueGrowthLast5": 0.03,
+        "netMarginAtYear5": 0.25,
+        "dividendPayout": 0.2,
+        "shareCountAssumption": 1331779203,
+        "netShareGrowth": 0,
+        "terminalPE": 14,
+        "dividendTax": 0.2,
+        "terminalYear": 2036,
+        "terminalEPSCNY": 9.31908360894759,
+        "terminalPriceHKD": 152.24417770405415,
+        "irrAfter20PctTax": 0.025296310347243556,
+        "irrTax0": 0.02796412953875993,
+        "irrFXCNYPerHKDPlus10Pct": 0.015138743371310714,
+        "irrFXCNYPerHKDMinus10Pct": 0.036675541797436595,
+        "annualRows": [
+          {
+            "year": 2027,
+            "revenueCNYBillion": 33.92,
+            "attributableNetMargin": 0.266,
+            "epsCNY": 6.774936851150094,
+            "dividendGrossCNY": 1.3549873702300188,
+            "dividendNetCNY": 1.083989896184015
+          },
+          {
+            "year": 2028,
+            "revenueCNYBillion": 35.955200000000005,
+            "attributableNetMargin": 0.262,
+            "epsCNY": 7.073441587599264,
+            "dividendGrossCNY": 1.414688317519853,
+            "dividendNetCNY": 1.1317506540158824
+          },
+          {
+            "year": 2029,
+            "revenueCNYBillion": 38.112512,
+            "attributableNetMargin": 0.258,
+            "epsCNY": 7.383377119758193,
+            "dividendGrossCNY": 1.4766754239516386,
+            "dividendNetCNY": 1.1813403391613109
+          },
+          {
+            "year": 2030,
+            "revenueCNYBillion": 40.39926272000001,
+            "attributableNetMargin": 0.254,
+            "epsCNY": 7.705040526060837,
+            "dividendGrossCNY": 1.5410081052121676,
+            "dividendNetCNY": 1.2328064841697342
+          },
+          {
+            "year": 2031,
+            "revenueCNYBillion": 42.82321848320001,
+            "attributableNetMargin": 0.25,
+            "epsCNY": 8.03872338348867,
+            "dividendGrossCNY": 1.607744676697734,
+            "dividendNetCNY": 1.2861957413581873
+          },
+          {
+            "year": 2032,
+            "revenueCNYBillion": 44.10791503769601,
+            "attributableNetMargin": 0.25,
+            "epsCNY": 8.279885084993328,
+            "dividendGrossCNY": 1.6559770169986656,
+            "dividendNetCNY": 1.3247816135989325
+          },
+          {
+            "year": 2033,
+            "revenueCNYBillion": 45.43115248882689,
+            "attributableNetMargin": 0.25,
+            "epsCNY": 8.52828163754313,
+            "dividendGrossCNY": 1.7056563275086258,
+            "dividendNetCNY": 1.3645250620069007
+          },
+          {
+            "year": 2034,
+            "revenueCNYBillion": 46.794087063491695,
+            "attributableNetMargin": 0.25,
+            "epsCNY": 8.784130086669423,
+            "dividendGrossCNY": 1.7568260173338848,
+            "dividendNetCNY": 1.4054608138671079
+          },
+          {
+            "year": 2035,
+            "revenueCNYBillion": 48.19790967539645,
+            "attributableNetMargin": 0.25,
+            "epsCNY": 9.047653989269506,
+            "dividendGrossCNY": 1.8095307978539013,
+            "dividendNetCNY": 1.447624638283121
+          },
+          {
+            "year": 2036,
+            "revenueCNYBillion": 49.64384696565834,
+            "attributableNetMargin": 0.25,
+            "epsCNY": 9.31908360894759,
+            "dividendGrossCNY": 1.863816721789518,
+            "dividendNetCNY": 1.4910533774316146
+          }
+        ],
+        "label": "analyst_assumptions_not_guidance_not_consensus"
+      },
+      "bull": {
+        "startRevenueCNYBillion": 38,
+        "startAttributableNetMargin": 0.3,
+        "startEPSCNY": 8.559977490502982,
+        "revenueGrowthFirst5": 0.12,
+        "revenueGrowthLast5": 0.06,
+        "netMarginAtYear5": 0.3,
+        "dividendPayout": 0.25,
+        "shareCountAssumption": 1331779203,
+        "netShareGrowth": 0,
+        "terminalPE": 18,
+        "dividendTax": 0.2,
+        "terminalYear": 2036,
+        "terminalEPSCNY": 20.18794265027219,
+        "terminalPriceHKD": 424.03725693719593,
+        "irrAfter20PctTax": 0.13957954358897295,
+        "irrTax0": 0.1434827330339049,
+        "irrFXCNYPerHKDPlus10Pct": 0.12807233228848924,
+        "irrFXCNYPerHKDMinus10Pct": 0.15249152615064976,
+        "annualRows": [
+          {
+            "year": 2027,
+            "revenueCNYBillion": 42.56,
+            "attributableNetMargin": 0.3,
+            "epsCNY": 9.58717478936334,
+            "dividendGrossCNY": 2.396793697340835,
+            "dividendNetCNY": 1.9174349578726682
+          },
+          {
+            "year": 2028,
+            "revenueCNYBillion": 47.66720000000001,
+            "attributableNetMargin": 0.3,
+            "epsCNY": 10.73763576408694,
+            "dividendGrossCNY": 2.684408941021735,
+            "dividendNetCNY": 2.1475271528173883
+          },
+          {
+            "year": 2029,
+            "revenueCNYBillion": 53.387264000000016,
+            "attributableNetMargin": 0.3,
+            "epsCNY": 12.026152055777375,
+            "dividendGrossCNY": 3.006538013944344,
+            "dividendNetCNY": 2.4052304111554754
+          },
+          {
+            "year": 2030,
+            "revenueCNYBillion": 59.793735680000026,
+            "attributableNetMargin": 0.3,
+            "epsCNY": 13.469290302470661,
+            "dividendGrossCNY": 3.3673225756176652,
+            "dividendNetCNY": 2.6938580604941325
+          },
+          {
+            "year": 2031,
+            "revenueCNYBillion": 66.96898396160003,
+            "attributableNetMargin": 0.3,
+            "epsCNY": 15.085605138767143,
+            "dividendGrossCNY": 3.7714012846917857,
+            "dividendNetCNY": 3.017121027753429
+          },
+          {
+            "year": 2032,
+            "revenueCNYBillion": 70.98712299929603,
+            "attributableNetMargin": 0.3,
+            "epsCNY": 15.990741447093171,
+            "dividendGrossCNY": 3.997685361773293,
+            "dividendNetCNY": 3.1981482894186346
+          },
+          {
+            "year": 2033,
+            "revenueCNYBillion": 75.24635037925381,
+            "attributableNetMargin": 0.3,
+            "epsCNY": 16.950185933918764,
+            "dividendGrossCNY": 4.237546483479691,
+            "dividendNetCNY": 3.390037186783753
+          },
+          {
+            "year": 2034,
+            "revenueCNYBillion": 79.76113140200903,
+            "attributableNetMargin": 0.3,
+            "epsCNY": 17.96719708995389,
+            "dividendGrossCNY": 4.491799272488472,
+            "dividendNetCNY": 3.593439417990778
+          },
+          {
+            "year": 2035,
+            "revenueCNYBillion": 84.54679928612958,
+            "attributableNetMargin": 0.3,
+            "epsCNY": 19.045228915351124,
+            "dividendGrossCNY": 4.761307228837781,
+            "dividendNetCNY": 3.809045783070225
+          },
+          {
+            "year": 2036,
+            "revenueCNYBillion": 89.61960724329735,
+            "attributableNetMargin": 0.3,
+            "epsCNY": 20.18794265027219,
+            "dividendGrossCNY": 5.046985662568048,
+            "dividendNetCNY": 4.037588530054438
+          }
+        ],
+        "label": "analyst_assumptions_not_guidance_not_consensus"
+      }
+    },
+    "formalAllowed": false,
+    "basis": "2026年正常化起点，2027—2036年末净股息及2036年退出价；利润率逐年线性向第5年水平回归；未来净股数固定；不额外加回购收益、不另加现金；退出PE为研究假设，未获终值上限与独立现金估值复核；费率未扣。"
+  },
+  "monitoring": [
+    {
+      "metric": "海外分部利润率",
+      "baseline": "2026H1 30.34%，2025H1 44.06%",
+      "trigger": "下一可比半年低于25%，或连续两期收入下降且分部利润率下降：下修利润池并重新承保；恢复超过35%且收入增长才讨论提高信心",
+      "origin": "研究建议，未批准",
+      "nextSource": "公司下一业务更新及2026年报"
+    },
+    {
+      "metric": "存货周转及减值",
+      "baseline": "201天；净存货61.015亿元；减值余额0.755亿元",
+      "trigger": "周转超过240天并伴毛利率跌破65%：停止以高利润率承保；低于160天且非靠折价才算改善",
+      "origin": "研究建议，未批准",
+      "nextSource": "2026年报存货附注，采用同季或同口径比较"
+    },
+    {
+      "metric": "现金转换",
+      "baseline": "H1 OCF36.373亿元；扣全CAPEX及融资租赁现金后24.103亿元",
+      "trigger": "完整年度租赁后剩余现金/归母净利低于50%，须用税款、营运资本逐项解释；连续两年低于50%且库存上升则否定高质量现金论点",
+      "origin": "研究建议，未批准",
+      "nextSource": "2026及2027年度现金流表"
+    },
+    {
+      "metric": "多IP接力",
+      "baseline": "THE MONSTERS -7.5%；星星人+580.6%；MOLLY -33.6%",
+      "trigger": "前七IP除最大IP后的总收入连续两个可比报告期负增长，且大IP也下降：组织型平台论点受损",
+      "origin": "研究建议，未批准",
+      "nextSource": "逐IP公司披露，不能用平台GMV替代"
+    },
+    {
+      "metric": "复购与海外单位经济",
+      "baseline": "公司口径内地会员复购51.6%；海外门店同店/回本未披露",
+      "trigger": "复购低于45%且中国收入转负，或新店扩张而海外零售收入连续两期不增：下修需求及开店假设",
+      "origin": "研究建议，未批准",
+      "nextSource": "公司会员定义、同店、客单、折扣、门店回本资料"
+    },
+    {
+      "metric": "回购与稀释",
+      "baseline": "H1注销1122万股；7月新发56053股；9月末13.31779203亿股；10月奖励可用新股",
+      "trigger": "年度净股数增加超过1%且每股现金不增，或承诺回购窗口结束无法核实履约：资本配置重新评估",
+      "origin": "研究建议，未批准",
+      "nextSource": "每月股本报表及下一年报、2027-02回购窗口核对"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "2026-10-19维持投入2.5亿元、增长投入4.742亿元",
+      "new": "撤回公司事实及经审定所有者收益解释；仅保留全部现金CAPEX7.24139亿元",
+      "reason": "报告只披露固定及无形资产现金支出，没有维护/增长分类",
+      "sourceIds": [
+        "PM26IR"
+      ]
+    },
+    {
+      "old": "每股现金代理1.7291元及将少数股东利润/SBC混入现金扣减",
+      "new": "撤回此代理作为估值基础；现金桥单独列融资租赁支付和少数股东现金股息，SBC另作稀释经济成本",
+      "reason": "现金和会计利润不能互替；现金归属与年度可持续FCFE也不是同一概念",
+      "sourceIds": [
+        "PM26IR"
+      ]
+    },
+    {
+      "old": "8.5元起始EPS为基准；8%/5%EPS增长",
+      "new": "重新用320亿元收入×27%归母净利率/最新股数得到6.49元假设；前后五年收入6%/3%、净利率向25%回归",
+      "reason": "不把高基数TTM和短期爆发当永久盈利；季度尚未披露必须承保下行",
+      "sourceIds": [
+        "PM26IR",
+        "PM25AR",
+        "PM26SEP"
+      ]
+    },
+    {
+      "old": "财务质量、治理、资本配置直接通过",
+      "new": "三项改存疑；B观察候选仅为本轮建议，不覆盖用户等级",
+      "reason": "租赁后现金、存货、艺术家合同及回购稀释证据不足以支撑高确定性",
+      "sourceIds": [
+        "PM26IR",
+        "PM26JUL",
+        "PM26OCTAW"
+      ]
+    },
+    {
+      "old": "历史140/125/110价格档可作为买入充分依据",
+      "new": "作为历史策略保留，撤回其本轮研究认可或执行许可含义",
+      "reason": "新经营假设下基准IRR约2.53%，价格触发不能代替经营证明和审批",
+      "sourceIds": [
+        "PMQUOTE",
+        "PM26IR"
+      ]
+    },
+    {
+      "old": "海外已有下行、新IP有接力、非股息现金核心",
+      "new": "保留，但新增IP/地区/渠道拆分与量化证伪；不能仅因股价下降认定便宜",
+      "reason": "新IP增长及海外线上与利润下降均在原始报告中可核",
+      "sourceIds": [
+        "PM26IR",
+        "PM26RES"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "PM26IR",
+      "title": "2026中期报告",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092400544.pdf",
+      "publishedAt": "2026-09-24",
+      "period": "2026H1",
+      "location": "印刷页5、16—27、31—34、63—70、84—92、99—101、107—110、123",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/popmart/interim-report-2026.pdf"
+    },
+    {
+      "id": "PM26RES",
+      "title": "2026中期业绩公告",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000353.pdf",
+      "publishedAt": "2026-08-20",
+      "period": "2026H1",
+      "location": "首页财务、分部、经营回顾",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/popmart/interim-results-2026.pdf"
+    },
+    {
+      "id": "PM25AR",
+      "title": "2025年度报告",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0421/2026042100394.pdf",
+      "publishedAt": "2026-04-21",
+      "period": "2025FY",
+      "location": "印刷页225—226现金流、损益及分部",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/popmart/annual-report-2025.pdf"
+    },
+    {
+      "id": "PM26Q1",
+      "title": "2026一季度业务更新",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0512/2026051200579.pdf",
+      "publishedAt": "2026-05-12",
+      "period": "2026Q1",
+      "location": "第1—2页",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/popmart/q1-business-2026.pdf"
+    },
+    {
+      "id": "PM26SEP",
+      "title": "2026年9月股本月报",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1006/2026100601443.pdf",
+      "publishedAt": "2026-10-06",
+      "period": "2026-09-30",
+      "location": "第2页已发行股数",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/popmart/september-monthly-return.pdf"
+    },
+    {
+      "id": "PM26OCTAW",
+      "title": "10月15日授出股份奖励",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101501003.pdf",
+      "publishedAt": "2026-10-15",
+      "period": "2026-10-15",
+      "location": "第1—2页授奖及新股来源",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/popmart/october-awards.pdf"
+    },
+    {
+      "id": "PM26SEPAW",
+      "title": "9月24日授出股份奖励",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401353.pdf",
+      "publishedAt": "2026-09-24",
+      "period": "2026-09-24",
+      "location": "第1—2页授奖、由现有股份拨付",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/popmart/september-awards.pdf"
+    },
+    {
+      "id": "PM26JUL",
+      "title": "7月20日翌日披露报表",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0720/2026072000462.pdf",
+      "publishedAt": "2026-07-20",
+      "period": "2026-07-20",
+      "location": "第1页激励新发56,053股",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/popmart/july-award-issue.pdf"
+    },
+    {
+      "id": "PM26BUY",
+      "title": "4月2日回购翌日披露报表",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0402/2026040201138.pdf",
+      "publishedAt": "2026-04-02",
+      "period": "2026-04-02",
+      "location": "回购报告及待注销股数",
+      "readStatus": "read",
+      "type": "official_filing",
+      "localFile": "sources/popmart/april-buyback.pdf"
+    },
+    {
+      "id": "PM26NEWS",
+      "title": "POP MART发布2026H1业绩及拟回购计划（公司发布新闻稿）",
+      "url": "https://www.prnewswire.com/news-releases/pop-mart-reports-first-half-2026-financial-results-announces-future-stock-buyback-plan-302856357.html",
+      "publishedAt": "2026-08-20",
+      "period": "2026H1及前瞻计划",
+      "location": "回购意向、会员数据段落",
+      "readStatus": "read",
+      "type": "issuer_press_release"
+    },
+    {
+      "id": "PM26LIST",
+      "title": "HKEX发行人最新公告标题检索",
+      "url": "https://www1.hkexnews.hk/search/titlesearch.xhtml?category=0&market=SEHK&stockId=1000068054",
+      "publishedAt": null,
+      "period": "截至2026-10-24检索",
+      "location": "最新标题至2026-10-15；未检得2026Q3集团更新",
+      "readStatus": "read",
+      "type": "official_listing_search"
+    },
+    {
+      "id": "PMQUOTE",
+      "title": "经济通09992延迟行情",
+      "url": "https://content.etnet.com.hk/content/cpyrevamp/sc/stock_quote.php?code=09992",
+      "publishedAt": "2026-10-23",
+      "period": "2026-10-23 16:15 HKT",
+      "location": "按盘价131.700、成交股数1349.7万",
+      "readStatus": "read",
+      "type": "market_data_delayed"
+    },
+    {
+      "id": "PMQUOTE2",
+      "title": "FT 9992历史价格",
+      "url": "https://markets.ft.markitdigital.com/data/equities/tearsheet/historical?s=9992%3AHKG.HZ",
+      "publishedAt": null,
+      "period": "2026-10-23",
+      "location": "日期对应历史行收131.70；页首行情滞后，不采用",
+      "readStatus": "partial",
+      "type": "market_data_history"
+    },
+    {
+      "id": "PMFX",
+      "title": "中国货币网人民币汇率中间价",
+      "url": "https://www.chinamoney.com.cn/chinese/bkccpr/?eqid=e6772e9f00013d3a00000003646c15c8",
+      "publishedAt": "2026-10-23",
+      "period": "2026-10-23 09:15",
+      "location": "港元/人民币0.85696；搜索正文可读，页面动态渲染",
+      "readStatus": "partial",
+      "type": "official_reference_fx"
+    },
+    {
+      "id": "PMRISK",
+      "title": "阿思达克报道大摩预计Q3销售同比跌40%—45%",
+      "url": "https://pchome.megatime.com.tw/news/cat6/20261023/9900100000001550689.html",
+      "publishedAt": "2026-10-23",
+      "period": "2026Q3预测，非实际",
+      "location": "10:47:32报道；未取得券商原报告及原始渠道样本",
+      "readStatus": "read",
+      "type": "secondary_risk_lead"
+    }
+  ],
+  "completedItems": [
+    "重新打开核对2026完整中报、2025完整年报",
+    "核对最新季度公告及未发布Q3边界",
+    "重建IP/地区/渠道/库存证据",
+    "撤回无依据维护CAPEX拆分",
+    "核对现金税、全部CAPEX、租赁和少数股东现金桥",
+    "核对回购注销、7月新发、9月月报和10月授奖",
+    "独立从收入与正常化净利率重建三情景并计算10年税汇敏感性",
+    "追加旧结论更正与可核证伪监测"
+  ],
+  "remainingGaps": [
+    {
+      "item": "2026Q3及以后公司实际经营数据",
+      "reason": "截至10月24日HKEX检索未见集团Q3公告，券商预测非事实",
+      "requiredEvidence": "集团业务更新或正式2026年报；披露后重算收入/利润",
+      "canPublicResearchResolve": true
+    },
+    {
+      "item": "维护与增长CAPEX",
+      "reason": "公司没有拆分，分析师不能编造",
+      "requiredEvidence": "管理层明确分类及店铺/乐园资本项目回报说明",
+      "canPublicResearchResolve": false
+    },
+    {
+      "item": "跨IP/跨年复购与海外同店/门店单位经济",
+      "reason": "公司会员比率不能替代去黄牛队列留存；总收入除期末门店数不是同店",
+      "requiredEvidence": "公司一致定义的消费者队列、同店、客单、折扣及新店回本",
+      "canPublicResearchResolve": false
+    },
+    {
+      "item": "艺术家/核心IP长期权利与合同续约",
+      "reason": "公开汇总不足核到每一核心合同",
+      "requiredEvidence": "公开合同要点、授权期限、续约权和收入分成变更",
+      "canPublicResearchResolve": false
+    },
+    {
+      "item": "证券决策独立复核",
+      "reason": "情景模型已重建，但正常化与退出PE属假设，终值三重约束/独立现金估值未完成",
+      "requiredEvidence": "独立模型审计、保守现金估值和正式策略审批",
+      "canPublicResearchResolve": false
+    },
+    {
+      "item": "个人账户数据与税率",
+      "reason": "公开公司研究不能验证实际券商成本、现金、交易、通道股息税",
+      "requiredEvidence": "券商结算单、现金与交易对账、账户通道和税务凭据",
+      "canPublicResearchResolve": false
+    }
+  ],
+  "scope": "主平台当前池",
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "H1为最新可核财务；未取得官方Q3营运正文",
+    "asOf": "2026-10-24",
+    "valuationImpact": "价值来自多IP组织，核心耐久和客户留存未证；真实利润与现金不支持直接外推2025爆发，不因价格下跌升级。",
+    "coverage": "公司/交易所原文、公告目录及本轮披露查询"
+  },
+  "reportPath": "/research/popmart.html"
+}

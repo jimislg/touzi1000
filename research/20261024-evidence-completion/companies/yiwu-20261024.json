@@ -1,0 +1,291 @@
+{
+  "id": "yiwu",
+  "name": "小商品城",
+  "codes": [
+    "600415.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "义乌市场网络有经营壁垒，数贸与自营贸易必须用每股现金而非交易额承保。",
+  "breakers": "数贸与贸易规模增加而现金持续被预付款和项目占用；压低可分红现金，不按交易额提高终值。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "市场贸易支付围绕商户",
+      "counter": "自营贸易与地产扩张分散现金",
+      "monitor": "非核心占用",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "国有市场平台持续披露",
+      "counter": "关联与受限股权资金复杂",
+      "monitor": "关联金融与冻结资产",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "义乌产业集群与交易网络",
+      "counter": "电商直接链接可能分流",
+      "monitor": "商位使用与收费率",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "服务全球采购",
+      "counter": "交易额非海外利润",
+      "monitor": "境外归母现金贡献",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "通过",
+      "support": "独特市场集聚与本地配套",
+      "counter": "线上平台竞争不弱",
+      "monitor": "商户留存与资本回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "通过",
+      "support": "跨境商品交易长期存在",
+      "counter": "贸易壁垒与小商品利润薄",
+      "monitor": "成交及实际服务费",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "存疑",
+      "support": "主业盈利、现金资产存在",
+      "counter": "预付增长及OCF转负、备付金限制",
+      "monitor": "采购预付账龄和回款",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "数贸与支付具协同",
+      "counter": "大额建设和自营采购回报待兑现",
+      "monitor": "项目现金回收",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 153.1923947126,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yiwu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 34.6052211301,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yiwu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 34.2830881496,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yiwu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 18.23153383,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yiwu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 11.2630396766,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yiwu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 39.857632627,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "yiwu-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedEPS",
+      "value": 0.63,
+      "unit": "CNY元/普通股",
+      "period": "2026Q1–Q3",
+      "sourceId": "yiwu-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026Q1–Q3",
+    "unit": "CNY亿元",
+    "ocf": 11.2630396766,
+    "totalCapex": 39.857632627,
+    "conservativeResidual": -28.5945929504,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.5,
+          "g1": 0,
+          "g2": 0,
+          "payout": 0.45,
+          "exit_pe": 10
+        },
+        "base": {
+          "eps0": 0.65,
+          "g1": 0.04,
+          "g2": 0.025,
+          "payout": 0.55,
+          "exit_pe": 12
+        },
+        "bull": {
+          "eps0": 0.8,
+          "g1": 0.07,
+          "g2": 0.04,
+          "payout": 0.6,
+          "exit_pe": 14
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "市场租金低增、自营贸易与支付增长有资本占用；统一全公司边界",
+      "auditGap": "数贸和自营贸易现金桥、潜在新股摊薄与独立资产DCF尚未全部通过",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "newEvidenceImpact": "最新Q3原文镜像：9M收入153.192亿元(+17.29%)、归母34.605(+0.09%)、OCF11.263(-88.27%)，现金CAPEX39.858，余-28.595亿元。旧H1负现金已改善但仍未覆盖投资；不能把历史招商预收款重复当每年租金。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "financial_mirror",
+    "status": "Q3财务已核原文镜像；官方一致性待补",
+    "asOf": "2026-10-24",
+    "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+    "valuationImpact": "最新Q3原文镜像：9M收入153.192亿元(+17.29%)、归母34.605(+0.09%)、OCF11.263(-88.27%)，现金CAPEX39.858，余-28.595亿元。旧H1负现金已改善但仍未覆盖投资；不能把历史招商预收款重复当每年租金。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026Q1–Q3",
+      "trigger": "数贸与贸易规模增加而现金持续被预付款和项目占用；压低可分红现金，不按交易额提高终值。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "最新Q3原文镜像：9M收入153.192亿元(+17.29%)、归母34.605(+0.09%)、OCF11.263(-88.27%)，现金CAPEX39.858，余-28.595亿元。旧H1负现金已改善但仍未覆盖投资；不能把历史招商预收款重复当每年租金。",
+      "reason": "已读发行人14页原文镜像；交易所直链返回拦截页、巨潮查询403，独立官方文件一致性仍保留缺项。",
+      "sourceIds": [
+        "yiwu-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "yiwu-latest",
+      "title": "2026第三季度报告（发行人原文镜像）",
+      "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-10/2026-10-22/12651918.PDF",
+      "publishedAt": "2026-10-22",
+      "period": "2026Q1–Q3",
+      "location": "PDF 1—2、6—9（镜像）",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "issuer_filing_mirror"
+    },
+    {
+      "id": "yiwu-prior-0",
+      "title": "小商品城2026半年报原文镜像",
+      "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12534366&stockid=600415",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "6—8、现金流量表、99",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "yiwu-prior-1",
+      "title": "法定披露PDF",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-26/1225502903.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "6—8、99",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "数贸和自营贸易现金桥、潜在新股摊薄与独立资产DCF尚未全部通过",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已读发行人14页原文镜像；交易所直链返回拦截页、巨潮查询403，独立官方文件一致性仍保留缺项。",
+      "canPublicResearchResolve": true
+    },
+    {
+      "item": "官方与镜像文件一致性",
+      "reason": "交易所直链返回拦截页；巨潮查询403",
+      "requiredEvidence": "交易所/巨潮同版原件交叉核对，含披露身份与表格",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/yiwu.html"
+}

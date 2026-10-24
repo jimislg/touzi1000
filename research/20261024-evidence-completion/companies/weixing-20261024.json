@@ -1,0 +1,271 @@
+{
+  "id": "weixing",
+  "name": "伟星新材",
+  "codes": [
+    "002372.SZ"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "管道品牌与服务具基础，地产需求和并购回报仍未恢复到可主动承保程度。",
+  "breakers": "主业净利润和终端需求继续下滑或并购现金回报不足；维持经济性观察。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "C类经济性观察",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "管道与家装同心圆",
+      "counter": "防水净水并购跨度扩大",
+      "monitor": "同心圆现金回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "管理稳定、风险控制文化",
+      "counter": "基金投资带来主业外利润",
+      "monitor": "非主营投资上限",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "存疑",
+      "support": "高端零售品牌和售后",
+      "counter": "核心利润下降证明溢价受需求约束",
+      "monitor": "零售单价和客诉",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "境外收入增长",
+      "counter": "占比较小、并购协同未证",
+      "monitor": "境外净现金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "存疑",
+      "support": "零售毛利和渠道优于普通工程厂",
+      "counter": "行业缩量竞争侵蚀现金利润",
+      "monitor": "价格/份额/渠道库存",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "存疑",
+      "support": "旧改需求持续",
+      "counter": "新房装修需求结构下降",
+      "monitor": "零售订单与终端动销",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "现金与低负债支持压力期",
+      "counter": "OCF同比下降且非经常占比高",
+      "monitor": "扣非现金与受限资金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "通过",
+      "support": "经营聚焦与历史分红",
+      "counter": "基金及并购回报仍需后验核验",
+      "monitor": "每股经营现金增长",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "[判断] 需求结构下降（新房装修）、旧改部分托底；利润池恶化；范式风险中。PPR高端零售不是全部塑料管道，行业总量下降不能机械等同公司份额下降；但收入和核心利润下降是真实反证。基准不预设房屋周期自动恢复。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 18.966962343,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "weixing-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 3.9000838782,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "weixing-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 2.1541602614,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "weixing-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 4.0732577331,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "weixing-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 1.1286927971,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "weixing-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 4.0732577331,
+    "totalCapex": 1.1286927971,
+    "conservativeResidual": 2.944564936,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.35,
+          "g1": -0.03,
+          "g2": -0.01,
+          "payout": 0.55,
+          "exit_pe": 9
+        },
+        "base": {
+          "eps0": 0.45,
+          "g1": 0,
+          "g2": 0,
+          "payout": 0.6,
+          "exit_pe": 12
+        },
+        "bull": {
+          "eps0": 0.55,
+          "g1": 0.03,
+          "g2": 0.02,
+          "payout": 0.65,
+          "exit_pe": 14
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "主业扣非与房屋装修总量为锚；C类情景不得作正式买点",
+      "auditGap": "C类质量门未通过；维持/增长、并购回报和股本桥未完全核定",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "newEvidenceImpact": "H1归母3.900亿元而扣非2.154亿元，OCF4.073减CAPEX1.129=2.945亿元，再列并购0.479亿元。不能把一次性收益按永久EPS资本化；低价不能替代主业恢复。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+    "valuationImpact": "H1归母3.900亿元而扣非2.154亿元，OCF4.073减CAPEX1.129=2.945亿元，再列并购0.479亿元。不能把一次性收益按永久EPS资本化；低价不能替代主业恢复。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "主业净利润和终端需求继续下滑或并购现金回报不足；维持经济性观察。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1归母3.900亿元而扣非2.154亿元，OCF4.073减CAPEX1.129=2.945亿元，再列并购0.479亿元。不能把一次性收益按永久EPS资本化；低价不能替代主业恢复。",
+      "reason": "已复核扣非/报表差及并购现金。巨潮查询受限后实际核官网定期报告目录，当前列2026H1、未列2026Q3；不把接口错误直接当未披露证据。",
+      "sourceIds": [
+        "weixing-latest",
+        "weixing-report-index"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "weixing-latest",
+      "title": "2026半年度报告，PDF 7、43—45",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-07/1225462208.PDF",
+      "publishedAt": "2026-08-07",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "7、43—45"
+    },
+    {
+      "id": "weixing-prior-1",
+      "title": "伟星官方定期报告目录",
+      "url": "https://www.vasen.com/invest/notice/32/1",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "weixing-report-index",
+      "title": "公司官方定期报告目录",
+      "url": "https://www.vasen.com/invest/notice/32/1",
+      "publishedAt": null,
+      "period": "截至2026-10-24目录",
+      "readStatus": "read",
+      "location": "目录当前2026H1/2026Q1/2025Q3",
+      "type": "official_directory"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "C类质量门未通过；维持/增长、并购回报和股本桥未完全核定",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已复核扣非/报表差及并购现金。巨潮查询受限后实际核官网定期报告目录，当前列2026H1、未列2026Q3；不把接口错误直接当未披露证据。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/weixing.html"
+}

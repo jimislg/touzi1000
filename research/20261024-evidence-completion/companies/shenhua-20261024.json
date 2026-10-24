@@ -1,0 +1,307 @@
+{
+  "id": "shenhua",
+  "name": "中国神华",
+  "codes": [
+    "601088.SH"
+  ],
+  "scope": "总部历史候选/监控池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "低成本煤炭、电力与运输一体化仍有优势，注入后需看每股回报而非集团规模。",
+  "breakers": "煤价改善但每股收益/分红现金不增长，或债务持续增加；用中周期煤价及新股本重算，不恢复旧高派息。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "煤电运化一体化",
+      "counter": "煤化工扩大资本跨度",
+      "monitor": "分部投入回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "公开关联重组与股息",
+      "counter": "控股股东关联交易复杂",
+      "monitor": "注入承诺履约",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "优质煤矿和自有运输",
+      "counter": "煤价仍受外部市场决定",
+      "monitor": "自产成本与物流利用",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "有境外业务",
+      "counter": "国内为主不做国际溢价",
+      "monitor": "海外资本回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "通过",
+      "support": "低成本一体化相对优势",
+      "counter": "煤电新能源竞争与政策价",
+      "monitor": "同业中周期利润",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "存疑",
+      "support": "煤电十年仍有需求",
+      "counter": "新能源替代与煤需求峰值",
+      "monitor": "长协量及电厂利用",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF和现金储备较强",
+      "counter": "重组后负债上升显著",
+      "monitor": "中周期净债与利息",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "长期分红记录",
+      "counter": "大额关联注入与资本开支回报",
+      "monitor": "新合并每股FCFE",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 2960.31,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "shenhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 444.03,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "shenhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 428.08,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "shenhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 268.95,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "shenhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 927.0,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "shenhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 471.81,
+      "unit": "CNY亿元",
+      "period": "2026Q1–Q3",
+      "sourceId": "shenhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "reportedEPS",
+      "value": 2.062,
+      "unit": "CNY元/普通股",
+      "period": "2026Q1–Q3",
+      "sourceId": "shenhua-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026Q1–Q3",
+    "unit": "CNY亿元",
+    "ocf": 927.0,
+    "totalCapex": 471.81,
+    "conservativeResidual": 455.19,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 2.1,
+          "g1": -0.02,
+          "g2": -0.01,
+          "payout": 0.65,
+          "exit_pe": 8
+        },
+        "base": {
+          "eps0": 2.6,
+          "g1": 0.01,
+          "g2": 0,
+          "payout": 0.65,
+          "exit_pe": 10
+        },
+        "bull": {
+          "eps0": 3.1,
+          "g1": 0.02,
+          "g2": 0.01,
+          "payout": 0.7,
+          "exit_pe": 11
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "中周期煤价和煤电运一体化；股本已采用注入后口径",
+      "auditGap": "关联注入的现金对价、项目Capex与现金支付及中周期资源NAV桥未全核",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "newEvidenceImpact": "已核Q3 CAS：9M收入2960.31、归母444.03(+3.8%)、EPS2.062(+2.1%)、OCF927亿元。比较期因同控收购重述；旧范围增长率和H股IFRS利润不可混用。现金CAPEX471.81后余455.19，尚未扣少数、融资和收购对价。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "financial",
+    "status": "Q3财务已核原文",
+    "asOf": "2026-10-24",
+    "coverage": "官方查询受限/零条，结合公司IR和公开目录；不以空结果证明未披露",
+    "valuationImpact": "已核Q3 CAS：9M收入2960.31、归母444.03(+3.8%)、EPS2.062(+2.1%)、OCF927亿元。比较期因同控收购重述；旧范围增长率和H股IFRS利润不可混用。现金CAPEX471.81后余455.19，尚未扣少数、融资和收购对价。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026Q1–Q3",
+      "trigger": "煤价改善但每股收益/分红现金不增长，或债务持续增加；用中周期煤价及新股本重算，不恢复旧高派息。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "已核Q3 CAS：9M收入2960.31、归母444.03(+3.8%)、EPS2.062(+2.1%)、OCF927亿元。比较期因同控收购重述；旧范围增长率和H股IFRS利润不可混用。现金CAPEX471.81后余455.19，尚未扣少数、融资和收购对价。",
+      "reason": "已核同控注入范围、追溯比较期、现金CAPEX与股本；筹资其他支付976.24亿元须结合重组对价穿透，不直接忽略。",
+      "sourceIds": [
+        "shenhua-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "shenhua-latest",
+      "title": "2026第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620903.PDF",
+      "publishedAt": "2026-10-24",
+      "period": "2026Q1–Q3",
+      "location": "PDF 1—3、15—18；CAS重述",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing"
+    },
+    {
+      "id": "shenhua-prior-0",
+      "title": "神华2026半年报摘要",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225531754.PDF",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "2—3",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "shenhua-prior-1",
+      "title": "神华半年报原文镜像",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12572344&stockid=601088",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "资本开支计划、现金流附注47、合并范围",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "shenhua-prior-2",
+      "title": "神华官方半年度业绩说明会记录",
+      "url": "https://www.cnfin.com/announ/detail/index.html?announ=lc&code=601088&dannoun=lcdetail&id=843320205380",
+      "publishedAt": null,
+      "period": "2026-09-04",
+      "location": "",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "shenhua-prior-3",
+      "title": "神华2026年9月运营公告原文",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12641838&stockid=601088",
+      "publishedAt": null,
+      "period": "2026-09/9M经营",
+      "location": "1",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "关联注入的现金对价、项目Capex与现金支付及中周期资源NAV桥未全核",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已核同控注入范围、追溯比较期、现金CAPEX与股本；筹资其他支付976.24亿元须结合重组对价穿透，不直接忽略。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/shenhua.html"
+}

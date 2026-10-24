@@ -1,0 +1,255 @@
+{
+  "id": "sanhua",
+  "name": "三花智控",
+  "codes": [
+    "002050.SZ"
+  ],
+  "scope": "总部历史候选/监控池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "制冷和汽车热管理有规模与客户优势，机器人业务仍需订单到现金的证明。",
+  "breakers": "机器人投入显著扩大但无对应收入与回款、现有热管理毛利承压；冻结题材增长而非提高终值。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "热管理共享流体控制与精密制造",
+      "counter": "机器人扩大资本和技术边界",
+      "monitor": "新业务独立投入回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "长期专注及研发披露",
+      "counter": "家族控制和激励稀释需约束",
+      "monitor": "关联、股权与激励条件",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "认证、工艺、可靠性和成本规模",
+      "counter": "客户可双供与集成方案替代",
+      "monitor": "定点份额及单位利润",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "全球客户和生产交付基础",
+      "counter": "贸易和本地工厂成本风险",
+      "monitor": "区域现金利润",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "存疑",
+      "support": "传统阀件细分地位强",
+      "counter": "车企年降和集成模块竞争削弱议价",
+      "monitor": "热管理毛利/单车价值",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "通过",
+      "support": "电动化、节能及热泵有长期用途",
+      "counter": "暖通成熟、机器人需求未经量产验证",
+      "monitor": "现有业务增速与机器人收入现金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF+95.98%，大于归母且负债缓冲",
+      "counter": "股本扩大稀释EPS、汇兑与投资浮亏",
+      "monitor": "扣非每股与归母现金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "扩产围绕热管理有能力协同",
+      "counter": "机器人和海外项目ROIC未实证",
+      "monitor": "CAPEX、净现金和订单回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "- 需求轴：暖通存量更新稳、汽车热管理有增量，整车和家电周期也会拖累订单。",
+    "- 利润池轴：阀件规模优势稳，集成模块可能增收入但压毛利；车企年降要求很强。",
+    "- 范式风险：中：冷媒与热泵升级提供机会，集成架构变化与客户自制也可能压缩单件价值。机器人属于额外商业化待证。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 168.999726,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "sanhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 20.440646,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "sanhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 21.473186,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "sanhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 24.99553386,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "sanhua-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 13.67254161,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "sanhua-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 24.99553386,
+    "totalCapex": 13.67254161,
+    "conservativeResidual": 11.322992249999999,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 0.85,
+          "g1": 0.02,
+          "g2": 0.02,
+          "payout": 0.3,
+          "exit_pe": 15
+        },
+        "base": {
+          "eps0": 0.98,
+          "g1": 0.08,
+          "g2": 0.05,
+          "payout": 0.35,
+          "exit_pe": 20
+        },
+        "bull": {
+          "eps0": 1.05,
+          "g1": 0.13,
+          "g2": 0.08,
+          "payout": 0.4,
+          "exit_pe": 28
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准暖通量2%、汽车部件量12%左右、净价-1%及结构提升，合成EPS8%后5%；悲观暖通与车企价格压力使EPS2%；乐观汽车集成和高效热泵放量、利润率稳对应13%后8%。未给机器人单独收入利润，若量产有证据应增设分部现金模型，不直接提高终值。"
+    },
+    "newEvidenceImpact": "H1 OCF24.996减CAPEX13.673=11.323亿元，少于归母20.441亿元；募集资金/定存变化与经营现金分开。机器人潜在市场不直接进入高确定性利润或高终值倍数。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1 OCF24.996减CAPEX13.673=11.323亿元，少于归母20.441亿元；募集资金/定存变化与经营现金分开。机器人潜在市场不直接进入高确定性利润或高终值倍数。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "机器人投入显著扩大但无对应收入与回款、现有热管理毛利承压；冻结题材增长而非提高终值。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1 OCF24.996减CAPEX13.673=11.323亿元，少于归母20.441亿元；募集资金/定存变化与经营现金分开。机器人潜在市场不直接进入高确定性利润或高终值倍数。",
+      "reason": "已核现金表和投资资金流；汽车模块与机器人分部订单、毛利和ROIC未独立披露到可承保程度。",
+      "sourceIds": [
+        "sanhua-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "sanhua-latest",
+      "title": "2026半年度报告，PDF 7、59—61",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225514004.PDF",
+      "publishedAt": "2026-08-27",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "7、59—61"
+    },
+    {
+      "id": "sanhua-prior-1",
+      "title": "2025年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-03-24/1225026522.PDF",
+      "publishedAt": null,
+      "period": "2025FY",
+      "location": "2、7—8页及现金流",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "缺汽车模块与机器人分部真实订单、毛利和增量ROIC；若机器人量产投入显著扩大却无现金收入，先冻结再投资假设而非用远期大市场背书。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已核现金表和投资资金流；汽车模块与机器人分部订单、毛利和ROIC未独立披露到可承保程度。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/sanhua.html"
+}

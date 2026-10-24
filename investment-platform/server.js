@@ -20,6 +20,8 @@ const CORE = require('./public/investment-core');
 const { createConfigService } = require('./config-service');
 const configService = createConfigService({ store, sourceMode, file: path.join(ROOT,'config.json') });
 const { createDecisionPreview } = require('./decision-preview');
+const { readSupplement } = require('./research-supplement');
+const researchSupplement = readSupplement(path.join(ROOT, 'public/research-supplement.json'));
 
 function fetchRemote(url){ return new Promise((resolve,reject)=>{
   http.get(url, res=>{ if(res.statusCode!==200){res.resume();reject(new Error('上游HTTP '+res.statusCode));return;} const cs=[]; res.on('data',c=>cs.push(c)); res.on('end',()=>resolve(Buffer.concat(cs))); })
@@ -92,7 +94,8 @@ async function trustedQuotes(symbols){
   const quotes=parseQuotes(new TextDecoder('gbk').decode(buf));
   return {ok:CORE.missingSymbols(quotes,symbols).length===0,quotes};
 }
-const decisionPreview=createDecisionPreview({configService,fetchQuotes:trustedQuotes,core:CORE});
+const decisionConfigService={read:async()=>Object.assign(await configService.read(),{_researchSupplement:researchSupplement})};
+const decisionPreview=createDecisionPreview({configService:decisionConfigService,fetchQuotes:trustedQuotes,core:CORE});
 
 /* —— 访问口令闸门：config.json 存在 accessKey 时启用。
  * 线上发布后 URL 可能被他人碰见，而站内是全部持仓成本，必须口令保护。
@@ -179,6 +182,7 @@ const server = http.createServer(async (req,res)=>{
     }
     if(u.pathname==='/api/config'&&req.method==='GET'){
       const cfg=await configService.read();
+      cfg._researchSupplement=researchSupplement;
       res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
       res.end(JSON.stringify(cfg));return;
     }

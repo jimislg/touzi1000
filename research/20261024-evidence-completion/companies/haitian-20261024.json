@@ -1,0 +1,266 @@
+{
+  "id": "haitian",
+  "name": "海天味业",
+  "codes": [
+    "3288.HK",
+    "603288.SH"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "调味品品牌、渠道及规模仍值得研究，现金季节性和分红可持续性须单独检验。",
+  "breakers": "销量/净价与经销商周转同步走弱；全年现金覆盖持续不足时先降分红率假设。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "调味研发生产渠道一致",
+      "counter": "多品类可能分散",
+      "monitor": "主业资本回报",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化与治理",
+      "verdict": "通过",
+      "support": "稳定经营及分红承诺",
+      "counter": "集中控制与关联供应链",
+      "monitor": "关联交易公允性",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "口味、规模、渠道有积累",
+      "counter": "低消费者转换成本",
+      "monitor": "同品净价与复购",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "国内规模足够",
+      "counter": "海外尚非重要盈利",
+      "monitor": "不提前计国际利润",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "近年利润恢复",
+      "counter": "餐饮集采压价",
+      "monitor": "渠道份额及终端库存",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户与需求",
+      "verdict": "存疑",
+      "support": "调味需求高频",
+      "counter": "成熟品类量价上限",
+      "monitor": "家庭/餐饮同口径量价",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "存疑",
+      "support": "历史多年正现金",
+      "counter": "H1现金低且预收交付变化",
+      "monitor": "全年OCF/应付/合同负债",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "通过",
+      "support": "高派息及主业投资",
+      "counter": "募资低收益与特别分红",
+      "monitor": "常态DPS及增量ROIC",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 161.463,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "haitian-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 41.90157,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "haitian-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 12.24227,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "haitian-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 5.35931,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "haitian-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 12.24227,
+    "totalCapex": 5.35931,
+    "conservativeResidual": 6.88296,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.1,
+          "g1": 0,
+          "g2": 0.02,
+          "payout": 0.8,
+          "exit_pe": 13
+        },
+        "base": {
+          "eps0": 1.25,
+          "g1": 0.05,
+          "g2": 0.04,
+          "payout": 0.8,
+          "exit_pe": 18
+        },
+        "bull": {
+          "eps0": 1.4,
+          "g1": 0.08,
+          "g2": 0.06,
+          "payout": 0.8,
+          "exit_pe": 22
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准收入由成熟酱油中低个位数与相邻品类增长形成约5%，成本利润率稳定，盈利5%/4%；悲观餐饮压价、乐观品类扩展和渠道效率改善。80%仅研究长期派息假设，2027年后的政策并非已承诺。"
+    },
+    "newEvidenceImpact": "H1经营现金12.242减CAPEX5.359=6.883亿元，明显小于归母41.902亿元；不能用净利率或ROE直接推导可派息。已核H股报表中内部票据相关经营与资金项目，内部结算不得在集团再造一次现金。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1经营现金12.242减CAPEX5.359=6.883亿元，明显小于归母41.902亿元；不能用净利率或ROE直接推导可派息。已核H股报表中内部票据相关经营与资金项目，内部结算不得在集团再造一次现金。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "销量/净价与经销商周转同步走弱；全年现金覆盖持续不足时先降分红率假设。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1经营现金12.242减CAPEX5.359=6.883亿元，明显小于归母41.902亿元；不能用净利率或ROE直接推导可派息。已核H股报表中内部票据相关经营与资金项目，内部结算不得在集团再造一次现金。",
+      "reason": "已核英文/中文现金表、全部CAPEX与资本承诺；全年现金季节性及内部票据贴现归属未完全闭合。",
+      "sourceIds": [
+        "haitian-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "haitian-latest",
+      "title": "2026半年度报告，PDF 47、70—71",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-09-04/1225547399.PDF",
+      "publishedAt": "2026-09-04",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "47、70—71"
+    },
+    {
+      "id": "haitian-prior-0",
+      "title": "海天官方定期报告目录",
+      "url": "https://www.haday.com/periodical-reports/",
+      "publishedAt": null,
+      "period": "截至2026-10-19",
+      "location": "2026半年报与历史分红表",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "haitian-prior-2",
+      "title": "海天中报发行人原文镜像",
+      "url": "https://financialfilings.com/filings/foshan-haitian-flavouring-and-food-company-ltd-1/interim-quarterly-report/2026/59459072/",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "原文镜像，不计独立第二财务来源",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "haitian-prior-3",
+      "title": "海天2025年报",
+      "url": "https://static.haday.com/upload/2026/03/27/e862e415c60546c899815c5a61da233f.pdf",
+      "publishedAt": null,
+      "period": "2025",
+      "location": "已核历史三年表沿用底稿",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "H1至全年营运资本季节性、内部票据贴现对集团现金转换的影响、常态分红覆盖尚待核，当前不能正式H定价。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已核英文/中文现金表、全部CAPEX与资本承诺；全年现金季节性及内部票据贴现归属未完全闭合。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/haitian.html"
+}

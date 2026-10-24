@@ -218,9 +218,18 @@
   function displayQuoteTime (time) {
     return /^\d{14}$/.test(time) ? time.slice(0, 4) + '-' + time.slice(4, 6) + '-' + time.slice(6, 8) + ' ' + time.slice(8, 10) + ':' + time.slice(10, 12) : '时间未提供'
   }
-  function researchSummary (company) {
+  function researchSummary (company, cfg) {
+    const pack = cfg && cfg._researchSupplement
+    const supplement = pack && pack.presentationOnly === true && pack.schemaVersion === 1 && Array.isArray(pack.records)
+      ? pack.records.find(row => Array.isArray(row.codes) && row.codes.includes(company.code)) : null
     const text = (field, fallback) => typeof company[field] === 'string' && company[field].trim() ? company[field] : fallback
-    return { thesis: text('thesisSummary', '持有逻辑摘要未录入，请核对研究报告'), breakers: text('thesisBreakers', '证伪条件未录入，不能仅凭价格触发行动'), reviewBy: text('reviewBy', '下次复核日期未录入'), evidenceGap: text('evidenceGap', '待核事项未单独录入，请核对研究报告') }
+    if (supplement) return {
+      thesis: supplement.thesis, breakers: supplement.breakers, reviewBy: supplement.reviewBy,
+      evidenceGap: (supplement.remainingGaps || []).map(g => typeof g === 'string' ? g : g.item).filter(Boolean).join('；') || '公开研究资料已补充；独立核验、账户对账和投资审批另行判断',
+      supplementLabel: pack.asOf + '公开研究补充 · ' + (supplement.researchCompletion === 'done' ? '材料已齐' : '含待核项') + ' · 未授予执行资格',
+      reportPath: /^\/research\/[a-z0-9_-]+\.html$/.test(supplement.reportPath || '') ? supplement.reportPath : null
+    }
+    return { thesis: text('thesisSummary', '持有逻辑摘要未录入，请核对研究报告'), breakers: text('thesisBreakers', '证伪条件未录入，不能仅凭价格触发行动'), reviewBy: text('reviewBy', '下次复核日期未录入'), evidenceGap: text('evidenceGap', '待核事项未单独录入，请核对研究报告'), supplementLabel: null, reportPath: null }
   }
   // 静态情景计算：普通股息税后、现金不受价格冲击；不预测发生概率或回本时间。
   function stressPortfolio (cfg, quotes, options) {
@@ -398,6 +407,9 @@
   function decisionBudget (cfg, quotes, code, options) {
     cfg=cfg||{};quotes=quotes||{};options=options||{};const at=clock(options.now), u=items(cfg,'universe').find(x=>x.code===code)||{}, st=seatOf(cfg,code), capital=planningCapital(cfg)
     const blockers=[], block=s=>{if(!blockers.includes(s))blockers.push(s)}, codes=issuerCodes(cfg,code), p=u.executionPolicy||{}, a=u.executionApproval||{}, l=cfg.budgetLedger||{}, r=researchState(u)
+    const supplement=cfg._researchSupplement
+    if(supplement&&supplement.status==='unavailable')block('研究补充包不可用，最新证据版本无法核实')
+    if(supplement&&supplement.presentationOnly===true&&Array.isArray(supplement.records)&&supplement.records.some(row=>(row.codes||[]).includes(code))&&(!text(supplement.version)||(u.audit||{}).researchSupplementVersion!==supplement.version||a.researchSupplementVersion!==supplement.version))block('最新研究补充版本尚未纳入审计和批准记录')
     const key=text(u.issuerId)?u.issuerId:codes.slice().sort()[0], holdings=items(cfg,'holdings'), limits=positionLimit(cfg,code)
     let issuerValue=0,seatValue=0,issuerComplete=true,seatComplete=true
     holdings.forEach(h=>{const x=holdingValue(h,quoteOf(h,quotes),fxOf(cfg,quotes));if(!x||!finite(x.mvCNY)||fen(x.mvCNY)==null){block('部分持仓缺少有效且可安全计算的估值行情');if(codes.includes(h.code))issuerComplete=false;if(st&&(st.members||[]).some(cd=>issuerCodes(cfg,cd).includes(h.code)))seatComplete=false;return}if(codes.includes(h.code))issuerValue+=x.mvCNY;if(st&&(st.members||[]).some(cd=>issuerCodes(cfg,cd).includes(h.code)))seatValue+=x.mvCNY})

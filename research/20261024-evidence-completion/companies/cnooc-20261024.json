@@ -1,0 +1,256 @@
+{
+  "id": "cnooc",
+  "name": "中国海洋石油",
+  "codes": [
+    "0883.HK"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "低成本海上油气资源有现金能力，估值取决于中周期油价与储量替换成本。",
+  "breakers": "中周期油价下现金不足以覆盖维持产量与股息、储量替换变贵；下调派息和资源价值。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "上游油气聚焦",
+      "counter": "新能源资本开支须限制边界",
+      "monitor": "非油气预算",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "公开产量成本与股息规则",
+      "counter": "控股集团交易及国策任务",
+      "monitor": "关联采购及资源注入",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "低成本与海上开发能力",
+      "counter": "优势不提供售价定价权",
+      "monitor": "单位成本和储量替换",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "全球优质油气项目真实贡献",
+      "counter": "国别税制和合作权益风险",
+      "monitor": "权益产量与国别现金",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争格局",
+      "verdict": "通过",
+      "support": "成本在全球上游有竞争力",
+      "counter": "OPEC等供给改变价格",
+      "monitor": "中周期桶油现金利润",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户需求",
+      "verdict": "存疑",
+      "support": "能源十年仍有大量需求",
+      "counter": "石油需求增量与能源转型不确定",
+      "monitor": "产品需求和价格中枢",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF强、资产负债保守",
+      "counter": "油价回落令现金骤降",
+      "monitor": "中周期资本覆盖",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "分红与低成本扩产有记录",
+      "counter": "储量接续资本与新能源回报",
+      "monitor": "新项目全周期ROIC",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 2426.6,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cnooc-latest",
+      "label": "prior_record_not_reverified"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 858.18,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cnooc-latest",
+      "label": "prior_record_not_reverified"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 857.33,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cnooc-latest",
+      "label": "prior_record_not_reverified"
+    },
+    {
+      "id": "ocfYi",
+      "value": 1416.31,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cnooc-latest",
+      "label": "prior_record_not_reverified"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": null,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "cnooc-latest",
+      "label": "prior_record_not_reverified"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 1416.31,
+    "totalCapex": null,
+    "conservativeResidual": null,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 1.8,
+          "g1": 0,
+          "g2": -0.01,
+          "payout": 0.45,
+          "exit_pe": 5
+        },
+        "base": {
+          "eps0": 2.6,
+          "g1": 0.03,
+          "g2": 0.01,
+          "payout": 0.45,
+          "exit_pe": 7
+        },
+        "bull": {
+          "eps0": 3.2,
+          "g1": 0.04,
+          "g2": 0.02,
+          "payout": 0.5,
+          "exit_pe": 8
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "油价55/68—70/80美元，储量替换和产量增长决定EPS路径",
+      "auditGap": "项目Capex与现金Capex差额、退役义务及独立资源NAV未全部闭合",
+      "terminalStatus": "市场退出估值研究情景；不声称已通过SOP终值三重最低上限",
+      "weights": {
+        "bear": 0.25,
+        "base": 0.5,
+        "bull": 0.25
+      }
+    },
+    "newEvidenceImpact": "H1项目CAPEX不是现金流表现金CAPEX。应从油价×权益产量−全成本−退役/替换投资构造现金，再核A/H税费；不可用高油价股息外推十年。检索到的是Q3说明会通知，未取得Q3财务正文。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1项目CAPEX不是现金流表现金CAPEX。应从油价×权益产量−全成本−退役/替换投资构造现金，再核A/H税费；不可用高油价股息外推十年。检索到的是Q3说明会通知，未取得Q3财务正文。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "中周期油价下现金不足以覆盖维持产量与股息、储量替换变贵；下调派息和资源价值。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1项目CAPEX不是现金流表现金CAPEX。应从油价×权益产量−全成本−退役/替换投资构造现金，再核A/H税费；不可用高油价股息外推十年。检索到的是Q3说明会通知，未取得Q3财务正文。",
+      "reason": "保留官方中期经营资料；现金CAPEX差额、退役义务与资源NAV仍需闭合。 本轮实际打开公司8/26官方发布，核H1权益产量3.987亿桶油当量、全成本29.7美元/桶油当量及全年1120—1220亿元资本预算（指引，非现金实付）。",
+      "sourceIds": []
+    }
+  ],
+  "sources": [
+    {
+      "id": "cnooc-latest",
+      "title": "2026中期业绩；本轮未完整重取现金附注",
+      "url": "https://www.cnoocltd.com/english/presscenter/pressreleases/2026/202608/t20260826_122439.html",
+      "publishedAt": null,
+      "period": "2026H1",
+      "readStatus": "partial",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "2026中期业绩；本轮未完整重取现金附注"
+    },
+    {
+      "id": "cnooc-prior-1",
+      "title": "海油中报原文镜像",
+      "url": "https://wap.stockstar.com/detail/SN2026082600049731",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "9、13、26—28",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "项目Capex与现金Capex差额、退役义务及独立资源NAV未全部闭合",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "保留官方中期经营资料；现金CAPEX差额、退役义务与资源NAV仍需闭合。 本轮实际打开公司8/26官方发布，核H1权益产量3.987亿桶油当量、全成本29.7美元/桶油当量及全年1120—1220亿元资本预算（指引，非现金实付）。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/cnooc.html"
+}

@@ -1,0 +1,290 @@
+{
+  "id": "dongpeng",
+  "name": "东鹏饮料",
+  "codes": [
+    "605499.SH"
+  ],
+  "scope": "总部历史候选/监控池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "功能饮料渠道扩张与新茶产品有成长空间，增量回报比规模更重要。",
+  "breakers": "新品收入增长主要来自铺货、核心功能饮料放缓而渠道费用上升；应压低增长并核上市募集资金用途。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "饮料供应链与渠道复用",
+      "counter": "投资与贷款子公司需边界",
+      "monitor": "非饮料资本占用",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化与治理",
+      "verdict": "通过",
+      "support": "创始团队终端执行强",
+      "counter": "集中控制和关联物业",
+      "monitor": "关联交易及管理激励",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "核心心智和终端密度",
+      "counter": "消费者切换容易",
+      "monitor": "成熟区域单点产出",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "中性",
+      "support": "国内全国化仍有空间",
+      "counter": "海外未有重要贡献",
+      "monitor": "不提前计海外利润",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "存疑",
+      "support": "能量饮料与新品规模",
+      "counter": "费用快增和新品激烈竞争",
+      "monitor": "费用/收入及新品毛利",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "客户与需求",
+      "verdict": "通过",
+      "support": "提神补水高频",
+      "counter": "可替代饮品及偏好变化",
+      "monitor": "复购与终端净动销",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF增长和上市现金缓冲",
+      "counter": "募集现金不是经营FCF",
+      "monitor": "扣capex后的现金转换",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "产能全国化有逻辑",
+      "counter": "募资配置及扩产回收未证",
+      "monitor": "产能队列回报与资金使用",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 124.43036555,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "dongpeng-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 28.66801858,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "dongpeng-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "deductedProfitYi",
+      "value": 25.97599385,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "dongpeng-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 24.92600974,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "dongpeng-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 11.35160763,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "dongpeng-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 24.92600974,
+    "totalCapex": 11.35160763,
+    "conservativeResidual": 13.574402110000001,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 5.8,
+          "g1": 0.04,
+          "g2": 0.03,
+          "payout": 0.5,
+          "exit_pe": 14
+        },
+        "base": {
+          "eps0": 6.8,
+          "g1": 0.12,
+          "g2": 0.07,
+          "payout": 0.5,
+          "exit_pe": 20
+        },
+        "bull": {
+          "eps0": 8,
+          "g1": 0.18,
+          "g2": 0.1,
+          "payout": 0.5,
+          "exit_pe": 26
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准核心全国化中高个位数、新品从较低基数双位数，收入约12%增长，稳定利润率带来约12%/7%盈利增长；悲观费用抵消销量，乐观新品复购和效率兑现。50%派息留出扩产现金，回购不另算。"
+    },
+    "newEvidenceImpact": "已重新找到巨潮官方H1完整报告：收入124.43、归母28.67、OCF24.926减现金CAPEX11.352=13.574亿元。原镜像404的来源缺口已关闭；H股上市后股本、融资成本及回购注销仍需用最新月报重算EPS，不能把现金管理收益重复加进主营估值。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "已重新找到巨潮官方H1完整报告：收入124.43、归母28.67、OCF24.926减现金CAPEX11.352=13.574亿元。原镜像404的来源缺口已关闭；H股上市后股本、融资成本及回购注销仍需用最新月报重算EPS，不能把现金管理收益重复加进主营估值。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "新品收入增长主要来自铺货、核心功能饮料放缓而渠道费用上升；应压低增长并核上市募集资金用途。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "已重新找到巨潮官方H1完整报告：收入124.43、归母28.67、OCF24.926减现金CAPEX11.352=13.574亿元。原镜像404的来源缺口已关闭；H股上市后股本、融资成本及回购注销仍需用最新月报重算EPS，不能把现金管理收益重复加进主营估值。",
+      "reason": "已替换失效镜像为巨潮原件，核完整现金表；租赁、少数与上市后股本桥仍待核。",
+      "sourceIds": [
+        "dongpeng-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "dongpeng-latest",
+      "title": "2026H1完整报告；主要指标及现金表，替代失效镜像",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-07-31/1225449594.PDF",
+      "publishedAt": "2026-07-31",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "2026H1完整报告；主要指标及现金表，替代失效镜像"
+    },
+    {
+      "id": "dongpeng-prior-0",
+      "title": "东鹏2026半年报发行人原文镜像",
+      "url": "https://pdf.dfcfw.com/pdf/H2_AN202607301827497229_1.pdf",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "6、30、73、144、149、164；原文镜像",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "dongpeng-prior-1",
+      "title": "发行人2026半年报业绩说明会",
+      "url": "https://roadshow.cnstock.com/fbh/dpyl202606",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "由公司主办、上证平台；管理层与披露报告指引",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "dongpeng-prior-2",
+      "title": "东鹏H股招股监管资料",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0126/12000523/2026012600019.pdf",
+      "publishedAt": null,
+      "period": "2026-01-26",
+      "location": "发行前结构，不能代替H1当前股本",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "dongpeng-prior-3",
+      "title": "东鹏董事会会议日期公告原文镜像",
+      "url": "https://cfi.cn/p20261016000889.html",
+      "publishedAt": null,
+      "period": "2026-10-16",
+      "location": "拟10月29日审议第三季度业绩",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "租赁本金及关联资本占用完整拆分、H上市募集款使用、当前股本与回购注销；现金管理产品和借款利差不能重复进利润估值。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已替换失效镜像为巨潮原件，核完整现金表；租赁、少数与上市后股本桥仍待核。",
+      "canPublicResearchResolve": true
+    },
+    {
+      "item": "上市后每股资本桥",
+      "reason": "官方H1完整报告已补，仍需9月股本与回购注销交叉",
+      "requiredEvidence": "9月股本及回购注销公告",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/dongpeng.html"
+}

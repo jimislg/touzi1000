@@ -1,0 +1,266 @@
+{
+  "id": "mindray",
+  "name": "迈瑞医疗",
+  "codes": [
+    "300760.SZ"
+  ],
+  "scope": "主平台当前池",
+  "asOf": "2026-10-24",
+  "companyThesisStatus": "watch",
+  "securityReadiness": "not_decision_grade",
+  "researchCompletion": "partial",
+  "researchDeliverableStatus": "delivered_with_named_gaps",
+  "thesis": "医疗设备产品平台、服务与全球销售具优势，国内需求恢复和惠泰回报需验证。",
+  "breakers": "国内连续两期不恢复且海外增长降至个位数，或惠泰投入回报与现金持续不改善；下调正常化增长。（研究建议，未批准）",
+  "reviewBy": "2026-10-31",
+  "reviewTrigger": "新财报/经营公告或上述反证出现即复核；日期为研究安排，非保证披露日",
+  "gradeRecommendation": "B类研究候选",
+  "gradeRationale": "依据10/19逐维底稿及本轮新证据复查；不覆盖应用现有评级或策略",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "聚焦",
+      "verdict": "通过",
+      "support": "设备、耗材与IT共享医院渠道",
+      "counter": "微创并购增加复杂度",
+      "monitor": "分部经营利润及整合",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 2,
+      "name": "文化治理",
+      "verdict": "通过",
+      "support": "研发与未达标激励注销纪律",
+      "counter": "创始人传承和表决权安排复杂",
+      "monitor": "接班及少数权益交易",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 3,
+      "name": "护城河",
+      "verdict": "通过",
+      "support": "研发、装机、临床认证和服务",
+      "counter": "单条产线仍对抗全球专业巨头",
+      "monitor": "试剂复购和高端医院渗透",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 4,
+      "name": "国际化",
+      "verdict": "通过",
+      "support": "国际收入94.71亿、增13.67%",
+      "counter": "汇率、贸易及本地保护",
+      "monitor": "地区收入、利润与回款",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 5,
+      "name": "竞争地位",
+      "verdict": "通过",
+      "support": "多产品组合形成整体方案优势",
+      "counter": "罗氏、雅培、GE等仍强",
+      "monitor": "份额与系统订单毛利",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 6,
+      "name": "需求持续性",
+      "verdict": "存疑",
+      "support": "国内下降已明显收窄",
+      "counter": "国内H1仍-1.61%，生命支持/影像需求恢复不齐",
+      "monitor": "国内收入利润连续修复",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 7,
+      "name": "财务质量",
+      "verdict": "通过",
+      "support": "OCF+24.35%，净现金和费用化研发",
+      "counter": "并购商誉及少数经济权益降低可分现金",
+      "monitor": "归母现金与商誉ROIC",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    },
+    {
+      "id": 8,
+      "name": "资本配置",
+      "verdict": "存疑",
+      "support": "主业研发与耗材有再投资逻辑",
+      "counter": "惠泰高价并购与少数控制结构增量ROIC未证",
+      "monitor": "收购后归母收益/投入",
+      "basis": "10/19逐维底稿；本轮依据下文新证据复查，非独立财务审计"
+    }
+  ],
+  "businessAxes": [
+    "- 需求轴：老龄化和医疗可及性长期向上，国内医院预算和采购周期压制短期订单。",
+    "- 利润池轴：国产高端替代与海外份额提升有利，集采、控费和国际巨头竞争限制利润率。",
+    "- 范式风险：中：设备+IT+AI增强系统粘性，也需要持续研发；软件叙事不能提前提高终值倍数。"
+  ],
+  "metrics": [
+    {
+      "id": "revenueYi",
+      "value": 177.469696,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "mindray-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "parentProfitYi",
+      "value": 47.967918,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "mindray-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "adjustedProfitYi",
+      "value": 47.847977,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "mindray-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "ocfYi",
+      "value": 48.76986709,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "mindray-latest",
+      "label": "fact_source_reported"
+    },
+    {
+      "id": "cashCapexYi",
+      "value": 10.63901948,
+      "unit": "CNY亿元",
+      "period": "2026H1",
+      "sourceId": "mindray-latest",
+      "label": "fact_source_reported"
+    }
+  ],
+  "cashBridge": {
+    "period": "2026H1",
+    "unit": "CNY亿元",
+    "ocf": 48.76986709,
+    "totalCapex": 10.63901948,
+    "conservativeResidual": 38.13084761,
+    "maintenanceCapex": null,
+    "growthCapex": null,
+    "parentDistributableCash": null,
+    "basis": "OCF减所有已披露现金CAPEX；非归母FCFE，租赁/NCI/融资利息须另核。撤回无披露依据的维护/增长精确拆分。"
+  },
+  "valuation": {
+    "type": "prior_scenario_under_review",
+    "formalAllowed": false,
+    "priorAsOf": "2026-10-19",
+    "priorInputs": {
+      "type": "eps",
+      "inputCurrency": "CNY",
+      "cases": {
+        "bear": {
+          "eps0": 5.8,
+          "g1": 0.01,
+          "g2": 0.02,
+          "payout": 0.5,
+          "exit_pe": 16
+        },
+        "base": {
+          "eps0": 6.5,
+          "g1": 0.07,
+          "g2": 0.05,
+          "payout": 0.6,
+          "exit_pe": 20
+        },
+        "bull": {
+          "eps0": 7,
+          "g1": 0.11,
+          "g2": 0.07,
+          "payout": 0.65,
+          "exit_pe": 25
+        }
+      },
+      "formalAllowed": false,
+      "assumptionBasis": "基准国内0%—3%、海外10%—12%形成收入6%—7%，利润率小幅正常化使EPS7%，后段5%；悲观国内停滞/海外低增且毛利受压，EPS1%；乐观国内恢复5%—7%、海外15%且高端耗材改善结构，EPS11%/7%。60%派息要由扣除少数、并购和增长CAPEX后的现金支持。"
+    },
+    "newEvidenceImpact": "H1 OCF48.770减CAPEX10.639=38.131亿元，低于归母47.968亿元；不以经调利润直接等同所有者现金。国际收入增长不能抵消国内采购疲软而不检查渠道收款。",
+    "basis": "保留旧三情景供逐项复核，不能当本轮认证EPS、共识或正式价格。新证据未闭合前不给精确新买点。"
+  },
+  "q3Review": {
+    "kind": "not_retrieved",
+    "status": "截至本轮未取得Q3正文",
+    "asOf": "2026-10-24",
+    "coverage": "官方10月公告查询已返回",
+    "valuationImpact": "H1 OCF48.770减CAPEX10.639=38.131亿元，低于归母47.968亿元；不以经调利润直接等同所有者现金。国际收入增长不能抵消国内采购疲软而不检查渠道收款。",
+    "futureEvent": null
+  },
+  "monitoring": [
+    {
+      "metric": "经营、现金与资本反证",
+      "baseline": "2026H1",
+      "trigger": "国内连续两期不恢复且海外增长降至个位数，或惠泰投入回报与现金持续不改善；下调正常化增长。",
+      "origin": "研究建议，未批准",
+      "nextSource": "下一份官方财报、经营数据及资本公告"
+    }
+  ],
+  "oldConclusionChanges": [
+    {
+      "old": "旧H1财务/未拆分维护CAPEX/旧增长与派息假设",
+      "new": "H1 OCF48.770减CAPEX10.639=38.131亿元，低于归母47.968亿元；不以经调利润直接等同所有者现金。国际收入增长不能抵消国内采购疲软而不检查渠道收款。",
+      "reason": "已复核H1现金流与股本、区分惠泰少数权益和并购支出；未获得Q3正文，不把预约或预告当实绩。",
+      "sourceIds": [
+        "mindray-latest"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "mindray-latest",
+      "title": "2026半年度报告，PDF 16、131—133",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225529856.PDF",
+      "publishedAt": "2026-08-29",
+      "period": "2026H1",
+      "readStatus": "read",
+      "scope": "selected_pages",
+      "type": "official_filing",
+      "location": "16、131—133"
+    },
+    {
+      "id": "mindray-prior-1",
+      "title": "公司一图读懂2026半年报（公司材料镜像）",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12573676&stockid=300760",
+      "publishedAt": null,
+      "period": "2026H1",
+      "location": "国内-1.61%及股息",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    },
+    {
+      "id": "mindray-prior-2",
+      "title": "控股股东部分股份质押公告",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12637057&stockid=300760",
+      "publishedAt": null,
+      "period": "2026-10-12",
+      "location": "公告正文",
+      "readStatus": "prior_read",
+      "type": "prior_research_reference",
+      "scope": "10/19底稿；未声称本轮逐页重读"
+    }
+  ],
+  "completedItems": [
+    "逐公司核对披露范围与报告身份",
+    "补持有逻辑、证伪与复核安排",
+    "重列总现金CAPEX及估值影响",
+    "撤回无披露支持的维护CAPEX精确拆分"
+  ],
+  "remainingGaps": [
+    {
+      "item": "补惠泰等少数权益现金归属、分部增量ROIC和三年资本计划；若国内两期不恢复而海外增速降至个位数，正常化增长降档。",
+      "reason": "未取得足够证据闭合；原缺项经本轮定位后仍有未公开/待独立核部分",
+      "requiredEvidence": "已复核H1现金流与股本、区分惠泰少数权益和并购支出；未获得Q3正文，不把预约或预告当实绩。",
+      "canPublicResearchResolve": true
+    }
+  ],
+  "accountDataTouched": false,
+  "approvalCreated": false,
+  "reportPath": "/research/mindray.html"
+}
