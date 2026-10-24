@@ -23,7 +23,7 @@
 
 node scripts/build-all-pool-repricing.js 本地可重复生成，输入均跟踪，不依赖私人或忽略文件。
 node scripts/test-offline.js --with-http 全部17入口（离线16+HTTP1）。
-node investment-platform/test-repricing.js 598项：独立数学、完整范围、来源、价线约束、负现金、审批隔离与字节可复现。
+node investment-platform/test-repricing.js 600项：独立数学、完整范围、来源、价线约束、负现金、审批隔离与同运行时逐字节复现、跨运行时数值严格容差及可见价格完全一致。
 node investment-platform/test-repricing-browser.js 17项：本机独立HTML、A/H链接、37行确认导出、禁用存储、手机布局，无外部或账户请求。
 原平台14项及上轮研究12项浏览器检查通过。原文日志与截图在delivery-tests/repricing，桌面首页、清单、手机与有限路权页面人工查看。
 manifest对原始交付共同基线a13a049逐文件及SHA-256勾稽；本轮回滚点单独保留ff4c630。最终同提交GitHub CI作为验收证据。

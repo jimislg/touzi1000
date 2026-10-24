@@ -595,5 +595,7 @@ PASS all security-to-issuer detail anchors resolve
 PASS property exit yield is displayed as percent
 PASS negative cash budgets do not display an absurd terminal percentage
 PASS confirmation export cannot become execution approval
-PASS public model inputs rebuild all price outputs byte-for-byte
-All-pool repricing acceptance: 598 checks passed; no production/account/approval writes.
+PASS cross-runtime model outputs preserve numeric values within machine precision
+PASS cross-runtime investor-visible prices and report text are identical
+PASS repeated builds in the same runtime are byte-for-byte reproducible
+All-pool repricing acceptance: 600 checks passed; no production/account/approval writes.

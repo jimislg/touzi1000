@@ -25,7 +25,7 @@
     "researchEvidenceChecks": 238,
     "previousRawOutput": "delivery-tests/research",
     "repricingBrowserChecks": 17,
-    "repricingChecks": 598
+    "repricingChecks": 600
   },
   "files": [
     {
@@ -66,7 +66,7 @@
       "productionDataWritten": false,
       "action": "add",
       "intent": "全池新估值买点交付、验收、回滚和未发布边界",
-      "sha256": "3405a49dcaf950229e3cfcd70280cedc7ee4e00e857c522fe8269dc9b87ec916"
+      "sha256": "d982925399ab884bf2abf16c4107bdc742863850514ee3a537e8b3ff9de73837"
     },
     {
       "path": "RESEARCH_DELIVERY.md",
@@ -354,7 +354,7 @@
       "productionDataWritten": false,
       "action": "add",
       "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "79b3d43707ab05bfaf8057218be0f77c58c7238b88974c3ba97e1d2190110446"
+      "sha256": "e96ccca6d9d83e105d313b7df162b5b73c5cb8d2ee886add8dce145509d638e7"
     },
     {
       "path": "delivery-tests/repricing/offline/invest-miniprogram_scripts_sync-core.js.log",
@@ -442,7 +442,7 @@
       "productionDataWritten": false,
       "action": "add",
       "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "c74af59197392e83647da5e28e839b4e9168928d15e67b603f2673a916fb5b09"
+      "sha256": "89d341af2a3424bfd7ccca8c99f309fc0d5ed34b213625f348d34551f3789451"
     },
     {
       "path": "delivery-tests/repricing/offline/investment-platform_test-research-evidence.js.log",
@@ -506,7 +506,7 @@
       "productionDataWritten": false,
       "action": "add",
       "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "3278993aefa1af08f62fa3d2bb9a80459fd5bdaec639f350724f35ba2dd93060"
+      "sha256": "5cb71e13d6089a0c16f22385b1ceaa68149f2d52951c2de5de74a03aecf7533a"
     },
     {
       "path": "delivery-tests/repricing/repricing-desktop.png",
@@ -850,7 +850,7 @@
       "productionDataWritten": false,
       "action": "add",
       "intent": "全池新价格确认稿及独立计算模块；本机研究意见不授执行批准",
-      "sha256": "c0aa9505c410cd8ef3b8af0a675be71395407fe9b8753d829046f6574297f4a7"
+      "sha256": "7720284aa3a1e1766370421c91b461da2be2dd83d5b86d407a5f76333f71affa"
     },
     {
       "path": "investment-platform/public/repricing/model-core.js",
@@ -866,7 +866,7 @@
       "productionDataWritten": false,
       "action": "add",
       "intent": "全池新价格确认稿及独立计算模块；本机研究意见不授执行批准",
-      "sha256": "1178fb60801e943982f0f4689c4325979615063f7a3aabc1dfa8a794cec2daa1"
+      "sha256": "9fbe448b485960370a1212abddbdb221cb386f8e6b2ec2360ce0623434e0d7fb"
     },
     {
       "path": "investment-platform/public/research-supplement.json",
@@ -1218,7 +1218,7 @@
       "productionDataWritten": false,
       "action": "add",
       "intent": "验证新模型数学、全量价格覆盖、压力/税费、确认导出及手机布局",
-      "sha256": "c533294cb60440319796a0068fb478e4a4651f7647a4d76202588caf342ca9db"
+      "sha256": "75102962fa7cef50ae7197513ad9cde2e52f5a0020a393e2dcbe90d64236bd86"
     },
     {
       "path": "investment-platform/test-research-browser.js",
@@ -1610,7 +1610,7 @@
       "productionDataWritten": false,
       "action": "add",
       "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "1178fb60801e943982f0f4689c4325979615063f7a3aabc1dfa8a794cec2daa1"
+      "sha256": "9fbe448b485960370a1212abddbdb221cb386f8e6b2ec2360ce0623434e0d7fb"
     },
     {
       "path": "research/20261024-all-pool-repricing/security-catalog.json",
@@ -2226,7 +2226,7 @@
       "productionDataWritten": false,
       "action": "add",
       "intent": "仅读公共输入生成34家新模型定价和37证券确认清单；不写账户",
-      "sha256": "07583341b7cec2eff4be5ce1dc829d956870ce435f5677139f6c887c3ba075de"
+      "sha256": "36ce4bf36c4d8ec3c926924afde98f0aa7b241b5d711647271458240c9e8e374"
     },
     {
       "path": "scripts/build-research-completion.py",
