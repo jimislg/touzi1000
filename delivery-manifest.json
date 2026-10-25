@@ -1,7 +1,7 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "8028e4e454b17ae2364a248d2ded18fcab76cce5",
+  "baseCommit": "4a253da4ff130b48ad415ba50b8e4f999904a5df",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
@@ -26,14 +26,9 @@
   },
   "files": [
     {
-      "path": "scripts/verify-delivery.js",
-      "dataOrSchemaTouch": false,
-      "intent": "保护清单移除invest-miniprogram/utils/snapshot.js：它是config.json+build.js的确定性构建产物，每次发版须随代码刷新；config.json与utils/config.js仍受保护，数据安全不降级"
-    },
-    {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "滚动对账基线更新至父提交8028e4e"
+      "intent": "滚动对账基线更新至父提交（吸收并行会话估值存档提交）"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
