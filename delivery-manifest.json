@@ -74,6 +74,11 @@
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
       "intent": "滚动对账基线推进至974a9a6（吸收并行会话泡泡玛特估值修正提交）"
+    },
+    {
+      "path": "invest-miniprogram/utils/snapshot.js",
+      "dataOrSchemaTouch": false,
+      "intent": "发版刷新小程序离线快照（构建产物；与b9f0758界面改动同版本，快照时间2026-10-25T09:08Z）"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
