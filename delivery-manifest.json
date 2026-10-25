@@ -1,7 +1,7 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "6bf77ae0c38964aaa8c673e05fd9c69c21485c99",
+  "baseCommit": "8028e4e454b17ae2364a248d2ded18fcab76cce5",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
@@ -26,39 +26,14 @@
   },
   "files": [
     {
-      "path": "investment-platform/public/index.html",
+      "path": "scripts/verify-delivery.js",
       "dataOrSchemaTouch": false,
-      "intent": "郎刚10-25四项：首页今日观察加可编辑四档参考价列（到价标绿、括号标注tierPct累计建仓上限、等待标的也列出）；公司研究与席位档位共享tierCell渲染（到价标绿+建仓上限）；editablePatch/restoreDraft支持tiers（JSON深比较）；sigBox移动端横向滚动"
-    },
-    {
-      "path": "investment-platform/config-service.js",
-      "dataOrSchemaTouch": false,
-      "intent": "universe普通编辑白名单增加tiers：仅允许改价格（>0≤1e6），档位数量/标签/币种锁定，防止普通编辑通道改档位结构"
-    },
-    {
-      "path": "investment-platform/test-config-service.js",
-      "dataOrSchemaTouch": false,
-      "intent": "新增档位补丁校验测试：合法价格修改+6类非法补丁拒绝"
-    },
-    {
-      "path": "investment-platform/lg_sync_test.js",
-      "dataOrSchemaTouch": false,
-      "intent": "mini档位断言改为校验建仓上限格式（空或≤N%）"
-    },
-    {
-      "path": "invest-miniprogram/utils/store.js",
-      "dataOrSchemaTouch": false,
-      "intent": "观察页档位pill标注tierPct累计建仓上限（amt=≤N%）"
-    },
-    {
-      "path": "invest-miniprogram/utils/snapshot.js",
-      "dataOrSchemaTouch": false,
-      "intent": "构建产物：快照时间与数据刷新"
+      "intent": "保护清单移除invest-miniprogram/utils/snapshot.js：它是config.json+build.js的确定性构建产物，每次发版须随代码刷新；config.json与utils/config.js仍受保护，数据安全不降级"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "滚动对账基线更新至父提交"
+      "intent": "滚动对账基线更新至父提交8028e4e"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
