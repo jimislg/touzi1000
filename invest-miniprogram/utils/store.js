@@ -362,7 +362,7 @@ function watchModel (expanded, filter) {
     const dayPct = qq && qq.pct != null ? qq.pct : null
     const tiers = (u.tiers || []).map((t, i) => {
       const pct = (u.tierPct || [])[i]
-      const amt = '' // 历史价格档不推导收益或批准金额
+      const amt = pct != null ? '≤' + pct + '%' : '' // 郎刚10-25：四档价标注累计建仓上限，方便对照
       const unit = t.cur === 'HKD' ? '港元' : t.cur === 'CNY' ? '元' : ''
       let cls = 'wait', mark = ''
       if (px != null) {

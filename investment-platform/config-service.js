@@ -41,7 +41,7 @@ function mergePatch (base, patch) {
   const scalars = ['investable', 'cash', 'cashYield', 'annualContribution']
   scalars.forEach(k => { numeric(patch, k, k === 'cashYield' ? 100 : 1e12); if (patch[k] !== undefined) out[k] = patch[k] })
   if (out.targetCapital === 0) throw failure(400, '目标本金必须大于零')
-  for (const [key, fields] of [['holdings', ['shares', 'cost', 'dps', 'buyDate', 'dpsManual']], ['universe', ['buyPrice', 'plan', 'bizTag']]]) {
+  for (const [key, fields] of [['holdings', ['shares', 'cost', 'dps', 'buyDate', 'dpsManual']], ['universe', ['buyPrice', 'plan', 'bizTag', 'tiers']]]) {
     if (patch[key] === undefined) continue
     if (!Array.isArray(patch[key])) throw failure(400, key + '必须是数组')
     const seen = new Set()
@@ -60,6 +60,18 @@ function mergePatch (base, patch) {
           if (k === 'shares' && !Number.isInteger(row[k])) throw failure(400, '股数必须是整数')
         } else if (k === 'dpsManual') {
           if (typeof row[k] !== 'boolean') throw failure(400, '手工股息标识必须是布尔值')
+        } else if (k === 'tiers') {
+          // 郎刚10-25：四档参考价可在首页直接修改；普通编辑通道只允许改价格，
+          // 档位结构（数量/标签/币种）必须与现有一致，改结构走数据治理流程。
+          if (!Array.isArray(row[k]) || row[k].length !== (target.tiers || []).length) throw failure(400, '档位数量必须与现有档位一致')
+          row[k].forEach((t, ti) => {
+            const base = (target.tiers || [])[ti] || {}
+            if (!t || typeof t !== 'object') throw failure(400, '档位结构不合法')
+            if (t.label !== base.label || t.cur !== base.cur) throw failure(400, '档位标签与币种不可通过普通编辑修改')
+            if (typeof t.price !== 'number' || !Number.isFinite(t.price) || t.price <= 0 || t.price > 1e6) throw failure(400, '档位价格必须是0到1e6之间的数值')
+          })
+          target[k] = row[k]
+          continue
         } else if (typeof row[k] !== 'string' || row[k].length > (k === 'bizTag' ? 80 : 5000)) throw failure(400, k + '文本不合法')
         if (k === 'buyDate' && row[k] && (!/^\d{4}-\d{2}-\d{2}$/.test(row[k]) || !Number.isFinite(Date.parse(row[k])) || new Date(row[k]).toISOString().slice(0, 10) !== row[k])) throw failure(400, '买入日不合法')
         target[k] = row[k]

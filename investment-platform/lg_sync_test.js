@@ -44,7 +44,7 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  check('mini shows maintained tiers without research pills',mini.watchModel().rows.length===2&&mini.watchModel().rows.every(x=>!x.research)&&mini.watchModel().rows[0].tiers.length===3)
  check('mini uses real missing P/L instead of zero',mini.positionsModel().costTotal==='—'&&mini.indexModel().pl==='—')
  check('mini missing quote is not waiting',(()=>{delete mini.state.Q.qa;delete mini.state.CFG.universe[0].px;const row=mini.watchModel().rows.find(x=>x.code==='600000.SH');return row.status==='报价缺失'&&!row.waiting})())
- check('mini historical tiers do not synthesize amounts',mini.watchModel().rows.every(x=>x.tiers.every(t=>t.amt==='')))
+ check('mini tier pills show maintained position caps only',mini.watchModel().rows.every(x=>x.tiers.every(t=>t.amt===''||/^≤[0-9.]+%$/.test(t.amt))))
  // Quote refresh and external changes remain atomic and draft protected (detailed races in test-refresh).
  run('dirty=false');state.cfg.investable=8000000;state.cfg._revision='b'.repeat(64);await run('refresh(false)');check('external config follows with matching complete quotes',run('CFG.investable')===8000000)
  run('CFG.investable=7999999;markDirty()');state.cfg.investable=7000000;await run('refresh(false)');check('unsaved draft protected from automatic follow',run('CFG.investable')===7999999)

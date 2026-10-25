@@ -62,6 +62,22 @@ function harness () {
   }
   const zero = mergePatch(initial, { holdings: [{ code: '600000.SH', shares: 0, cost: 0, dps: 0 }], universe: [{ code: '600000.SH', buyPrice: null }] })
   check('合法零值与待定触发价仍能保存', zero.holdings[0].shares === 0 && zero.universe[0].buyPrice === null)
+  // 郎刚10-25：四档参考价可在首页修改（仅价格，结构与标签币种锁定）
+  const withTiers = { ...clone(initial), universe: [{ code: '600000.SH', buyPrice: 9, tiers: [{ label: 'H10', cur: 'CNY', price: 10 }, { label: 'H12', cur: 'CNY', price: 8 }] }] }
+  const tierOk = mergePatch(withTiers, { universe: [{ code: '600000.SH', tiers: [{ label: 'H10', cur: 'CNY', price: 10.5 }, { label: 'H12', cur: 'CNY', price: 8 }] }] })
+  check('档位价格修改被接受且只改价格', tierOk.universe[0].tiers[0].price === 10.5 && tierOk.universe[0].tiers[1].price === 8 && tierOk.universe[0].tiers[0].label === 'H10')
+  for (const bad of [
+    { tiers: [{ label: 'H10', cur: 'CNY', price: 10.5 }] },
+    { tiers: [{ label: '改名', cur: 'CNY', price: 10.5 }, { label: 'H12', cur: 'CNY', price: 8 }] },
+    { tiers: [{ label: 'H10', cur: 'HKD', price: 10.5 }, { label: 'H12', cur: 'CNY', price: 8 }] },
+    { tiers: [{ label: 'H10', cur: 'CNY', price: 0 }, { label: 'H12', cur: 'CNY', price: 8 }] },
+    { tiers: [{ label: 'H10', cur: 'CNY', price: -1 }, { label: 'H12', cur: 'CNY', price: 8 }] },
+    { tiers: [{ label: 'H10', cur: 'CNY', price: '10.5' }, { label: 'H12', cur: 'CNY', price: 8 }] }
+  ]) {
+    let rejected = false
+    try { mergePatch(withTiers, { universe: [{ code: '600000.SH', ...bad }] }) } catch (e) { rejected = e.status === 400 }
+    check('拒绝非法档位补丁 ' + JSON.stringify(bad), rejected)
+  }
   let required = false
   try { await harness().service.save({}, undefined) } catch (e) { required = e.status === 428 }
   check('未带版本的写入被拒绝', required)
