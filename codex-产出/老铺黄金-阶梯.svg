@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="340" viewBox="0 0 900 340" font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect width="900" height="340" fill="#ffffff"/>
+<text x="80" y="32" font-size="17" font-weight="700" fill="#111827">老铺黄金 06181.HK · 买入价阶梯 · 2026-10-25</text>
+<text x="80" y="54" font-size="11.5" fill="#6b7280">大号数字＝股价（HKD）；下方为 5 年加权期望 IRR 与正常化 PE（净利 40 亿 RMB，非 2026E 的 68 亿）</text>
+<rect x="80.0" y="78" width="325.11111111111114" height="150" fill="#ecfdf5"/>
+<rect x="533.8888888888889" y="78" width="306.1111111111111" height="150" fill="#f5f5f4"/>
+<text x="242.55555555555557" y="248" font-size="11.5" font-weight="700" fill="#047857" text-anchor="middle" letter-spacing="2">可 买 区</text>
+<text x="623.8888888888889" y="248" font-size="11.5" font-weight="700" fill="#78716c" text-anchor="middle" letter-spacing="2">不 买</text>
+<line x1="80.0" y1="214" x2="840.0" y2="214" stroke="#9ca3af" stroke-width="1.5"/>
+<line x1="80.0" y1="214" x2="80.0" y2="220" stroke="#9ca3af"/>
+<text x="80.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">160</text>
+<line x1="175.0" y1="214" x2="175.0" y2="220" stroke="#9ca3af"/>
+<text x="175.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">182</text>
+<line x1="270.0" y1="214" x2="270.0" y2="220" stroke="#9ca3af"/>
+<text x="270.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">205</text>
+<line x1="365.0" y1="214" x2="365.0" y2="220" stroke="#9ca3af"/>
+<text x="365.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">228</text>
+<line x1="460.0" y1="214" x2="460.0" y2="220" stroke="#9ca3af"/>
+<text x="460.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">250</text>
+<line x1="555.0" y1="214" x2="555.0" y2="220" stroke="#9ca3af"/>
+<text x="555.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">272</text>
+<line x1="650.0" y1="214" x2="650.0" y2="220" stroke="#9ca3af"/>
+<text x="650.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">295</text>
+<line x1="745.0" y1="214" x2="745.0" y2="220" stroke="#9ca3af"/>
+<text x="745.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">318</text>
+<line x1="840.0" y1="214" x2="840.0" y2="220" stroke="#9ca3af"/>
+<text x="840.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">340</text>
+<line x1="229.4666666666667" y1="214" x2="229.4666666666667" y2="160" stroke="#0f766e" stroke-width="1.5"/>
+<circle cx="229.4666666666667" cy="214" r="4" fill="#0f766e" stroke="#0f766e" stroke-width="2"/>
+<text x="229.4666666666667" y="96" font-size="12" font-weight="700" fill="#0f766e" text-anchor="middle">重仓线</text>
+<text x="229.4666666666667" y="118" font-size="16" font-weight="700" fill="#0f766e" text-anchor="middle">195.4</text>
+<text x="229.4666666666667" y="136" font-size="10.5" fill="#0f766e" text-anchor="middle">18.0% · PE 7.6</text>
+<text x="229.4666666666667" y="150" font-size="9.5" fill="#9ca3af" text-anchor="middle">(退出PE 13×)</text>
+<line x1="329.5333333333333" y1="214" x2="329.5333333333333" y2="160" stroke="#15803d" stroke-width="1.5"/>
+<circle cx="329.5333333333333" cy="214" r="4" fill="#15803d" stroke="#15803d" stroke-width="2"/>
+<text x="329.5333333333333" y="96" font-size="12" font-weight="700" fill="#15803d" text-anchor="middle">强买线</text>
+<text x="329.5333333333333" y="118" font-size="16" font-weight="700" fill="#15803d" text-anchor="middle">219.1</text>
+<text x="329.5333333333333" y="136" font-size="10.5" fill="#15803d" text-anchor="middle">15.0% · PE 8.5</text>
+<text x="329.5333333333333" y="150" font-size="9.5" fill="#9ca3af" text-anchor="middle">(退出PE 13×)</text>
+<line x1="405.11111111111114" y1="214" x2="405.11111111111114" y2="160" stroke="#2563eb" stroke-width="1.5"/>
+<circle cx="405.11111111111114" cy="214" r="4" fill="#2563eb" stroke="#2563eb" stroke-width="2"/>
+<text x="405.11111111111114" y="96" font-size="12" font-weight="700" fill="#2563eb" text-anchor="middle">买入线</text>
+<text x="405.11111111111114" y="118" font-size="16" font-weight="700" fill="#2563eb" text-anchor="middle">237</text>
+<text x="405.11111111111114" y="136" font-size="10.5" fill="#2563eb" text-anchor="middle">13.0% · PE 9.2</text>
+<text x="405.11111111111114" y="150" font-size="9.5" fill="#9ca3af" text-anchor="middle">(下行权重55%)</text>
+<line x1="533.8888888888889" y1="214" x2="533.8888888888889" y2="160" stroke="#a16207" stroke-width="1.5"/>
+<circle cx="533.8888888888889" cy="214" r="4" fill="#a16207" stroke="#a16207" stroke-width="2"/>
+<text x="533.8888888888889" y="96" font-size="12" font-weight="700" fill="#a16207" text-anchor="middle">及格线</text>
+<text x="533.8888888888889" y="118" font-size="16" font-weight="700" fill="#a16207" text-anchor="middle">267.5</text>
+<text x="533.8888888888889" y="136" font-size="10.5" fill="#a16207" text-anchor="middle">10.0% · PE 10.4</text>
+<text x="533.8888888888889" y="150" font-size="9.5" fill="#9ca3af" text-anchor="middle"></text>
+<line x1="606.088888888889" y1="214" x2="606.088888888889" y2="160" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="4,3"/>
+<circle cx="606.088888888889" cy="214" r="5.5" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+<text x="606.088888888889" y="96" font-size="12" font-weight="700" fill="#dc2626" text-anchor="middle">现价</text>
+<text x="606.088888888889" y="118" font-size="16" font-weight="700" fill="#dc2626" text-anchor="middle">284.6</text>
+<text x="606.088888888889" y="136" font-size="10.5" fill="#dc2626" text-anchor="middle">8.51% · PE 10.5</text>
+<text x="606.088888888889" y="150" font-size="9.5" fill="#9ca3af" text-anchor="middle"></text>
+<text x="606.088888888889" y="268" font-size="11.5" font-weight="700" fill="#dc2626" text-anchor="middle">现价只值 8.51%：不买</text>
+<text x="606.088888888889" y="284" font-size="10.5" fill="#dc2626" text-anchor="middle">（正常化 PE 10.5×）</text>
+<text x="80" y="310" font-size="11.5" fill="#4b5563">现价 284.60 高 20%：Q1 净利 37 亿 vs Q2 净利 5.7 亿（环比 −85%），PE 6.4 算的是那个不会再来的季度。</text>
+<text x="80" y="328" font-size="11.5" fill="#4b5563">资产负债表是杠杆做多黄金：存货 190 亿（占总资产 80%）+ 借款 67 亿 = 净负债 40 亿。</text>
+</svg>
