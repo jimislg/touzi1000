@@ -1,9 +1,9 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "717c3b9",
+  "baseCommit": "014dd77",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
-  "productionDataWritten": true,
+  "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
   "releasePerformed": false,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
@@ -26,24 +26,14 @@
   },
   "files": [
     {
-      "path": "investment-platform/config.json",
-      "dataOrSchemaTouch": true,
-      "intent": "郎刚10-25明确股票调整：①泡泡玛特tiers由条件单三档改为四档税后口径（H10 146.61/H12 124.09/H15 97.42/H17.46 80.46），buyPrice 140→124.09（H12观察线），tierPct [7.1,8.8,10.1,12]；②新增江南布衣03306.HK入池（B类，四档25.01/21.67/17.67/15.08，tierPct [2,5,5,8]，buyPrice=H12=21.67仅观察线，审计完成前不给正式下单价）"
-    },
-    {
-      "path": "investment-hq/data/stocks/popmart.json",
-      "dataOrSchemaTouch": true,
-      "intent": "泡泡玛特研究库同步：prices改税后四档+customTiers四档+note记录条件单替代与仓位纪律"
-    },
-    {
-      "path": "investment-hq/data/stocks/jiangnan.json",
-      "dataOrSchemaTouch": true,
-      "intent": "江南布衣研究库新建：B类、四档、buyAdvice、审计要点（净利勾稽修正+税前税后口径修正）"
+      "path": "scripts/verify-delivery.js",
+      "dataOrSchemaTouch": false,
+      "intent": "受保护数据变更通道：config.json/investment-hq等允许变更但须manifest显式dataOrSchemaTouch声明（郎刚10-25股票调整授权），未声明仍红灯；productionDataWritten须与声明一致"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至717c3b9"
+      "intent": "基线推进至014dd77"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
