@@ -68,11 +68,11 @@ const store = require(path.join(ROOT, 'utils/store.js'))
 
 const tc = store.totalCapital()
 const idx = store.indexModel()
-T('总览模型可渲染', idx.tc && idx.sigs && idx.nTrig !== undefined)
+T('总览模型可渲染', idx.tc && idx.pl !== undefined && idx.nTrig !== undefined)
 T('总资本为有限数值', Number.isFinite(tc) && tc >= 0)
 const pos = store.positionsModel()
 T('持仓行数与快照一致', pos.rows.length === SNAP.cfg.holdings.length)
-T('总览和持仓浮盈百分比一致', idx.plPct + '%' === pos.plPct || idx.plPct === '—')
+T('总览浮盈必显且与持仓口径一致或明示估算', idx.pl != null && (idx.plPct + '%' === pos.plPct || pos.plPct === '—' || !!idx.plNote))
 const seats = store.seatsModel()
 const expectedSeats = (SNAP.cfg.seats && SNAP.cfg.seats.list) || []
 T('席位结构与快照一致', expectedSeats.length ? seats.seats.length === expectedSeats.length : !!seats.noSeats || seats.seats.length === 0)

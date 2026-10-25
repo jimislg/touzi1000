@@ -17,9 +17,8 @@
   font-size: 21rpx; color: #93a0b4;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.sigrow { padding: 14rpx 0; border-bottom: 1rpx solid #1d2632; }
-.sigrow:last-child { border-bottom: none; }
-.sigrow.dim { opacity: 0.42; }
-.sigrow.dim .badge { text-decoration: line-through; }
-.sigrow .note { font-size: 22rpx; color: #93a0b4; margin-top: 6rpx; }
+/* 首页观察清单（原第四页签内容移入首页，郎刚10-25晚） */
+.pills { margin-top: 10rpx; }
+.wrow { padding: 14rpx 0; border-bottom: 1rpx solid #1d2632; }
+.wrow:last-child { border-bottom: none; }
 .notecard { font-size: 23rpx; color: #93a0b4; }

@@ -61,6 +61,10 @@ function totalCapital () {
   return mv != null && Number.isFinite(cash) ? cash + mv : null
 }
 function curOf (u) { return u.code.endsWith('.HK') ? '港元' : '元' }
+function tierAmt (C, pct) { // 郎刚10-25晚：累计建仓上限一律显示金额（按规划本金折算），不再显示百分比
+  const TC = CORE.planningCapital(C)
+  return pct != null && TC != null ? '≤' + fmt(pct / 100 * TC / 1e4, 1) + '万' : ''
+}
 function sumComplete (values) { return values.every(v => Number.isFinite(v)) ? values.reduce((s, v) => s + v, 0) : null }
 function limitOf (h) { return CORE.positionLimit(state.CFG, h.code) }
 function quoteText (u) {
@@ -206,7 +210,16 @@ function indexModel () {
   const TC = totalCapital(), inv = invMV()
   const investable = C.investable != null ? C.investable : C.cash || 0
   const costAll = sumComplete(C.holdings.map(h => { const x = hLive(h); return x ? x.costCNY : null }))
-  const pl = inv != null && costAll != null ? inv - costAll : null
+  // 郎刚10-25晚：浮盈必须始终展示。港股历史人民币成本未核时，按现汇率折算上市币种成本估算，并明示口径。
+  const costEst = sumComplete(C.holdings.map(h => {
+    const x = hLive(h)
+    if (x && x.costCNY != null) return x.costCNY
+    const hk = h.market === 'HK' || /\.HK$/.test(h.code || ''), rate = hk ? hkd() : 1
+    return Number.isFinite(rate) && rate > 0 && Number.isFinite(h.shares) && h.cost != null && h.cost >= 0 ? h.shares * h.cost * rate : null
+  }))
+  const plVerified = inv != null && costAll != null
+  const pl = plVerified ? inv - costAll : (inv != null && costEst != null ? inv - costEst : null)
+  const plBase = plVerified ? costAll : costEst
   const curDiv = sumComplete(C.holdings.map(divTaxOf))
   const grossDiv = CORE.dividendSummary(C,state.Q,{gross:true}).value
   const ledger = CORE.ledgerSummary(C)
@@ -218,20 +231,18 @@ function indexModel () {
     tc: fmt(TC == null ? null : TC / 1e4, 1),
     inv: fmt(investable / 1e4, 1),
     mv: fmt(inv == null ? null : inv / 1e4, 1),
-    pl: fmt(pl == null ? null : pl / 1e4, 2), plPct: costAll > 0 && inv != null ? ((inv / costAll - 1) * 100).toFixed(2) : '—', plCls: clsN(pl),
+    pl: fmt(pl == null ? null : pl / 1e4, 2),
+    plPct: plBase > 0 && inv != null ? ((inv / plBase - 1) * 100).toFixed(2) : '—',
+    plCls: clsN(pl),
+    plNote: !plVerified && pl != null ? '港股历史人民币成本未核，浮盈按现汇率折算上市币种成本估算' : '',
     ledgerLabel: ledger.label, ledgerGaps: (ledger.blockers || []).join('；'),
     curDiv: fmt(curDiv == null ? null : curDiv / 1e4, 2),
     grossDiv: fmt(grossDiv == null ? null : grossDiv / 1e4, 2),
     dividendCoverage: grossDiv == null ? '资料待补' : fmt(grossDiv / 1000000 * 100, 1) + '%（税前普通股息参考，未审计可持续性）',
-    nBlocked: act.filter(r => r.blocked).length,
     nOver: act.filter(r => r.pri === 0).length, overNames: names(0),
     nTrig: act.filter(r => r.trig).length, trigNames: act.filter(r => r.trig).map(r => r.name).join('、') || '—',
     nNear: act.filter(r => r.near).length, nearNames: act.filter(r => r.near).map(r => r.name).join('、') || '—',
-    deployPct: TC > 0 && inv != null ? (inv / TC * 100).toFixed(1) : '—', uninvested: fmt(investable / 1e4, 0),
-    emptyText: act.length ? '' : (CORE.dataQuality(C, state.Q).covered < CORE.dataQuality(C, state.Q).total ? '报价不完整，暂不能确认是否有行动。' : '当前未出现价格或仓位提醒；请在公司页核对研究与预算状态。'),
-    /* 已划掉的信号也显示（淡出+标记），信息量大于直接隐藏 */
-    sigs: act.map(r => ({ code: r.code, name: r.name, badge: r.badge, bcls: r.bcls, val: r.val, gate: r.gate, dev: r.dev, note: r.note, off: false })),
-    dismissedCount: all.length - act.length
+    deployPct: TC > 0 && inv != null ? (inv / TC * 100).toFixed(1) : '—', uninvested: fmt(investable / 1e4, 0)
   }, st)
 }
 
@@ -293,7 +304,7 @@ function seatsModel (expanded) {
       const px = qq && qq.price ? qq.price : (u && u.px != null ? u.px : null)
       const pills = ((u && u.tiers) || []).map((t, i) => {
         const pct = (u.tierPct || [])[i]
-        const amt = '' // 旧百分比没有明确分母，不生成行动金额
+        const amt = tierAmt(C, pct) // 郎刚10-25晚：与观察页一致，建仓上限显示金额
         const hit = px != null && px <= t.price
         return {
           label: t.label,
@@ -362,7 +373,7 @@ function watchModel (expanded, filter) {
     const dayPct = qq && qq.pct != null ? qq.pct : null
     const tiers = (u.tiers || []).map((t, i) => {
       const pct = (u.tierPct || [])[i]
-      const amt = pct != null ? '≤' + pct + '%' : '' // 郎刚10-25：四档价标注累计建仓上限，方便对照
+      const amt = tierAmt(C, pct) // 郎刚10-25晚：四档价标注累计建仓上限金额，方便对照
       const unit = t.cur === 'HKD' ? '港元' : t.cur === 'CNY' ? '元' : ''
       let cls = 'wait', mark = ''
       if (px != null) {

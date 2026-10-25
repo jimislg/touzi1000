@@ -19,9 +19,10 @@
         <text>持仓市值 {{model.mv}} 万</text>
       </view>
       <view class="rowline">
-        <text class="{{model.plCls}}">浮盈 {{model.pl}} 万（{{model.plPct}}%）</text>
+        <text class="{{model.plCls}}">浮盈亏 {{model.pl}} 万（{{model.plPct}}%）</text>
         <text>税后年股息 {{model.curDiv}} 万/年</text>
       </view>
+      <view wx:if="{{model.plNote}}" class="s">{{model.plNote}}</view>
     </view>
 
     <view class="chips">
@@ -47,23 +48,37 @@
       </view>
     </view>
 
-    <view class="card" wx:if="{{model.sigs.length}}">
-      <view class="k" style="margin-bottom:14rpx">信号清单</view>
-      <view class="sigrow {{item.off?'dim':''}}" wx:for="{{model.sigs}}" wx:key="index">
+    <!-- 郎刚10-25晚：首页=观察清单（原第四页签内容），替代信号清单；点按展开策略与逻辑 -->
+    <view class="card" wx:if="{{model.watch.rows.length}}">
+      <view class="k" style="margin-bottom:14rpx">观察清单 · 全部 {{model.watch.rows.length}} 只（点按展开策略）</view>
+      <view class="wrow" wx:for="{{model.watch.rows}}" wx:key="code" data-code="{{item.code}}" bindtap="toggle">
         <view class="line1">
           <text class="b">{{item.name}}</text>
-          <text class="badge {{item.bcls}}">{{item.badge}}{{item.off?' · 已划掉':''}}</text>
+          <text class="pill {{item.grade}}">{{item.grade}}</text>
+          <text wx:if="{{item.held}}" class="pill hold">持仓</text>
+          <text wx:if="{{item.bcls}}" class="badge {{item.bcls}}" style="margin-left:auto">{{item.status}}</text>
+          <text wx:else class="pill wait" style="margin-left:auto">{{item.status}}</text>
         </view>
         <view class="line2">
-          <text class="b">{{item.val}}</text>
-          <text class="muted">门槛 {{item.gate}}</text>
-          <text class="muted">· {{item.dev}}</text>
+          <text class="px">{{item.px}}</text>
+          <text class="muted"> {{item.cur}}</text>
+          <text class="{{item.pctCls}}" style="margin-left:18rpx">{{item.pctTxt}}</text>
+          <text class="muted" style="margin-left:auto">距参考 {{item.dist}}</text>
         </view>
-        <view class="note">{{item.note}}</view>
+        <view class="pills">
+          <text wx:for="{{item.tiers}}" wx:for-item="p" wx:key="label"
+                class="pill {{p.cls}}">{{p.label}} {{p.price}}{{p.unit}}{{p.mark}}{{p.amt?'·'+p.amt:''}}</text>
+        </view>
+        <view wx:if="{{item.expanded}}" class="planbox">
+          <view>{{item.plan}}</view>
+          <view>持有逻辑：{{item.summary.thesis}}</view>
+          <view>证伪条件：{{item.summary.breakers}}</view>
+          <view>下次复核：{{item.summary.reviewBy}}</view>
+        </view>
       </view>
     </view>
-    <view class="card" wx:else><text class="muted">当前无信号：全部标的处于等待区间、仓位未超限。</text></view>
+    <view class="card" wx:else><text class="muted">观察清单暂无可展示标的。</text></view>
 
-    <view class="card notecard">⚠️ 统一提醒：触发 ≠ 下单。任何行动前先按 v3.4 刷新前三步数据，再走第四步组合决策；H股另须满足 A/H 双门槛（折价≥25%）。价格触发后不倒计时、不催促，等待本身是纪律的一部分。</view>
+    <view class="card notecard">⚠️ 统一提醒：到价 ≠ 下单。任何行动前先按 v3.4 刷新前三步数据，再走第四步组合决策；H股另须满足 A/H 双门槛（折价≥25%）。价格触发后不倒计时、不催促，等待本身是纪律的一部分。档位后 ≤金额 为该档累计建仓上限（按规划本金折算）。</view>
   </block>
 </view>

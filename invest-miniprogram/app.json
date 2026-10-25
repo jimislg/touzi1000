@@ -21,8 +21,7 @@
     "list": [
       { "pagePath": "pages/index/index", "text": "总览" },
       { "pagePath": "pages/positions/positions", "text": "持仓" },
-      { "pagePath": "pages/seats/seats", "text": "策略" },
-      { "pagePath": "pages/watch/watch", "text": "观察" }
+      { "pagePath": "pages/seats/seats", "text": "策略" }
     ]
   },
   "lazyCodeLoading": "requiredComponents",

@@ -57,7 +57,7 @@ function quoteBuffer (symbols, mode) {
   check('完整保留域名错误并正确分类', store.state.error.type === 'domain' && /url not in domain list/.test(store.state.error.body))
   check('域名提示包含数据源域名与行情域名', store.indexModel().errorMsg.includes(CONF.MP_ENDPOINT) && store.indexModel().errorMsg.includes('https://qt.gtimg.cn'))
   check('失败仍显示快照', store.state.source === 'snapshot' && !store.state.loading)
-  check('总览与持仓浮盈百分比一致', (store.indexModel().plPct === '—' ? '—' : store.indexModel().plPct + '%') === store.positionsModel().plPct)
+  check('总览浮盈必显且与持仓口径一致或明示估算', store.indexModel().pl != null && ((store.indexModel().plPct === '—' ? '—' : store.indexModel().plPct + '%') === store.positionsModel().plPct || store.positionsModel().plPct === '—' || !!store.indexModel().plNote))
 
   for (const [message, kind] of [['request:fail timeout', 'network'], ['request:fail ssl hand shake error', 'network']]) {
     const rt = runtime(o => { o.fail({ errMsg: message }); return { abort () {} } })

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "4a253da4ff130b48ad415ba50b8e4f999904a5df",
+  "baseCommit": "974a9a6",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
@@ -26,9 +26,54 @@
   },
   "files": [
     {
+      "path": "investment-platform/public/index.html",
+      "dataOrSchemaTouch": false,
+      "intent": "郎刚10-25晚界面需求：今日观察四档价改横排flex布局；tierCapOf累计建仓上限由百分比改为金额（按规划本金折算）；持仓表占规划本金/统一上限列改金额；席位预算权重改金额"
+    },
+    {
+      "path": "invest-miniprogram/utils/store.js",
+      "dataOrSchemaTouch": false,
+      "intent": "首页浮盈兜底必显（港股成本未核时按现汇率折算估算并明示口径）；观察/席位档位上限改金额；indexModel移除信号清单sigs"
+    },
+    {
+      "path": "invest-miniprogram/pages/index/index.wxml",
+      "dataOrSchemaTouch": false,
+      "intent": "首页去信号清单，改为观察清单（原第四页签内容，点按展开策略）；浮盈亏必显+口径注"
+    },
+    {
+      "path": "invest-miniprogram/pages/index/index.js",
+      "dataOrSchemaTouch": false,
+      "intent": "首页合并indexModel+watchModel，新增档位展开toggle"
+    },
+    {
+      "path": "invest-miniprogram/pages/index/index.wxss",
+      "dataOrSchemaTouch": false,
+      "intent": "观察清单行样式替代原sigrow"
+    },
+    {
+      "path": "invest-miniprogram/app.json",
+      "dataOrSchemaTouch": false,
+      "intent": "tabBar移除第四页签\"观察\"（内容并入首页）"
+    },
+    {
+      "path": "invest-miniprogram/scripts/verify.js",
+      "dataOrSchemaTouch": false,
+      "intent": "断言随需求更新：总览模型无sigs、浮盈必显口径"
+    },
+    {
+      "path": "invest-miniprogram/scripts/verify-network.js",
+      "dataOrSchemaTouch": false,
+      "intent": "浮盈断言更新：允许估算口径"
+    },
+    {
+      "path": "investment-platform/lg_sync_test.js",
+      "dataOrSchemaTouch": false,
+      "intent": "断言随需求更新：mini浮盈必显66/0.00+现汇率注、档位上限≤万格式"
+    },
+    {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "滚动对账基线更新至父提交（吸收并行会话估值存档提交）"
+      "intent": "滚动对账基线推进至974a9a6（吸收并行会话泡泡玛特估值修正提交）"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
