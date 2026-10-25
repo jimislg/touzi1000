@@ -27,7 +27,7 @@
         <text class="pill {{item.grade}}">{{item.grade}}</text>
         <text wx:if="{{item.batch}}" class="pill wait">{{item.batch}}</text>
         <text wx:if="{{item.exitWatch && item.batch!=='退出观察'}}" class="pill wait">退出观察</text>
-        <text wx:if="{{item.held}}" class="pill hold">持仓</text>
+        <text wx:if="{{item.mv}}" class="pill hold">持仓 {{item.mv}}</text>
         <text wx:if="{{item.research}}" class="pill wait">{{item.research}}</text>
         <text wx:if="{{item.bcls}}" class="badge {{item.bcls}}" style="margin-left:auto">{{item.status}}</text>
         <text wx:else class="pill wait" style="margin-left:auto">{{item.status}}</text>

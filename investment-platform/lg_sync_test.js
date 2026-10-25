@@ -50,6 +50,11 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  run('setSigFilter("trig")');check('web signal filter narrows rows to triggered only',(el('sigBox').innerHTML.match(/<tbody><tr><td>/g)||[]).length===run('CFG.universe.filter(u=>{const x=Q[u.qt];return x&&x.price>0&&u.buyPrice!=null&&x.price<=u.buyPrice}).length'))
  run('setPoolFilter("near")');check('web research pool has grouped status filter',el('poolFilterRow').innerHTML.includes('退出观察')&&/接近\s*\d+/.test(el('poolFilterRow').innerHTML))
  check('mini home watch exposes same filter groups as watch page',mini.watchModel({},'trig').rows.every(x=>x.trig)&&mini.watchModel({},'all').filters.length>=9&&mini.watchModel({},'all').filters.some(f=>f.label==='已到参考价'&&f.count===mini.watchModel({},'trig').rows.length))
+ // 郎刚10-25晚：个股清单凡有持仓必带持仓金额（市值），方便与参考价对比
+ run('setPoolFilter("all")')
+ check('web research pool shows holding value on held rows',el('aTable').innerHTML.includes('170000股 · 170.0万'))
+ check('web signal pool shows holding value on held rows',el('sigBox').innerHTML.includes('持 170.0万'))
+ check('mini watch rows show holding value on held rows',(mini.state.Q.qa=structuredClone(quotes.qa),mini.watchModel().rows.find(x=>x.code==='600000.SH').mv==='170.0万'))
  // Quote refresh and external changes remain atomic and draft protected (detailed races in test-refresh).
  run('dirty=false');state.cfg.investable=8000000;state.cfg._revision='b'.repeat(64);await run('refresh(false)');check('external config follows with matching complete quotes',run('CFG.investable')===8000000)
  run('CFG.investable=7999999;markDirty()');state.cfg.investable=7000000;await run('refresh(false)');check('unsaved draft protected from automatic follow',run('CFG.investable')===7999999)

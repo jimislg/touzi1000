@@ -1,7 +1,7 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "9c038fc",
+  "baseCommit": "8fa8559",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
@@ -28,37 +28,37 @@
     {
       "path": "investment-platform/public/index.html",
       "dataOrSchemaTouch": false,
-      "intent": "郎刚10-25晚：股票池罗列分组——今日观察加分类筛选按钮排（全部/已到价/接近/等待/持仓/未持仓/A类/B类/退出观察，与小程序观察页同源，localStorage持久化）；公司研究加同款状态筛选（作用A/B两表，含计数）"
+      "intent": "郎刚10-25晚：个股清单有持仓必带持仓金额——今日观察公司列加持仓pill（持 xx万，市值）；公司研究持仓pill由仅股数改为股数 · 市值金额"
     },
     {
-      "path": "invest-miniprogram/pages/index/index.js",
+      "path": "invest-miniprogram/utils/store.js",
       "dataOrSchemaTouch": false,
-      "intent": "首页观察清单加分类筛选：_filter状态+setFilter切换，复用watchModel(filters)与原观察页同源"
+      "intent": "watchModel rows新增mv字段（持仓市值万元，hLive.mvCNY折算），首页/观察页共用"
     },
     {
       "path": "invest-miniprogram/pages/index/index.wxml",
       "dataOrSchemaTouch": false,
-      "intent": "首页观察清单加filters按钮排（计数+提示语），与原观察页同款呈现"
+      "intent": "首页持仓pill改为持仓+金额（持仓 17.0万）"
     },
     {
-      "path": "invest-miniprogram/pages/index/index.wxss",
+      "path": "invest-miniprogram/pages/watch/watch.wxml",
       "dataOrSchemaTouch": false,
-      "intent": "filters/fbtn/filterhint样式（与观察页同款）"
+      "intent": "观察页持仓pill改为持仓+金额"
     },
     {
       "path": "invest-miniprogram/utils/snapshot.js",
       "dataOrSchemaTouch": false,
-      "intent": "发版刷新小程序离线快照（构建产物，快照时间2026-10-25T09:31Z）"
+      "intent": "发版刷新小程序离线快照（构建产物，快照时间2026-10-25T09:47Z）"
     },
     {
       "path": "investment-platform/lg_sync_test.js",
       "dataOrSchemaTouch": false,
-      "intent": "新增4条断言：网页今日观察筛选按钮+过滤行数、公司研究状态筛选、mini首页筛选组与观察页同源"
+      "intent": "新增3条断言：网页公司研究/今日观察/mini观察行持仓金额必显"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "滚动对账基线推进至9c038fc（吸收并行会话docs提交，程序代码与过程文档分离——郎刚10-25纪律：过程文档不再自动入库）"
+      "intent": "滚动对账基线推进至8fa8559（吸收并行会话陕煤docs提交）；程序代码与过程文档分离纪律执行中"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",

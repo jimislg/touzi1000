@@ -392,8 +392,12 @@ function watchModel (expanded, filter) {
     if (!(px > 0)) status = '报价缺失'
     const rs = CORE.researchState(u), bc = approvalOf(u)
     const batch = (b.batch1 || []).includes(u.code) ? '研1' : (b.batch2 || []).includes(u.code) ? '研2' : (b.watchExit || []).includes(u.code) ? '退出观察' : ''
+    /* 郎刚10-25晚：有持仓的标的一律带持仓金额（市值，万元），方便与参考价对比 */
+    const heldRec = held ? C.holdings.find(h => h.code === u.code) : null
+    const hx = heldRec ? hLive(heldRec) : null
+    const mvW = hx && hx.mvCNY != null ? fmt(hx.mvCNY / 1e4, 1) + '万' : ''
     return {
-      code: u.code, name: u.name, grade: u.grade || '—', batch, held, trig,
+      code: u.code, name: u.name, grade: u.grade || '—', batch, held, trig, mv: mvW,
       summary: CORE.researchSummary(u, state.CFG),
       near: status === '接近', waiting: status === '等待',
       distancePct: u.buyPrice > 0 && px != null ? (px / u.buyPrice - 1) * 100 : null,
