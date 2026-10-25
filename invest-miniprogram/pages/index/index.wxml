@@ -48,9 +48,14 @@
       </view>
     </view>
 
-    <!-- 郎刚10-25晚：首页=观察清单（原第四页签内容），替代信号清单；点按展开策略与逻辑 -->
+    <!-- 郎刚10-25晚：首页=观察清单（原第四页签内容），替代信号清单；分类筛选与原观察页同源 -->
     <view class="card" wx:if="{{model.watch.rows.length}}">
-      <view class="k" style="margin-bottom:14rpx">观察清单 · 全部 {{model.watch.rows.length}} 只（点按展开策略）</view>
+      <view class="k">观察清单（点按展开策略）</view>
+      <view class="filters">
+        <text wx:for="{{model.watch.filters}}" wx:key="key" class="fbtn {{model.watch.filter===item.key?'on':''}}"
+              data-f="{{item.key}}" bindtap="setFilter">{{item.label}} {{item.count}}</text>
+      </view>
+      <view class="filterhint">{{model.watch.filterHint}}</view>
       <view class="wrow" wx:for="{{model.watch.rows}}" wx:key="code" data-code="{{item.code}}" bindtap="toggle">
         <view class="line1">
           <text class="b">{{item.name}}</text>

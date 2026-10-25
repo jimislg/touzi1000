@@ -45,6 +45,11 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  check('mini always shows P/L, estimating from native cost when CNY cost unverified',mini.positionsModel().costTotal==='—'&&mini.indexModel().pl==='0.00'&&mini.indexModel().plNote.includes('现汇率'))
  check('mini missing quote is not waiting',(()=>{delete mini.state.Q.qa;delete mini.state.CFG.universe[0].px;const row=mini.watchModel().rows.find(x=>x.code==='600000.SH');return row.status==='报价缺失'&&!row.waiting})())
  check('mini tier pills show position caps as amounts (planning-capital based)',mini.watchModel().rows.every(x=>x.tiers.every(t=>t.amt===''||/^≤[0-9,.]+万$/.test(t.amt)))&&mini.seatsModel().seats[0].members[0].pills[0].amt.includes('万'))
+ // 郎刚10-25晚：股票池罗列分类筛选（与观察页同源：全部/已到价/接近/等待/持仓/未持仓/退出观察）
+ check('web signal pool has grouped filter buttons with counts',el('sigBox').innerHTML.includes('fbtnrow')&&/已到价\s*\d+/.test(el('sigBox').innerHTML)&&/接近\s*\d+/.test(el('sigBox').innerHTML)&&/等待\s*\d+/.test(el('sigBox').innerHTML))
+ run('setSigFilter("trig")');check('web signal filter narrows rows to triggered only',(el('sigBox').innerHTML.match(/<tbody><tr><td>/g)||[]).length===run('CFG.universe.filter(u=>{const x=Q[u.qt];return x&&x.price>0&&u.buyPrice!=null&&x.price<=u.buyPrice}).length'))
+ run('setPoolFilter("near")');check('web research pool has grouped status filter',el('poolFilterRow').innerHTML.includes('退出观察')&&/接近\s*\d+/.test(el('poolFilterRow').innerHTML))
+ check('mini home watch exposes same filter groups as watch page',mini.watchModel({},'trig').rows.every(x=>x.trig)&&mini.watchModel({},'all').filters.length>=9&&mini.watchModel({},'all').filters.some(f=>f.label==='已到参考价'&&f.count===mini.watchModel({},'trig').rows.length))
  // Quote refresh and external changes remain atomic and draft protected (detailed races in test-refresh).
  run('dirty=false');state.cfg.investable=8000000;state.cfg._revision='b'.repeat(64);await run('refresh(false)');check('external config follows with matching complete quotes',run('CFG.investable')===8000000)
  run('CFG.investable=7999999;markDirty()');state.cfg.investable=7000000;await run('refresh(false)');check('unsaved draft protected from automatic follow',run('CFG.investable')===7999999)

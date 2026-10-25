@@ -1,7 +1,7 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "d8d019b",
+  "baseCommit": "9c038fc",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
@@ -26,9 +26,39 @@
   },
   "files": [
     {
+      "path": "investment-platform/public/index.html",
+      "dataOrSchemaTouch": false,
+      "intent": "郎刚10-25晚：股票池罗列分组——今日观察加分类筛选按钮排（全部/已到价/接近/等待/持仓/未持仓/A类/B类/退出观察，与小程序观察页同源，localStorage持久化）；公司研究加同款状态筛选（作用A/B两表，含计数）"
+    },
+    {
+      "path": "invest-miniprogram/pages/index/index.js",
+      "dataOrSchemaTouch": false,
+      "intent": "首页观察清单加分类筛选：_filter状态+setFilter切换，复用watchModel(filters)与原观察页同源"
+    },
+    {
+      "path": "invest-miniprogram/pages/index/index.wxml",
+      "dataOrSchemaTouch": false,
+      "intent": "首页观察清单加filters按钮排（计数+提示语），与原观察页同款呈现"
+    },
+    {
+      "path": "invest-miniprogram/pages/index/index.wxss",
+      "dataOrSchemaTouch": false,
+      "intent": "filters/fbtn/filterhint样式（与观察页同款）"
+    },
+    {
+      "path": "invest-miniprogram/utils/snapshot.js",
+      "dataOrSchemaTouch": false,
+      "intent": "发版刷新小程序离线快照（构建产物，快照时间2026-10-25T09:31Z）"
+    },
+    {
+      "path": "investment-platform/lg_sync_test.js",
+      "dataOrSchemaTouch": false,
+      "intent": "新增4条断言：网页今日观察筛选按钮+过滤行数、公司研究状态筛选、mini首页筛选组与观察页同源"
+    },
+    {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "滚动对账基线推进至d8d019b（吸收并行会话口径比对报告提交）；补列cc186a0快照刷新"
+      "intent": "滚动对账基线推进至9c038fc（吸收并行会话docs提交，程序代码与过程文档分离——郎刚10-25纪律：过程文档不再自动入库）"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
