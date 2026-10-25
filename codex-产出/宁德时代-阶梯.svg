@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="340" viewBox="0 0 900 340" font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect width="900" height="340" fill="#ffffff"/>
+<text x="80" y="32" font-size="17" font-weight="700" fill="#111827">宁德时代 300750 · 买入价阶梯 · 2026-10-25</text>
+<text x="80" y="54" font-size="11.5" fill="#6b7280">大号数字＝股价（元）；下方为概率加权期望 IRR 与对应 2026E PE。加权口径见报告第七节</text>
+<rect x="80.0" y="78" width="228.0" height="150" fill="#ecfdf5"/>
+<rect x="619.6" y="78" width="220.39999999999998" height="150" fill="#f5f5f4"/>
+<line x1="80.0" y1="214" x2="840.0" y2="214" stroke="#9ca3af" stroke-width="1.5"/>
+<line x1="80.0" y1="214" x2="80.0" y2="220" stroke="#9ca3af"/>
+<text x="80.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">160</text>
+<line x1="175.0" y1="214" x2="175.0" y2="220" stroke="#9ca3af"/>
+<text x="175.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">172</text>
+<line x1="270.0" y1="214" x2="270.0" y2="220" stroke="#9ca3af"/>
+<text x="270.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">185</text>
+<line x1="365.0" y1="214" x2="365.0" y2="220" stroke="#9ca3af"/>
+<text x="365.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">198</text>
+<line x1="460.0" y1="214" x2="460.0" y2="220" stroke="#9ca3af"/>
+<text x="460.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">210</text>
+<line x1="555.0" y1="214" x2="555.0" y2="220" stroke="#9ca3af"/>
+<text x="555.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">222</text>
+<line x1="650.0" y1="214" x2="650.0" y2="220" stroke="#9ca3af"/>
+<text x="650.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">235</text>
+<line x1="745.0" y1="214" x2="745.0" y2="220" stroke="#9ca3af"/>
+<text x="745.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">248</text>
+<line x1="840.0" y1="214" x2="840.0" y2="220" stroke="#9ca3af"/>
+<text x="840.0" y="235" font-size="10.5" fill="#9ca3af" text-anchor="middle">260</text>
+<line x1="194.0" y1="214" x2="194.0" y2="160" stroke="#0f766e" stroke-width="1.5"/>
+<circle cx="194.0" cy="214" r="4" fill="#0f766e" stroke="#0f766e" stroke-width="2"/>
+<text x="194.0" y="96" font-size="12" font-weight="700" fill="#0f766e" text-anchor="middle">重仓线</text>
+<text x="194.0" y="118" font-size="16" font-weight="700" fill="#0f766e" text-anchor="middle">175</text>
+<text x="194.0" y="136" font-size="10.5" fill="#0f766e" text-anchor="middle">期望 15.0% · PE 9.5</text>
+<text x="194.0" y="150" font-size="9.5" fill="#9ca3af" text-anchor="middle">(中性 19.0%)</text>
+<line x1="308.0" y1="214" x2="308.0" y2="160" stroke="#2563eb" stroke-width="1.5"/>
+<circle cx="308.0" cy="214" r="4" fill="#2563eb" stroke="#2563eb" stroke-width="2"/>
+<text x="308.0" y="96" font-size="12" font-weight="700" fill="#2563eb" text-anchor="middle">买入线</text>
+<text x="308.0" y="118" font-size="16" font-weight="700" fill="#2563eb" text-anchor="middle">190</text>
+<text x="308.0" y="136" font-size="10.5" fill="#2563eb" text-anchor="middle">期望 12.9% · PE 10.3</text>
+<text x="308.0" y="150" font-size="9.5" fill="#9ca3af" text-anchor="middle">(中性 16.0%)</text>
+<line x1="619.6" y1="214" x2="619.6" y2="160" stroke="#a16207" stroke-width="1.5"/>
+<circle cx="619.6" cy="214" r="4" fill="#a16207" stroke="#a16207" stroke-width="2"/>
+<text x="619.6" y="96" font-size="12" font-weight="700" fill="#a16207" text-anchor="middle">观察线</text>
+<text x="619.6" y="118" font-size="16" font-weight="700" fill="#a16207" text-anchor="middle">231</text>
+<text x="619.6" y="136" font-size="10.5" fill="#a16207" text-anchor="middle">期望 9.3% · PE 12.5</text>
+<text x="619.6" y="150" font-size="9.5" fill="#9ca3af" text-anchor="middle">(中性 13.0%)</text>
+<line x1="669.7599999999999" y1="214" x2="669.7599999999999" y2="160" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="4,3"/>
+<circle cx="669.7599999999999" cy="214" r="5.5" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+<text x="669.7599999999999" y="96" font-size="12" font-weight="700" fill="#dc2626" text-anchor="middle">现价</text>
+<text x="669.7599999999999" y="118" font-size="16" font-weight="700" fill="#dc2626" text-anchor="middle">237.6</text>
+<text x="669.7599999999999" y="136" font-size="10.5" fill="#dc2626" text-anchor="middle">期望 7.6% · PE 12.9</text>
+<text x="669.7599999999999" y="150" font-size="9.5" fill="#9ca3af" text-anchor="middle">(中性 12.3%)</text>
+<text x="669.7599999999999" y="252" font-size="11.5" font-weight="700" fill="#dc2626" text-anchor="middle">现价高 25%：不买</text>
+<text x="669.7599999999999" y="268" font-size="10.5" fill="#dc2626" text-anchor="middle">（PE 12.9×）</text>
+<text x="80" y="302" font-size="11.5" fill="#4b5563">买入线 190（看概率加权）vs 观察线 231（只看中性假设）——两者差 41 元，就是「毛利率会不会见底」的不确定性价格。</text>
+<text x="80" y="324" font-size="11.5" fill="#4b5563">Q3 单季毛利率 19.1%→13.6%，净利增速 +48.5%→+14.6%。毛利率是唯一需要盯的数。</text>
+</svg>
