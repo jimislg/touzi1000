@@ -24,7 +24,13 @@
     "researchEvidenceChecks": 238,
     "previousRawOutput": "delivery-tests/research"
   },
-  "files": [],
+  "files": [
+    {
+      "path": "delivery-manifest.json",
+      "dataOrSchemaTouch": false,
+      "intent": "manifest基线由交付快照推进为滚动对账：每次提交以父提交为基线并仅列本次变更文件；无生产数据/模式影响"
+    }
+  ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
   "branchStartCommit": "56d4aa1355f059ff253a90b764b1d8d991ef322c",
   "retainedSystemBaseline": "26df194ab55884f29a9c82671db8bb96d85811e2",
