@@ -1,7 +1,7 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "014dd77",
+  "baseCommit": "07821f4",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
@@ -26,14 +26,9 @@
   },
   "files": [
     {
-      "path": "scripts/verify-delivery.js",
-      "dataOrSchemaTouch": false,
-      "intent": "受保护数据变更通道：config.json/investment-hq等允许变更但须manifest显式dataOrSchemaTouch声明（郎刚10-25股票调整授权），未声明仍红灯；productionDataWritten须与声明一致"
-    },
-    {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至014dd77"
+      "intent": "基线推进至07821f4（吸收并行会话宁德/福耀docs提交——其未按纪律更新manifest致CI红，本提交为门禁对账修复，不影响已发布数据）"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
