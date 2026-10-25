@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="330" viewBox="0 0 900 330" font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect width="900" height="330" fill="#ffffff"/>
+<text x="80" y="32" font-size="17" font-weight="700" fill="#111827">中国平安 A（601318.SH）买入价阶梯 · 2026-10-25</text>
+<text x="80" y="54" font-size="11.5" fill="#6b7280">大号数字＝股价（元）；下方为该价位买入并持有 5 年的 IRR，括号内为压力假设（BPS 增速 6.2%→5.0%、期末 PB 0.912→0.85）</text>
+<rect x="80.0" y="78" width="380.0" height="148" fill="#ecfdf5"/>
+<rect x="741.8333333333333" y="78" width="98.16666666666674" height="148" fill="#f5f5f4"/>
+<text x="270.0" y="248" font-size="11.5" font-weight="700" fill="#047857" text-anchor="middle" letter-spacing="2">可 买 区</text>
+<text x="790.9166666666667" y="248" font-size="11.5" font-weight="700" fill="#78716c" text-anchor="middle" letter-spacing="2">不 买</text>
+<line x1="80.0" y1="208" x2="840.0" y2="208" stroke="#9ca3af" stroke-width="1.5"/>
+<line x1="80.0" y1="208" x2="80.0" y2="214" stroke="#9ca3af"/>
+<text x="80.0" y="229" font-size="10.5" fill="#9ca3af" text-anchor="middle">36</text>
+<line x1="206.66666666666669" y1="208" x2="206.66666666666669" y2="214" stroke="#9ca3af"/>
+<text x="206.66666666666669" y="229" font-size="10.5" fill="#9ca3af" text-anchor="middle">40</text>
+<line x1="333.33333333333337" y1="208" x2="333.33333333333337" y2="214" stroke="#9ca3af"/>
+<text x="333.33333333333337" y="229" font-size="10.5" fill="#9ca3af" text-anchor="middle">44</text>
+<line x1="460.0" y1="208" x2="460.0" y2="214" stroke="#9ca3af"/>
+<text x="460.0" y="229" font-size="10.5" fill="#9ca3af" text-anchor="middle">48</text>
+<line x1="586.6666666666667" y1="208" x2="586.6666666666667" y2="214" stroke="#9ca3af"/>
+<text x="586.6666666666667" y="229" font-size="10.5" fill="#9ca3af" text-anchor="middle">52</text>
+<line x1="713.3333333333334" y1="208" x2="713.3333333333334" y2="214" stroke="#9ca3af"/>
+<text x="713.3333333333334" y="229" font-size="10.5" fill="#9ca3af" text-anchor="middle">56</text>
+<line x1="840.0" y1="208" x2="840.0" y2="214" stroke="#9ca3af"/>
+<text x="840.0" y="229" font-size="10.5" fill="#9ca3af" text-anchor="middle">60</text>
+<line x1="197.16666666666674" y1="208" x2="197.16666666666674" y2="156" stroke="#0f766e" stroke-width="1.5"/>
+<circle cx="197.16666666666674" cy="208" r="4" fill="#0f766e" stroke="#0f766e" stroke-width="2"/>
+<text x="197.16666666666674" y="94" font-size="12.5" font-weight="700" fill="#0f766e" text-anchor="middle">重仓线</text>
+<text x="197.16666666666674" y="116" font-size="16" font-weight="700" fill="#0f766e" text-anchor="middle">39.7</text>
+<text x="197.16666666666674" y="134" font-size="11" fill="#0f766e" text-anchor="middle">18.0%</text>
+<text x="197.16666666666674" y="148" font-size="10" fill="#9ca3af" text-anchor="middle">(15.5%)</text>
+<line x1="352.33333333333337" y1="208" x2="352.33333333333337" y2="156" stroke="#15803d" stroke-width="1.5"/>
+<circle cx="352.33333333333337" cy="208" r="4" fill="#15803d" stroke="#15803d" stroke-width="2"/>
+<text x="352.33333333333337" y="94" font-size="12.5" font-weight="700" fill="#15803d" text-anchor="middle">强买线</text>
+<text x="352.33333333333337" y="116" font-size="16" font-weight="700" fill="#15803d" text-anchor="middle">44.6</text>
+<text x="352.33333333333337" y="134" font-size="11" fill="#15803d" text-anchor="middle">15.0%</text>
+<text x="352.33333333333337" y="148" font-size="10" fill="#9ca3af" text-anchor="middle">(12.5%)</text>
+<line x1="460.0" y1="208" x2="460.0" y2="156" stroke="#2563eb" stroke-width="1.5"/>
+<circle cx="460.0" cy="208" r="4" fill="#2563eb" stroke="#2563eb" stroke-width="2"/>
+<text x="460.0" y="94" font-size="12.5" font-weight="700" fill="#2563eb" text-anchor="middle">买入线</text>
+<text x="460.0" y="116" font-size="16" font-weight="700" fill="#2563eb" text-anchor="middle">48</text>
+<text x="460.0" y="134" font-size="11" fill="#2563eb" text-anchor="middle">13.1%</text>
+<text x="460.0" y="148" font-size="10" fill="#9ca3af" text-anchor="middle">(10.7%)</text>
+<line x1="579.0666666666666" y1="208" x2="579.0666666666666" y2="156" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="4,3"/>
+<circle cx="579.0666666666666" cy="208" r="5.5" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+<text x="579.0666666666666" y="94" font-size="12.5" font-weight="700" fill="#dc2626" text-anchor="middle">现价</text>
+<text x="579.0666666666666" y="116" font-size="16" font-weight="700" fill="#dc2626" text-anchor="middle">51.76</text>
+<text x="579.0666666666666" y="134" font-size="11" fill="#dc2626" text-anchor="middle">11.3%</text>
+<text x="579.0666666666666" y="148" font-size="10" fill="#9ca3af" text-anchor="middle">(8.9%)</text>
+<line x1="741.8333333333333" y1="208" x2="741.8333333333333" y2="156" stroke="#78716c" stroke-width="1.5"/>
+<circle cx="741.8333333333333" cy="208" r="4" fill="#78716c" stroke="#78716c" stroke-width="2"/>
+<text x="741.8333333333333" y="94" font-size="12.5" font-weight="700" fill="#78716c" text-anchor="middle">停买线</text>
+<text x="741.8333333333333" y="116" font-size="16" font-weight="700" fill="#78716c" text-anchor="middle">56.9</text>
+<text x="741.8333333333333" y="134" font-size="11" fill="#78716c" text-anchor="middle">9.0%</text>
+<text x="741.8333333333333" y="148" font-size="10" fill="#9ca3af" text-anchor="middle">(6.6%)</text>
+<text x="579.0666666666666" y="272" font-size="11.5" font-weight="700" fill="#dc2626" text-anchor="middle">现价只建 1/3 仓（P/EV 0.598）</text>
+<text x="80" y="300" font-size="11.5" fill="#4b5563">买入线 48 元 = IRR 13.1%，压力假设下仍有 10.7%——高于 10% 机会成本，这 0.7 个点就是安全垫。50.3 元（IRR 12%）压力下只剩 9.5%，破线。</text>
+<text x="80" y="320" font-size="11.5" fill="#4b5563">买入价每年随净资产增厚上移约 5.5%：2027-10 → 50.6，2028-10 → 53.4。价格纪律必须配时间刻度，否则刻舟求剑。</text>
+</svg>
