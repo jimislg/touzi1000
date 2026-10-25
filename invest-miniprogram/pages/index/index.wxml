@@ -19,12 +19,11 @@
         <text>持仓市值 {{model.mv}} 万</text>
       </view>
       <view class="rowline">
-        <text class="{{model.plCls}}">人民币成本口径浮盈 {{model.pl}} 万（{{model.plPct}}%）</text>
+        <text class="{{model.plCls}}">浮盈 {{model.pl}} 万（{{model.plPct}}%）</text>
         <text>税后年股息 {{model.curDiv}} 万/年</text>
       </view>
     </view>
 
-    <view class="card notecard">{{model.ledgerLabel}}：{{model.ledgerGaps}}<view>税前普通股息 {{model.grossDiv}} 万/年；百万元目标覆盖 {{model.dividendCoverage}}</view><view>执行阻断 {{model.nBlocked}} 项</view></view>
     <view class="chips">
       <view class="sigchip {{model.nOver?'red':''}}">
         <view class="k">仓位预警（最优先）</view>
@@ -32,7 +31,7 @@
         <view class="s">{{model.overNames}}</view>
       </view>
       <view class="sigchip {{model.nTrig?'green':''}}">
-        <view class="k">已到参考价·待核</view>
+        <view class="k">已触发·可进流程</view>
         <view class="n">{{model.nTrig}}</view>
         <view class="s">{{model.trigNames}}</view>
       </view>
@@ -42,7 +41,7 @@
         <view class="s">{{model.nearNames}}</view>
       </view>
       <view class="sigchip">
-        <view class="k">股票占当前资产</view>
+        <view class="k">投放进度</view>
         <view class="n">{{model.deployPct}}%</view>
         <view class="s">未投 {{model.uninvested}} 万 · 等待也是纪律</view>
       </view>
@@ -63,7 +62,7 @@
         <view class="note">{{item.note}}</view>
       </view>
     </view>
-    <view class="card" wx:else><text class="muted">{{model.emptyText}}</text></view>
+    <view class="card" wx:else><text class="muted">当前无信号：全部标的处于等待区间、仓位未超限。</text></view>
 
     <view class="card notecard">⚠️ 统一提醒：触发 ≠ 下单。任何行动前先按 v3.4 刷新前三步数据，再走第四步组合决策；H股另须满足 A/H 双门槛（折价≥25%）。价格触发后不倒计时、不催促，等待本身是纪律的一部分。</view>
   </block>
