@@ -1,0 +1,4 @@
+PASS original account and mini-program config/snapshot are byte-identical to retained baseline ff4c630.
+PASS all rejected price models, proposal data, generators and dedicated tests removed from active delivery.
+PASS offline/CI/deploy entry points do not reference rejected modules.
+PASS old price URL now contains a rejection notice without scripts or confirmation inputs.

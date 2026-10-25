@@ -25,6 +25,5 @@ research/20261024-evidence-completion/private/
 # Downloaded primary documents are local evidence, not re-published reports
 research/20261024-evidence-completion/sources/
 
-# Repricing account-derived working papers and downloaded originals
-research/20261024-all-pool-repricing/private/
-research/20261024-all-pool-repricing/sources/
+# User rejected this entire repricing proposal; retain only private/history archives
+research/20261024-all-pool-repricing/

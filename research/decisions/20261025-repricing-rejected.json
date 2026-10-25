@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-25",
+  "status": "rejected_by_user",
+  "source": "用户本次指令：全部不采纳，把其他的代码上传到git上",
+  "rejectedScope": [
+    "本批全部新估值",
+    "本批全部新买入点与条件价线",
+    "新增悲观名义回收约束",
+    "本批价格确认与导出方案"
+  ],
+  "proposalCommit": "56d4aa1355f059ff253a90b764b1d8d991ef322c",
+  "retainedSystemBaseline": "ff4c63033282f25184b9a4df2a4c3a024a98a571",
+  "originalStrategiesChanged": false,
+  "accountDataWritten": false,
+  "productionReleasePerformed": false,
+  "decision": "保留原策略与其他系统修复，价格稿仅保留历史/本机私人归档，不得视为采纳或执行批准"
+}

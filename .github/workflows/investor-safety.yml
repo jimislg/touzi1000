@@ -27,9 +27,6 @@ jobs:
       - run: node investment-platform/test-research-browser.js
         env:
           PLAYWRIGHT_MODULE: /tmp/investor-browser/node_modules/playwright
-      - run: node investment-platform/test-repricing-browser.js
-        env:
-          PLAYWRIGHT_MODULE: /tmp/investor-browser/node_modules/playwright
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -38,4 +35,3 @@ jobs:
             /tmp/investor-safety-logs
             delivery-tests/browser-*.png
             delivery-tests/research/*.png
-            delivery-tests/repricing/*.png

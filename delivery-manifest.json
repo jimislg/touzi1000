@@ -1,48 +1,45 @@
 {
   "version": 1,
-  "branch": "codex/all-pool-repricing-20261024",
+  "branch": "codex/system-updates-without-repricing-20261025",
   "baseCommit": "a13a04997d8fc5e83fa1f3e3d53c1f62a6cd25eb",
-  "rollbackCodeCommit": "a13a04997d8fc5e83fa1f3e3d53c1f62a6cd25eb",
+  "rollbackCodeCommit": "ff4c63033282f25184b9a4df2a4c3a024a98a571",
   "productionDataWritten": false,
-  "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。；本轮只新增34家公开模型副本、37证券价格确认包和本机研究确认导出；没有账户迁移、策略覆盖或执行批准。",
+  "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
   "releasePerformed": false,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
   "tests": {
-    "offlineSuites": 16,
+    "offlineSuites": 15,
     "browserChecks": 14,
     "httpSmokeChecks": 11,
     "commands": [
       "node scripts/test-offline.js --with-http",
       "node investment-platform/test-browser-safety.js",
       "node investment-platform/test-research-browser.js",
-      "node investment-platform/test-repricing-browser.js",
       "node scripts/verify-delivery.js"
     ],
-    "rawOutput": "delivery-tests/repricing",
+    "rawOutput": "delivery-tests/without-repricing",
     "baselineRawOutput": "delivery-tests/baseline",
-    "withHttpSuites": 17,
+    "withHttpSuites": 16,
     "researchBrowserChecks": 12,
     "researchEvidenceChecks": 238,
-    "previousRawOutput": "delivery-tests/research",
-    "repricingBrowserChecks": 17,
-    "repricingChecks": 600
+    "previousRawOutput": "delivery-tests/research"
   },
   "files": [
     {
       "path": ".github/workflows/investor-safety.yml",
       "action": "add",
-      "intent": "启用同提交交付对账、完整回归及三套浏览器验收、上传截图证据",
+      "intent": "启用推送/PR自动验收：交付对账、离线回归、HTTP与浏览器检查；保留原文证据",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
-      "sha256": "c06f02cf150d380388841b98366a8fb6b0405005349cddd919ec6109e8ac536a"
+      "sha256": "bb159b35c6e0a615af5333f3176d2219517cd8d141df7a3686265b3c174ba28d"
     },
     {
       "path": ".gitignore",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
       "action": "modify",
-      "intent": "排除私人账户底稿和下载原文，避免公开提交；排除新估值私人底稿和原文下载",
-      "sha256": "b9bce37519770c4e6817beaf7857c318c4b90d799e058ab9d208172b1234f4e3"
+      "intent": "排除私人底稿、下载原文和已被用户否决的本批价格研究目录，防止重新提交",
+      "sha256": "6a375c46fc2cdbb829b2210c54486673352d139d8f5fd2ae2a93beb81ce0c1c6"
     },
     {
       "path": "COLLABORATION.md",
@@ -50,7 +47,7 @@
       "intent": "同步验收入口与VPS现行发布/数据源协议",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
-      "sha256": "d4698b37200e81dae9286f44aa265d3806cb62ba6a5d9e194ecfe06c65a3ec76"
+      "sha256": "8495e1ff1d1cc80417311abc2ce6b48c65f9c9ec053efb25c948a89f487125a6"
     },
     {
       "path": "DELIVERY.md",
@@ -61,20 +58,20 @@
       "sha256": "8122fced811069ae8917707f8a0f1f253cbc936267fc2e87a766cc73a299dde6"
     },
     {
-      "path": "REPRICING_DELIVERY.md",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值买点交付、验收、回滚和未发布边界",
-      "sha256": "d982925399ab884bf2abf16c4107bdc742863850514ee3a537e8b3ff9de73837"
-    },
-    {
       "path": "RESEARCH_DELIVERY.md",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
       "action": "add",
       "intent": "本轮研究、代码、验收、回滚点和发布边界",
       "sha256": "831787e3393b019f162ec7466afd4b32eb34ed513b66c842d48091c8ab991510"
+    },
+    {
+      "path": "SYSTEM_ONLY_DELIVERY.md",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "记录保留的系统修复、价格方案否决范围、自测、分支及安全回滚点",
+      "action": "add",
+      "sha256": "8783e9b848d22fd3a44a8e6df7f4413b005e169be620928c3cdab3d7c1ddeba7"
     },
     {
       "path": "delivery-manifest.json",
@@ -170,7 +167,7 @@
       "intent": "浏览器真实渲染截图，仅含本机合成测试数据",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
-      "sha256": "541c0351f8604c86803ed729ff0b491c4c0869ae490abb3a6e27c7733b818a91"
+      "sha256": "03a10a5f1bef183819d0ea80d2990fcbbee3c8e80c5d0c0a4342bb86e2fe6e51"
     },
     {
       "path": "delivery-tests/browser-mobile.png",
@@ -178,7 +175,7 @@
       "intent": "浏览器真实渲染截图，仅含本机合成测试数据",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
-      "sha256": "acc76565b2b474fab526307c12ba9763099582a10990a4299353c89e7ea71941"
+      "sha256": "1865dc026ee1f9583450ecbd01d42ff72099d3e9ccdd48d965da3ddda454d089"
     },
     {
       "path": "delivery-tests/final/browser.log",
@@ -315,214 +312,6 @@
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
       "sha256": "7e26fe9dafc4a8c9221378a9243d82604ebdd9f653ec6ee999ab9bc0d18629f4"
-    },
-    {
-      "path": "delivery-tests/repricing/browser-checks.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "9a09cfc58a5f96349d6b992d9ce69ef8036e0d4f864c4ae9d2a252e805fee6f2"
-    },
-    {
-      "path": "delivery-tests/repricing/existing-browser-safety.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "f498c9a29271068e28d7b41a2315d48b9bd7eacdd4bd34edd66d09b0927a1291"
-    },
-    {
-      "path": "delivery-tests/repricing/existing-research-browser.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "3dca2f6093f3b1ac1a714aeb9605e22fcf642e3bf710445801664fd20279946e"
-    },
-    {
-      "path": "delivery-tests/repricing/ninghu-finite-review.png",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "96538b4c7d86a090ed78403370af7ae0f329ff8d8febfd75b233626592cbbbd0"
-    },
-    {
-      "path": "delivery-tests/repricing/offline-acceptance.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "e96ccca6d9d83e105d313b7df162b5b73c5cb8d2ee886add8dce145509d638e7"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/invest-miniprogram_scripts_sync-core.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/invest-miniprogram_scripts_verify-network.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "2f574304f898565276a55d706efa4bb5ba6a373ea98cd42c7e81f964136fa1b1"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/invest-miniprogram_scripts_verify.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "eb63d23c4b705e504317fbe3f461e96221ef3787ac5d02ff85e362d164cc5f6c"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_lg_sync_test.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "c28cfd2a397dcd92c27baad90507bde160c19c8027e4f166c669ae9d5d93f73a"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-cloud-adapter.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "f130022832162e72914214faaf7a41dc15dcea6ab6ad7aab7cfbc28281145953"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-cloud-roundtrip.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "763a99db493aa65806827cda06cc1f047e93d2ee0fbf4bc834a8c0b5e93bfa5f"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-config-service.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "0788e6251ceb015c6696ef9e40649a4c4a5b3042408902037ace1d3dd56f211a"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-decision-safety.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "42024b0a69c166e256be0ed30c4e5cb25d332e5a7e599ae4d6eb774c442c6426"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-local-server.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "59aa1faab635b3ebfa099ffa56af23e2260a08b65289241df4e58cac549d0b24"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-refresh.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "e0d89533f0a610aeaf19136cd03258ab558ba959ac050dc51f1a69896e4661a7"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-repricing.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "89d341af2a3424bfd7ccca8c99f309fc0d5ed34b213625f348d34551f3789451"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-research-evidence.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "78b8b692208498b70cf6e4daab2815b31906df83bd882e5518d42a552bf88aa1"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-seat-risk-ui.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "030e44f9f64b4cd758cab910c6bb17c94c599b75dd68e5cf76d4c4320baab3ec"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-server-api.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "41cbce995c12088b34d224a057b6feb7c6db24424b862fea8727632d4715f28f"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_test-stress-model.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "1b6450702a0bb1b57bf84108d749e6f9c6be891c22253ff6cc8aa6a32cf82a3d"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_verify-config-data.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "0d62662462301a6e0d594f825359a1898a00438e69fe81abacfb032f6c614b5f"
-    },
-    {
-      "path": "delivery-tests/repricing/offline/investment-platform_verify-integrity.js.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "d5563f6850584625a62de3316b219f66917539ca0b7ed62be1afec47abb243d7"
-    },
-    {
-      "path": "delivery-tests/repricing/privacy-scope.log",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "5ed714192dd0322ff5034d84eeb20c1a2e59826d1bfb18501a06a228b663d041"
-    },
-    {
-      "path": "delivery-tests/repricing/repricing-checklist.png",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "5cb71e13d6089a0c16f22385b1ceaa68149f2d52951c2de5de74a03aecf7533a"
-    },
-    {
-      "path": "delivery-tests/repricing/repricing-desktop.png",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "1424d320dadc7460272ddd864dc0f4816c4c159993f552fa9cfc44a6bd046710"
-    },
-    {
-      "path": "delivery-tests/repricing/repricing-mobile.png",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "本轮验收原文及本机公开报告/合成确认截图",
-      "sha256": "dd4c657fdc80e839afd659cd0f6bd2290c6c3d925d95863faa1e1abe1f38771c"
     },
     {
       "path": "delivery-tests/research/browser-safety.log",
@@ -741,6 +530,198 @@
       "sha256": "6f389df19f765145788b2dba040bafbcd79ba88351b809c8ba4167a8f6d87b7f"
     },
     {
+      "path": "delivery-tests/without-repricing/browser-desktop.png",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "03a10a5f1bef183819d0ea80d2990fcbbee3c8e80c5d0c0a4342bb86e2fe6e51"
+    },
+    {
+      "path": "delivery-tests/without-repricing/browser-mobile.png",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "1865dc026ee1f9583450ecbd01d42ff72099d3e9ccdd48d965da3ddda454d089"
+    },
+    {
+      "path": "delivery-tests/without-repricing/browser-safety.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "f498c9a29271068e28d7b41a2315d48b9bd7eacdd4bd34edd66d09b0927a1291"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline-acceptance.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "197440f91aa3ff27dec394bc6f1609f6e216d78a2bbaa4ade8bc7dc35c2c41b5"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/invest-miniprogram_scripts_sync-core.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/invest-miniprogram_scripts_verify-network.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "2f574304f898565276a55d706efa4bb5ba6a373ea98cd42c7e81f964136fa1b1"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/invest-miniprogram_scripts_verify.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "eb63d23c4b705e504317fbe3f461e96221ef3787ac5d02ff85e362d164cc5f6c"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_lg_sync_test.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "c28cfd2a397dcd92c27baad90507bde160c19c8027e4f166c669ae9d5d93f73a"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_test-cloud-adapter.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "f130022832162e72914214faaf7a41dc15dcea6ab6ad7aab7cfbc28281145953"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_test-cloud-roundtrip.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "763a99db493aa65806827cda06cc1f047e93d2ee0fbf4bc834a8c0b5e93bfa5f"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_test-config-service.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "0788e6251ceb015c6696ef9e40649a4c4a5b3042408902037ace1d3dd56f211a"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_test-decision-safety.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "42024b0a69c166e256be0ed30c4e5cb25d332e5a7e599ae4d6eb774c442c6426"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_test-local-server.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "59aa1faab635b3ebfa099ffa56af23e2260a08b65289241df4e58cac549d0b24"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_test-refresh.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "e0d89533f0a610aeaf19136cd03258ab558ba959ac050dc51f1a69896e4661a7"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_test-research-evidence.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "78b8b692208498b70cf6e4daab2815b31906df83bd882e5518d42a552bf88aa1"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_test-seat-risk-ui.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "030e44f9f64b4cd758cab910c6bb17c94c599b75dd68e5cf76d4c4320baab3ec"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_test-server-api.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "41cbce995c12088b34d224a057b6feb7c6db24424b862fea8727632d4715f28f"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_test-stress-model.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "1b6450702a0bb1b57bf84108d749e6f9c6be891c22253ff6cc8aa6a32cf82a3d"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_verify-config-data.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "0d62662462301a6e0d594f825359a1898a00438e69fe81abacfb032f6c614b5f"
+    },
+    {
+      "path": "delivery-tests/without-repricing/offline/investment-platform_verify-integrity.js.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "d5563f6850584625a62de3316b219f66917539ca0b7ed62be1afec47abb243d7"
+    },
+    {
+      "path": "delivery-tests/without-repricing/research-browser.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "3dca2f6093f3b1ac1a714aeb9605e22fcf642e3bf710445801664fd20279946e"
+    },
+    {
+      "path": "delivery-tests/without-repricing/research-checklist-desktop.png",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "fab06f04fa38806d7dd58a31575b3f2a9ee4a3cb8a2a39068c09a6dcf5fa41b4"
+    },
+    {
+      "path": "delivery-tests/without-repricing/research-checklist-mobile.png",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "802f3302411244ae39ed47a2488d6209cb533b00037fcaebe5b888b9fed8dae0"
+    },
+    {
+      "path": "delivery-tests/without-repricing/withdrawal-scope.log",
+      "dataOrSchemaTouch": false,
+      "productionDataWritten": false,
+      "intent": "撤回价格方案后系统回归的运行输出或合成数据截图证据",
+      "action": "add",
+      "sha256": "163ed4b964640367ef715ff8729af70d45ce00b57c95dbf2331c6e28256f47df"
+    },
+    {
       "path": "invest-miniprogram/pages/index/index.wxml",
       "action": "modify",
       "intent": "小程序投资者页面措辞、缺项、历史策略与数据来源显示",
@@ -848,25 +829,9 @@
       "path": "investment-platform/public/repricing/index.html",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
+      "intent": "旧价格入口仅展示用户全部不采纳通知，移除价格、确认和导出功能",
       "action": "add",
-      "intent": "全池新价格确认稿及独立计算模块；本机研究意见不授执行批准",
-      "sha256": "7720284aa3a1e1766370421c91b461da2be2dd83d5b86d407a5f76333f71affa"
-    },
-    {
-      "path": "investment-platform/public/repricing/model-core.js",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新价格确认稿及独立计算模块；本机研究意见不授执行批准",
-      "sha256": "23534ab3bca0fd35a2e317659987009ee44397fd2a974b402b1648d94c2eb40c"
-    },
-    {
-      "path": "investment-platform/public/repricing/proposals.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新价格确认稿及独立计算模块；本机研究意见不授执行批准",
-      "sha256": "9fbe448b485960370a1212abddbdb221cb386f8e6b2ec2360ce0623434e0d7fb"
+      "sha256": "842d72a219b755ec0c29fef2933f1bcfb54cbe212e5ff35a66cc308468a08afe"
     },
     {
       "path": "investment-platform/public/research-supplement.json",
@@ -1205,22 +1170,6 @@
       "sha256": "1170431b267437df1cbf87afe143fecc5b7f7f0f8688938cc2e5657aaa5b58df"
     },
     {
-      "path": "investment-platform/test-repricing-browser.js",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "验证新模型数学、全量价格覆盖、压力/税费、确认导出及手机布局",
-      "sha256": "8d8feb6c46cc17c3c377795358728aac57b8122dc260ca05c6372ce9e7abc163"
-    },
-    {
-      "path": "investment-platform/test-repricing.js",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "验证新模型数学、全量价格覆盖、压力/税费、确认导出及手机布局",
-      "sha256": "75102962fa7cef50ae7197513ad9cde2e52f5a0020a393e2dcbe90d64236bd86"
-    },
-    {
       "path": "investment-platform/test-research-browser.js",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
@@ -1283,342 +1232,6 @@
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
       "sha256": "049e34848f1f85b4365d11ace67b9d1d3d46dd6506a3cc07bd441636fd55876e"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/BRIEF.md",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "abdacbe46e0d9422e8afed0facda8ead3e2178defe625b05bd9b5934dfb330a5"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/assumptions.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "27b5540744a4e75c804e6232dad8461df7f5240ce77b5b6a4c0b871fd5ba492e"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/checklist_support_note.md",
-      "dataOrSchemaTouch": false,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "dcbb03ce367ec07c6790fd951642bc171724843304fd678188370c63ba5ded09"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/cutoff-check-20261025.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "b4e593e539adb0ce65ae23032e8ee9b738c4431c0a0ab62ad9ad7f25bc8919bf"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/legacy-models.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "93ce6fd9aaf327abce6ae287976c1122738dee58b83284fd6bc58df07e685839"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/market-data.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "f3076f87496e52ca4520aee68d5911580a527256ab965bf767eef4f766f22b75"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/anta.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "f10719c6c1a315215d3dd888966b596997823e785152fc47537bd51309588647"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/catl.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "b860afb3dad495175f82b3596013d7664aa23076f0e0bac5b4538f7d29950ec4"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/china_mobile.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "afd12f94a2d77663c9d35de89d6a64bee2360e37f246e534f59e6116759811a9"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/cmb.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "9222262cb5a74e5564f02049556f4863a2739e8928b5257aaa977dd3da593593"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/cnooc.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "81de5adea850b0f654665e58d7071fc1116bdc537a6e428f38a3849453400d45"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/consun.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "f4802e039f6808d14cd836d645cbd02475e9d7e4220ab2b622729457880cdc42"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/crland.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "c44ef891375bb944e59b9be98e99081b6a3f7cc47b97acda307c7e3997cb9b50"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/cypc.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "8ad84b1cf027187347540450cde07b6c39b2712276b76900f2886db2f40cef6d"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/dongee.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "80e469ce2318b9a70702cb5b1a3101ee11c53f85476044df4edef92d437e7b42"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/dongpeng.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "362f87b8ba6c57bd118d422860a05e15c7dc772bf4d99c1bdeab8dbc645e6cac"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/focus.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "eb9a6a36f4b39b657dedb4127c129b93ae5c9060d96922b6a2e46e7672656af2"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/fuyao.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "618973d251ea81e84a473b01017ad571dbf6e718eea1cbcb8cac0e1a91ea1eec"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/gree.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "b55a3cd395b886604907f9d0a968dc45f2c9dd3e877d3e62175f53230c395fa4"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/haitian.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "bc986515b2c82d05552db3fc3dafc7df695b6ff76c80ef9ace304aee94da0415"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/hengrui.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "ab2237b55f853eb94b68ea0cfc8c83f13b313d2abee2aa5df6c811abdd67f15b"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/hkex.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "096e98186adf6630b25b7875201efee39edc3a28faf0dac2d6495597f7756a21"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/mindray.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "10b085b0973525709d001206097a3d3468e0bf4bd392576806de9797e20f4073"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/miniso.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "572db7359f6b9231925de8e6610e21315f4dcfae599705dfe9d575f8a49b90c4"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/moutai.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "d90f37f461bef10d26a360d79cd9214557518d751504333828b01f23dfe80d25"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/ninghu.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "c310c109e422a86bf1f4b4cc38216427f9b15f96b77969778a82082156b7ea3f"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/nongfu.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "8e9b3cc4f2e1cab62eda165d116028781e2581f82b15d24497e2ecf5bacf4eea"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/pingan.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "bc4ac1bd38274bd0df4f9000a4ac3692c78b6b8a5c7d79c2bae8bf9aaafda90f"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/popmart.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "4158e85085319b5356b4559dda506376df9783a3ace31d90220478f87f9c80a0"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/sanhua.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "d09779c01dcfcf76091fd25efd6ed0df11761eca1a0755abf3b40a25acdf09fd"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/shenhua.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "0985d4dd490da01cd6fe7871b2a4f86e30747bfd0c469b284d5ab3a438bf3c83"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/tencent.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "02631ce5c1582b831c4f68f99f53546013c81a2e2b2a437471504470c6cc2397"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/trip.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "185774af9257cceced934fd254178fabd16cb659ecc737f4b61418b716328816"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/wanhua.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "4fcbe5eb78f9eeb43221a762674d4d3def286a3586f3d697872be223bb7535c0"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/weixing.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "ab67f84498960fb62b8cefda6703df8ade7768fc3eb8e0ce40886ba90bf1c206"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/yangnong.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "ab85fb384446ac4102b9f77c8db086e46fa04c044ff65dde95254b65213a5c29"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/yili.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "7015d69a56f7037d063a1619f8d0e85608970e41901db83671bdeacdbef103d1"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/yiwu.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "de075ccacea957437026fd359fb6de502ae3ac0611c05e18253bdce59f626c49"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/yutong.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "b2b1a25eb2c4889e39d4682c9db9e70ecd254bd31f654ff38c8fb3c96ef31fe3"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/models/zijin.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "8c63c1ac815aa068d8b78e3c63df3cde8a667828d0eede19646ecb91d18f40e0"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/proposals.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "9fbe448b485960370a1212abddbdb221cb386f8e6b2ec2360ce0623434e0d7fb"
-    },
-    {
-      "path": "research/20261024-all-pool-repricing/security-catalog.json",
-      "dataOrSchemaTouch": true,
-      "productionDataWritten": false,
-      "action": "add",
-      "intent": "全池新估值经营/现金三情景、公开来源和待确认清单；不含个人账户",
-      "sha256": "9b1bb461c42a7ae93d5bd8fc1d76fbec3844b722057a7190b08ffd779efb2909"
     },
     {
       "path": "research/20261024-evidence-completion/RESEARCH_BRIEF.md",
@@ -2221,12 +1834,12 @@
       "sha256": "954ee4c0b60115e10465ea4e8e08d3ef4f80c280141e7c4ed27c25077742f2ef"
     },
     {
-      "path": "scripts/build-all-pool-repricing.js",
+      "path": "research/decisions/20261025-repricing-rejected.json",
       "dataOrSchemaTouch": true,
       "productionDataWritten": false,
+      "intent": "记录用户全部否决本批价格建议的决定，不写入原策略或账户",
       "action": "add",
-      "intent": "仅读公共输入生成34家新模型定价和37证券确认清单；不写账户",
-      "sha256": "36ce4bf36c4d8ec3c926924afde98f0aa7b241b5d711647271458240c9e8e374"
+      "sha256": "0b1f2d27876b8d116de0483b78a86050c906760d40534c57c34c1a6eab415682"
     },
     {
       "path": "scripts/build-research-completion.py",
@@ -2239,10 +1852,10 @@
     {
       "path": "scripts/deploy-vultr.sh",
       "action": "modify",
-      "intent": "代码专用默认干跑发布；不上传账户配置；同提交CI、pending、来源及备份检查；研究报告加入代码白名单；新价格确认稿加入代码白名单，仍需授权发布",
+      "intent": "代码专用默认干跑发布；不上传账户配置；同提交CI、pending、来源及备份检查；研究报告加入代码白名单",
       "dataOrSchemaTouch": true,
       "productionDataWritten": false,
-      "sha256": "d5e09640c0952c63b92da9298be6f074d45ef62c1d842926550bf38871311db6"
+      "sha256": "51404ccb0c4a8be2d022c5c5ce6166b79c1c089c6036eca4dd974380cda52de0"
     },
     {
       "path": "scripts/reconcile-research-account.js",
@@ -2255,10 +1868,10 @@
     {
       "path": "scripts/test-offline.js",
       "action": "add",
-      "intent": "统一16个离线入口、HTTP17入口，全部mock云并保存原文日志",
+      "intent": "统一离线验收入口；每个子进程强制mock云库；可选临时HTTP冒烟",
       "dataOrSchemaTouch": false,
       "productionDataWritten": false,
-      "sha256": "e1aba8d55520b8647626ba4a0e0398fc4797465c3931221552a2e483b6a376ac"
+      "sha256": "f3d01deb1b2ca3d3f2c64e9aca42433f07227f3b184d3194643c6edc25f8e94e"
     },
     {
       "path": "scripts/verify-delivery.js",
@@ -2270,5 +1883,13 @@
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
-  "repricingRollbackCodeCommit": "ff4c63033282f25184b9a4df2a4c3a024a98a571"
+  "branchStartCommit": "56d4aa1355f059ff253a90b764b1d8d991ef322c",
+  "retainedSystemBaseline": "ff4c63033282f25184b9a4df2a4c3a024a98a571",
+  "repricingDecision": {
+    "status": "rejected_by_user",
+    "allNewPricesAdopted": false,
+    "originalStrategyChanged": false,
+    "record": "research/decisions/20261025-repricing-rejected.json",
+    "historicalProposalCommit": "56d4aa1355f059ff253a90b764b1d8d991ef322c"
+  }
 }
