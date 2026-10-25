@@ -1,9 +1,9 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "07821f4",
+  "baseCommit": "795aaea",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
-  "productionDataWritten": false,
+  "productionDataWritten": true,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
   "releasePerformed": false,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
@@ -26,9 +26,19 @@
   },
   "files": [
     {
+      "path": "investment-platform/config.json",
+      "dataOrSchemaTouch": true,
+      "intent": "郎刚10-25股票调整：宁德时代tiers由旧P档(367.4/313.4/249.2/208.1)更新为四步法+唐朝法双验证H档(H10 238.96/H12 205.39/H15 165.29/H17.46 139.54)，buyPrice=190.80(H13买入线)，px=237.60；泡泡玛特四档与江南布衣入池已随014dd77入库并推VPS生效"
+    },
+    {
+      "path": "investment-hq/data/stocks/catl.json",
+      "dataOrSchemaTouch": true,
+      "intent": "宁德研究库同步：prices/customTiers改H档+buyAdvice(不买，10%是机会成本线)+researchAudit(毛利率口径修正22.72%、净现金敏感性、13.6%分水岭作废)"
+    },
+    {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至07821f4（吸收并行会话宁德/福耀docs提交——其未按纪律更新manifest致CI红，本提交为门禁对账修复，不影响已发布数据）"
+      "intent": "基线推进至795aaea"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
