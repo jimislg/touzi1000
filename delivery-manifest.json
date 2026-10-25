@@ -1,7 +1,7 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
+  "baseCommit": "adef1a6e5723c29e5acbe8477f6fef9270aec6cc",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
@@ -26,9 +26,14 @@
   },
   "files": [
     {
+      "path": "investment-platform/public/index.html",
+      "dataOrSchemaTouch": false,
+      "intent": "今日观察改成交事实列；公司研究新增四档参考价列；组合决策席位成员行直接显示四档线"
+    },
+    {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "manifest基线由交付快照推进为滚动对账：每次提交以父提交为基线并仅列本次变更文件；无生产数据/模式影响"
+      "intent": "滚动对账基线更新至父提交"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
