@@ -67,7 +67,7 @@ function quoteText (u) {
   const qq = q(u)
   return qq ? (qq.snapshot ? '快照 · ' : '') + CORE.displayQuoteTime(qq.time || '') + '（北京时间）' : '报价缺失'
 }
-function researchLabel (rs) { return ({ unknown: '研究未知', pending: '研究未完成', partial: '研究部分完成', done: '研究已建档' })[rs.status] || '研究待核' }
+function researchLabel () { return '' } // 郎刚2026-10-25：研究门控提示不再上屏；价格一律用config维护的参考价与档位
 function approvalOf (u) { return CORE.decisionBudget(state.CFG, state.Q, u.code) }
 function activityOf (u) { return CORE.tradeActivity(state.CFG, u.code) }
 function decisionText (bc) { return bc.approvedCNY > 0 ? '条件额度待服务端复核' : '执行阻断' }
@@ -343,7 +343,6 @@ const WATCH_FILTERS = [
   { key: 'unheld', label: '未持仓', hint: '查看观察池中尚未持有的公司。', match: x => !x.held },
   { key: 'a', label: 'A类', hint: '查看平台当前归为A类的公司。', match: x => x.grade === 'A' },
   { key: 'b', label: 'B类', hint: '查看平台当前归为B类的公司。', match: x => x.grade === 'B' },
-  { key: 'research', label: '研究待补', hint: '包括研究未知、未完成及完成标记缺少依据的公司。', match: x => x.researchPending },
   { key: 'exit', label: '退出观察', hint: '查看平台已列入退出观察名单的公司。', match: x => x.exitWatch }
 ]
 
@@ -389,7 +388,7 @@ function watchModel (expanded, filter) {
       distancePct: u.buyPrice > 0 && px != null ? (px / u.buyPrice - 1) * 100 : null,
       researchPending: !rs.complete,
       exitWatch: (b.watchExit || []).includes(u.code),
-      research: researchLabel(rs), decisionNote: bc.blockers.join('；') || '条件额度须服务端复核，各公司额度不可相加', quoteText: quoteText(u),
+      research: researchLabel(rs), decisionNote: '条件额度须服务端复核，各公司额度不可相加', quoteText: quoteText(u),
       px: px != null ? fmt(px, 2) : '—', cur: curOf(u),
       pctTxt: dayPct != null ? sign(dayPct) : '—', pctCls: dayPct != null ? clsN(dayPct) : 'muted',
       status, bcls, dist, tiers,

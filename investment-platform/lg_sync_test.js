@@ -12,7 +12,7 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  check('all modules render',el('posTable').innerHTML.includes('合成A')&&el('aTable').innerHTML.includes('合成A')&&el('seatTable').innerHTML.includes('共用席位'))
  check('five workspaces expose today only on load',rt.workspaces.filter(x=>!x.hidden).length===1&&!rt.workspaces[0].hidden)
  run("showWorkspace('research')");check('workspace changes visibility and accessibility',!rt.workspaces[2].hidden&&rt.nav[2]['aria-current']==='page')
- check('missing research is visible',el('aTable').innerHTML.includes('研究未知'))
+ check('maintained reference prices visible without research gating',el('aTable').innerHTML.includes('历史参考价与原始批示')&&el('aTable').innerHTML.includes('H10')&&!el('aTable').innerHTML.includes('研究未知')&&!el('aTable').innerHTML.includes('研究待核'))
  check('current shares displayed apart from folded historical plan',el('aTable').innerHTML.includes('170000股')&&el('aTable').innerHTML.includes('历史参考价与原始批示'))
  check('no stage percentages converted to money',!el('aTable').innerHTML.includes('累计可投'))
  check('legacy default ladder is not a 100percent issuer limit',run('uniCap(CFG.universe[0])')===20)
@@ -41,7 +41,7 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  el('scenarioR').value='-5';run('runScenario()');check('negative return still renders finite contribution scenario',!el('scenarioOut').textContent.includes('NaN')&&el('scenarioOut').textContent.includes('条件情景'))
  // Same pure domain results on web and mini program.
  global.wx={request(){}};const mini=require('../invest-miniprogram/utils/store');mini.state.CFG=structuredClone(cfg);mini.state.Q=structuredClone(quotes)
- check('mini unknown research included in pending filter',mini.watchModel({},'research').rows.length===2)
+ check('mini shows maintained tiers without research pills',mini.watchModel().rows.length===2&&mini.watchModel().rows.every(x=>!x.research)&&mini.watchModel().rows[0].tiers.length===3)
  check('mini uses real missing P/L instead of zero',mini.positionsModel().costTotal==='—'&&mini.indexModel().pl==='—')
  check('mini missing quote is not waiting',(()=>{delete mini.state.Q.qa;delete mini.state.CFG.universe[0].px;const row=mini.watchModel().rows.find(x=>x.code==='600000.SH');return row.status==='报价缺失'&&!row.waiting})())
  check('mini historical tiers do not synthesize amounts',mini.watchModel().rows.every(x=>x.tiers.every(t=>t.amt==='')))
