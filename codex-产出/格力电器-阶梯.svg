@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470" font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect width="900" height="470" fill="#ffffff"/>
+<text x="60" y="34" font-size="17" font-weight="700" fill="#111827">格力电器 000651.SZ · 价格阶梯 · 2026-10-25</text>
+<text x="60" y="56" font-size="11.5" fill="#6b7280">现价 37.23 元｜经营性归母 243.4 亿（已剔净利息 33.3 亿）｜净现金 790.3 亿取 50%｜加权退出 PE 8.35×</text>
+<line x1="300" y1="92" x2="800" y2="92" stroke="#f1f5f9" stroke-width="1"/>
+<text x="286" y="96" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">卖出线 · DCF(6%)</text>
+<rect x="300" y="84" width="437.9" height="16" rx="3" fill="#6b7280" fill-opacity="0.16" stroke="#6b7280" stroke-width="1.2"/>
+<text x="747.9" y="97" font-size="14" font-weight="700" fill="#6b7280">44.77</text>
+<text x="799.9" y="96" font-size="10" fill="#9ca3af">减仓触发线，不清仓</text>
+<line x1="300" y1="130" x2="800" y2="130" stroke="#f1f5f9" stroke-width="1"/>
+<text x="286" y="134" font-size="12" font-weight="700" fill="#1d4ed8" text-anchor="end">中枢 · DCF(10%)</text>
+<rect x="300" y="122" width="308.1" height="16" rx="3" fill="#1d4ed8" fill-opacity="0.16" stroke="#1d4ed8" stroke-width="1.2"/>
+<text x="618.1" y="135" font-size="14" font-weight="700" fill="#1d4ed8">38.02</text>
+<text x="670.1" y="134" font-size="10" fill="#9ca3af">合理价，非买点</text>
+<line x1="300" y1="168" x2="800" y2="168" stroke="#f1f5f9" stroke-width="1"/>
+<text x="286" y="172" font-size="12" font-weight="700" fill="#dc2626" text-anchor="end">现价</text>
+<rect x="300" y="160" width="292.9" height="16" rx="3" fill="#dc2626" fill-opacity="0.16" stroke="#dc2626" stroke-width="2.0"/>
+<text x="602.9" y="173" font-size="14" font-weight="700" fill="#dc2626">37.23</text>
+<text x="654.9" y="172" font-size="10" fill="#9ca3af">PE 7.48×｜股息率 8.06%</text>
+<line x1="300" y1="206" x2="800" y2="206" stroke="#f1f5f9" stroke-width="1"/>
+<text x="286" y="210" font-size="12" font-weight="700" fill="#C2410C" text-anchor="end">经验线 · 8.5×</text>
+<rect x="300" y="198" width="287.3" height="16" rx="3" fill="#C2410C" fill-opacity="0.1" stroke="#C2410C" stroke-width="1.2" stroke-dasharray="7 5"/>
+<circle cx="587.3" cy="206" r="4.5" fill="#ffffff" stroke="#C2410C" stroke-width="2"/>
+<text x="597.3" y="211" font-size="14" font-weight="700" fill="#C2410C">36.94</text>
+<text x="649.3" y="210" font-size="10" fill="#9ca3af">峰值PE 17×腰斩｜仅参考</text>
+<line x1="300" y1="244" x2="800" y2="244" stroke="#f1f5f9" stroke-width="1"/>
+<text x="286" y="248" font-size="12" font-weight="700" fill="#0f766e" text-anchor="end">买入线 · DCF(12%)</text>
+<rect x="300" y="236" width="252.9" height="16" rx="3" fill="#0f766e" fill-opacity="0.16" stroke="#0f766e" stroke-width="1.2"/>
+<text x="562.9" y="249" font-size="14" font-weight="700" fill="#0f766e">35.15</text>
+<text x="614.9" y="248" font-size="10" fill="#9ca3af">股息+终值口径</text>
+<line x1="300" y1="282" x2="800" y2="282" stroke="#f1f5f9" stroke-width="1"/>
+<text x="286" y="286" font-size="12" font-weight="700" fill="#047857" text-anchor="end">买入线 · 13% 加权</text>
+<rect x="300" y="274" width="235.8" height="16" rx="3" fill="#047857" fill-opacity="0.16" stroke="#047857" stroke-width="1.2"/>
+<text x="545.8" y="287" font-size="14" font-weight="700" fill="#047857">34.26</text>
+<text x="597.8" y="286" font-size="10" fill="#9ca3af">5 年情景加权门槛</text>
+<line x1="300" y1="320" x2="800" y2="320" stroke="#f1f5f9" stroke-width="1"/>
+<text x="286" y="324" font-size="12" font-weight="700" fill="#7c3aed" text-anchor="end">H10 · 四步法 10 年</text>
+<rect x="300" y="312" width="164.6" height="16" rx="3" fill="#7c3aed" fill-opacity="0.16" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="474.6" y="325" font-size="14" font-weight="700" fill="#7c3aed">30.56</text>
+<text x="526.6" y="324" font-size="10" fill="#9ca3af">10 年加权终值 CAGR 10%</text>
+<line x1="300" y1="358" x2="800" y2="358" stroke="#f1f5f9" stroke-width="1"/>
+<text x="286" y="362" font-size="12" font-weight="700" fill="#7c3aed" text-anchor="end">H12 · 四步法 10 年</text>
+<rect x="300" y="350" width="67.7" height="16" rx="3" fill="#7c3aed" fill-opacity="0.16" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="377.7" y="363" font-size="14" font-weight="700" fill="#7c3aed">25.52</text>
+<text x="429.7" y="362" font-size="10" fill="#9ca3af">10 年加权终值 CAGR 12%</text>
+<line x1="300" y1="404" x2="800" y2="404" stroke="#9ca3af" stroke-width="1.2"/>
+<line x1="300.0" y1="404" x2="300.0" y2="409" stroke="#9ca3af"/>
+<text x="300.0" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">22</text>
+<line x1="338.5" y1="404" x2="338.5" y2="409" stroke="#9ca3af"/>
+<text x="338.5" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">24</text>
+<line x1="376.9" y1="404" x2="376.9" y2="409" stroke="#9ca3af"/>
+<text x="376.9" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">26</text>
+<line x1="415.4" y1="404" x2="415.4" y2="409" stroke="#9ca3af"/>
+<text x="415.4" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">28</text>
+<line x1="453.8" y1="404" x2="453.8" y2="409" stroke="#9ca3af"/>
+<text x="453.8" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">30</text>
+<line x1="492.3" y1="404" x2="492.3" y2="409" stroke="#9ca3af"/>
+<text x="492.3" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">32</text>
+<line x1="530.8" y1="404" x2="530.8" y2="409" stroke="#9ca3af"/>
+<text x="530.8" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">34</text>
+<line x1="569.2" y1="404" x2="569.2" y2="409" stroke="#9ca3af"/>
+<text x="569.2" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">36</text>
+<line x1="607.7" y1="404" x2="607.7" y2="409" stroke="#9ca3af"/>
+<text x="607.7" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">38</text>
+<line x1="646.2" y1="404" x2="646.2" y2="409" stroke="#9ca3af"/>
+<text x="646.2" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">40</text>
+<line x1="684.6" y1="404" x2="684.6" y2="409" stroke="#9ca3af"/>
+<text x="684.6" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">42</text>
+<line x1="723.1" y1="404" x2="723.1" y2="409" stroke="#9ca3af"/>
+<text x="723.1" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">44</text>
+<line x1="761.5" y1="404" x2="761.5" y2="409" stroke="#9ca3af"/>
+<text x="761.5" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">46</text>
+<line x1="800.0" y1="404" x2="800.0" y2="409" stroke="#9ca3af"/>
+<text x="800.0" y="423" font-size="10" fill="#9ca3af" text-anchor="middle">48</text>
+<text x="842" y="408" font-size="10.5" fill="#9ca3af">元</text>
+<text x="60" y="448" font-size="10.5" fill="#6b7280">现价 37.23 高于 <tspan font-weight="700" fill="#047857">13% 买入线 34.26</tspan> 8.7%、高于 <tspan font-weight="700" fill="#7c3aed">H10 30.56</tspan> 21.8%。经验线 36.94 与现价只差 0.8%——市场已经把格力</text>
+<text x="60" y="466" font-size="10.5" fill="#6b7280">定价在「历史峰值 PE 腰斩」的位置上。<tspan font-weight="700">实线＝决策层；琥珀虚线空心＝经验线，不参与任何取值。</tspan></text>
+</svg>
