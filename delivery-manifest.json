@@ -1,7 +1,7 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "c08f62b",
+  "baseCommit": "68e3624",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
@@ -28,12 +28,12 @@
     {
       "path": "investment-platform/public/index.html",
       "dataOrSchemaTouch": false,
-      "intent": "郎刚11-01：股票池排序改为按距离买入价升序——今日观察按溢价率（现价/买入价-1）升序，已跌穿最前、越近越靠前、未定价殿后；状态列带溢价率标注（高x%/低x%）；公司研究A/B两表同口径排序"
+      "intent": "郎刚11-01：股票池排序改为按距离买入价升序——今日观察按溢价率升序+状态列带溢价率标注；公司研究A/B两表同口径排序"
     },
     {
       "path": "invest-miniprogram/utils/store.js",
       "dataOrSchemaTouch": false,
-      "intent": "watchModel所有筛选下均按distancePct升序排序（原仅near筛选时排序），首页观察清单与观察页同步生效"
+      "intent": "watchModel所有筛选下均按distancePct升序排序（原仅near筛选时排序）"
     },
     {
       "path": "invest-miniprogram/utils/snapshot.js",
@@ -48,7 +48,7 @@
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至c08f62b"
+      "intent": "基线推进至68e3624（吸收并行会话宋城演艺docs提交svg）；排序交付对账（fe6ce9a代码文件在此列全）"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
