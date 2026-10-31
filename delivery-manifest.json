@@ -1,9 +1,9 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "36388ba",
+  "baseCommit": "c08f62b",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
-  "productionDataWritten": true,
+  "productionDataWritten": false,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
   "releasePerformed": false,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
@@ -26,19 +26,29 @@
   },
   "files": [
     {
-      "path": "investment-platform/config.json",
-      "dataOrSchemaTouch": true,
-      "intent": "郎刚11-01明确股票调整：中国神华601088.SH入池（B类观察，四档H10 28.29/H12 24.72/H15 20.41/H17.46 17.62，tierPct[2,5,5,8]，buyPrice=H12=24.72仅到价观察线，审计完成前不给正式下单价；现价51.99高于H10达83.8%，结论等待价格）"
+      "path": "investment-platform/public/index.html",
+      "dataOrSchemaTouch": false,
+      "intent": "郎刚11-01：股票池排序改为按距离买入价升序——今日观察按溢价率（现价/买入价-1）升序，已跌穿最前、越近越靠前、未定价殿后；状态列带溢价率标注（高x%/低x%）；公司研究A/B两表同口径排序"
     },
     {
-      "path": "investment-hq/data/stocks/shenhua.json",
-      "dataOrSchemaTouch": true,
-      "intent": "中国神华研究库新建：B类、四档、buyAdvice、三项验证指标、A/H双门槛结论、审计要点（归母勾稽+关联收购缺陷）"
+      "path": "invest-miniprogram/utils/store.js",
+      "dataOrSchemaTouch": false,
+      "intent": "watchModel所有筛选下均按distancePct升序排序（原仅near筛选时排序），首页观察清单与观察页同步生效"
+    },
+    {
+      "path": "invest-miniprogram/utils/snapshot.js",
+      "dataOrSchemaTouch": false,
+      "intent": "发版刷新小程序离线快照（构建产物）"
+    },
+    {
+      "path": "investment-platform/lg_sync_test.js",
+      "dataOrSchemaTouch": false,
+      "intent": "新增排序断言：状态列带溢价率标注+mini rows距离升序且未定价殿后"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至36388ba"
+      "intent": "基线推进至c08f62b"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",

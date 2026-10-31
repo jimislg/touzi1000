@@ -55,6 +55,8 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  check('web research pool shows holding value on held rows',el('aTable').innerHTML.includes('170000股 · 170.0万'))
  check('web signal pool shows holding value on held rows',el('sigBox').innerHTML.includes('持 170.0万'))
  check('mini watch rows show holding value on held rows',(mini.state.Q.qa=structuredClone(quotes.qa),mini.watchModel().rows.find(x=>x.code==='600000.SH').mv==='170.0万'))
+ // 郎刚11-01：股票池按距离买入价升序（溢价率=现价/买入价-1），已跌穿最前，未定价殿后
+ check('stock pools sorted by distance to buy price',/（[低高][0-9.]+%）/.test(el('sigBox').innerHTML)&&(()=>{const ds=mini.watchModel().rows.map(x=>x.distancePct);const finite=ds.filter(d=>d!=null);return finite.every((d,i)=>i===0||finite[i-1]<=d)&&ds[ds.length-1]===null})())
  // Quote refresh and external changes remain atomic and draft protected (detailed races in test-refresh).
  run('dirty=false');state.cfg.investable=8000000;state.cfg._revision='b'.repeat(64);await run('refresh(false)');check('external config follows with matching complete quotes',run('CFG.investable')===8000000)
  run('CFG.investable=7999999;markDirty()');state.cfg.investable=7000000;await run('refresh(false)');check('unsaved draft protected from automatic follow',run('CFG.investable')===7999999)

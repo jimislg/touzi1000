@@ -417,7 +417,8 @@ function watchModel (expanded, filter) {
     return { key: f.key, label: f.label, count: n[f.key] }
   })
   const rows = all.filter(selected.match)
-  if (filter === 'near') rows.sort((a, b) => a.distancePct - b.distancePct || a.code.localeCompare(b.code))
+  /* 郎刚11-01：股票池按距离买入价的差异排序——溢价率（现价/买入价-1）升序，已跌穿最前、越近越靠前，未定价/缺报价殿后 */
+  rows.sort((a, b) => (a.distancePct == null ? Infinity : a.distancePct) - (b.distancePct == null ? Infinity : b.distancePct) || a.code.localeCompare(b.code))
   return Object.assign({ loading: false, rows, n, filter, filters, filterHint: selected.hint, filterLabel: selected.label }, st)
 }
 

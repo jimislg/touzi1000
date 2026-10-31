@@ -660,8 +660,9 @@ function setSigFilter(k){try{localStorage.setItem('lgSigFilter',k)}catch(e){}ren
 function renderSignals(){
  const rows=[];CFG.universe.forEach((u,idx)=>{const x=Q[u.qt],a=InvestmentCore.tradeActivity(CFG,u.code),held=CFG.holdings.some(h=>h.code===u.code),ew=((seatCfg()||{}).researchBatches||{}).watchExit||[];const exitWatch=ew.includes(u.code);
  const heldRec=held?CFG.holdings.find(h=>h.code===u.code):null,hx=heldRec?hLive(heldRec):null,mvW=hx&&hx.mvCNY!=null?fmt(hx.mvCNY/1e4,1)+'万':''; // 郎刚10-25晚：有持仓一律带持仓金额（市值），方便与参考价对比
- if(!x||!(x.price>0)||u.buyPrice==null){rows.push({u,idx,label:!x?'报价缺失':'未定价',note:a.hasRecent?a.label:'—',rank:3,held,exitWatch,mvW});return;}const hit=x.price<=u.buyPrice,near=x.price<=u.buyPrice*1.05;rows.push({u,idx,label:hit?'已到价·待审核':near?'接近参考价':'等待中',note:a.hasRecent?a.label:'—',rank:hit?1:near?2:4,held,exitWatch,mvW});});
- rows.sort((a,b)=>a.rank-b.rank||a.u.name.localeCompare(b.u.name,'zh'));const dismissed=CFG.dismissedSignals||[];
+ if(!x||!(x.price>0)||u.buyPrice==null){rows.push({u,idx,label:!x?'报价缺失':'未定价',note:a.hasRecent?a.label:'—',rank:3,held,exitWatch,mvW,dist:null});return;}const hit=x.price<=u.buyPrice,near=x.price<=u.buyPrice*1.05,dist=x.price/u.buyPrice-1;rows.push({u,idx,label:hit?'已到价·待审核（低'+(-dist*100).toFixed(1)+'%）':near?'接近参考价（高'+(dist*100).toFixed(1)+'%）':'等待中（高'+(dist*100).toFixed(1)+'%）',note:a.hasRecent?a.label:'—',rank:hit?1:near?2:4,held,exitWatch,mvW,dist});});
+ /* 郎刚11-01：股票池按距离买入价的差异排序——溢价率（现价/买入价-1）升序，已跌穿最前、越近越靠前，未定价/缺报价殿后 */
+ rows.sort((a,b)=>(a.dist==null?Infinity:a.dist)-(b.dist==null?Infinity:b.dist)||a.u.name.localeCompare(b.u.name,'zh'));const dismissed=CFG.dismissedSignals||[];
  let sigFilter='all';try{sigFilter=localStorage.getItem('lgSigFilter')||'all'}catch(e){}
  const fdef=SIG_FILTERS.find(f=>f[0]===sigFilter)||SIG_FILTERS[0],shown=rows.filter(fdef[2]);
  const btns=SIG_FILTERS.map(f=>'<button class="fbtn'+(f[0]===fdef[0]?' on':'')+'" data-ui-only onclick="setSigFilter(\''+f[0]+'\')">'+f[1]+' '+rows.filter(f[2]).length+'</button>').join('');
@@ -695,7 +696,10 @@ function renderPools(){const head='<thead><tr><th>公司/现持</th><th>参考�
  const pf=POOL_FILTERS.find(f=>f[0]===poolFilter)||POOL_FILTERS[0];
  const stOf=u=>({s:poolStatusOf(u),held:CFG.holdings.some(h=>h.code===u.code),exitWatch:exitSet.includes(u.code)});
  const keep=u=>{if(query&&!(u.name+' '+u.code).toLowerCase().includes(query))return false;if(status&&status!==u.grade)return false;const st=stOf(u);return pf[0]==='held'||pf[0]==='unheld'||pf[0]==='exit'?pf[2](st):pf[2](st.s);};
- const all=CFG.universe.filter(u=>u.grade==='A'&&keep(u)),B=CFG.universe.filter(u=>u.grade!=='A'&&keep(u));
+ /* 郎刚11-01：公司研究两表也按距离买入价排序——溢价率升序，已跌穿最前，未定价殿后 */
+ const distOf=u=>{const x=q(u);return (x&&x.price>0&&u.buyPrice>0)?x.price/u.buyPrice-1:Infinity};
+ const byDist=(a,b)=>distOf(a)-distOf(b)||a.name.localeCompare(b.name,'zh');
+ const all=CFG.universe.filter(u=>u.grade==='A'&&keep(u)).sort(byDist),B=CFG.universe.filter(u=>u.grade!=='A'&&keep(u)).sort(byDist);
  if($('poolFilterRow'))$('poolFilterRow').innerHTML=POOL_FILTERS.map(f=>{const n=CFG.universe.filter(u=>{const st=stOf(u);return f[0]==='held'||f[0]==='unheld'||f[0]==='exit'?f[2](st):f[2](st.s)}).length;return '<button class="fbtn'+(f[0]===pf[0]?' on':'')+'" data-ui-only onclick="setPoolFilter(\''+f[0]+'\')">'+f[1]+' '+n+'</button>'}).join('');
  $('aTable').innerHTML='<table>'+head+'<tbody>'+all.map(u=>poolRow(u,CFG.universe.indexOf(u))).join('')+'</tbody></table>';$('bTable').innerHTML='<table>'+head+'<tbody>'+B.map(u=>poolRow(u,CFG.universe.indexOf(u))).join('')+'</tbody></table>';$('aCount').textContent=all.length+'证券';$('bCount').textContent=B.length+'证券';}
 
