@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 660" width="680" height="660" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif">
+  <rect width="680" height="660" fill="#ffffff"/>
+  <text x="32" y="38" font-size="19" font-weight="700" fill="#1a1a1a">恒隆地产 00101.HK · 价格阶梯</text>
+  <text x="32" y="60" font-size="11.5" fill="#78848c">2026-10-31 ｜ 6.19 HKD ｜ 纵轴按层级等距排列，非等比 ｜ 三口径并列，不可平均</text>
+  <line x1="32" y1="72" x2="648" y2="72" stroke="#e0e4e8" stroke-width="1"/>
+
+  <!-- 1 资产净值 cap 5.5% -->
+  <text x="145" y="113" font-size="15" font-weight="600" fill="#7b1fa2" text-anchor="end" font-style="italic">14.24</text>
+  <line x1="163" y1="108" x2="404" y2="108" stroke="#9c4dcc" stroke-width="1.8" stroke-dasharray="7 5"/>
+  <circle cx="404" cy="108" r="4.5" fill="#ffffff" stroke="#9c4dcc" stroke-width="1.8"/>
+  <text x="418" y="105" font-size="11.5" font-weight="600" fill="#7b1fa2" font-style="italic">资产净值 cap 5.5%（辅助参考）</text>
+  <text x="418" y="119" font-size="10.5" fill="#8e6a9e" font-style="italic">已扣净债 470 亿 ｜ 需清算才成立</text>
+
+  <!-- 2 资产净值 cap 6.0% -->
+  <text x="145" y="161" font-size="15" font-weight="600" fill="#7b1fa2" text-anchor="end" font-style="italic">12.30</text>
+  <line x1="163" y1="156" x2="404" y2="156" stroke="#9c4dcc" stroke-width="1.8" stroke-dasharray="7 5"/>
+  <circle cx="404" cy="156" r="4.5" fill="#ffffff" stroke="#9c4dcc" stroke-width="1.8"/>
+  <text x="418" y="153" font-size="11.5" font-weight="600" fill="#7b1fa2" font-style="italic">资产净值 cap 6.0%（保守重估）</text>
+  <text x="418" y="167" font-size="10.5" fill="#8e6a9e" font-style="italic">现价低于此 49.7%</text>
+
+  <!-- 3 A 口径 r=10% -->
+  <text x="145" y="209" font-size="15" font-weight="600" fill="#78909c" text-anchor="end">7.85</text>
+  <line x1="163" y1="204" x2="404" y2="204" stroke="#90a4ae" stroke-width="1.6" stroke-dasharray="4 4"/>
+  <circle cx="404" cy="204" r="4" fill="#90a4ae"/>
+  <text x="418" y="201" font-size="11.5" font-weight="600" fill="#546e7a">A 口径 基本纯利 r=10%</text>
+  <text x="418" y="215" font-size="10.5" fill="#78909c">参考用 ｜ 留存不产生回报</text>
+
+  <!-- 4 A 口径 r=12% -->
+  <text x="145" y="257" font-size="15" font-weight="600" fill="#78909c" text-anchor="end">6.28</text>
+  <line x1="163" y1="252" x2="404" y2="252" stroke="#90a4ae" stroke-width="1.6" stroke-dasharray="4 4"/>
+  <circle cx="404" cy="252" r="4" fill="#90a4ae"/>
+  <text x="418" y="249" font-size="11.5" font-weight="600" fill="#546e7a">A 口径 基本纯利 r=12%</text>
+  <text x="418" y="263" font-size="10.5" fill="#78909c">现价仅低 1.4% ｜ 假设留存按 12% 再投</text>
+
+  <!-- 5 现价 -->
+  <text x="145" y="322" font-size="22" font-weight="700" fill="#c62828" text-anchor="end">6.19</text>
+  <line x1="163" y1="317" x2="404" y2="317" stroke="#c62828" stroke-width="3.6"/>
+  <circle cx="404" cy="317" r="5.5" fill="#c62828"/>
+  <text x="418" y="314" font-size="12.5" font-weight="700" fill="#c62828">现价</text>
+  <text x="418" y="328" font-size="10.5" fill="#c62828">PB 0.232 ｜ 核心 PE 9.78×</text>
+
+  <!-- 6 B 口径 r=8% -->
+  <text x="145" y="370" font-size="16" font-weight="600" fill="#1565c0" text-anchor="end">5.20</text>
+  <line x1="163" y1="365" x2="404" y2="365" stroke="#42a5f5" stroke-width="2"/>
+  <circle cx="404" cy="365" r="4.5" fill="#42a5f5"/>
+  <text x="418" y="362" font-size="12" font-weight="600" fill="#1565c0">B 口径 税后股息 r=8%</text>
+  <text x="418" y="376" font-size="10.5" fill="#5c7a99">现价高于此 19.0% ｜ 债券替代档</text>
+
+  <!-- 7 H10 -->
+  <text x="145" y="418" font-size="16" font-weight="600" fill="#00695c" text-anchor="end">4.95</text>
+  <line x1="163" y1="413" x2="404" y2="413" stroke="#00897b" stroke-width="2"/>
+  <circle cx="404" cy="413" r="4.5" fill="#00897b"/>
+  <text x="418" y="410" font-size="12" font-weight="600" fill="#00695c">H10 回报门槛价（10 年 10%）</text>
+  <text x="418" y="424" font-size="10.5" fill="#4f7a75">现价高 25.1% ｜ PB→0.35 时 6.15</text>
+
+  <!-- 8 H12 -->
+  <text x="145" y="466" font-size="16" font-weight="600" fill="#00695c" text-anchor="end">4.35</text>
+  <line x1="163" y1="461" x2="404" y2="461" stroke="#00897b" stroke-width="2.4"/>
+  <circle cx="404" cy="461" r="5" fill="#00897b"/>
+  <text x="418" y="458" font-size="12" font-weight="600" fill="#00695c">H12 初始关注价（10 年 12%）</text>
+  <text x="418" y="472" font-size="10.5" fill="#4f7a75">现价高 42.3% ｜ PB→0.35 时 5.35</text>
+
+  <!-- 9 中枢 -->
+  <text x="145" y="514" font-size="16" font-weight="600" fill="#1565c0" text-anchor="end">4.16</text>
+  <line x1="163" y1="509" x2="404" y2="509" stroke="#2e7dd1" stroke-width="2"/>
+  <circle cx="404" cy="509" r="4.5" fill="#2e7dd1"/>
+  <text x="418" y="506" font-size="12" font-weight="600" fill="#1565c0">中枢  B 口径 r=10%</text>
+  <text x="418" y="520" font-size="10.5" fill="#5c7a99">现价高于此 48.8%</text>
+
+  <!-- 10 买入线 -->
+  <text x="145" y="562" font-size="18" font-weight="700" fill="#0d47a1" text-anchor="end">3.47</text>
+  <line x1="163" y1="557" x2="404" y2="557" stroke="#0d47a1" stroke-width="3"/>
+  <circle cx="404" cy="557" r="5.5" fill="#0d47a1"/>
+  <text x="418" y="554" font-size="12.5" font-weight="700" fill="#0d47a1">买入线  B 口径 r=12%</text>
+  <text x="418" y="568" font-size="10.5" fill="#3f5f8f">现价高 78.6% ｜ PB 0.130 ｜ 下单价</text>
+
+  <line x1="32" y1="592" x2="648" y2="592" stroke="#e0e4e8" stroke-width="1"/>
+  <text x="32" y="612" font-size="10.5" fill="#78848c">决策层 = B 口径（税后股息折现）与 H 档；A 口径、资产净值法仅并列展示，不参与取值。</text>
+  <text x="32" y="630" font-size="10.5" fill="#78848c">名义股息率 8.40%，但末期股息 65.6% 以新股支付，实际现金股息率 3.33%。账面 cap 3.41% vs 现价隐含 8.41%。</text>
+</svg>
