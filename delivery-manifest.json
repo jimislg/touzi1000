@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "68e3624",
+  "branch": "codex/passive-income-safety-controls",
+  "baseCommit": "d4386d1ae433954222e5fc44e030c8ed1f74d5d5",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
-  "productionDataWritten": false,
-  "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
-  "releasePerformed": false,
+  "productionDataWritten": true,
+  "schemaImpact": "恒隆地产00101.HK入universe（34条）：C类不进观察池，H档PB不变口径4.95/4.35/3.62/3.15 HKD，buyPrice=3.47（唐朝法B口径下单价）；research库新增hanglung.json；小程序快照随发版刷新（构建产物）；config备份入库。持仓/现金未动。",
+  "releasePerformed": true,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
   "tests": {
     "offlineSuites": 15,
@@ -26,29 +26,29 @@
   },
   "files": [
     {
-      "path": "investment-platform/public/index.html",
-      "dataOrSchemaTouch": false,
-      "intent": "郎刚11-01：股票池排序改为按距离买入价升序——今日观察按溢价率升序+状态列带溢价率标注；公司研究A/B两表同口径排序"
-    },
-    {
-      "path": "invest-miniprogram/utils/store.js",
-      "dataOrSchemaTouch": false,
-      "intent": "watchModel所有筛选下均按distancePct升序排序（原仅near筛选时排序）"
+      "path": "investment-platform/config.json",
+      "dataOrSchemaTouch": true,
+      "intent": "郎刚11-01：恒隆地产00101.HK入池——C类不进观察池不投新增资金；H10 4.95/H12 4.35/H15 3.62/H17.46 3.15 HKD（PB不变0.232口径）；buyPrice=3.47为两法对比后唐朝法B口径下单价；note/plan记录C类判定依据与三项验证指标；已推送VPS并验证universe34/holdings7/现金6,598,247.11不变"
     },
     {
       "path": "invest-miniprogram/utils/snapshot.js",
       "dataOrSchemaTouch": false,
-      "intent": "发版刷新小程序离线快照（构建产物）"
+      "intent": "发版刷新小程序离线快照（build.js构建产物，观察池34）"
     },
     {
-      "path": "investment-platform/lg_sync_test.js",
+      "path": "investment-hq/data/stocks/hanglung.json",
+      "dataOrSchemaTouch": true,
+      "intent": "研究库新建恒隆条目：C类判定、八维存疑5项、三情景概率加权IRR+4.99%、H档与3.47下单价理由、三项验证指标、审计要点（含H12终值=现价结构问题与两法拆解更正）"
+    },
+    {
+      "path": "investment-platform/config.json.backup-恒隆20261101",
       "dataOrSchemaTouch": false,
-      "intent": "新增排序断言：状态列带溢价率标注+mini rows距离升序且未定价殿后"
+      "intent": "改动前config备份（入库惯例）"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至68e3624（吸收并行会话宋城演艺docs提交svg）；排序交付对账（fe6ce9a代码文件在此列全）"
+      "intent": "基线推进至d4386d1（父提交，吸收GPT会话两个恒隆报告提交）；恒隆入池交付对账"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
