@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 580" width="680" height="580" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif">
+  <rect width="680" height="580" fill="#ffffff"/>
+  <text x="32" y="38" font-size="19" font-weight="700" fill="#1a1a1a">宋城演艺 · 价格阶梯</text>
+  <text x="32" y="60" font-size="11.5" fill="#78848c">2026-10-31 ｜ A 股 5.25 元 ｜ 纵轴按价格排序等距排列，非等比</text>
+  <line x1="32" y1="72" x2="648" y2="72" stroke="#e0e4e8" stroke-width="1"/>
+
+  <!-- 1 卖出线 -->
+  <text x="145" y="115" font-size="16" font-weight="600" fill="#1565c0" text-anchor="end">5.99</text>
+  <line x1="163" y1="110" x2="404" y2="110" stroke="#42a5f5" stroke-width="2"/>
+  <circle cx="404" cy="110" r="4.5" fill="#42a5f5"/>
+  <text x="418" y="107" font-size="12" font-weight="600" fill="#1565c0">卖出线  DCF(6%)</text>
+  <text x="418" y="121" font-size="10.5" fill="#5c7a99">现价低于此 12.4% ｜ 终值占比 81.9%</text>
+
+  <!-- 2 经验线 -->
+  <text x="145" y="166" font-size="15" font-weight="600" fill="#e07b00" text-anchor="end">5.75</text>
+  <line x1="163" y1="161" x2="404" y2="161" stroke="#ff9800" stroke-width="1.8" stroke-dasharray="7 5"/>
+  <circle cx="404" cy="161" r="4.5" fill="#ffffff" stroke="#ff9800" stroke-width="1.8"/>
+  <text x="418" y="158" font-size="11.5" font-weight="600" fill="#e07b00" font-style="italic">经验线（辅助参考，不参与取值）</text>
+  <text x="418" y="172" font-size="10.5" fill="#a06a20" font-style="italic">峰值 PE 62.9× 腰斩触顶 → 25×</text>
+
+  <!-- 3 现价 -->
+  <text x="145" y="217" font-size="21" font-weight="700" fill="#c62828" text-anchor="end">5.25</text>
+  <line x1="163" y1="212" x2="404" y2="212" stroke="#c62828" stroke-width="3.4"/>
+  <circle cx="404" cy="212" r="5.5" fill="#c62828"/>
+  <text x="418" y="209" font-size="12.5" font-weight="700" fill="#c62828">现价</text>
+  <text x="418" y="223" font-size="10.5" fill="#c62828">22.8× 正常化 PE ｜ PB 1.84</text>
+
+  <!-- 4 中枢 -->
+  <text x="145" y="269" font-size="16" font-weight="600" fill="#1565c0" text-anchor="end">3.34</text>
+  <line x1="163" y1="264" x2="404" y2="264" stroke="#2e7dd1" stroke-width="2"/>
+  <circle cx="404" cy="264" r="4.5" fill="#2e7dd1"/>
+  <text x="418" y="261" font-size="12" font-weight="600" fill="#1565c0">中枢  DCF(10%)</text>
+  <text x="418" y="275" font-size="10.5" fill="#5c7a99">现价高于此 57.2%</text>
+
+  <!-- 5 H10 -->
+  <text x="145" y="320" font-size="16" font-weight="600" fill="#00695c" text-anchor="end">2.87</text>
+  <line x1="163" y1="315" x2="404" y2="315" stroke="#00897b" stroke-width="2"/>
+  <circle cx="404" cy="315" r="4.5" fill="#00897b"/>
+  <text x="418" y="312" font-size="12" font-weight="600" fill="#00695c">H10  回报门槛价（10 年 10%）</text>
+  <text x="418" y="326" font-size="10.5" fill="#4f7a75">现价高于此 82.9%</text>
+
+  <!-- 6 买入线 -->
+  <text x="145" y="371" font-size="17" font-weight="700" fill="#0d47a1" text-anchor="end">2.80</text>
+  <line x1="163" y1="366" x2="404" y2="366" stroke="#0d47a1" stroke-width="2.8"/>
+  <circle cx="404" cy="366" r="5" fill="#0d47a1"/>
+  <text x="418" y="363" font-size="12" font-weight="700" fill="#0d47a1">买入线  DCF(12%)　★ 主口径</text>
+  <text x="418" y="377" font-size="10.5" fill="#4a6b8a">现价高于此 87.5% ｜ 5 年加权买点 2.82</text>
+
+  <!-- 7 H12 -->
+  <text x="145" y="422" font-size="16" font-weight="600" fill="#00695c" text-anchor="end">2.49</text>
+  <line x1="163" y1="417" x2="404" y2="417" stroke="#00897b" stroke-width="2"/>
+  <circle cx="404" cy="417" r="4.5" fill="#00897b"/>
+  <text x="418" y="414" font-size="12" font-weight="600" fill="#00695c">H12  初始关注价（10 年 12%）</text>
+  <text x="418" y="428" font-size="10.5" fill="#4f7a75">现价高于此 110.8% ｜ ★ 下单价</text>
+
+  <!-- 8 H15 -->
+  <text x="145" y="473" font-size="16" font-weight="600" fill="#00695c" text-anchor="end">2.03</text>
+  <line x1="163" y1="468" x2="404" y2="468" stroke="#00897b" stroke-width="2"/>
+  <circle cx="404" cy="468" r="4.5" fill="#00897b"/>
+  <text x="418" y="465" font-size="12" font-weight="600" fill="#00695c">H15  优秀机会价（10 年 15%）</text>
+  <text x="418" y="479" font-size="10.5" fill="#4f7a75">现价高于此 158.6%</text>
+
+  <!-- 9 H17.46 -->
+  <text x="145" y="525" font-size="16" font-weight="600" fill="#00695c" text-anchor="end">1.73</text>
+  <line x1="163" y1="520" x2="404" y2="520" stroke="#00695c" stroke-width="2" opacity="0.75"/>
+  <circle cx="404" cy="520" r="4.5" fill="#00695c" opacity="0.75"/>
+  <text x="418" y="517" font-size="12" font-weight="600" fill="#00695c">H17.46  目标机会价（10 年 17.46%）</text>
+  <text x="418" y="531" font-size="10.5" fill="#4f7a75">现价高于此 203.5%</text>
+
+  <line x1="32" y1="545" x2="648" y2="545" stroke="#e0e4e8" stroke-width="1"/>
+  <text x="32" y="563" font-size="11" fill="#5c6b73">结论：<tspan font-weight="700" fill="#c62828">不买</tspan>。现价 5.25 已在卖出线之下、却在买入线上方 87.5%——<tspan font-weight="700">卖出线到买入线隔着 114%</tspan>，这个宽度本身就在说"永续假设算不准"。</text>
+</svg>
