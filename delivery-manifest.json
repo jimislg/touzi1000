@@ -1,7 +1,7 @@
 {
   "version": 1,
   "branch": "codex/system-updates-without-repricing-20261025",
-  "baseCommit": "795aaea",
+  "baseCommit": "36388ba",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": true,
   "schemaImpact": "新增可选独立研究/审计/政策/批准/总账结构及未来保存的decisionInputsChanged和changeHistory元数据；本轮不迁移真实config。dataOrSchemaTouch指代码在运行时的数据/结构影响，不代表本轮写了生产数据。；新增只读公共研究包和研究版本确认字段，版本变化使旧审计/批准失效；未迁移真实账户或策略。",
@@ -28,17 +28,17 @@
     {
       "path": "investment-platform/config.json",
       "dataOrSchemaTouch": true,
-      "intent": "郎刚10-25股票调整：宁德时代tiers由旧P档(367.4/313.4/249.2/208.1)更新为四步法+唐朝法双验证H档(H10 238.96/H12 205.39/H15 165.29/H17.46 139.54)，buyPrice=190.80(H13买入线)，px=237.60；泡泡玛特四档与江南布衣入池已随014dd77入库并推VPS生效"
+      "intent": "郎刚11-01明确股票调整：中国神华601088.SH入池（B类观察，四档H10 28.29/H12 24.72/H15 20.41/H17.46 17.62，tierPct[2,5,5,8]，buyPrice=H12=24.72仅到价观察线，审计完成前不给正式下单价；现价51.99高于H10达83.8%，结论等待价格）"
     },
     {
-      "path": "investment-hq/data/stocks/catl.json",
+      "path": "investment-hq/data/stocks/shenhua.json",
       "dataOrSchemaTouch": true,
-      "intent": "宁德研究库同步：prices/customTiers改H档+buyAdvice(不买，10%是机会成本线)+researchAudit(毛利率口径修正22.72%、净现金敏感性、13.6%分水岭作废)"
+      "intent": "中国神华研究库新建：B类、四档、buyAdvice、三项验证指标、A/H双门槛结论、审计要点（归母勾稽+关联收购缺陷）"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至795aaea"
+      "intent": "基线推进至36388ba"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
