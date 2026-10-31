@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 580" width="680" height="580" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif">
+  <rect width="680" height="580" fill="#ffffff"/>
+  <text x="32" y="38" font-size="19" font-weight="700" fill="#1a1a1a">中国神华 · 价格阶梯</text>
+  <text x="32" y="60" font-size="11.5" fill="#78848c">2026-10-31 ｜ A 股 51.99 元 ｜ H 股 42.56 HKD（36.09 元）｜ 纵轴按价格排序等距排列，非等比</text>
+  <line x1="32" y1="72" x2="648" y2="72" stroke="#e0e4e8" stroke-width="1"/>
+
+  <!-- 1 现价 -->
+  <text x="145" y="115" font-size="21" font-weight="700" fill="#c62828" text-anchor="end">51.99</text>
+  <line x1="163" y1="110" x2="404" y2="110" stroke="#c62828" stroke-width="3.4"/>
+  <circle cx="404" cy="110" r="5.5" fill="#c62828"/>
+  <text x="418" y="107" font-size="12.5" font-weight="700" fill="#c62828">现价（A 股）</text>
+  <text x="418" y="121" font-size="10.5" fill="#c62828">19.68× 经营性 PE ｜ 股息率 3.81%</text>
+
+  <!-- 2 卖出线 -->
+  <text x="145" y="166" font-size="16" font-weight="600" fill="#1565c0" text-anchor="end">35.00</text>
+  <line x1="163" y1="161" x2="404" y2="161" stroke="#42a5f5" stroke-width="2"/>
+  <circle cx="404" cy="161" r="4.5" fill="#42a5f5"/>
+  <text x="418" y="158" font-size="12" font-weight="600" fill="#1565c0">卖出线  DCF(6%)</text>
+  <text x="418" y="172" font-size="10.5" fill="#5c7a99">现价高于此 48.6% ｜ 市场乐观定价</text>
+
+  <!-- 3 中枢 -->
+  <text x="145" y="217" font-size="16" font-weight="600" fill="#1565c0" text-anchor="end">29.68</text>
+  <line x1="163" y1="212" x2="404" y2="212" stroke="#2e7dd1" stroke-width="2"/>
+  <circle cx="404" cy="212" r="4.5" fill="#2e7dd1"/>
+  <text x="418" y="209" font-size="12" font-weight="600" fill="#1565c0">中枢  DCF(10%)</text>
+  <text x="418" y="223" font-size="10.5" fill="#5c7a99">现价高于此 75.2%</text>
+
+  <!-- 4 H10 -->
+  <text x="145" y="269" font-size="16" font-weight="600" fill="#00695c" text-anchor="end">28.29</text>
+  <line x1="163" y1="264" x2="404" y2="264" stroke="#00897b" stroke-width="2"/>
+  <circle cx="404" cy="264" r="4.5" fill="#00897b"/>
+  <text x="418" y="261" font-size="12" font-weight="600" fill="#00695c">H10  回报门槛价（10 年 10%）</text>
+  <text x="418" y="275" font-size="10.5" fill="#4f7a75">现价高于此 83.8%</text>
+
+  <!-- 5 买入线 -->
+  <text x="145" y="320" font-size="17" font-weight="700" fill="#0d47a1" text-anchor="end">27.41</text>
+  <line x1="163" y1="315" x2="404" y2="315" stroke="#0d47a1" stroke-width="2.8"/>
+  <circle cx="404" cy="315" r="5" fill="#0d47a1"/>
+  <text x="418" y="312" font-size="12" font-weight="700" fill="#0d47a1">买入线  DCF(12%)　★ 主口径</text>
+  <text x="418" y="326" font-size="10.5" fill="#4a6b8a">现价高于此 89.7% ｜ FCF 口径下沿 21.75</text>
+
+  <!-- 6 经验线 -->
+  <text x="145" y="371" font-size="15" font-weight="600" fill="#e07b00" text-anchor="end">26.02</text>
+  <line x1="163" y1="366" x2="404" y2="366" stroke="#ff9800" stroke-width="1.8" stroke-dasharray="7 5"/>
+  <circle cx="404" cy="366" r="4.5" fill="#ffffff" stroke="#ff9800" stroke-width="1.8"/>
+  <text x="418" y="363" font-size="11.5" font-weight="600" fill="#e07b00" font-style="italic">经验线（辅助参考，不参与取值）</text>
+  <text x="418" y="377" font-size="10.5" fill="#a06a20" font-style="italic">峰值 PE 19.7× 腰斩至 9.85× ｜ 与买入线仅差 5.1%</text>
+
+  <!-- 7 H12 -->
+  <text x="145" y="422" font-size="16" font-weight="600" fill="#00695c" text-anchor="end">24.72</text>
+  <line x1="163" y1="417" x2="404" y2="417" stroke="#00897b" stroke-width="2"/>
+  <circle cx="404" cy="417" r="4.5" fill="#00897b"/>
+  <text x="418" y="414" font-size="12" font-weight="600" fill="#00695c">H12  初始关注价（10 年 12%）</text>
+  <text x="418" y="428" font-size="10.5" fill="#4f7a75">现价高于此 110.3% ｜ H 股对应 26.26 HKD</text>
+
+  <!-- 8 H15 -->
+  <text x="145" y="473" font-size="16" font-weight="600" fill="#00695c" text-anchor="end">20.41</text>
+  <line x1="163" y1="468" x2="404" y2="468" stroke="#00897b" stroke-width="2"/>
+  <circle cx="404" cy="468" r="4.5" fill="#00897b"/>
+  <text x="418" y="465" font-size="12" font-weight="600" fill="#00695c">H15  优秀机会价（10 年 15%）</text>
+  <text x="418" y="479" font-size="10.5" fill="#4f7a75">现价高于此 154.7%</text>
+
+  <!-- 9 H17.46 -->
+  <text x="145" y="525" font-size="16" font-weight="600" fill="#00695c" text-anchor="end">17.62</text>
+  <line x1="163" y1="520" x2="404" y2="520" stroke="#00695c" stroke-width="2" opacity="0.75"/>
+  <circle cx="404" cy="520" r="4.5" fill="#00695c" opacity="0.75"/>
+  <text x="418" y="517" font-size="12" font-weight="600" fill="#00695c">H17.46  目标机会价（10 年 17.46%）</text>
+  <text x="418" y="531" font-size="10.5" fill="#4f7a75">现价高于此 195.1%</text>
+
+  <line x1="32" y1="545" x2="648" y2="545" stroke="#e0e4e8" stroke-width="1"/>
+  <text x="32" y="563" font-size="11" fill="#5c6b73">结论：<tspan font-weight="700" fill="#c62828">不买</tspan>。现价 51.99 位于全部决策层之上，高于买入线 89.7%；两法残值 0.00pct、买点差 −9.8%（收敛），但收敛方向是一致看空。</text>
+</svg>
