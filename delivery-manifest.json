@@ -68,7 +68,7 @@
     {
       "path": "COLLABORATION.md",
       "dataOrSchemaTouch": false,
-      "intent": "KNOWN-PITFALLS补录#11：入库文件名禁止非ASCII（core.quotepath在CI转义中文路径致manifest对账失败）"
+      "intent": "KNOWN-PITFALLS#11修正为根治描述：CI已在工作流固定core.quotepath=false（a2a81ae），codex-产出中文路径无需改名"
     },
     {
       "path": ".github/workflows/investor-safety.yml",
