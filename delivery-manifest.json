@@ -1,10 +1,10 @@
 {
   "version": 1,
   "branch": "codex/passive-income-safety-controls",
-  "baseCommit": "d4386d1ae433954222e5fc44e030c8ed1f74d5d5",
+  "baseCommit": "a009016",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": true,
-  "schemaImpact": "恒隆地产00101.HK入universe（34条）：C类不进观察池，H档PB不变口径4.95/4.35/3.62/3.15 HKD，buyPrice=3.47（唐朝法B口径下单价）；research库新增hanglung.json；小程序快照随发版刷新（构建产物）；config备份入库。持仓/现金未动。",
+  "schemaImpact": "山西汾酒600809.SH入universe（35条）：B类观察池仓位0，H档91.88/79.51/64.68/55.12 CNY，buyPrice=79.51（两法对比取较低者，唐朝法100.43 vs 四步法79.51）；tierPct[2,5,5,8]；研究库新增fenjiu.json；小程序快照刷新（构建产物）；config备份入库。持仓/现金未动。",
   "releasePerformed": true,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
   "tests": {
@@ -28,52 +28,27 @@
     {
       "path": "investment-platform/config.json",
       "dataOrSchemaTouch": true,
-      "intent": "郎刚11-01：恒隆地产00101.HK入池——C类不进观察池不投新增资金；H10 4.95/H12 4.35/H15 3.62/H17.46 3.15 HKD（PB不变0.232口径）；buyPrice=3.47为两法对比后唐朝法B口径下单价；note/plan记录C类判定依据与三项验证指标；已推送VPS并验证universe34/holdings7/现金6,598,247.11不变"
+      "intent": "郎刚11-01：山西汾酒600809.SH入池——B类观察池仓位0暂不建仓；H10 91.88/H12 79.51/H15 64.68/H17.46 55.12；buyPrice=79.51为两法对比下单价（报告自评真实区间68-74）；plan记录重新看三条件与低估值陷阱警示；已推送VPS并验证universe35/holdings7/现金6,598,247.11不变"
     },
     {
       "path": "invest-miniprogram/utils/snapshot.js",
       "dataOrSchemaTouch": false,
-      "intent": "发版刷新小程序离线快照（build.js构建产物，观察池34）"
+      "intent": "发版刷新小程序离线快照（build.js构建产物，观察池35）"
     },
     {
-      "path": "investment-hq/data/stocks/hanglung.json",
+      "path": "investment-hq/data/stocks/fenjiu.json",
       "dataOrSchemaTouch": true,
-      "intent": "研究库新建恒隆条目：C类判定、八维存疑5项、三情景概率加权IRR+4.99%、H档与3.47下单价理由、三项验证指标、审计要点（含H12终值=现价结构问题与两法拆解更正）"
+      "intent": "研究库新建汾酒条目：B类判定、单季三连降/低估值陷阱分析、H档三数纪律（内含+57.6%倍数修复）、退出PE敏感性、重新看三条件、审计要点（含唐朝法第一版三处错误修正记录）"
     },
     {
-      "path": "investment-platform/config.json.backup-hanglung-20261101",
+      "path": "investment-platform/config.json.backup-fenjiu-20261101",
       "dataOrSchemaTouch": false,
-      "intent": "改动前config备份（入库惯例）；原中文名在CI core.quotepath=true下被转义导致对账失败，改ASCII名"
+      "intent": "改动前config备份（入库惯例，ASCII文件名——坑#11）"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至d4386d1（父提交，吸收GPT会话两个恒隆报告提交）；恒隆入池交付对账"
-    },
-    {
-      "path": "codex-产出/成都银行-20261030-唐朝估值法.md",
-      "dataOrSchemaTouch": true,
-      "intent": "并行会话a7bad9e提交的成都银行双方法报告（归档文档）"
-    },
-    {
-      "path": "codex-产出/成都银行-20261030-四步法.md",
-      "dataOrSchemaTouch": true,
-      "intent": "并行会话a7bad9e提交的成都银行双方法报告（归档文档）"
-    },
-    {
-      "path": "codex-产出/成都银行-阶梯.svg",
-      "dataOrSchemaTouch": true,
-      "intent": "并行会话a7bad9e提交的成都银行阶梯图"
-    },
-    {
-      "path": "COLLABORATION.md",
-      "dataOrSchemaTouch": false,
-      "intent": "KNOWN-PITFALLS#11修正为根治描述：CI已在工作流固定core.quotepath=false（a2a81ae），codex-产出中文路径无需改名"
-    },
-    {
-      "path": ".github/workflows/investor-safety.yml",
-      "dataOrSchemaTouch": false,
-      "intent": "verify-delivery前增加 git config core.quotepath false——codex-产出目录名本身非ASCII，CI默认quotepath=true转义全部中文路径致manifest对账永久失败（11-01恒隆轮踩坑根治）"
+      "intent": "基线推进至a009016（吸收并行会话4个docs提交：汾酒双方法报告6b9f35f/阶梯图标注a009016/招行成都对照2个）；汾酒入池交付对账"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
