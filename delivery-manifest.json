@@ -1,10 +1,10 @@
 {
   "version": 1,
   "branch": "codex/passive-income-safety-controls",
-  "baseCommit": "66a8b33",
+  "baseCommit": "4db7b56",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": true,
-  "schemaImpact": "郎刚11-01分类标签两套逻辑并行：①universe 35项新增bizType结构化字段（七类：品牌消费7/平台零售7/垄断公用收租6/制造寡头5/资源周期4/金融利差3/医药健康3）+bizTag统一为「生意类型 · 利润驱动」两段式；②网页今日观察+公司研究两表新增生意分类筛选行，与价格状态筛选叠加生效（localStorage lgBizFilter）；③小程序观察页第二行biz chips+watchModel第三参叠加过滤（向后兼容默认all）；④lg_sync_test新增叠加断言。持仓/现金未动。",
+  "schemaImpact": "郎刚11-01反馈首页无变化：10-25改版后首页承载观察清单，但bizType分类chips只加到了原观察页——补齐pages/index（第二行生意分类chips+setBizFilter+watchModel第三参）。体验版1.12.4已上传。持仓/现金未动。",
   "releasePerformed": true,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
   "tests": {
@@ -26,49 +26,24 @@
   },
   "files": [
     {
-      "path": "investment-platform/config.json",
-      "dataOrSchemaTouch": true,
-      "intent": "郎刚11-01确认B方案：35项全量写入bizType七类枚举+bizTag统一两段式文本（与上轮确认映射表一致，恒瑞补入医药健康类）；config备份入库"
+      "path": "invest-miniprogram/pages/index/index.js",
+      "dataOrSchemaTouch": false,
+      "intent": "首页观察清单补齐生意分类筛选：_bizFilter状态+setBizFilter，render传watchModel第三参（与观察页同源叠加逻辑）"
     },
     {
-      "path": "investment-platform/public/index.html",
+      "path": "invest-miniprogram/pages/index/index.wxml",
       "dataOrSchemaTouch": false,
-      "intent": "网页端新增生意分类筛选：BIZ_TYPES常量+setBizFilter（localStorage持久）+renderSignals/renderPools两处与价格状态筛选叠加过滤+两行chips（带数量）"
+      "intent": "首页筛选行下新增第二行生意分类chips（bizFilters渲染，data-b传递）"
     },
     {
-      "path": "invest-miniprogram/utils/store.js",
+      "path": "invest-miniprogram/preview-1.12.4.png",
       "dataOrSchemaTouch": false,
-      "intent": "watchModel增加第三参bizFilter（默认all向后兼容），rows与filters计数叠加biz过滤，返回bizFilters数量列表；BIZ_TYPES与bizOf"
-    },
-    {
-      "path": "invest-miniprogram/pages/watch/watch.js",
-      "dataOrSchemaTouch": false,
-      "intent": "观察页_bizFilter状态+setBizFilter handler，render传第三参"
-    },
-    {
-      "path": "invest-miniprogram/pages/watch/watch.wxml",
-      "dataOrSchemaTouch": false,
-      "intent": "观察页新增第二行生意分类chips（bizFilters渲染，data-b传递）"
-    },
-    {
-      "path": "investment-platform/lg_sync_test.js",
-      "dataOrSchemaTouch": false,
-      "intent": "新增断言：网页chips渲染+mini三参叠加过滤（rows全为所选类/count一致/各类计数和=all）+fixture补bizType"
-    },
-    {
-      "path": "investment-platform/config.json.backup-biztype-20261101",
-      "dataOrSchemaTouch": false,
-      "intent": "改动前config备份（ASCII文件名——坑#11）"
+      "intent": "郎刚要的最新预览二维码（1.12.4，入库惯例）"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至66a8b33（吸收并行腾讯报告3提交）；分类标签两套逻辑并行交付对账"
-    },
-    {
-      "path": "invest-miniprogram/utils/snapshot.js",
-      "dataOrSchemaTouch": false,
-      "intent": "发版刷新小程序离线快照（构建产物，观察池35+bizType字段随config进入快照）"
+      "intent": "基线推进至4db7b56（吸收并行腾讯两提交）；首页分类chips补齐对账"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
