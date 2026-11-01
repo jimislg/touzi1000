@@ -57,6 +57,7 @@ CI 工作流：`.github/workflows/investor-safety.yml`。推送和PR自动触发
 8. **Excel/静态产物 recalc**：本机无 LibreOffice/formulas 引擎，xlsx 交付用静态快照（数值写死）+ AIGC 标识。
 9. **tierPct 与 tiers 档数必须一致**：tiers 有 N 档则 tierPct 必须 N 个（标准四档 H10/H12/H15/H17.46 的锚 = [10,25,60,100]，方法论 ladderRule）。10-22 发现平安H残留第5档「股息打平」致 tierPct 错位、17只标的 tierPct 全空导致预算函数 L(硬上限)取不到。数据层无校验时静默出错——由 `verify-config-data.js` 兜底。
 10. **bash BSD grep 对中文 pattern 假阴性**：macOS 自带 grep 遇中文字符串（含 `pattern` 含中文）会返回空（locale 问题）。搜中文一律用 Grep 工具或 `grep -a`，不要用裸 grep 判断"不存在"。
+11. **入库文件名禁止非 ASCII**：verify-delivery 的 `git diff --name-only` 受 `core.quotepath` 影响——本机=false 正常输出，CI=默认 true 会把中文路径转义成 `"...\346\201\222..."`，manifest 对账必挂且本地复现不出来。入库/入 manifest 的文件名一律 ASCII（11-01 恒隆备份文件踩坑，315887b 修复）。
 
 ## 六、双纪律（郎刚定，最高优先级）
 
