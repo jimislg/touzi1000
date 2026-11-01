@@ -49,6 +49,26 @@
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
       "intent": "基线推进至d4386d1（父提交，吸收GPT会话两个恒隆报告提交）；恒隆入池交付对账"
+    },
+    {
+      "path": "codex-产出/成都银行-20261030-唐朝估值法.md",
+      "dataOrSchemaTouch": true,
+      "intent": "并行会话a7bad9e提交的成都银行双方法报告（归档文档）"
+    },
+    {
+      "path": "codex-产出/成都银行-20261030-四步法.md",
+      "dataOrSchemaTouch": true,
+      "intent": "并行会话a7bad9e提交的成都银行双方法报告（归档文档）"
+    },
+    {
+      "path": "codex-产出/成都银行-阶梯.svg",
+      "dataOrSchemaTouch": true,
+      "intent": "并行会话a7bad9e提交的成都银行阶梯图"
+    },
+    {
+      "path": "COLLABORATION.md",
+      "dataOrSchemaTouch": false,
+      "intent": "KNOWN-PITFALLS补录#11：入库文件名禁止非ASCII（core.quotepath在CI转义中文路径致manifest对账失败）"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
