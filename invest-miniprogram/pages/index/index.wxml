@@ -55,6 +55,11 @@
         <text wx:for="{{model.watch.filters}}" wx:key="key" class="fbtn {{model.watch.filter===item.key?'on':''}}"
               data-f="{{item.key}}" bindtap="setFilter">{{item.label}} {{item.count}}</text>
       </view>
+      <!-- 郎刚11-01：第二行生意分类chips，与价格状态筛选并行叠加 -->
+      <view class="filters" wx:if="{{model.watch.bizFilters && model.watch.bizFilters.length}}">
+        <text wx:for="{{model.watch.bizFilters}}" wx:key="key" class="fbtn {{model.watch.bizFilter===item.key?'on':''}}"
+              data-b="{{item.key}}" bindtap="setBizFilter">{{item.label}} {{item.count}}</text>
+      </view>
       <view class="filterhint">{{model.watch.filterHint}}</view>
       <view class="wrow" wx:for="{{model.watch.rows}}" wx:key="code" data-code="{{item.code}}" bindtap="toggle">
         <view class="line1">
