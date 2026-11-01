@@ -64,6 +64,11 @@
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
       "intent": "基线推进至66a8b33（吸收并行腾讯报告3提交）；分类标签两套逻辑并行交付对账"
+    },
+    {
+      "path": "invest-miniprogram/utils/snapshot.js",
+      "dataOrSchemaTouch": false,
+      "intent": "发版刷新小程序离线快照（构建产物，观察池35+bizType字段随config进入快照）"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
