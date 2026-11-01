@@ -26,6 +26,11 @@
   },
   "files": [
     {
+      "path": "codex-产出/腾讯控股-20261030-四步法.md",
+      "dataOrSchemaTouch": true,
+      "intent": "并行会话3711e96提交的腾讯四步法微调（0.06%），随其git add -A夹带本轮首页改动，补列对账"
+    },
+    {
       "path": "invest-miniprogram/pages/index/index.js",
       "dataOrSchemaTouch": false,
       "intent": "首页观察清单补齐生意分类筛选：_bizFilter状态+setBizFilter，render传watchModel第三参（与观察页同源叠加逻辑）"
