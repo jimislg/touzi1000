@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 820" width="680" height="820" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+  <rect x="0" y="0" width="680" height="820" fill="#0f172a"/>
+
+  <text x="40" y="42" fill="#e2e8f0" font-size="17" font-weight="600">腾讯控股 00700.HK · 价格阶梯</text>
+  <text x="40" y="64" fill="#94a3b8" font-size="11.5">现价 383.60 HKD（2026-10-30） ｜ 2026E 经营溢利 2,744.5 亿 ｜ 经营 EV/EBIT 8.27× ｜ 报表 PE 12.96×</text>
+  <text x="40" y="82" fill="#64748b" font-size="9.5">H 档均已含投资资产（9,030.6 亿 × 85%，按终值折现），可直接与股价比较</text>
+
+  <text x="150" y="106" fill="#64748b" font-size="10">↑ 736.19　卖出（减仓）线 DCF 6% · 超出图幅 · 终值占 88%，可信度低</text>
+
+  <!-- H10 590.15 -->
+  <line x1="150" y1="132" x2="640" y2="132" stroke="#a78bfa" stroke-width="1.2" opacity="0.8"/>
+  <circle cx="150" cy="132" r="3.5" fill="#a78bfa"/>
+  <text x="166" y="126" fill="#c4b5fd" font-size="11.5">590.15　　H10（10 年 · 要求 10%）</text>
+  <text x="166" y="145" fill="#8b7fd4" font-size="9.5">现价低 35.0% —— 但这是 10% 要求回报，不是本报告的尺子</text>
+
+  <!-- 四步法 H12 @15x 495.48 -->
+  <line x1="150" y1="280" x2="640" y2="280" stroke="#a78bfa" stroke-width="1.8"/>
+  <circle cx="150" cy="280" r="4.5" fill="#a78bfa"/>
+  <text x="166" y="274" fill="#c4b5fd" font-size="13" font-weight="600">495.48</text>
+  <text x="166" y="294" fill="#a78bfa" font-size="10">四步法 H12 · 退出 15×（经营业务口径买入隐含 13.46×，内含 +11.4% 倍数修复）</text>
+  <text x="166" y="309" fill="#22d3ee" font-size="9.5">↳ 经营业务单独值 464.43（不可与股价比）＋ 投资资产折现 31.06</text>
+
+  <!-- 四步法 H12 @12x 409.06 -->
+  <line x1="150" y1="400" x2="640" y2="400" stroke="#22d3ee" stroke-width="1.6"/>
+  <circle cx="150" cy="400" r="4" fill="#22d3ee"/>
+  <text x="166" y="394" fill="#67e8f9" font-size="11.5">409.06　H12 · 退出 12×（双重保守档，对应买入 EV/EBIT 11.0×）</text>
+  <text x="166" y="414" fill="#22d3ee" font-size="9.5">↳ 现价低 6.2%：保守档下"勉强不贵"—— 6% 不是安全边际</text>
+
+  <!-- 现价 383.60 = H15 383.83 -->
+  <line x1="150" y1="458" x2="640" y2="458" stroke="#ef4444" stroke-width="2" stroke-dasharray="8 5"/>
+  <rect x="130" y="448" width="14" height="20" fill="#ef4444" rx="2"/>
+  <text x="166" y="452" fill="#ef4444" font-size="15" font-weight="700">383.60　现价</text>
+  <text x="166" y="472" fill="#f87171" font-size="9.5">＝ H15 383.83（差 0.06%）—— 巧合，不是"市场认可 15%"。低于唐朝法 26.4%，高于加权 13% 线 41.8%</text>
+
+  <!-- H17.46 313.21 -->
+  <line x1="150" y1="540" x2="640" y2="540" stroke="#a78bfa" stroke-width="1.2" opacity="0.7"/>
+  <circle cx="150" cy="540" r="3.5" fill="#a78bfa"/>
+  <text x="166" y="534" fill="#c4b5fd" font-size="11.5">313.21　　H17.46（目标机会价） —— 现价高 22.5%</text>
+
+  <!-- 唐朝法 DCF12% 303.52 -->
+  <line x1="150" y1="578" x2="640" y2="578" stroke="#38bdf8" stroke-width="2"/>
+  <circle cx="150" cy="578" r="4.5" fill="#38bdf8"/>
+  <text x="166" y="572" fill="#7dd3fc" font-size="13" font-weight="600">303.52</text>
+  <text x="166" y="592" fill="#38bdf8" font-size="10">唐朝法买入线 DCF 12% · 5 年 FCF 992 亿 + SOTP（投资按 85%，今天公允价值）</text>
+
+  <!-- 加权 13% 线 270.55 -->
+  <line x1="150" y1="640" x2="640" y2="640" stroke="#fbbf24" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <circle cx="150" cy="640" r="4" fill="none" stroke="#fbbf24" stroke-width="1.6"/>
+  <text x="166" y="634" fill="#fbbf24" font-size="12" font-weight="500">270.55</text>
+  <text x="166" y="654" fill="#fbbf24" font-size="10">六情景加权 13% 线（加权 IRR 5.38%；最乐观权重也只到 15.89%）</text>
+
+  <!-- 判据三 -->
+  <rect x="40" y="668" width="600" height="52" fill="#1e293b" rx="4"/>
+  <text x="52" y="688" fill="#e2e8f0" font-size="11.5">判据三：两法差 <tspan fill="#f87171" font-weight="600">+63.2%</tspan>，且结论<tspan fill="#f87171" font-weight="600">方向相反</tspan> → 最高级警示 → <tspan fill="#f87171" font-weight="600">不买</tspan></text>
+  <text x="52" y="706" fill="#94a3b8" font-size="9.5">形式下单价 min(303.52, 495.48) = <tspan fill="#38bdf8" font-weight="600">303.52 HKD</tspan> —— 只作"重新评估线"，不触发买入；留安全边际要 265–280。</text>
+
+  <text x="40" y="744" fill="#64748b" font-size="9.5">结构：市值 29.6% 是投资资产（公允价值 5,732 + 联营 3,299 权益法账面），经营业务只占 70.4% —— 用整体 PE 会把两者算两次。</text>
+  <text x="40" y="762" fill="#64748b" font-size="9.5">决策线用 FCF（闸门 3 不过：capex 占净利 74%）。若把扩张性 capex 全当资产，DCF12% 升到 596.50 —— 同一组现金流，买入价可差 97%。</text>
+  <text x="40" y="780" fill="#64748b" font-size="9.5">四步法同样卡在 capex：EBIT 口径 H12 495.48（现价便宜 22.6%）／FCF 口径 271.73（现价贵 41.2%）。同一只股票，同一天，差 82%。</text>
+  <text x="40" y="798" fill="#64748b" font-size="9.5">经验线因历史峰值 PE 被 1,494.7 亿投资处置收益污染，本轮判定参考价值有限，未入图。</text>
+</svg>
