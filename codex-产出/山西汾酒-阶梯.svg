@@ -8,7 +8,7 @@
   <line x1="150" y1="104" x2="640" y2="104" stroke="#c2410c" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
   <circle cx="150" cy="104" r="4.5" fill="none" stroke="#c2410c" stroke-width="1.6"/>
   <text x="166" y="100" fill="#c2410c" font-size="12" font-weight="500">184.18</text>
-  <text x="166" y="116" fill="#c2410c" font-size="10" opacity="0.85">经验线 25× （辅助参考 · 不参与计算）</text>
+  <text x="166" y="116" fill="#c2410c" font-size="10" opacity="0.85">经验线 25× · 本轮判定作废（增长穿零，见 5.4）</text>
 
   <!-- 现价 126.27 -->
   <line x1="150" y1="345" x2="640" y2="345" stroke="#ef4444" stroke-width="2" stroke-dasharray="8 5"/>
@@ -58,5 +58,5 @@
   <!-- 底部说明 -->
   <line x1="40" y1="664" x2="640" y2="664" stroke="#334155" stroke-width="0.8"/>
   <text x="40" y="682" fill="#94a3b8" font-size="10">决策层：四步法 H12 79.51 ｜ 唐朝法 13% 线 100.43 ｜ 两法差 −20.8%，落"正常分歧"档，取较低者</text>
-  <text x="40" y="696" fill="#64748b" font-size="9.5">经验线 = 2026E 净利 × min(峰值 PE 82.4× × 50%, 25×) = 25× → 184.18 元，仅作参考，不参与任何计算</text>
+  <text x="40" y="696" fill="#64748b" font-size="9.5">经验线 = 2026E 净利 × min(峰值 PE 82.4× × 50%, 25×) = 25× → 184.18 元。增长已穿零，25× 是成长股定价，此线作废</text>
 </svg>
