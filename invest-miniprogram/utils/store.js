@@ -357,11 +357,16 @@ const WATCH_FILTERS = [
   { key: 'exit', label: '退出观察', hint: '查看平台已列入退出观察名单的公司。', match: x => x.exitWatch }
 ]
 
-function watchModel (expanded, filter) {
+/* 郎刚11-01：生意分类标签——与价格状态筛选（WATCH_FILTERS）并行叠加，两套逻辑互不替代；bizType为config结构化字段 */
+const BIZ_TYPES = ['品牌消费', '平台零售', '垄断公用收租', '制造寡头', '资源周期', '金融利差', '医药健康']
+function bizOf (u) { return BIZ_TYPES.includes(u.bizType) ? u.bizType : '其他' }
+
+function watchModel (expanded, filter, bizFilter) {
   const st = statusModel()
   if (!state.CFG) return Object.assign({ loading: true }, st)
   const C = state.CFG
   expanded = expanded || {}
+  bizFilter = bizFilter || 'all'
   const selected = WATCH_FILTERS.find(x => x.key === filter) || WATCH_FILTERS[0]
   filter = selected.key
   const TCv = totalCapital()
@@ -398,6 +403,7 @@ function watchModel (expanded, filter) {
     const mvW = hx && hx.mvCNY != null ? fmt(hx.mvCNY / 1e4, 1) + '万' : ''
     return {
       code: u.code, name: u.name, grade: u.grade || '—', batch, held, trig, mv: mvW,
+      bizType: bizOf(u), bizTag: u.bizTag || '',
       summary: CORE.researchSummary(u, state.CFG),
       near: status === '接近', waiting: status === '等待',
       distancePct: u.buyPrice > 0 && px != null ? (px / u.buyPrice - 1) * 100 : null,
@@ -413,13 +419,17 @@ function watchModel (expanded, filter) {
   })
   const n = {}
   const filters = WATCH_FILTERS.map(f => {
-    n[f.key] = all.filter(f.match).length
+    n[f.key] = all.filter(f.match).filter(x => bizFilter === 'all' || x.bizType === bizFilter).length
     return { key: f.key, label: f.label, count: n[f.key] }
   })
-  const rows = all.filter(selected.match)
+  const bizFilters = ['all'].concat(BIZ_TYPES).map(k => ({
+    key: k, label: k === 'all' ? '全部' : k,
+    count: k === 'all' ? all.length : all.filter(x => x.bizType === k).length
+  }))
+  const rows = all.filter(selected.match).filter(x => bizFilter === 'all' || x.bizType === bizFilter) // 郎刚11-01：生意分类与价格状态叠加过滤
   /* 郎刚11-01：股票池按距离买入价的差异排序——溢价率（现价/买入价-1）升序，已跌穿最前、越近越靠前，未定价/缺报价殿后 */
   rows.sort((a, b) => (a.distancePct == null ? Infinity : a.distancePct) - (b.distancePct == null ? Infinity : b.distancePct) || a.code.localeCompare(b.code))
-  return Object.assign({ loading: false, rows, n, filter, filters, filterHint: selected.hint, filterLabel: selected.label }, st)
+  return Object.assign({ loading: false, rows, n, filter, filters, filterHint: selected.hint, filterLabel: selected.label, bizFilter, bizFilters }, st)
 }
 
 module.exports = {

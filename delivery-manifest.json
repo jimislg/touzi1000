@@ -1,10 +1,10 @@
 {
   "version": 1,
   "branch": "codex/passive-income-safety-controls",
-  "baseCommit": "a009016",
+  "baseCommit": "66a8b33",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": true,
-  "schemaImpact": "山西汾酒600809.SH入universe（35条）：B类观察池仓位0，H档91.88/79.51/64.68/55.12 CNY，buyPrice=79.51（两法对比取较低者，唐朝法100.43 vs 四步法79.51）；tierPct[2,5,5,8]；研究库新增fenjiu.json；小程序快照刷新（构建产物）；config备份入库。持仓/现金未动。",
+  "schemaImpact": "郎刚11-01分类标签两套逻辑并行：①universe 35项新增bizType结构化字段（七类：品牌消费7/平台零售7/垄断公用收租6/制造寡头5/资源周期4/金融利差3/医药健康3）+bizTag统一为「生意类型 · 利润驱动」两段式；②网页今日观察+公司研究两表新增生意分类筛选行，与价格状态筛选叠加生效（localStorage lgBizFilter）；③小程序观察页第二行biz chips+watchModel第三参叠加过滤（向后兼容默认all）；④lg_sync_test新增叠加断言。持仓/现金未动。",
   "releasePerformed": true,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
   "tests": {
@@ -28,27 +28,42 @@
     {
       "path": "investment-platform/config.json",
       "dataOrSchemaTouch": true,
-      "intent": "郎刚11-01：山西汾酒600809.SH入池——B类观察池仓位0暂不建仓；H10 91.88/H12 79.51/H15 64.68/H17.46 55.12；buyPrice=79.51为两法对比下单价（报告自评真实区间68-74）；plan记录重新看三条件与低估值陷阱警示；已推送VPS并验证universe35/holdings7/现金6,598,247.11不变"
+      "intent": "郎刚11-01确认B方案：35项全量写入bizType七类枚举+bizTag统一两段式文本（与上轮确认映射表一致，恒瑞补入医药健康类）；config备份入库"
     },
     {
-      "path": "invest-miniprogram/utils/snapshot.js",
+      "path": "investment-platform/public/index.html",
       "dataOrSchemaTouch": false,
-      "intent": "发版刷新小程序离线快照（build.js构建产物，观察池35）"
+      "intent": "网页端新增生意分类筛选：BIZ_TYPES常量+setBizFilter（localStorage持久）+renderSignals/renderPools两处与价格状态筛选叠加过滤+两行chips（带数量）"
     },
     {
-      "path": "investment-hq/data/stocks/fenjiu.json",
-      "dataOrSchemaTouch": true,
-      "intent": "研究库新建汾酒条目：B类判定、单季三连降/低估值陷阱分析、H档三数纪律（内含+57.6%倍数修复）、退出PE敏感性、重新看三条件、审计要点（含唐朝法第一版三处错误修正记录）"
-    },
-    {
-      "path": "investment-platform/config.json.backup-fenjiu-20261101",
+      "path": "invest-miniprogram/utils/store.js",
       "dataOrSchemaTouch": false,
-      "intent": "改动前config备份（入库惯例，ASCII文件名——坑#11）"
+      "intent": "watchModel增加第三参bizFilter（默认all向后兼容），rows与filters计数叠加biz过滤，返回bizFilters数量列表；BIZ_TYPES与bizOf"
+    },
+    {
+      "path": "invest-miniprogram/pages/watch/watch.js",
+      "dataOrSchemaTouch": false,
+      "intent": "观察页_bizFilter状态+setBizFilter handler，render传第三参"
+    },
+    {
+      "path": "invest-miniprogram/pages/watch/watch.wxml",
+      "dataOrSchemaTouch": false,
+      "intent": "观察页新增第二行生意分类chips（bizFilters渲染，data-b传递）"
+    },
+    {
+      "path": "investment-platform/lg_sync_test.js",
+      "dataOrSchemaTouch": false,
+      "intent": "新增断言：网页chips渲染+mini三参叠加过滤（rows全为所选类/count一致/各类计数和=all）+fixture补bizType"
+    },
+    {
+      "path": "investment-platform/config.json.backup-biztype-20261101",
+      "dataOrSchemaTouch": false,
+      "intent": "改动前config备份（ASCII文件名——坑#11）"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至a009016（吸收并行会话4个docs提交：汾酒双方法报告6b9f35f/阶梯图标注a009016/招行成都对照2个）；汾酒入池交付对账"
+      "intent": "基线推进至66a8b33（吸收并行腾讯报告3提交）；分类标签两套逻辑并行交付对账"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",

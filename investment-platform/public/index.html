@@ -275,7 +275,7 @@
 <!-- A类池 -->
 <section id="poolA" data-workspace="research">
   <h2>公司研究 · A类记录 <span class="tag" id="aCount">…</span></h2><p class="desc">评级与四档参考价直接展示。现持动态生成，历史批示折叠保留。</p>
-  <div class="card"><label>搜索 <input data-ui-only id="researchSearch" aria-label="搜索公司" oninput="renderPools()"></label> <select data-ui-only id="researchFilter" aria-label="研究筛选" onchange="renderPools()"><option value="">全部</option><option>A</option><option>B</option><option>C</option></select><div class="fbtnrow" id="poolFilterRow" style="margin-bottom:0"></div></div><div class="tw" id="aTable"></div>
+  <div class="card"><label>搜索 <input data-ui-only id="researchSearch" aria-label="搜索公司" oninput="renderPools()"></label> <select data-ui-only id="researchFilter" aria-label="研究筛选" onchange="renderPools()"><option value="">全部</option><option>A</option><option>B</option><option>C</option></select><div class="fbtnrow" id="poolFilterRow" style="margin-bottom:0"></div><div class="fbtnrow" id="bizFilterRow" style="margin-bottom:0" title="生意分类：与价格状态筛选叠加生效（郎刚11-01两套逻辑并行）"></div></div><div class="tw" id="aTable"></div>
 </section>
 
 <!-- B类池 -->
@@ -656,6 +656,12 @@ function tierHit(u,t,x){return !!(x&&x.price>0&&x.price<=t.price)}
 function tierCell(u,x){return ((u.tiers||[]).map((t,ti)=>{const hit=tierHit(u,t,x),cap=tierCapOf(u,ti);return '<span class="'+(hit?'tierhit':'')+'" style="white-space:nowrap">'+escapeHtml(t.label)+' '+fmt(t.price,t.price%1?1:0)+(t.cur==='HKD'?'港元':'元')+(cap?'（<span class="tiercap'+(hit?' tierhit':'')+'">'+cap+'</span>）':'')+'</span>'}).join(' / '))||'—'}
 function tierCellEditable(u,idx){const items=(u.tiers||[]).map((t,ti)=>{const hit=tierHit(u,t,q(u)),cap=tierCapOf(u,ti),lab=escapeHtml((t.label||'').split('·')[0]);return '<span class="titem"><label class="'+(hit?'tierhit':'')+'" style="font-size:12px">'+lab+' <input class="tierin'+(hit?' tierhit':'')+'" aria-label="'+escapeHtml(u.name)+lab+'档参考价" type="number" min="0" step="any" data-u="'+idx+'" data-ti="'+ti+'" value="'+t.price+'">'+(t.cur==='HKD'?'港元':'元')+'</label>'+(cap?' <span class="tiercap'+(hit?' tierhit':'')+'">'+cap+'</span>':'')+'</span>'});return items.length?'<div class="tieredit">'+items.join('')+'</div>':'<span class="note">无档位</span>'} // 郎刚10-25晚：横排flex布局，紧凑不换行堆叠
 const SIG_FILTERS=[['all','全部',r=>true],['trig','已到价',r=>r.rank===1],['near','接近',r=>r.rank===2],['wait','等待',r=>r.rank===4],['held','持仓',r=>r.held],['unheld','未持仓',r=>!r.held],['a','A类',r=>r.u.grade==='A'],['b','B类',r=>r.u.grade!=='A'],['exit','退出观察',r=>r.exitWatch]]; // 郎刚10-25晚：与小程序观察页同源分类（郎刚：方便快速找到已到/接近/未到）
+/* 郎刚11-01：生意分类标签——与价格状态筛选并行叠加（两套逻辑互不替代）；bizType为config结构化字段，bizTag为可编辑展示文本 */
+const BIZ_TYPES=['品牌消费','平台零售','垄断公用收租','制造寡头','资源周期','金融利差','医药健康'];
+function bizOf(u){return BIZ_TYPES.includes(u.bizType)?u.bizType:'其他'}
+function getBizFilter(){try{return localStorage.getItem('lgBizFilter')||'all'}catch(e){return 'all'}}
+function setBizFilter(k){try{localStorage.setItem('lgBizFilter',k)}catch(e){}renderSignals();renderPools();}
+function bizBtnsHTML(list,cur){return ['all'].concat(BIZ_TYPES).map(k=>{const n=k==='all'?list.length:list.filter(u=>bizOf(u)===k).length;return '<button class="fbtn'+(cur===k?' on':'')+'" data-ui-only onclick="setBizFilter(\''+k+'\')">'+(k==='all'?'全部':k)+' '+n+'</button>'}).join('')}
 function setSigFilter(k){try{localStorage.setItem('lgSigFilter',k)}catch(e){}renderSignals();}
 function renderSignals(){
  const rows=[];CFG.universe.forEach((u,idx)=>{const x=Q[u.qt],a=InvestmentCore.tradeActivity(CFG,u.code),held=CFG.holdings.some(h=>h.code===u.code),ew=((seatCfg()||{}).researchBatches||{}).watchExit||[];const exitWatch=ew.includes(u.code);
@@ -664,9 +670,9 @@ function renderSignals(){
  /* 郎刚11-01：股票池按距离买入价的差异排序——溢价率（现价/买入价-1）升序，已跌穿最前、越近越靠前，未定价/缺报价殿后 */
  rows.sort((a,b)=>(a.dist==null?Infinity:a.dist)-(b.dist==null?Infinity:b.dist)||a.u.name.localeCompare(b.u.name,'zh'));const dismissed=CFG.dismissedSignals||[];
  let sigFilter='all';try{sigFilter=localStorage.getItem('lgSigFilter')||'all'}catch(e){}
- const fdef=SIG_FILTERS.find(f=>f[0]===sigFilter)||SIG_FILTERS[0],shown=rows.filter(fdef[2]);
- const btns=SIG_FILTERS.map(f=>'<button class="fbtn'+(f[0]===fdef[0]?' on':'')+'" data-ui-only onclick="setSigFilter(\''+f[0]+'\')">'+f[1]+' '+rows.filter(f[2]).length+'</button>').join('');
- $('sigBox').innerHTML='<div class="note">价格观察与批准分开；近期成交不自动表示某档已完成。当前 '+rows.filter(r=>r.rank===1).length+'家到价。四档参考价可直接修改，保存后全站同步；≤金额为该档累计建仓上限（按规划本金折算），到价档位标绿。</div><div class="fbtnrow">'+btns+'</div><table><thead><tr><th>公司</th><th>状态</th><th>四档参考价（可改）</th><th>成交事实</th></tr></thead><tbody>'+shown.map(r=>'<tr><td>'+escapeHtml(r.u.name)+'<br><span class="note">'+r.u.code+'</span>'+(r.mvW?'<br><span class="pill hold">持 '+r.mvW+'</span>':'')+'</td><td>'+r.label+'</td><td style="white-space:normal">'+tierCellEditable(r.u,r.idx)+'</td><td style="white-space:normal">'+escapeHtml(r.note)+'</td></tr>').join('')+'</tbody></table>'+(dismissed.length?'<details><summary>'+dismissed.length+'条历史忽略记录</summary>'+dismissed.map(k=>'<p class="note">'+escapeHtml(k)+'：'+escapeHtml(CFG.dismissedReasons?.[k]||'未录原因')+'</p>').join('')+'</details>':'');
+ const biz=getBizFilter(),fdef=SIG_FILTERS.find(f=>f[0]===sigFilter)||SIG_FILTERS[0],shown=rows.filter(fdef[2]).filter(r=>biz==='all'||bizOf(r.u)===biz); // 郎刚11-01：生意分类与价格状态叠加过滤
+ const btns=SIG_FILTERS.map(f=>'<button class="fbtn'+(f[0]===fdef[0]?' on':'')+'" data-ui-only onclick="setSigFilter(\''+f[0]+'\')">'+f[1]+' '+rows.filter(f[2]).filter(r=>biz==='all'||bizOf(r.u)===biz).length+'</button>').join('');
+ $('sigBox').innerHTML='<div class="note">价格观察与批准分开；近期成交不自动表示某档已完成。当前 '+rows.filter(r=>r.rank===1).length+'家到价。四档参考价可直接修改，保存后全站同步；≤金额为该档累计建仓上限（按规划本金折算），到价档位标绿。</div><div class="fbtnrow">'+btns+'</div><div class="fbtnrow" title="生意分类：与上面的价格状态筛选叠加生效">'+bizBtnsHTML(CFG.universe,biz)+'</div><table><thead><tr><th>公司</th><th>状态</th><th>四档参考价（可改）</th><th>成交事实</th></tr></thead><tbody>'+shown.map(r=>'<tr><td>'+escapeHtml(r.u.name)+'<br><span class="note">'+r.u.code+'</span>'+(r.mvW?'<br><span class="pill hold">持 '+r.mvW+'</span>':'')+'</td><td>'+r.label+'</td><td style="white-space:normal">'+tierCellEditable(r.u,r.idx)+'</td><td style="white-space:normal">'+escapeHtml(r.note)+'</td></tr>').join('')+'</tbody></table>'+(dismissed.length?'<details><summary>'+dismissed.length+'条历史忽略记录</summary>'+dismissed.map(k=>'<p class="note">'+escapeHtml(k)+'：'+escapeHtml(CFG.dismissedReasons?.[k]||'未录原因')+'</p>').join('')+'</details>':'');
 }
 
 /* —— 股票池 —— */
@@ -691,16 +697,17 @@ const POOL_FILTERS=[['all','全部',()=>true],['trig','已到价',s=>s==='trig']
 function setPoolFilter(k){try{localStorage.setItem('lgPoolFilter',k)}catch(e){}renderPools();}
 function poolStatusOf(u){const x=q(u),bp=u.buyPrice;if(!x||!(x.price>0)||bp==null)return 'nopx';return x.price<=bp?'trig':x.price<=bp*1.05?'near':'wait';}
 
-function renderPools(){const head='<thead><tr><th>公司/现持</th><th>参考价状态</th><th>报价</th><th>四档参考价</th><th>经营标签</th><th>依据与历史</th></tr></thead>';const query=($('researchSearch')?.value||'').trim().toLowerCase(),status=$('researchFilter')?.value||'';const exitSet=((seatCfg()||{}).researchBatches||{}).watchExit||[];
+function renderPools(){const head='<thead><tr><th>公司/现持</th><th>参考价状态</th><th>报价</th><th>四档参考价</th><th>经营标签</th><th>依据与历史</th></tr></thead>';const query=($('researchSearch')?.value||'').trim().toLowerCase(),status=$('researchFilter')?.value||'';const exitSet=((seatCfg()||{}).researchBatches||{}).watchExit||[];const biz=getBizFilter(); // 郎刚11-01：生意分类与价格状态叠加
  let poolFilter='all';try{poolFilter=localStorage.getItem('lgPoolFilter')||'all'}catch(e){}
  const pf=POOL_FILTERS.find(f=>f[0]===poolFilter)||POOL_FILTERS[0];
  const stOf=u=>({s:poolStatusOf(u),held:CFG.holdings.some(h=>h.code===u.code),exitWatch:exitSet.includes(u.code)});
- const keep=u=>{if(query&&!(u.name+' '+u.code).toLowerCase().includes(query))return false;if(status&&status!==u.grade)return false;const st=stOf(u);return pf[0]==='held'||pf[0]==='unheld'||pf[0]==='exit'?pf[2](st):pf[2](st.s);};
+ const keep=u=>{if(query&&!(u.name+' '+u.code).toLowerCase().includes(query))return false;if(status&&status!==u.grade)return false;if(biz!=='all'&&bizOf(u)!==biz)return false;const st=stOf(u);return pf[0]==='held'||pf[0]==='unheld'||pf[0]==='exit'?pf[2](st):pf[2](st.s);};
  /* 郎刚11-01：公司研究两表也按距离买入价排序——溢价率升序，已跌穿最前，未定价殿后 */
  const distOf=u=>{const x=q(u);return (x&&x.price>0&&u.buyPrice>0)?x.price/u.buyPrice-1:Infinity};
  const byDist=(a,b)=>distOf(a)-distOf(b)||a.name.localeCompare(b.name,'zh');
  const all=CFG.universe.filter(u=>u.grade==='A'&&keep(u)).sort(byDist),B=CFG.universe.filter(u=>u.grade!=='A'&&keep(u)).sort(byDist);
  if($('poolFilterRow'))$('poolFilterRow').innerHTML=POOL_FILTERS.map(f=>{const n=CFG.universe.filter(u=>{const st=stOf(u);return f[0]==='held'||f[0]==='unheld'||f[0]==='exit'?f[2](st):f[2](st.s)}).length;return '<button class="fbtn'+(f[0]===pf[0]?' on':'')+'" data-ui-only onclick="setPoolFilter(\''+f[0]+'\')">'+f[1]+' '+n+'</button>'}).join('');
+ if($('bizFilterRow'))$('bizFilterRow').innerHTML='<span class="note" style="align-self:center">生意分类：</span>'+bizBtnsHTML(CFG.universe,biz);
  $('aTable').innerHTML='<table>'+head+'<tbody>'+all.map(u=>poolRow(u,CFG.universe.indexOf(u))).join('')+'</tbody></table>';$('bTable').innerHTML='<table>'+head+'<tbody>'+B.map(u=>poolRow(u,CFG.universe.indexOf(u))).join('')+'</tbody></table>';$('aCount').textContent=all.length+'证券';$('bCount').textContent=B.length+'证券';}
 
 /* —— 股息（实仓成本口径 + 按买入日计税） —— */
