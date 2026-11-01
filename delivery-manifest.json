@@ -1,10 +1,10 @@
 {
   "version": 1,
   "branch": "codex/passive-income-safety-controls",
-  "baseCommit": "4db7b56",
+  "baseCommit": "e7bfd80",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
   "productionDataWritten": true,
-  "schemaImpact": "郎刚11-01反馈首页无变化：10-25改版后首页承载观察清单，但bizType分类chips只加到了原观察页——补齐pages/index（第二行生意分类chips+setBizFilter+watchModel第三参）。体验版1.12.4已上传。持仓/现金未动。",
+  "schemaImpact": "郎刚11-01 19:51拍板：腾讯四档价格改取四口径矩阵②列「含投资+净现金」（H10 487.28/H12 426.21/H15 354.06/H17.46 308.34），其余口径不变。config三档改四档+buyPrice锚定H12=426.21+tierPct[13,13,19,25]；研究库tencent.json prices.H*与prices.customTiers同步（并清理顶层customTiers误写键与buyAdvice.holder历史脏键）；归档文档追加决策记录；小程序快照刷新+1.12.5。持仓/现金未动。",
   "releasePerformed": true,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
   "tests": {
@@ -26,29 +26,39 @@
   },
   "files": [
     {
+      "path": "investment-platform/config.json",
+      "dataOrSchemaTouch": true,
+      "intent": "郎刚11-01拍板：腾讯四档取②含投资+净现金（487.28/426.21/354.06/308.34），三档扩四档，buyPrice=426.21，tierPct[13,13,19,25]（原三档13/19/25保留，H10与H12共用首批13）；已推VPS验证universe35/holdings7/现金6,598,247.11不变"
+    },
+    {
+      "path": "investment-hq/data/stocks/tencent.json",
+      "dataOrSchemaTouch": true,
+      "intent": "研究库同步：prices.H*=②列4档、prices.customTiers=T0-T3（pctCum/amtCum）、pricesNote记录决策与10-06值冻结、buyAdvice重写、删除顶层customTiers误写键与buyAdvice.holder历史脏键、docFile指向20261030四步法"
+    },
+    {
       "path": "codex-产出/腾讯控股-20261030-四步法.md",
       "dataOrSchemaTouch": true,
-      "intent": "并行会话3711e96提交的腾讯四步法微调（0.06%），随其git add -A夹带本轮首页改动，补列对账"
+      "intent": "追加决策记录：郎刚11-01 19:51拍板②列（15行append，与并行会话e7bfd80重算内容无冲突）"
     },
     {
-      "path": "invest-miniprogram/pages/index/index.js",
+      "path": "invest-miniprogram/utils/snapshot.js",
       "dataOrSchemaTouch": false,
-      "intent": "首页观察清单补齐生意分类筛选：_bizFilter状态+setBizFilter，render传watchModel第三参（与观察页同源叠加逻辑）"
+      "intent": "发版刷新小程序离线快照（腾讯四档新价）"
     },
     {
-      "path": "invest-miniprogram/pages/index/index.wxml",
+      "path": "investment-platform/config.json.backup-tencent-20261101",
       "dataOrSchemaTouch": false,
-      "intent": "首页筛选行下新增第二行生意分类chips（bizFilters渲染，data-b传递）"
+      "intent": "改动前config备份（ASCII文件名）"
     },
     {
-      "path": "invest-miniprogram/preview-1.12.4.png",
+      "path": "invest-miniprogram/preview-1.12.5.png",
       "dataOrSchemaTouch": false,
-      "intent": "郎刚要的最新预览二维码（1.12.4，入库惯例）"
+      "intent": "1.12.5预览二维码（入库惯例）"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至4db7b56（吸收并行腾讯两提交）；首页分类chips补齐对账"
+      "intent": "基线推进至e7bfd80（吸收并行腾讯2提交）；四档②口径交付对账"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",
