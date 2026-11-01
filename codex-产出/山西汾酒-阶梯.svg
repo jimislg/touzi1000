@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 700" width="680" height="700" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+  <rect x="0" y="0" width="680" height="700" fill="#0f172a"/>
+
+  <text x="40" y="42" fill="#e2e8f0" font-size="17" font-weight="600">山西汾酒 600809 · 价格阶梯</text>
+  <text x="40" y="64" fill="#94a3b8" font-size="11.5">现价 126.27（2026-10-30） ｜ 2026E 归母 89.9 亿 ｜ PE(TTM) 16.8× ｜ PB 3.85×</text>
+
+  <!-- 经验线 184.18 -->
+  <line x1="150" y1="104" x2="640" y2="104" stroke="#c2410c" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <circle cx="150" cy="104" r="4.5" fill="none" stroke="#c2410c" stroke-width="1.6"/>
+  <text x="166" y="100" fill="#c2410c" font-size="12" font-weight="500">184.18</text>
+  <text x="166" y="116" fill="#c2410c" font-size="10" opacity="0.85">经验线 25× （辅助参考 · 不参与计算）</text>
+
+  <!-- 现价 126.27 -->
+  <line x1="150" y1="345" x2="640" y2="345" stroke="#ef4444" stroke-width="2" stroke-dasharray="8 5"/>
+  <rect x="130" y="335" width="14" height="20" fill="#ef4444" rx="2"/>
+  <text x="166" y="341" fill="#ef4444" font-size="14" font-weight="700">126.27  现价</text>
+  <text x="166" y="357" fill="#f87171" font-size="10">PE(TTM) 16.8× ｜ 高于下单价 58.8%</text>
+
+  <!-- 唐朝法 13% 100.43 -->
+  <line x1="150" y1="452" x2="640" y2="452" stroke="#38bdf8" stroke-width="1.5"/>
+  <circle cx="150" cy="452" r="4" fill="#38bdf8"/>
+  <text x="166" y="448" fill="#38bdf8" font-size="12" font-weight="500">100.43</text>
+  <text x="166" y="464" fill="#7dd3fc" font-size="10">唐朝法 13% · 5 年（隐含 PE 13.6×）</text>
+
+  <!-- 四步法 H10 91.88 -->
+  <line x1="150" y1="488" x2="640" y2="488" stroke="#64748b" stroke-width="1.2"/>
+  <circle cx="150" cy="488" r="3.5" fill="#64748b"/>
+  <text x="166" y="484" fill="#94a3b8" font-size="11.5">91.88</text>
+  <text x="166" y="499" fill="#94a3b8" font-size="10">四步法 H10（隐含 PE 12.5×）</text>
+
+  <!-- 加权 13% 买入线 82.95 -->
+  <line x1="150" y1="525" x2="640" y2="525" stroke="#22c55e" stroke-width="1.8"/>
+  <circle cx="150" cy="525" r="4.5" fill="#22c55e"/>
+  <text x="166" y="521" fill="#22c55e" font-size="12.5" font-weight="600">82.95</text>
+  <text x="166" y="537" fill="#4ade80" font-size="10">加权期望 IRR 13% 买入线（五情景加权）</text>
+
+  <!-- 四步法 H12 79.51 -->
+  <line x1="150" y1="539" x2="640" y2="539" stroke="#eab308" stroke-width="2.2"/>
+  <circle cx="150" cy="539" r="5.5" fill="#eab308"/>
+  <text x="166" y="563" fill="#eab308" font-size="14" font-weight="700">79.51  下单价</text>
+  <text x="166" y="579" fill="#fcd34d" font-size="10">四步法 H12（10 年 12%）· 买入隐含 PE 10.79× vs 退出 17× → 内含 +57.6% 修复</text>
+
+  <!-- 13%/10y 74.12 -->
+  <line x1="150" y1="600" x2="640" y2="600" stroke="#475569" stroke-width="1"/>
+  <circle cx="150" cy="600" r="3" fill="#475569"/>
+  <text x="166" y="596" fill="#64748b" font-size="11">74.12</text>
+  <text x="166" y="611" fill="#64748b" font-size="9.5">同口径 13% · 10 年（年限开关 −25.1 元）</text>
+
+  <!-- 敏感性下沿 62.41 -->
+  <line x1="150" y1="630" x2="640" y2="630" stroke="#334155" stroke-width="1" stroke-dasharray="3 3"/>
+  <circle cx="150" cy="630" r="3" fill="#334155"/>
+  <text x="166" y="626" fill="#475569" font-size="11">62.41</text>
+  <text x="166" y="641" fill="#475569" font-size="9.5">敏感性下沿：退出 PE 压到 11×</text>
+
+  <!-- 左侧价格轴 -->
+  <line x1="150" y1="86" x2="150" y2="650" stroke="#334155" stroke-width="1"/>
+
+  <!-- 底部说明 -->
+  <line x1="40" y1="664" x2="640" y2="664" stroke="#334155" stroke-width="0.8"/>
+  <text x="40" y="682" fill="#94a3b8" font-size="10">决策层：四步法 H12 79.51 ｜ 唐朝法 13% 线 100.43 ｜ 两法差 −20.8%，落"正常分歧"档，取较低者</text>
+  <text x="40" y="696" fill="#64748b" font-size="9.5">经验线 = 2026E 净利 × min(峰值 PE 82.4× × 50%, 25×) = 25× → 184.18 元，仅作参考，不参与任何计算</text>
+</svg>
