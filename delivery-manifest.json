@@ -1,10 +1,10 @@
 {
   "version": 1,
   "branch": "codex/passive-income-safety-controls",
-  "baseCommit": "e7bfd80",
+  "baseCommit": "da8fa57",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
-  "productionDataWritten": true,
-  "schemaImpact": "郎刚11-01 19:51拍板：腾讯四档价格改取四口径矩阵②列「含投资+净现金」（H10 487.28/H12 426.21/H15 354.06/H17.46 308.34），其余口径不变。config三档改四档+buyPrice锚定H12=426.21+tierPct[13,13,19,25]；研究库tencent.json prices.H*与prices.customTiers同步（并清理顶层customTiers误写键与buyAdvice.holder历史脏键）；归档文档追加决策记录；小程序快照刷新+1.12.5。持仓/现金未动。",
+  "productionDataWritten": false,
+  "schemaImpact": "郎刚11-05落地GPT诊断报告《小程序持仓成本缺失排查报告-20261104》：持仓页成本展示与实时行情解耦——①investment-core新增holdingCost（A股=股数×成本，港股已核=结算成本，港股未核维持待核不伪造汇兑盈亏），两端副本逐字节一致；②positionsModel成本独立核算（缺行情只影响现价/市值/浮盈，成本合计不再被缺行情清空）+摘要卡新增「成本覆盖n/N·行情覆盖n/N」；③缺成本显示「成本待补录」与缺行情分离；④verify.js新增逐只成本完整性+成本显示不被缺行情连带两道门；⑤lg_sync_test新增解耦回归断言。云端只读核对：7持仓cost全有效无缺失（GPT的401系其机器凭证用错——配置链路10-23起直连VPS /api/config用MP_KEY口令，非publishableKey）。体验版1.12.6。持仓/现金数据未动。",
   "releasePerformed": true,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
   "tests": {
@@ -26,39 +26,49 @@
   },
   "files": [
     {
-      "path": "investment-platform/config.json",
-      "dataOrSchemaTouch": true,
-      "intent": "郎刚11-01拍板：腾讯四档取②含投资+净现金（487.28/426.21/354.06/308.34），三档扩四档，buyPrice=426.21，tierPct[13,13,19,25]（原三档13/19/25保留，H10与H12共用首批13）；已推VPS验证universe35/holdings7/现金6,598,247.11不变"
+      "path": "investment-platform/public/investment-core.js",
+      "dataOrSchemaTouch": false,
+      "intent": "新增holdingCost(h)独立成本核算函数+导出（web副本，canonical）"
     },
     {
-      "path": "investment-hq/data/stocks/tencent.json",
-      "dataOrSchemaTouch": true,
-      "intent": "研究库同步：prices.H*=②列4档、prices.customTiers=T0-T3（pctCum/amtCum）、pricesNote记录决策与10-06值冻结、buyAdvice重写、删除顶层customTiers误写键与buyAdvice.holder历史脏键、docFile指向20261030四步法"
+      "path": "invest-miniprogram/utils/investment-core.js",
+      "dataOrSchemaTouch": false,
+      "intent": "新增holdingCost（mini副本，与web逐字节一致——verify门禁要求）"
     },
     {
-      "path": "codex-产出/腾讯控股-20261030-四步法.md",
-      "dataOrSchemaTouch": true,
-      "intent": "追加决策记录：郎刚11-01 19:51拍板②列（15行append，与并行会话e7bfd80重算内容无冲突）"
+      "path": "invest-miniprogram/utils/store.js",
+      "dataOrSchemaTouch": false,
+      "intent": "positionsModel成本独立核算：costs=CORE.holdingCost逐只，costAll不再经hLive，行成本按状态显示数值/成本待补录/待核/—，basisNote缺行情时改为成本不受影响说明，新增costCov覆盖计数"
+    },
+    {
+      "path": "invest-miniprogram/pages/positions/positions.wxml",
+      "dataOrSchemaTouch": false,
+      "intent": "持仓摘要卡新增一行「成本覆盖n/N·行情覆盖n/N」"
+    },
+    {
+      "path": "invest-miniprogram/scripts/verify.js",
+      "dataOrSchemaTouch": false,
+      "intent": "新增两道门：逐只实际持仓成本字段完整性（shares>0须cost有限非负或港股已核结算成本）+持仓成本显示不被缺行情连带"
+    },
+    {
+      "path": "investment-platform/lg_sync_test.js",
+      "dataOrSchemaTouch": false,
+      "intent": "新增回归断言：缺行情时A股成本仍显示且覆盖计数正确、缺成本显示成本待补录"
     },
     {
       "path": "invest-miniprogram/utils/snapshot.js",
       "dataOrSchemaTouch": false,
-      "intent": "发版刷新小程序离线快照（腾讯四档新价）"
+      "intent": "发版刷新离线快照（构建产物，1.12.6随包）"
     },
     {
-      "path": "investment-platform/config.json.backup-tencent-20261101",
+      "path": "invest-miniprogram/preview-1.12.6.png",
       "dataOrSchemaTouch": false,
-      "intent": "改动前config备份（ASCII文件名）"
-    },
-    {
-      "path": "invest-miniprogram/preview-1.12.5.png",
-      "dataOrSchemaTouch": false,
-      "intent": "1.12.5预览二维码（入库惯例）"
+      "intent": "1.12.6预览二维码（入库惯例）"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至e7bfd80（吸收并行腾讯2提交）；四档②口径交付对账"
+      "intent": "基线推进至da8fa57（吸收并行平安2提交）；持仓成本解耦修复交付对账"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",

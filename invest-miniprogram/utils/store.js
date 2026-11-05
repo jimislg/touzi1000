@@ -252,9 +252,14 @@ function positionsModel () {
   const C = state.CFG
   const TC = CORE.planningCapital(C)
   const values = C.holdings.map(hLive)
-  const mvAll = sumComplete(values.map(x => x ? x.mvCNY : null)), costAll = sumComplete(values.map(x => x ? x.costCNY : null)), divAll = sumComplete(C.holdings.map(divTaxOf))
-  const rows = C.holdings.map(h => {
+  /* 郎刚11-04修复（GPT诊断报告）：成本独立于行情核算——缺行情只影响现价/市值/浮盈，不得把成本连带显示为缺失 */
+  const costs = C.holdings.map(h => CORE.holdingCost(h))
+  const costAll = sumComplete(costs.map(c => c.state === 'ok' ? c.costCNY : null))
+  const mvAll = sumComplete(values.map(x => x ? x.mvCNY : null)), divAll = sumComplete(C.holdings.map(divTaxOf))
+  const costOkN = costs.filter(c => c.state === 'ok').length
+  const rows = C.holdings.map((h, i) => {
     const x = hLive(h)
+    const cx = costs[i]
     const qq = q(h)
 
     const dayPct = qq && qq.pct != null ? qq.pct : null
@@ -264,10 +269,10 @@ function positionsModel () {
       pctTxt: dayPct != null ? sign(dayPct) : '—', pctCls: dayPct != null ? clsN(dayPct) : 'muted',
       snapFlag: (x && x.snap) ? ' 快照' : '',
       mv: x ? fmt(x.mvCNY / 1e4, 1) : '—',
-      cost: x && x.costCNY != null ? fmt(x.costCNY / 1e4, 1) : '待核',
+      cost: cx.state === 'ok' ? fmt(cx.costCNY / 1e4, 1) : cx.state === 'missing' ? '成本待补录' : cx.state === 'noshare' ? '—' : '待核',
       pl: x && x.pl != null ? fmt(x.pl / 1e4, 2) : '—', plPct: x && x.plPct != null ? x.plPct.toFixed(2) + '%' : '—', plCls: x ? clsN(x.pl) : 'muted',
       weight: x && TC > 0 ? (x.mvCNY / TC * 100).toFixed(1) : '—',
-      basisNote: x ? x.costBasisNote : '报价缺失', nativePl: x && h.market === 'HK' ? '上市币种浮动 ' + fmt(x.nativePl, 0) + ' 港元，不含汇兑' : '', quoteText: quoteText(h),
+      basisNote: x ? x.costBasisNote : (cx.state === 'ok' ? '行情缺失；成本独立核算不受影响' : '报价缺失'), nativePl: x && h.market === 'HK' ? '上市币种浮动 ' + fmt(x.nativePl, 0) + ' 港元，不含汇兑' : '', quoteText: quoteText(h),
       div: fmt(divTaxOf(h) == null ? null : divTaxOf(h) / 1e4, 2),
       dpsYld: x && x.mvCNY > 0 && divTaxOf(h) != null ? (divTaxOf(h) / x.mvCNY * 100).toFixed(2) : '—'
     }
@@ -276,6 +281,7 @@ function positionsModel () {
   return Object.assign({
     loading: false,
     mvTotal: fmt(mvAll == null ? null : mvAll / 1e4, 1), costTotal: fmt(costAll == null ? null : costAll / 1e4, 1),
+    costCov: '成本覆盖 ' + costOkN + '/' + costs.length + ' · 行情覆盖 ' + values.filter(Boolean).length + '/' + values.length,
     pl: fmt(pl == null ? null : pl / 1e4, 2), plPct: costAll > 0 && mvAll != null ? ((mvAll / costAll - 1) * 100).toFixed(2) + '%' : '—', plCls: clsN(pl),
     div: fmt(divAll == null ? null : divAll / 1e4, 2),
     rows

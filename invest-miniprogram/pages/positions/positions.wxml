@@ -19,6 +19,7 @@
         <text class="{{model.plCls}}">人民币成本口径浮盈 {{model.pl}}万（{{model.plPct}}）</text>
         <text>税后年股息 {{model.div}}万/年</text>
       </view>
+      <view class="rowline"><text class="muted">{{model.costCov}}</text></view>
     </view>
 
     <view class="card" wx:for="{{model.rows}}" wx:key="code">

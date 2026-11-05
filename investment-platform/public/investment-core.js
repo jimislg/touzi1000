@@ -181,6 +181,16 @@
       dpsCNY: nonnegative(h.dps) ? h.dps * rate : null, costBasisStatus: verified ? 'available' : 'unverified',
       costBasisNote: verified ? '持仓成本参考；实际全账户收益仍需交易和现金流对账' : '缺历史人民币结算成本；上市币种浮动仅供参考，不含汇兑' }
   }
+  /* 郎刚11-04修复（GPT诊断报告落地）：成本独立于实时行情核算——缺行情不得把成本连带显示为缺失。
+     状态：ok=可显示｜missing=成本字段缺失/非法（成本待补录）｜unverified=港股缺历史人民币成本（维持待核，不伪造汇兑盈亏）｜noshare=零持仓 */
+  function holdingCost (h) {
+    if (!h || !nonnegative(h.shares) || !(h.shares > 0)) return { state: 'noshare', costCNY: null }
+    const hk = h.market === 'HK' || /\.HK$/.test(h.code || '')
+    if (hk && h.costBasisStatus === 'verified' && cents(h.settledCostCNYFen) && text(h.costBasisSource)) return { state: 'ok', costCNY: h.settledCostCNYFen / 100 }
+    if (hk) return { state: 'unverified', costCNY: null }
+    if (!nonnegative(h.cost) || !(h.cost > 0)) return { state: 'missing', costCNY: null }
+    return { state: 'ok', costCNY: h.shares * h.cost }
+  }
   function dividendForBudget (cfg, quotes, code, amountCNY, withSpecial, gross) {
     const h = items(cfg,'holdings').find(x => x.code === code), u = items(cfg,'universe').find(x => x.code === code)
     const item = h || u; if (!item || !nonnegative(amountCNY)) return null
@@ -453,5 +463,5 @@
       const amount=Math.max(0,Math.min(...parts));if(Number.isSafeInteger(amount)){out.approvedCNYFen=amount;out.approvedCNY=amount/100;out.status=amount>0?'approved':'blocked';out.actionId=tranche.id;if(!amount)block('预算或现金没有可用余量')}else block('金额计算超出安全整数范围')}
     return out
   }
-  return { planningCapital, issuerCodes, positionLimit, taxRateOf, modelFlows, priceAt, irrOf, researchState, modelReturn, dividendSummary, tradeActivity, ledgerSummary, decisionBudget, toFen:fen, fromFen:v=>cents(v)?v/100:null, parseQuotes, missingSymbols, ladderState, positionRoom, applyDivUpdate, quoteOf, fxOf, holdingValue, dividendForBudget, irrAt, dataQuality, displayQuoteTime, researchSummary, stressPortfolio }
+  return { planningCapital, issuerCodes, positionLimit, taxRateOf, modelFlows, priceAt, irrOf, researchState, modelReturn, dividendSummary, tradeActivity, ledgerSummary, decisionBudget, toFen:fen, fromFen:v=>cents(v)?v/100:null, parseQuotes, missingSymbols, ladderState, positionRoom, applyDivUpdate, quoteOf, fxOf, holdingValue, holdingCost, dividendForBudget, irrAt, dataQuality, displayQuoteTime, researchSummary, stressPortfolio }
 })

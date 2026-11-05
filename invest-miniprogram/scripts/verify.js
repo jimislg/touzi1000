@@ -72,6 +72,9 @@ T('总览模型可渲染', idx.tc && idx.pl !== undefined && idx.nTrig !== undef
 T('总资本为有限数值', Number.isFinite(tc) && tc >= 0)
 const pos = store.positionsModel()
 T('持仓行数与快照一致', pos.rows.length === SNAP.cfg.holdings.length)
+/* 郎刚11-04修复（GPT诊断报告#6）：逐只实际持仓成本完整性——shares>0 时 cost 必须为有限非负数（港股可用已核结算成本替代） */
+T('持仓成本字段逐只完整', SNAP.cfg.holdings.every(h => !(h.shares > 0) || Number.isFinite(Number(h.cost)) && Number(h.cost) >= 0 || (h.costBasisStatus === 'verified' && Number.isFinite(Number(h.settledCostCNYFen)))))
+T('持仓成本显示不被缺行情连带', pos.rows.every(r => r.cost !== '—'))
 T('总览浮盈必显且与持仓口径一致或明示估算', idx.pl != null && (idx.plPct + '%' === pos.plPct || pos.plPct === '—' || !!idx.plNote))
 const seats = store.seatsModel()
 const expectedSeats = (SNAP.cfg.seats && SNAP.cfg.seats.list) || []
