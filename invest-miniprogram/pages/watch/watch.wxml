@@ -11,18 +11,18 @@
 
   <block wx:else>
     <view class="filters">
-      <text wx:for="{{model.filters}}" wx:key="key" class="fbtn {{model.filter===item.key?'on':''}}"
+      <text wx:for="{{model.filters}}" wx:key="key" class="fbtn {{model.filter===item.key?'on':''}} {{item.count===0?'zero':''}}"
             data-f="{{item.key}}" bindtap="setFilter">{{item.label}} {{item.count}}</text>
     </view>
     <view class="filters" wx:if="{{model.bizFilters.length}}">
-      <text wx:for="{{model.bizFilters}}" wx:key="key" class="fbtn {{model.bizFilter===item.key?'on':''}}"
+      <text wx:for="{{model.bizFilters}}" wx:key="key" class="fbtn {{model.bizFilter===item.key?'on':''}} {{item.count===0?'zero':''}}"
             data-b="{{item.key}}" bindtap="setBizFilter">{{item.label}} {{item.count}}</text>
     </view>
     <view class="filterhint">{{model.filterHint}}</view>
 
     <view wx:if="{{!model.rows.length}}" class="card empty">
-      <view>当前没有“{{model.filterLabel}}”标的</view>
-      <view class="muted">可以切换其他标签查看。</view>
+      <view>当前筛选「{{model.filterLabel}}」下没有标的</view>
+      <view class="muted">这不是数据丢失，只是筛选结果为空；点上方「全部」返回完整清单。</view>
     </view>
 
     <view class="card" wx:for="{{model.rows}}" wx:key="code" data-code="{{item.code}}" bindtap="toggle">

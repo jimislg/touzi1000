@@ -29,5 +29,6 @@
   border-radius: 999rpx; padding: 8rpx 26rpx;
 }
 .fbtn.on { color: #7aa7ff; border-color: #7aa7ff; }
+.fbtn.zero { opacity: 0.4; }
 .filterhint { color: #93a0b4; font-size: 23rpx; line-height: 1.6; margin-bottom: 10rpx; }
 .notecard { font-size: 23rpx; color: #93a0b4; }
