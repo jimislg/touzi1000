@@ -21,7 +21,7 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  check('evidence gaps block rather than proxy approve',run('budgetCalc("600000.SH").approvedCNY')===0&&el('deployTable').innerHTML.includes('未核准'))
  check('read-only previews warn against aggregating shared cash',el('deployNote').textContent.includes('多项不得叠加'))
  check('no forecast from self assigned tiers',run('fwdIrrOf(CFG.holdings[0])')===null&&!el('dashCards').innerHTML.includes('现实路径'))
- check('unknown HK historical cost not rendered as zero profit',el('posTable').innerHTML.includes('人民币成本待核'))
+ check('HK cost computed from RMB cost basis, no pending tag',!el('posTable').innerHTML.includes('人民币成本待核'))
  check('risk room unit:17percent to20percent gives30万',el('posTable').innerHTML.includes('30.00 万'))
  run('posSort={k:"mv",dir:1};renderPos()');check('sorting retains original edit index',el('posTable').innerHTML.match(/<tbody><tr>[\s\S]*?data-h="(\d+)"/)[1]==='1')
  const capital=run('CFG.targetCapital');run('CFG.investable=8200000;markDirty()');check('cash edit leaves planning denominator unchanged',run('CFG.targetCapital')===capital)
@@ -42,7 +42,8 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  // Same pure domain results on web and mini program.
  global.wx={request(){}};const mini=require('../invest-miniprogram/utils/store');mini.state.CFG=structuredClone(cfg);mini.state.Q=structuredClone(quotes)
  check('mini shows maintained tiers without research pills',mini.watchModel().rows.length===2&&mini.watchModel().rows.every(x=>!x.research)&&mini.watchModel().rows[0].tiers.length===3)
- check('mini always shows P/L, estimating from native cost when CNY cost unverified',mini.positionsModel().costTotal==='—'&&mini.indexModel().pl==='0.00'&&mini.indexModel().plNote.includes('现汇率'))
+ mini.state.CFG.holdings[1].shares=100
+ check('mini HK cost computed from RMB basis, no pending note',mini.positionsModel().rows.find(x=>x.code==='0700.HK').cost==='0.9'&&mini.indexModel().plNote==='')
  check('mini missing quote is not waiting',(()=>{delete mini.state.Q.qa;delete mini.state.CFG.universe[0].px;const row=mini.watchModel().rows.find(x=>x.code==='600000.SH');return row.status==='报价缺失'&&!row.waiting})())
  check('mini tier pills show position caps as amounts (planning-capital based)',mini.watchModel().rows.every(x=>x.tiers.every(t=>t.amt===''||/^≤[0-9,.]+万$/.test(t.amt)))&&mini.seatsModel().seats[0].members[0].pills[0].amt.includes('万'))
  // 郎刚10-25晚：股票池罗列分类筛选（与观察页同源：全部/已到价/接近/等待/持仓/未持仓/退出观察）
@@ -60,7 +61,7 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  // 郎刚11-01：生意分类与价格状态两套筛选并行叠加（bizType结构化字段+网页biz chips+mini第三参）
  check('biz classification filters overlay price filters',el('sigBox').innerHTML.includes('setBizFilter')&&el('sigBox').innerHTML.includes('品牌消费')&&(()=>{const m=mini.watchModel({},'all','品牌消费');const bizCount=m.bizFilters.find(x=>x.key==='品牌消费');const nonAll=m.bizFilters.filter(x=>x.key!=='all').reduce((s,x)=>s+x.count,0);return m.rows.every(x=>x.bizType==='品牌消费')&&m.rows.length===bizCount.count&&bizCount.count>0&&nonAll===m.bizFilters.find(x=>x.key==='all').count})())
  // 郎刚11-04：持仓成本与行情解耦（GPT诊断报告落地）——缺行情时成本仍显示、覆盖计数明示；缺成本显示"成本待补录"而非混入行情缺失
- check('positions cost decoupled from quotes',(()=>{const savedQ=mini.state.Q;mini.state.Q={};const pm=mini.positionsModel();const a=pm.rows.find(x=>x.code==='600000.SH');const okNoQuote=a.px==='—'&&a.cost==='170.0'&&pm.costCov.includes('成本覆盖 1/2')&&pm.costCov.includes('行情覆盖 0/2');mini.state.CFG.holdings[0].cost=null;const missing=mini.positionsModel().rows.find(x=>x.code==='600000.SH').cost==='成本待补录';mini.state.CFG.holdings[0].cost=10;mini.state.Q=savedQ;return okNoQuote&&missing})())
+ check('positions cost decoupled from quotes',(()=>{const savedQ=mini.state.Q;mini.state.Q={};const pm=mini.positionsModel();const a=pm.rows.find(x=>x.code==='600000.SH');const okNoQuote=a.px==='—'&&a.cost==='170.0'&&pm.costCov.includes('成本覆盖 2/2')&&pm.costCov.includes('行情覆盖 0/2');mini.state.CFG.holdings[0].cost=null;const missing=mini.positionsModel().rows.find(x=>x.code==='600000.SH').cost==='成本待补录';mini.state.CFG.holdings[0].cost=10;mini.state.Q=savedQ;return okNoQuote&&missing})())
  // Quote refresh and external changes remain atomic and draft protected (detailed races in test-refresh).
  run('dirty=false');state.cfg.investable=8000000;state.cfg._revision='b'.repeat(64);await run('refresh(false)');check('external config follows with matching complete quotes',run('CFG.investable')===8000000)
  run('CFG.investable=7999999;markDirty()');state.cfg.investable=7000000;await run('refresh(false)');check('unsaved draft protected from automatic follow',run('CFG.investable')===7999999)

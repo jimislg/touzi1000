@@ -53,7 +53,9 @@ const ah=fixture();ah.cfg.holdings[0].code='601318.SH';ah.cfg.holdings[0].shares
 const combined=core.decisionBudget(ah.cfg,ah.quotes,'2318.HK',{now:at});near('A shares consume H listing issuer risk',combined.issuerValueCNY,45000);near('A shares also consume full shared seat',combined.seatValueCNY,85000)
 const hk={code:'0700.HK',market:'HK',shares:100,cost:90,dps:5}
 const v=core.holdingValue(hk,{price:100},0.8)
-check('HK P/L missing without historical CNY cost',v.costCNY===null&&v.pl===null&&v.nativePl===1000)
+// 郎刚11-05口径：港股cost即人民币含费口径，直接核算（100×90=9000元；mv=8000元→浮盈−1000）；上市币种浮动按现汇率还原（10000−100×90/0.8=−1250港元）
+check('HK CNY cost computed from RMB cost basis',v.costCNY===9000&&v.pl===-1000)
+near('HK native P/L converts RMB cost to listing currency',v.nativePl,-1250)
 const vh=core.holdingValue({...hk,costBasisStatus:'verified',settledCostCNYFen:900000,costBasisSource:'broker'},{price:100},0.8)
 near('HK P/L includes actual historical FX:8000-9000',vh.pl,-1000)
 check('missing A holding date has no assumed tax rate',core.taxRateOf({market:'A'},at).r===null)

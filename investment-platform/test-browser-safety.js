@@ -28,7 +28,7 @@ const server=http.createServer((req,res)=>{requests++;const url=new URL(req.url,
  await page.getByRole('button',{name:'确认保存这些修改'}).click();await page.waitForFunction(()=>document.querySelector('#saveText').textContent.includes('服务器已保存'))
  check('explicit confirmation saves once then reads server revision',posts===1&&await page.evaluate(()=>CFG._revision==='b'.repeat(64)&&!dirty&&CFG.decisionInputsChanged))
  await page.getByRole('link',{name:'组合决策'}).click();check('shared-seat view and server-only preview visible',await page.locator('#deploy').isVisible()&&(await page.locator('#deployTable').innerText()).includes('未核准'))
- await page.getByRole('link',{name:'资产账本'}).click();check('HK historical CNY cost gap visible', (await page.locator('#posTable').innerText()).includes('人民币成本待核'))
+ await page.getByRole('link',{name:'资产账本'}).click();check('HK cost rendered from RMB cost basis', !(await page.locator('#posTable').innerText()).includes('人民币成本待核'))
  await page.getByRole('link',{name:'工具与证据'}).click();await page.locator('#cSel').selectOption('0');await page.locator('#cEps').fill('1');await page.locator('#cSel').selectOption('1');check('company switch clears previous EPS',await page.locator('#cEps').inputValue()==='')
  await page.getByRole('link',{name:'今日',exact:true}).click();await page.screenshot({path:path.join(__dirname,'../delivery-tests/browser-desktop.png'),fullPage:true})
  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(250);await page.screenshot({path:path.join(__dirname,'../delivery-tests/browser-mobile.png'),fullPage:false});check('mobile page does not overflow horizontally',await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1))

@@ -171,23 +171,25 @@
     if (!h || !quote || !nonnegative(h.shares) || !nonnegative(quote.price)) return null
     const hk = h.market === 'HK' || /\.HK$/.test(h.code || ''), rate = hk ? fx : 1
     if (!(finite(rate) && rate > 0)) return null
-    const mvCNY = h.shares * quote.price * rate, costAtSpotCNY = nonnegative(h.cost) ? h.shares * h.cost * rate : null
-    const verified = !hk || h.costBasisStatus === 'verified' && cents(h.settledCostCNYFen) && text(h.costBasisSource)
-    const costCNY = verified ? (hk ? h.settledCostCNYFen / 100 : costAtSpotCNY) : null
-    const nativeCost = nonnegative(h.cost) ? h.shares * h.cost : null
-    return { px: quote.price, mvCNY, costCNY, costAtSpotCNY, pl: costCNY == null ? null : mvCNY - costCNY,
+    const mvCNY = h.shares * quote.price * rate
+    /* 郎刚11-05口径澄清：config港股cost为人民币含费口径（历次交易入账均已按汇率折算，如腾讯11-04 394港元×0.8497），
+       直接 shares×cost 核算人民币成本；券商结算单精确值可用 costBasisStatus=verified + settledCostCNYFen + costBasisSource 三件套覆盖 */
+    const settled = hk && h.costBasisStatus === 'verified' && cents(h.settledCostCNYFen) && text(h.costBasisSource)
+    const costCNY = settled ? h.settledCostCNYFen / 100 : nonnegative(h.cost) && h.cost > 0 ? h.shares * h.cost : null
+    const nativeCost = nonnegative(h.cost) && h.cost > 0 ? h.shares * h.cost / rate : null
+    return { px: quote.price, mvCNY, costCNY, pl: costCNY == null ? null : mvCNY - costCNY,
       plPct: costCNY > 0 ? (mvCNY / costCNY - 1) * 100 : null, nativePl: nativeCost == null ? null : h.shares * quote.price - nativeCost,
-      nativePlPct: nativeCost > 0 ? (quote.price / h.cost - 1) * 100 : null, snap: !!quote.snapshot,
-      dpsCNY: nonnegative(h.dps) ? h.dps * rate : null, costBasisStatus: verified ? 'available' : 'unverified',
-      costBasisNote: verified ? '持仓成本参考；实际全账户收益仍需交易和现金流对账' : '缺历史人民币结算成本；上市币种浮动仅供参考，不含汇兑' }
+      nativePlPct: nativeCost > 0 ? (quote.price / (h.cost / rate) - 1) * 100 : null, snap: !!quote.snapshot,
+      dpsCNY: nonnegative(h.dps) ? h.dps * rate : null, costBasisStatus: 'available',
+      costBasisNote: settled ? '成本按券商结算单核算；实际全账户收益仍需交易和现金流对账' : '成本按人民币含费口径核算（港股交易已按汇率折算入账）；上市币种浮动已按汇率还原，不含后续汇兑损益' }
   }
   /* 郎刚11-04修复（GPT诊断报告落地）：成本独立于实时行情核算——缺行情不得把成本连带显示为缺失。
-     状态：ok=可显示｜missing=成本字段缺失/非法（成本待补录）｜unverified=港股缺历史人民币成本（维持待核，不伪造汇兑盈亏）｜noshare=零持仓 */
+     状态：ok=可显示｜missing=成本字段缺失/非法（成本待补录）｜noshare=零持仓。
+     郎刚11-05：港股cost即人民币含费口径，直接核算，不再判"待核"；结算单三件套仍可覆盖 */
   function holdingCost (h) {
     if (!h || !nonnegative(h.shares) || !(h.shares > 0)) return { state: 'noshare', costCNY: null }
     const hk = h.market === 'HK' || /\.HK$/.test(h.code || '')
     if (hk && h.costBasisStatus === 'verified' && cents(h.settledCostCNYFen) && text(h.costBasisSource)) return { state: 'ok', costCNY: h.settledCostCNYFen / 100 }
-    if (hk) return { state: 'unverified', costCNY: null }
     if (!nonnegative(h.cost) || !(h.cost > 0)) return { state: 'missing', costCNY: null }
     return { state: 'ok', costCNY: h.shares * h.cost }
   }
