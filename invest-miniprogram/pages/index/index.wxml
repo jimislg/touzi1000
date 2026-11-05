@@ -50,8 +50,9 @@
       </view>
     </view>
 
-    <!-- 郎刚10-25晚：首页=观察清单（原第四页签内容），替代信号清单；分类筛选与原观察页同源 -->
-    <view class="card" wx:if="{{model.watch.rows.length}}">
+    <!-- 郎刚10-25晚：首页=观察清单（原第四页签内容），替代信号清单；分类筛选与原观察页同源
+         郎刚11-05：筛选为0时不得整卡消失——标题+筛选标签常驻，仅个股列表区显示空态，保证随时能点回「全部」-->
+    <view class="card">
       <view class="k">观察清单（点按展开策略）</view>
       <view class="filters">
         <text wx:for="{{model.watch.filters}}" wx:key="key" class="fbtn {{model.watch.filter===item.key?'on':''}} {{item.count===0?'zero':''}}"
@@ -63,7 +64,8 @@
               data-b="{{item.key}}" bindtap="setBizFilter">{{item.label}} {{item.count}}</text>
       </view>
       <view class="filterhint">{{model.watch.filterHint}}</view>
-      <view class="wrow" wx:for="{{model.watch.rows}}" wx:key="code" data-code="{{item.code}}" bindtap="toggle">
+      <block wx:if="{{model.watch.rows.length}}">
+        <view class="wrow" wx:for="{{model.watch.rows}}" wx:key="code" data-code="{{item.code}}" bindtap="toggle">
         <view class="line1">
           <text class="b">{{item.name}}</text>
           <text class="pill {{item.grade}}">{{item.grade}}</text>
@@ -88,8 +90,9 @@
           <view>下次复核：{{item.summary.reviewBy}}</view>
         </view>
       </view>
+      </block>
+      <view wx:if="{{!model.watch.rows.length}}" class="muted" style="padding:8rpx 0"><text>当前筛选「{{model.watch.filterLabel}}」下没有标的（全部 {{model.watch.n.all}} 个在其他分类里）。这不是数据丢失，点上方「全部」返回完整清单。</text></view>
     </view>
-    <view class="card" wx:else><text class="muted">当前筛选「{{model.watch.filterLabel}}」下没有标的（全部 {{model.watch.n.all}} 个在其他分类里）；点上方「全部」即可返回完整清单。这不是数据丢失，只是筛选结果为空。</text></view>
 
     <view class="card notecard">⚠️ 统一提醒：到价 ≠ 下单。任何行动前先按 v3.4 刷新前三步数据，再走第四步组合决策；H股另须满足 A/H 双门槛（折价≥25%）。价格触发后不倒计时、不催促，等待本身是纪律的一部分。档位后 ≤金额 为该档累计建仓上限（按规划本金折算）。</view>
   </block>
