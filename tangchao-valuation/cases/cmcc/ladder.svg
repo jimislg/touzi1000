@@ -1,0 +1,40 @@
+<svg viewBox="0 0 680 279" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family: var(--font-sans); width:100%;">
+<title>中国移动 四层价格与经验线</title>
+<desc>中国移动：买入线至卖出线，经验线以琥珀色标出，现价 77.1 HKD。</desc>
+<line x1="70" y1="112" x2="610" y2="112" stroke="var(--color-border-secondary)" stroke-width="1" />
+<line x1="133.9" y1="112" x2="133.9" y2="118" stroke="var(--color-border-secondary)" stroke-width="1" />
+<line x1="241.2" y1="112" x2="241.2" y2="118" stroke="var(--color-border-secondary)" stroke-width="1" />
+<line x1="348.5" y1="112" x2="348.5" y2="118" stroke="var(--color-border-secondary)" stroke-width="1" />
+<line x1="455.8" y1="112" x2="455.8" y2="118" stroke="var(--color-border-secondary)" stroke-width="1" />
+<line x1="563.0" y1="112" x2="563.0" y2="118" stroke="var(--color-border-secondary)" stroke-width="1" />
+<g font-size="11" fill="var(--color-text-tertiary)" text-anchor="middle">
+<text x="133.9" y="130">50</text>
+<text x="241.2" y="130">75</text>
+<text x="348.5" y="130">100</text>
+<text x="455.8" y="130">125</text>
+<text x="563.0" y="130">150</text>
+</g>
+<line x1="250.2" y1="44" x2="250.2" y2="112" stroke="#E24B4A" stroke-width="1.5" stroke-dasharray="5 4" />
+<text x="250.2" y="34" text-anchor="middle" font-size="13" font-weight="600" fill="#E24B4A">现价 77.1 HKD</text>
+<line x1="115.0" y1="96" x2="115.0" y2="118" stroke="#C2410C" stroke-width="1.5" stroke-dasharray="4 3" stroke-opacity="0.9" />
+<circle cx="115.0" cy="96" r="4" fill="none" stroke="#C2410C" stroke-width="1.5" />
+<text x="115.0" y="158" text-anchor="middle" font-size="12" fill="#C2410C">经验线（参考） 7.7×</text>
+<text x="115.0" y="177" text-anchor="middle" font-size="14" font-weight="600" fill="#C2410C">45.6</text>
+<line x1="284.9" y1="96" x2="284.9" y2="118" stroke="#378ADD" stroke-width="2" stroke-opacity="0.85" />
+<circle cx="284.9" cy="96" r="4" fill="#378ADD" />
+<text x="284.9" y="158" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">买入线 14.4×</text>
+<text x="284.9" y="177" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">85.2</text>
+<line x1="336.8" y1="96" x2="336.8" y2="118" stroke="#378ADD" stroke-width="2" stroke-opacity="0.85" />
+<circle cx="336.8" cy="96" r="4" fill="#378ADD" />
+<text x="336.8" y="202" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">中枢 16.4×</text>
+<text x="336.8" y="221" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">97.3</text>
+<line x1="418.3" y1="96" x2="418.3" y2="118" stroke="#378ADD" stroke-width="2" stroke-opacity="0.85" />
+<circle cx="418.3" cy="96" r="4" fill="#378ADD" />
+<text x="418.3" y="158" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">乐观 19.6×</text>
+<text x="418.3" y="177" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">116.3</text>
+<line x1="565.0" y1="96" x2="565.0" y2="118" stroke="#378ADD" stroke-width="2" stroke-opacity="0.85" />
+<circle cx="565.0" cy="96" r="4" fill="#378ADD" />
+<text x="565.0" y="158" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">卖出线 25.4×</text>
+<text x="565.0" y="177" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">150.5</text>
+<text x="340.0" y="263" text-anchor="middle" font-size="12" fill="#C2410C">经验线（参考，不参与计算）= 峰值 15.4× ×50% = 7.7×（未触顶）</text>
+</svg>

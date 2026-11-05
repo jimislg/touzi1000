@@ -1,0 +1,28 @@
+<svg viewBox="0 0 680 282" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family: var(--font-sans); width:100%;">
+<title>贵州茅台 唐朝法买点区间与现价</title>
+<desc>贵州茅台 在「A 正常化 3%（默认）」下买点区间 966.3 至 1,099 元，现价 1,335 元。</desc>
+<text x="564.2" y="44" text-anchor="middle" font-size="13" font-weight="500" fill="#E24B4A">现价 1,335 元</text>
+<line x1="564.2" y1="60" x2="564.2" y2="206" stroke="#E24B4A" stroke-width="1.5" stroke-dasharray="5 4" />
+<rect x="115.8" y="104" width="161.1" height="38" rx="6" fill="#B5D4F4" fill-opacity="0.45" stroke="#378ADD" stroke-opacity="0.7" stroke-width="1" />
+<text x="196.4" y="92" text-anchor="middle" font-size="13" font-weight="500" fill="var(--color-text-primary)">买点区间 966.3 – 1,099 元</text>
+<circle cx="115.8" cy="104" r="3.5" fill="#378ADD" />
+<text x="115.8" y="172" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">中枢×0.6</text>
+<text x="115.8" y="189" text-anchor="middle" font-size="13" font-weight="500" fill="var(--color-text-primary)">966.3</text>
+<circle cx="276.9" cy="104" r="3.5" fill="#378ADD" />
+<text x="276.9" y="172" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">三年后×0.5</text>
+<text x="276.9" y="189" text-anchor="middle" font-size="13" font-weight="500" fill="var(--color-text-primary)">1,099</text>
+<line x1="62" y1="206" x2="618" y2="206" stroke="var(--color-border-secondary)" stroke-width="1" />
+<g stroke="var(--color-border-secondary)" stroke-width="1">
+<line x1="156.7" y1="206" x2="156.7" y2="212" />
+<line x1="278.4" y1="206" x2="278.4" y2="212" />
+<line x1="400.0" y1="206" x2="400.0" y2="212" />
+<line x1="521.6" y1="206" x2="521.6" y2="212" />
+</g>
+<g font-size="11" fill="var(--color-text-tertiary)" text-anchor="middle">
+<text x="156.7" y="226">1,000</text>
+<text x="278.4" y="226">1,100</text>
+<text x="400.0" y="226">1,200</text>
+<text x="521.6" y="226">1,300</text>
+</g>
+<text x="340.0" y="262" text-anchor="middle" font-size="12" fill="var(--color-text-tertiary)">利润锚：当年（已禁用） 805.1 亿　｜　中枢 732.1 亿　｜　三年后 999 亿</text>
+</svg>
