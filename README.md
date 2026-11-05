@@ -136,6 +136,21 @@ EV 按 4.0% 投资收益率计量，实际净投资收益率年化只有 3.3%；
 
 ## 6. 版本与归档
 
-- `investment-advisor` v3.4.16 · `tangchao-valuation` v3.10.12（2026-11-01）
-- 修订历史见各自 `SKILL.md` 的最后一节「修订记录」
-- 本目录是 `~/.workbuddy/skills/` 的快照，不含 `__pycache__`
+| 项 | 值 |
+|---|---|
+| 版本 | `investment-advisor` **v3.4.16** · `tangchao-valuation` **v3.10.12**（2026-11-01） |
+| 原始路径 | `~/.workbuddy/skills/{investment-advisor,tangchao-valuation}/`（该目录不受 git 管理） |
+| Git 出处 | `github.com/jimislg/touzi1000` · 分支 **`skills`** · commit **`963b764`** |
+| 本目录 | 上述快照的副本，不含 `__pycache__` |
+
+克隆本分支：
+
+```bash
+git clone -b skills git@github.com:<owner>/touzi1000.git
+# 或（HTTPS）
+git clone -b skills https://github.com/<owner>/touzi1000.git
+```
+
+**访问状态**：该仓库为**私有**。匿名（未授权）访问分支页与 raw 链接均返回 404，`git clone` 需要账号授权或 PAT。若要把这套方法交给外部模型学习，需另建公开仓库，或由使用者手工上传本目录。
+
+修订历史见各自 `SKILL.md` 的最后一节「修订记录」——**那是信息密度最高的部分，每条都对应一次真实算错**。
