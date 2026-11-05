@@ -3,7 +3,9 @@
     <view class="dot {{model.source==='live'?'on':'off'}}"></view>
     <text>{{model.statusText}}</text>
     <text class="fx">{{model.fxText}}</text>
+    <text class="muted" style="margin-left:auto">v{{model.ver}}</text>
   </view>
+  <view wx:if="{{model.lastError}}" class="card errcard" style="white-space:normal">{{model.lastError}}</view>
 
   <view wx:if="{{model.qualityText}}" class="card notecard">{{model.qualityText}}</view>
   <view wx:if="{{model.errorMsg}}" class="card errcard">{{model.errorMsg}}</view>

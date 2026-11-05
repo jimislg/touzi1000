@@ -11,7 +11,16 @@ Page({
     this.render()
   },
   onUnload () { if (this.unsub) this.unsub() },
-  onShow () { store.maybeReload() },
+  onShow () {
+    store.maybeReload()
+    // 郎刚11-05：真机白屏诊断——显示app.js全局捕获的错误与当前版本号
+    let lastError = null
+    try { lastError = wx.getStorageSync('lgLastError') || null } catch (e) {}
+    if (lastError && Date.now() - (lastError.at || 0) < 10 * 60 * 1000) {
+      this._lastError = 'v1.12.8 错误: ' + lastError.msg
+    } else { this._lastError = null }
+    this.render()
+  },
   onPullDownRefresh () { store.reload().then(() => wx.stopPullDownRefresh()) },
 
   // 郎刚10-25晚：首页承载观察清单，点按展开策略/逻辑（与原观察页同源 watchModel）
@@ -39,7 +48,11 @@ Page({
 
   render () {
     this.setData({
-      model: Object.assign(store.indexModel(), { watch: store.watchModel(this._expanded, this._filter, this._bizFilter) })
+      model: Object.assign(store.indexModel(), {
+        watch: store.watchModel(this._expanded, this._filter, this._bizFilter),
+        lastError: this._lastError || '',
+        ver: '1.12.8'
+      })
     })
   }
 })

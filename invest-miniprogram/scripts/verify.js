@@ -24,7 +24,8 @@ appJson.pages.forEach(p => {
   T('页面文件存在 ' + p + '.wxml', fs.existsSync(path.join(ROOT, p + '.wxml')))
   T('页面文件存在 ' + p + '.js', fs.existsSync(path.join(ROOT, p + '.js')))
 })
-T('lazyCodeLoading=requiredComponents', appJson.lazyCodeLoading === 'requiredComponents')
+/* 郎刚11-05：lazyCodeLoading已移除——真机按需注入是白屏高频根因（总览页空白事件），本app仅4页无分包收益趋零，禁止再加回 */
+T('app.json不含lazyCodeLoading（真机白屏排查移除，勿加回）', appJson.lazyCodeLoading == null)
 T('tabBar 每项 pagePath 都在 pages 中', appJson.tabBar.list.every(t => appJson.pages.includes(t.pagePath)))
 T('首屏为总览页', appJson.pages[0] === 'pages/index/index')
 

@@ -1,10 +1,10 @@
 {
   "version": 1,
   "branch": "codex/passive-income-safety-controls",
-  "baseCommit": "b5fb647",
+  "baseCommit": "49c7f0a",
   "rollbackCodeCommit": "26df194ab55884f29a9c82671db8bb96d85811e2",
-  "productionDataWritten": true,
-  "schemaImpact": "郎刚11-05晚报账本周交易（11-04三笔）：①宁德时代300750.SZ新建持仓700股（400@249.32含费99,737.97 + 300@248.00含费74,407.44，单位成本248.779157含费口径）；②腾讯加仓600股@394.00 HKD（委托186712，236,400 HKD×0.8497=200,869.08折CNY，3900→4500股，cost 402.175123→393.189347）；③现金6,598,247.11→6,223,232.62；trades 14→17。持仓7→8只。小程序快照刷新+1.12.7。universe 35未动。",
+  "productionDataWritten": false,
+  "schemaImpact": "郎刚11-05反馈小程序总览页真机白屏（个股/观察清单全无）：①移除app.json的lazyCodeLoading=requiredComponents（真机按需注入是白屏高频根因，本app仅4页无分包收益趋零；verify断言反转为禁止加回）；②app.js新增onError/onUnhandledRejection全局错误捕获落storage+onPageNotFound兜底；③首页顶部显示v1.12.8版本号+10分钟内最近错误红条（lgLastError）。模型层/页面代码/快照体积本地全量排查无恙（watchModel 35行/positionsModel 8行/setData 43KB），白屏无法本地复现，此版为修复+诊断二合一：扫码后若仍空白，顶部红字会给真实报错。持仓/现金数据未动。",
   "releasePerformed": true,
   "ciActivation": "workflow installed; push/PR triggers checks; use exact-commit Actions result for acceptance",
   "tests": {
@@ -26,29 +26,44 @@
   },
   "files": [
     {
-      "path": "investment-platform/config.json",
-      "dataOrSchemaTouch": true,
-      "intent": "郎刚11-05报账11-04三笔交易：宁德新建700股（成本含费248.779157）、腾讯加仓600股@394（cost→393.189347）、trades+3（含费明细入source）、cash→6,223,232.62；已推VPS验证universe35/holdings8/trades17"
+      "path": "invest-miniprogram/app.json",
+      "dataOrSchemaTouch": false,
+      "intent": "移除lazyCodeLoading=requiredComponents——真机按需注入白屏高频根因（11-05总览页空白事件排查）"
+    },
+    {
+      "path": "invest-miniprogram/app.js",
+      "dataOrSchemaTouch": false,
+      "intent": "新增onError/onUnhandledRejection错误捕获落storage(lgLastError)+onPageNotFound兜底回总览"
+    },
+    {
+      "path": "invest-miniprogram/pages/index/index.js",
+      "dataOrSchemaTouch": false,
+      "intent": "onShow读取10分钟内最近错误合入model.lastError；render合入版本号ver=1.12.8"
+    },
+    {
+      "path": "invest-miniprogram/pages/index/index.wxml",
+      "dataOrSchemaTouch": false,
+      "intent": "topbar右侧显示版本号+顶部错误红条"
+    },
+    {
+      "path": "invest-miniprogram/scripts/verify.js",
+      "dataOrSchemaTouch": false,
+      "intent": "lazyCodeLoading断言反转为禁止加回（注明真机白屏原因）"
     },
     {
       "path": "invest-miniprogram/utils/snapshot.js",
       "dataOrSchemaTouch": false,
-      "intent": "发版刷新离线快照（持仓8只+现金新值）"
+      "intent": "发版刷新离线快照（构建产物）"
     },
     {
-      "path": "investment-platform/config.json.backup-trades-20261105",
+      "path": "invest-miniprogram/preview-1.12.8.png",
       "dataOrSchemaTouch": false,
-      "intent": "改动前config备份（ASCII文件名）"
-    },
-    {
-      "path": "invest-miniprogram/preview-1.12.7.png",
-      "dataOrSchemaTouch": false,
-      "intent": "1.12.7预览二维码（入库惯例）"
+      "intent": "1.12.8预览二维码（入库惯例）"
     },
     {
       "path": "delivery-manifest.json",
       "dataOrSchemaTouch": false,
-      "intent": "基线推进至b5fb647；11-04交易入账对账"
+      "intent": "基线推进至49c7f0a；真机白屏修复版交付对账"
     }
   ],
   "researchRollbackCodeCommit": "c86bc3a56d5a184a1daf669936061fed78585f80",

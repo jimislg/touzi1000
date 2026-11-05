@@ -19,12 +19,20 @@
     "backgroundColor": "#161d26",
     "borderStyle": "black",
     "list": [
-      { "pagePath": "pages/index/index", "text": "总览" },
-      { "pagePath": "pages/positions/positions", "text": "持仓" },
-      { "pagePath": "pages/seats/seats", "text": "策略" }
+      {
+        "pagePath": "pages/index/index",
+        "text": "总览"
+      },
+      {
+        "pagePath": "pages/positions/positions",
+        "text": "持仓"
+      },
+      {
+        "pagePath": "pages/seats/seats",
+        "text": "策略"
+      }
     ]
   },
-  "lazyCodeLoading": "requiredComponents",
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }
