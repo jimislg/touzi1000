@@ -178,20 +178,6 @@
       "amtHKD": 236400,
       "fx": 0.8497,
       "source": "券商委托详情截图，已成（委托编号186712，港股订单买申报）；费用未截到，按成交额×0.8497中间价折算，待结算单校正"
-    },
-    {
-      "date": "2026-11-06",
-      "time": "09:33:10",
-      "code": "02020.HK",
-      "name": "安踏体育",
-      "price": 80.3,
-      "shares": 1800,
-      "amtHKD": 144540,
-      "amtCNY": 122933.67,
-      "fx": 0.8505,
-      "side": "卖出",
-      "tradeId": "437292",
-      "source": "券商委托详情截图，已成（委托编号437292，港股订单卖申报，增强限价，成交1800/1800）；人民币金额按 hkdcnyFallback 0.8505 折算，待结算单校正"
     }
   ],
   "asOfNote": "快照价=2026-10-06上午截图；行情在线时自动覆盖",
@@ -216,7 +202,7 @@
       "qt": "hk09992",
       "dps": 2.7248,
       "code": "09992.HK",
-      "cost": 155.4548,
+      "cost": 132.2143,
       "name": "泡泡玛特",
       "grade": "A",
       "label": "",
@@ -249,7 +235,7 @@
       "qt": "hk02020",
       "dps": 2.59,
       "code": "02020.HK",
-      "cost": 72.2754,
+      "cost": 61.4702,
       "name": "安踏体育",
       "grade": "B",
       "label": "",
@@ -299,7 +285,7 @@
       "qt": "hk00700",
       "dps": 5.3,
       "code": "0700.HK",
-      "cost": 402.7379,
+      "cost": 342.5286,
       "name": "腾讯控股",
       "grade": "A",
       "label": "目标达成型",
@@ -1786,17 +1772,11 @@
   },
   "tierPctNote": "tierPct=各档累计净投入占目标本金(targetCapital)的百分比，非占席位权重；标准四档锚[10,25,60,100]源自methodology.json ladderRule，三档条件单锚为H12/H15/H17.46累计；个股定制值以归档建仓文档为准。",
   "decisionInputsChanged": {
-    "at": "2026-11-06T07:47:56.010Z",
+    "at": "2026-11-06T08:03:21.953Z",
     "fields": [
-      "cash",
       "holdings.1.cost",
-      "holdings.1.costBasisStatus",
       "holdings.3.cost",
-      "holdings.3.shares",
-      "holdings.3.costBasisStatus",
-      "holdings.6.cost",
-      "holdings.6.costBasisStatus",
-      "investable"
+      "holdings.6.cost"
     ],
     "reason": "普通编辑改变了已核数据，请重新对账并按新版本审批"
   },
@@ -1849,6 +1829,27 @@
           "path": "investable",
           "before": 6598247.11,
           "after": 6449084.68
+        }
+      ]
+    },
+    {
+      "at": "2026-11-06T08:03:21.953Z",
+      "baseRevision": "07db386b91a670f322127305eb8853e3de00407a182b0e634fce1870e17f4ec1",
+      "changes": [
+        {
+          "path": "holdings.1.cost",
+          "before": 155.4548,
+          "after": 132.2143
+        },
+        {
+          "path": "holdings.3.cost",
+          "before": 72.2754,
+          "after": 61.4702
+        },
+        {
+          "path": "holdings.6.cost",
+          "before": 402.7379,
+          "after": 342.5286
         }
       ]
     }
