@@ -1,7 +1,7 @@
-<svg viewBox="0 0 680 474" width="100%" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">
+<svg viewBox="0 0 680 506" width="100%" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">
 <title>片仔癀 护城河与商业价值定位</title>
 <desc>护城河深、商业价值小，落在「空城堡」象限</desc>
-<rect x="0" y="0" width="680" height="474" rx="0" fill="#FBFAF7" stroke="#FBFAF7" stroke-width="0"/>
+<rect x="0" y="0" width="680" height="506" rx="0" fill="#FBFAF7" stroke="#FBFAF7" stroke-width="0"/>
 <text x="40" y="38" font-size="14" font-weight="500" fill="#23262F">片仔癀 · Q2 护城河 × 商业价值</text>
 <text x="40" y="58" font-size="12" font-weight="400" fill="#5F6472">护城河只是保护，商业价值才是城堡；ROE 三维度决定价值扩张期</text>
 <text x="96" y="76" font-size="11" font-weight="400" fill="#8A909E">商业价值：小 → 大</text>
@@ -23,21 +23,25 @@
 <text x="382" y="218" font-size="14" font-weight="500" fill="#23262F">行业 β 型大牛</text>
 <text x="382" y="240" font-size="12" font-weight="400" fill="#8A909E">没有壁垒，靠行业景气</text>
 <text x="40" y="306" font-size="13" font-weight="500" fill="#23262F">ROE 三维度（价值扩张期判据）</text>
-<rect x="40" y="320" width="190" height="76" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<rect x="40" y="320" width="190" height="94" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
 <text x="54" y="344" font-size="13" font-weight="500" fill="#23262F">高度</text>
 <text x="216" y="344" font-size="12" font-weight="500" fill="#085041" text-anchor="end">中</text>
-<text x="54" y="366" font-size="11" font-weight="400" fill="#8A909E">竞争均衡下 ROE</text>
-<text x="54" y="386" font-size="11" font-weight="400" fill="#5F6472">医药制造毛利率 60.40% vs 行业约 </text>
-<rect x="245" y="320" width="190" height="76" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<text x="54" y="364" font-size="11" font-weight="400" fill="#8A909E">竞争均衡下 ROE</text>
+<text x="54" y="384" font-size="11" font-weight="400" fill="#5F6472">医药制造毛利率 60.40% vs 行</text>
+<text x="54" y="400" font-size="11" font-weight="400" fill="#5F6472">业约 40%，但高存货与净现金拖…</text>
+<rect x="245" y="320" width="190" height="94" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
 <text x="259" y="344" font-size="13" font-weight="500" fill="#23262F">持久度</text>
 <text x="421" y="344" font-size="12" font-weight="500" fill="#085041" text-anchor="end">低</text>
-<text x="259" y="366" font-size="11" font-weight="400" fill="#8A909E">高 ROE 维持年限</text>
-<text x="259" y="386" font-size="11" font-weight="400" fill="#5F6472">提价权已塌：终端回收价 460 元 vs 官</text>
-<rect x="450" y="320" width="190" height="76" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<text x="259" y="364" font-size="11" font-weight="400" fill="#8A909E">高 ROE 维持年限</text>
+<text x="259" y="384" font-size="11" font-weight="400" fill="#5F6472">提价权已塌：终端回收价 460 </text>
+<text x="259" y="400" font-size="11" font-weight="400" fill="#5F6472">元 vs 官方 760 元（§3.1、§…</text>
+<rect x="450" y="320" width="190" height="94" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
 <text x="464" y="344" font-size="13" font-weight="500" fill="#23262F">净资产扩张</text>
 <text x="626" y="344" font-size="12" font-weight="500" fill="#085041" text-anchor="end">低</text>
-<text x="464" y="366" font-size="11" font-weight="400" fill="#8A909E">能否复制到大资产</text>
-<text x="464" y="386" font-size="11" font-weight="400" fill="#5F6472">capex/净利 15.7% 极轻</text>
-<rect x="40" y="408" width="600" height="46" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-<text x="56" y="437" font-size="12" font-weight="500" fill="#085041">同业横比：横比同仁堂/茅台：真正胜出的只有独家配方，换来的是『不会死』不是『会增长』；自由现金流质量更差（三年 O</text>
+<text x="464" y="364" font-size="11" font-weight="400" fill="#8A909E">能否复制到大资产</text>
+<text x="464" y="384" font-size="11" font-weight="400" fill="#5F6472">capex/净利 15.7% 极轻，但 2</text>
+<text x="464" y="400" font-size="11" font-weight="400" fill="#5F6472">025 年在牛黄 170 万/kg 最高…</text>
+<rect x="40" y="424" width="600" height="62" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="56" y="446" font-size="12" font-weight="500" fill="#085041">同业横比：横比同仁堂/茅台：真正胜出的只有独家配方，换来的是『不会死』不是『会增长』；自由现金</text>
+<text x="56" y="466" font-size="12" font-weight="500" fill="#085041">流质量更差（三年 OCF/净利 0.45 vs 茅台 &gt;1）。高壁垒未转化为仍在初期的空间，接近书中『空城堡…</text>
 </svg>

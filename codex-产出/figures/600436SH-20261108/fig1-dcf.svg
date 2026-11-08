@@ -1,33 +1,33 @@
-<svg viewBox="0 0 680 448" width="100%" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">
+<svg viewBox="0 0 680 496" width="100%" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">
 <title>片仔癀 DCF 三要素定位</title>
 <desc>经营存续期、现金创造力、经营周期定位三项定位：资格存疑（存续期长，但现金创造力弱且已过扩张段）</desc>
-<rect x="0" y="0" width="680" height="448" rx="0" fill="#FBFAF7" stroke="#FBFAF7" stroke-width="0"/>
+<rect x="0" y="0" width="680" height="496" rx="0" fill="#FBFAF7" stroke="#FBFAF7" stroke-width="0"/>
 <text x="40" y="38" font-size="14" font-weight="500" fill="#23262F">片仔癀 · Q1 DCF 三要素：够不够格</text>
 <text x="40" y="58" font-size="12" font-weight="400" fill="#5F6472">同一套 DCF 原理，不算价格，只判这门生意的三项资格</text>
-<rect x="40" y="78" width="600" height="92" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<rect x="40" y="78" width="600" height="108" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
 <text x="56" y="100" font-size="13" font-weight="500" fill="#23262F">经营存续期</text>
 <text x="624" y="100" font-size="12" font-weight="500" fill="#854F0B" text-anchor="end">定位：长</text>
-<line x1="56" y1="124" x2="624" y2="124" stroke="#D9DCE3" stroke-width="2"/>
-<text x="56" y="144" font-size="11" font-weight="400" fill="#8A909E">短</text>
-<text x="624" y="144" font-size="11" font-weight="400" fill="#8A909E" text-anchor="end">长</text>
-<circle cx="568.0" cy="124" r="7" fill="#BA7517" stroke="#FFFFFF" stroke-width="2"/>
-<text x="56" y="162" font-size="11" font-weight="400" fill="#5F6472">依据：国家绝密级配方永久保密、无直接竞品；肝病/保肝为真实医疗需求</text>
-<rect x="40" y="178" width="600" height="92" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
-<text x="56" y="200" font-size="13" font-weight="500" fill="#23262F">现金创造力</text>
-<text x="624" y="200" font-size="12" font-weight="500" fill="#854F0B" text-anchor="end">定位：弱</text>
-<line x1="56" y1="224" x2="624" y2="224" stroke="#D9DCE3" stroke-width="2"/>
-<text x="56" y="244" font-size="11" font-weight="400" fill="#8A909E">弱</text>
-<text x="624" y="244" font-size="11" font-weight="400" fill="#8A909E" text-anchor="end">强</text>
-<circle cx="148.0" cy="224" r="7" fill="#BA7517" stroke="#FFFFFF" stroke-width="2"/>
-<text x="56" y="262" font-size="11" font-weight="400" fill="#5F6472">依据：近三年累计 OCF/净利 0.45（低于 0.6 不通过线），2025 单年 0.04</text>
-<rect x="40" y="278" width="600" height="92" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
-<text x="56" y="300" font-size="13" font-weight="500" fill="#23262F">经营周期定位</text>
-<text x="624" y="300" font-size="12" font-weight="500" fill="#854F0B" text-anchor="end">定位：成熟转衰退</text>
-<line x1="56" y1="324" x2="624" y2="324" stroke="#D9DCE3" stroke-width="2"/>
-<text x="56" y="344" font-size="11" font-weight="400" fill="#8A909E">衰退</text>
-<text x="624" y="344" font-size="11" font-weight="400" fill="#8A909E" text-anchor="end">扩张</text>
-<circle cx="220.0" cy="324" r="7" fill="#BA7517" stroke="#FFFFFF" stroke-width="2"/>
-<text x="56" y="362" font-size="11" font-weight="400" fill="#5F6472">依据：增长模型由提价→囤货切换为控量保价→降价换量；估值中枢下移是结构性而非周期性（§3.3）</text>
-<rect x="40" y="382" width="600" height="46" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
-<text x="56" y="411" font-size="13" font-weight="500" fill="#854F0B">Q1 结论：资格存疑（存续期长，但现金创造力弱且已过扩张段）　（资格判定，不改 A/B/C/D 分类）</text>
+<line x1="56" y1="122" x2="624" y2="122" stroke="#D9DCE3" stroke-width="2"/>
+<text x="56" y="140" font-size="11" font-weight="400" fill="#8A909E">短</text>
+<text x="624" y="140" font-size="11" font-weight="400" fill="#8A909E" text-anchor="end">长</text>
+<circle cx="568.0" cy="122" r="7" fill="#BA7517" stroke="#FFFFFF" stroke-width="2"/>
+<text x="56" y="162" font-size="11" font-weight="400" fill="#5F6472">依据：国家绝密级配方永久保密、无直接竞品；肝病/保肝为真实医疗需求，十年后仍在（§3.1、§4 维6）</text>
+<rect x="40" y="194" width="600" height="108" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<text x="56" y="216" font-size="13" font-weight="500" fill="#23262F">现金创造力</text>
+<text x="624" y="216" font-size="12" font-weight="500" fill="#854F0B" text-anchor="end">定位：弱</text>
+<line x1="56" y1="238" x2="624" y2="238" stroke="#D9DCE3" stroke-width="2"/>
+<text x="56" y="256" font-size="11" font-weight="400" fill="#8A909E">弱</text>
+<text x="624" y="256" font-size="11" font-weight="400" fill="#8A909E" text-anchor="end">强</text>
+<circle cx="148.0" cy="238" r="7" fill="#BA7517" stroke="#FFFFFF" stroke-width="2"/>
+<text x="56" y="278" font-size="11" font-weight="400" fill="#5F6472">依据：近三年累计 OCF/净利 0.45（低于 0.6 不通过线），2025 单年 0.04，存货周转 366 天（§4 维7）</text>
+<rect x="40" y="310" width="600" height="108" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<text x="56" y="332" font-size="13" font-weight="500" fill="#23262F">经营周期定位</text>
+<text x="624" y="332" font-size="12" font-weight="500" fill="#854F0B" text-anchor="end">定位：成熟转衰退</text>
+<line x1="56" y1="354" x2="624" y2="354" stroke="#D9DCE3" stroke-width="2"/>
+<text x="56" y="372" font-size="11" font-weight="400" fill="#8A909E">衰退</text>
+<text x="624" y="372" font-size="11" font-weight="400" fill="#8A909E" text-anchor="end">扩张</text>
+<circle cx="220.0" cy="354" r="7" fill="#BA7517" stroke="#FFFFFF" stroke-width="2"/>
+<text x="56" y="394" font-size="11" font-weight="400" fill="#5F6472">依据：增长模型由提价→囤货切换为控量保价→降价换量；估值中枢下移是结构性而非周期性（§3.3）</text>
+<rect x="40" y="430" width="600" height="46" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text x="56" y="459" font-size="13" font-weight="500" fill="#854F0B">Q1 结论：资格存疑（存续期长，但现金创造力弱且已过扩张段）　（资格判定，不改 A/B/C/D 分…</text>
 </svg>

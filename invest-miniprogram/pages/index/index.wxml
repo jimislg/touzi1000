@@ -94,6 +94,6 @@
       <view wx:if="{{!model.watch.rows.length}}" class="muted" style="padding:8rpx 0"><text>当前筛选「{{model.watch.filterLabel}}」下没有标的（全部 {{model.watch.n.all}} 个在其他分类里）。这不是数据丢失，点上方「全部」返回完整清单。</text></view>
     </view>
 
-    <view class="card notecard">⚠️ 统一提醒：到价 ≠ 下单。任何行动前先按 v3.4 刷新前三步数据，再走第四步组合决策；H股另须满足 A/H 双门槛（折价≥25%）。价格触发后不倒计时、不催促，等待本身是纪律的一部分。档位后 ≤金额 为该档累计建仓上限（按规划本金折算）。</view>
+    <view class="card notecard">⚠️ 统一提醒：到价 ≠ 下单。任何行动前先按 v3.4 刷新前三步数据，再走第四步组合决策；H股另须满足 A/H 双门槛（折价≥25%）。价格触发后不倒计时、不催促，等待本身是纪律的一部分。档位后 ≤金额 为该档累计建仓上限（郎刚11-08定：按观察池单标的总上限100万折算）。</view>
   </block>
 </view>

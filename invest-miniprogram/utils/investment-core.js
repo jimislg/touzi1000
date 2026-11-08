@@ -58,6 +58,8 @@
   const clock = now => now == null ? Date.now() : typeof now === 'number' && Number.isFinite(now) ? now : NaN
   const fen = v => nonnegative(v) && Number.isSafeInteger(Math.round(v * 100)) ? Math.round(v * 100) : null
   function planningCapital (cfg) { return cfg && finite(cfg.targetCapital) && cfg.targetCapital > 0 ? cfg.targetCapital : null }
+  /* 郎刚11-08：观察池档位累计建仓上限基数=单标的100万（cfg.poolTierCapital可覆盖），与第四步组合决策的targetCapital(1000万)口径分离 */
+  function poolTierCapital (cfg) { return cfg && finite(cfg.poolTierCapital) && cfg.poolTierCapital > 0 ? cfg.poolTierCapital : 1000000 }
   function issuerCodes (cfg, code) {
     const all = items(cfg, 'universe').concat(items(cfg, 'holdings'))
     const item = all.find(x => x && x.code === code)
@@ -465,5 +467,5 @@
       const amount=Math.max(0,Math.min(...parts));if(Number.isSafeInteger(amount)){out.approvedCNYFen=amount;out.approvedCNY=amount/100;out.status=amount>0?'approved':'blocked';out.actionId=tranche.id;if(!amount)block('预算或现金没有可用余量')}else block('金额计算超出安全整数范围')}
     return out
   }
-  return { planningCapital, issuerCodes, positionLimit, taxRateOf, modelFlows, priceAt, irrOf, researchState, modelReturn, dividendSummary, tradeActivity, ledgerSummary, decisionBudget, toFen:fen, fromFen:v=>cents(v)?v/100:null, parseQuotes, missingSymbols, ladderState, positionRoom, applyDivUpdate, quoteOf, fxOf, holdingValue, holdingCost, dividendForBudget, irrAt, dataQuality, displayQuoteTime, researchSummary, stressPortfolio }
+  return { planningCapital, poolTierCapital, issuerCodes, positionLimit, taxRateOf, modelFlows, priceAt, irrOf, researchState, modelReturn, dividendSummary, tradeActivity, ledgerSummary, decisionBudget, toFen:fen, fromFen:v=>cents(v)?v/100:null, parseQuotes, missingSymbols, ladderState, positionRoom, applyDivUpdate, quoteOf, fxOf, holdingValue, holdingCost, dividendForBudget, irrAt, dataQuality, displayQuoteTime, researchSummary, stressPortfolio }
 })

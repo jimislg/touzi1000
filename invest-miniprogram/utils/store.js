@@ -61,8 +61,8 @@ function totalCapital () {
   return mv != null && Number.isFinite(cash) ? cash + mv : null
 }
 function curOf (u) { return u.code.endsWith('.HK') ? '港元' : '元' }
-function tierAmt (C, pct) { // 郎刚10-25晚：累计建仓上限一律显示金额（按规划本金折算），不再显示百分比
-  const TC = CORE.planningCapital(C)
+function tierAmt (C, pct) { // 郎刚10-25晚：累计建仓上限一律显示金额；郎刚11-08：基数改为观察池单标的上限100万（不再按1000万规划本金折算）
+  const TC = CORE.poolTierCapital(C)
   return pct != null && TC != null ? '≤' + fmt(pct / 100 * TC / 1e4, 1) + '万' : ''
 }
 function sumComplete (values) { return values.every(v => Number.isFinite(v)) ? values.reduce((s, v) => s + v, 0) : null }
