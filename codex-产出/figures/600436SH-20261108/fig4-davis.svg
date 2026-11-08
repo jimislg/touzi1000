@@ -1,0 +1,34 @@
+<svg viewBox="0 0 680 488" width="100%" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">
+<title>片仔癀 戴维斯情景定位</title>
+<desc>最接近情景 C，估值路径 PE(TTM) 62× → 报告退出倍数 20×，预期状态 已定价（乐观）</desc>
+<rect x="0" y="0" width="680" height="488" rx="0" fill="#FBFAF7" stroke="#FBFAF7" stroke-width="0"/>
+<text x="40" y="38" font-size="14" font-weight="500" fill="#23262F">片仔癀 · Q4 戴维斯情景与预期差</text>
+<text x="40" y="58" font-size="12" font-weight="400" fill="#5F6472">四年后市值 / 买入时市值：业绩说了算，还是估值说了算</text>
+<rect x="40" y="74" width="600" height="44" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<text x="52" y="101" font-size="12" font-weight="400" fill="#23262F">双击：+25%/年 · PE 15→25</text>
+<rect x="300" y="90" width="270.0" height="12" rx="3" fill="#5F5E5A" stroke="#5F5E5A" stroke-width="0"/>
+<text x="624" y="101" font-size="12" font-weight="400" fill="#5F6472" text-anchor="end">506%</text>
+<rect x="40" y="126" width="600" height="44" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<text x="52" y="153" font-size="12" font-weight="400" fill="#23262F">持平：+25%/年 · PE 15→15</text>
+<rect x="300" y="142" width="183.5573122529644" height="12" rx="3" fill="#5F5E5A" stroke="#5F5E5A" stroke-width="0"/>
+<text x="624" y="153" font-size="12" font-weight="400" fill="#5F6472" text-anchor="end">344%</text>
+<rect x="40" y="178" width="600" height="44" rx="10" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="52" y="205" font-size="12" font-weight="500" fill="#27500A">杀估值：+25%/年 · PE 25→10</text>
+<rect x="300" y="194" width="52.07905138339921" height="12" rx="3" fill="#3B6D11" stroke="#3B6D11" stroke-width="0"/>
+<text x="624" y="205" font-size="12" font-weight="500" fill="#27500A" text-anchor="end">97.6%</text>
+<text x="290" y="205" font-size="12" font-weight="500" fill="#27500A" text-anchor="end">◉</text>
+<rect x="40" y="230" width="600" height="44" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<text x="52" y="257" font-size="12" font-weight="400" fill="#23262F">双杀：−15%/年 · PE 25→10</text>
+<rect x="300" y="246" width="11.098814229249012" height="12" rx="3" fill="#5F5E5A" stroke="#5F5E5A" stroke-width="0"/>
+<text x="624" y="257" font-size="12" font-weight="400" fill="#5F6472" text-anchor="end">20.8%</text>
+<rect x="40" y="282" width="600" height="44" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<text x="52" y="309" font-size="12" font-weight="400" fill="#23262F">反例：−15%/年 · 估值涨 3 倍</text>
+<rect x="300" y="298" width="83.2411067193676" height="12" rx="3" fill="#5F5E5A" stroke="#5F5E5A" stroke-width="0"/>
+<text x="624" y="309" font-size="12" font-weight="400" fill="#5F6472" text-anchor="end">156%</text>
+<rect x="40" y="340" width="600" height="44" rx="10" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+<text x="56" y="368" font-size="12" font-weight="500" fill="#791F1F">情景 C：业绩高增长，但估值下移吃掉全部涨幅，四年后仍亏 2.4%</text>
+<rect x="40" y="392" width="600" height="76" rx="10" fill="#FFFFFF" stroke="#D9DCE3" stroke-width="0.5"/>
+<text x="56" y="416" font-size="12" font-weight="500" fill="#23262F">估值路径：PE(TTM) 62× → 报告退出倍数 20×　　市场预期定价状态：已定价（乐观）</text>
+<text x="56" y="438" font-size="12" font-weight="400" fill="#5F6472">赔率判断：高风险高不确定性：市场预期已高于核心业务承载的可能性</text>
+<text x="56" y="458" font-size="11" font-weight="400" fill="#8A909E">依据：§1.3 先验 PE(TTM) 62；§10 市场共识为『修复后重回增长』并给 2027 年 2</text>
+</svg>
