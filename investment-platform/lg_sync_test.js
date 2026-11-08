@@ -16,7 +16,7 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  check('current shares displayed apart from folded historical plan',el('aTable').innerHTML.includes('170000股')&&el('aTable').innerHTML.includes('四档参考价与原始批示'))
  check('no stage percentages converted to money',!el('aTable').innerHTML.includes('累计可投'))
  check('legacy default ladder is not a 100percent issuer limit',run('uniCap(CFG.universe[0])')===20)
- check('price hit does not mean completed trade',el('sigBox').innerHTML.includes('已到价·待审核')&&!el('sigBox').innerHTML.includes('已触发·已执行'))
+ check('price hit does not mean completed trade',el('sigBox').innerHTML.includes('已到价')&&!el('sigBox').innerHTML.includes('已触发·已执行'))
  check('recent trade shown as unverified action',el('sigBox').innerHTML.includes('未核实本档完成'))
  check('evidence gaps block rather than proxy approve',run('budgetCalc("600000.SH").approvedCNY')===0&&el('deployTable').innerHTML.includes('未核准'))
  check('read-only previews warn against aggregating shared cash',el('deployNote').textContent.includes('多项不得叠加'))

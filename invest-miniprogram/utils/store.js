@@ -396,7 +396,7 @@ function watchModel (expanded, filter, bizFilter) {
     if (u.buyPrice != null && px != null) {
       const d = (px / u.buyPrice - 1) * 100
       dist = d > 0 ? '+' + d.toFixed(1) + '%' : d.toFixed(1) + '%'
-      if (px <= u.buyPrice) { status = '已到价·待审核'; bcls = 'b-trig'; trig = true }
+      if (px <= u.buyPrice) { status = '已到价'; bcls = 'b-trig'; trig = true }
       else if (px <= u.buyPrice * 1.05) { status = '接近'; bcls = 'b-near' }
       else { status = '等待'; bcls = 'b-near' }
     }
