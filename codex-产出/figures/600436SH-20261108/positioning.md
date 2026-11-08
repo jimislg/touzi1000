@@ -10,17 +10,11 @@
 | **Q3 六种态势** | **高峰拐点型**（5 年 视角，由 当前优势型 转化） | 第四步仓位节奏，不是买不买 |
 | **Q4 戴维斯情景 + 预期差** | **情景 C**（PE(TTM) 62× → 报告退出倍数 20×）；市场预期 **已定价（乐观）** | 赔率：便宜不等于赔率好 |
 
-四图合一的一页定位卡：`figures/600436SH-20261108/positioning-card.html`（浏览器直接打开）。
+四图合一的一页定位卡：`figures/600436SH-20261108/positioning-card.html`（浏览器直接打开）；四份 SVG 原件见 `figures/600436SH-20261108/`（fig1-dcf.svg / fig2-moat.svg / fig3-posture.svg / fig4-davis.svg）。
 
-![图 1 · DCF 三要素定位](figures/600436SH-20261108/fig1-dcf.svg)
+> **四张定位图已以内联 SVG 全文直接嵌在下方正文**：打开报告即可看到，不需要点开折叠块，也不依赖外部图片文件。
 
-![图 2 · 护城河 × 商业价值](figures/600436SH-20261108/fig2-moat.svg)
-
-![图 3 · 六种态势定位](figures/600436SH-20261108/fig3-posture.svg)
-
-![图 4 · 戴维斯情景与预期差](figures/600436SH-20261108/fig4-davis.svg)
-
-<details><summary>内联 SVG（Obsidian / 浏览器可直接渲染，四份全文）</summary>
+<!-- positioning-inline-svg:begin -->
 
 **图 1 · DCF 三要素定位**
 
@@ -181,6 +175,6 @@
 <text x="56" y="473" font-size="11" font-weight="400" fill="#8A909E">；§11 支撑 62 倍的提价逻辑已消失；10 年 IRR 5.19%、悲观 2.29%。修复这个可能性已被定价甚至过度定价…</text>
 </svg>
 
-</details>
+<!-- positioning-inline-svg:end -->
 
-> **检查**：`report_lint.py` 的 R16 会机械检查本节与四张图引用是否在场。
+> **检查**：`report_lint.py` 的 R16 会机械检查本节四问、四张内联 SVG 与定位数据是否在场；折叠或只放外链一律 FAIL。

@@ -479,6 +479,11 @@
       "v": "v3.4.18",
       "date": "2026-11-08",
       "note": "第一步新增「好生意定位四问」定位维度（不评级、不改分类与H档）；每份个股报告必须带四张定位图，由 positioning.py 生成、report_lint.py R16 把关；存量报告不追溯"
+    },
+    {
+      "v": "v3.4.18-r2",
+      "date": "2026-11-08",
+      "note": "四张定位图改为内联 SVG 全文平铺在 §3.5 正文（不再外链+折叠）；R16 升级为检查内联四图与 begin/end 标记，R15 边界扫描先剥离内联区；存量报告不追溯"
     }
   ],
   "businessPositioning": {
@@ -549,8 +554,17 @@
       "fig3-posture.svg",
       "fig4-davis.svg",
       "positioning-card.html",
-      "positioning.md"
+      "positioning.md（含四张内联 SVG 全文，直接粘入报告 §3.5）"
     ],
-    "lintGate": "report_lint.py R16；2026-11-08 起的新报告强制，存量报告不追溯补图（补图需要真实判断，不得替历史报告编结论）"
+    "lintGate": "report_lint.py R16；检查 §3.5 内联区 begin/end 标记、恰好四张 <svg>、四个 <title>、区间内无折叠块与图片外链；2026-11-08 起的新报告强制，存量报告不追溯补图",
+    "reportRendering": {
+      "mode": "inline-svg",
+      "reportSection": "§3.5",
+      "beginMarker": "<!-- positioning-inline-svg:begin -->",
+      "endMarker": "<!-- positioning-inline-svg:end -->",
+      "requirement": "四张 SVG 全文必须裸内联平铺在四步法报告正文，打开即直接可见；禁止 <details> 折叠、禁止仅用 ![](*.svg) 图片外链",
+      "revisedAt": "2026-11-08",
+      "reason": "郎刚：html 的图需要直接插入到四步法里面（v3.4.18 首版外链+折叠默认看不到图）"
+    }
   }
 }
