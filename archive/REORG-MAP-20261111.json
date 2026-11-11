@@ -1261,5 +1261,10 @@
     "evidence/popmart-workbook": "泡泡玛特分析工作底稿",
     "legacy/long-term-tracker": "4173 端口旧驾驶舱系统整体（保持内部相对结构）",
     "codex-产出": "仅修正畸形文件名，目录名保留"
-  }
+  },
+  "notes": [
+    "映射记录的是整理时的逻辑移动；Git 本次提交识别为 248 条 rename。",
+    "差异条目 README.md -> legacy/long-term-tracker/README.md：旧说明内容已完整保存在 legacy/，因根目录重建同名 README.md，Git 显示为根 README 修改 + legacy 新增，而非 rename。",
+    "config.json.backup* 共 12 个（含 2026-11-01 与 2026-11-05 新增的 5 个）。"
+  ]
 }

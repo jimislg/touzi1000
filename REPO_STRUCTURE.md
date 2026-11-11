@@ -47,7 +47,9 @@
 ## 三、本次改动映射（249 次重命名）
 
 完整的逐文件前后路径见 **`archive/REORG-MAP-20261111.json`**（机器可读，含 `from` / `to`）。
-分组摘要如下：
+该文件记录 249 条逻辑移动；Git 本次提交识别为 248 条 rename，差异是旧 `README.md` ——
+其内容完整保存在 `legacy/long-term-tracker/README.md`，但因根目录重建了同名新 README，
+Git 显示为「根 README 修改 + legacy 新增」。分组摘要如下：
 
 | 原位置 | 新位置 | 数量 | 命名规则 |
 |---|---|---|---|
