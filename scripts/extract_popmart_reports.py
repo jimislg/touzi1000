@@ -2,7 +2,7 @@ from pathlib import Path
 from pypdf import PdfReader
 
 
-SOURCE_DIR = Path("tmp/pdfs/popmart-history")
+SOURCE_DIR = Path("evidence/pdfs/popmart-history")
 
 
 def main() -> None:

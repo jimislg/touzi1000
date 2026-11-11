@@ -1,29 +1,25 @@
-# 月度持仓原始截图/PDF只保存在本机，避免误推送账户隐私
+# 系统文件
+.DS_Store
+
+# 私有账户资料与研究原始材料：仅本机保存，不推送
 investment-hq/data/snapshots/*
 !investment-hq/data/snapshots/.gitkeep
+research/20261024-evidence-completion/private/
+research/20261024-evidence-completion/sources/
+research/20261024-all-pool-repricing/
 
-# 投资平台依赖与运行产物（publicConfig.json为公开配置，允许入库）
+# 运行产物与临时文件
+# 注意：archive/（历史归档）与 evidence/（研究证据）是有意入库的，勿加入忽略列表
+tmp/
+logs/
 investment-platform/node_modules/
 investment-platform/server.log
 investment-platform/sync.log
 investment-platform/divcache.json
-investment-platform/config.json.backup
-
-# 系统文件与临时/待写文件（取自GPT交付建议20261018；config.json/snapshot.js按"git备份纪律"保留跟踪，不采纳其ignore）
-.DS_Store
+investment-platform/config.json.backup*
 investment-platform/*.pending
 investment-platform/*.tmp-*
+*.aigc-tmp
 
-# 系统文件与临时/待写文件（取自GPT交付建议20261018；config.json/snapshot.js按"git备份纪律"保留跟踪，不采纳其ignore）
-.DS_Store
-investment-platform/*.pending
-investment-platform/*.tmp-*
-
-# Private user account working papers; never publish to GitHub
-research/20261024-evidence-completion/private/
-
-# Downloaded primary documents are local evidence, not re-published reports
-research/20261024-evidence-completion/sources/
-
-# User rejected this entire repricing proposal; retain only private/history archives
-research/20261024-all-pool-repricing/
+# 约定：invest-miniprogram/utils/config.js 与 snapshot.js 按"git 备份纪律"保留跟踪，
+# 其目录内 .gitignore 的忽略声明仅供本地生成脚本参考，不用于移除版本控制。

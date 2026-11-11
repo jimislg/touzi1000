@@ -4,9 +4,9 @@
   "private": true,
   "description": "China and Hong Kong equity pool, portfolio and risk tracking dashboard",
   "scripts": {
-    "start": "node server.js",
-    "update": "node server.js --update-only",
-    "backtest": "node backtest.js",
+    "start": "node legacy/long-term-tracker/server.js",
+    "update": "node legacy/long-term-tracker/server.js --update-only",
+    "backtest": "node legacy/long-term-tracker/backtest.js",
     "review:cmb": "node scripts/cmb-valuation.js",
     "test": "node scripts/test-offline.js"
   },

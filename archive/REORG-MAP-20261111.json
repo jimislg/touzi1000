@@ -1,0 +1,1265 @@
+{
+  "version": "1.0",
+  "date": "2026-11-11",
+  "baseCommit": "7f264db177a09d51dcf3c78ae9172718d4cdfdc1",
+  "purpose": "2026-11-11 仓库命名与归类整理的完整路径映射；所有条目均为保留性移动，无文件删除",
+  "renameCount": 249,
+  "renames": [
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-corrections-20261007",
+      "to": "archive/config-backups/config-20261007-corrections.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-biztag-20261008",
+      "to": "archive/config-backups/config-20261008-biztag.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-biztag2-20261008",
+      "to": "archive/config-backups/config-20261008-biztag2.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-reclass-20261008",
+      "to": "archive/config-backups/config-20261008-reclass.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-tieramt-20261008",
+      "to": "archive/config-backups/config-20261008-tieramt.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-trades-20261008",
+      "to": "archive/config-backups/config-20261008-trades.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-biztype-20261101",
+      "to": "archive/config-backups/config-20261101-biztype.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-fenjiu-20261101",
+      "to": "archive/config-backups/config-20261101-fenjiu.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-hanglung-20261101",
+      "to": "archive/config-backups/config-20261101-hanglung.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-tencent-20261101",
+      "to": "archive/config-backups/config-20261101-tencent.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup-trades-20261105",
+      "to": "archive/config-backups/config-20261105-trades.json"
+    },
+    {
+      "type": "rename",
+      "from": "investment-platform/config.json.backup",
+      "to": "archive/config-backups/config-unlabeled.json"
+    },
+    {
+      "type": "rename",
+      "from": "DELIVERY.md",
+      "to": "archive/delivery-202610/DELIVERY-20261024.md"
+    },
+    {
+      "type": "rename",
+      "from": "RESEARCH_DELIVERY.md",
+      "to": "archive/delivery-202610/RESEARCH-DELIVERY-20261024.md"
+    },
+    {
+      "type": "rename",
+      "from": "SYSTEM_ONLY_DELIVERY.md",
+      "to": "archive/delivery-202610/SYSTEM-ONLY-DELIVERY-20261025.md"
+    },
+    {
+      "type": "rename",
+      "from": "codex-产出/最终版-两步投资分析法SOP-v3.0-20260827.mdINLoWc",
+      "to": "archive/legacy-drafts/两步投资分析法SOP-v3.0-20260827-旧版草稿.md"
+    },
+    {
+      "type": "rename",
+      "from": "codex-产出/tmp06e2xzj4.aigc-tmp",
+      "to": "archive/legacy-drafts/观察池Gordon理论回报测算-20261017-副本.xlsx"
+    },
+    {
+      "type": "rename",
+      "from": "logs/server-error.log",
+      "to": "archive/logs/server-error.log"
+    },
+    {
+      "type": "rename",
+      "from": "logs/server.log",
+      "to": "archive/logs/server.log"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/bin/pymupdf",
+      "to": "archive/pdf-runtime/bin/pymupdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/fitz/__init__.py",
+      "to": "archive/pdf-runtime/fitz/__init__.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/fitz/table.py",
+      "to": "archive/pdf-runtime/fitz/table.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/fitz/utils.py",
+      "to": "archive/pdf-runtime/fitz/utils.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf-1.26.5.dist-info/COPYING",
+      "to": "archive/pdf-runtime/pymupdf-1.26.5.dist-info/COPYING"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf-1.26.5.dist-info/INSTALLER",
+      "to": "archive/pdf-runtime/pymupdf-1.26.5.dist-info/INSTALLER"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf-1.26.5.dist-info/METADATA",
+      "to": "archive/pdf-runtime/pymupdf-1.26.5.dist-info/METADATA"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf-1.26.5.dist-info/README.md",
+      "to": "archive/pdf-runtime/pymupdf-1.26.5.dist-info/README.md"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf-1.26.5.dist-info/RECORD",
+      "to": "archive/pdf-runtime/pymupdf-1.26.5.dist-info/RECORD"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf-1.26.5.dist-info/REQUESTED",
+      "to": "archive/pdf-runtime/pymupdf-1.26.5.dist-info/REQUESTED"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf-1.26.5.dist-info/WHEEL",
+      "to": "archive/pdf-runtime/pymupdf-1.26.5.dist-info/WHEEL"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf-1.26.5.dist-info/entry_points.txt",
+      "to": "archive/pdf-runtime/pymupdf-1.26.5.dist-info/entry_points.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/__init__.py",
+      "to": "archive/pdf-runtime/pymupdf/__init__.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/__main__.py",
+      "to": "archive/pdf-runtime/pymupdf/__main__.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/_apply_pages.py",
+      "to": "archive/pdf-runtime/pymupdf/_apply_pages.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/_build.py",
+      "to": "archive/pdf-runtime/pymupdf/_build.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/_extra.so",
+      "to": "archive/pdf-runtime/pymupdf/_extra.so"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/_mupdf.so",
+      "to": "archive/pdf-runtime/pymupdf/_mupdf.so"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/_wxcolors.py",
+      "to": "archive/pdf-runtime/pymupdf/_wxcolors.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/extra.py",
+      "to": "archive/pdf-runtime/pymupdf/extra.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/libmupdf.dylib",
+      "to": "archive/pdf-runtime/pymupdf/libmupdf.dylib"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/libmupdfcpp.so",
+      "to": "archive/pdf-runtime/pymupdf/libmupdfcpp.so"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/classes.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/classes.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/classes2.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/classes2.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/exceptions.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/exceptions.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/extra.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/extra.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/archive.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/archive.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/band-writer.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/band-writer.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/barcode.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/barcode.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/bidi.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/bidi.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/bitmap.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/bitmap.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/buffer.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/buffer.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/color.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/color.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/compress.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/compress.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/compressed-buffer.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/compressed-buffer.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/config.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/config.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/context.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/context.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/crypt.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/crypt.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/deskew.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/deskew.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/device.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/device.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/display-list.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/display-list.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/document.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/document.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/export.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/export.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/filter.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/filter.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/font.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/font.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/geometry.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/geometry.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/getopt.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/getopt.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/glyph-cache.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/glyph-cache.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/glyph.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/glyph.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/hash.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/hash.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/heap-imp.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/heap-imp.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/heap.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/heap.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/image.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/image.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/json.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/json.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/link.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/link.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/log.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/log.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/outline.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/outline.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/output-svg.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/output-svg.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/output.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/output.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/path.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/path.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/pixmap.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/pixmap.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/pool.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/pool.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/separation.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/separation.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/shade.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/shade.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/store.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/store.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/story-writer.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/story-writer.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/story.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/story.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/stream.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/stream.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/string-util.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/string-util.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/structured-text.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/structured-text.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/system.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/system.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/text.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/text.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/track-usage.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/track-usage.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/transition.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/transition.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/tree.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/tree.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/types.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/types.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/util.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/util.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/version.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/version.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/write-pixmap.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/write-pixmap.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/writer.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/writer.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/xml.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/fitz/xml.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/functions.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/functions.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/helpers/mu-office-lib.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/helpers/mu-office-lib.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/helpers/mu-threads.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/helpers/mu-threads.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/helpers/pkcs7-openssl.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/helpers/pkcs7-openssl.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/html.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/html.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/internal.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/internal.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/memento.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/memento.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/annot.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/annot.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/clean.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/clean.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/cmap.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/cmap.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/crypt.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/crypt.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/document.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/document.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/event.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/event.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/font.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/font.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/form.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/form.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/image-rewriter.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/image-rewriter.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/interpret.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/interpret.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/javascript.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/javascript.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/name-table.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/name-table.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/object.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/object.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/page.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/page.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/parse.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/parse.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/recolor.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/recolor.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/resource.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/resource.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/xref.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/xref.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/zugferd.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/pdf/zugferd.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/ucdn.h",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/include/mupdf/ucdn.h"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf-devel/lib/libmupdf-threads.a",
+      "to": "archive/pdf-runtime/pymupdf/mupdf-devel/lib/libmupdf-threads.a"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/mupdf.py",
+      "to": "archive/pdf-runtime/pymupdf/mupdf.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/pymupdf.py",
+      "to": "archive/pdf-runtime/pymupdf/pymupdf.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/table.py",
+      "to": "archive/pdf-runtime/pymupdf/table.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pymupdf/utils.py",
+      "to": "archive/pdf-runtime/pymupdf/utils.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf-6.13.3.dist-info/INSTALLER",
+      "to": "archive/pdf-runtime/pypdf-6.13.3.dist-info/INSTALLER"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf-6.13.3.dist-info/METADATA",
+      "to": "archive/pdf-runtime/pypdf-6.13.3.dist-info/METADATA"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf-6.13.3.dist-info/RECORD",
+      "to": "archive/pdf-runtime/pypdf-6.13.3.dist-info/RECORD"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf-6.13.3.dist-info/REQUESTED",
+      "to": "archive/pdf-runtime/pypdf-6.13.3.dist-info/REQUESTED"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf-6.13.3.dist-info/WHEEL",
+      "to": "archive/pdf-runtime/pypdf-6.13.3.dist-info/WHEEL"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf-6.13.3.dist-info/licenses/LICENSE",
+      "to": "archive/pdf-runtime/pypdf-6.13.3.dist-info/licenses/LICENSE"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/__init__.py",
+      "to": "archive/pdf-runtime/pypdf/__init__.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_cmap.py",
+      "to": "archive/pdf-runtime/pypdf/_cmap.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_codecs/__init__.py",
+      "to": "archive/pdf-runtime/pypdf/_codecs/__init__.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_codecs/_codecs.py",
+      "to": "archive/pdf-runtime/pypdf/_codecs/_codecs.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_codecs/adobe_glyphs.py",
+      "to": "archive/pdf-runtime/pypdf/_codecs/adobe_glyphs.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_codecs/core_font_metrics.py",
+      "to": "archive/pdf-runtime/pypdf/_codecs/core_font_metrics.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_codecs/pdfdoc.py",
+      "to": "archive/pdf-runtime/pypdf/_codecs/pdfdoc.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_codecs/std.py",
+      "to": "archive/pdf-runtime/pypdf/_codecs/std.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_codecs/symbol.py",
+      "to": "archive/pdf-runtime/pypdf/_codecs/symbol.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_codecs/zapfding.py",
+      "to": "archive/pdf-runtime/pypdf/_codecs/zapfding.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_crypt_providers/__init__.py",
+      "to": "archive/pdf-runtime/pypdf/_crypt_providers/__init__.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_crypt_providers/_base.py",
+      "to": "archive/pdf-runtime/pypdf/_crypt_providers/_base.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_crypt_providers/_cryptography.py",
+      "to": "archive/pdf-runtime/pypdf/_crypt_providers/_cryptography.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_crypt_providers/_fallback.py",
+      "to": "archive/pdf-runtime/pypdf/_crypt_providers/_fallback.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_crypt_providers/_pycryptodome.py",
+      "to": "archive/pdf-runtime/pypdf/_crypt_providers/_pycryptodome.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_doc_common.py",
+      "to": "archive/pdf-runtime/pypdf/_doc_common.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_encryption.py",
+      "to": "archive/pdf-runtime/pypdf/_encryption.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_font.py",
+      "to": "archive/pdf-runtime/pypdf/_font.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_page.py",
+      "to": "archive/pdf-runtime/pypdf/_page.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_page_labels.py",
+      "to": "archive/pdf-runtime/pypdf/_page_labels.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_protocols.py",
+      "to": "archive/pdf-runtime/pypdf/_protocols.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_reader.py",
+      "to": "archive/pdf-runtime/pypdf/_reader.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_text_extraction/__init__.py",
+      "to": "archive/pdf-runtime/pypdf/_text_extraction/__init__.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_text_extraction/_layout_mode/__init__.py",
+      "to": "archive/pdf-runtime/pypdf/_text_extraction/_layout_mode/__init__.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_text_extraction/_layout_mode/_fixed_width_page.py",
+      "to": "archive/pdf-runtime/pypdf/_text_extraction/_layout_mode/_fixed_width_page.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_text_extraction/_layout_mode/_text_state_manager.py",
+      "to": "archive/pdf-runtime/pypdf/_text_extraction/_layout_mode/_text_state_manager.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_text_extraction/_layout_mode/_text_state_params.py",
+      "to": "archive/pdf-runtime/pypdf/_text_extraction/_layout_mode/_text_state_params.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_text_extraction/_text_extractor.py",
+      "to": "archive/pdf-runtime/pypdf/_text_extraction/_text_extractor.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_utils.py",
+      "to": "archive/pdf-runtime/pypdf/_utils.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_version.py",
+      "to": "archive/pdf-runtime/pypdf/_version.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/_writer.py",
+      "to": "archive/pdf-runtime/pypdf/_writer.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/annotations/__init__.py",
+      "to": "archive/pdf-runtime/pypdf/annotations/__init__.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/annotations/_base.py",
+      "to": "archive/pdf-runtime/pypdf/annotations/_base.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/annotations/_markup_annotations.py",
+      "to": "archive/pdf-runtime/pypdf/annotations/_markup_annotations.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/annotations/_non_markup_annotations.py",
+      "to": "archive/pdf-runtime/pypdf/annotations/_non_markup_annotations.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/constants.py",
+      "to": "archive/pdf-runtime/pypdf/constants.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/errors.py",
+      "to": "archive/pdf-runtime/pypdf/errors.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/filters.py",
+      "to": "archive/pdf-runtime/pypdf/filters.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/__init__.py",
+      "to": "archive/pdf-runtime/pypdf/generic/__init__.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_appearance_stream.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_appearance_stream.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_base.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_base.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_data_structures.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_data_structures.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_files.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_files.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_fit.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_fit.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_image_inline.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_image_inline.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_image_xobject.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_image_xobject.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_link.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_link.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_outline.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_outline.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_rectangle.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_rectangle.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_utils.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_utils.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/generic/_viewerpref.py",
+      "to": "archive/pdf-runtime/pypdf/generic/_viewerpref.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/pagerange.py",
+      "to": "archive/pdf-runtime/pypdf/pagerange.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/papersizes.py",
+      "to": "archive/pdf-runtime/pypdf/papersizes.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/py.typed",
+      "to": "archive/pdf-runtime/pypdf/py.typed"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/types.py",
+      "to": "archive/pdf-runtime/pypdf/types.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/pypdf/xmp.py",
+      "to": "archive/pdf-runtime/pypdf/xmp.py"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/typing_extensions-4.15.0.dist-info/INSTALLER",
+      "to": "archive/pdf-runtime/typing_extensions-4.15.0.dist-info/INSTALLER"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/typing_extensions-4.15.0.dist-info/METADATA",
+      "to": "archive/pdf-runtime/typing_extensions-4.15.0.dist-info/METADATA"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/typing_extensions-4.15.0.dist-info/RECORD",
+      "to": "archive/pdf-runtime/typing_extensions-4.15.0.dist-info/RECORD"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/typing_extensions-4.15.0.dist-info/WHEEL",
+      "to": "archive/pdf-runtime/typing_extensions-4.15.0.dist-info/WHEEL"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/typing_extensions-4.15.0.dist-info/licenses/LICENSE",
+      "to": "archive/pdf-runtime/typing_extensions-4.15.0.dist-info/licenses/LICENSE"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdf-runtime/typing_extensions.py",
+      "to": "archive/pdf-runtime/typing_extensions.py"
+    },
+    {
+      "type": "rename",
+      "from": "codex-产出/泡泡玛特上市以来销售数据库-20260830.xlsx.inspect.ndjson",
+      "to": "codex-产出/泡泡玛特上市以来销售数据库-20260830-检视.ndjson"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/moutai-2025-annual.pdf",
+      "to": "evidence/pdfs/moutai-2025-annual.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/moutai-2025-annual.txt",
+      "to": "evidence/pdfs/moutai-2025-annual.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/moutai-2026-q1.pdf",
+      "to": "evidence/pdfs/moutai-2026-q1.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/moutai-2026-q1.txt",
+      "to": "evidence/pdfs/moutai-2026-q1.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-2025-annual.pdf",
+      "to": "evidence/pdfs/popmart-2025-annual.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-2025-annual.txt",
+      "to": "evidence/pdfs/popmart-2025-annual.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-2025-results.pdf",
+      "to": "evidence/pdfs/popmart-2025-results.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-2025-results.txt",
+      "to": "evidence/pdfs/popmart-2025-results.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-2026-q1-update.pdf",
+      "to": "evidence/pdfs/popmart-2026-q1-update.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-2026-q1-update.txt",
+      "to": "evidence/pdfs/popmart-2026-q1-update.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2020.pdf",
+      "to": "evidence/pdfs/popmart-history/2020.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2020.txt",
+      "to": "evidence/pdfs/popmart-history/2020.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2021.pdf",
+      "to": "evidence/pdfs/popmart-history/2021.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2021.txt",
+      "to": "evidence/pdfs/popmart-history/2021.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2022.pdf",
+      "to": "evidence/pdfs/popmart-history/2022.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2022.txt",
+      "to": "evidence/pdfs/popmart-history/2022.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2023.pdf",
+      "to": "evidence/pdfs/popmart-history/2023.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2023.txt",
+      "to": "evidence/pdfs/popmart-history/2023.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2024.pdf",
+      "to": "evidence/pdfs/popmart-history/2024.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2024.txt",
+      "to": "evidence/pdfs/popmart-history/2024.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2025.pdf",
+      "to": "evidence/pdfs/popmart-history/2025.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2025.txt",
+      "to": "evidence/pdfs/popmart-history/2025.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2026H1.pdf",
+      "to": "evidence/pdfs/popmart-history/2026H1.pdf"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/pdfs/popmart-history/2026H1.txt",
+      "to": "evidence/pdfs/popmart-history/2026H1.txt"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/IP收入.png",
+      "to": "evidence/popmart-workbook/IP收入.png"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/build.mjs",
+      "to": "evidence/popmart-workbook/build.mjs"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/node_modules",
+      "to": "evidence/popmart-workbook/node_modules"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/业绩会补充.png",
+      "to": "evidence/popmart-workbook/业绩会补充.png"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/产品品类.png",
+      "to": "evidence/popmart-workbook/产品品类.png"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/地区收入.png",
+      "to": "evidence/popmart-workbook/地区收入.png"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/地区渠道矩阵.png",
+      "to": "evidence/popmart-workbook/地区渠道矩阵.png"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/年度渠道.png",
+      "to": "evidence/popmart-workbook/年度渠道.png"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/来源与校验.png",
+      "to": "evidence/popmart-workbook/来源与校验.png"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/线上细分.png",
+      "to": "evidence/popmart-workbook/线上细分.png"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/结论总览.png",
+      "to": "evidence/popmart-workbook/结论总览.png"
+    },
+    {
+      "type": "rename",
+      "from": "tmp/popmart-workbook/门店网络.png",
+      "to": "evidence/popmart-workbook/门店网络.png"
+    },
+    {
+      "type": "rename",
+      "from": "README.md",
+      "to": "legacy/long-term-tracker/README.md"
+    },
+    {
+      "type": "rename",
+      "from": "backtest.js",
+      "to": "legacy/long-term-tracker/backtest.js"
+    },
+    {
+      "type": "rename",
+      "from": "data/backtest.json",
+      "to": "legacy/long-term-tracker/data/backtest.json"
+    },
+    {
+      "type": "rename",
+      "from": "data/history.json",
+      "to": "legacy/long-term-tracker/data/history.json"
+    },
+    {
+      "type": "rename",
+      "from": "data/portfolio.json",
+      "to": "legacy/long-term-tracker/data/portfolio.json"
+    },
+    {
+      "type": "rename",
+      "from": "public/app.js",
+      "to": "legacy/long-term-tracker/public/app.js"
+    },
+    {
+      "type": "rename",
+      "from": "public/index.html",
+      "to": "legacy/long-term-tracker/public/index.html"
+    },
+    {
+      "type": "rename",
+      "from": "public/styles.css",
+      "to": "legacy/long-term-tracker/public/styles.css"
+    },
+    {
+      "type": "rename",
+      "from": "reports/portfolio-latest.md",
+      "to": "legacy/long-term-tracker/reports/portfolio-latest.md"
+    },
+    {
+      "type": "rename",
+      "from": "server.js",
+      "to": "legacy/long-term-tracker/server.js"
+    }
+  ],
+  "groups": {
+    "archive/delivery-202610": "2026-10 一次性交付说明",
+    "archive/config-backups": "config.json 历史备份，统一 config-YYYYMMDD-描述.json",
+    "archive/logs": "历史运行日志",
+    "archive/pdf-runtime": "第三方 PDF 解析运行时（冻结）",
+    "archive/legacy-drafts": "与正式版内容不同的旧草稿/副本",
+    "evidence/pdfs": "研究原始 PDF 证据（scripts/extract_popmart_reports.py 引用）",
+    "evidence/popmart-workbook": "泡泡玛特分析工作底稿",
+    "legacy/long-term-tracker": "4173 端口旧驾驶舱系统整体（保持内部相对结构）",
+    "codex-产出": "仅修正畸形文件名，目录名保留"
+  }
+}

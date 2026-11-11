@@ -6,7 +6,7 @@ const {
   SCENARIOS: CMB_SCENARIOS,
   impliedReturn: cmbImpliedReturn,
   presentValueAtRate: cmbPresentValueAtRate
-} = require("./scripts/cmb-valuation");
+} = require("../../scripts/cmb-valuation");
 
 const PORT = Number(process.env.PORT || 4173);
 const ROOT = __dirname;
