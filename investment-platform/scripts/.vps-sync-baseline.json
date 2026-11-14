@@ -359,7 +359,7 @@
     }
    ],
    "bizTag": "水电垄断 · 管制电价·类债收息",
-   "buyPrice": 20,
+   "buyPrice": 17.6,
    "tierPct": [
     10,
     25,
@@ -405,7 +405,7 @@
     8,
     10
    ],
-   "buyPrice": 190.8,
+   "buyPrice": 205.39,
    "dps": 2.178,
    "dpsNote": "普通股息口径：2025末期普通2.178元（2026-04-22实施）；特别股息4.779元/股单列dpsSpecial不计入普通股息；2026中期普通1.411已实施、滚出后计入TTM。来源：2025年报第72页+中期实施公告2026-08-04",
    "dpsSpecial": 4.779,
@@ -444,7 +444,7 @@
     }
    ],
    "bizTag": "医疗器械平台 · 国产替代·集采限价",
-   "buyPrice": 120,
+   "buyPrice": 105.6,
    "dps": 4.38,
    "dpsNote": "2025年度全年4.38元（三次中期4.07+末期0.31，合计53.10亿/12.12亿股）",
    "tierPct": [
@@ -488,7 +488,7 @@
     }
    ],
    "bizTag": "企业通信 · SIP话机全球第一·单品专注",
-   "buyPrice": 33.65,
+   "buyPrice": 35,
    "dps": 1.8,
    "dpsNote": "TTM 1.80元/股（中期0.50+年度1.30），股息率4.55%（现价口径）",
    "tierPct": [
@@ -614,7 +614,7 @@
     }
    ],
    "bizTag": "水饮消费 · 提价权强",
-   "buyPrice": 27,
+   "buyPrice": 35.6,
    "tierPct": [
     10,
     25,
@@ -628,19 +628,40 @@
    "qt": "sh600066",
    "code": "600066.SH",
    "name": "宇通客车",
-   "note": "08-27两步法口径已冻结；2026中期不分红降级（09-08）——安全区或需下调至17-19元，须v3.4重审后再定",
-   "plan": "A类：旧档位冻结，重审后再定",
+   "note": "A(复核)：08-27两步法口径；2026中期不分红降级（09-08）——安全区或需下调至17-19元，待v3.4重审复核；四档为研究库执行档28/25/23/20（11-14取消冻结，与其他公司统一）",
+   "plan": "A类：四档执行28/25/23/20，bp=H12=25；分红风险待v3.4重审复核",
    "grade": "A",
    "tiers": [
     {
      "cur": "CNY",
-     "label": "旧观察28(冻结)",
+     "label": "H10",
      "price": 28
+    },
+    {
+     "cur": "CNY",
+     "label": "H12",
+     "price": 25
+    },
+    {
+     "cur": "CNY",
+     "label": "H15",
+     "price": 23
+    },
+    {
+     "cur": "CNY",
+     "label": "H17.46",
+     "price": 20
     }
    ],
    "bizTag": "客车龙头 · 价随车型·出口拉动",
-   "buyPrice": 24,
-   "bizType": "制造寡头"
+   "buyPrice": 25,
+   "bizType": "制造寡头",
+   "tierPct": [
+    3,
+    5,
+    8,
+    10
+   ]
   },
   {
    "px": 53.58,
@@ -753,7 +774,7 @@
     5,
     8
    ],
-   "buyPrice": 24.07,
+   "buyPrice": 18,
    "bizType": "资源周期",
    "dps": 1.28,
    "dpsNote": "2025全年1.28 HKD/股（港股通20%税后≈1.02）；派息率45%公司政策，分红覆盖率1.78×"
@@ -795,7 +816,7 @@
     6,
     8
    ],
-   "buyPrice": 48.2,
+   "buyPrice": 45.5,
    "dps": 3.16,
    "dpsNote": "人民币2.70元/股宣派（全年，港股通亦以人民币派发），此处折港币3.16存储以匹配平台\"按上市币种存DPS\"口径",
    "bizType": "金融利差"
@@ -831,7 +852,7 @@
     }
    ],
    "bizTag": "地产开发+商业 · 价随楼市",
-   "buyPrice": 18,
+   "buyPrice": 12.4,
    "tierPct": [
     10,
     25,
@@ -866,7 +887,7 @@
     }
    ],
    "bizTag": "多品牌运动零售 · 价随款式",
-   "buyPrice": 67.6,
+   "buyPrice": 58.5,
    "dps": 2.45,
    "dpsNote": "2025年度全年2.45港元（中期1.37+末期1.08，含税）",
    "tierPct": [
@@ -907,7 +928,7 @@
     }
    ],
    "bizTag": "管件品牌 · 价随装修周期",
-   "buyPrice": 5,
+   "buyPrice": 4.6,
    "evidenceGap": "非经常性1.75亿性质；并购现金回报",
    "researchStatus": "partial",
    "tierPct": [
@@ -949,7 +970,7 @@
     }
    ],
    "bizTag": "独家中药 · 绝密配方·单品依赖85.8%",
-   "buyPrice": 45.48,
+   "buyPrice": 55.93,
    "dps": 2.97,
    "dpsNote": "2025年度合计2.97元/股（中期1.40+末期1.57，现金分红总额17.92亿/总股本6.033亿股，支付率83.01%）；2026盈利下滑下该支付率可持续性存疑",
    "tierPct": [
@@ -993,7 +1014,7 @@
     }
    ],
    "bizTag": "儿科中药 · 独家双品·净现金托底",
-   "buyPrice": 27.41,
+   "buyPrice": 26,
    "dps": 1.74,
    "dpsNote": "2025年度1.74元/股（股息率5.94%，派息率89.94%）；90%派息率报告明示不可持续为风险项，退出条件含派息率<50%无说明",
    "tierPct": [
@@ -1037,7 +1058,7 @@
     }
    ],
    "bizTag": "农药龙头 · 价随周期",
-   "buyPrice": 42,
+   "buyPrice": 28.3,
    "tierPct": [
     10,
     25,
@@ -1077,7 +1098,7 @@
     }
    ],
    "bizTag": "肾科专科药 · 提价有限",
-   "buyPrice": 12,
+   "buyPrice": 12.3,
    "tierPct": [
     10,
     25,
@@ -1123,7 +1144,7 @@
     5,
     8
    ],
-   "buyPrice": 15,
+   "buyPrice": 13.4,
    "evidenceGap": "海外直营单位经济；永辉投资回报；库存账龄",
    "researchStatus": "partial",
    "bizType": "平台零售"
@@ -1159,7 +1180,7 @@
     }
    ],
    "bizTag": "OTA双头 · 佣金随出行",
-   "buyPrice": 280,
+   "buyPrice": 224.5,
    "tierPct": [
     10,
     25,
@@ -1199,7 +1220,7 @@
     }
    ],
    "bizTag": "电信垄断 · 管制定价·收息",
-   "buyPrice": 80,
+   "buyPrice": 64.9,
    "tierPct": [
     10,
     25,
@@ -1245,7 +1266,7 @@
     4,
     8
    ],
-   "buyPrice": 60,
+   "buyPrice": 66.2,
    "bizType": "垄断公用收租"
   },
   {
@@ -1279,7 +1300,7 @@
     }
    ],
    "bizTag": "市场垄断 · 租金可控+贸易服务",
-   "buyPrice": 8.5,
+   "buyPrice": 8.9,
    "tierPct": [
     10,
     25,
@@ -1319,7 +1340,7 @@
     }
    ],
    "bizTag": "创新药 · 价随医保谈判",
-   "buyPrice": 35,
+   "buyPrice": 28.7,
    "tierPct": [
     10,
     25,
@@ -1359,7 +1380,7 @@
     }
    ],
    "bizTag": "零售银行 · 价随息差",
-   "buyPrice": 36,
+   "buyPrice": 31,
    "tierPct": [
     10,
     25,
@@ -1399,7 +1420,7 @@
     }
    ],
    "bizTag": "调味品渠道垄断 · 提价温和",
-   "buyPrice": 20,
+   "buyPrice": 18.7,
    "tierPct": [
     10,
     25,
@@ -1439,7 +1460,7 @@
     }
    ],
    "bizTag": "调味品渠道垄断 · 提价温和",
-   "buyPrice": 20,
+   "buyPrice": 22.6,
    "tierPct": [
     10,
     25,
@@ -1517,7 +1538,7 @@
     }
    ],
    "bizTag": "乳业双头 · 提价弱",
-   "buyPrice": 21,
+   "buyPrice": 20.3,
    "evidenceGap": "液奶量价；澳优ROIC；短借646.77亿与存款错配穿透",
    "researchStatus": "partial",
    "tierPct": [
@@ -1540,26 +1561,26 @@
     {
      "cur": "CNY",
      "label": "H10",
-     "price": 58.3
+     "price": 46
     },
     {
      "cur": "CNY",
      "label": "H12",
-     "price": 52.59
+     "price": 41
     },
     {
      "cur": "CNY",
      "label": "H15",
-     "price": 45.7
+     "price": 38
     },
     {
      "cur": "CNY",
      "label": "H17.46",
-     "price": 41.24
+     "price": 35
     }
    ],
    "bizTag": "中药滋补 · 国家级保密配方，治理存疑+净现金口径未定",
-   "buyPrice": 45.58,
+   "buyPrice": 41,
    "bizType": "品牌消费",
    "tierPct": [
     10,
@@ -1602,7 +1623,7 @@
     }
    ],
    "bizTag": "空调双寡头 · 价随促销",
-   "buyPrice": 36,
+   "buyPrice": 31.4,
    "tierPct": [
     10,
     25,
@@ -1642,7 +1663,7 @@
     }
    ],
    "bizTag": "MDI全球寡头 · 提价强·价随周期",
-   "buyPrice": 56,
+   "buyPrice": 47.4,
    "dps": 1.25,
    "dpsNote": "2025年度全年1.25元（末期1.25，中期不派，含税）",
    "tierPct": [
@@ -1690,7 +1711,7 @@
     5,
     8
    ],
-   "buyPrice": 4.09,
+   "buyPrice": 3.57,
    "bizType": "平台零售"
   },
   {
@@ -1780,7 +1801,7 @@
    "market": "HK",
    "grade": "C",
    "px": 6.19,
-   "buyPrice": 3.47,
+   "buyPrice": 4.35,
    "tiers": [
     {
      "cur": "HKD",
@@ -1822,17 +1843,17 @@
    "market": "A股",
    "grade": "B",
    "px": 129.25,
-   "buyPrice": 79.51,
+   "buyPrice": 75,
    "tiers": [
     {
      "cur": "CNY",
      "label": "H10",
-     "price": 91.88
+     "price": 80
     },
     {
      "cur": "CNY",
      "label": "H12",
-     "price": 79.51
+     "price": 75
     },
     {
      "cur": "CNY",
@@ -1888,7 +1909,7 @@
      "price": 57.01
     }
    ],
-   "buyPrice": 46.02,
+   "buyPrice": 60.15,
    "dps": 1.0,
    "dpsNote": "2026中期10派10元=1.0元/股已落地；年度预案未出，按中期口径填列，年报后更新",
    "tierPct": [
@@ -1976,7 +1997,7 @@
      "price": 30
     }
    ],
-   "buyPrice": 40.33,
+   "buyPrice": 30,
    "dps": 1.99,
    "dpsNote": "全年股息1.731 RMB≈1.99 HKD（TTM股息率5.36%现价口径，含中期股息）",
    "tierPct": [
@@ -2020,7 +2041,7 @@
      "price": 14
     }
    ],
-   "buyPrice": 19.3,
+   "buyPrice": 18,
    "dps": 1.1,
    "dpsNote": "TTM约1.10元/股（现价22.76×4.83%股息率反推），82%派息率口径",
    "tierPct": [
@@ -2090,25 +2111,25 @@
     {
      "cur": "CNY",
      "label": "H10",
-     "price": 78.41
+     "price": 68
     },
     {
      "cur": "CNY",
      "label": "H12",
-     "price": 70.39
+     "price": 62
     },
     {
      "cur": "CNY",
      "label": "H15",
-     "price": 60.71
+     "price": 57
     },
     {
      "cur": "CNY",
      "label": "H17.46",
-     "price": 54.41
+     "price": 50
     }
    ],
-   "buyPrice": 64.47,
+   "buyPrice": 62,
    "dps": 5.78,
    "dpsNote": "按2025归母净利108.31亿×派息率78.5%÷14.72亿股推算≈5.78元/股（报告未列DPS绝对额），年报派息落地后更新",
    "tierPct": [
@@ -2134,25 +2155,25 @@
     {
      "cur": "CNY",
      "label": "H10",
-     "price": 76.71
+     "price": 68
     },
     {
      "cur": "CNY",
      "label": "H12",
-     "price": 70.26
+     "price": 62
     },
     {
      "cur": "CNY",
      "label": "H15",
-     "price": 62.51
+     "price": 57
     },
     {
      "cur": "CNY",
      "label": "H17.46",
-     "price": 57.52
+     "price": 50
     }
    ],
-   "buyPrice": 67.58,
+   "buyPrice": 62,
    "dps": 4.99,
    "dpsNote": "按报告股息率6.8%×现价73.38反推≈4.99元/股（派息率70%口径），年报派息落地后更新",
    "tierPct": [
@@ -2514,6 +2535,238 @@
      "path": "universe.41.tiers.3.price",
      "before": 15.91,
      "after": 14
+    }
+   ]
+  },
+  {
+   "at": "2026-11-14T05:23:55.662Z",
+   "source": "bulk-refresh-bp-equals-tier",
+   "note": "郎刚指令「下单价就是四档价，全部刷新一遍」：全站 buyPrice 统一取 H12 档（按档位 label 匹配，3档H结构取第一档）",
+   "changes": [
+    {
+     "path": "universe.8.buyPrice",
+     "before": 42,
+     "after": 48
+    },
+    {
+     "path": "universe.9.buyPrice",
+     "before": 1050,
+     "after": 1150
+    },
+    {
+     "path": "universe.28.buyPrice",
+     "before": 45,
+     "after": 50
+    }
+   ]
+  },
+  {
+   "at": "2026-11-14T05:24:44.348Z",
+   "source": "yutong-unfreeze-four-tiers",
+   "note": "郎刚指令「宇通为什么要冻结？所有公司都是一样的」：宇通取消单档冻结，按研究库执行档 28/25/23/20 建标准四档，tierPct=[3,5,8,10]，bp=H12=25",
+   "changes": [
+    {
+     "path": "universe.buyPrice",
+     "before": 24,
+     "after": 25
+    },
+    {
+     "path": "universe.tiers",
+     "before": [
+      28
+     ],
+     "after": [
+      28,
+      25,
+      23,
+      20
+     ]
+    },
+    {
+     "path": "universe.tierPct",
+     "before": [
+      3,
+      5,
+      8,
+      10
+     ],
+     "after": [
+      3,
+      5,
+      8,
+      10
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-11-14T04:26:55.514Z",
+   "baseRevision": "038ef0637cdc54b406e539d2e16c4a24505813c490f6ed873c83dcd4ba30e78a",
+   "changes": [
+    {
+     "path": "universe.30.tiers.0.price",
+     "before": 58.3,
+     "after": 46
+    },
+    {
+     "path": "universe.30.tiers.1.price",
+     "before": 52.59,
+     "after": 41
+    },
+    {
+     "path": "universe.30.tiers.2.price",
+     "before": 45.7,
+     "after": 38
+    },
+    {
+     "path": "universe.30.tiers.3.price",
+     "before": 41.24,
+     "after": 35
+    },
+    {
+     "path": "universe.37.tiers.0.price",
+     "before": 91.88,
+     "after": 80
+    },
+    {
+     "path": "universe.37.tiers.1.price",
+     "before": 79.51,
+     "after": 75
+    },
+    {
+     "path": "universe.43.tiers.0.price",
+     "before": 78.41,
+     "after": 68
+    },
+    {
+     "path": "universe.43.tiers.1.price",
+     "before": 70.39,
+     "after": 62
+    },
+    {
+     "path": "universe.43.tiers.2.price",
+     "before": 60.71,
+     "after": 57
+    },
+    {
+     "path": "universe.43.tiers.3.price",
+     "before": 54.41,
+     "after": 50
+    },
+    {
+     "path": "universe.44.tiers.0.price",
+     "before": 76.71,
+     "after": 68
+    },
+    {
+     "path": "universe.44.tiers.1.price",
+     "before": 70.26,
+     "after": 62
+    },
+    {
+     "path": "universe.44.tiers.2.price",
+     "before": 62.51,
+     "after": 57
+    },
+    {
+     "path": "universe.44.tiers.3.price",
+     "before": 57.52,
+     "after": 50
+    }
+   ]
+  },
+  {
+   "at": "2026-11-14T05:28:37.279Z",
+   "source": "merge-vps-manual-tiers-then-bp-follows",
+   "note": "合并郎刚网页端 4 只白酒手工档位（东阿/汾酒/泸州/五粮液），并按「下单价=四档价H12」重算 bp",
+   "changes": [
+    {
+     "name": "东阿阿胶",
+     "path": "tiers",
+     "before": [
+      58.3,
+      52.59,
+      45.7,
+      41.24
+     ],
+     "after": [
+      46,
+      41,
+      38,
+      35
+     ]
+    },
+    {
+     "name": "东阿阿胶",
+     "path": "buyPrice(重算)",
+     "before": 52.59,
+     "after": 41
+    },
+    {
+     "name": "山西汾酒",
+     "path": "tiers",
+     "before": [
+      91.88,
+      79.51,
+      64.68,
+      55.12
+     ],
+     "after": [
+      80,
+      75,
+      64.68,
+      55.12
+     ]
+    },
+    {
+     "name": "山西汾酒",
+     "path": "buyPrice(重算)",
+     "before": 79.51,
+     "after": 75
+    },
+    {
+     "name": "泸州老窖",
+     "path": "tiers",
+     "before": [
+      78.41,
+      70.39,
+      60.71,
+      54.41
+     ],
+     "after": [
+      68,
+      62,
+      57,
+      50
+     ]
+    },
+    {
+     "name": "泸州老窖",
+     "path": "buyPrice(重算)",
+     "before": 70.39,
+     "after": 62
+    },
+    {
+     "name": "五粮液",
+     "path": "tiers",
+     "before": [
+      76.71,
+      70.26,
+      62.51,
+      57.52
+     ],
+     "after": [
+      68,
+      62,
+      57,
+      50
+     ]
+    },
+    {
+     "name": "五粮液",
+     "path": "buyPrice(重算)",
+     "before": 70.26,
+     "after": 62
     }
    ]
   }
