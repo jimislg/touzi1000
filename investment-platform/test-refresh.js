@@ -55,14 +55,14 @@ function runtime () {
   rt.state.beforeQuote = null
   rt.run('dirty=false')
   rt.state.saveStatus = 409
-  await rt.run('saveConfig()'); await rt.run('confirmSave()')
+  await rt.run('saveConfig()')
   check('保存冲突保留本地编辑与版本且不自动重试覆盖', rt.run('dirty') && rt.run('CFG.investable') === 123 && rt.el('saveText').textContent.includes('待核实'))
   check('保存冲突持久保留包含现金字段的草稿', JSON.parse(rt.storage.get('ip_pending_edit_v2')).investable === 123)
   rt.state.saveStatus = 200
   let saveReady
   const saving = new Promise(resolve => { saveReady = resolve })
   rt.state.beforeSave = () => new Promise(resolve => { release = resolve; saveReady() })
-  await rt.run('saveConfig()');const save = rt.run('confirmSave()'); await saving
+  const save = rt.run('saveConfig()'); await saving
   const beforeSaveResponse = rt.run('CFG'); await rt.run('refresh(false)')
   check('保存等待期间刷新不替换编辑对象或版本', rt.run('CFG') === beforeSaveResponse)
   rt.run('CFG.investable=456;markDirty()'); release(); await save
