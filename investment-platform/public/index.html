@@ -195,7 +195,7 @@
   .tiercap{font-size:11px;color:var(--muted);white-space:nowrap}
   .tieredit{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
   .titem{display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
-  #sigBox table{display:block;overflow-x:auto}
+  #sigBox table{display:block;overflow-x:auto}   .pxinline{font-size:12px;color:var(--muted);margin-left:6px;white-space:nowrap;font-weight:400}
   .fbtnrow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
   .fbtn{font-size:12px;padding:3px 11px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer}
   .fbtn.on{color:var(--accent);border-color:var(--accent)}
@@ -674,7 +674,7 @@ function renderSignals(){
  let sigFilter='all';try{sigFilter=localStorage.getItem('lgSigFilter')||'all'}catch(e){}
  const biz=getBizFilter(),fdef=SIG_FILTERS.find(f=>f[0]===sigFilter)||SIG_FILTERS[0],shown=rows.filter(fdef[2]).filter(r=>biz==='all'||bizOf(r.u)===biz); // 郎刚11-01：生意分类与价格状态叠加过滤
  const btns=SIG_FILTERS.map(f=>'<button class="fbtn'+(f[0]===fdef[0]?' on':'')+'" data-ui-only onclick="setSigFilter(\''+f[0]+'\')">'+f[1]+' '+rows.filter(f[2]).filter(r=>biz==='all'||bizOf(r.u)===biz).length+'</button>').join('');
- $('sigBox').innerHTML='<div class="note">价格观察与批准分开；近期成交不自动表示某档已完成。当前 '+rows.filter(r=>r.rank===1).length+'家到价。四档参考价可直接修改，保存后全站同步；≤金额为该档累计建仓上限（郎刚11-08定：按观察池单标的总上限100万折算，非1000万规划本金），到价档位标绿。</div><div class="fbtnrow">'+btns+'</div><div class="fbtnrow" title="生意分类：与上面的价格状态筛选叠加生效">'+bizBtnsHTML(CFG.universe,biz)+'</div><table><thead><tr><th>公司</th><th>状态</th><th>四档参考价（可改）</th><th>成交事实</th></tr></thead><tbody>'+shown.map(r=>'<tr><td>'+escapeHtml(r.u.name)+'<br><span class="note">'+r.u.code+'</span>'+(r.mvW?'<br><span class="pill hold">持 '+r.mvW+'</span>':'')+'</td><td>'+r.label+'</td><td style="white-space:normal">'+tierCellEditable(r.u,r.idx)+'</td><td style="white-space:normal">'+escapeHtml(r.note)+'</td></tr>').join('')+'</tbody></table>'+(dismissed.length?'<details><summary>'+dismissed.length+'条历史忽略记录</summary>'+dismissed.map(k=>'<p class="note">'+escapeHtml(k)+'：'+escapeHtml(CFG.dismissedReasons?.[k]||'未录原因')+'</p>').join('')+'</details>':'');
+ $('sigBox').innerHTML='<div class="note">价格观察与批准分开；近期成交不自动表示某档已完成。当前 '+rows.filter(r=>r.rank===1).length+'家到价。四档参考价可直接修改，保存后全站同步；≤金额为该档累计建仓上限（郎刚11-08定：按观察池单标的总上限100万折算，非1000万规划本金），到价档位标绿。</div><div class="fbtnrow">'+btns+'</div><div class="fbtnrow" title="生意分类：与上面的价格状态筛选叠加生效">'+bizBtnsHTML(CFG.universe,biz)+'</div><table><thead><tr><th>公司</th><th>状态</th><th>四档参考价（可改）</th><th>成交事实</th></tr></thead><tbody>'+shown.map(r=>{const q=Q[r.u.qt],p=q&&q.price>0?q.price:(r.u.px>0?r.u.px:null),cur=(String(r.u.code).endsWith('.HK')||(r.u.tiers&&r.u.tiers[0]&&r.u.tiers[0].cur==='HKD'))?'港元':'元',pxHtml=p==null?'':' <span class="pxinline">现价 '+fmt(p,2)+' '+cur+(q&&q.price>0?'':'·备用')+'</span>';return '<tr><td>'+escapeHtml(r.u.name)+pxHtml+'<br><span class="note">'+r.u.code+'</span>'+(r.mvW?'<br><span class="pill hold">持 '+r.mvW+'</span>':'')+'</td><td>'+r.label+'</td><td style="white-space:normal">'+tierCellEditable(r.u,r.idx)+'</td><td style="white-space:normal">'+escapeHtml(r.note)+'</td></tr>';}).join('')+'</tbody></table>'+(dismissed.length?'<details><summary>'+dismissed.length+'条历史忽略记录</summary>'+dismissed.map(k=>'<p class="note">'+escapeHtml(k)+'：'+escapeHtml(CFG.dismissedReasons?.[k]||'未录原因')+'</p>').join('')+'</details>':'');
 }
 
 /* —— 股票池 —— */
