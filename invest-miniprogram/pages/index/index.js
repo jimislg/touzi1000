@@ -17,7 +17,7 @@ Page({
     let lastError = null
     try { lastError = wx.getStorageSync('lgLastError') || null } catch (e) {}
     if (lastError && Date.now() - (lastError.at || 0) < 10 * 60 * 1000) {
-      this._lastError = 'v1.12.20 错误: ' + lastError.msg
+      this._lastError = 'v1.12.21 错误: ' + lastError.msg
     } else { this._lastError = null }
     this.render()
   },
@@ -51,7 +51,7 @@ Page({
       model: Object.assign(store.indexModel(), {
         watch: store.watchModel(this._expanded, this._filter, this._bizFilter),
         lastError: this._lastError || '',
-        ver: '1.12.20'
+        ver: '1.12.21'
       })
     })
   }
