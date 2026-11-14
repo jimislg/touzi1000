@@ -380,7 +380,7 @@
     {
      "cur": "CNY",
      "label": "H10",
-     "price": 238.96
+     "price": 230
     },
     {
      "cur": "CNY",
@@ -469,12 +469,12 @@
     {
      "cur": "CNY",
      "label": "H10",
-     "price": 42.27
+     "price": 38
     },
     {
      "cur": "CNY",
      "label": "H12",
-     "price": 37.27
+     "price": 35
     },
     {
      "cur": "CNY",
@@ -728,22 +728,22 @@
     {
      "cur": "HKD",
      "label": "H10",
-     "price": 27.87
+     "price": 20
     },
     {
      "cur": "HKD",
      "label": "H12",
-     "price": 24.07
+     "price": 18
     },
     {
      "cur": "HKD",
      "label": "H15",
-     "price": 19.52
+     "price": 16
     },
     {
      "cur": "HKD",
      "label": "H17.46",
-     "price": 16.58
+     "price": 14
     }
    ],
    "bizTag": "上游油气 · 桶油成本27.90美元·专营权",
@@ -770,7 +770,7 @@
     {
      "cur": "HKD",
      "label": "H10",
-     "price": 52.6
+     "price": 48
     },
     {
      "cur": "HKD",
@@ -974,22 +974,22 @@
     {
      "cur": "CNY",
      "label": "H10",
-     "price": 31.14
+     "price": 28
     },
     {
      "cur": "CNY",
      "label": "H12",
-     "price": 28.77
+     "price": 26
     },
     {
      "cur": "CNY",
      "label": "H15",
-     "price": 25.9
+     "price": 24
     },
     {
      "cur": "CNY",
      "label": "H17.46",
-     "price": 24.02
+     "price": 22
     }
    ],
    "bizTag": "儿科中药 · 独家双品·净现金托底",
@@ -1958,22 +1958,22 @@
     {
      "cur": "HKD",
      "label": "H10",
-     "price": 45.23
+     "price": 36
     },
     {
      "cur": "HKD",
      "label": "H12",
-     "price": 40.33
+     "price": 30
     },
     {
      "cur": "HKD",
      "label": "H15",
-     "price": 34.44
+     "price": 32
     },
     {
      "cur": "HKD",
      "label": "H17.46",
-     "price": 30.61
+     "price": 30
     }
    ],
    "buyPrice": 40.33,
@@ -2002,22 +2002,22 @@
     {
      "cur": "CNY",
      "label": "H10",
-     "price": 24.78
+     "price": 20
     },
     {
      "cur": "CNY",
      "label": "H12",
-     "price": 21.8
+     "price": 18
     },
     {
      "cur": "CNY",
      "label": "H15",
-     "price": 18.22
+     "price": 16
     },
     {
      "cur": "CNY",
      "label": "H17.46",
-     "price": 15.91
+     "price": 14
     }
    ],
    "buyPrice": 19.3,
@@ -2304,11 +2304,20 @@
  },
  "tierPctNote": "tierPct=各档累计净投入占目标本金(targetCapital)的百分比，非占席位权重；标准四档锚[10,25,60,100]源自methodology.json ladderRule，三档条件单锚为H12/H15/H17.46累计；个股定制值以归档建仓文档为准。",
  "decisionInputsChanged": {
-  "at": "2026-11-06T08:03:21.953Z",
+  "at": "2026-11-14T03:04:19.312Z",
   "fields": [
-   "holdings.1.cost",
-   "holdings.3.cost",
-   "holdings.6.cost"
+   "universe.1.tiers.0.price",
+   "universe.3.tiers.0.price",
+   "universe.3.tiers.1.price",
+   "universe.11.tiers.0.price",
+   "universe.16.tiers.0.price",
+   "universe.16.tiers.1.price",
+   "universe.16.tiers.2.price",
+   "universe.16.tiers.3.price",
+   "universe.41.tiers.0.price",
+   "universe.41.tiers.1.price",
+   "universe.41.tiers.2.price",
+   "universe.41.tiers.3.price"
   ],
   "reason": "普通编辑改变了已核数据，请重新对账并按新版本审批"
  },
@@ -2382,6 +2391,129 @@
      "path": "holdings.6.cost",
      "before": 402.7379,
      "after": 342.5286
+    }
+   ]
+  },
+  {
+   "at": "2026-11-14T03:02:38.292Z",
+   "baseRevision": "62a22777ae343aa947c9160d56448a0f239bb90cdc74ace5fc707712abb165d5",
+   "changes": [
+    {
+     "path": "universe.40.tiers.0.price",
+     "before": 45.23,
+     "after": 40
+    }
+   ]
+  },
+  {
+   "at": "2026-11-14T03:03:14.134Z",
+   "baseRevision": "229e73b261fb858c6128773d8228678f8daed3853dd6759fabe1a4bbbc8fae23",
+   "changes": [
+    {
+     "path": "universe.10.tiers.0.price",
+     "before": 27.87,
+     "after": 20
+    },
+    {
+     "path": "universe.10.tiers.1.price",
+     "before": 24.07,
+     "after": 18
+    },
+    {
+     "path": "universe.10.tiers.2.price",
+     "before": 19.52,
+     "after": 16
+    },
+    {
+     "path": "universe.10.tiers.3.price",
+     "before": 16.58,
+     "after": 14
+    },
+    {
+     "path": "universe.40.tiers.0.price",
+     "before": 40,
+     "after": 36
+    },
+    {
+     "path": "universe.40.tiers.1.price",
+     "before": 40.33,
+     "after": 30
+    },
+    {
+     "path": "universe.40.tiers.2.price",
+     "before": 34.44,
+     "after": 32
+    },
+    {
+     "path": "universe.40.tiers.3.price",
+     "before": 30.61,
+     "after": 30
+    }
+   ]
+  },
+  {
+   "at": "2026-11-14T03:04:19.312Z",
+   "baseRevision": "c447616f787bb597250b7ce6059157a98c4c2cf43315cc422d475af155965573",
+   "changes": [
+    {
+     "path": "universe.1.tiers.0.price",
+     "before": 238.96,
+     "after": 230
+    },
+    {
+     "path": "universe.3.tiers.0.price",
+     "before": 42.27,
+     "after": 38
+    },
+    {
+     "path": "universe.3.tiers.1.price",
+     "before": 37.27,
+     "after": 35
+    },
+    {
+     "path": "universe.11.tiers.0.price",
+     "before": 52.6,
+     "after": 48
+    },
+    {
+     "path": "universe.16.tiers.0.price",
+     "before": 31.14,
+     "after": 28
+    },
+    {
+     "path": "universe.16.tiers.1.price",
+     "before": 28.77,
+     "after": 26
+    },
+    {
+     "path": "universe.16.tiers.2.price",
+     "before": 25.9,
+     "after": 24
+    },
+    {
+     "path": "universe.16.tiers.3.price",
+     "before": 24.02,
+     "after": 22
+    },
+    {
+     "path": "universe.41.tiers.0.price",
+     "before": 24.78,
+     "after": 20
+    },
+    {
+     "path": "universe.41.tiers.1.price",
+     "before": 21.8,
+     "after": 18
+    },
+    {
+     "path": "universe.41.tiers.2.price",
+     "before": 18.22,
+     "after": 16
+    },
+    {
+     "path": "universe.41.tiers.3.price",
+     "before": 15.91,
+     "after": 14
     }
    ]
   }
