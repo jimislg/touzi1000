@@ -67,5 +67,6 @@ const quotes={qa:{price:10,time:'20261023150000'},qh:{price:100,time:'2026102316
  run('CFG.investable=7999999;markDirty()');state.cfg.investable=7000000;await run('refresh(false)');check('unsaved draft protected from automatic follow',run('CFG.investable')===7999999)
  const old=run('Q'),last=run('lastFetch');delete state.quotes.whHKDCNY;await run('refresh(false)');check('incomplete quote group preserves prior group and date',run('Q')===old&&run('lastFetch')===last)
  check('cashflow return and execution price remain separate',core.irrAt(10,[11,9,8])===null)
+ const cfgArr=structuredClone(cfg);cfgArr.universe[0].plan=['历史批示数组'];const rtArr=runtime(cfgArr,structuredClone(quotes));await rtArr.run('loadConfig()');const patchArr=JSON.parse(rtArr.run('JSON.stringify(editablePatch())'));check('历史数组型plan归一化为文本，不随每次保存带出非法patch',patchArr.universe[0].plan==='历史批示数组')
  console.log('Investor workflow: '+passed+' checks passed')
 })().catch(e=>{console.error(e);process.exitCode=1})

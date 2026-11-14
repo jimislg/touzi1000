@@ -72,7 +72,10 @@ function mergePatch (base, patch) {
           })
           target[k] = row[k]
           continue
-        } else if (typeof row[k] !== 'string') throw failure(400, k + ' 文本不合法：需为文本，当前为 ' + typeof row[k]) /* 郎刚11-14指令：取消文本长度限制，plan可存任意长度批示原文 */
+        } else {
+          if (Array.isArray(row[k])) row[k] = row[k].map(v => typeof v === 'string' ? v : String(v ?? '')).join('\n') /* 郎刚11-14：兼容历史数组型plan，自动归一化为文本 */
+          if (typeof row[k] !== 'string') throw failure(400, k + ' 文本不合法：需为文本，当前为 ' + typeof row[k]) /* 郎刚11-14指令：取消文本长度限制 */
+        }
         if (k === 'buyDate' && row[k] && (!/^\d{4}-\d{2}-\d{2}$/.test(row[k]) || !Number.isFinite(Date.parse(row[k])) || new Date(row[k]).toISOString().slice(0, 10) !== row[k])) throw failure(400, '买入日不合法')
         target[k] = row[k]
       }

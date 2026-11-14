@@ -62,6 +62,11 @@ function harness () {
   }
   const zero = mergePatch(initial, { holdings: [{ code: '600000.SH', shares: 0, cost: 0, dps: 0 }], universe: [{ code: '600000.SH', buyPrice: null }] })
   check('合法零值与待定触发价仍能保存', zero.holdings[0].shares === 0 && zero.universe[0].buyPrice === null)
+  // 郎刚11-14：历史数组型plan（中海油11-08误写）不再毒化每次保存；文本长度限制已取消
+  const arrayPlan = mergePatch(initial, { universe: [{ code: '600000.SH', plan: ['批示第一段', '批示第二段'] }] })
+  check('数组型plan自动归一化为文本', arrayPlan.universe[0].plan === '批示第一段\n批示第二段')
+  const longPlan = mergePatch(initial, { universe: [{ code: '600000.SH', plan: 'x'.repeat(30000) }] })
+  check('plan取消长度限制可存超长批示', longPlan.universe[0].plan.length === 30000)
   // 郎刚10-25：四档参考价可在首页修改（仅价格，结构与标签币种锁定）
   const withTiers = { ...clone(initial), universe: [{ code: '600000.SH', buyPrice: 9, tiers: [{ label: 'H10', cur: 'CNY', price: 10 }, { label: 'H12', cur: 'CNY', price: 8 }] }] }
   const tierOk = mergePatch(withTiers, { universe: [{ code: '600000.SH', tiers: [{ label: 'H10', cur: 'CNY', price: 10.5 }, { label: 'H12', cur: 'CNY', price: 8 }] }] })
