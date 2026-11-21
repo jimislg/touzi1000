@@ -4,7 +4,7 @@ const { createConfigService, revisionOf, mergePatch } = require('./config-servic
 const clone = x => JSON.parse(JSON.stringify(x))
 let passed = 0
 function check (name, ok) { assert.ok(ok, name); passed++; console.log('PASS ' + name) }
-const initial = { accessKey: 'fixture-only', investable: 1000, targetCapital: 2000, holdings: [{ code: '600000.SH', shares: 100, cost: 10, dps: 1 }], universe: [{ code: '600000.SH', buyPrice: 9 }] }
+const initial = { accessKey: 'fixture-only', investable: 1000, targetCapital: 2000, holdings: [{ code: '600000.SH', qt: 'sh600000', shares: 100, cost: 10, dps: 1 }], universe: [{ code: '600000.SH', qt: 'sh600000', buyPrice: 9 }] }
 function harness () {
   const files = new Map([['config', clone(initial)]])
   const state = { cfg: clone(initial), offline: false, race: false, writes: 0 }
@@ -101,5 +101,20 @@ function harness () {
     const secondInstance = createConfigService({ store: disk.store, file })
     check('新服务实例从真实journal恢复离线修改', (await secondInstance.read()).investable === 321)
   } finally { fs.rmSync(dir, { recursive: true, force: true }) }
+
+  /* 郎刚11-21：快照价自动跟随行情刷新（px 不参与 revision，编辑器不会误报冲突） */
+  const snap = harness()
+  const snapRev = (await snap.service.read())._revision
+  const snapRes = await snap.service.refreshSnapshot({ sh600000: { price: 11.5 } })
+  check('行情刷新后快照价自动写回', snapRes.ok && snapRes.changed === 2 && snap.files.get('config').holdings[0].px === 11.5)
+  check('快照价写回同时更新观察池', snap.files.get('config').universe[0].px === 11.5)
+  check('快照价写回不改变配置版本（避免编辑器保存误报409）', revisionOf(snap.files.get('config')) === snapRev)
+  const noop = await snap.service.refreshSnapshot({ sh600000: { price: 11.5 } })
+  check('价格未变化时不重复写盘', noop.ok && noop.changed === 0)
+  const bad = await snap.service.refreshSnapshot({ sh600000: { price: 0 } })
+  check('非法行情价格被忽略', bad.ok && bad.changed === 0 && snap.files.get('config').holdings[0].px === 11.5)
+  const afterSave = await snap.service.save({ investable: 1500 }, snapRev)
+  check('快照写回后旧revision仍可正常保存', afterSave.ok && afterSave.revision === revisionOf(snap.files.get('config')))
+
   console.log('配置安全回归全部通过: ' + passed)
 })().catch(e => { console.error(e); process.exitCode = 1 })

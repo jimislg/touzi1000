@@ -16,7 +16,19 @@ function canonical (value) {
   if (value && typeof value === 'object') return '{' + Object.keys(value).sort().map(k => JSON.stringify(k) + ':' + canonical(value[k])).join(',') + '}'
   return JSON.stringify(value)
 }
-const revisionOf = cfg => crypto.createHash('sha256').update(canonical(clean(cfg))).digest('hex')
+/* 郎刚 2026-11-21：快照价改为服务端自动写回（每次行情刷新落盘）。
+ * px 与 asOfNote 是行情缓存、不是用户可编辑数据（mergePatch 白名单不含），
+ * 故从 revision 计算中剥离——否则后台写盘会让编辑器持有的 revision 失效、保存误报409。 */
+function stripVolatile (cfg) {
+  const out = clean(cfg)
+  delete out.asOfNote
+  delete out.snapshotAt
+  for (const key of ['holdings', 'universe']) {
+    if (Array.isArray(out[key])) out[key] = out[key].map(row => { const r = clone(row); delete r.px; return r })
+  }
+  return out
+}
+const revisionOf = cfg => crypto.createHash('sha256').update(canonical(stripVolatile(cfg))).digest('hex')
 function changedFields (before, after, prefix = '') {
   if (canonical(before) === canonical(after)) return []
   if (before && after && typeof before === 'object' && typeof after === 'object') return [...new Set([...Object.keys(before), ...Object.keys(after)])].flatMap(k => changedFields(before[k], after[k], prefix ? prefix + '.' + k : k))
@@ -193,7 +205,33 @@ function createConfigService ({ store, file, sourceMode = 'cloud', journal = fil
       const sync = await flush()
       return { ok: true, savedAt: record.savedAt, serverSavedAt: record.savedAt, cloudSync: sync.ok, syncStatus: sync.ok ? 'synced' : sync.reason, sourceMode, revision: revisionOf(candidate), dataRevision: candidate.decisionDataRevision || null, changedFields: changedFields(clean(base), clean(candidate)) }
     }),
-    retry: () => serial(flush)
+    retry: () => serial(flush),
+    /* 郎刚 2026-11-21 指令「以后每次快照都自动为上次刷新的数据」：
+     * 每次行情刷新成功后，把最新价写回 holdings[].px / universe[].px 作为离线兜底快照。
+     * 走同一串行队列，与保存互斥；价格无变化则不写盘（避免无意义 IO）；
+     * revision 因剥离 px 而不变，编辑器不会因此报冲突。 */
+    refreshSnapshot: quotes => serial(async () => {
+      if (!quotes || typeof quotes !== 'object') return { ok: false, reason: 'no-quotes' }
+      let base
+      try { base = io.read(file) } catch (e) { return { ok: false, reason: 'read-failed' } }
+      if (sourceMode !== 'local' && pending) return { ok: false, reason: 'pending-review' }
+      const priceOf = qt => { const q = quotes[qt]; return q && typeof q.price === 'number' && Number.isFinite(q.price) && q.price > 0 ? q.price : null }
+      let changed = 0
+      const apply = list => {
+        if (!Array.isArray(list)) return
+        for (const row of list) {
+          const p = priceOf(row.qt)
+          if (p !== null && row.px !== p) { row.px = p; changed += 1 }
+        }
+      }
+      apply(base.holdings)
+      apply(base.universe)
+      if (!changed) return { ok: true, changed: 0 }
+      const stamp = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 16).replace('T', ' ')
+      base.asOfNote = '快照价=' + stamp + ' 行情刷新（离线兜底；行情在线时自动覆盖）'
+      io.write(file, base)
+      return { ok: true, changed, asOfNote: base.asOfNote }
+    })
   }
 }
 module.exports = { createConfigService, revisionOf, mergePatch, atomicWrite }

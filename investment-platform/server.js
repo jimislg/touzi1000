@@ -155,9 +155,13 @@ const server = http.createServer(async (req,res)=>{
       }
       const buf=await fetchRemote('http://qt.gtimg.cn/q='+symbols);
       const q=parseQuotes(new TextDecoder('gbk').decode(buf));
-      res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
       const missing=CORE.missingSymbols(q,symbols);
+      res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
       res.end(JSON.stringify({ok:missing.length===0, fetchedAt:new Date().toISOString(), quotes:q, missing}));
+      /* 郎刚11-21：快照价自动跟随最近一次行情刷新落盘（异步，失败不影响行情返回） */
+      if(missing.length===0&&q&&Object.keys(q).length){
+        configService.refreshSnapshot(q).catch(e=>console.error('[snapshot] 写回失败：'+(e&&e.message||e)));
+      }
       return;
     }
     if(u.pathname==='/api/dividends'){

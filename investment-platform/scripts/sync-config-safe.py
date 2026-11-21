@@ -13,8 +13,34 @@ BASE = os.path.join(ROOT, 'scripts', '.vps-sync-baseline.json')
 VPS = 'root@149.28.89.105:/opt/invest-platform/config.json'
 KEYS = ['universe', 'holdings', 'trades', 'investableAmount', 'cash', 'targetCapital', 'seats']
 
+def strip_px(cfg):
+    """郎刚11-21：服务端每次行情刷新自动写回 px/asOfNote。比对时剥离行情字段，
+    否则 VPS 自动更新会被误判成"网页端改过"，守卫天天误报。"""
+    out = json.loads(json.dumps(cfg))
+    for key in ('universe', 'holdings'):
+        for row in out.get(key) or []:
+            if isinstance(row, dict):
+                row.pop('px', None)
+    out.pop('asOfNote', None)
+    return out
+
 def fp(c):
+    c = strip_px(c)
     return {k: c.get(k) for k in KEYS}
+
+def carry_px(local, vps):
+    """把 VPS 上更新的快照价带回本地，避免同步把快照价倒退。"""
+    V = {x.get('code'): x for x in vps.get('universe') or []}
+    H = {x.get('code'): x for x in vps.get('holdings') or []}
+    for row in local.get('universe') or []:
+        if row.get('code') in V and V[row['code']].get('px') is not None:
+            row['px'] = V[row['code']]['px']
+    for row in local.get('holdings') or []:
+        if row.get('code') in H and H[row['code']].get('px') is not None:
+            row['px'] = H[row['code']]['px']
+    if vps.get('asOfNote'):
+        local['asOfNote'] = vps['asOfNote']
+    return local
 
 def run(cmd, **kw):
     return subprocess.run(cmd, shell=True, check=True, capture_output=True, text=True, **kw).stdout
@@ -50,7 +76,9 @@ if base is not None and fp(vps) != fp(base):
     json.dump(cur, open(CFG, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print('✅ 已把 VPS 新改动合并进本地 config.json')
 
-# 覆盖写入 + 备份 + 重启 + 回读校验
+# 覆盖写入 + 备份 + 重启 + 回读校验（覆盖前把 VPS 的最新快照价带回本地，避免倒退）
+cur = carry_px(cur, vps)
+json.dump(cur, open(CFG, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 run(f'ssh root@149.28.89.105 "cp /opt/invest-platform/config.json /opt/invest-platform/config.json.backup-safesync-$(date +%Y%m%d%H%M%S)"')
 run('scp -q ' + shlex.quote(CFG) + ' ' + VPS)
 run('ssh root@149.28.89.105 "chmod 600 /opt/invest-platform/config.json && systemctl restart invest-platform"')
