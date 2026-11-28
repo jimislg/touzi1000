@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>承德露露（000848.SZ）—— 好生意的价，卡在一笔说不清的现金上</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --paper:#faf8f4; --ink:#1c1917; --ink2:#44403c; --ink3:#78716c;
+    --line:#e7e1d8; --accent:#9a3412; --accent2:#b45309; --good:#166534; --bad:#b91c1c;
+    --card:#fffefb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Songti SC","Source Han Serif SC","Noto Serif CJK SC",Georgia,serif;
+    line-height:1.85;font-size:16.5px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:56px 32px 96px}
+  h1{font-size:33px;line-height:1.38;margin:0 0 14px;letter-spacing:.3px;font-weight:700}
+  h2{font-size:22px;margin:52px 0 14px;padding-bottom:9px;border-bottom:2px solid var(--ink);
+     letter-spacing:.5px}
+  h3{font-size:17.5px;margin:30px 0 8px;color:var(--accent);letter-spacing:.3px}
+  p{margin:11px 0}
+  .sub{color:var(--ink3);font-size:14px;margin-bottom:6px;font-family:system-ui,-apple-system,sans-serif}
+  .lede{font-size:18px;color:var(--ink2);border-left:3px solid var(--accent);padding-left:16px;margin:22px 0 6px}
+  .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0 8px}
+  .kpi div{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:14px 15px}
+  .kpi b{display:block;font-size:25px;line-height:1.25;letter-spacing:-.3px}
+  .kpi span{display:block;font-size:12.5px;color:var(--ink3);margin-top:5px;
+    font-family:system-ui,-apple-system,sans-serif;line-height:1.5}
+  .kpi .up b{color:var(--good)} .kpi .down b{color:var(--bad)}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;
+    font-family:system-ui,-apple-system,"PingFang SC",sans-serif}
+  th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:right}
+  th{background:#f2ede4;border-bottom:1.5px solid #d6cdbe;font-weight:600;font-size:12.5px;
+     color:var(--ink2);white-space:nowrap}
+  td:first-child,th:first-child{text-align:left;white-space:normal}
+  tr:hover td{background:#fdfaf3}
+  .g{color:var(--good)} .r{color:var(--bad)} .mute{color:var(--ink3)}
+  .chart{width:100%;height:380px;margin:22px 0 6px;background:var(--card);
+    border:1px solid var(--line);border-radius:3px}
+  .cap{font-size:12.5px;color:var(--ink3);margin:0 0 26px;
+    font-family:system-ui,-apple-system,sans-serif}
+  .box{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);
+    padding:15px 18px;margin:22px 0;border-radius:2px}
+  .box b{color:var(--accent)}
+  .warn{border-left-color:var(--bad)}
+  .warn b{color:var(--bad)}
+  .tag{display:inline-block;font-size:11.5px;font-family:system-ui,-apple-system,sans-serif;
+    padding:2px 9px;border-radius:10px;margin-right:6px;font-weight:600}
+  .tag-red{background:#fee2e2;color:#991b1b}
+  .tag-green{background:#dcfce7;color:#14532d}
+  .tag-amber{background:#fef3c7;color:#92400e}
+  .tag-gray{background:#e7e5e4;color:#44403c}
+  ul,ol{margin:12px 0;padding-left:22px} li{margin:7px 0}
+  .num{font-variant-numeric:tabular-nums}
+  .q{padding:14px 0;border-bottom:1px dashed var(--line)}
+  .q:last-child{border-bottom:none}
+  .q b{color:var(--accent2)}
+  .foot{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--ink3);font-family:system-ui,-apple-system,sans-serif;line-height:1.8}
+  .disc{background:#f5f1e8;border:1px solid #e2d9c9;padding:14px 16px;margin-top:22px;
+    font-size:12.5px;color:#57534e;font-family:system-ui,-apple-system,sans-serif;line-height:1.85}
+  @media(max-width:720px){.kpi{grid-template-columns:repeat(2,1fr)}h1{font-size:26px}.wrap{padding:32px 18px 64px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<p class="sub">股票投资研究 · 专家团九席独立研究 + 芒格挑战答辩复审 · 2026-11-28</p>
+<h1>承德露露（000848.SZ）—— 好生意的价，卡在一笔说不清的现金上</h1>
+<p class="sub">估值基准 2026-11-27 收盘 7.42 元｜总市值 75.42 亿｜股本 10.164 亿股｜币种 CNY</p>
+
+<p class="lede">这是一家账上躺着 24.75 亿净现金、占市值近三分之一的公司。按数字，它离"可以买"只差 3% 到 7%；按治理，那笔钱是不是小股东能拿到的，没人能证明。两套独立估值都把价格推到了嘴边，然后都停住了——不是因为生意不好，而是因为那笔现金的归属没有闭环。</p>
+
+<div class="kpi">
+  <div><b>7.42 元</b><span>现价（2026-11-27）</span></div>
+  <div class="down"><b>6.96 元</b><span>四步法买入线｜现价溢价 6.6%</span></div>
+  <div><b>7.19 元</b><span>唐朝法买点｜现价溢价 3.1%（刀口）</span></div>
+  <div class="down"><b>等</b><span>最终行动｜触发"禁止据此买入"标识</span></div>
+</div>
+<p class="cap">结论不是"便宜可买"，也不是"贵到要卖"，而是"价到了，账没清"。两组价格来自完全独立的方法，不取平均、不互称验证。</p>
+
+<div class="box warn">
+<b>触发标识：净现金可归属性未核实 · 禁止据此买入</b><br>
+这不是"不能买"的一刀切，是四条精确约束：①禁止把 24.75 亿净现金按 1.0 折扣（2.44 元/股）当作"已证实安全"计入买点或 IRR，须用 <span class="num">[2.07, 2.44]</span> 元/股区间披露；②禁止把四步法"现价 IRR 13.41%&gt;12%"与唐朝法"接近买点 +3.1%"当作无条件买入信号；③若组合层采用"未决高严重度风险不建仓"规则，则 G003 核清前不建仓（属组合决定，不否定估值给价）；④不触发 C/D 降级——未核是不确定性，不是已证实的掏空。解除条件：万纳信交易背景与非关联方认定披露、5.04 亿借款用途清晰且已归还，经责任席书面确认。
+</div>
+
+<h2>一、七问七答</h2>
+
+<div class="q"><b>1. 这是门什么生意？</b>杏仁露单一大单品占 93.61%，北部市场占 88.57%，近 50 年品牌与品类绑定，先款后货、应收仅 426 万。经营端很干净：剥离净现金后经营 PE 约 8.45×、经营 ROE 高达约 70%——主业资本回报极高。但公司自述"处于完全竞争市场，头部乳企跨界入局"（2024 年报及 2026 半年报，一手），与"90% 市占率=护城河"的叙事直接冲突。</div>
+
+<div class="q"><b>2. 为什么"价到了还不买"？</b>两法的买入线分别落在 6.96 和 7.19，现价 7.42 就在上方一点点。但两点都是"刀口价"：唐朝法的买点距翻为"观望"只差 fcf_y3 的 0.008 亿；四步法的行动线建立在净现金 1.0 折扣的治理假设上。价格数字本身成立，稳健性经不起推敲。</div>
+
+<div class="q"><b>3. 那笔现金到底是谁的？</b>24.75 亿净现金是真实的（货币资金 30.82 − 有息负债 6.07，两表现金一致，去向逐项勾稽闭合）。但"真实存在"≠"可自由分配给小股东"：万向三农 42.93% 绝对控股、董事长一肩挑；2025 年现金充裕仍举债 5.04 亿、用途不明；万纳信债权凭证 2.45 亿兑付，是否关联方未核（G003，券商二手归因）。四步法席的原话是"严格说不能当无条件权利"，因此并列了 0.85 折扣情景。</div>
+
+<div class="q"><b>4. 成本红利还在吗？</b>不在了，而且从未是"能力"。2025 年毛利率改善主要来自苦杏仁采购价下行的采购周期（一手：单因素影响营业成本 −7.94%），不是提价权（2025 总吨价 +0.1%、2026H1 +1.1%）。成本端由包材主导——制罐类供应商占采购额 27.64%，杏仁加工厂仅 10.90%。定性已从"成本红利"降级为<span class="num">周期性成本窗口（非可持续能力）</span>：Q3 单季毛利率 40.77% 已跌破年度中枢下沿。</div>
+
+<div class="q"><b>5. 护城河有多宽？</b>moat 3/5。这个 3 分经答辩后由分歧收敛而来（巴菲特席 2→3 证据驱动上调、消费席维持 3），<b>是分歧收敛，不是两席交叉验证</b>。养元饮品十年 ROE 47%→13% 是最强反证：两因子分解证明露露下行 96.24% 来自分母权益累积（现金沉淀）、仅 3.76% 来自利润端，养元则 79.75% 来自利润塌方——机制不同，故不再把养元塌方路径直接套到露露。但"同品类地位无法自动转化为持久经济优势"的基准率警示保留。</div>
+
+<div class="q"><b>6. 高股息 6.76% 能年化吗？</b>不能。TTM 6.76% 含 2026-05 每 10 股派 5 元的一次性大额；静态 4.175% 又基数偏旧（反推派息仅 3.15 亿，低于实派 5.1 亿）。宏观席测算的真实可持续中枢在两者之间：派息率 81.3%→6.30%、70%→5.42%、65%→5.04%。TTM 6.76% 只在"企稳+维持 81% 派息"情景下可持续。FY2022 曾实际未现金分红，"连续每年分红"的表述已弱化为"有持续分红历史，但非逐年无间断"。</div>
+
+<div class="q"><b>7. 什么时候可以改判？</b>价格端：股价回落至 6.96 以下，或公司宣布特别分红/加大回购把现金实质返还。基本面端：Q4/2027H1 核心杏仁露毛利率守住 46.69%（跌破即触发 moat 降档）、锡价传导使 FY 毛利率回 44–45%、2027 产能利用率超 70%。治理端：G003 核清为非关联方、5.04 亿借款用途披露且归还。若连续两年归母&lt;5.5 亿且毛利率&lt;42%，则取法一的前提失败，须转"放弃·不估价"。</div>
+
+<h2>二、两法独立出价：不取平均，不互称验证</h2>
+
+<div id="c1" class="chart"></div>
+<p class="cap">图 1｜两法价格标尺与现价位置。唐朝法给"买点"，四步法给"行动线"，两者来自不同推理链，恰好落在 6.96–7.19 的窄区间内——这个"接近"本身不是互相印证，而是需要警惕的巧合。</p>
+
+<table>
+<tr><th>维度</th><th>唐朝法 v5.5</th><th>四步法 v4.5</th></tr>
+<tr><td>取法判定</td><td>取法一·当年利润推三年（三前提过）</td><td>B 类八维分级（机械判定）</td></tr>
+<tr><td>核心口径</td><td>PE 25×（团队适配裁量，非原书条款）</td><td>退出 PE 11×、NP0 6.00 亿、g 2%→1.5%</td></tr>
+<tr><td>净现金处理</td><td>不进买点，仅作披露（2.44 元/股）</td><td>H 档今天直加｜锁死回报剥离｜并列 0.85 折扣情景</td></tr>
+<tr><td>买入线</td><td>7.19 元（现价 +3.1%）</td><td>6.96 元（现价 +6.6%）</td></tr>
+<tr><td>合理估值</td><td>14.39 元（三年后）</td><td>H12 7.88 元（12% 回报门槛）</td></tr>
+<tr><td>卖出线</td><td>21.58 元</td><td>10.37–12.96 元（H10×1.2~1.5，团队规则）</td></tr>
+<tr><td>行动</td><td>接近买点但为刀口结论，须验证后进入</td><td>等</td></tr>
+<tr><td>交付闸</td><td>结论卡口径冲突已裁决并落盘</td><td>check_result.py PASS 50 / FAIL 0</td></tr>
+</table>
+
+<p>两法的数字很接近，但推理链完全不同：<b>唐朝法</b>用当年利润推三年、买点取三年后合理估值的 50%；<b>四步法</b>用未来市值推演加股息口径的锁死回报交叉检验，在两把尺冲突时取保守。复审的判定是——"等"比"接近买点"更稳健；若要在两者间取保守，取"等"是组合层的谨慎取舍，<b>不是两法一致同意</b>。</p>
+
+<div class="box">
+<b>唐朝法的"接近买点"为什么是刀口？</b> PE 25× 经答辩后从"原书口径"降格为"团队适配裁量"——唐朝席自认用历史正常利率 3.83% 替代当下 r=2.13% 选区间不是原书条款；非周期判据也是判例推导而非原书明文。更要命的是：买点 = fcf_y3 × 1.106848，基准 fcf_y3=6.5 距翻为"观望"的 3% 临界 6.508 亿仅差 0.008 亿。若取东吴"零增长"读法（fcf_y3=5.74），买点降至 6.35、溢价 16.8%，立即翻观望。所以这个 7.19 是"裁量假设 + 刀口"的双重脆弱结论。
+</div>
+
+<h2>三、11 条挑战的答辩与复审</h2>
+
+<p>芒格挑战席第一轮提出 11 条挑战，六席分别书面答辩，复审第二轮逐条判定。以下为判定结果——"已量化并可接受"不等于风险消失，仍须披露剩余不确定性。</p>
+
+<table>
+<tr><th>编号</th><th>挑战靶点</th><th>复审判定</th><th>状态</th></tr>
+<tr><td>Q01</td><td>唐朝法 25× 是否混用周期股锚</td><td>计算链已与动态锚脱钩；但 25× 降格为团队适配裁量</td><td><span class="tag tag-green">已接受·须披露</span></td></tr>
+<tr><td>Q02</td><td>退出 PE 11× 敏感性与取舍规则</td><td>真错误已改（脚本真值 9×→7.428、13×→8.332）；事前规则对称可复现</td><td><span class="tag tag-green">已消除</span></td></tr>
+<tr><td>Q03</td><td>净现金真实性与可归属性</td><td>真实性已消除；可归属性区间化 [2.07,2.44]，根本风险转移 Q09</td><td><span class="tag tag-amber">价格层已量化</span></td></tr>
+<tr><td>Q04</td><td>养元量级外推与现金双刃剑</td><td>两因子分解证机制不同；moat 收敛 3/5；现金单一归属治理</td><td><span class="tag tag-green">已消除·收敛非互证</span></td></tr>
+<tr><td>Q05</td><td>高股息可持续性</td><td>判档绑定 1/PE=7.96%&lt;12%，与派息率无关；可持续股息率 5.0–6.3%</td><td><span class="tag tag-green">已消除</span></td></tr>
+<tr><td>Q06</td><td>成本周期与证伪条件</td><td>改称"周期性成本窗口"；传导系数为团队假设，置信度中等偏低</td><td><span class="tag tag-amber">已量化可接受</span></td></tr>
+<tr><td>Q07</td><td>NP0 循环论证与两法互证</td><td>实算证明 np_current 不进唐朝法买点；互证主张已撤回</td><td><span class="tag tag-green">已消除·刀口须标注</span></td></tr>
+<tr><td>Q08</td><td>产能闲置与营收增长并存</td><td>8 万吨无限期推迟=主动纠偏；证据格归位；资本承诺单列风险</td><td><span class="tag tag-amber">已量化可接受</span></td></tr>
+<tr><td>Q09</td><td>治理与控制权／永久损失风险</td><td>G003 未核、5.04 亿用途不明——证据不足是关闭障碍</td><td><span class="tag tag-red">仍未解决·触发标识</span></td></tr>
+<tr><td>Q10</td><td>"非周期"判定自相矛盾</td><td>判据系判例推导；改判只会更审慎（买点 5.69、观望）</td><td><span class="tag tag-amber">已量化可接受</span></td></tr>
+<tr><td>Q11</td><td>EV 口径矛盾</td><td>双 EV 字段勘误，31.8 亿缺口完整勾稽；不解决可归属性</td><td><span class="tag tag-green">已消除（数据层）</span></td></tr>
+</table>
+
+<div id="c2" class="chart"></div>
+<p class="cap">图 2｜11 条挑战的复审结果分布。10 条闭环或量化可接受，1 条（Q09）保持未解决并触发"禁止据此买入"标识。（按复审措辞，6 条归"已消除"、4 条归"已量化可接受"，含性质降格与须披露的剩余不确定性。）</p>
+
+<h2>四、风险登记：6 条，5 条未关闭 + 1 条已闭环</h2>
+
+<table>
+<tr><th>ID</th><th>风险</th><th>严重度</th><th>closed</th></tr>
+<tr><td>R-G003</td><td>万纳信债权凭证 2.45 亿交易背景/是否关联方未核；若证实关联方占用→维度2 fail→D 类</td><td>高</td><td class="r">false</td></tr>
+<tr><td>R-BORROW504</td><td>2025 年现金充裕同时新增借款 5.04 亿，用途不明；削弱净现金可归属性</td><td>高</td><td class="r">false</td></tr>
+<tr><td>R-GOV</td><td>万向 42.93% 绝对控股＋一肩挑；1.0 折扣是治理假设非权利事实</td><td>中高</td><td class="r">false</td></tr>
+<tr><td>R-CAPEX</td><td>7 万吨在建/8 万吨推迟/利用率 48–52%，资本承诺未逐笔扣除</td><td>中</td><td class="r">false</td></tr>
+<tr><td>R-EV</td><td>估值字段口径提示（数据勘误已完成，作为数据源提示保留）</td><td>中</td><td class="r">false</td></tr>
+<tr><td>IRR-SOURCE</td><td>四个加权 IRR 曾误标为宏观席提供；溯源为四步法席派生敏感性（表述层错误已更正，非数字造假），正文不引用该组数字、仅留披露注记</td><td>中</td><td class="g">true</td></tr>
+</table>
+
+<p class="cap">风险登记口径：不确定性与已证实风险分开登记。G003 未核只说明"不能证明安全"，不等于"已证实造假"，故不触发 C/D 降级；但同样不能写成"已证实安全"。</p>
+
+<h2>五、评分与分歧： Everything has a cost</h2>
+
+<table>
+<tr><th>维度</th><th>评分</th><th>证据与分歧</th></tr>
+<tr><td>生意质量 business</td><td>4/5</td><td>品类开创者＋近 50 年心智＋86 项专利；但单一大单品 93.61%</td></tr>
+<tr><td>护城河 moat</td><td>3/5</td><td>两席经答辩收敛；定价权与成本转嫁测试未通过；库存 +38.36%</td></tr>
+<tr><td>现金质量 cash</td><td>4/5</td><td>十年 OCF/归母 116.2%，现金转化真实；Q2 负 Q3 已回正</td></tr>
+<tr><td>治理 governance</td><td>3/5</td><td>分红回购纪律加分，一肩挑/绝对控股/低收益现金沉淀/扩产纪律压回 3</td></tr>
+<tr><td>韧性 resilience</td><td>3/5</td><td>财务韧性强，但单品单区集中＋礼赠接近永久损伤；净现金归此处</td></tr>
+<tr><td>可预测性 predictability</td><td>3/5（偏低端）</td><td>券商 2026E 分歧 28%、Q3 单季 −39%、完全竞争披露</td></tr>
+<tr><td>能力圈</td><td>部分通过</td><td>段知本席："收息资产懂，转型看不懂"</td></tr>
+</table>
+
+<div class="box">
+<b>分歧收敛 ≠ 独立验证。</b> moat 从 2/5 与 3/5 的分歧，变成两席同为 3/5，是因为巴菲特席撤回了不成立的养元塌方类比、消费席撤回了把净现金当护城河的归类错误——证据驱动的上调与维持，不是两条独立证据指向同一结论。报告因此保留毛利率六年重心下移、定价权测试未过、2026H1 末杏仁露库存 +38.36% 等反证。
+</div>
+
+<h2>六、最大的风险：不是估值，是治理</h2>
+
+<div class="box warn">
+<b>唯一符合"永久损失风险"定义的候选是 Q09（治理与控制权）。</b> 万向三农 42.93% 绝对控股、董事长兼代理总经理兼代理董秘一肩挑、高管薪酬极低——激励与制衡双重薄弱。在这个结构下，"24.75 亿现金可按 1.0 折扣还给小股东"是需要强证据的假设，而不是默认前提。两笔大额资金去向都不透明：万纳信 2.45 亿（是否关联方未核）与 5.04 亿举债（用途不明），恰好都在"现金"科目上，与净现金可归属性正面冲突。
+</div>
+
+<p>这里必须给空头一个公平的反证：2026 年三次回购注销（10.5255→10.164 亿股）确实把现金返还了股东，说明释放通道存在；应收仅 426 万、存货 1.61 亿说明资产质量干净；累计派现 47.58 亿、派现募资比 1006% 行业第一是硬事实。所以结论不是"这家公司有问题"，而是"在 G003 核清前，不能把 2.44 元/股当成已经属于你的钱"。</p>
+
+<div id="c3" class="chart"></div>
+<p class="cap">图 3｜净现金两种折扣情景下的四步法 H12 与买入线。1.0 折扣是基准（事前锁定），0.85 折扣是并列披露的风险情景——后者的行动结论仍是"等"，说明这个风险没有把估值结论翻转，但确实压低了安全边际。</p>
+
+<h2>七、数据缺口与报告修订记录</h2>
+
+<p><b>仍未关闭的数据缺口：</b>G003 万纳信 2.45 亿交易背景与关联方认定；5.04 亿借款用途与利率；淳安实际产能利用率（48% 或 52% 两口径）；无马口铁/苦杏仁一手价格序列（锡价为 SMM/Mysteel 等二手具名）；杏仁占成本 23–26% 为团队线性反推；理财 3.47 亿细分科目；G005 分红次数接口显示 34 次与底稿 28 次不一致（不影响出价）。</p>
+
+<p><b>报告修订记录：</b>四个加权 IRR 数字（7.17/6.95/10.79/9.45，脚本舍入更正为 7.17/6.96 与 10.79/9.46）曾误标为宏观席提供，经复核为四步法席派生、按概率映射手算加权，已更正（属表述层标注失实，非数字造假）；按可持续股息率 5.0%–6.3% 重算后各口径两映射均 &lt;12%、行动不变。该组数字不进四档价/判档/分级，正文不引用，仅留底稿与修订记录。成本叙事由"成本红利/先压后稳"改为"周期性成本窗口"，"先压后稳"仅作量化情景假设、不作为定性结论。所有历史措辞均保留备查，未抹除。</p>
+
+<p><b>流程说明：</b>原始巴菲特质量席执行失败（aborted），由重启席完成回传，内容真实；AI 与汽车链席对食品饮料无适用价值，按协议缺席。研究全程两法独立、不互传输入、不取平均；券商预测与二手归因严格标注证据等级。</p>
+
+<div class="foot">
+<b>分析时点</b>：2026-11-28（周六休市），估值基准 2026-11-27 收盘。<br>
+<b>方法</b>：唐朝法 v5.5（tangchao-valuation）、四步法 v4.5（investment-advisor），两法独立出价；芒格挑战三轮（清单—答辩—复审）。所有价格由脚本产出，check_result 交付闸 PASS 50/FAIL 0。<br>
+<b>数据源</b>：NeoData 结构化数据（数据平台，非公司直接披露处已标注）、公司定期报告一手原文、券商研报（二手）、SMM/Mysteel 价格（二手具名）。团队假设与二手证据均已分层标注。
+</div>
+
+<div class="disc">
+<b>免责声明</b>：以上内容基于公开数据和量化分析，仅供参考，不构成投资建议。市场有风险，投资需谨慎。任何投资决策应结合个人风险承受能力、资金状况和投资目标独立判断，必要时咨询持牌专业机构。过往表现不预示未来收益。本报告未获取用户资金规模、风险偏好与持仓信息，未给出个性化仓位建议。
+</div>
+
+</div>
+
+<script>
+(function(){
+  var C = {paper:'#fffefb',ink:'#1c1917',ink3:'#78716c',line:'#e7e1d8',accent:'#9a3412',gold:'#b45309',good:'#166534',bad:'#b91c1c'};
+  function base(id){var el=document.getElementById(id); if(!el||!window.echarts) return null; return echarts.init(el);}
+
+  var c1=base('c1');
+  if(c1){c1.setOption({
+    title:{text:'买入线与现价的位置关系（元/股）',left:'center',textStyle:{fontSize:14,color:C.ink}},
+    tooltip:{trigger:'axis'},
+    grid:{left:70,right:30,top:60,bottom:40},
+    xAxis:{type:'category',data:['四步法 H17.46','四步法买入线 H15','唐朝法买点','四步法 H12','现价','四步法 H10','唐朝法合理估值'],axisLabel:{color:C.ink3,interval:0,fontSize:11,rotate:20}},
+    yAxis:{type:'value',min:0,max:16,name:'元/股',axisLabel:{color:C.ink3},splitLine:{lineStyle:{color:C.line}}},
+    series:[{type:'bar',data:[
+      {value:6.36,itemStyle:{color:'#a8a29e'}},
+      {value:6.96,itemStyle:{color:C.good}},
+      {value:7.19,itemStyle:{color:C.gold}},
+      {value:7.88,itemStyle:{color:'#a8a29e'}},
+      {value:7.42,itemStyle:{color:C.bad}},
+      {value:8.64,itemStyle:{color:'#a8a29e'}},
+      {value:14.39,itemStyle:{color:'#d6d3d1'}}
+    ],barWidth:'52%',label:{show:true,position:'top',fontSize:11,color:C.ink,formatter:function(p){return p.value.toFixed(2);}}}]
+  });}
+
+  var c2=base('c2');
+  if(c2){c2.setOption({
+    title:{text:'11 条挑战复审结果',left:'center',textStyle:{fontSize:14,color:C.ink}},
+    tooltip:{trigger:'item'},
+    legend:{bottom:0,textStyle:{color:C.ink3,fontSize:11}},
+    series:[{type:'pie',radius:['38%','62%'],center:['50%','48%'],
+      label:{formatter:'{b}: {c}',color:C.ink,fontSize:11},
+      data:[
+        {value:6,name:'已消除',itemStyle:{color:C.good}},
+        {value:4,name:'已量化可接受',itemStyle:{color:C.gold}},
+        {value:1,name:'仍未解决',itemStyle:{color:C.bad}}
+      ]}]
+  });}
+
+  var c3=base('c3');
+  if(c3){c3.setOption({
+    title:{text:'净现金折扣：基准 vs 风险情景（元/股）',left:'center',textStyle:{fontSize:14,color:C.ink}},
+    tooltip:{trigger:'axis'},legend:{bottom:0,textStyle:{color:C.ink3,fontSize:11}},
+    grid:{left:60,right:30,top:60,bottom:50},
+    xAxis:{type:'category',data:['H12','买入线'],axisLabel:{color:C.ink3}},
+    yAxis:{type:'value',min:5,max:9,name:'元/股',axisLabel:{color:C.ink3},splitLine:{lineStyle:{color:C.line}}},
+    series:[
+      {name:'1.0 折扣（基准）',type:'bar',data:[7.88,6.96],barWidth:'28%',itemStyle:{color:C.gold},label:{show:true,position:'top',fontSize:11,color:C.ink}},
+      {name:'0.85 折扣（风险情景）',type:'bar',data:[7.515,6.597],barWidth:'28%',itemStyle:{color:C.accent},label:{show:true,position:'top',fontSize:11,color:C.ink}}
+    ]
+  });}
+
+  window.addEventListener('resize',function(){[c1,c2,c3].forEach(function(c){if(c)c.resize();});});
+})();
+</script>
+</body>
+</html>
