@@ -2287,22 +2287,22 @@
     {
      "cur": "CNY",
      "label": "H10",
-     "price": 8.64
+     "price": 7.3
     },
     {
      "cur": "CNY",
      "label": "H12",
-     "price": 7.88
+     "price": 6.8
     },
     {
      "cur": "CNY",
      "label": "H15",
-     "price": 6.96
+     "price": 6.5
     },
     {
      "cur": "CNY",
      "label": "H17.46",
-     "price": 6.36
+     "price": 6.2
     }
    ],
    "buyPrice": 6.96,
@@ -2414,20 +2414,12 @@
  },
  "tierPctNote": "tierPct=各档累计净投入占目标本金(targetCapital)的百分比，非占席位权重；标准四档锚[10,25,60,100]源自methodology.json ladderRule，三档条件单锚为H12/H15/H17.46累计；个股定制值以归档建仓文档为准。",
  "decisionInputsChanged": {
-  "at": "2026-11-14T03:04:19.312Z",
+  "at": "2026-11-28T12:56:12.550Z",
   "fields": [
-   "universe.1.tiers.0.price",
-   "universe.3.tiers.0.price",
-   "universe.3.tiers.1.price",
-   "universe.11.tiers.0.price",
-   "universe.16.tiers.0.price",
-   "universe.16.tiers.1.price",
-   "universe.16.tiers.2.price",
-   "universe.16.tiers.3.price",
-   "universe.41.tiers.0.price",
-   "universe.41.tiers.1.price",
-   "universe.41.tiers.2.price",
-   "universe.41.tiers.3.price"
+   "universe.46.tiers.0.price",
+   "universe.46.tiers.1.price",
+   "universe.46.tiers.2.price",
+   "universe.46.tiers.3.price"
   ],
   "reason": "普通编辑改变了已核数据，请重新对账并按新版本审批"
  },
@@ -2875,7 +2867,7 @@
       "price": 350,
       "shares": 400,
       "amtHKD": 140000,
-      "amtCNY": 119070.0,
+      "amtCNY": 119070,
       "fx": 0.8505,
       "side": "买入",
       "tradeId": "614466",
@@ -3050,7 +3042,7 @@
     {
      "name": "片仔癀",
      "path": "px",
-     "before": 136.0,
+     "before": 136,
      "after": 128.58
     },
     {
@@ -3245,7 +3237,7 @@
      "before": null,
      "after": {
       "tradeId": "824462",
-      "amtCNY": 40605.0
+      "amtCNY": 40605
      }
     },
     {
@@ -3331,6 +3323,32 @@
        80
       ]
      }
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T12:56:12.550Z",
+   "baseRevision": "878b5715abc26b9e5d47f1a09e82c3bdfe30ad13e1e95c81ceee1b4dcc17e68a",
+   "changes": [
+    {
+     "path": "universe.46.tiers.0.price",
+     "before": 8.64,
+     "after": 7.3
+    },
+    {
+     "path": "universe.46.tiers.1.price",
+     "before": 7.88,
+     "after": 6.8
+    },
+    {
+     "path": "universe.46.tiers.2.price",
+     "before": 6.96,
+     "after": 6.5
+    },
+    {
+     "path": "universe.46.tiers.3.price",
+     "before": 6.36,
+     "after": 6.2
     }
    ]
   }
